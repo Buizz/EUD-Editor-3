@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 15
+VisualStudioVersion = 15.0.27428.2043
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EUD Editor 3", "EUD Editor 3\EUD Editor 3.vbproj", "{E30F3614-51DA-455E-A60E-F2B68E485FE7}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{E30F3614-51DA-455E-A60E-F2B68E485FE7}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E30F3614-51DA-455E-A60E-F2B68E485FE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E30F3614-51DA-455E-A60E-F2B68E485FE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E30F3614-51DA-455E-A60E-F2B68E485FE7}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {7EA0C960-B3A3-4D24-A086-2B2473324CFC}
+	EndGlobalSection
+EndGlobal
