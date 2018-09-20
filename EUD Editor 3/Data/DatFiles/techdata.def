@@ -1,0 +1,35 @@
+[HEADER]
+Varcount=10
+InputEntrycount=44
+OutputEntrycount=44
+
+[FORMAT]
+0Name=Mineral Cost
+0Size=2
+
+1Name=Vespene Cost
+1Size=2
+
+2Name=Resarch Time
+2Size=2
+
+3Name=Energy Required
+3Size=2
+
+4Name=Unknown 4
+4Size=4
+
+5Name=Icon
+5Size=2
+
+6Name=Label
+6Size=2
+
+7Name=Race
+7Size=1
+
+8Name=Unused
+8Size=1
+
+9Name=Brood War Flag
+9Size=1

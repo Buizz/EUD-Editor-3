@@ -11,11 +11,11 @@ Imports System.Windows
 
 ' 어셈블리 특성 값을 검토합니다.
 
-<Assembly: AssemblyTitle("EUD_Editor_3")>
+<Assembly: AssemblyTitle("EUD Editor 3")>
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
-<Assembly: AssemblyProduct("EUD_Editor_3")>
-<Assembly: AssemblyCopyright("Copyright ©  2018")>
+<Assembly: AssemblyProduct("EUD Editor 3")>
+<Assembly: AssemblyCopyright("Copyright ©  2018 JPoker")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(false)>
 
@@ -55,5 +55,5 @@ Imports System.Windows
 ' 지정되도록 할 수 있습니다.
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("1.0.0.0")>
-<Assembly: AssemblyFileVersion("1.0.0.0")>
+<Assembly: AssemblyVersion("0.0.0.0")>
+<Assembly: AssemblyFileVersion("0.0.0.0")>

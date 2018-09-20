@@ -1,0 +1,26 @@
+[HEADER]
+Varcount=6
+InputEntrycount=517
+OutputEntrycount=517
+
+[FORMAT]
+0Name=Image File
+0Size=2
+
+1Name=Health Bar
+1Size=1
+1VarStart=130
+
+2Name=Unknown2
+2Size=1
+
+3Name=Is Visible
+3Size=1
+
+4Name=Sel.Circle Image
+4Size=1
+4VarStart=130
+
+5Name=Sel.Circle Offset
+5Size=1
+5VarStart=130

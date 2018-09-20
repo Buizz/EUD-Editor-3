@@ -1,0 +1,77 @@
+[HEADER]
+Varcount=24
+InputEntrycount=130
+OutputEntrycount=130
+
+[FORMAT]
+0Name=Label
+0Size=2
+
+1Name=Graphics
+1Size=4
+
+2Name=Unused
+2Size=1
+
+3Name=Target Flags:Air,Ground,Mechanical,Organic,non-Building,non-Robotic,Terrain,"Org. or Mech.",Own
+3Size=2
+
+4Name=Minimum Range
+4Size=4
+
+5Name=Maximum Range
+5Size=4
+
+6Name=Damage Upgrade
+6Size=1
+
+7Name=Weapon Type
+7Size=1
+
+8Name=Weapon Behavior
+8Size=1
+
+9Name=Remove After
+9Size=1
+
+10Name=Explosion Type
+10Size=1
+
+11Name=Inner Splash Range
+11Size=2
+  
+12Name=Medium Splash Range
+12Size=2
+
+13Name=Outer Splash Range
+13Size=2
+
+14Name=Damage Amount
+14Size=2
+
+15Name=Damage Bonus
+15Size=2
+
+16Name=Weapon Cooldown
+16Size=1
+
+17Name=Damage Factor
+17Size=1
+
+18Name=Attack Angle
+18Size=1
+
+19Name=Launch Spin
+19Size=1
+
+20Name=Forward Offset
+20Size=1
+
+21Name=Upward Offset
+21Size=1
+
+22Name=Target Error Message
+22Size=2
+
+23Name=Icon
+23Size=2

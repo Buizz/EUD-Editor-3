@@ -1,0 +1,26 @@
+[HEADER]
+Varcount=7
+InputEntrycount=209
+OutputEntrycount=209
+
+[FORMAT]
+0Name=Sprite
+0Size=2
+
+1Name=Speed
+1Size=4
+
+2Name=Acceleration
+2Size=2
+
+3Name=Halt Distance
+3Size=4
+
+4Name=Turn Radius
+4Size=1
+
+5Name=Unused
+5Size=1
+
+6Name=Movement Control
+6Size=1

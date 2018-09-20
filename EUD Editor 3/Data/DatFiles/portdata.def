@@ -1,0 +1,14 @@
+[HEADER]
+Varcount=3
+InputEntrycount=220
+OutputEntrycount=220
+
+[FORMAT]
+0Name=Portrait File
+0Size=4
+
+1Name=SMK Change
+1Size=1
+
+2Name=Unknown1
+2Size=1

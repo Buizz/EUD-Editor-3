@@ -1,0 +1,20 @@
+[HEADER]
+Varcount=5
+InputEntrycount=1144
+OutputEntrycount=1144
+
+[FORMAT]
+0Name=Sound File
+0Size=4
+
+1Name=Unknown 1
+1Size=1
+
+2Name=Unknown 2
+2Size=1
+
+3Name=Unknown 3
+3Size=2
+
+4Name=Unknown 4
+4Size=1

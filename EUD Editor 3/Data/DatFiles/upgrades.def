@@ -1,0 +1,41 @@
+[HEADER]
+Varcount=12
+InputEntrycount=61
+OutputEntrycount=61
+
+[FORMAT]
+0Name=Mineral Cost Base
+0Size=2
+
+1Name=Mineral Cost Factor
+1Size=2
+
+2Name=Vespene Cost Base
+2Size=2
+
+3Name=Vespene Cost Factor
+3Size=2
+
+4Name=Research Time Base
+4Size=2
+
+5Name=Research Time Factor
+5Size=2
+
+6Name=Unknown6
+6Size=2
+
+7Name=Icon
+7Size=2
+
+8Name=Label
+8Size=2
+
+9Name=Race
+9Size=1
+
+10Name=Max. Repeats
+10Size=1
+  
+11Name=Broodwar Flag
+11Size=1

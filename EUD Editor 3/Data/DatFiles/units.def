@@ -1,0 +1,209 @@
+[HEADER]
+Varcount=59
+InputEntrycount=228
+OutputEntrycount=228
+
+[FORMAT]
+0Name=Graphics
+0Size=1
+
+1Name=Subunit 1
+1Size=2
+
+2Name=Subunit 2
+2Size=2
+
+3Name=Infestation
+3Size=2
+3VarStart=106
+3VarEnd=201
+
+4Name=Construction Animation
+4Size=4
+
+5Name=Unit Direction
+5Size=1
+
+6Name=Shield Enable
+6Size=1
+
+7Name=Shield Amount
+7Size=2
+
+8Name=Hit Points
+8Size=4
+
+9Name=Elevation Level
+9Size=1
+
+10Name=Unknown (old Movement):0x1,0x2,0x4,0x8,0x10,0x20,0x40,0x80(Mine-safe)
+10Size=1
+
+11Name=Rank/Sublabel
+11Size=1
+
+12Name=Comp AI Idle
+12Size=1
+
+13Name=Human AI Idle
+13Size=1
+
+14Name=Return to Idle
+14Size=1
+
+15Name=Attack Unit
+15Size=1
+
+16Name=Attack Move
+16Size=1
+
+17Name=Ground Weapon
+17Size=1
+
+18Name=Max Ground Hits
+18Size=1
+
+19Name=Air Weapon
+19Size=1
+
+20Name=Max Air Hits
+20Size=1
+
+21Name=AI Internal
+21Size=1
+
+22Name=Special Ability Flags:Building,Addon,Flyer,Worker,Subunit,"Flying Building",Hero,"Regenerates HP","Animated Idle(?)",Cloakable,"Two Units in 1 Egg","Single Entity","Resource Depot","Resource Container","Robotic Unit",Detector,"Organic Unit","Requires Creep",Unused(?),"Requires Psi",Burrowable,Spellcaster,"Permanent Cloak","Pickup Item(?)","Ignore Supply Check","Use Medium Overlays","Use Large Overlays","Battle Reactions","Full Auto-Attack",Invincible,"Mechanical Unit","Produces Units(?)"
+22Size=4
+
+23Name=Target Acquisition Range
+23Size=1
+
+24Name=Sight Range
+24Size=1
+  
+25Name=Armor Upgrade
+25Size=1
+
+26Name=Unit Size
+26Size=1
+
+27Name=Armor
+27Size=1
+
+28Name=Right-click Action
+28Size=1
+
+29Name=Ready Sound
+29Size=2
+29VarEnd=105
+
+30Name=What Sound Start
+30Size=2
+
+31Name=What Sound End
+31Size=2
+
+32Name=Piss Sound Start
+32Size=2
+32VarEnd=105
+
+33Name=Piss Sound End
+33Size=2
+33VarEnd=105
+
+34Name=Yes Sound Start
+34Size=2
+34VarEnd=105
+
+35Name=Yes Sound End
+35Size=2
+35VarEnd=105
+
+36Name=StarEdit Placement Box Width
+36Size=2
+36VarArray=2
+36VarArrayIndex=1
+
+37Name=StarEdit Placement Box Height
+37Size=2
+37VarArray=2
+37VarArrayIndex=2
+ 
+38Name=Addon Horizontal (X) Position
+38Size=2
+38VarStart=106
+38VarEnd=201
+38VarArray=2
+38VarArrayIndex=1
+
+39Name=Addon Vertical (Y) Position
+39Size=2
+39VarStart=106
+39VarEnd=201
+39VarArray=2
+39VarArrayIndex=2
+  
+40Name=Unit Size Left
+40Size=2
+40VarArray=4
+40VarArrayIndex=1
+ 
+41Name=Unit Size Up
+41Size=2
+41VarArray=4
+41VarArrayIndex=2
+
+42Name=Unit Size Right
+42Size=2
+42VarArray=4
+42VarArrayIndex=3
+
+43Name=Unit Size Down
+43Size=2
+43VarArray=4
+43VarArrayIndex=4
+
+44Name=Portrait
+44Size=2
+
+45Name=Mineral Cost
+45Size=2
+
+46Name=Vespene Cost
+46Size=2
+
+47Name=Build Time
+47Size=2
+
+48Name=Unknown1
+48Size=2
+  
+49Name=Staredit Group Flags:Zerg,Terran,Protoss,Men,Building,Factory,Independent,Neutral
+49Size=1
+  
+50Name=Supply Provided
+50Size=1
+
+51Name=Supply Required
+51Size=1
+
+52Name=Space Required
+52Size=1
+
+53Name=Space Provided
+53Size=1
+
+54Name=Build Score
+54Size=2
+
+55Name=Destroy Score
+55Size=2
+
+56Name=Unit Map String
+56Size=2
+
+57Name=Broodwar Unit Flag
+57Size=1
+
+58Name=Staredit Availability Flags:Non-Neutral,"Unit Listing&&Palette","Mission Briefing","Player Settings","All Races","Set Doodad State","Non-Location Triggers","Unit&&Hero Settings","Location Triggers","BroodWar Only","Unused (0x400)","Unused (0x800)","Unused (0x1000)","Unused (0x2000)","Unused (0x4000)","Unused (0x8000)"
+58Size=2
