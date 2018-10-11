@@ -75,6 +75,7 @@
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="System" />
@@ -96,13 +97,18 @@
     <Compile Include="Class\ProjectData.vb" />
     <Compile Include="Class\SCDatFiles.vb" />
     <Compile Include="Class\StarCraftData.vb" />
+    <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\ProgramData.vb" />
+    <Compile Include="Module\Tool.vb" />
     <Compile Include="UserContorl\MenuControl.xaml.vb">
       <DependentUpon>MenuControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\SettingWindows.xaml.vb">
+      <DependentUpon>SettingWindows.xaml</DependentUpon>
     </Compile>
     <Page Include="MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -121,6 +127,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\DataEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\SettingWindows.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

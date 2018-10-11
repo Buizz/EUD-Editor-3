@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="DataEditor" Height="450" Width="800">
+        Title="DataEditor" Height="450" Width="800" WindowStartupLocation="CenterScreen">
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
     </Window.Resources>

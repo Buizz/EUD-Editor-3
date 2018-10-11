@@ -1,49 +1,69 @@
 ﻿Imports System.Windows.Media.Animation
+Imports System.Windows.Threading
 
 Class MainWindow
-    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        Dim temp As New DataEditor
-        temp.Show()
+    Private Sub BtnRefresh()
+        Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
+                                                                    Dim tbool As Boolean = pjData.IsLoad
+
+                                                                    BtnClose.IsEnabled = tbool
+                                                                    BtnSave.IsEnabled = tbool
+                                                                    Btn_DatEdit.IsEnabled = tbool
+                                                                    Btn_insert.IsEnabled = tbool
+                                                                    Btn_Plugin.IsEnabled = tbool
+                                                                    Btn_scmd.IsEnabled = tbool
+                                                                    Btn_TriggerEdit.IsEnabled = tbool
+
+                                                                    ProgramName.Text = Tool.GetTitleName
+                                                                End Sub))
+
     End Sub
 
-    Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
+    Private Sub BtnDataEditor_Click(sender As Object, e As RoutedEventArgs)
+        If DataEditorForm Is Nothing Then '첫 실행일 경우
+            DataEditorForm = New DataEditor
+            DataEditorForm.Show()
+        Else
+            If DataEditorForm.IsLoaded Then '열려있을경우
+                DataEditorForm.Activate()
+            Else '닫혀있을 경우
+                DataEditorForm = New DataEditor
+                DataEditorForm.Show()
+            End If
+        End If
+    End Sub
+
+
+
+    Private Sub BtnSetting_Click(sender As Object, e As RoutedEventArgs)
+        If SettiingForm Is Nothing Then '첫 실행일 경우
+            SettiingForm = New SettingWindows
+            SettiingForm.Show()
+        Else
+            If SettiingForm.IsLoaded Then '열려있을경우
+                SettiingForm.Activate()
+            Else '닫혀있을 경우
+                SettiingForm = New SettingWindows
+                SettiingForm.Show()
+            End If
+        End If
+    End Sub
+
+    Private Sub ButClose_Click(sender As Object, e As RoutedEventArgs)
         Me.Close()
     End Sub
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         InitProgram()
+        BtnRefresh()
     End Sub
 
 
 
 
 
-    Private OldMousePos As Point
-    'Private OldPoint As Point
-    Private IsDrag As Boolean
     Private Sub ContorlPanel_MouseDown(sender As Object, e As MouseButtonEventArgs)
-        OldMousePos = e.GetPosition(MainControl)
-
-
-        IsDrag = True
-    End Sub
-
-    Private Sub ContorlPanel_MouseUp(sender As Object, e As MouseButtonEventArgs)
-        IsDrag = False
-        e.MouseDevice.Capture(Nothing)
-    End Sub
-
-    Private Sub ContorlPanel_MouseMove(sender As Object, e As MouseEventArgs)
-        If IsDrag Then
-            e.MouseDevice.Capture(sender)
-            Dim newMousePos As Point = e.GetPosition(MainControl)
-            Dim newpos As Point = newMousePos - OldMousePos
-
-            'temp.Content = newpos.X & ", " & newpos.Y
-
-
-            MainControl.Margin = New Thickness(newpos.X + MainControl.Margin.Left, newpos.Y + MainControl.Margin.Top, 0, 0)
-        End If
+        Me.DragMove()
     End Sub
 
 
@@ -53,10 +73,10 @@ Class MainWindow
     Private OldWidthPos As Double
     Private OldWidth As Double
     'Private OldPoint As Point
-    Private IsDrag2 As Boolean
+    Private IsDrag As Boolean
     Private Sub SizeContorl_MouseDown(sender As Object, e As MouseButtonEventArgs)
         OldWidthPos = e.GetPosition(MainControl).X
-        OldWidth = MainControl.Width
+        OldWidth = Me.Width
 
         'OldPoint = New Point(MainControl.Margin.Left, MainControl.Margin.Top)
 
@@ -81,15 +101,29 @@ Class MainWindow
             'temp.Content = newpos.X & ", " & newpos.Y
 
             If OldWidth + newpos > ProgramName.Width + sender.Width Then
-                MainControl.Width = OldWidth + newpos
+                Me.Width = OldWidth + newpos
             Else
-                MainControl.Width = ProgramName.Width + sender.Width
+                Me.Width = ProgramName.Width + sender.Width
             End If
-            MainControl.Height = MainControl.Width / 12 + 18
+            Me.Height = Me.Width / 12 + 18
 
             '72 : 430   18
 
             'MainControl.Margin = New Thickness(newpos.X + MainControl.Margin.Left, newpos.Y + MainControl.Margin.Top, 0, 0)
         End If
+    End Sub
+
+    Private Sub Window_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
+        ShutDownProgram()
+    End Sub
+
+    Private Sub BtnNewFile_Click(sender As Object, e As RoutedEventArgs)
+        pjData.NewFIle()
+        BtnRefresh()
+    End Sub
+
+    Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
+        pjData.CloseFile()
+        BtnRefresh()
     End Sub
 End Class
