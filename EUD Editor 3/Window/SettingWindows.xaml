@@ -41,8 +41,9 @@
                     <Button Grid.Row="4" Grid.Column="2" Height="26" Content="찾아보기" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" />
 
                     <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1" Orientation="Horizontal">
-                        <CheckBox Grid.Row="6" Grid.Column="1" Content="Tbl변형"/>
-                        <CheckBox Grid.Row="6" Grid.Column="1" Content="chk데이터 우선"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1" Content="Tbl변형" Margin="0,0,20,0"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1" Content="chk데이터 우선" Margin="0,0,20,0"/>
+                        <CheckBox  Grid.Row="6" Grid.Column="1" Content="자동 컴파일"/>
                     </StackPanel>
 
                 </Grid>

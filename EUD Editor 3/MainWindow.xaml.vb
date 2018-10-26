@@ -100,10 +100,10 @@ Class MainWindow
 
             'temp.Content = newpos.X & ", " & newpos.Y
 
-            If OldWidth + newpos > ProgramName.Width + sender.Width Then
+            If OldWidth + newpos > 200 + sender.Width Then
                 Me.Width = OldWidth + newpos
             Else
-                Me.Width = ProgramName.Width + sender.Width
+                Me.Width = 200 + sender.Width
             End If
             Me.Height = Me.Width / 12 + 18
 
@@ -124,6 +124,16 @@ Class MainWindow
 
     Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
         pjData.CloseFile()
+        BtnRefresh()
+    End Sub
+
+    Private Sub BtnSave_Click(sender As Object, e As RoutedEventArgs)
+        pjData.Save()
+        BtnRefresh()
+    End Sub
+
+    Private Sub BtnLoad_Click(sender As Object, e As RoutedEventArgs)
+        pjData.Load()
         BtnRefresh()
     End Sub
 End Class

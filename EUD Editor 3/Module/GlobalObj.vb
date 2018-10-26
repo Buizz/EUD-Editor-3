@@ -13,7 +13,7 @@
 
 
     Public Sub InitProgram()
-
+        Tool.Init()
 
         pgData = New ProgramData
         scData = New StarCraftData
