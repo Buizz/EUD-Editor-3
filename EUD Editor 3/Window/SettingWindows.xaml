@@ -6,10 +6,11 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="SettingWindows" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440">
+        Title="{StaticResource Setting}" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440">
+
     <Grid>
         <TabControl x:Name="MainTab" TabStripPlacement="Left" >
-            <TabItem x:Name="TabItem_ProjectSetting" Header="프로젝트 설정" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
+            <TabItem x:Name="TabItem_ProjectSetting" Header="{StaticResource Project Setting}" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
                 <Grid >
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
@@ -28,27 +29,27 @@
                         <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="1" Grid.Column="1" Content="연결 맵" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Grid.Row="2" Grid.Column="1">
-                        C:\Users\이정훈\Desktop\예제.scx
+                    <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="TBOpenMap" Grid.Row="2" Grid.Column="1">
+                        MapPath
                     </TextBlock>
-                    <Button Grid.Row="2" Grid.Column="2" Height="26" Content="찾아보기" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" />
+                    <Button Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" Click="BtnOpenMapSet_Click" />
 
-                    <Label Grid.Row="3" Grid.Column="1" Content="저장 맵" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <TextBlock Grid.Row="4" Grid.Column="1">
-                        C:\Users\이정훈\Desktop\예제.scx
+                    <Label Grid.Row="3" Grid.Column="1" Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <TextBlock x:Name="TBSaveMap" Grid.Row="4" Grid.Column="1">
+                        MapPath
                     </TextBlock>
-                    <Button Grid.Row="4" Grid.Column="2" Height="26" Content="찾아보기" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" />
+                    <Button Grid.Row="4" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" Click="BtnSaveMapSet_Click" />
 
                     <StackPanel Grid.Row="5" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1" Orientation="Horizontal">
-                        <CheckBox Grid.Row="6" Grid.Column="1" Content="Tbl변형" Margin="0,0,20,0"/>
-                        <CheckBox Grid.Row="6" Grid.Column="1" Content="chk데이터 우선" Margin="0,0,20,0"/>
-                        <CheckBox  Grid.Row="6" Grid.Column="1" Content="자동 컴파일"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
+                        <CheckBox Grid.Row="6" Grid.Column="1" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
+                        <CheckBox  Grid.Row="6" Grid.Column="1" Content="{StaticResource AutoCompile}"/>
                     </StackPanel>
 
                 </Grid>
             </TabItem>
-            <TabItem Header="기본 설정" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
+            <TabItem Header="{StaticResource Default Setting}" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="10"/>
@@ -67,32 +68,26 @@
                         <ColumnDefinition Width="60"/>
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
-                    <Label Grid.Row="1" Grid.Column="1" Content="스타크래프트 실행 파일" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBlock x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1">
-                        C:\Users\이정훈\Desktop\예제.scx
+                        StarCraftPath
                     </TextBlock>
-                    <Button  Grid.Row="2" Grid.Column="2" Height="26" Content="찾아보기" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" Click="BtnStarCraftexe" />
-                    <Label Grid.Row="3" Grid.Column="1" Content="euddraft 실행 파일" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    <Button  Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" Click="BtnStarCraftexe" />
+                    <Label Grid.Row="3" Grid.Column="1" Content="{StaticResource euddraftExe}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     <TextBlock x:Name="TBeuddraftexe" Grid.Row="4" Grid.Column="1">
-                        C:\Users\이정훈\Desktop\예제.scx
+                        EuddrfatexePath
                     </TextBlock>
-                    <Button Grid.Row="4" Grid.Column="2" Height="26" Content="찾아보기" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" Click="Btneuddraftexe" />
-
-                    <Label Grid.Row="5" Grid.Column="1" Content="언어" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                    <ComboBox Grid.Row="6" Grid.Column="1"   VerticalAlignment="Top"  BorderBrush="{x:Null}"  >
-                        <ListBoxItem Content="한국어"/>
-                        <ListBoxItem Content="영어"/>
-                    </ComboBox>
+                    <Button Grid.Row="4" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Background="#FFF0F0F0" BorderBrush="{x:Null}" Click="Btneuddraftexe" />
 
                 </Grid>
             </TabItem>
-            <TabItem Header="데이터 에디터" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
+            <TabItem Header="{StaticResource DatEdit Setting}" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
                 <Grid />
             </TabItem>
-            <TabItem Header="트리거 에디터" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
+            <TabItem Header="{StaticResource TE Setting}" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
                 <Grid />
             </TabItem>
-            <TabItem Header="플러그인" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
+            <TabItem Header="{StaticResource Plugin Setting}" Width="150" Height="40" BorderBrush="{x:Null}" Background="White" >
                 <Grid />
             </TabItem>
 

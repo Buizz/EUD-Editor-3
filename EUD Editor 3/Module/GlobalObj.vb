@@ -1,6 +1,4 @@
 ﻿Module GlobalObj
-
-
     Public pgData As ProgramData
     Public pjData As ProjectData
     Public scData As StarCraftData
@@ -12,22 +10,41 @@
 
 
 
-    Public Sub InitProgram()
+    Public Function InitProgram() As Boolean
         Tool.Init()
 
-        pgData = New ProgramData
-        scData = New StarCraftData
+        Try
+            pgData = New ProgramData
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
+            Application.Current.Shutdown()
+            Return False
+        End Try
 
-        pjData = New ProjectData
+        Try
+            scData = New StarCraftData
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error LoadStarCraftData Fail"), ex.ToString)
+            Application.Current.Shutdown()
+            Return False
+        End Try
+
+
 
 
         '세팅파일
         If pgData.Setting(ProgramData.TSetting.euddraft) = Nothing Then
             pgData.SaveSetting()
         End If
-    End Sub
+        Return True
+    End Function
 
     Public Sub ShutDownProgram()
-        pgData.SaveSetting()
+        Try
+            pgData.SaveSetting()
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error SettingSave Fail"))
+        End Try
+
     End Sub
 End Module

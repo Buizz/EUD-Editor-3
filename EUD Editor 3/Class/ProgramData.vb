@@ -1,10 +1,6 @@
 ﻿Public Class ProgramData
-    Private tVersion As String = "0.0.1"
-    Public ReadOnly Property Version As String
-        Get
-            Return tVersion
-        End Get
-    End Property
+    'Public ReadOnly Property Lan As Language
+    Public ReadOnly Property Version As String = "0.0.1"
 
 
 
@@ -13,6 +9,7 @@
 
     Public Sub New()
         pgsetting = New IniClass(Tool.GetSettingFile)
+        'Lan = New Language(Setting(TSetting.language))
     End Sub
 
 

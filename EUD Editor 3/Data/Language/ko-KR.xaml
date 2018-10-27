@@ -1,0 +1,54 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="clr-namespace:EUD_Editor_3"
+    xmlns:sys="clr-namespace:System;assembly=mscorlib">
+    <sys:String x:Key="Setting">설정</sys:String>
+    <sys:String x:Key="OpenMap">연결된 맵</sys:String>
+    <sys:String x:Key="SaveMap">저장맵</sys:String>
+    <sys:String x:Key="Find">찾아보기</sys:String>
+    <sys:String x:Key="TBLChange">Tbl변형</sys:String>
+    <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
+    <sys:String x:Key="AutoCompile">자동 컴파일</sys:String>
+    <sys:String x:Key="Project Setting">프로젝트 설정</sys:String>
+    <sys:String x:Key="Default Setting">기본 설정</sys:String>
+    <sys:String x:Key="DatEdit Setting">데이터 에디터</sys:String>
+    <sys:String x:Key="TE Setting">트리거 에디터</sys:String>
+    <sys:String x:Key="Plugin Setting">플러그인</sys:String>
+    <sys:String x:Key="StarExeFile Select">스타크래프트 실행 파일 선택</sys:String>
+    <sys:String x:Key="euddraftExe Select">euddraft 실행 파일 선택</sys:String>
+    <sys:String x:Key="SCX Fliter">스타크래프트 맵 파일|*.scx</sys:String>
+    <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
+    <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
+
+    <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기</sys:String>
+    <sys:String x:Key="ToolTip Compile">컴파일</sys:String>
+    <sys:String x:Key="ToolTip DE">데이터에디터</sys:String>
+    <sys:String x:Key="ToolTip TE">트리거에디터</sys:String>
+    <sys:String x:Key="ToolTip Plugin">플러그인 설정</sys:String>
+
+    <sys:String x:Key="StarExeFile">스타크래프트 실행 파일</sys:String>
+    <sys:String x:Key="euddraftExe">euddraft 실행 파일</sys:String>
+
+    <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>
+    <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>
+
+
+
+    <sys:String x:Key="NoName">제목 없음</sys:String>
+
+
+
+    <sys:String x:Key="ErrorMsgbox">오류</sys:String>
+    <sys:String x:Key="Error OpenMap is not SaveMap">연결된 맵과 저장맵의 이름은 같을 수 없습니다.</sys:String>
+    <sys:String x:Key="Error OpenMap is not exist reset">연결된 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
+    <sys:String x:Key="Error SaveMap is not exist reset">저장 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
+    <sys:String x:Key="Error SettingSave Fail">프로그램 세팅 저장을 실패했습니다.</sys:String>
+    <sys:String x:Key="Error ProgramInit Fail">프로그램 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
+    <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
+
+    <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail OpenMap is not exist!">컴파일에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail SaveMap is not exist!">컴파일에 실패했습니다. 저장 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail euddraft is not exist!">컴파일에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
+    <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
+</ResourceDictionary>

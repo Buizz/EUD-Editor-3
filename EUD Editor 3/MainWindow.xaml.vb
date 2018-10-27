@@ -4,7 +4,8 @@ Imports System.Windows.Threading
 Class MainWindow
     Private Sub BtnRefresh()
         Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
-                                                                    Dim tbool As Boolean = pjData.IsLoad
+                                                                    Dim tbool As Boolean = Tool.IsProjectLoad
+
 
                                                                     BtnClose.IsEnabled = tbool
                                                                     BtnSave.IsEnabled = tbool
@@ -54,8 +55,10 @@ Class MainWindow
     End Sub
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-        InitProgram()
-        BtnRefresh()
+        If InitProgram() Then
+            BtnRefresh()
+        End If
+        'MsgBox(System.Threading.Thread.CurrentThread.CurrentUICulture.ToString())
     End Sub
 
 
@@ -118,12 +121,15 @@ Class MainWindow
     End Sub
 
     Private Sub BtnNewFile_Click(sender As Object, e As RoutedEventArgs)
-        pjData.NewFIle()
+        Tool.LoadProject(True)
         BtnRefresh()
     End Sub
 
     Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
-        pjData.CloseFile()
+        If pjData.CloseFile() Then
+            pjData = Nothing
+        End If
+
         BtnRefresh()
     End Sub
 
@@ -133,7 +139,77 @@ Class MainWindow
     End Sub
 
     Private Sub BtnLoad_Click(sender As Object, e As RoutedEventArgs)
-        pjData.Load()
+        Tool.LoadProject(False)
         BtnRefresh()
+    End Sub
+
+    Private Sub Btn_scmd_Click(sender As Object, e As RoutedEventArgs)
+        If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
+            Process.Start(pjData.OpenMapName)
+            Exit Sub
+        Else
+            If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                If Tool.OpenMapSet Then
+                    Process.Start(pjData.OpenMapName)
+                    Exit Sub
+                End If
+            End If
+        End If
+        Tool.ErrorMsgBox(Tool.GetText("Error OpenMap is not exist!"))
+    End Sub
+
+    Private Sub Btn_insert_Click(sender As Object, e As RoutedEventArgs)
+        If Not My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
+            If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                If Not Tool.OpenMapSet Then
+                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail OpenMap is not exist!"))
+                    Exit Sub
+                End If
+            Else
+                Tool.ErrorMsgBox(Tool.GetText("Error complieFail OpenMap is not exist!"))
+                Exit Sub
+            End If
+        End If
+        If Not My.Computer.FileSystem.FileExists(pjData.SaveMapName) Then
+            If MsgBox(Tool.GetText("Error SaveMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                If Not Tool.SaveMapSet Then
+                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
+                    Exit Sub
+                End If
+            Else
+                Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
+                Exit Sub
+            End If
+        End If
+        If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
+            If MsgBox(Tool.GetText("Error euddraft is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
+                .Filter = "euddraft.exe|euddraft.exe",
+                .FileName = "euddraft.exe",
+                .Title = Tool.GetText("euddraftExe Select")
+            }
+
+
+                If opendialog.ShowDialog() = Forms.DialogResult.OK Then
+                    pgData.Setting(ProgramData.TSetting.euddraft) = opendialog.FileName
+                Else
+                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
+                    Exit Sub
+                End If
+            Else
+                Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
+                Exit Sub
+            End If
+        End If
+
+        MsgBox("삽입완료")
+    End Sub
+
+    Private Sub Btn_TriggerEdit_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub Btn_Plugin_Click(sender As Object, e As RoutedEventArgs)
+
     End Sub
 End Class
