@@ -2,7 +2,7 @@
 Imports System.Windows.Threading
 
 Class MainWindow
-    Private Sub BtnRefresh()
+    Public Sub BtnRefresh()
         Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
                                                                     Dim tbool As Boolean = Tool.IsProjectLoad
 
@@ -21,17 +21,10 @@ Class MainWindow
     End Sub
 
     Private Sub BtnDataEditor_Click(sender As Object, e As RoutedEventArgs)
-        If DataEditorForm Is Nothing Then '첫 실행일 경우
-            DataEditorForm = New DataEditor
-            DataEditorForm.Show()
-        Else
-            If DataEditorForm.IsLoaded Then '열려있을경우
-                DataEditorForm.Activate()
-            Else '닫혀있을 경우
-                DataEditorForm = New DataEditor
-                DataEditorForm.Show()
-            End If
-        End If
+        'pjData.SetDirty(True)
+        Dim DataEditorForm = New DataEditor
+        DataEditorForm.Show()
+        DataEditorForm.OpenbyMainWindow()
     End Sub
 
 
@@ -39,15 +32,16 @@ Class MainWindow
     Private Sub BtnSetting_Click(sender As Object, e As RoutedEventArgs)
         If SettiingForm Is Nothing Then '첫 실행일 경우
             SettiingForm = New SettingWindows
-            SettiingForm.Show()
+            SettiingForm.ShowDialog()
         Else
             If SettiingForm.IsLoaded Then '열려있을경우
                 SettiingForm.Activate()
             Else '닫혀있을 경우
                 SettiingForm = New SettingWindows
-                SettiingForm.Show()
+                SettiingForm.ShowDialog()
             End If
         End If
+        BtnRefresh()
     End Sub
 
     Private Sub ButClose_Click(sender As Object, e As RoutedEventArgs)
@@ -117,15 +111,29 @@ Class MainWindow
     End Sub
 
     Private Sub Window_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
-        ShutDownProgram()
+        e.Cancel = ShutDownProgram()
     End Sub
 
     Private Sub BtnNewFile_Click(sender As Object, e As RoutedEventArgs)
-        Tool.LoadProject(True)
+        ProjectData.Load(True, pjData)
         BtnRefresh()
     End Sub
 
+    Private Sub Window_Activated(sender As Object, e As EventArgs)
+        'For Each win As Window In Application.Current.Windows
+        '    If win.GetType IsNot GetType(MainWindow) Then
+        '        win.Activate()
+        '    End If
+        'Next
+    End Sub
+
     Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
+        For Each win As Window In Application.Current.Windows
+            If win.GetType IsNot GetType(MainWindow) Then
+                win.Close()
+            End If
+        Next
+
         If pjData.CloseFile() Then
             pjData = Nothing
         End If
@@ -139,7 +147,7 @@ Class MainWindow
     End Sub
 
     Private Sub BtnLoad_Click(sender As Object, e As RoutedEventArgs)
-        Tool.LoadProject(False)
+        ProjectData.Load(False, pjData)
         BtnRefresh()
     End Sub
 
@@ -211,5 +219,14 @@ Class MainWindow
 
     Private Sub Btn_Plugin_Click(sender As Object, e As RoutedEventArgs)
 
+    End Sub
+
+    Private Sub MenuItemSave_Click(sender As Object, e As RoutedEventArgs)
+        pjData.Save()
+        BtnRefresh()
+    End Sub
+    Private Sub MenuItemSaveAs_Click(sender As Object, e As RoutedEventArgs)
+        pjData.Save(True)
+        BtnRefresh()
     End Sub
 End Class

@@ -6,7 +6,7 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="{StaticResource Setting}" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440">
+        Title="{StaticResource Setting}" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440" Topmost="True">
 
     <Grid>
         <TabControl x:Name="MainTab" TabStripPlacement="Left" >

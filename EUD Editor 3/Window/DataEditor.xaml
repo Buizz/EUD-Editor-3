@@ -9,7 +9,7 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
-        Title="DataEditor" Height="450" Width="800" WindowStartupLocation="CenterScreen">
+        Title="DataEditor" Height="450" Width="800" WindowStartupLocation="Manual" Topmost="True">
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
     </Window.Resources>
@@ -17,7 +17,7 @@
 
 
     <DockPanel>
-        <Expander DockPanel.Dock="Bottom" Header="명령창">
+        <Expander Name="Console" DockPanel.Dock="Bottom" Header="명령창">
             <RichTextBox Height="96" >
                 <FlowDocument>
                     <Paragraph>
@@ -27,7 +27,7 @@
             </RichTextBox>
         </Expander>
 
-        <Expander Header="코드"   ExpandDirection="Right"  DockPanel.Dock="Left">
+        <Expander Name="CodeExpander" Header="코드"   ExpandDirection="Right"  DockPanel.Dock="Left">
             <Grid>
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="60"/>
@@ -39,8 +39,8 @@
                     <RowDefinition Height="30"/>
                 </Grid.RowDefinitions>
 
-                <ListBox x:Name="CodeIndexerList" Grid.Column="1" HorizontalAlignment="Left" Height="152" Margin="8,8,0,0" VerticalAlignment="Top" Width="231"/>
-                <TreeView x:Name="CodeIndexerTree"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Margin="0,184,0,0">
+                <ListBox x:Name="CodeIndexerList"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1"/>
+                <TreeView x:Name="CodeIndexerTree"  Grid.RowSpan="1" Grid.ColumnSpan="1" Grid.Column="1" Visibility="Hidden">
                     <TreeViewItem Header="Employee1">
                         <TreeViewItem Header="Jesper"/>
                         <TreeViewItem Header="Aaberg"/>
@@ -52,8 +52,7 @@
                         <TreeViewItem Header="98765"/>
                     </TreeViewItem>
                 </TreeView>
-                <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap" Text="TextBox" Width="257"/>
-                <Button Content="Button" Height="31" VerticalAlignment="Top" Grid.Column="1"  Grid.Row="1"  Grid.RowSpan="2" HorizontalAlignment="Right"/>
+                <TextBox Grid.Column="1" HorizontalAlignment="Left" Grid.Row="1" TextWrapping="Wrap"  Width="257"/>
                 <StackPanel  Grid.RowSpan="3">
                     <Button Background="White">
                         유닛
@@ -84,14 +83,14 @@
                     </Button>
                 </StackPanel>
                 <StackPanel Grid.Column="1"  Grid.Row="2" Orientation="Horizontal" >
-                    <Button Click="Btn_sortn123">
-                        코드순서
+                    <Button x:Name="Btnsortn123" Click="Btn_sortn123" BorderBrush="{x:Null}" IsEnabled="False" Padding="0">
+                        <Image  Source="/EUD Editor 3;component/Icon/sort-numeric.png" />
                     </Button>
-                    <Button Click="Btn_sortTree">
-                        트리뷰
+                    <Button x:Name="BtnsortABC" Click="Btn_sortABC" BorderBrush="{x:Null}" Padding="0">
+                        <Image  Source="/EUD Editor 3;component/Icon/sort-alphabetical.png"/>
                     </Button>
-                    <Button Click="Btn_sortABC">
-                        알파벳
+                    <Button x:Name="BtnsortTree" Click="Btn_sortTree" BorderBrush="{x:Null}" Padding="0">
+                        <Image  Source="/EUD Editor 3;component/Icon/file-tree.png"/>
                     </Button>
                     <CheckBox IsEnabledChanged="Btn_isEdit">
                         수정여부
@@ -131,7 +130,7 @@
                 </TabItem>
             </dragablz:TabablzControl>
         </dockablz:Layout>
-        
+
 
 
     </DockPanel>

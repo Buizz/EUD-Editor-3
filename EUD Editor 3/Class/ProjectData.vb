@@ -11,7 +11,21 @@ Public Class ProjectData
     End Property
     Public ReadOnly Property SafeFilename As String
         Get
-            Return tFilename.Split("\").Last
+            If tFilename = "" Then
+                Return Tool.GetText("NoName")
+            Else
+                Return tFilename.Split("\").Last
+            End If
+        End Get
+    End Property
+    Public ReadOnly Property Extension As String
+        Get
+            If tFilename = "" Then
+                Return "e3s"
+            Else
+                Return tFilename.Split(".").Last.Trim
+            End If
+
         End Get
     End Property
 
@@ -31,14 +45,15 @@ Public Class ProjectData
     End Property
 
     Private tIsDirty As Boolean
-    Public Property IsDirty As Boolean
+    Public ReadOnly Property IsDirty As Boolean
         Get
             Return tIsDirty
         End Get
-        Set(value As Boolean)
-            tIsDirty = value
-        End Set
     End Property
+
+    Public Sub SetDirty(Isd As Boolean)
+        tIsDirty = Isd
+    End Sub
 #End Region
 
 
@@ -50,6 +65,7 @@ Public Class ProjectData
         End Get
         Set(value As String)
             mOpenMapName = value
+            tIsDirty = True
         End Set
     End Property
 
@@ -60,6 +76,7 @@ Public Class ProjectData
         End Get
         Set(value As String)
             mSaveMapName = value
+            tIsDirty = True
         End Set
     End Property
 #End Region
@@ -79,19 +96,22 @@ Public Class ProjectData
 
     Public Sub New()
         '초기화
-
+        mOpenMapName = ""
+        mSaveMapName = ""
     End Sub
 
 
 
     Public Sub InitProject()
-        IsDirty = False
+        tIsDirty = False
         tFilename = ""
+        mOpenMapName = ""
+        mSaveMapName = ""
     End Sub
 
     Public Sub LoadInit(filename As String)
         tIsLoad = True
-        IsDirty = False
+        tIsDirty = False
         tFilename = filename
     End Sub
 
@@ -103,42 +123,66 @@ Public Class ProjectData
 
     '여기에 모든게 들어간다
     '스타 dat데이터를 클래스로 만들어 관리하자.
-    'Public Sub Load()
-    '    If Tool.LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-    '        tFilename = Tool.LoadProjectDialog.FileName '파일 이름 교체
-    '    Else
-    '        Exit Sub
-    '    End If
-
-    '    Dim fs As New FileStream(tFilename, FileMode.Open)
-    '    Dim sr As New StreamReader(fs)
-
-    '    Me = JsonConvert.DeserializeObject(sr.ReadToEnd)
-
-    '    sr.Close()
-    '    fs.Close()
-
-
-
-    '    tIsLoad = True
-    '    MsgBox("로드")
-    'End Sub
-
-
-
-    Public Sub Save(Optional IsSaveAs As Boolean = False)
-        If IsSaveAs = True Then '다른이름으로 저장 일 경우 
-            If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                tFilename = Tool.SaveProjectDialog.FileName '파일 이름 교체
+    Public Shared Sub Load(isNewfile As Boolean, ByRef _pjdata As ProjectData)
+        If isNewfile Then
+            _pjdata = New ProjectData
+            _pjdata.NewFIle()
+        Else
+            Dim tFilename As String
+            If Tool.LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
+                tFilename = Tool.LoadProjectDialog.FileName '파일 이름 교체
             Else
                 Exit Sub
             End If
+
+            If Tool.IsProjectLoad() Then
+                '꺼야됨
+                If Not _pjdata.CloseFile Then
+                    Exit Sub
+                End If
+            End If
+
+            Load(tFilename, _pjdata)
         End If
-        If tFilename = "" Then ' 새파일
+    End Sub
+    Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
+        Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
+        Dim file As New System.IO.StreamReader(FileName)
+        _pjdata = CType(reader.Deserialize(file), ProjectData)
+        _pjdata.LoadInit(FileName)
+
+        file.Close()
+    End Sub
+
+
+    Public Function Save(Optional IsSaveAs As Boolean = False) As Boolean
+        If IsSaveAs = True Then '다른이름으로 저장 일 경우 
+            Tool.SaveProjectDialog.FileName = SafeFilename
+
+            Dim exten As String() = Tool.SaveProjectDialog.Filter.Split("|")
+            For i = 1 To exten.Count - 1 Step 2
+                If Extension = exten(i).Split(".").Last Then
+                    Tool.SaveProjectDialog.FilterIndex = ((i - 1) \ 2) + 1
+                    Exit For
+                End If
+
+            Next
+
+
+
+
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
                 tFilename = Tool.SaveProjectDialog.FileName '파일 이름 교체
             Else
-                Exit Sub
+                Return False
+            End If
+        End If
+        If tFilename = "" Then ' 새파일
+            Tool.SaveProjectDialog.FileName = SafeFilename
+            If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
+                tFilename = Tool.SaveProjectDialog.FileName '파일 이름 교체
+            Else
+                Return False
             End If
         End If
 
@@ -158,12 +202,27 @@ Public Class ProjectData
         'fs.Close()
 
         tIsLoad = True
-        IsDirty = False
-    End Sub
+        tIsDirty = False
+        Return True
+    End Function
 
 
     Public Function CloseFile() As Boolean
         If IsDirty Then '파일이 변형되었을 경우
+            Dim dialog As MsgBoxResult = MsgBox("저장하고 종료하겠습니까?", MsgBoxStyle.YesNoCancel)
+            If dialog = MsgBoxResult.Yes Then
+                If Save() Then
+                    tIsLoad = False
+                    Return True
+                Else
+                    Return False
+                End If
+            ElseIf dialog = MsgBoxResult.No Then
+                tIsLoad = False
+                Return True
+            ElseIf dialog = MsgBoxResult.Cancel Then
+                Return False
+            End If
 
         End If
 

@@ -4,34 +4,41 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
-        Public Sub LoadProject(isNewfile As Boolean)
-            If isNewfile Then
-                pjData = New ProjectData
-                pjData.NewFIle()
-            Else
-                Dim tFilename As String
-                If Tool.LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                    tFilename = Tool.LoadProjectDialog.FileName '파일 이름 교체
-                Else
-                    Exit Sub
-                End If
+        'Public Sub LoadProject(isNewfile As Boolean)
+        '    If isNewfile Then
+        '        pjData = New ProjectData
+        '        pjData.NewFIle()
+        '    Else
+        '        Dim tFilename As String
+        '        If Tool.LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
+        '            tFilename = Tool.LoadProjectDialog.FileName '파일 이름 교체
+        '        Else
+        '            Exit Sub
+        '        End If
 
-                Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-                Dim file As New System.IO.StreamReader(tFilename)
-                pjData = CType(reader.Deserialize(file), ProjectData)
-                pjData.LoadInit(tFilename)
-                ' pjData.IsLoad = True
+        '        If IsProjectLoad() Then
+        '            '꺼야됨
+        '            If Not pjData.CloseFile Then
+        '                Exit Sub
+        '            End If
+        '        End If
 
-                'Dim fs As New FileStream(tFilename, FileMode.Open)
-                'Dim sr As New StreamReader(fs)
+        '        Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
+        '        Dim file As New System.IO.StreamReader(tFilename)
+        '        pjData = CType(reader.Deserialize(file), ProjectData)
+        '        pjData.LoadInit(tFilename)
+        '        ' pjData.IsLoad = True
 
-                'pjData = CType( JsonConvert.DeserializeObject(sr.ReadToEnd), ProjectData )
+        '        'Dim fs As New FileStream(tFilename, FileMode.Open)
+        '        'Dim sr As New StreamReader(fs)
 
-                'sr.Close()
-                'fs.Close()
-            End If
+        '        'pjData = CType( JsonConvert.DeserializeObject(sr.ReadToEnd), ProjectData )
 
-        End Sub
+        '        'sr.Close()
+        '        'fs.Close()
+        '    End If
+
+        'End Sub
 
         Public Function IsProjectLoad() As Boolean
             If pjData IsNot Nothing Then
@@ -128,7 +135,7 @@ Namespace Tool
         Public SaveProjectDialog As SaveFileDialog
         Public LoadProjectDialog As OpenFileDialog
 
-
+        Private MainWindow As MainWindow
         Public Sub Init()
             SaveProjectDialog = New SaveFileDialog
             SaveProjectDialog.Filter = GetText("SaveFliter")
@@ -136,6 +143,35 @@ Namespace Tool
 
             LoadProjectDialog = New OpenFileDialog
             LoadProjectDialog.Filter = GetText("LoadFliter")
+
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(MainWindow) Then
+                    MainWindow = win
+                End If
+            Next
+        End Sub
+
+        Public Sub RefreshMainWindow()
+            Try
+                MainWindow.BtnRefresh()
+            Catch ex As Exception
+
+            End Try
+        End Sub
+
+
+        Public Sub SetRegistry()
+            Dim str As String() = {"e3s", "e3p", "e2s", "e2p", "ees", "mem"}
+
+            For Each Extension As String In str
+                My.Computer.Registry.ClassesRoot.CreateSubKey("." & Extension & "").SetValue("",
+                    "" & Extension & "", Microsoft.Win32.RegistryValueKind.String)
+                My.Computer.Registry.ClassesRoot.CreateSubKey("" & Extension & "\shell\open\command").SetValue("",
+                System.Windows.Forms.Application.ExecutablePath & " ""%l"" ", Microsoft.Win32.RegistryValueKind.String)
+                My.Computer.Registry.ClassesRoot.CreateSubKey("" & Extension & "\DefaultIcon").SetValue("",
+               System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Icons\" & Extension & ".ico" & ",0", Microsoft.Win32.RegistryValueKind.String)
+            Next
+
         End Sub
     End Module
 End Namespace

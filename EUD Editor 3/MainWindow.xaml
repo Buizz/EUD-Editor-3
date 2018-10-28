@@ -6,6 +6,7 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
+        Activated="Window_Activated"
         Closing="Window_Closing"
     Title="MainWindow" Height="78" Width="720" AllowsTransparency="True"  Background="{x:Null}" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None" >
     <Grid >
@@ -120,9 +121,15 @@
                 <Image  Source="Icon/folder-open.png"/>
                 <!-- 열기-->
             </Button>
-            <Button x:Name="BtnSave" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" Click="BtnSave_Click" >
+            <Button x:Name="BtnSave" Grid.Column="3" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" Click="BtnSave_Click">
                 <Image  Source="Icon/content-save.png"/>
                 <!-- 저장-->
+                <Button.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Header="저장" Click="MenuItemSave_Click"/>
+                        <MenuItem Header="다른 이름으로 저장" Click="MenuItemSaveAs_Click" />
+                    </ContextMenu>
+                </Button.ContextMenu>
             </Button>
             <Button x:Name="BtnClose" Grid.Column="4" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False"  Style="{StaticResource RoundButtonTemplate}" Click="BtnClose_Click">
                 <Image  Source="Icon/close-outline.png"/>
@@ -161,6 +168,8 @@
                 <TextBlock Name="ProgramName" MouseDown="ContorlPanel_MouseDown" Text="EUD Editor 3" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF21AEFF" Background="#FDFFFFFF" Height="18" Cursor="SizeAll"/>
                 <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" Width="13" Background="#FFA2A2A2" MouseDown="SizeContorl_MouseDown" MouseUp="SizeContorl_MouseUp" MouseMove="SizeContorl_MouseMove" Cursor="SizeWE"/>
             </DockPanel>
+   
+
 
         </Grid>
 
