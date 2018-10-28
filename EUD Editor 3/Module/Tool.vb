@@ -4,42 +4,6 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
-        'Public Sub LoadProject(isNewfile As Boolean)
-        '    If isNewfile Then
-        '        pjData = New ProjectData
-        '        pjData.NewFIle()
-        '    Else
-        '        Dim tFilename As String
-        '        If Tool.LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-        '            tFilename = Tool.LoadProjectDialog.FileName '파일 이름 교체
-        '        Else
-        '            Exit Sub
-        '        End If
-
-        '        If IsProjectLoad() Then
-        '            '꺼야됨
-        '            If Not pjData.CloseFile Then
-        '                Exit Sub
-        '            End If
-        '        End If
-
-        '        Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        '        Dim file As New System.IO.StreamReader(tFilename)
-        '        pjData = CType(reader.Deserialize(file), ProjectData)
-        '        pjData.LoadInit(tFilename)
-        '        ' pjData.IsLoad = True
-
-        '        'Dim fs As New FileStream(tFilename, FileMode.Open)
-        '        'Dim sr As New StreamReader(fs)
-
-        '        'pjData = CType( JsonConvert.DeserializeObject(sr.ReadToEnd), ProjectData )
-
-        '        'sr.Close()
-        '        'fs.Close()
-        '    End If
-
-        'End Sub
-
         Public Function IsProjectLoad() As Boolean
             If pjData IsNot Nothing Then
                 If pjData.IsLoad Then
@@ -128,6 +92,12 @@ Namespace Tool
         Public ReadOnly Property GetLanguageFolder() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Language"
+            End Get
+        End Property
+
+        Public ReadOnly Property GetTblFolder() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Tbls"
             End Get
         End Property
 

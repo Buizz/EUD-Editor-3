@@ -1,10 +1,9 @@
-﻿Imports System.Windows.Forms
-
+﻿
 Public Class SettingWindows
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         If Not Tool.IsProjectLoad Then
-            TabItem_ProjectSetting.IsEnabled = False
-            MainTab.SelectedIndex = 1
+            MainTab.RemoveFromSource(TabItem_ProjectSetting)
+            'TabItem_ProjectSetting.Height = 0
         End If
 
         TBStarCraftexe.Text = pgData.Setting(ProgramData.TSetting.starcraft)
@@ -17,20 +16,23 @@ Public Class SettingWindows
 
 
         '언어 설정
-        'Dim CurrentLan As String = pgData.Lan.GetLan("Language")
+        Dim CurrentLan As String = pgData.Setting(ProgramData.TSetting.Language)
+        'MsgBox(CurrentLan)
+        For i = 0 To CBLanguage.Items.Count - 1
+            'MsgBox(i)
+            Dim SelectItem As ComboBoxItem = CBLanguage.Items(i)
+            If SelectItem.Tag = CurrentLan Then
+                CBLanguage.SelectedIndex = i
+                Exit For
+            End If
+        Next
 
-        'If CurrentLan Is Nothing Then
-
-        'Else
-
-        'End If
-
-        'CBLanguage.Items.Clear()
-        'For Each LanNames As String In pgData.Lan.GetLanguageArray
-        '    CBLanguage.Items.Add(LanNames)
-
-        'Next
-        'CBLanguage.SelectedItem = CurrentLan
+        '밝기
+        If pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
+            ToggleBtn.IsChecked = True
+        Else
+            ToggleBtn.IsChecked = False
+        End If
     End Sub
 
 
@@ -38,7 +40,7 @@ Public Class SettingWindows
 
 
     Private Sub BtnStarCraftexe(sender As Object, e As RoutedEventArgs)
-        Dim opendialog As New OpenFileDialog With {
+        Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
             .Filter = "StarCraft.exe|StarCraft.exe",
             .FileName = "StarCraft.exe",
             .Title = Tool.GetText("StarExeFile Select")
@@ -53,7 +55,7 @@ Public Class SettingWindows
     End Sub
 
     Private Sub Btneuddraftexe(sender As Object, e As RoutedEventArgs)
-        Dim opendialog As New OpenFileDialog With {
+        Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
             .Filter = "euddraft.exe|euddraft.exe",
             .FileName = "euddraft.exe",
             .Title = Tool.GetText("euddraftExe Select")
@@ -79,6 +81,27 @@ Public Class SettingWindows
         If Tool.SaveMapSet Then
             TBSaveMap.Text = pjData.SaveMapName
         End If
+    End Sub
+
+
+
+    Private Sub ToggleButton_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.SetTheme(False)
+    End Sub
+
+    Private Sub ToggleButton_Unchecked(sender As Object, e As RoutedEventArgs)
+        pgData.SetTheme(True)
+    End Sub
+
+    Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If e.AddedItems.Count <> 0 Then
+            Dim SelectItem As ComboBoxItem = e.AddedItems(0)
+
+            Dim languagename As String = SelectItem.Tag
+
+            pgData.SetLanguage(languagename)
+        End If
+
     End Sub
 
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged

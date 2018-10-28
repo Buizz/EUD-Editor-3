@@ -2,27 +2,27 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:EUD_Editor_3"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="Language">언어</sys:String> 
-    
-    <sys:String x:Key="Setting">설정</sys:String>
-    <sys:String x:Key="OpenMap">연결된 맵</sys:String>
-    <sys:String x:Key="SaveMap">저장맵</sys:String>
-    <sys:String x:Key="Find">찾아보기</sys:String>
-    <sys:String x:Key="TBLChange">Tbl변형</sys:String>
-    <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
-    <sys:String x:Key="AutoCompile">자동 컴파일</sys:String>
-    <sys:String x:Key="Project Setting">프로젝트 설정</sys:String>
-    <sys:String x:Key="Default Setting">기본 설정</sys:String>
-    <sys:String x:Key="DatEdit Setting">데이터 에디터</sys:String>
-    <sys:String x:Key="TE Setting">트리거 에디터</sys:String>
-    <sys:String x:Key="Plugin Setting">플러그인</sys:String>
-    <sys:String x:Key="StarExeFile Select">스타크래프트 실행 파일 선택</sys:String>
-    <sys:String x:Key="euddraftExe Select">euddraft 실행 파일 선택</sys:String>
+    <sys:String x:Key="Language">Language</sys:String>
+
+    <sys:String x:Key="Setting">Setting</sys:String>
+    <sys:String x:Key="OpenMap">OpenMap</sys:String>
+    <sys:String x:Key="SaveMap">SaveMap</sys:String>
+    <sys:String x:Key="Find">Find</sys:String>
+    <sys:String x:Key="TBLChange">TBLChange</sys:String>
+    <sys:String x:Key="chkDataFirst">chkDataFirst</sys:String>
+    <sys:String x:Key="AutoCompile">AutoCompile</sys:String>
+    <sys:String x:Key="Project Setting">Project Setting</sys:String>
+    <sys:String x:Key="Default Setting">Default Setting</sys:String>
+    <sys:String x:Key="DatEdit Setting">DatEdit Setting</sys:String>
+    <sys:String x:Key="TE Setting">TE Setting</sys:String>
+    <sys:String x:Key="Plugin Setting">Plugin Setting</sys:String>
+    <sys:String x:Key="StarExeFile Select">StarExeFile Select</sys:String>
+    <sys:String x:Key="euddraftExe Select">euddraftExe Select</sys:String>
     <sys:String x:Key="SCX Fliter">스타크래프트 맵 파일|*.scx</sys:String>
     <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
     <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
 
-    <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기</sys:String>
+    <sys:String x:Key="ToolTip OpenMapEditor">OpenMapEditor</sys:String>
     <sys:String x:Key="ToolTip Compile">컴파일</sys:String>
     <sys:String x:Key="ToolTip DE">데이터에디터</sys:String>
     <sys:String x:Key="ToolTip TE">트리거에디터</sys:String>

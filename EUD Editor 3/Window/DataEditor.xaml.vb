@@ -29,21 +29,6 @@
         End Sub
     End Structure
     Private Sub SetFliter(tfliter As tFliter.ESortType)
-        Select Case tfliter
-            Case DataEditor.tFliter.ESortType.n123
-                Btnsortn123.IsEnabled = False
-                BtnsortABC.IsEnabled = True
-                BtnsortTree.IsEnabled = True
-            Case DataEditor.tFliter.ESortType.ABC
-                Btnsortn123.IsEnabled = True
-                BtnsortABC.IsEnabled = False
-                BtnsortTree.IsEnabled = True
-            Case DataEditor.tFliter.ESortType.Tree
-                Btnsortn123.IsEnabled = True
-                BtnsortABC.IsEnabled = True
-                BtnsortTree.IsEnabled = False
-        End Select
-
 
 
         Fliter.SetFliter(tfliter)
@@ -91,15 +76,88 @@
                 CodeIndexerList.Visibility = Visibility.Hidden
         End Select
 
-        CodeIndexerList.Items.Clear()
-        For i = 0 To scData.SCUnitCount - 1
-            'Dim treeviewtemp As New TreeViewItem
-            'treeviewtemp.Header = pjData.UnitName(i)
 
 
-            CodeIndexerList.Items.Add(pjData.UnitName(i))
-        Next
+        Select Case pagetype
+            Case EPageType.Unit
+                ListResetUnit()
+        End Select
+
+
+
+
     End Sub
+
+    Private Structure UnitName
+        Public Name As String
+        Public index As Integer
+
+        Public Sub New(tname As String, tindex As Integer)
+            Name = tname
+            index = tindex
+        End Sub
+    End Structure
+
+    Private Sub ListResetUnit()
+        Select Case Fliter.SortType
+            Case tFliter.ESortType.n123
+                CodeIndexerList.Items.Clear()
+                For i = 0 To scData.SCUnitCount - 1
+                    Dim unitname As String = "[" & Format(i, "000") & "]-" & pjData.UnitName(i)
+
+                    Dim tListItem As New ListBoxItem()
+                    tListItem.Tag = i
+                    tListItem.Content = unitname
+
+                    CodeIndexerList.Items.Add(tListItem)
+                Next
+            Case tFliter.ESortType.ABC
+                Dim tList As New List(Of UnitName)
+                For i = 0 To scData.SCUnitCount - 1
+                    tList.Add(New UnitName(pjData.UnitName(i), i))
+
+
+                Next
+                tList.Sort(Function(x, y) x.Name.CompareTo(y.Name))
+
+
+                CodeIndexerList.Items.Clear()
+                For i = 0 To scData.SCUnitCount - 1
+                    Dim index As Integer = tList(i).index
+
+                    Dim unitname As String = "[" & Format(index, "000") & "]-" & tList(i).Name
+
+                    Dim tListItem As New ListBoxItem()
+                    tListItem.Tag = index
+                    tListItem.Content = unitname
+                    CodeIndexerList.Items.Add(tListItem)
+                Next
+
+            Case tFliter.ESortType.Tree
+                CodeIndexerTree.Items.Clear()
+
+                Dim strs As String() = {"Zerg", "Terran", "Protoss", "Neutral", "Undefined"}
+                For i = 0 To strs.Count - 1
+                    Dim treeitem As New TreeViewItem()
+                    treeitem.Header = strs(i)
+                    CodeIndexerTree.Items.Add(treeitem)
+                Next
+
+                For i = 0 To scData.SCUnitCount - 1
+                    Dim unitname As String = "[" & Format(i, "000") & "]-" & pjData.UnitFullName(i)
+
+                    Dim tListItem As New TreeViewItem()
+                    tListItem.Tag = i
+                    tListItem.Header = unitname
+
+                    CodeIndexerTree.Items.Add(tListItem)
+                Next
+        End Select
+    End Sub
+
+
+
+
 
 
 

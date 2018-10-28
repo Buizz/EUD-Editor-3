@@ -90,7 +90,14 @@ Public Class ProjectData
     Private UnitTexts() As String 'Tbl상에서의 유닛 이름 배열 tbl이 바뀌면 리셋해줘야 됨
     Public ReadOnly Property UnitName(index As Byte) As String
         Get
-            Return index & "미상"
+            Return scData.GetStat_txt(index)
+            'Return index & "미상"
+        End Get
+    End Property
+    Public ReadOnly Property UnitFullName(index As Byte) As String
+        Get
+            Return scData.GetStat_txt(index, True)
+            'Return index & "미상"
         End Get
     End Property
 

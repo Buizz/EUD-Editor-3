@@ -137,23 +137,23 @@
             </Button>
 
 
-            <Button x:Name="Btn_scmd" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{StaticResource ToolTip OpenMapEditor}" Click="Btn_scmd_Click">
+            <Button x:Name="Btn_scmd" Grid.Column="5" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip OpenMapEditor}" Click="Btn_scmd_Click">
                 <Image  Source="Icon/earth.png" />
                 <!-- SCMD로열기-->
             </Button>
-            <Button x:Name="Btn_insert" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{StaticResource ToolTip Compile}" Click="Btn_insert_Click">
+            <Button x:Name="Btn_insert" Grid.Column="6" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip Compile}" Click="Btn_insert_Click">
                 <Image  Source="Icon/arrow-right-drop-circle.png"/>
                 <!-- 삽입-->
             </Button>
-            <Button x:Name="Btn_DatEdit" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" ToolTip="{StaticResource ToolTip DE}" Click="BtnDataEditor_Click" IsEnabled="False" >
+            <Button x:Name="Btn_DatEdit" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip DE}" Click="BtnDataEditor_Click" IsEnabled="False" >
                 <Image  Source="Icon/DatEditIcon.png"/>
                 <!-- DatEdit-->
             </Button>
-            <Button x:Name="Btn_TriggerEdit" Grid.Column="8" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{StaticResource ToolTip TE}" Click="Btn_TriggerEdit_Click">
+            <Button x:Name="Btn_TriggerEdit" Grid.Column="8" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip TE}" Click="Btn_TriggerEdit_Click">
                 <Image  Source="Icon/matrix.png"/>
                 <!-- 트리거-->
             </Button>
-            <Button x:Name="Btn_Plugin" Grid.Column="9" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{StaticResource ToolTip Plugin}" Click="Btn_Plugin_Click">
+            <Button x:Name="Btn_Plugin" Grid.Column="9" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" IsEnabled="False" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip Plugin}" Click="Btn_Plugin_Click">
                 <Image  Source="Icon/tune.png"/>
                 <!-- 플러그인-->
             </Button>

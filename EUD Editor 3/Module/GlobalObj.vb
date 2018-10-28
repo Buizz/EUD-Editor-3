@@ -19,14 +19,36 @@
             Application.Current.Shutdown()
             Return False
         End Try
-
+        scData = New StarCraftData
         Try
-            scData = New StarCraftData
+
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error LoadStarCraftData Fail"), ex.ToString)
             Application.Current.Shutdown()
             Return False
         End Try
+
+
+        '언어 설정
+        If pgData.Setting(ProgramData.TSetting.Language) = Nothing Then
+            pgData.Setting(ProgramData.TSetting.Language) = System.Threading.Thread.CurrentThread.CurrentUICulture.ToString()
+        End If
+        pgData.SetLanguage(pgData.Setting(ProgramData.TSetting.Language))
+        'MsgBox(System.Threading.Thread.CurrentThread.CurrentUICulture.ToString())
+
+
+
+        '색 설정
+
+
+        If pgData.Setting(ProgramData.TSetting.Theme) = "Light" Then
+            pgData.SetTheme(True)
+        ElseIf pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
+            pgData.SetTheme(False)
+        Else
+            pgData.Setting(ProgramData.TSetting.Theme) = "Light"
+            pgData.SetTheme(True)
+        End If
 
 
 
@@ -35,6 +57,7 @@
         If pgData.Setting(ProgramData.TSetting.euddraft) = Nothing Then
             pgData.SaveSetting()
         End If
+
 
         Try
             Tool.SetRegistry()
@@ -48,13 +71,6 @@
             ProjectData.Load(filename, pjData)
             'MsgBox(filename & " 다른파일로 열림")
         End If
-
-        'MsgBox(Environment.GetCommandLineArgs(1))
-
-
-
-        'AppDomain.CreateDomain("")
-        'MsgBox(My.Computer.Registry.ClassesRoot.CreateSubKey("e3s\shell\open\command").GetValue(""))
         Return True
     End Function
 
