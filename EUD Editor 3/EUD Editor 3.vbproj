@@ -145,8 +145,14 @@
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
+    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Default.xaml.vb">
+      <DependentUpon>Unit_Default.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\UnitData.xaml.vb">
       <DependentUpon>UnitData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\IconSelecter.xaml.vb">
+      <DependentUpon>IconSelecter.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
@@ -174,7 +180,15 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserContorl\DataEditor\DataPages\Unit_Default.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\DataEditor\UnitData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\IconSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

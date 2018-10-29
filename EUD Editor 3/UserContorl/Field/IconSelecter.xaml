@@ -1,0 +1,42 @@
+﻿<UserControl x:Class="IconSelecter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" Height="55.5" Width="275" Background="White">
+    <StackPanel Orientation="Horizontal">
+        <Button
+  Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
+  HorizontalAlignment="Left"
+  Margin="5,0,0,0">
+            <materialDesign:PackIcon
+    Kind="Alarm"
+    Height="24"
+    Width="24" />
+        </Button>
+
+        
+        <ComboBox
+  materialDesign:HintAssist.Hint="방어구"
+  Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="5,8" Width="142">
+            <ComboBoxItem>
+                Terran Infantry Armor
+            </ComboBoxItem>
+            <ComboBoxItem>
+                iOS
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Linux
+            </ComboBoxItem>
+            <ComboBoxItem>
+                Windows
+            </ComboBoxItem>
+        </ComboBox>
+        <TextBox  Width="50" Margin="5,0,5,8"  />
+    </StackPanel>
+</UserControl>

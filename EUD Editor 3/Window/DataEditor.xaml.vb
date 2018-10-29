@@ -108,6 +108,10 @@
                     Dim tListItem As New ListBoxItem()
                     tListItem.Tag = i
                     tListItem.Content = unitname
+                    If i = 10 Then
+                        tListItem.Background = Brushes.PaleVioletRed
+                    End If
+
 
                     CodeIndexerList.Items.Add(tListItem)
                 Next

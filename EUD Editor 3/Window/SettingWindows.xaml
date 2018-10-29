@@ -40,7 +40,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox x:Name="TBOpenMap" Grid.Row="2" Grid.Column="1" Margin="10,0"
+                    <TextBox x:Name="TBOpenMap" Grid.Row="2" Grid.Column="1" Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True"  />
 
                     <Button Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" />
@@ -48,7 +48,7 @@
                     <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
                     <Label Grid.Row="4" Grid.Column="1" Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox  x:Name="TBSaveMap" Grid.Row="5" Grid.Column="1" Margin="10,0"
+                    <TextBox  x:Name="TBSaveMap" Grid.Row="5" Grid.Column="1" Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     <Button Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnSaveMapSet_Click" />
 
@@ -98,7 +98,7 @@
                         <ColumnDefinition Width="5"/>
                     </Grid.ColumnDefinitions>
                     <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0"
+                    <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
 
                     <Button  Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnStarCraftexe" />
@@ -106,7 +106,7 @@
                     <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
                     <Label Grid.Row="4" Grid.Column="1" Content="{StaticResource euddraftExe}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"
+                    <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     <Button Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top"  Click="Btneuddraftexe" />
 
@@ -127,7 +127,7 @@
                         <Label  Content="{StaticResource Light}" />
                         <ToggleButton x:Name="ToggleBtn" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked"
   Style="{StaticResource MaterialDesignSwitchToggleButton}"
-  ToolTip="MaterialDesignSwitchToggleButton" HorizontalAlignment="Left" />
+  HorizontalAlignment="Left" />
                         <Label  Content="{StaticResource Dark}" />
                     </StackPanel>
                                  

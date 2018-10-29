@@ -45,7 +45,21 @@ Class MainWindow
     End Sub
 
     Private Sub ButClose_Click(sender As Object, e As RoutedEventArgs)
+        For Each win As Window In Application.Current.Windows
+            If win.GetType IsNot GetType(MainWindow) Then
+                win.Close()
+            End If
+        Next
+        If Tool.IsProjectLoad Then
+            If pjData.CloseFile() Then
+                pjData = Nothing
+                Me.Close()
+                Exit Sub
+            End If
+        End If
+
         Me.Close()
+        BtnRefresh()
     End Sub
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)

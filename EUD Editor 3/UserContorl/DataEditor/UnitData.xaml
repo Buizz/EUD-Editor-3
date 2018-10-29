@@ -3,10 +3,45 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+            xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+            xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800" Background="{DynamicResource MaterialDesignPaper}">
+             d:DesignHeight="450" d:DesignWidth="600" Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="100"/>
+            <ColumnDefinition Width="100*"/>
+        </Grid.ColumnDefinitions>
+
+        
+        
+        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
+                     Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
+                     >
+            <TabItem Header="기본정보" >
+                <local:Unit_Default />
+            </TabItem>
+            <TabItem Header="고급정보">
+
+            </TabItem>
+        </dragablz:TabablzControl>
+        <ListBox Grid.Column="0"  >
+            <ListBoxItem Content="기본정보"/>
+            <ListBoxItem Content="고급정보"/>
+            <ListBoxItem Content="사운드"/>
+            <ListBoxItem Content="그래픽"/>
+            <ListBoxItem Content="맵 에디트"/>
+            <ListBoxItem Content="인공지능"/>
+            <ListBoxItem Content="유닛정보"/>
+            <ListBoxItem Content="요구사항"/>
+            <ListBoxItem Content="와이어프레임"/>
             
+
+
+        </ListBox>
+
     </Grid>
 </UserControl>

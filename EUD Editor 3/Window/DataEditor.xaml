@@ -67,9 +67,9 @@
                 </TreeView>
                 <TextBox Grid.Column="2" Grid.Row="1"
   materialDesign:HintAssist.Hint="필터를 입력하세요."
-  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Foreground="{DynamicResource MaterialDesignBody}" />
+  Foreground="{DynamicResource MaterialDesignBody}" />
 
-                <ListBox  Grid.RowSpan="3" Background="{DynamicResource PrimaryHueMidBrush}" Foreground="{DynamicResource AccentSelectedColorBrush}" >
+                <ListBox  Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" >
                     <ListBoxItem>
                         유닛
                     </ListBoxItem>

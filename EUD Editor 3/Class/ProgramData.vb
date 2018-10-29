@@ -8,7 +8,7 @@
 
 
             dict = New ResourceDictionary()
-            dict.Source = New Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.Cyan.xaml", UriKind.Absolute)
+            dict.Source = New Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml", UriKind.Absolute)
             Application.Current.Resources.MergedDictionaries.Add(dict)
         Else
             Dim dict As New ResourceDictionary()
