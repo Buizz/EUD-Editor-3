@@ -1,0 +1,51 @@
+﻿<UserControl x:Class="NameBar"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes">
+    <DockPanel  Grid.Row="0" ScrollViewer.HorizontalScrollBarVisibility="Visible" ScrollViewer.CanContentScroll="True" >
+        <Separator DockPanel.Dock="Bottom"  />
+        <StackPanel       
+                              Orientation="Horizontal"
+                              Margin="8">
+            <Button
+                    Style="{StaticResource MaterialDesignToolButton}"
+                    Width="30"
+                    Padding="2 0 2 0"
+                    materialDesign:RippleAssist.IsCentered="True">
+                <materialDesign:PackIcon Kind="ContentCopy" />
+            </Button>
+            <Button
+                    Style="{StaticResource MaterialDesignToolButton}"
+                    Width="30"
+                    Padding="2 0 2 0"
+                    materialDesign:RippleAssist.IsCentered="True">
+                <materialDesign:PackIcon Kind="ContentPaste" />
+            </Button>
+            <Button
+                    Style="{StaticResource MaterialDesignToolButton}"
+                    Width="30"
+                    Padding="2 0 2 0"
+                    materialDesign:RippleAssist.IsCentered="True">
+                <materialDesign:PackIcon Kind="FormatColorReset" />
+            </Button>
+        </StackPanel>
+
+        <Label x:Name="ObjName" Content="이름"  Height="40" Margin="0,14,10,0"/>
+        <TextBox x:Name="ObjToolTip"  materialDesign:HintAssist.Hint="툴팁"   TextChanged="ObjToolTip_TextChanged"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="40"  Tag="Hit Points" Margin="0,0,20,0" MinWidth="100" />
+
+
+        <TextBox x:Name="ObjGroup" materialDesign:HintAssist.Hint="그룹" TextChanged="ObjGroup_TextChanged"
+                                          Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="40"  Tag="Hit Points" Margin="0,0,20,0" MinWidth="200" />
+
+
+
+
+    </DockPanel>
+</UserControl>

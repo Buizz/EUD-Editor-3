@@ -33,6 +33,8 @@ Public Class SettingWindows
         Else
             ToggleBtn.IsChecked = False
         End If
+
+        CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanuage)
     End Sub
 
 
@@ -51,6 +53,7 @@ Public Class SettingWindows
             pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
 
             TBStarCraftexe.Text = opendialog.FileName
+            scData.LoadMPQData()
         End If
     End Sub
 
@@ -100,8 +103,17 @@ Public Class SettingWindows
             Dim languagename As String = SelectItem.Tag
 
             pgData.SetLanguage(languagename)
-        End If
 
+        End If
+    End Sub
+
+    Private Sub CBCodeLan_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If e.AddedItems.Count <> 0 Then
+            Dim SelectItem As ComboBox = sender
+
+
+            pgData.Setting(ProgramData.TSetting.CDLanuage) = SelectItem.SelectedIndex
+        End If
     End Sub
 
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged

@@ -4,6 +4,56 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public Sub CloseWindows()
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(DataEditor) Then
+                    win.Close()
+                End If
+            Next
+        End Sub
+
+        Public ReadOnly Property StarCraftPath() As String
+            Get
+                Return pgData.Setting(ProgramData.TSetting.starcraft).Replace("StarCraft.exe", "")
+            End Get
+        End Property
+
+        Private ReadOnly MPQFiles() As String = {"BrooDat.mpq", "StarDat.mpq", "BroodWar.mpq", "Starcraft.mpq"}
+        Public Function LoadDataFromMPQ(filename As String) As Byte()
+            Dim hmpq As UInteger
+            Dim hfile As UInteger
+            Dim buffer() As Byte
+            Dim filesize As UInteger
+
+            Dim pdwread As IntPtr
+
+            For i = 0 To MPQFiles.Count - 1
+                Dim mpqname As String = StarCraftPath & MPQFiles(i)
+                SFmpq.SFileOpenArchive(mpqname, 0, 0, hmpq)
+
+
+                SFmpq.SFileOpenFileEx(hmpq, filename, 0, hfile)
+
+                If hfile <> 0 Then
+                    filesize = SFmpq.SFileGetFileSize(hfile, filesize)
+                    ReDim buffer(filesize)
+
+                    SFmpq.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
+
+                    SFmpq.SFileCloseFile(hfile)
+                    SFmpq.SFileCloseArchive(hmpq)
+                    Return buffer
+                End If
+                SFmpq.SFileCloseArchive(hmpq)
+            Next
+
+
+            Throw New System.Exception("File Load Fail from MPQ. " & filename)
+            Return Nothing
+        End Function
+
+
+
         Public Function IsProjectLoad() As Boolean
             If pjData IsNot Nothing Then
                 If pjData.IsLoad Then
@@ -20,6 +70,7 @@ Namespace Tool
 
         Public Sub ErrorMsgBox(str As String, Optional Logstr As String = "")
             MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
+            MsgBox("테스트용 로그 확인" & vbCrLf & Logstr)
         End Sub
 
         Public Function OpenMapSet() As Boolean
@@ -37,9 +88,13 @@ Namespace Tool
                 End If
 
                 '맵이 플텍맵인지 아닌지 검사해야됨.
-
                 pjData.OpenMapName = opendialog.FileName
-                Return True
+                If pjData.IsMapLoading Then
+                    Return True
+                Else
+                    pjData.OpenMapName = ""
+                    Return False
+                End If
             End If
             Return False
         End Function
@@ -68,6 +123,11 @@ Namespace Tool
         Public ReadOnly Property GetSettingFile() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Setting.ini"
+            End Get
+        End Property
+        Public ReadOnly Property GetDatFolder() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\DatFiles"
             End Get
         End Property
 
@@ -103,7 +163,6 @@ Namespace Tool
 
 
         Public SaveProjectDialog As SaveFileDialog
-        Public LoadProjectDialog As OpenFileDialog
 
         Private MainWindow As MainWindow
         Public Sub Init()
@@ -111,8 +170,7 @@ Namespace Tool
             SaveProjectDialog.Filter = GetText("SaveFliter")
 
 
-            LoadProjectDialog = New OpenFileDialog
-            LoadProjectDialog.Filter = GetText("LoadFliter")
+
 
             For Each win As Window In Application.Current.Windows
                 If win.GetType Is GetType(MainWindow) Then
@@ -131,7 +189,7 @@ Namespace Tool
 
 
         Public Sub SetRegistry()
-            Dim str As String() = {"e3s", "e3p", "e2s", "e2p", "ees", "mem"}
+            Dim str As String() = {"e3s"} ', "e3p", "e2s", "e2p", "ees", "mem"}
 
             For Each Extension As String In str
                 My.Computer.Registry.ClassesRoot.CreateSubKey("." & Extension & "").SetValue("",

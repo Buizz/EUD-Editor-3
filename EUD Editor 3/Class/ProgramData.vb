@@ -52,8 +52,9 @@
         starcraft = 1
         Language = 2
         Theme = 3
+        CDLanuage = 4
     End Enum
-    Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme"}
+    Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))

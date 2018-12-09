@@ -1,5 +1,33 @@
 ﻿Imports System.IO
+Imports System.Runtime.Serialization.Formatters.Binary
 Imports Newtonsoft.Json
+
+<Serializable()>
+Public Class SaveableData
+    Private mOpenMapName As String
+    Private mSaveMapName As String
+    Public Property OpenMapName As String
+        Get
+            Return mOpenMapName
+        End Get
+        Set(value As String)
+            mOpenMapName = value
+        End Set
+    End Property
+
+    Public Property SaveMapName As String
+        Get
+            Return mSaveMapName
+        End Get
+        Set(value As String)
+            mSaveMapName = value
+        End Set
+    End Property
+
+    Public Dat As SCDatFiles
+End Class
+
+
 
 Public Class ProjectData
 #Region "Filed"
@@ -58,29 +86,60 @@ Public Class ProjectData
 
 
 #Region "Member"
-    Private mOpenMapName As String
+    Public ReadOnly Property Dat As SCDatFiles
+        Get
+            Return SaveData.Dat
+        End Get
+    End Property
+
     Public Property OpenMapName As String
         Get
-            Return mOpenMapName
+            Return SaveData.OpenMapName
         End Get
         Set(value As String)
-            mOpenMapName = value
-            tIsDirty = True
+            If My.Computer.FileSystem.FileExists(value) And SaveData.OpenMapName <> value Then
+                tIsDirty = True
+                SaveData.OpenMapName = value
+                _MapData = New MapData(SaveData.OpenMapName)
+                MapLoading = _MapData.LoadComplete
+                If Not MapLoading Then
+                    SaveData.OpenMapName = ""
+                End If
+            End If
         End Set
     End Property
 
-    Private mSaveMapName As String
+
     Public Property SaveMapName As String
         Get
-            Return mSaveMapName
+            Return SaveData.SaveMapName
         End Get
         Set(value As String)
-            mSaveMapName = value
-            tIsDirty = True
+            If SaveData.SaveMapName = value Then
+                tIsDirty = True
+                SaveData.SaveMapName = value
+            End If
         End Set
     End Property
+
+    Private _MapData As MapData
+    Public ReadOnly Property MapData As MapData
+        Get
+            Return _MapData
+        End Get
+    End Property
+
+    Private MapLoading As Boolean
+    Public ReadOnly Property IsMapLoading As Boolean
+        Get
+            Return MapLoading
+        End Get
+    End Property
+
 #End Region
 
+
+    Private SaveData As SaveableData
 
 
 
@@ -90,7 +149,30 @@ Public Class ProjectData
     Private UnitTexts() As String 'Tbl상에서의 유닛 이름 배열 tbl이 바뀌면 리셋해줘야 됨
     Public ReadOnly Property UnitName(index As Byte) As String
         Get
-            Return scData.GetStat_txt(index)
+            Dim RealName As String = scData.GetStat_txt(index)
+            If MapLoading Then
+                Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
+
+                If strindex = 0 Then
+                    Return RealName
+                Else
+                    Return MapData.Str(strindex - 1) & vbCrLf & " (" & RealName & ")"
+                End If
+
+
+            Else
+                Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
+
+                If ToolTipText.Trim <> "" Then
+                    Return RealName & " (" & ToolTipText & ")"
+                Else
+                    Return RealName
+                End If
+
+                'Return SaveData.Dat.Group(SCDatFiles.DatFiles.units, index) & RealName
+
+
+            End If
             'Return index & "미상"
         End Get
     End Property
@@ -103,8 +185,10 @@ Public Class ProjectData
 
     Public Sub New()
         '초기화
-        mOpenMapName = ""
-        mSaveMapName = ""
+        SaveData = New SaveableData
+
+        SaveData.OpenMapName = ""
+        SaveData.SaveMapName = ""
     End Sub
 
 
@@ -112,14 +196,28 @@ Public Class ProjectData
     Public Sub InitProject()
         tIsDirty = False
         tFilename = ""
-        mOpenMapName = ""
-        mSaveMapName = ""
+        SaveData.OpenMapName = ""
+        SaveData.SaveMapName = ""
+        SaveData.Dat = New SCDatFiles(False)
+
+        'MsgBox("프로젝트 초기화")
     End Sub
 
     Public Sub LoadInit(filename As String)
         tIsLoad = True
         tIsDirty = False
         tFilename = filename
+        'MsgBox("로드 프로젝트 초기화")
+        If My.Computer.FileSystem.FileExists(SaveData.OpenMapName) Then
+            _MapData = New MapData(SaveData.OpenMapName)
+            MapLoading = _MapData.LoadComplete
+            If Not MapLoading Then
+                SaveData.OpenMapName = ""
+            End If
+        Else
+            _MapData = Nothing
+            SaveData.OpenMapName = ""
+        End If
     End Sub
 
     Public Sub NewFIle()
@@ -136,8 +234,11 @@ Public Class ProjectData
             _pjdata.NewFIle()
         Else
             Dim tFilename As String
-            If Tool.LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                tFilename = Tool.LoadProjectDialog.FileName '파일 이름 교체
+            Dim LoadProjectDialog As New System.Windows.Forms.OpenFileDialog
+            LoadProjectDialog.Filter = Tool.GetText("LoadFliter")
+
+            If LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
+                tFilename = LoadProjectDialog.FileName '파일 이름 교체
             Else
                 Exit Sub
             End If
@@ -153,12 +254,20 @@ Public Class ProjectData
         End If
     End Sub
     Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
-        Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        Dim file As New System.IO.StreamReader(FileName)
-        _pjdata = CType(reader.Deserialize(file), ProjectData)
+        Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
+        Dim bf As BinaryFormatter = New BinaryFormatter()
+        _pjdata = New ProjectData
+        _pjdata.NewFIle()
+        _pjdata.SaveData = bf.Deserialize(stm)
         _pjdata.LoadInit(FileName)
+        stm.Close()
 
-        file.Close()
+        'Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
+        'Dim file As New System.IO.StreamReader(FileName)
+        '_pjdata = CType(reader.Deserialize(file), ProjectData)
+        '_pjdata.LoadInit(FileName)
+
+        'file.Close()
     End Sub
 
 
@@ -193,10 +302,15 @@ Public Class ProjectData
             End If
         End If
 
-        Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        Dim file As New System.IO.StreamWriter(tFilename)
-        writer.Serialize(file, Me)
-        file.Close()
+        Dim stm As Stream = File.Open(tFilename, FileMode.Create, FileAccess.ReadWrite)
+        Dim bf As BinaryFormatter = New BinaryFormatter()
+        bf.Serialize(stm, Me.SaveData)
+        stm.Close()
+
+        'Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
+        'Dim file As New System.IO.StreamWriter(tFilename)
+        'writer.Serialize(file, Me)
+        'file.Close()
 
 
         'Dim fs As New FileStream(tFilename, FileMode.Create)
@@ -216,7 +330,7 @@ Public Class ProjectData
 
     Public Function CloseFile() As Boolean
         If IsDirty Then '파일이 변형되었을 경우
-            Dim dialog As MsgBoxResult = MsgBox("저장하고 종료하겠습니까?", MsgBoxStyle.YesNoCancel)
+            Dim dialog As MsgBoxResult = MsgBox(Tool.GetText("ColseSaveMsg").Replace("%S1", SafeFilename), MsgBoxStyle.YesNoCancel)
             If dialog = MsgBoxResult.Yes Then
                 If Save() Then
                     tIsLoad = False

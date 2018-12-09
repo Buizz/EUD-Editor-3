@@ -135,7 +135,48 @@
                 </Grid>
             </TabItem>
             <TabItem Header="{StaticResource DatEdit Setting}" >
-                <Grid />
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="10"/>
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
+
+                        <RowDefinition Height="20"/>
+
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
+
+                        <RowDefinition Height="20"/>
+
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
+
+                        <RowDefinition Height="20"/>
+
+                        <RowDefinition Height="25"/>
+                        <RowDefinition Height="30"/>
+
+                        <RowDefinition Height="20"/>
+
+                        <RowDefinition Height="25"/>
+                    </Grid.RowDefinitions>
+
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="5"/>
+                        <ColumnDefinition/>
+                        <ColumnDefinition Width="114"/>
+                        <ColumnDefinition Width="5"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource Code Lan}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1" Margin="10,0" SelectionChanged="CBCodeLan_SelectionChanged"
+                    MinWidth="72"
+                    VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
+                        <ComboBoxItem Content="{StaticResource Code CEng}"/>
+                        <ComboBoxItem Content="{StaticResource Code CKor-Eng}"/>
+                        <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
+                        <ComboBoxItem Content="{StaticResource Code CTbl}"/>
+                    </ComboBox>
+                 </Grid>
             </TabItem>
             <TabItem Header="{StaticResource TE Setting}" >
                 <Grid />

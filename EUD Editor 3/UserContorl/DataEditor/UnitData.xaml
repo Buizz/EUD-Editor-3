@@ -21,8 +21,8 @@
         <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
                      Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
                      >
-            <TabItem Header="기본정보" >
-                <local:Unit_Default />
+            <TabItem x:Name="Defualt" Header="기본정보" >
+                
             </TabItem>
             <TabItem Header="고급정보">
 

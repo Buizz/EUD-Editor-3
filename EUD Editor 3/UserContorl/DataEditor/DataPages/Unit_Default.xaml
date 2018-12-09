@@ -3,15 +3,20 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-            xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-            xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-            xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
-            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="600" Background="{DynamicResource MaterialDesignPaper}">
     <Grid>
-        <StackPanel>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+        <local:NameBar x:Name="NameBar"/>
+        <StackPanel Grid.Row="1">
             <materialDesign:Card Height="195" Width="310"  >
                 <Grid>
                     <Grid.RowDefinitions>
@@ -23,8 +28,8 @@
                           Margin="10,10,0,0"
                           FontSize="16" Height="30" Text="유닛 생체 정보" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
-                    <TextBox  materialDesign:HintAssist.Hint="체력"  
-                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="10,36,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="141" />
+                    <TextBox x:Name="test"  materialDesign:HintAssist.Hint="체력"
+                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="10,36,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="117" Tag="Hit Points" />
 
                     <TextBox  materialDesign:HintAssist.Hint="쉴드"  
                         Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="156,36,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" Height="40" />

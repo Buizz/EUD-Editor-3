@@ -72,8 +72,8 @@ Public Class tblReader
                     bytes2.Add(val)
                 End If
             End While
-            Dim val1 As String = System.Text.Encoding.UTF8.GetChars(bytes1.ToArray)
-            Dim val2 As String = System.Text.Encoding.UTF8.GetChars(bytes2.ToArray)
+            Dim val1 As String = System.Text.Encoding.Default.GetChars(bytes1.ToArray)
+            Dim val2 As String = System.Text.Encoding.Default.GetChars(bytes2.ToArray)
 
             Dim ttbl As New TBLString(val1, val2)
 

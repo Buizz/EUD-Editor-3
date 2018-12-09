@@ -1,186 +1,131 @@
-﻿Public Class DataEditor
+﻿Imports Dragablz
+
+Public Class DataEditor
     Public Sub OpenbyMainWindow()
         CodeExpander.IsExpanded = True
         Console.IsExpanded = True
     End Sub
 
     '데이터 상태랑 선택한 인덱스랑 어떤 페이지인지 알고 있어야 함
-    Private Fliter As New tFliter
-    Private Structure tFliter
-        Public fliterText As String
-
-        Public IsEdit As Boolean
-        Private TSortType As ESortType
-        Public ReadOnly Property SortType As ESortType
-            Get
-                Return TSortType
-            End Get
-        End Property
-
-
-
-        Public Enum ESortType
-            ABC
-            Tree
-            n123
-        End Enum
-        Public Sub SetFliter(type As ESortType)
-            TSortType = type
-        End Sub
-    End Structure
-    Private Sub SetFliter(tfliter As tFliter.ESortType)
-
-
-        Fliter.SetFliter(tfliter)
-    End Sub
 
 
 
 
-    Private CurrentPage As EPageType
-    Private Enum EPageType
-        Unit
-        Weapon
-        Fligy
-        Sprite
-        Image
-        Upgrade
-        Tech
-        Order
-        ButtonSet
-        Nottting
-    End Enum
+
+
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-        SetFliter(tFliter.ESortType.n123)
 
-        ListReset(EPageType.Unit)
+
+        CodeList.SetFliter(CodeSelecter.ESortType.n123)
+        CodeList.ListReset(CodeSelecter.EPageType.Unit)
     End Sub
 
-    Private Sub ListReset(Optional pagetype As EPageType = EPageType.Nottting)
-        If pagetype = EPageType.Nottting Then
-            pagetype = CurrentPage
-        Else
-            CurrentPage = pagetype
+
+
+
+
+
+
+    Private Sub CodeIndexerList_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If e.AddedItems.Count <> 0 Then
+            Dim index As UInteger = CType(e.AddedItems(0), ListBoxItem).Tag
+
+            Dim TabContent As Dragablz.TabablzControl = MainTab.Content
+
+
+
+            Dim TabItem As New TabItem
+            Dim TabGrid As New Grid
+            Dim TabText As New TextBlock
+            Dim TabContextMenu As New ContextMenu
+            TabText.Text = "asdsa"
+            TabText.Foreground = Application.Current.Resources("IdealForegroundColorBrush")
+
+
+            Dim tabmenuitem As New MenuItem
+            tabmenuitem.Header = "닫기"
+            tabmenuitem.Command = TabablzControl.CloseItemCommand
+
+
+
+            TabContextMenu.Items.Add(tabmenuitem)
+
+
+
+
+            TabGrid.ContextMenu = TabContextMenu
+            TabGrid.Children.Add(TabText)
+
+            TabItem.Header = TabGrid
+            TabItem.Content = New UnitData(index)
+
+            TabContent.Items.Add(TabItem)
+
+
+            'MsgBox(TabContent.Items.Count)
+
+
+
+            '<TabItem>
+            '        <!-- with context menu -->
+            '        <TabItem.Header>
+            '            <Grid>
+            '                <Grid.ContextMenu>
+            '                    <ContextMenu>
+            '                        <!--we'll be in a popup, so give dragablz a hint as to what tab header content needs closing -->
+            '                        <MenuItem Command = "{x:Static dragablz:TabablzControl.CloseItemCommand}" />
+            '                    </ContextMenu>
+            '                            </Grid.ContextMenu>
+            '                <TextBlock Foreground = "{DynamicResource IdealForegroundColorBrush}" > TAB() No. 3</TextBlock>
+            '            </Grid>
+            '        </TabItem.Header>
+            '        <TextBlock HorizontalAlignment = "Center" VerticalAlignment="Center">I feel Like an ice cold drink</TextBlock>
+            '    </TabItem>
         End If
 
-        Select Case Fliter.SortType
-            Case tFliter.ESortType.ABC
-                CodeIndexerTree.Visibility = Visibility.Hidden
-                CodeIndexerList.Visibility = Visibility.Visible
-            Case tFliter.ESortType.n123
-                CodeIndexerTree.Visibility = Visibility.Hidden
-                CodeIndexerList.Visibility = Visibility.Visible
-            Case tFliter.ESortType.Tree
-                CodeIndexerTree.Visibility = Visibility.Visible
-                CodeIndexerList.Visibility = Visibility.Hidden
+    End Sub
+
+    Private Sub CodeIndexer_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        Dim SelectSender As ListBox = sender
+
+        CodeList.ListReset(SelectSender.SelectedIndex)
+    End Sub
+
+    Private Sub CodeList_Select(Code As Object, e As RoutedEventArgs)
+        Dim CodePage As CodeSelecter.EPageType = Code(0)
+        Dim index As Integer = Code(1)
+
+
+        Select Case CodePage
+            Case CodeSelecter.EPageType.Unit
+                Dim TabContent As Dragablz.TabablzControl = MainTab.Content
+
+                Dim TabItem As New TabItem
+                Dim TabGrid As New Grid
+                Dim TabText As New TextBlock
+                Dim TabContextMenu As New ContextMenu
+                TabText.Text = pjData.UnitName(index)
+                TabText.Foreground = Application.Current.Resources("IdealForegroundColorBrush")
+
+
+                Dim tabmenuitem As New MenuItem
+                tabmenuitem.Header = "닫기"
+                tabmenuitem.Command = TabablzControl.CloseItemCommand
+
+
+
+                TabContextMenu.Items.Add(tabmenuitem)
+
+                TabGrid.ContextMenu = TabContextMenu
+                TabGrid.Children.Add(TabText)
+
+                TabItem.Header = TabGrid
+                TabItem.Content = New UnitData(index)
+
+                TabContent.Items.Add(TabItem)
+                TabContent.SelectedItem = TabItem
         End Select
 
-
-
-        Select Case pagetype
-            Case EPageType.Unit
-                ListResetUnit()
-        End Select
-
-
-
-
     End Sub
-
-    Private Structure UnitName
-        Public Name As String
-        Public index As Integer
-
-        Public Sub New(tname As String, tindex As Integer)
-            Name = tname
-            index = tindex
-        End Sub
-    End Structure
-
-    Private Sub ListResetUnit()
-        Select Case Fliter.SortType
-            Case tFliter.ESortType.n123
-                CodeIndexerList.Items.Clear()
-                For i = 0 To scData.SCUnitCount - 1
-                    Dim unitname As String = "[" & Format(i, "000") & "]-" & pjData.UnitName(i)
-
-                    Dim tListItem As New ListBoxItem()
-                    tListItem.Tag = i
-                    tListItem.Content = unitname
-                    If i = 10 Then
-                        tListItem.Background = Brushes.PaleVioletRed
-                    End If
-
-
-                    CodeIndexerList.Items.Add(tListItem)
-                Next
-            Case tFliter.ESortType.ABC
-                Dim tList As New List(Of UnitName)
-                For i = 0 To scData.SCUnitCount - 1
-                    tList.Add(New UnitName(pjData.UnitName(i), i))
-
-
-                Next
-                tList.Sort(Function(x, y) x.Name.CompareTo(y.Name))
-
-
-                CodeIndexerList.Items.Clear()
-                For i = 0 To scData.SCUnitCount - 1
-                    Dim index As Integer = tList(i).index
-
-                    Dim unitname As String = "[" & Format(index, "000") & "]-" & tList(i).Name
-
-                    Dim tListItem As New ListBoxItem()
-                    tListItem.Tag = index
-                    tListItem.Content = unitname
-                    CodeIndexerList.Items.Add(tListItem)
-                Next
-
-            Case tFliter.ESortType.Tree
-                CodeIndexerTree.Items.Clear()
-
-                Dim strs As String() = {"Zerg", "Terran", "Protoss", "Neutral", "Undefined"}
-                For i = 0 To strs.Count - 1
-                    Dim treeitem As New TreeViewItem()
-                    treeitem.Header = strs(i)
-                    CodeIndexerTree.Items.Add(treeitem)
-                Next
-
-                For i = 0 To scData.SCUnitCount - 1
-                    Dim unitname As String = "[" & Format(i, "000") & "]-" & pjData.UnitFullName(i)
-
-                    Dim tListItem As New TreeViewItem()
-                    tListItem.Tag = i
-                    tListItem.Header = unitname
-
-                    CodeIndexerTree.Items.Add(tListItem)
-                Next
-        End Select
-    End Sub
-
-
-
-
-
-
-
-
-    Private Sub Btn_sortn123(sender As Object, e As RoutedEventArgs)
-        SetFliter(tFliter.ESortType.n123)
-        ListReset()
-    End Sub
-    Private Sub Btn_sortABC(sender As Object, e As RoutedEventArgs)
-        SetFliter(tFliter.ESortType.ABC)
-        ListReset()
-    End Sub
-
-    Private Sub Btn_sortTree(sender As Object, e As RoutedEventArgs)
-        SetFliter(tFliter.ESortType.Tree)
-        ListReset()
-    End Sub
-    Private Sub Btn_isEdit(sender As Object, e As DependencyPropertyChangedEventArgs)
-        Fliter.IsEdit = e.NewValue
-    End Sub
-
 End Class

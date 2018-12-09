@@ -22,7 +22,7 @@ Class MainWindow
 
     Private Sub BtnDataEditor_Click(sender As Object, e As RoutedEventArgs)
         'pjData.SetDirty(True)
-        Dim DataEditorForm = New DataEditor
+        Dim DataEditorForm As New DataEditor
         DataEditorForm.Show()
         DataEditorForm.OpenbyMainWindow()
     End Sub
@@ -45,15 +45,13 @@ Class MainWindow
     End Sub
 
     Private Sub ButClose_Click(sender As Object, e As RoutedEventArgs)
-        For Each win As Window In Application.Current.Windows
-            If win.GetType IsNot GetType(MainWindow) Then
-                win.Close()
-            End If
-        Next
+        Tool.CloseWindows()
         If Tool.IsProjectLoad Then
             If pjData.CloseFile() Then
                 pjData = Nothing
                 Me.Close()
+                Exit Sub
+            Else
                 Exit Sub
             End If
         End If
@@ -142,11 +140,7 @@ Class MainWindow
     End Sub
 
     Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
-        For Each win As Window In Application.Current.Windows
-            If win.GetType IsNot GetType(MainWindow) Then
-                win.Close()
-            End If
-        Next
+        Tool.CloseWindows()
 
         If pjData.CloseFile() Then
             pjData = Nothing

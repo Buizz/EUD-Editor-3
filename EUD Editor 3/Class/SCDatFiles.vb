@@ -1,45 +1,278 @@
-﻿Public Class SCDatFiles
+﻿Imports System.IO
+
+<Serializable()>
+Public Class SCDatFiles
     'Dat파일 정의
-    Private Datfile As New List(Of CDatFile)
+    Private Datfile As List(Of CDatFile)
 
 
-    Private Datfilesname() As String = {"flingy", "images", "orders", "portdata",
-        "sfxdata", "sprites", "techdata", "units", "upgrades", "weapons"}
 
-    Public Sub LoadFromDat()
+    Private DatfileDic As Dictionary(Of DatFiles, CDatFile)
 
+
+    Public Enum DatFiles
+        units = 0
+        weapons = 1
+        flingy = 2
+        sprites = 3
+        images = 4
+        upgrades = 5
+        techdata = 6
+        orders = 7
+        portdata = 8
+        sfxdata = 9
+    End Enum
+
+
+    Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False)
+        DatfileDic = New Dictionary(Of DatFiles, CDatFile)
+
+        Datfile = New List(Of CDatFile)
+
+        For Each str As String In Datfilesname
+            Dim tDatfile As New CDatFile(str, IsProjectData, TemporyData)
+
+
+            Datfile.Add(tDatfile)
+
+            DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
+        Next
+    End Sub
+    Public Sub New()
+        DatfileDic = New Dictionary(Of DatFiles, CDatFile)
+
+        Datfile = New List(Of CDatFile)
+
+        For Each str As String In Datfilesname
+            Dim tDatfile As New CDatFile(str, True)
+
+
+            Datfile.Add(tDatfile)
+
+            DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
+        Next
     End Sub
 
+    Public Property Data(key As DatFiles, paramName As String, index As Integer) As Long
+        Get
+            Return DatfileDic(key).GetParamData(paramName, index)
+        End Get
+        Set(value As Long)
+            DatfileDic(key).GetParamData(paramName, index) = value
+        End Set
+    End Property
 
 
+    Public Property Group(key As DatFiles, index As Integer) As String
+        Get
+            Return DatfileDic(key).Group(index)
+        End Get
+        Set(value As String)
+            DatfileDic(key).Group(index) = value
+        End Set
+    End Property
+    Public Property ToolTip(key As DatFiles, index As Integer) As String
+        Get
+            Return DatfileDic(key).ToolTip(index)
+        End Get
+        Set(value As String)
+            DatfileDic(key).ToolTip(index) = value
+        End Set
+    End Property
 
+    <Serializable()>
     Private Class CDatFile
-        Private FIleName As String 'ex sprites.dat
-        Private Paramaters As New List(Of CParamater)
+
+        Private CodeGroup As String()
+        Private CodeToolTip As String()
+        Public Property Group(index As Integer) As String
+            Get
+                Return CodeGroup(index)
+            End Get
+            Set(value As String)
+                CodeGroup(index) = value
+            End Set
+        End Property
+        Public Property ToolTip(index As Integer) As String
+            Get
+                Return CodeToolTip(index)
+            End Get
+            Set(value As String)
+                CodeToolTip(index) = value
+            End Set
+        End Property
+
+
+        Private FIleName As String 'ex sprites
+        Private Paramaters As List(Of CParamater)
+
+        Public Property GetParamData(name As String, index As Integer) As Long
+            Get
+                Return ParamDic(name).Data(index)
+            End Get
+            Set(value As Long)
+                ParamDic(name).Data(index) = value
+            End Set
+        End Property
+
+
+        Public Sub New(tFIleName As String, IsProjectData As Boolean, Optional TemporyData As Boolean = False)
+            ParamDic = New Dictionary(Of String, CParamater)
+
+            FIleName = tFIleName
+            Paramaters = New List(Of CParamater)
+
+
+            Dim filepath As String = Tool.GetDatFolder & "\" & FIleName
+
+
+            Dim fs As New FileStream(filepath & ".dat", FileMode.Open)
+            Dim br As New BinaryReader(fs)
+            Dim sr As New StreamReader(filepath & ".def")
+
+            sr.ReadLine() '헤더
+            Dim varcount = ReadValue(sr.ReadLine()) 'Varcount
+            Dim InputEntrycount = ReadValue(sr.ReadLine()) 'InputEntrycount
+            Dim OutputEntrycount = ReadValue(sr.ReadLine()) 'OutputEntrycount
+
+            sr.ReadLine() ' 빈공간
+            sr.ReadLine() ' 값
+
+            For i = 0 To varcount - 1
+                Paramaters.Add(New CParamater(sr, br, Paramaters.Count, InputEntrycount, IsProjectData))
+                ParamDic.Add(Paramaters.Last.GetParamname, Paramaters.Last)
+            Next
+
+            sr.Close()
 
 
 
 
+
+
+
+            br.Close()
+            fs.Close()
+
+            If Not TemporyData Then
+                CodeGrouping.CodeGrouping(FIleName, CodeGroup, CodeToolTip)
+            End If
+        End Sub
+        Private Function ReadValue(str As String) As String
+            Return str.Split("=").Last
+        End Function
+
+        Private ParamDic As Dictionary(Of String, CParamater)
         '피라미터들
+        <Serializable()>
         Private Class CParamater
-            Private FIleName As String 'ex sprites.dat
-            Private ParamaterName As String
-            Private Size As Byte
-            Private VarStart As UInteger
-            Private VarEnd As UInteger
-
-
-            Private VarArray As UInteger
-            Private VarIndex As UInteger
-
-            Private Values As New List(Of UInteger)
-
-
             Public ReadOnly Property GetOffset() As String
                 Get
                     Return scData.GetOffset(FIleName & "_" & ParamaterName)
                 End Get
             End Property
+
+            '만약 잘못된 수를 불러올 경우 안전장치 추가해야됨
+            '꼮!!!!!!!!!!!!!! 일단 지금은 바쁘니까 넘어간다.
+            Public Property Data(index As UInteger)
+                Get
+                    Return Values(index)
+                End Get
+                Set(value)
+                    Values(index) = value
+                End Set
+            End Property
+
+
+            Public Sub New(sr As StreamReader, br As BinaryReader, prcount As Integer, encount As Integer, IsProjectData As Boolean)
+                VarEnd = encount - 1
+                While Not sr.EndOfStream
+                    Dim text As String = sr.ReadLine()
+                    If text.IndexOf("=") = -1 Then
+                        Exit While
+                    End If
+                    Dim key As String = text.Split("=").First.Replace(prcount, "")
+                    Dim value As String = text.Split("=").Last
+                    If value.IndexOf(":") >= 0 Then
+                        value = value.Split(":").First
+                    End If
+
+                    Select Case key
+                        Case "Name"
+                            ParamaterName = value
+                        Case "Size"
+                            Size = value
+                        Case "VarStart"
+                            VarStart = value
+                        Case "VarEnd"
+                            VarEnd = value
+                        Case "VarArray"
+                            VarArray = value
+                        Case "VarArrayIndex"
+                            VarIndex = value
+                        Case Else
+                            MsgBox(key)
+                    End Select
+                End While
+
+                Values = New List(Of Long)
+
+                Dim currentpos As UInteger = br.BaseStream.Position '베이스 스트림을 기억하고
+                br.BaseStream.Position -= (VarIndex - 1) * Size * (VarEnd - VarStart + 1)
+                For i = VarStart To VarEnd - VarStart
+                    br.BaseStream.Position += (VarIndex - 1) * Size '인덱스 만큼 앞으로 간다.
+
+                    Dim value As UInteger
+
+
+                    Select Case Size
+                        Case 4
+                            value = br.ReadUInt32
+                        Case 2
+                            value = br.ReadUInt16
+                        Case 1
+                            value = br.ReadByte
+                    End Select
+
+                    If IsProjectData Then
+                        Values.Add(0)
+                    Else
+                        Values.Add(value)
+                    End If
+
+
+                    'If VarArray = 4 Then
+                    '    MsgBox(Hex(br.BaseStream.Position - Size) & vbCrLf & "유닛코드 : " & i & " 이름 : " & ParamaterName & " 값 : " & Values.Last)
+                    'End If
+
+
+                    br.BaseStream.Position += (VarArray - VarIndex) * Size '인덱스 만큼 앞으로 간다.
+                Next
+
+                '베이스 스트림에서 Size * encount만큼 간 곳으로 되돌린다.
+                br.BaseStream.Position = currentpos + Size * (VarEnd - VarStart + 1)
+            End Sub
+
+
+            Private FIleName As String
+            Private ParamaterName As String
+            Public ReadOnly Property GetParamname As String
+                Get
+                    Return ParamaterName
+                End Get
+            End Property
+
+            Private Size As Byte
+            Private VarStart As UInteger = 0
+            Private VarEnd As UInteger = 0
+
+
+            Private VarArray As UInteger = 1
+            Private VarIndex As UInteger = 1
+
+            Private Values As List(Of Long)
+
+
         End Class
     End Class
 End Class
