@@ -20,7 +20,6 @@ Public Class MapData
 
     Public Sub New(MapName As String)
         Strings = New List(Of String)
-
         Try
             LoadData(MapName)
         Catch ex As Exception
@@ -397,24 +396,31 @@ Public Class MapData
 
                         Key = "Hit Points"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPUnitHP(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
                         Key = "Shield Amount"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPUnitSh(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
                         Key = "Armor"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPUnitAp(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
                         Key = "Build Time"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPUnitBt(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
                         Key = "Mineral Cost"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPMinCost(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
                         Key = "Vespene Cost"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPGasCost(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
                         Key = "Unit Map String"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPUnitstr(i)
+                        Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False
 
 
                         Key = "Ground Weapon"
@@ -424,8 +430,10 @@ Public Class MapData
                         If weaponnum <> 130 Then
                             Key = "Damage Amount"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaDmg(weaponnum)
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
                             Key = "Damage Bonus"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaUmg(weaponnum)
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
                         End If
 
 
@@ -435,8 +443,10 @@ Public Class MapData
                         If weaponnum <> 130 Then
                             Key = "Damage Amount"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaDmg(weaponnum)
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
                             Key = "Damage Bonus"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaUmg(weaponnum)
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
                         End If
                     End If
                 Next

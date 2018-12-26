@@ -60,15 +60,15 @@ Public Class CodeSelecter
 
     Private CurrentPage As EPageType
     Public Enum EPageType
-        Unit
-        Weapon
-        Fligy
-        Sprite
-        Image
-        Upgrade
-        Tech
-        Order
-        ButtonSet
+        Unit = 0
+        Weapon = 1
+        Fligy = 2
+        Sprite = 3
+        Image = 4
+        Upgrade = 5
+        Tech = 6
+        Order = 7
+        ButtonSet = 11
         Nottting
 
     End Enum
@@ -199,7 +199,7 @@ Public Class CodeSelecter
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    ObjectNames.Add(pjData.UnitName(i))
+                    ObjectNames.Add(pjData.CodeLabel(pagetype, i))
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
             Case EPageType.Weapon
@@ -207,14 +207,15 @@ Public Class CodeSelecter
                     Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Icon", i)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(SCDatFiles.DatFiles.weapons, i)
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
                     Dim cname As String
 
                     If tooltip = "" Then
-                        cname = scData.GetStat_txt(tLabel)
+                        cname = pjData.CodeLabel(pagetype, i)
                     Else
-                        cname = scData.GetStat_txt(tLabel) & " (" & tooltip & ")"
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
                     End If
+
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
@@ -223,43 +224,94 @@ Public Class CodeSelecter
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", i)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    ObjectNames.Add(scData.ImageStr(timage))
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
+                    Dim cname As String
+
+                    If tooltip = "" Then
+                        cname = pjData.CodeLabel(pagetype, i)
+                    Else
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
+                    End If
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
             Case EPageType.Sprite
                 For i = 0 To SCSpriteCount - 1
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", i)
 
-                    ObjectNames.Add(scData.ImageStr(timage))
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
+                    Dim cname As String
+
+                    If tooltip = "" Then
+                        cname = pjData.CodeLabel(pagetype, i)
+                    Else
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
+                    End If
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
             Case EPageType.Image
                 For i = 0 To SCImageCount - 1
-                    ObjectNames.Add(scData.ImageStr(i))
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
+                    Dim cname As String
+
+                    If tooltip = "" Then
+                        cname = pjData.CodeLabel(pagetype, i)
+                    Else
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
+                    End If
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(i, Fliter.IsIcon))
                 Next
             Case EPageType.Upgrade
                 For i = 0 To SCUpgradeCount - 1
-                    Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", i)
 
-                    ObjectNames.Add(scData.GetStat_txt(tLabel))
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
+                    Dim cname As String
+
+                    If tooltip = "" Then
+                        cname = pjData.CodeLabel(pagetype, i)
+                    Else
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
+                    End If
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
             Case EPageType.Tech
                 For i = 0 To SCTechCount - 1
-                    Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", i)
 
-                    ObjectNames.Add(scData.GetStat_txt(tLabel))
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
+                    Dim cname As String
+
+                    If tooltip = "" Then
+                        cname = pjData.CodeLabel(pagetype, i)
+                    Else
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
+                    End If
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
             Case EPageType.Order
                 For i = 0 To SCOrderCount - 1
-                    Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.orders, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.orders, "Highlight", i)
 
-                    ObjectNames.Add(scData.GetStat_txt(tLabel))
+                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
+                    Dim cname As String
+
+                    If tooltip = "" Then
+                        cname = pjData.CodeLabel(pagetype, i)
+                    Else
+                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
+                    End If
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
             Case EPageType.ButtonSet
@@ -269,13 +321,8 @@ Public Class CodeSelecter
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    ObjectNames.Add(pjData.UnitName(i))
+                    ObjectNames.Add(pjData.CodeLabel(pagetype, i))
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
-                Next
-
-                For i = 0 To 21
-                    ObjectNames.Add(scData.BtnStr(i))
-                    ObjectImages.Add(GetIcon(4, Fliter.IsIcon))
                 Next
         End Select
         Select Case Fliter.SortType
@@ -488,42 +535,6 @@ Public Class CodeSelecter
             CodeItem.Tag = index
             ItempColl.Add(CodeItem)
 
-
-            'If ItempColl.Count = 0 Then '아이템이 안들어 있을 경우
-            '    Dim tListBox As New ListBox
-            '    ItempColl.Add(tListBox)
-
-            '    Dim textblock As New TextBlock
-            '    textblock.Text = itemName
-            '    textblock.Padding = New Thickness(15, 0, 0, 0)
-
-            '    Dim stackpanel As New StackPanel
-            '    stackpanel.Orientation = Orientation.Horizontal
-            '    stackpanel.Children.Add(GetImage(imageNum, Fliter.IsIcon))
-            '    stackpanel.Children.Add(textblock)
-
-            '    Dim CodeItem As New ListBoxItem()
-            '    CodeItem.Content = stackpanel
-            '    CodeItem.Tag = index
-            '    tListBox.Items.Add(CodeItem)
-            'Else
-            '    Dim textblock As New TextBlock
-            '    textblock.Text = itemName
-            '    textblock.Padding = New Thickness(15, 0, 0, 0)
-
-            '    Dim stackpanel As New StackPanel
-            '    stackpanel.Orientation = Orientation.Horizontal
-            '    stackpanel.Children.Add(GetImage(imageNum, Fliter.IsIcon))
-            '    stackpanel.Children.Add(textblock)
-
-            '    Dim CodeItem As New ListBoxItem()
-            '    CodeItem.Content = stackpanel
-            '    CodeItem.Tag = index
-
-            '    Dim tListBox As ListBox = ItempColl(0)
-
-            '    tListBox.Items.Add(CodeItem)
-            'End If
         Else
             Dim textblock As New TextBlock
             textblock.Text = itemName

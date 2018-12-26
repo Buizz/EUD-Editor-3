@@ -1,18 +1,19 @@
 ﻿Imports System.IO
 Public Module SCConst
+    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189}
+
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
     Public SCFlingyCount As Byte = 209
     Public SCSpriteCount As UShort = 517
     Public SCImageCount As UShort = 999
-
-
     Public SCUpgradeCount As Byte = 61
     Public SCTechCount As Byte = 44
     Public SCOrderCount As UShort = 189
-
-
     Public SCIconCount As UShort = 390
+
+
+    Public SCtbltxtCount As UShort = 1547
 
     Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
      "upgrades", "techdata", "orders", "portdata", "sfxdata"}
@@ -163,7 +164,7 @@ Public Class StarCraftData
     Public Sub LoadMPQData()
         IsLoadMPQ = False
         If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.starcraft)) Then
-            MsgBox("스타파일읽기 실패")
+            Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"))
             Return
         End If
         'MPQ파일을 미리 다 읽어서 메모리에 올리자.

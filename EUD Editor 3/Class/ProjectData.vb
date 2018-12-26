@@ -24,6 +24,31 @@ Public Class SaveableData
         End Set
     End Property
 
+    Public Sub New()
+        OpenMapName = ""
+        SaveMapName = ""
+
+        ReDim _Stat_txt(SCtbltxtCount)
+    End Sub
+    Private _Stat_txt() As String
+    Public Property Stat_txt(index As Integer) As String
+        Get
+            Dim text As String
+            Try
+                text = _Stat_txt(index)
+                Return text
+            Catch ex As Exception
+                Return "Error"
+            End Try
+        End Get
+        Set(value As String)
+            _Stat_txt(index) = value
+        End Set
+    End Property
+
+
+
+
     Public Dat As SCDatFiles
 End Class
 
@@ -91,6 +116,23 @@ Public Class ProjectData
             Return SaveData.Dat
         End Get
     End Property
+    Public Property Stat_txt(index As Integer) As String
+        Get
+            If index = -1 Then
+                Return "None"
+            End If
+
+            If SaveData.Stat_txt(index) = "" Then
+                Return scData.GetStat_txt(index)
+            Else
+                Return SaveData.Stat_txt(index)
+            End If
+
+        End Get
+        Set(value As String)
+            SaveData.Stat_txt(index) = value
+        End Set
+    End Property
 
     Public Property OpenMapName As String
         Get
@@ -142,24 +184,91 @@ Public Class ProjectData
     Private SaveData As SaveableData
 
 
-
-
-
-
-    Private UnitTexts() As String 'Tbl상에서의 유닛 이름 배열 tbl이 바뀌면 리셋해줘야 됨
-    Public ReadOnly Property UnitName(index As Byte) As String
+    Private Bd As BindingManager
+    Public ReadOnly Property BindingManager As BindingManager
         Get
-            Dim RealName As String = scData.GetStat_txt(index)
+            Return Bd
+        End Get
+    End Property
+
+    Public Property CodeLabel(Datfile As SCDatFiles.DatFiles, index As Integer)
+        Get
+            Select Case Datfile
+                Case SCDatFiles.DatFiles.units
+                    Return UnitName(index)
+                Case SCDatFiles.DatFiles.weapons
+                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index) - 1
+
+                    Return Stat_txt(tLabel)
+                Case SCDatFiles.DatFiles.flingy
+                    Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
+                    Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
+
+                    Return scData.ImageStr(timage)
+                Case SCDatFiles.DatFiles.sprites
+                    Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", index)
+
+                    Return scData.ImageStr(timage)
+                Case SCDatFiles.DatFiles.images
+                    Return scData.ImageStr(index)
+                Case SCDatFiles.DatFiles.upgrades
+                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index) - 1
+
+                    Return Stat_txt(tLabel)
+                Case SCDatFiles.DatFiles.techdata
+                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index) - 1
+
+                    Return Stat_txt(tLabel)
+                Case SCDatFiles.DatFiles.orders
+                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index) - 1
+
+                    Return Stat_txt(tLabel)
+                Case SCDatFiles.DatFiles.button
+                    If index < SCUnitCount - 1 Then
+                        Return UnitName(index)
+                    Else
+
+                        Return scData.BtnStr(index - SCUnitCount + 1)
+                    End If
+            End Select
+            Return "Error"
+        End Get
+        Set(value)
+
+        End Set
+    End Property
+
+
+
+
+    Private ReadOnly Property UnitName(index As Byte) As String
+        Get
+            Dim RealName As String = Stat_txt(index)
             If MapLoading Then
                 Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
+                Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
+
+                If ToolTipText.Trim <> "" Then
+
+                    If strindex = 0 Then
+                        Return RealName & " (" & ToolTipText & ")"
+                    Else
+                        Return MapData.Str(strindex - 1) & " (" & ToolTipText & ")" & vbCrLf & RealName
+                    End If
+
+                Else
+                    If strindex = 0 Then
+                        Return RealName
+                    Else
+                        Return MapData.Str(strindex - 1) & vbCrLf & RealName
+                    End If
+                End If
 
                 If strindex = 0 Then
                     Return RealName
                 Else
-                    Return MapData.Str(strindex - 1) & vbCrLf & " (" & RealName & ")"
+                    Return MapData.Str(strindex - 1) & " (" & ToolTipText & ")" & vbCrLf & RealName
                 End If
-
-
             Else
                 Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
 
@@ -170,8 +279,6 @@ Public Class ProjectData
                 End If
 
                 'Return SaveData.Dat.Group(SCDatFiles.DatFiles.units, index) & RealName
-
-
             End If
             'Return index & "미상"
         End Get
@@ -186,9 +293,7 @@ Public Class ProjectData
     Public Sub New()
         '초기화
         SaveData = New SaveableData
-
-        SaveData.OpenMapName = ""
-        SaveData.SaveMapName = ""
+        Bd = New BindingManager
     End Sub
 
 
@@ -198,7 +303,7 @@ Public Class ProjectData
         tFilename = ""
         SaveData.OpenMapName = ""
         SaveData.SaveMapName = ""
-        SaveData.Dat = New SCDatFiles(False)
+        SaveData.Dat = New SCDatFiles(False, False, True)
 
         'MsgBox("프로젝트 초기화")
     End Sub

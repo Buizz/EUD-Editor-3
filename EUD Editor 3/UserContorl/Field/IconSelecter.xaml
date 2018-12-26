@@ -8,7 +8,7 @@
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" Height="55.5" Width="275" Background="White">
+             mc:Ignorable="d" Height="55.5" Width="275" >
     <StackPanel Orientation="Horizontal">
         <Button
   Style="{StaticResource MaterialDesignFloatingActionMiniButton}"

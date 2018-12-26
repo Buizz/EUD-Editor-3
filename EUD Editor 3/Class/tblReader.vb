@@ -68,8 +68,15 @@ Public Class tblReader
 
                     Exit While
                 Else
+
                     bytes1.Add(val)
                     bytes2.Add(val)
+                    'If val < 32 Then
+                    '    bytes1.Add(val)
+                    '    bytes2.Add(val)
+                    'Else
+                    'End If
+
                 End If
             End While
             Dim val1 As String = System.Text.Encoding.Default.GetChars(bytes1.ToArray)

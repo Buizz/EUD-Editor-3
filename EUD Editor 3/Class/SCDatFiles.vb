@@ -9,7 +9,6 @@ Public Class SCDatFiles
 
     Private DatfileDic As Dictionary(Of DatFiles, CDatFile)
 
-
     Public Enum DatFiles
         units = 0
         weapons = 1
@@ -21,20 +20,29 @@ Public Class SCDatFiles
         orders = 7
         portdata = 8
         sfxdata = 9
+
+        'Firegraft
+        statusinfor = 10
+        button = 11
+        require = 12
+    End Enum
+    Public Enum EParamInfo
+        Size = 0
+        VarStart = 1
+        VarEnd = 2
+        VarCount
     End Enum
 
-
-    Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False)
+    Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False, Optional IsBindingData As Boolean = False)
         DatfileDic = New Dictionary(Of DatFiles, CDatFile)
 
         Datfile = New List(Of CDatFile)
 
         For Each str As String In Datfilesname
-            Dim tDatfile As New CDatFile(str, IsProjectData, TemporyData)
+            Dim tDatfile As New CDatFile(str, IsProjectData, TemporyData, IsBindingData)
 
 
             Datfile.Add(tDatfile)
-
             DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
         Next
     End Sub
@@ -44,15 +52,29 @@ Public Class SCDatFiles
         Datfile = New List(Of CDatFile)
 
         For Each str As String In Datfilesname
-            Dim tDatfile As New CDatFile(str, True)
+            Dim tDatfile As New CDatFile(str, True, False, False)
 
 
             Datfile.Add(tDatfile)
-
             DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
         Next
     End Sub
 
+    Public ReadOnly Property DatFileList As List(Of CDatFile)
+        Get
+            Return Datfile
+        End Get
+    End Property
+
+
+
+
+
+    Public ReadOnly Property Values(key As DatFiles, paramName As String, index As Integer) As CDatFile.CParamater.Value
+        Get
+            Return DatfileDic(key).GetParamValue(paramName, index)
+        End Get
+    End Property
     Public Property Data(key As DatFiles, paramName As String, index As Integer) As Long
         Get
             Return DatfileDic(key).GetParamData(paramName, index)
@@ -61,6 +83,14 @@ Public Class SCDatFiles
             DatfileDic(key).GetParamData(paramName, index) = value
         End Set
     End Property
+
+
+    Public ReadOnly Property ParamInfo(key As DatFiles, paramName As String, Type As EParamInfo) As Integer
+        Get
+            Return DatfileDic(key).GetParamInfo(paramName, Type)
+        End Get
+    End Property
+
 
 
     Public Property Group(key As DatFiles, index As Integer) As String
@@ -80,8 +110,9 @@ Public Class SCDatFiles
         End Set
     End Property
 
+
     <Serializable()>
-    Private Class CDatFile
+    Public Class CDatFile
 
         Private CodeGroup As String()
         Private CodeToolTip As String()
@@ -105,6 +136,18 @@ Public Class SCDatFiles
 
         Private FIleName As String 'ex sprites
         Private Paramaters As List(Of CParamater)
+        Public ReadOnly Property ParamaterList As List(Of CParamater)
+            Get
+                Return Paramaters
+            End Get
+        End Property
+
+
+        Public ReadOnly Property GetParamValue(name As String, index As Integer) As CParamater.Value
+            Get
+                Return ParamDic(name).GetValue(index)
+            End Get
+        End Property
 
         Public Property GetParamData(name As String, index As Integer) As Long
             Get
@@ -114,9 +157,15 @@ Public Class SCDatFiles
                 ParamDic(name).Data(index) = value
             End Set
         End Property
+        Public ReadOnly Property GetParamInfo(name As String, Type As EParamInfo) As Long
+            Get
+                Return ParamDic(name).GetInfo(Type)
+            End Get
+        End Property
 
 
-        Public Sub New(tFIleName As String, IsProjectData As Boolean, Optional TemporyData As Boolean = False)
+
+        Public Sub New(tFIleName As String, IsProjectData As Boolean, TemporyData As Boolean, IsBindingData As Boolean)
             ParamDic = New Dictionary(Of String, CParamater)
 
             FIleName = tFIleName
@@ -139,8 +188,9 @@ Public Class SCDatFiles
             sr.ReadLine() ' 값
 
             For i = 0 To varcount - 1
-                Paramaters.Add(New CParamater(sr, br, Paramaters.Count, InputEntrycount, IsProjectData))
+                Paramaters.Add(New CParamater(FIleName, sr, br, Paramaters.Count, InputEntrycount, IsProjectData, IsBindingData))
                 ParamDic.Add(Paramaters.Last.GetParamname, Paramaters.Last)
+
             Next
 
             sr.Close()
@@ -156,35 +206,53 @@ Public Class SCDatFiles
 
             If Not TemporyData Then
                 CodeGrouping.CodeGrouping(FIleName, CodeGroup, CodeToolTip)
+
             End If
         End Sub
-        Private Function ReadValue(str As String) As String
-            Return str.Split("=").Last
-        End Function
+        Private ReadOnly Property ReadValue(str As String) As String
+            Get
+                Return str.Split("=").Last
+            End Get
+        End Property
 
         Private ParamDic As Dictionary(Of String, CParamater)
         '피라미터들
         <Serializable()>
-        Private Class CParamater
-            Public ReadOnly Property GetOffset() As String
-                Get
-                    Return scData.GetOffset(FIleName & "_" & ParamaterName)
-                End Get
-            End Property
+        Public Class CParamater
+            'Public ReadOnly Property GetOffsetName() As String
+            '    Get
+            '        Return scData.GetOffset(FIleName & "_" & ParamaterName)
+            '    End Get
+            'End Property
+
+
 
             '만약 잘못된 수를 불러올 경우 안전장치 추가해야됨
             '꼮!!!!!!!!!!!!!! 일단 지금은 바쁘니까 넘어간다.
-            Public Property Data(index As UInteger)
+            Public Property Data(index As Integer) As Long
+                Get
+                    Return Values(index).Data
+                End Get
+                Set(value As Long)
+                    If (0 <= value) And (value < Math.Pow(256, Size)) Then
+                        Values(index).Data = value
+                    ElseIf value < 0 Then
+                        Values(index).Data = 0
+                    Else
+                        Values(index).Data = Math.Pow(256, Size) - 1
+                    End If
+
+                End Set
+            End Property
+            Public ReadOnly Property GetValue(index As Integer) As Value
                 Get
                     Return Values(index)
                 End Get
-                Set(value)
-                    Values(index) = value
-                End Set
             End Property
 
 
-            Public Sub New(sr As StreamReader, br As BinaryReader, prcount As Integer, encount As Integer, IsProjectData As Boolean)
+            Public Sub New(_FIleName As String, sr As StreamReader, br As BinaryReader, prcount As Integer, encount As Integer, IsProjectData As Boolean, IsBindingData As Boolean)
+                FIleName = _FIleName
                 VarEnd = encount - 1
                 While Not sr.EndOfStream
                     Dim text As String = sr.ReadLine()
@@ -215,7 +283,7 @@ Public Class SCDatFiles
                     End Select
                 End While
 
-                Values = New List(Of Long)
+                Values = New List(Of Value)
 
                 Dim currentpos As UInteger = br.BaseStream.Position '베이스 스트림을 기억하고
                 br.BaseStream.Position -= (VarIndex - 1) * Size * (VarEnd - VarStart + 1)
@@ -235,12 +303,10 @@ Public Class SCDatFiles
                     End Select
 
                     If IsProjectData Then
-                        Values.Add(0)
+                        Values.Add(New Value(0))
                     Else
-                        Values.Add(value)
+                        Values.Add(New Value(value))
                     End If
-
-
                     'If VarArray = 4 Then
                     '    MsgBox(Hex(br.BaseStream.Position - Size) & vbCrLf & "유닛코드 : " & i & " 이름 : " & ParamaterName & " 값 : " & Values.Last)
                     'End If
@@ -262,17 +328,53 @@ Public Class SCDatFiles
                 End Get
             End Property
 
+
             Private Size As Byte
+            Public ReadOnly Property GetInfo(Type As EParamInfo) As Integer
+                Get
+                    Select Case Type
+                        Case EParamInfo.Size
+                            Return Size
+                        Case EParamInfo.VarStart
+                            Return VarStart
+                        Case EParamInfo.VarEnd
+                            Return VarEnd
+                        Case EParamInfo.VarCount
+                            Return Values.Count
+                    End Select
+                    Return 0
+                End Get
+            End Property
+
+
             Private VarStart As UInteger = 0
             Private VarEnd As UInteger = 0
-
 
             Private VarArray As UInteger = 1
             Private VarIndex As UInteger = 1
 
-            Private Values As List(Of Long)
+            Private Values As List(Of Value)
+            <Serializable()>
+            Public Class Value
+                Public Property Data As Long
+
+                Public Property Enabled As Boolean
+                Public Property IsDefault As Boolean
+
+                Public Sub New(_Data As Long, Optional _Enabled As Boolean = True)
+                    Data = _Data
+                    Enabled = _Enabled
+                    IsDefault = True
+                End Sub
+            End Class
 
 
+
+            Public ReadOnly Property GetValueCount As Integer
+                Get
+                    Return Values.Count
+                End Get
+            End Property
         End Class
     End Class
 End Class

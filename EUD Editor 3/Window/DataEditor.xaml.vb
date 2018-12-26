@@ -89,7 +89,12 @@ Public Class DataEditor
     Private Sub CodeIndexer_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim SelectSender As ListBox = sender
 
-        CodeList.ListReset(SelectSender.SelectedIndex)
+        If SelectSender.SelectedIndex = 8 Then
+            CodeList.ListReset(SCDatFiles.DatFiles.button)
+        Else
+
+            CodeList.ListReset(SelectSender.SelectedIndex)
+        End If
     End Sub
 
     Private Sub CodeList_Select(Code As Object, e As RoutedEventArgs)
@@ -105,15 +110,18 @@ Public Class DataEditor
                 Dim TabGrid As New Grid
                 Dim TabText As New TextBlock
                 Dim TabContextMenu As New ContextMenu
-                TabText.Text = pjData.UnitName(index)
+                'TabText.Text = pjData.CodeLabel(CodePage, index)
                 TabText.Foreground = Application.Current.Resources("IdealForegroundColorBrush")
+
+
+                Dim myBinding As Binding = New Binding("Name")
+                myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, index)
+                TabText.SetBinding(TextBlock.TextProperty, myBinding)
 
 
                 Dim tabmenuitem As New MenuItem
                 tabmenuitem.Header = "닫기"
                 tabmenuitem.Command = TabablzControl.CloseItemCommand
-
-
 
                 TabContextMenu.Items.Add(tabmenuitem)
 

@@ -68,6 +68,7 @@
     <sys:String x:Key="Error SettingSave Fail">프로그램 세팅 저장을 실패했습니다.</sys:String>
     <sys:String x:Key="Error ProgramInit Fail">프로그램 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
     <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
+    <sys:String x:Key="Error LoadMPQData Fail">MPQ파일을 읽는데 실패했습니다.</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
     <sys:String x:Key="Error complieFail OpenMap is not exist!">컴파일에 실패했습니다. 연결된 맵이 없습니다.</sys:String>

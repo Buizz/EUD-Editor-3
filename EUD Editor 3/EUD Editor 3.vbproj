@@ -136,8 +136,13 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Class\Binding\BindingManager.vb" />
+    <Compile Include="Class\Binding\DatBinding.vb" />
+    <Compile Include="Class\Binding\TestCommand.vb" />
+    <Compile Include="Class\Binding\UIManager.vb" />
+    <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
-    <Compile Include="Class\ToolTipManager.vb" />
+    <Compile Include="Class\Command\UICommand.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
     <Compile Include="Class\Language.vb" />
@@ -148,6 +153,7 @@
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
+    <Compile Include="Class\Command\DatCommand.vb" />
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
@@ -162,6 +168,9 @@
     </Compile>
     <Compile Include="UserContorl\Field\IconSelecter.xaml.vb">
       <DependentUpon>IconSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\InputField.xaml.vb">
+      <DependentUpon>InputField.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\NameBar.xaml.vb">
       <DependentUpon>NameBar.xaml</DependentUpon>
@@ -205,6 +214,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\Field\IconSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\InputField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -390,6 +403,7 @@
     <Resource Include="Icon\settings.png" />
   </ItemGroup>
   <ItemGroup>
+    <Folder Include="Class\Binding\CodeName\" />
     <Folder Include="Resources\" />
   </ItemGroup>
   <ItemGroup>
