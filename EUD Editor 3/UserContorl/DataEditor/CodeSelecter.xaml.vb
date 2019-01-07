@@ -73,9 +73,9 @@ Public Class CodeSelecter
 
     End Enum
     Public Enum ESortType
+        n123
         ABC
         Tree
-        n123
     End Enum
     Private Fliter As tFliter
     Private Structure tFliter

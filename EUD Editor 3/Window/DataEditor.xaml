@@ -14,7 +14,6 @@
         Title="DataEditor" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True">
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
-        <local:DatCommand x:Key="asdf"/>
     </Window.Resources>
 
 

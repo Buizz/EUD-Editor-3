@@ -83,6 +83,7 @@ OutputEntrycount=228
   
 25Name=Armor Upgrade
 25Size=1
+25Type=5
 
 26Name=Unit Size
 26Size=1

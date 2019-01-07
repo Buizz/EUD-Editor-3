@@ -25,12 +25,14 @@ Public Class SCDatFiles
         statusinfor = 10
         button = 11
         require = 12
+        None = 255
     End Enum
     Public Enum EParamInfo
         Size = 0
         VarStart = 1
         VarEnd = 2
-        VarCount
+        VarCount = 3
+        ValueType = 4
     End Enum
 
     Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False, Optional IsBindingData As Boolean = False)
@@ -278,6 +280,8 @@ Public Class SCDatFiles
                             VarArray = value
                         Case "VarArrayIndex"
                             VarIndex = value
+                        Case "Type"
+                            ValueType = value
                         Case Else
                             MsgBox(key)
                     End Select
@@ -341,6 +345,8 @@ Public Class SCDatFiles
                             Return VarEnd
                         Case EParamInfo.VarCount
                             Return Values.Count
+                        Case EParamInfo.ValueType
+                            Return ValueType
                     End Select
                     Return 0
                 End Get
@@ -352,6 +358,10 @@ Public Class SCDatFiles
 
             Private VarArray As UInteger = 1
             Private VarIndex As UInteger = 1
+
+
+            Private ValueType As SCDatFiles.DatFiles = DatFiles.None
+
 
             Private Values As List(Of Value)
             <Serializable()>

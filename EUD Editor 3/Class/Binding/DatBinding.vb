@@ -45,9 +45,37 @@ Public Class DatBinding
                 pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
                 NotifyPropertyChanged("Value")
                 NotifyPropertyChanged("BackColor")
+                NotifyPropertyChanged("ValueText")
             End If
         End Set
     End Property
+
+
+    Public ReadOnly Property ValueText As String
+        Get
+            Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
+            If valueType <> SCDatFiles.DatFiles.None Then
+                Return pjData.CodeLabel(valueType, pjData.Dat.Data(Datfile, Parameter, ObjectID))
+            Else
+                Return "None"
+            End If
+        End Get
+    End Property
+
+
+    Public ReadOnly Property Image As ImageSource
+        Get
+            Return scData.GetGRP(0, 37, False)
+        End Get
+    End Property
+
+
+    Public ReadOnly Property Explain As String
+        Get
+            Return Tool.GetText(Datfilesname(Datfile) & "_" & Parameter)
+        End Get
+    End Property
+
 
     Public ReadOnly Property BackColor As SolidColorBrush
         Get

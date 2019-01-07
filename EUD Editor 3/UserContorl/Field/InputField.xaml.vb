@@ -13,7 +13,9 @@
         DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
 
 
-        ValueText.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+
+
+        Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         Dim paramSize As Byte = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.Size)
 
         Dim CharLen As Byte = 5

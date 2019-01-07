@@ -8,35 +8,20 @@
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d" Height="55.5" Width="275" >
+             mc:Ignorable="d"  MaxHeight="32" Height="32">
     <StackPanel Orientation="Horizontal">
-        <Button
-  Style="{StaticResource MaterialDesignFloatingActionMiniButton}"
-  HorizontalAlignment="Left"
-  Margin="5,0,0,0">
-            <materialDesign:PackIcon
-    Kind="Alarm"
-    Height="24"
-    Width="24" />
+        <local:InputField x:Name="Field" Margin="0" Padding="4,-4,4,4" />
+        <Button x:Name="btn" Style="{StaticResource MaterialDesignFlatButton}" >
+            <StackPanel Orientation="Horizontal" Margin="-16,-4,-12,-4">
+                <TextBlock Text="{Binding ValueText}" Background="{Binding BackColor}" Foreground="{DynamicResource MaterialDesignBody}" Padding="3,0" Margin="0,4"/>
+                <Image Source="{Binding Image}" Width="32" Height="32"/>
+            </StackPanel>
         </Button>
 
-        
-        <ComboBox
-  materialDesign:HintAssist.Hint="방어구"
-  Style="{StaticResource MaterialDesignFloatingHintComboBox}" Margin="5,8" Width="142">
-            <ComboBoxItem>
-                Terran Infantry Armor
-            </ComboBoxItem>
-            <ComboBoxItem>
-                iOS
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Linux
-            </ComboBoxItem>
-            <ComboBoxItem>
-                Windows
-            </ComboBoxItem>
-        </ComboBox>
-        <TextBox  Width="50" Margin="5,0,5,8"  />
+        <Popup x:Name="CodeSelect" AllowsTransparency="True" StaysOpen="False" PopupAnimation="Fade">
+            <materialDesign:Card x:Name="Card" MaxHeight="300" MaxWidth="400"  materialDesign:ShadowAssist.ShadowDepth="Depth2">
+                <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select"/>
+            </materialDesign:Card>
+        </Popup>
     </StackPanel>
 </UserControl>

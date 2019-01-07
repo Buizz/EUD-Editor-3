@@ -13,8 +13,10 @@
         ObjectID = tObjectID
 
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units)
-        Shild.Init(DatFiles, ObjectID, Shild.Tag)
-
+        HP.Init(DatFiles, ObjectID, HP.Tag)
+        SA.Init(DatFiles, ObjectID, SA.Tag)
+        AU.Init(DatFiles, ObjectID, AU.Tag)
+        AM.Init(DatFiles, ObjectID, AM.Tag)
 
 
 
@@ -24,7 +26,5 @@
 
     End Sub
 
-    Private Sub TTTextChange(sender As Object, e As TextChangedEventArgs) Handles test.TextChanged
-        'pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID) = 10
-    End Sub
+
 End Class

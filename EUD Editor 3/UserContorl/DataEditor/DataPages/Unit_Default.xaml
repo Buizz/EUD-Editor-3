@@ -22,42 +22,26 @@
             <materialDesign:Card Height="195" Width="310" Background="{DynamicResource MaterialDesignPaper}"  >
                 <Grid>
                     <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
                         <RowDefinition Height="*" />
-                        <RowDefinition Height="Auto" />
+                        <RowDefinition Height="40" />
                     </Grid.RowDefinitions>
 
-                    <TextBlock
+                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                           Margin="10,10,0,0"
                           FontSize="16" Height="30" Text="유닛 생체 정보" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
-                    <TextBox x:Name="test"  materialDesign:HintAssist.Hint="체력"
-
-                                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="10,36,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="117" Tag="Hit Points" >
-                        <TextBox.ContextMenu>
-                            <ContextMenu>
-                                <MenuItem
-        Header="Hello World" InputGestureText="Art+T" />
-                                <MenuItem
-        Header="Clickety Click">
-                                    <MenuItem
-          Header="Clackety Clack" />
-                                </MenuItem>
-                            </ContextMenu>
-                        </TextBox.ContextMenu>
-                    </TextBox>
-
-                    <local:InputField x:Name="Shild" Tag="Shield Amount" Margin="156,52,0,0" HorizontalAlignment="Left" VerticalAlignment="Top" Width="128" Height="24" />
-
-                    <TextBox  materialDesign:HintAssist.Hint="방어력"  
-                        Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="10,94,0,0" Height="40" VerticalAlignment="Top" HorizontalAlignment="Left" Width="40" />
-
-
-
-                    <local:IconSelecter HorizontalAlignment="Left" Height="56" VerticalAlignment="Top" Width="237" Margin="63,86,0,0"/>
-
+                    <WrapPanel Grid.Row="1" Margin="10">
+                        
+                        <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                    </WrapPanel>
+                    
                     <StackPanel
                               HorizontalAlignment="Right"
-                              Grid.Row="1"
+                              Grid.Row="2"
                               Orientation="Horizontal"
                               Margin="8">
                         <Button
@@ -82,7 +66,6 @@
                             <materialDesign:PackIcon Kind="FormatColorReset" />
                         </Button>
                     </StackPanel>
-
                 </Grid>
             </materialDesign:Card>
         </StackPanel>
