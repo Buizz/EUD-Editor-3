@@ -157,7 +157,7 @@ Public Class ProjectData
             Return SaveData.SaveMapName
         End Get
         Set(value As String)
-            If SaveData.SaveMapName = value Then
+            If SaveData.SaveMapName <> value Then
                 tIsDirty = True
                 SaveData.SaveMapName = value
             End If

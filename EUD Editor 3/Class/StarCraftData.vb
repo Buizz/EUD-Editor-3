@@ -164,20 +164,26 @@ Public Class StarCraftData
     Public Sub LoadMPQData()
         IsLoadMPQ = False
         If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.starcraft)) Then
-            Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"))
+            Tool.ErrorMsgBox(Tool.GetText("Error NotExistMPQ"))
             Return
         End If
-        'MPQ파일을 미리 다 읽어서 메모리에 올리자.
-        'GRP먼저
-        For i = 0 To SCImageCount - 1
-            Dim grpindex As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", i)
-            Dim DrawFunc As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Draw Function", i)
-            Dim Remapping As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Remapping", i)
-            Dim filename As String = GRPFiles(grpindex)
-            SDGRP(i) = New GRP(filename, DrawFunc, Remapping)
-        Next
+        Try
+            'MPQ파일을 미리 다 읽어서 메모리에 올리자.
+            'GRP먼저
+            For i = 0 To SCImageCount - 1
+                Dim grpindex As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", i)
+                Dim DrawFunc As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Draw Function", i)
+                Dim Remapping As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Remapping", i)
+                Dim filename As String = GRPFiles(grpindex)
+                SDGRP(i) = New GRP(filename, DrawFunc, Remapping)
+            Next
 
-        SDICON = New GRP("cmdbtns\cmdicons.grp", 0, 0, PalettType.Icons)
+            SDICON = New GRP("cmdbtns\cmdicons.grp", 0, 0, PalettType.Icons)
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"))
+            Return
+        End Try
+
 
 
         IsLoadMPQ = True
