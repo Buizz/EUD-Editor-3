@@ -5,15 +5,26 @@
 
     Private DatCommand As DatCommand
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+    Private SpecialFlag As SFlag
+
+
+    Public Enum SFlag
+        None
+        HP
+        HPV
+    End Enum
+
+
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
+        SpecialFlag = _SFlag
+
+        Dim PropertyName As String = "Value"
+
 
         DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
-
-
-
 
         Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         Dim paramSize As Byte = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.Size)
@@ -27,14 +38,23 @@
             Case 4
                 CharLen = 10
         End Select
-
         ValueText.Width = 7 * CharLen
 
 
         Dim binding As New Binding()
-        binding.Path = New PropertyPath("Value")
-        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+
+        Select Case SpecialFlag
+            Case SFlag.HP
+                PropertyName = "HPValue"
+                ValueText.Width = 7 * 8
+            Case SFlag.HPV
+                TextStr.Margin = New Thickness(0)
+                TextStr.Text = ""
+        End Select
+
         binding.ValidationRules.Add(New NotTextValidationRule)
+        binding.Path = New PropertyPath(PropertyName)
+        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
         binding.ValidatesOnDataErrors = True
         binding.NotifyOnValidationError = True
         ValueText.SetBinding(TextBox.TextProperty, binding)

@@ -140,6 +140,7 @@
     <Compile Include="Class\Binding\DatBinding.vb" />
     <Compile Include="Class\Binding\TestCommand.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
+    <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
     <Compile Include="Class\Command\UICommand.vb" />

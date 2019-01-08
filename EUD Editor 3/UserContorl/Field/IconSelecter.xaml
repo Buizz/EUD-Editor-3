@@ -10,7 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"  MaxHeight="32" Height="32">
     <StackPanel Orientation="Horizontal">
-        <local:InputField x:Name="Field" Margin="0" Padding="4,-4,4,4" />
+        <local:InputField x:Name="Field" Padding="4,4,0,4"   />
         <Button x:Name="btn" Style="{StaticResource MaterialDesignFlatButton}" >
             <StackPanel Orientation="Horizontal" Margin="-16,-4,-12,-4">
                 <TextBlock Text="{Binding ValueText}" Background="{Binding BackColor}" Foreground="{DynamicResource MaterialDesignBody}" Padding="3,0" Margin="0,4"/>

@@ -59,12 +59,14 @@ OutputEntrycount=228
 
 17Name=Ground Weapon
 17Size=1
+17Type=1
 
 18Name=Max Ground Hits
 18Size=1
 
 19Name=Air Weapon
 19Size=1
+19Type=1
 
 20Name=Max Air Hits
 20Size=1

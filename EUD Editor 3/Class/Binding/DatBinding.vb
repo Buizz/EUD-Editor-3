@@ -19,6 +19,13 @@ Public Class DatBinding
         ObjectID = tObjectID
     End Sub
 
+    Private Sub PropertyChangedPack()
+        NotifyPropertyChanged("HPValue")
+        NotifyPropertyChanged("Checked")
+        NotifyPropertyChanged("Value")
+        NotifyPropertyChanged("BackColor")
+        NotifyPropertyChanged("ValueText")
+    End Sub
 
     Public Property Value() As String
         Get
@@ -43,15 +50,66 @@ Public Class DatBinding
                 'MsgBox("데이터 파인딩 셋")
                 pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
                 pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
-                NotifyPropertyChanged("Value")
-                NotifyPropertyChanged("BackColor")
-                NotifyPropertyChanged("ValueText")
+                PropertyChangedPack()
             End If
         End Set
     End Property
 
+    Public Property HPValue() As String
+        Get
+            Dim returnVal As Long
+            'MsgBox("데이터 파인딩 겟")
+            '만약 맵데이터에 있는 항목이라면? 
+            If pjData.IsMapLoading Then
+                'MsgBox(pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID) & vbCrLf &
+                'pjData.Dat.Data(Datfile, Parameter, ObjectID))
+                If pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault And Not pjData.MapData.DatFile.Values(Datfile, Parameter, ObjectID).IsDefault Then '기본 안 값 쓴다면
+                    returnVal = pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID)
+                Else
+                    returnVal = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+                End If
+            Else
+                returnVal = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+            End If
 
-    Public Property Checked() As String
+
+
+            If returnVal > 2147483647 Then '음수일 경우
+                '2147483648 = -2147483648
+                '4294967295 = -1
+                returnVal -= 4294967296
+            End If
+
+
+            Return Math.Floor(returnVal / 256)
+        End Get
+
+        Set(ByVal tvalue As String)
+            If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
+                Dim Setvalue As Long = tvalue * 256
+
+                If Setvalue > Integer.MaxValue Then
+                    Setvalue = Integer.MaxValue
+                End If
+                If Setvalue < Integer.MinValue Then
+                    Setvalue = Integer.MinValue
+                End If
+                'MsgBox("데이터 파인딩 셋")
+                If Setvalue < 0 Then '음수일 경우
+                    '2147483648 = -2147483648
+                    '4294967295 = -1
+                    Setvalue += 4294967296
+                End If
+
+
+                pjData.Dat.Data(Datfile, Parameter, ObjectID) = Setvalue
+                pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
+                PropertyChangedPack()
+            End If
+        End Set
+    End Property
+
+    Public Property Checked() As Boolean
         Get
             'MsgBox("데이터 파인딩 겟")
             '만약 맵데이터에 있는 항목이라면? 
@@ -69,14 +127,16 @@ Public Class DatBinding
             Return pjData.Dat.Data(Datfile, Parameter, ObjectID)
         End Get
 
-        Set(ByVal tvalue As String)
+        Set(ByVal tvalue As Boolean)
             If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
                 'MsgBox("데이터 파인딩 셋")
-                pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
+                If tvalue Then
+                    pjData.Dat.Data(Datfile, Parameter, ObjectID) = 1
+                Else
+                    pjData.Dat.Data(Datfile, Parameter, ObjectID) = 0
+                End If
                 pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
-                NotifyPropertyChanged("Value")
-                NotifyPropertyChanged("BackColor")
-                NotifyPropertyChanged("ValueText")
+                PropertyChangedPack()
             End If
         End Set
     End Property
@@ -143,8 +203,7 @@ Public Class DatBinding
         pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = True
         pjData.Dat.Data(Datfile, Parameter, ObjectID) = scData.DefaultDat.Data(Datfile, Parameter, ObjectID)
 
-        NotifyPropertyChanged("Value")
-        NotifyPropertyChanged("BackColor")
+        PropertyChangedPack()
     End Sub
 
 

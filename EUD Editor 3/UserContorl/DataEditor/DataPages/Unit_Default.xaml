@@ -10,7 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="600" Background="{DynamicResource MaterialDesignPaper}">
+             d:DesignHeight="800" d:DesignWidth="400" Background="{DynamicResource MaterialDesignPaper}">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,8 +18,8 @@
             <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
-        <StackPanel Grid.Row="1" >
-            <materialDesign:Card Height="195" Width="310" Background="{DynamicResource MaterialDesignPaper}"  >
+        <WrapPanel Grid.Row="1" >
+            <materialDesign:Card Height="220" Width="240" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="40" />
@@ -34,10 +34,11 @@
                     <WrapPanel Grid.Row="1" Margin="10">
 
                         <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:InputField x:Name="HP2" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:BoolSelecter x:Name="SE" Tag="Shield Enable" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                        <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     </WrapPanel>
                     
                     <StackPanel
@@ -69,6 +70,106 @@
                     </StackPanel>
                 </Grid>
             </materialDesign:Card>
-        </StackPanel>
+            <materialDesign:Card Height="220" Width="120" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                        Margin="10,10,0,0"
+                        FontSize="16" Height="30" Text="생산비용" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+                    <WrapPanel Grid.Row="1" Margin="10">
+
+                        <local:InputField x:Name="MC" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:InputField x:Name="VC" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:InputField x:Name="BT" Tag="Build Time" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:BoolSelecter x:Name="BUF" Tag="Broodwar Unit Flag" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    </WrapPanel>
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Grid.Row="2"
+                        Orientation="Horizontal"
+                        Margin="8">
+                        <Button
+                            Style="{StaticResource MaterialDesignToolButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="ContentCopy" />
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignToolButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="ContentPaste" />
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignToolButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="FormatColorReset" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+
+            <materialDesign:Card Height="200" Width="380" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="40" />
+                        <RowDefinition Height="*" />
+                        <RowDefinition Height="40" />
+                    </Grid.RowDefinitions>
+
+                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                        Margin="10,10,0,0"
+                        FontSize="16" Height="30" Text="무기" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+
+                    <WrapPanel Grid.Row="1" Margin="10">
+                        <local:IconSelecter x:Name="GW" Tag="Ground Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280"/>
+
+                        <local:InputField x:Name="MGH" Tag="Max Ground Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:IconSelecter x:Name="AW" Tag="Air Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="280"/>
+                        <local:InputField x:Name="MAH" Tag="Max Air Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                    </WrapPanel>
+
+                    <StackPanel
+                        HorizontalAlignment="Right"
+                        Grid.Row="2"
+                        Orientation="Horizontal"
+                        Margin="8">
+                        <Button
+                            Style="{StaticResource MaterialDesignToolButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="ContentCopy" />
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignToolButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="ContentPaste" />
+                        </Button>
+                        <Button
+                            Style="{StaticResource MaterialDesignToolButton}"
+                            Width="30"
+                            Padding="2 0 2 0"
+                            materialDesign:RippleAssist.IsCentered="True">
+                            <materialDesign:PackIcon Kind="FormatColorReset" />
+                        </Button>
+                    </StackPanel>
+                </Grid>
+            </materialDesign:Card>
+        </WrapPanel>
     </Grid>
 </UserControl>

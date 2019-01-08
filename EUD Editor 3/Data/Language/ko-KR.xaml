@@ -85,26 +85,26 @@
 
 
     <sys:String x:Key="units_Graphics">비행정보</sys:String>
-    <sys:String x:Key="units_Subunit 1">방어구</sys:String>
-    <sys:String x:Key="units_Subunit 2">방어구</sys:String>
-    <sys:String x:Key="units_Infestation">방어구</sys:String>
-    <sys:String x:Key="units_Construction Animation">방어구</sys:String>
-    <sys:String x:Key="units_Unit Direction">방어구</sys:String>
-    <sys:String x:Key="units_Shield Enable">방어구</sys:String>
+    <sys:String x:Key="units_Subunit 1">부가유닛1</sys:String>
+    <sys:String x:Key="units_Subunit 2">부가유닛2</sys:String>
+    <sys:String x:Key="units_Infestation">감염유닛</sys:String>
+    <sys:String x:Key="units_Construction Animation">생산모습</sys:String>
+    <sys:String x:Key="units_Unit Direction">생산방향</sys:String>
+    <sys:String x:Key="units_Shield Enable">사용</sys:String>
     <sys:String x:Key="units_Shield Amount">쉴드</sys:String>
     <sys:String x:Key="units_Hit Points">체력</sys:String>
-    <sys:String x:Key="units_Elevation Level">방어구</sys:String>
+    <sys:String x:Key="units_Elevation Level">높이</sys:String>
     <sys:String x:Key="units_Unknown (old Movement):">방어구</sys:String>
-    <sys:String x:Key="units_Rank/Sublabel">방어구</sys:String>
+    <sys:String x:Key="units_Rank/Sublabel">계급</sys:String>
     <sys:String x:Key="units_Comp AI Idle">방어구</sys:String>
     <sys:String x:Key="units_Human AI Idle">방어구</sys:String>
     <sys:String x:Key="units_Return to Idle">방어구</sys:String>
     <sys:String x:Key="units_Attack Unit">방어구</sys:String>
     <sys:String x:Key="units_Attack Move">방어구</sys:String>
-    <sys:String x:Key="units_Ground Weapon">방어구</sys:String>
-    <sys:String x:Key="units_Max Ground Hits">방어구</sys:String>
-    <sys:String x:Key="units_Air Weapon">방어구</sys:String>
-    <sys:String x:Key="units_Max Air Hits">방어구</sys:String>
+    <sys:String x:Key="units_Ground Weapon">지상무기</sys:String>
+    <sys:String x:Key="units_Max Ground Hits">타격수</sys:String>
+    <sys:String x:Key="units_Air Weapon">공중무기</sys:String>
+    <sys:String x:Key="units_Max Air Hits">타격수</sys:String>
     <sys:String x:Key="units_AI Internal">방어구</sys:String>
     <sys:String x:Key="units_Special Ability Flags:">방어구</sys:String>
     <sys:String x:Key="units_Target Acquisition Range">방어구</sys:String>
@@ -129,9 +129,9 @@
     <sys:String x:Key="units_Unit Size Right">방어구</sys:String>
     <sys:String x:Key="units_Unit Size Down">방어구</sys:String>
     <sys:String x:Key="units_Portrait">방어구</sys:String>
-    <sys:String x:Key="units_Mineral Cost">방어구</sys:String>
-    <sys:String x:Key="units_Vespene Cost">방어구</sys:String>
-    <sys:String x:Key="units_Build Time">방어구</sys:String>
+    <sys:String x:Key="units_Mineral Cost">미네랄</sys:String>
+    <sys:String x:Key="units_Vespene Cost">가스</sys:String>
+    <sys:String x:Key="units_Build Time">시간</sys:String>
     <sys:String x:Key="units_Unknown1">방어구</sys:String>
     <sys:String x:Key="units_Staredit Group Flags:">방어구</sys:String>
     <sys:String x:Key="units_Supply Provided">방어구</sys:String>
@@ -141,6 +141,6 @@
     <sys:String x:Key="units_Build Score">방어구</sys:String>
     <sys:String x:Key="units_Destroy Score">방어구</sys:String>
     <sys:String x:Key="units_Unit Map String">방어구</sys:String>
-    <sys:String x:Key="units_Broodwar Unit Flag">방어구</sys:String>
+    <sys:String x:Key="units_Broodwar Unit Flag">브르드워</sys:String>
     <sys:String x:Key="units_Staredit Availability Flags:">방어구</sys:String>
 </ResourceDictionary>
