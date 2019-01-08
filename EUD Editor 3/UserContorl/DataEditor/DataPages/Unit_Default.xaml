@@ -32,9 +32,10 @@
                           FontSize="16" Height="30" Text="유닛 생체 정보" VerticalAlignment="Top" HorizontalAlignment="Left"/>
 
                     <WrapPanel Grid.Row="1" Margin="10">
-                        
+
                         <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <local:BoolSelecter x:Name="SE" Tag="Shield Enable" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                     </WrapPanel>

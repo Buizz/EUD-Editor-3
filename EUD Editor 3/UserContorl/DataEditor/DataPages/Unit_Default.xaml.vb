@@ -15,6 +15,7 @@
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units)
         HP.Init(DatFiles, ObjectID, HP.Tag)
         SA.Init(DatFiles, ObjectID, SA.Tag)
+        SE.Init(DatFiles, ObjectID, SE.Tag)
         AU.Init(DatFiles, ObjectID, AU.Tag)
         AM.Init(DatFiles, ObjectID, AM.Tag)
 

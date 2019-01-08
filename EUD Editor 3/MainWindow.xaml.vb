@@ -229,8 +229,8 @@ Class MainWindow
 
 
                 If opendialog.ShowDialog() = Forms.DialogResult.OK Then
-                    BtnRefresh()
                     pgData.Setting(ProgramData.TSetting.euddraft) = opendialog.FileName
+                    BtnRefresh()
                 Else
                     Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
                     Exit Sub

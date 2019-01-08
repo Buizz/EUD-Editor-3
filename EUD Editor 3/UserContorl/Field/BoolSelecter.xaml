@@ -1,0 +1,17 @@
+﻿<UserControl x:Class="BoolSelecter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" MaxHeight="32" Height="32">
+    <StackPanel Orientation="Horizontal">
+        <local:InputField x:Name="Field" Margin="0" Padding="4,-4,4,4" />
+        <CheckBox x:Name="chbox" IsChecked="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"   />
+
+    </StackPanel>
+</UserControl>

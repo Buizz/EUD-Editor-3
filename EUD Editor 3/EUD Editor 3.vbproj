@@ -166,6 +166,12 @@
     <Compile Include="UserContorl\DataEditor\UnitData.xaml.vb">
       <DependentUpon>UnitData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\Field\BoolSelecter.xaml.vb">
+      <DependentUpon>BoolSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\FlagSelecter.xaml.vb">
+      <DependentUpon>FlagSelecter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\Field\IconSelecter.xaml.vb">
       <DependentUpon>IconSelecter.xaml</DependentUpon>
     </Compile>
@@ -210,6 +216,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\DataEditor\UnitData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\BoolSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\FlagSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

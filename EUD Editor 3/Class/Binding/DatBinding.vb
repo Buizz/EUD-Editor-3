@@ -51,6 +51,36 @@ Public Class DatBinding
     End Property
 
 
+    Public Property Checked() As String
+        Get
+            'MsgBox("데이터 파인딩 겟")
+            '만약 맵데이터에 있는 항목이라면? 
+            If pjData.IsMapLoading Then
+                'MsgBox(pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID) & vbCrLf &
+                'pjData.Dat.Data(Datfile, Parameter, ObjectID))
+                If pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault And Not pjData.MapData.DatFile.Values(Datfile, Parameter, ObjectID).IsDefault Then '기본 안 값 쓴다면
+                    Return pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID)
+                End If
+            End If
+
+
+
+
+            Return pjData.Dat.Data(Datfile, Parameter, ObjectID)
+        End Get
+
+        Set(ByVal tvalue As String)
+            If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
+                'MsgBox("데이터 파인딩 셋")
+                pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
+                pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
+                NotifyPropertyChanged("Value")
+                NotifyPropertyChanged("BackColor")
+                NotifyPropertyChanged("ValueText")
+            End If
+        End Set
+    End Property
+
     Public ReadOnly Property ValueText As String
         Get
             Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
