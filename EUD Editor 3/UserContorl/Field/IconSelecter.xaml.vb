@@ -14,7 +14,7 @@ Public Class IconSelecter
 
         Field.Init(DatFile, ObjectID, Parameter)
 
-        btn.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+        DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
     End Sub
 
 

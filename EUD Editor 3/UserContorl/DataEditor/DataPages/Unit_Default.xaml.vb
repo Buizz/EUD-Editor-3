@@ -32,6 +32,19 @@
         AW.Init(DatFiles, ObjectID, AW.Tag)
         MAH.Init(DatFiles, ObjectID, MAH.Tag)
 
+        SP.Init(DatFiles, ObjectID, SP.Tag)
+        SR.Init(DatFiles, ObjectID, SR.Tag)
+
+        SPP.Init(DatFiles, ObjectID, SPP.Tag)
+        SPR.Init(DatFiles, ObjectID, SPR.Tag)
+
+        BS.Init(DatFiles, ObjectID, BS.Tag)
+        DS.Init(DatFiles, ObjectID, DS.Tag)
+
+        US.Init(DatFiles, ObjectID, US.Tag)
+        SIR.Init(DatFiles, ObjectID, SIR.Tag)
+        TAR.Init(DatFiles, ObjectID, TAR.Tag)
+
         'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
 
 
