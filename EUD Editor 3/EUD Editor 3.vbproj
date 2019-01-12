@@ -158,16 +158,16 @@
     <Compile Include="Class\GRP.vb" />
     <Compile Include="Class\Language.vb" />
     <Compile Include="Class\LuaManager.vb" />
-    <Compile Include="Class\MapData.vb" />
-    <Compile Include="Class\ProjectData.vb" />
-    <Compile Include="Class\SCDatFiles.vb" />
-    <Compile Include="Class\StarCraftData.vb" />
+    <Compile Include="Class\Data\MapData.vb" />
+    <Compile Include="Class\Data\ProjectData.vb" />
+    <Compile Include="Class\Data\SCDatFiles.vb" />
+    <Compile Include="Class\Data\StarCraftData.vb" />
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DatCommand.vb" />
     <Compile Include="Module\GlobalObj.vb" />
-    <Compile Include="Class\ProgramData.vb" />
+    <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
     <Compile Include="UserContorl\DataEditor\CodeSelecter.xaml.vb">
       <DependentUpon>CodeSelecter.xaml</DependentUpon>
