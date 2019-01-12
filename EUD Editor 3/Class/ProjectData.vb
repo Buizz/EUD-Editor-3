@@ -119,7 +119,7 @@ Public Class ProjectData
     Public Property Stat_txt(index As Integer) As String
         Get
             If index = -1 Then
-                Return "None"
+                Return Tool.GetText("None")
             End If
 
             If SaveData.Stat_txt(index) = "" Then

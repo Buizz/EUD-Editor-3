@@ -432,7 +432,7 @@ Public Class CodeSelecter
 
                     Dim stackpanel As New StackPanel
                     stackpanel.Orientation = Orientation.Horizontal
-                    stackpanel.Children.Add(GetIcon(6, Fliter.IsIcon))
+                    stackpanel.Children.Add(GetIcon(0, Fliter.IsIcon))
                     stackpanel.Children.Add(TextBlock)
 
                     Dim tListItem As New ListBoxItem()

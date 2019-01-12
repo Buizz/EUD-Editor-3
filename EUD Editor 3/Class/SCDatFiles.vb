@@ -253,7 +253,12 @@ Public Class SCDatFiles
             '꼮!!!!!!!!!!!!!! 일단 지금은 바쁘니까 넘어간다.
             Public Property Data(index As Integer) As Long
                 Get
-                    Return Values(index).Data
+                    If index < Values.Count Then
+                        Return Values(index).Data
+                    Else
+                        Return 0
+                    End If
+
 
                 End Get
                 Set(value As Long)

@@ -149,7 +149,7 @@ Public Class DatBinding
             If valueType <> SCDatFiles.DatFiles.None Then
                 Return pjData.CodeLabel(valueType, pjData.Dat.Data(Datfile, Parameter, ObjectID), True)
             Else
-                Return "None"
+                Return Tool.GetText("None")
             End If
         End Get
     End Property
