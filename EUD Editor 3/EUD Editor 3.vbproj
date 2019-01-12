@@ -97,6 +97,12 @@
     <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
     </Reference>
+    <Reference Include="lua51, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\lua51.dll</HintPath>
+    </Reference>
+    <Reference Include="LuaInterface, Version=2.0.0.16708, Culture=neutral, processorArchitecture=x86">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\LuaInterface.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -126,6 +132,9 @@
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
+    <Reference Include="VikingErik.LuaInterface, Version=1.0.4213.34901, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\VikingErik.LuaInterface.dll</HintPath>
+    </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -137,6 +146,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class\Binding\BindingManager.vb" />
+    <Compile Include="Class\Binding\CodeBinding.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
     <Compile Include="Class\Binding\TestCommand.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
@@ -147,6 +157,7 @@
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
     <Compile Include="Class\Language.vb" />
+    <Compile Include="Class\LuaManager.vb" />
     <Compile Include="Class\MapData.vb" />
     <Compile Include="Class\ProjectData.vb" />
     <Compile Include="Class\SCDatFiles.vb" />
@@ -169,6 +180,9 @@
     </Compile>
     <Compile Include="UserContorl\Field\BoolSelecter.xaml.vb">
       <DependentUpon>BoolSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\ComboxSelecter.xaml.vb">
+      <DependentUpon>ComboxSelecter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\FlagSelecter.xaml.vb">
       <DependentUpon>FlagSelecter.xaml</DependentUpon>
@@ -221,6 +235,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\Field\BoolSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\ComboxSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

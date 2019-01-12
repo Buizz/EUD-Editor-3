@@ -191,47 +191,58 @@ Public Class ProjectData
         End Get
     End Property
 
-    Public Property CodeLabel(Datfile As SCDatFiles.DatFiles, index As Integer)
+    Public Property CodeLabel(Datfile As SCDatFiles.DatFiles, index As Integer, Optional IsFullname As Boolean = False)
         Get
-            Select Case Datfile
-                Case SCDatFiles.DatFiles.units
-                    Return UnitName(index)
-                Case SCDatFiles.DatFiles.weapons
-                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index) - 1
+            Dim ToolTipText As String = SaveData.Dat.ToolTip(Datfile, index)
+            Dim ReturnStr As String = Tool.GetText("None")
+            Try
+                Select Case Datfile
+                    Case SCDatFiles.DatFiles.units
+                        ReturnStr = UnitName(index)
+                    Case SCDatFiles.DatFiles.weapons
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index) - 1
 
-                    Return Stat_txt(tLabel)
-                Case SCDatFiles.DatFiles.flingy
-                    Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
-                    Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
+                        ReturnStr = Stat_txt(tLabel)
+                    Case SCDatFiles.DatFiles.flingy
+                        Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
+                        Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    Return scData.ImageStr(timage)
-                Case SCDatFiles.DatFiles.sprites
-                    Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", index)
+                        ReturnStr = scData.ImageStr(timage)
+                    Case SCDatFiles.DatFiles.sprites
+                        Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", index)
 
-                    Return scData.ImageStr(timage)
-                Case SCDatFiles.DatFiles.images
-                    Return scData.ImageStr(index)
-                Case SCDatFiles.DatFiles.upgrades
-                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index) - 1
+                        ReturnStr = scData.ImageStr(timage)
+                    Case SCDatFiles.DatFiles.images
+                        ReturnStr = scData.ImageStr(index)
+                    Case SCDatFiles.DatFiles.upgrades
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index) - 1
 
-                    Return Stat_txt(tLabel)
-                Case SCDatFiles.DatFiles.techdata
-                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index) - 1
+                        ReturnStr = Stat_txt(tLabel)
+                    Case SCDatFiles.DatFiles.techdata
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index) - 1
 
-                    Return Stat_txt(tLabel)
-                Case SCDatFiles.DatFiles.orders
-                    Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index) - 1
+                        ReturnStr = Stat_txt(tLabel)
+                    Case SCDatFiles.DatFiles.orders
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index) - 1
 
-                    Return Stat_txt(tLabel)
-                Case SCDatFiles.DatFiles.button
-                    If index < SCUnitCount - 1 Then
-                        Return UnitName(index)
-                    Else
+                        ReturnStr = Stat_txt(tLabel)
+                    Case SCDatFiles.DatFiles.button
+                        If index < SCUnitCount - 1 Then
+                            ReturnStr = UnitName(index)
+                        Else
 
-                        Return scData.BtnStr(index - SCUnitCount + 1)
-                    End If
-            End Select
-            Return "Error"
+                            ReturnStr = scData.BtnStr(index - SCUnitCount + 1)
+                        End If
+                End Select
+                If IsFullname And ToolTipText <> "" Then
+                    ReturnStr = ReturnStr & "(" & ToolTipText & ")"
+                End If
+            Catch ex As Exception
+
+            End Try
+
+
+            Return ReturnStr
         End Get
         Set(value)
 

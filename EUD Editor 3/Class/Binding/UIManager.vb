@@ -25,6 +25,21 @@ Public Class UIManager
         End Set
     End Property
 
+
+    Public Sub ChangeProperty()
+        NotifyPropertyChanged("Back")
+    End Sub
+
+    Public ReadOnly Property Back() As SolidColorBrush
+        Get
+            If pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) Then
+                Return Application.Current.Resources("MaterialDesignPaper")
+            Else
+                Return New SolidColorBrush(Color.FromArgb(255, 255, 100, 100))
+            End If
+        End Get
+    End Property
+
     Public Property ToolTip() As String
         Get
             Return pjData.Dat.ToolTip(Datfile, ObjectID)

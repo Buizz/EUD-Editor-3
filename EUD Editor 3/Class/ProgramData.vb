@@ -1,4 +1,6 @@
 ﻿Public Class ProgramData
+    Public ReadOnly Property Version As String = "0.0.1"
+
     Public Sub SetTheme(IsLight As Boolean)
         If IsLight Then
             Dim dict As New ResourceDictionary()
@@ -20,8 +22,6 @@
             dict.Source = New Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml", UriKind.Absolute)
             Application.Current.Resources.MergedDictionaries.Add(dict)
         End If
-
-
     End Sub
     Public Sub SetLanguage(LanName As String)
         Dim dict As New ResourceDictionary()
@@ -32,8 +32,44 @@
         Setting(ProgramData.TSetting.Language) = LanName
     End Sub
 
-    'Public ReadOnly Property Lan As Language
-    Public ReadOnly Property Version As String = "0.0.1"
+
+    Public ReadOnly Property LuaManager As LuaManager
+
+    Public Property LightFiledEditColor As Color = Color.FromArgb(255, 250, 226, 255)
+    Public Property DarkFiledEditColor As Color = Color.FromArgb(255, 152, 129, 157)
+    Public ReadOnly Property FiledEditColor As Color
+        Get
+            If Setting(TSetting.Theme) = "Dark" Then
+                Return DarkFiledEditColor
+            ElseIf Setting(TSetting.Theme) = "Light" Then
+                Return LightFiledEditColor
+            End If
+        End Get
+    End Property
+
+    Public Property LightFiledMapEditColor As Color = Color.FromArgb(255, 226, 230, 255)
+    Public Property DarkFiledMapEditColor As Color = Color.FromArgb(255, 129, 132, 157)
+    Public ReadOnly Property FiledMapEditColor As Color
+        Get
+            If Setting(TSetting.Theme) = "Dark" Then
+                Return DarkFiledMapEditColor
+            ElseIf Setting(TSetting.Theme) = "Light" Then
+                Return LightFiledMapEditColor
+            End If
+        End Get
+    End Property
+
+    Public Property LightFiledDefault As Color = Color.FromArgb(255, 243, 243, 243)
+    Public Property DarkFiledDefault As Color = Color.FromArgb(255, 90, 90, 90)
+    Public ReadOnly Property FiledDefault As Color
+        Get
+            If Setting(TSetting.Theme) = "Dark" Then
+                Return DarkFiledDefault
+            ElseIf Setting(TSetting.Theme) = "Light" Then
+                Return LightFiledDefault
+            End If
+        End Get
+    End Property
 
 
 
@@ -42,6 +78,7 @@
 
     Public Sub New()
         pgsetting = New IniClass(Tool.GetSettingFile)
+        LuaManager = New LuaManager
         'Lan = New Language(Setting(TSetting.language))
     End Sub
 

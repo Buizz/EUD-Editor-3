@@ -36,8 +36,10 @@
     <!--<sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>-->
 
 
+    <sys:String x:Key="FliterEnter">필터를 입력하세요.</sys:String>
 
     <sys:String x:Key="NoName">제목 없음</sys:String>
+    <sys:String x:Key="None">없음</sys:String>
 
 
     <sys:String x:Key="Theme">테마</sys:String>
@@ -51,6 +53,9 @@
     <sys:String x:Key="Code CTbl">Tbl에서 추출</sys:String>
 
 
+    <sys:String x:Key="Copy">복사</sys:String>
+    <sys:String x:Key="Paste">붙여넣기</sys:String>
+    <sys:String x:Key="Reset">초기화</sys:String>
 
  
 
@@ -110,7 +115,8 @@
     <sys:String x:Key="units_Target Acquisition Range">인지거리</sys:String>
     <sys:String x:Key="units_Sight Range">시야</sys:String>
     <sys:String x:Key="units_Armor Upgrade">방어구</sys:String>
-    <sys:String x:Key="units_Unit Size">유닛크기</sys:String>
+    <sys:String x:Key="units_Unit Size">피격타입</sys:String>
+    <sys:String x:Key="units_Unit Size_V">독립적크기|소형|중형|대형</sys:String>
     <sys:String x:Key="units_Armor">방어력</sys:String>
     <sys:String x:Key="units_Right-click Action">방어구</sys:String>
     <sys:String x:Key="units_Ready Sound">방어구</sys:String>
@@ -136,11 +142,11 @@
     <sys:String x:Key="units_Staredit Group Flags:">방어구</sys:String>
     <sys:String x:Key="units_Supply Provided">필요인구</sys:String>
     <sys:String x:Key="units_Supply Required">공급인구</sys:String>
-    <sys:String x:Key="units_Space Required">필요량</sys:String>
-    <sys:String x:Key="units_Space Provided">공급량</sys:String>
-    <sys:String x:Key="units_Build Score">생산시</sys:String>
-    <sys:String x:Key="units_Destroy Score">파괴시</sys:String>
+    <sys:String x:Key="units_Space Required">필요공간</sys:String>
+    <sys:String x:Key="units_Space Provided">탑승공간</sys:String>
+    <sys:String x:Key="units_Build Score">생산점수</sys:String>
+    <sys:String x:Key="units_Destroy Score">파괴점수</sys:String>
     <sys:String x:Key="units_Unit Map String">방어구</sys:String>
-    <sys:String x:Key="units_Broodwar Unit Flag">브르드워</sys:String>
+    <sys:String x:Key="units_Broodwar Unit Flag">브루드워유닛</sys:String>
     <sys:String x:Key="units_Staredit Availability Flags:">방어구</sys:String>
 </ResourceDictionary>

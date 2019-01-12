@@ -1,4 +1,4 @@
-﻿<UserControl x:Class="InputField"
+﻿<UserControl x:Class="ComboxSelecter"
              xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
@@ -8,18 +8,17 @@
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"   MaxHeight="34" Height="34" Padding="4">
-    <StackPanel Orientation="Horizontal">
-        <TextBlock x:Name="TextStr" Text="{Binding Explain}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0" />
-        <TextBox x:Name="ValueText" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource MaterialDesignBody}"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="50">
-            <TextBox.ContextMenu>
+             mc:Ignorable="d"  MaxHeight="34" Height="34">
+    <DockPanel LastChildFill="True">
+        <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left"/>
+        <ComboBox x:Name="MainComboBox" Foreground="{DynamicResource MaterialDesignBody}" Background ="{Binding BackColor}" SelectedIndex="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,4,0" Padding="0,4" >
+            <ComboBox.ContextMenu>
                 <ContextMenu >
-
                     <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
                     <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
                     <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
                 </ContextMenu>
-            </TextBox.ContextMenu>
-        </TextBox>
-    </StackPanel>
+            </ComboBox.ContextMenu>
+        </ComboBox>
+    </DockPanel>
 </UserControl>

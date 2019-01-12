@@ -68,6 +68,11 @@ Public Class SCDatFiles
         End Get
     End Property
 
+    Public ReadOnly Property GetDatFile(_DatFile As DatFiles) As CDatFile
+        Get
+            Return DatfileDic(_DatFile)
+        End Get
+    End Property
 
 
 
@@ -115,6 +120,21 @@ Public Class SCDatFiles
 
     <Serializable()>
     Public Class CDatFile
+        Public Function CheckDirty(ObjectID As Integer) As Boolean
+
+
+
+            For i = 0 To Paramaters.Count - 1
+                If Paramaters(i).GetValue(ObjectID) IsNot Nothing Then
+                    If Not Paramaters(i).GetValue(ObjectID).IsDefault Then
+                        Return False
+                    End If
+                End If
+            Next
+
+            Return True
+        End Function
+
 
         Private CodeGroup As String()
         Private CodeToolTip As String()
@@ -234,6 +254,7 @@ Public Class SCDatFiles
             Public Property Data(index As Integer) As Long
                 Get
                     Return Values(index).Data
+
                 End Get
                 Set(value As Long)
                     If (0 <= value) And (value < Math.Pow(256, Size)) Then
@@ -248,7 +269,13 @@ Public Class SCDatFiles
             End Property
             Public ReadOnly Property GetValue(index As Integer) As Value
                 Get
-                    Return Values(index)
+                    Dim realIndex As Integer = index - VarStart
+
+                    If Values.Count > realIndex And realIndex >= 0 Then
+                        Return Values(realIndex)
+                    Else
+                        Return Nothing
+                    End If
                 End Get
             End Property
 
@@ -291,7 +318,7 @@ Public Class SCDatFiles
 
                 Dim currentpos As UInteger = br.BaseStream.Position '베이스 스트림을 기억하고
                 br.BaseStream.Position -= (VarIndex - 1) * Size * (VarEnd - VarStart + 1)
-                For i = VarStart To VarEnd - VarStart
+                For i As Integer = 0 To VarEnd - VarStart
                     br.BaseStream.Position += (VarIndex - 1) * Size '인덱스 만큼 앞으로 간다.
 
                     Dim value As UInteger

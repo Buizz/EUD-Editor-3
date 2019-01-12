@@ -5,6 +5,8 @@ Public Class CodeSelecter
     Private Templat As ItemsPanelTemplate = New ItemsPanelTemplate()
 
 
+    Private IsComboBox As Boolean
+    Private StartIndex As Integer
 
     Public Event ListSelect As RoutedEventHandler
 
@@ -92,7 +94,6 @@ Public Class CodeSelecter
 
 
 
-
         Public Sub SetFliter(type As ESortType)
             TSortType = type
         End Sub
@@ -103,12 +104,14 @@ Public Class CodeSelecter
         Fliter.SetFliter(tfliter)
     End Sub
 
-    Public Sub ListReset(Optional pagetype As EPageType = EPageType.Nottting)
+    Public Sub ListReset(Optional pagetype As EPageType = EPageType.Nottting, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0)
         If pagetype = EPageType.Nottting Then
             pagetype = CurrentPage
         Else
             CurrentPage = pagetype
         End If
+        IsComboBox = combobox
+        StartIndex = _StartIndex
 
         Select Case Fliter.SortType
             Case ESortType.n123, ESortType.ABC
@@ -129,7 +132,7 @@ Public Class CodeSelecter
 
 
 
-        ListResetData(pagetype)
+        ListResetData(pagetype, StartIndex)
 
 
 
@@ -186,7 +189,7 @@ Public Class CodeSelecter
         Return tborder
     End Function
 
-    Private Sub ListResetData(pagetype As EPageType)
+    Private Sub ListResetData(pagetype As EPageType, StartIndex As Integer)
         '리스트에 들어갈 거는 리스트이름과 아이콘, 그룹패스뿐임.
         '이것만 잘 넘겨주면 됨
         Dim ObjectNames As New List(Of String)
@@ -327,6 +330,8 @@ Public Class CodeSelecter
         End Select
         Select Case Fliter.SortType
             Case ESortType.n123, ESortType.ABC
+                Dim SelectItem As ListBoxItem = Nothing
+
                 Dim tList As New List(Of UnitName)
                 If Fliter.SortType = ESortType.ABC Then
                     For i = 0 To ObjectNames.Count - 1
@@ -355,7 +360,17 @@ Public Class CodeSelecter
                         tListItem.Tag = index
                         tListItem.Content = ObjectImages(index)
 
-                        CodeIndexerImage.Items.Add(tListItem)
+                        If index = StartIndex Then
+                            SelectItem = tListItem
+                        End If
+
+                        If Fliter.fliterText IsNot Nothing Then
+                            If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                CodeIndexerImage.Items.Add(tListItem)
+                            End If
+                        Else
+                            CodeIndexerImage.Items.Add(tListItem)
+                        End If
                     Next
                 Else
                     CodeIndexerList.Items.Clear()
@@ -371,7 +386,12 @@ Public Class CodeSelecter
                         Dim unitname As String = ObjectNames(index)  '"[" & Format(i, "000") & "]  " & pjData.UnitName(i)
 
                         Dim textblock As New TextBlock
-                        textblock.Text = unitname
+
+                        Dim NameBinding As Binding = New Binding("Name")
+                        NameBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
+                        textblock.SetBinding(TextBlock.TextProperty, NameBinding)
+
+                        'textblock.Text = unitname
                         textblock.Padding = New Thickness(15, 0, 0, 0)
 
                         Dim stackpanel As New StackPanel
@@ -382,14 +402,54 @@ Public Class CodeSelecter
                         Dim tListItem As New ListBoxItem()
                         tListItem.Tag = index
                         tListItem.Content = stackpanel
-                        If index = 10 Then
-                            tListItem.Background = Brushes.PaleVioletRed
+                        Dim BackBinding As Binding = New Binding("Back")
+                        BackBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
+                        tListItem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
+
+
+
+                        If index = StartIndex Then
+                            SelectItem = tListItem
+                            If IsComboBox Then
+                                tListItem.Background = Brushes.PaleVioletRed
+                            End If
                         End If
 
-                        CodeIndexerList.Items.Add(tListItem)
+                        If Fliter.fliterText IsNot Nothing Then
+                            If Fliter.fliterText = "" Or unitname.ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                CodeIndexerList.Items.Add(tListItem)
+                            End If
+                        Else
+                            CodeIndexerList.Items.Add(tListItem)
+                        End If
                     Next
                 End If
+                If IsComboBox Then
+                    Dim textblock As New TextBlock
+                    textblock.Text = Tool.GetText("None")
+                    textblock.Padding = New Thickness(15, 0, 0, 0)
 
+
+                    Dim stackpanel As New StackPanel
+                    stackpanel.Orientation = Orientation.Horizontal
+                    stackpanel.Children.Add(GetIcon(6, Fliter.IsIcon))
+                    stackpanel.Children.Add(TextBlock)
+
+                    Dim tListItem As New ListBoxItem()
+                    tListItem.Tag = CodeIndexerList.Items.Count
+                    tListItem.Content = stackpanel
+
+                    If CodeIndexerList.Items.Count = StartIndex Then
+                        SelectItem = tListItem
+                        If IsComboBox Then
+                            tListItem.Background = Brushes.PaleVioletRed
+                        End If
+                    End If
+
+
+                    CodeIndexerList.Items.Add(tListItem)
+                End If
+                CodeIndexerList.ScrollIntoView(SelectItem)
             Case ESortType.Tree
                 CodeIndexerTree.Items.Clear()
 
@@ -404,79 +464,14 @@ Public Class CodeSelecter
                         CodeGroup = pjData.Dat.Group(CurrentPage, i)
                     End If
 
-                    AddTreeList(CodeIndexerTree, CodeGroup, Codename, ObjectImages(i), Fliter.IsIcon, i)
+                    If Fliter.fliterText IsNot Nothing Then
+                        If Fliter.fliterText = "" Or Codename.ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                            AddTreeList(CodeIndexerTree, CodeGroup, Codename, ObjectImages(i), Fliter.IsIcon, i, i = StartIndex)
+                        End If
+                    Else
+                        AddTreeList(CodeIndexerTree, CodeGroup, Codename, ObjectImages(i), Fliter.IsIcon, i, i = StartIndex)
+                    End If
 
-
-                    'Dim tGraphics As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", i)
-                    'Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
-                    'Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
-
-                    'Dim textblock As New TextBlock
-                    'textblock.Text = unitname
-                    'textblock.Padding = New Thickness(15, 0, 0, 0)
-
-                    'Dim stackpanel As New StackPanel
-                    'stackpanel.Orientation = Orientation.Horizontal
-                    'stackpanel.Children.Add(GetImage(timage, Fliter.IsIcon))
-                    'stackpanel.Children.Add(textblock)
-
-
-                    'Dim tListItem As New TreeViewItem()
-                    'tListItem.Tag = i
-                    'tListItem.Header = stackpanel
-
-
-                    ''MsgBox(Flags(1))
-
-                    'Dim flag As Byte = scData.DefaultDat.Data(SCDatFiles.DatFiles.units, "Staredit Group Flags", i)
-
-                    'Dim Race As Byte
-                    'If (flag And 1) = 1 Then '저그
-                    '    Race = 0
-                    'ElseIf (flag And 2) = 2 Then '테란
-                    '    Race = 1
-                    'ElseIf (flag And 4) = 4 Then '프로토스
-                    '    Race = 2
-                    'ElseIf (flag And &H80) = &H80 Then '자연
-                    '    Race = 3
-                    'Else '미분류
-                    '    Race = 4
-                    'End If
-                    'If 0 <= Race And Race <= 2 Then
-                    '    If Flags(1) = "*" Then '일반 유닛
-                    '        If Flags(2) = "Zerg" Or Flags(2) = "Protoss" Or Flags(2) = "Addons" Then
-                    '            CodeIndexerTree.Items(Race).items(7).items.Add(tListItem)
-                    '        ElseIf Flags(2) = "Terran" Then
-                    '            CodeIndexerTree.Items(Race).items(8).items.Add(tListItem)
-                    '        Else
-                    '            CodeIndexerTree.Items(Race).items(TypeKeyname.ToList.IndexOf(Flags(2))).items.Add(tListItem)
-                    '        End If
-                    '    Else
-                    '        'textblock.Text = unitname & "(" & Flags(1) & ")"
-                    '        CodeIndexerTree.Items(Race).items(3).items.Add(tListItem)
-                    '    End If
-                    'ElseIf Race = 3 Then
-                    '    If Flags(1) = "*" Then '일반 유닛
-                    '        If Flags(2) = "Zerg" Then
-                    '            CodeIndexerTree.Items(Race).items(7).items.Add(tListItem)
-                    '        ElseIf Flags(2) = "Protoss" Then
-                    '            CodeIndexerTree.Items(Race).items(8).items.Add(tListItem)
-                    '        Else
-                    '            CodeIndexerTree.Items(Race).items(TypeNetKeyname.ToList.IndexOf(Flags(2))).items.Add(tListItem)
-                    '        End If
-                    '    Else '크리쳐 또는 자원
-                    '        If Flags(2) = "Critters" Then
-                    '            'textblock.Text = unitname & "(" & Flags(1) & ")"
-                    '            CodeIndexerTree.Items(Race).items(0).items.Add(tListItem)
-                    '        Else
-                    '            'textblock.Text = unitname & "(" & Flags(1) & ")"
-                    '            CodeIndexerTree.Items(Race).items(3).items.Add(tListItem)
-                    '        End If
-
-                    '    End If
-                    'Else
-                    '    CodeIndexerTree.Items(Race).items.Add(tListItem)
-                    'End If
 
                 Next
                 CodeIndexerTree.EndInit()
@@ -484,7 +479,7 @@ Public Class CodeSelecter
     End Sub
 
 
-    Private Sub AddTreeList(tv As TreeView, itemPath As String, itemName As String, timage As Border, Isbig As Boolean, index As Integer)
+    Private Sub AddTreeList(tv As TreeView, itemPath As String, itemName As String, timage As Border, Isbig As Boolean, index As Integer, isSelect As Boolean)
         Dim groups As String() = itemPath.Split({"\"}, StringSplitOptions.RemoveEmptyEntries)
 
         Dim ItempColl As ItemCollection = tv.Items
@@ -501,6 +496,12 @@ Public Class CodeSelecter
                     SelectTreeitem = ttreeitem
                     ItempColl = SelectTreeitem.Items
                     PassGroup = True
+
+
+                    If isSelect Then
+                        ttreeitem.IsExpanded = True
+                    End If
+
                     Exit For
                 End If
             Next
@@ -515,6 +516,7 @@ Public Class CodeSelecter
             End If
         Next
 
+        Dim CodeItem As New TreeViewItem()
         '만약 
         If Isbig Then
             If ItempColl.Count = 0 Then
@@ -525,7 +527,6 @@ Public Class CodeSelecter
                 End If
             End If
 
-            Dim CodeItem As New TreeViewItem()
 
 
 
@@ -545,17 +546,17 @@ Public Class CodeSelecter
             stackpanel.Children.Add(timage)
             stackpanel.Children.Add(textblock)
 
-            Dim CodeItem As New TreeViewItem()
 
 
             CodeItem.Header = stackpanel
             CodeItem.Tag = index
             ItempColl.Add(CodeItem)
+
         End If
 
-
-
-
+        If isSelect Then
+            CodeItem.Background = Brushes.PaleVioletRed
+        End If
     End Sub
 
 
@@ -564,25 +565,31 @@ Public Class CodeSelecter
 
     Private Sub Btn_sortn123(sender As Object, e As RoutedEventArgs)
         SetFliter(ESortType.n123)
-        ListReset()
+        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
     End Sub
     Private Sub Btn_sortABC(sender As Object, e As RoutedEventArgs)
         SetFliter(ESortType.ABC)
-        ListReset()
+        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
     End Sub
 
     Private Sub Btn_sortTree(sender As Object, e As RoutedEventArgs)
         SetFliter(ESortType.Tree)
-        ListReset()
+        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
     End Sub
 
     Private Sub ToolBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Fliter.IsIcon = L_IconBtn.IsSelected
         Fliter.IsEdit = L_IsEditBtn.IsSelected
 
-        ListReset()
+        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
     End Sub
 
 
+    Private Sub FliterKeyDown(sender As Object, e As KeyEventArgs)
+        If (e.Key = Key.Return) Then
+            Fliter.fliterText = FliterText.Text
+            ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+        End If
+    End Sub
 End Class
 

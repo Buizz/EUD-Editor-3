@@ -35,8 +35,8 @@
                 </ItemsPanelTemplate>
             </TreeView.ItemsPanel>-->
         </TreeView>
-        <TextBox Grid.Row="1"
-  materialDesign:HintAssist.Hint="필터를 입력하세요."
+        <TextBox x:Name="FliterText" Grid.Row="1"  KeyDown="FliterKeyDown"
+  materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
   Foreground="{DynamicResource MaterialDesignBody}" />
 
         

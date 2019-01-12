@@ -15,6 +15,20 @@ Public Class IconSelecter
         Field.Init(DatFile, ObjectID, Parameter)
 
         DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+
+        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+
+
+
+
+        CopyItem.Command = DatCommand
+        CopyItem.CommandParameter = DatCommand.CommandType.Copy
+
+        PasteItem.Command = DatCommand
+        PasteItem.CommandParameter = DatCommand.CommandType.Paste
+
+        ResetItem.Command = DatCommand
+        ResetItem.CommandParameter = DatCommand.CommandType.Reset
     End Sub
 
 
@@ -23,7 +37,7 @@ Public Class IconSelecter
 
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
         If valueType <> SCDatFiles.DatFiles.None Then
-            CodeList.ListReset(valueType)
+            CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
             CodeSelect.IsOpen = True
         End If
 
@@ -33,5 +47,10 @@ Public Class IconSelecter
         CodeSelect.IsOpen = False
         Field.ValueText.Text = Code(1)
         'MsgBox(Code(1))
+    End Sub
+    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles btn.ContextMenuOpening
+        CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
+        PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
+        ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)
     End Sub
 End Class

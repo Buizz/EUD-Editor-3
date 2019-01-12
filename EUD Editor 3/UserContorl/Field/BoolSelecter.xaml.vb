@@ -12,8 +12,8 @@
 
         'Field.Init(DatFile, ObjectID, Parameter)
 
-        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
         DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
 
         Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
         Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {

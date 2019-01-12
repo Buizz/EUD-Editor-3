@@ -8,19 +8,27 @@
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-             mc:Ignorable="d"  MaxHeight="32" Height="32">
+             mc:Ignorable="d"  MaxHeight="34" Height="34">
     <DockPanel LastChildFill="True">
         <Popup x:Name="CodeSelect" AllowsTransparency="True" StaysOpen="False" PopupAnimation="Fade">
-            <materialDesign:Card x:Name="Card" MaxHeight="300" MaxWidth="400"  materialDesign:ShadowAssist.ShadowDepth="Depth2">
+            <materialDesign:Card x:Name="Card" MaxHeight="400" Width="370" MaxWidth="370"  materialDesign:ShadowAssist.ShadowDepth="Depth2">
                 <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select"/>
             </materialDesign:Card>
         </Popup>
 
         <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left"/>
         <DockPanel >
-            <Image Source="{Binding Image}" Width="32" Height="32" DockPanel.Dock="Left" />
+            <Image Source="{Binding ValueImage}" Width="32" Height="32" DockPanel.Dock="Left" />
             <Button x:Name="OpenNew" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignRaisedButton}"  Content="확인"  Padding="4,0" Margin="4,0" Height="28"/>
-            <Button x:Name="btn" Style="{StaticResource MaterialDesignFlatButton}"  Content="{Binding ValueText}" Background="{Binding BackColor}" Foreground="{DynamicResource MaterialDesignBody}" Padding="3,0" Margin="0,4" Height="Auto"/>
+            <Button x:Name="btn" Style="{StaticResource MaterialDesignFlatButton}"  Content="{Binding ValueText}" Background="{Binding BackColor}" Foreground="{DynamicResource MaterialDesignBody}" Padding="3,0" Margin="0,4" Height="Auto">
+                <Button.ContextMenu>
+                    <ContextMenu >
+                        <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+                        <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+                        <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+                    </ContextMenu>
+                </Button.ContextMenu>
+            </Button>
 
         </DockPanel>
 

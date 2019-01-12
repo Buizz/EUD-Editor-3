@@ -18,7 +18,7 @@ Public Class DataEditor
 
 
         CodeList.SetFliter(CodeSelecter.ESortType.n123)
-        CodeList.ListReset(CodeSelecter.EPageType.Unit)
+        CodeList.ListReset(CodeSelecter.EPageType.Unit, False)
     End Sub
 
 
@@ -90,10 +90,10 @@ Public Class DataEditor
         Dim SelectSender As ListBox = sender
 
         If SelectSender.SelectedIndex = 8 Then
-            CodeList.ListReset(SCDatFiles.DatFiles.button)
+            CodeList.ListReset(SCDatFiles.DatFiles.button, False)
         Else
 
-            CodeList.ListReset(SelectSender.SelectedIndex)
+            CodeList.ListReset(SelectSender.SelectedIndex, False)
         End If
     End Sub
 
@@ -135,5 +135,37 @@ Public Class DataEditor
                 TabContent.SelectedItem = TabItem
         End Select
 
+    End Sub
+
+    Dim RightShiftDown As Boolean
+    Private Sub ConsoleKeyDown(sender As Object, e As KeyEventArgs) Handles ConsoleText.KeyDown
+        If e.Key = Key.RightShift Then
+            RightShiftDown = True
+        End If
+        If e.Key = Key.Return Then
+            If RightShiftDown Then
+                ConsoleText.SelectedText = vbCrLf
+                ConsoleText.CaretIndex += 1
+            Else
+                ConsoleLog.AppendText(vbCrLf)
+                ConsoleLog.AppendText(ConsoleText.Text)
+
+                Try
+                    pgData.LuaManager.DoString(ConsoleText.Text)
+                Catch ex As Exception
+                    ConsoleLog.AppendText(vbCrLf)
+                    ConsoleLog.AppendText(ex.Message)
+                    'ConsoleLog.AppendText(ex.ToString)
+                End Try
+
+                ConsoleLog.ScrollToEnd()
+                ConsoleText.Text = ""
+            End If
+        End If
+    End Sub
+    Private Sub ConsoleKeyUp(sender As Object, e As KeyEventArgs) Handles ConsoleText.KeyUp
+        If e.Key = Key.RightShift Then
+            RightShiftDown = False
+        End If
     End Sub
 End Class

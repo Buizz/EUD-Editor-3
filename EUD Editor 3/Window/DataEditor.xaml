@@ -19,14 +19,24 @@
 
 
     <DockPanel>
-        <Expander Name="Console" DockPanel.Dock="Bottom" Header="명령창" TextBlock.Foreground="{DynamicResource MaterialDesignBody}">
-            <RichTextBox Height="96" >
-                <FlowDocument>
-                    <Paragraph>
-                        <Run Text="RichTextBox"/>
-                    </Paragraph>
-                </FlowDocument>
-            </RichTextBox>
+        <Expander Name="Console" DockPanel.Dock="Bottom" Header="명령창" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" IsExpanded="True">
+            <DockPanel>
+
+                <TextBox
+                    x:Name="ConsoleText"
+                    DockPanel.Dock="Bottom" 
+                    VerticalAlignment="Top"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto">
+                </TextBox>
+
+                <TextBox
+                    x:Name="ConsoleLog"
+                    IsReadOnly="true"
+                    VerticalAlignment="Top"
+                    TextWrapping="Wrap"
+                    VerticalScrollBarVisibility="Auto" Height="150" />
+            </DockPanel>
         </Expander>
 
         <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left">
@@ -91,9 +101,16 @@
                     <dragablz:InterTabController Partition="{StaticResource Partition}" />
 
                 </dragablz:TabablzControl.InterTabController>
-                
+
             </dragablz:TabablzControl>
         </dockablz:Layout>
+        <RichTextBox Height="518" VerticalAlignment="Top" Width="100">
+            <FlowDocument>
+                <Paragraph>
+                    <Run Text="RichTextBox"/>
+                </Paragraph>
+            </FlowDocument>
+        </RichTextBox>
 
 
 

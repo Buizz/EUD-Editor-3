@@ -20,11 +20,13 @@ Public Class DatBinding
     End Sub
 
     Private Sub PropertyChangedPack()
+        pjData.BindingManager.UIManager(Datfile, ObjectID).ChangeProperty()
         NotifyPropertyChanged("HPValue")
         NotifyPropertyChanged("Checked")
         NotifyPropertyChanged("Value")
         NotifyPropertyChanged("BackColor")
         NotifyPropertyChanged("ValueText")
+        NotifyPropertyChanged("ValueImage")
     End Sub
 
     Public Property Value() As String
@@ -38,8 +40,6 @@ Public Class DatBinding
                     Return pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID)
                 End If
             End If
-
-
 
 
             Return pjData.Dat.Data(Datfile, Parameter, ObjectID)
@@ -109,6 +109,8 @@ Public Class DatBinding
         End Set
     End Property
 
+
+
     Public Property Checked() As Boolean
         Get
             'MsgBox("데이터 파인딩 겟")
@@ -145,7 +147,7 @@ Public Class DatBinding
         Get
             Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
             If valueType <> SCDatFiles.DatFiles.None Then
-                Return pjData.CodeLabel(valueType, pjData.Dat.Data(Datfile, Parameter, ObjectID))
+                Return pjData.CodeLabel(valueType, pjData.Dat.Data(Datfile, Parameter, ObjectID), True)
             Else
                 Return "None"
             End If
@@ -153,16 +155,70 @@ Public Class DatBinding
     End Property
 
 
-    Public ReadOnly Property Image As ImageSource
+    Public ReadOnly Property ValueImage As ImageSource
         Get
-            Return scData.GetGRP(0, 37, False)
+            Dim isIcon As Boolean = False
+            Dim ImageIndex As Integer
+
+            Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
+            Dim value As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+
+            Select Case valueType
+                Case SCDatFiles.DatFiles.units
+                    Dim tGraphics As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", value)
+                    Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
+                    Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
+
+                    ImageIndex = timage
+                Case SCDatFiles.DatFiles.weapons
+                    Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Icon", value)
+
+                    isIcon = True
+                    ImageIndex = tIcon
+                Case SCDatFiles.DatFiles.flingy
+                    Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", value)
+                    Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
+
+                    ImageIndex = timage
+                Case SCDatFiles.DatFiles.sprites
+                    Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", value)
+
+                    ImageIndex = timage
+                Case SCDatFiles.DatFiles.images
+                    ImageIndex = value
+                Case SCDatFiles.DatFiles.upgrades
+                    Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", value)
+
+                    isIcon = True
+                    ImageIndex = tIcon
+                Case SCDatFiles.DatFiles.techdata
+                    Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", value)
+
+                    isIcon = True
+                    ImageIndex = tIcon
+                Case SCDatFiles.DatFiles.orders
+                    Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.orders, "Highlight", value)
+
+                    isIcon = True
+                    ImageIndex = tIcon
+            End Select
+            If isIcon Then
+                Return scData.GetIcon(ImageIndex, False)
+            Else
+                Return scData.GetGRP(ImageIndex, 37, False)
+            End If
         End Get
     End Property
-
 
     Public ReadOnly Property Explain As String
         Get
             Return Tool.GetText(Datfilesname(Datfile) & "_" & Parameter)
+        End Get
+    End Property
+
+    Public ReadOnly Property ComboxItems As String()
+        Get
+            Return Tool.GetText(Datfilesname(Datfile) & "_" & Parameter & "_V").Split("|")
         End Get
     End Property
 
@@ -182,21 +238,22 @@ Public Class DatBinding
             '맵에서 정의된 것일 경우.
 
             If IsDefault And Not IsMapDataDefault Then '만약 맵 데이터가 존재 할 경우
-                Return New SolidColorBrush(Color.FromArgb(140, 107, 102, 255))
+                Return New SolidColorBrush(pgData.FiledMapEditColor)
             Else
                 If IsDefault Then
 
                     'MsgBox("회색")
-                    Return New SolidColorBrush(Color.FromArgb(40, 213, 213, 213))
+                    Return New SolidColorBrush(pgData.FiledDefault)
                 Else
 
                     'MsgBox("빨간색")
-                    Return New SolidColorBrush(Color.FromArgb(140, 255, 178, 217))
+                    Return New SolidColorBrush(pgData.FiledEditColor)
                 End If
             End If
-            Return New SolidColorBrush(Color.FromArgb(140, 107, 102, 255))
+            Return New SolidColorBrush(pgData.FiledMapEditColor)
         End Get
     End Property
+
     'MaterialDesignBody
 
     Public Sub DataReset()

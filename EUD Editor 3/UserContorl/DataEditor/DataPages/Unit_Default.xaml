@@ -10,7 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
-             d:DesignHeight="606" Width="671">
+             d:DesignHeight="482"  d:DesignWidth="610">
 
     <Grid>
         <Grid.RowDefinitions>
@@ -18,337 +18,130 @@
             <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
-        <WrapPanel Grid.Row="1" >
-            <materialDesign:Card Height="152" Width="358" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-                    <WrapPanel Grid.Row="0" Margin="10">
-
-                        <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="HP2" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:BoolSelecter x:Name="SE" Tag="Shield Enable" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top" Width="330"/>
-                        <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </WrapPanel>
-                    <DockPanel 
-                              Grid.Row="2" LastChildFill="False">
-
+        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <materialDesign:Card Height="148" Width="358" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                          DockPanel.Dock="Left" FontSize="16" Height="30"
-                          Text="유닛 생체 정보" VerticalAlignment="Top"
-                          HorizontalAlignment="Left" Margin="4" Padding="5"/>
-
-                        <Button 
-                          DockPanel.Dock="Right"
-                                    Style="{StaticResource MaterialDesignToolButton}"
-                                    Width="30"
-                                    Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                        <Button
-                          DockPanel.Dock="Right"
-                                    Style="{StaticResource MaterialDesignToolButton}"
-                                    Width="30"
-                                    Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                          DockPanel.Dock="Right"
-                                    Style="{StaticResource MaterialDesignToolButton}"
-                                    Width="30"
-                                    Padding="2 0 2 0"
-                                    materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                    </DockPanel>
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Height="152" Width="110" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-                    <WrapPanel Grid.Row="0" Margin="10">
-
-                        <local:InputField x:Name="MC" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="VC" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="BT" Tag="Build Time" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:BoolSelecter x:Name="BUF" Tag="Broodwar Unit Flag" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </WrapPanel>
-
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        Grid.Row="1"
-                        Orientation="Horizontal"
-                        Margin="8">
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Height="152" Width="128" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-                    
-                    <WrapPanel Grid.Row="0" Margin="10">
-
-                        <local:InputField x:Name="US" Tag="Unit Size" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="SIR" Tag="Sight Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="TAR" Tag="Target Acquisition Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </WrapPanel>
-
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        Grid.Row="1"
-                        Orientation="Horizontal"
-                        Margin="8">
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Height="122" Width="636" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
-
-                    <WrapPanel Grid.Row="0" Margin="10">
-                        <local:IconSelecter x:Name="GW" Tag="Ground Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="500"/>
-                        <local:InputField x:Name="MGH" Tag="Max Ground Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:IconSelecter x:Name="AW" Tag="Air Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="500"/>
-                        <local:InputField x:Name="MAH" Tag="Max Air Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                    </WrapPanel>
-
-                    <DockPanel
-                        Grid.Row="1"
-                        Margin="8" LastChildFill="False">
-
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="유닛 생체 정보" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10">
+                            <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="HP2" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:BoolSelecter x:Name="SE" Tag="Shield Enable" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top" Width="330"/>
+                            <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="148" Width="212" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                        Padding="5" FontSize="16" Height="30"
-                        Text="무기" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="생산정보" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
 
-                        <Button
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                        <Button
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                    </DockPanel>
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Height="88" Width="202" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
+                            <local:InputField x:Name="MC" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="VC" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="BT" Tag="Build Time" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:BoolSelecter x:Name="BUF" Tag="Broodwar Unit Flag" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-                    <WrapPanel Grid.Row="0" Margin="10">
-
-                        <local:InputField x:Name="SR" Tag="Supply Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="SP" Tag="Supply Provided" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </WrapPanel>
-
-                    <DockPanel
-                        Grid.Row="1"
-                        Margin="8" LastChildFill="False">
+                            <local:InputField x:Name="BS" Tag="Build Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="DS" Tag="Destroy Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
 
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Height="112" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                        Padding="5" DockPanel.Dock="Left"
-                        FontSize="16" Height="30" Text="인구량" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="무기" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10"  >
+                            <local:IconSelecter x:Name="GW" Width="480" Tag="Ground Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="MGH" Tag="Max Ground Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:IconSelecter x:Name="AW" Width="480" Tag="Air Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="MAH" Tag="Max Air Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="117" Width="180" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="인구" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
 
-                        <Button
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                        <Button
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                            DockPanel.Dock="Right"
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                    </DockPanel>
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Height="118" Width="188" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
+                            <local:InputField x:Name="SR" Tag="Supply Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="SP" Tag="Supply Provided" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+    
+                        </WrapPanel>
 
-                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                        Margin="10,10,0,0"
-                        FontSize="16" Height="30" Text="탑승공간" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="117" Width="170" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="탑승공간" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
 
-                    <WrapPanel Grid.Row="1" Margin="10">
+                           <local:InputField x:Name="SPR" Tag="Space Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="SPP" Tag="Space Provided" HorizontalAlignment="Left" VerticalAlignment="Top"/>
 
-                        <local:InputField x:Name="SPR" Tag="Space Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="SPP" Tag="Space Provided" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </WrapPanel>
+                        </WrapPanel>
 
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        Grid.Row="2"
-                        Orientation="Horizontal"
-                        Margin="8">
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
-            <materialDesign:Card Height="118" Width="206" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="30" />
-                        <RowDefinition Height="*" />
-                        <RowDefinition Height="40" />
-                    </Grid.RowDefinitions>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="117" Width="200" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="기타정보" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10"   >
+                            <local:InputField x:Name="SIR" Tag="Sight Range" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <local:InputField x:Name="TAR" Tag="Target Acquisition Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:ComboxSelecter x:Name="US" Tag="Unit Size" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                        Margin="10,10,0,0"
-                        FontSize="16" Height="30" Text="점수" VerticalAlignment="Top" HorizontalAlignment="Left"/>
+                        </WrapPanel>
 
-                    <WrapPanel Grid.Row="1" Margin="10">
-
-                        <local:InputField x:Name="BS" Tag="Build Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        <local:InputField x:Name="DS" Tag="Destroy Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    </WrapPanel>
-
-                    <StackPanel
-                        HorizontalAlignment="Right"
-                        Grid.Row="2"
-                        Orientation="Horizontal"
-                        Margin="8">
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentCopy" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="ContentPaste" />
-                        </Button>
-                        <Button
-                            Style="{StaticResource MaterialDesignToolButton}"
-                            Width="30"
-                            Padding="2 0 2 0"
-                            materialDesign:RippleAssist.IsCentered="True">
-                            <materialDesign:PackIcon Kind="FormatColorReset" />
-                        </Button>
-                    </StackPanel>
-                </Grid>
-            </materialDesign:Card>
-        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </WrapPanel>
+        </ScrollViewer>
     </Grid>
 </UserControl>

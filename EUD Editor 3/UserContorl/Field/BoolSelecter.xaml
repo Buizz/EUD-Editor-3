@@ -14,9 +14,9 @@
             <CheckBox x:Name="chbox" Content="{Binding Explain}" Foreground="{DynamicResource MaterialDesignBody}" IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
                 <CheckBox.ContextMenu>
                     <ContextMenu >
-                        <MenuItem x:Name="CopyItem" Header="복사" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
-                        <MenuItem x:Name="PasteItem" Header="붙여넣기" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
-                        <MenuItem x:Name="ResetItem" Header="초기화" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+                        <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+                        <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+                        <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
                     </ContextMenu>
                 </CheckBox.ContextMenu>
             </CheckBox>
