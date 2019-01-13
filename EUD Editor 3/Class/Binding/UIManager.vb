@@ -18,7 +18,7 @@ Public Class UIManager
 
     Public Property Name() As String
         Get
-            Return pjData.CodeLabel(Datfile, ObjectID)
+            Return pjData.CodeLabel(Datfile, ObjectID, True)
         End Get
         Set(value As String)
 
@@ -35,7 +35,7 @@ Public Class UIManager
             If pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) Then
                 Return Application.Current.Resources("MaterialDesignPaper")
             Else
-                Return New SolidColorBrush(Color.FromArgb(255, 255, 100, 100))
+                Return New SolidColorBrush(pgData.FiledEditColor)
             End If
         End Get
     End Property
@@ -62,6 +62,7 @@ Public Class UIManager
         Set(ByVal tvalue As String)
             If Not (tvalue = pjData.Dat.Group(Datfile, ObjectID)) Then
                 pjData.Dat.Group(Datfile, ObjectID) = tvalue
+                pjData.BindingManager.RefreshCodeTree(Datfile, ObjectID)
                 NotifyPropertyChanged("Group")
             End If
         End Set

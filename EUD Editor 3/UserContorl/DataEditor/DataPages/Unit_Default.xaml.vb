@@ -46,10 +46,42 @@
         TAR.Init(DatFiles, ObjectID, TAR.Tag)
 
         'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
-
-
-
     End Sub
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
+        ObjectID = ObjectID
 
+        NameBar.ReLoad(ObjectID, DatFiles)
+        HP.ReLoad(DatFiles, ObjectID, HP.Tag, InputField.SFlag.HP)
+        HP2.ReLoad(DatFiles, ObjectID, HP.Tag, InputField.SFlag.HPV)
+        SA.ReLoad(DatFiles, ObjectID, SA.Tag)
+        SE.ReLoad(DatFiles, ObjectID, SE.Tag)
+        AU.ReLoad(DatFiles, ObjectID, AU.Tag)
+        AM.ReLoad(DatFiles, ObjectID, AM.Tag)
+
+
+        MC.ReLoad(DatFiles, ObjectID, MC.Tag)
+        VC.ReLoad(DatFiles, ObjectID, VC.Tag)
+        BT.ReLoad(DatFiles, ObjectID, BT.Tag)
+        BUF.ReLoad(DatFiles, ObjectID, BUF.Tag)
+
+
+        GW.ReLoad(DatFiles, ObjectID, GW.Tag)
+        MGH.ReLoad(DatFiles, ObjectID, MGH.Tag)
+        AW.ReLoad(DatFiles, ObjectID, AW.Tag)
+        MAH.ReLoad(DatFiles, ObjectID, MAH.Tag)
+
+        SP.ReLoad(DatFiles, ObjectID, SP.Tag)
+        SR.ReLoad(DatFiles, ObjectID, SR.Tag)
+
+        SPP.ReLoad(DatFiles, ObjectID, SPP.Tag)
+        SPR.ReLoad(DatFiles, ObjectID, SPR.Tag)
+
+        BS.ReLoad(DatFiles, ObjectID, BS.Tag)
+        DS.ReLoad(DatFiles, ObjectID, DS.Tag)
+
+        US.ReLoad(DatFiles, ObjectID, US.Tag)
+        SIR.ReLoad(DatFiles, ObjectID, SIR.Tag)
+        TAR.ReLoad(DatFiles, ObjectID, TAR.Tag)
+    End Sub
 
 End Class

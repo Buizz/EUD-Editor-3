@@ -35,8 +35,15 @@
 
     Public ReadOnly Property LuaManager As LuaManager
 
+    '사용자 지정 컬러
     Public Property LightFiledEditColor As Color = Color.FromArgb(255, 250, 226, 255)
     Public Property DarkFiledEditColor As Color = Color.FromArgb(255, 152, 129, 157)
+    Public Property LightFiledMapEditColor As Color = Color.FromArgb(255, 226, 230, 255)
+    Public Property DarkFiledMapEditColor As Color = Color.FromArgb(255, 129, 132, 157)
+    Public Property LightFiledDefault As Color = Color.FromArgb(255, 243, 243, 243)
+    Public Property DarkFiledDefault As Color = Color.FromArgb(255, 90, 90, 90)
+
+
     Public ReadOnly Property FiledEditColor As Color
         Get
             If Setting(TSetting.Theme) = "Dark" Then
@@ -47,8 +54,6 @@
         End Get
     End Property
 
-    Public Property LightFiledMapEditColor As Color = Color.FromArgb(255, 226, 230, 255)
-    Public Property DarkFiledMapEditColor As Color = Color.FromArgb(255, 129, 132, 157)
     Public ReadOnly Property FiledMapEditColor As Color
         Get
             If Setting(TSetting.Theme) = "Dark" Then
@@ -59,8 +64,6 @@
         End Get
     End Property
 
-    Public Property LightFiledDefault As Color = Color.FromArgb(255, 243, 243, 243)
-    Public Property DarkFiledDefault As Color = Color.FromArgb(255, 90, 90, 90)
     Public ReadOnly Property FiledDefault As Color
         Get
             If Setting(TSetting.Theme) = "Dark" Then

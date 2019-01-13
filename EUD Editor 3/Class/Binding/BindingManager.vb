@@ -6,6 +6,12 @@
         End Get
     End Property
 
+    Public Sub RefreshCodeTree(key As SCDatFiles.DatFiles, ObjectID As String)
+        For i = 0 To pjData.CodeSelecters.Count - 1
+            pjData.CodeSelecters(i).RefreshTreeviewItem(key, ObjectID)
+        Next
+    End Sub
+
     Public Sub New()
         ReDim _UIManager(7)
         For k = 0 To 7

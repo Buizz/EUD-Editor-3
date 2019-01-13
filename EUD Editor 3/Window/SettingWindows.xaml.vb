@@ -90,10 +90,12 @@ Public Class SettingWindows
 
     Private Sub ToggleButton_Checked(sender As Object, e As RoutedEventArgs)
         pgData.SetTheme(False)
+        Tool.RefreshWindows()
     End Sub
 
     Private Sub ToggleButton_Unchecked(sender As Object, e As RoutedEventArgs)
         pgData.SetTheme(True)
+        Tool.RefreshWindows()
     End Sub
 
     Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)

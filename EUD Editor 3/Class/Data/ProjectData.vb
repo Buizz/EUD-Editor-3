@@ -179,15 +179,23 @@ Public Class ProjectData
     End Property
 
 #End Region
-
-
     Private SaveData As SaveableData
+
+
+    Public Property CodeSelecters As List(Of CodeSelecter)
 
 
     Private Bd As BindingManager
     Public ReadOnly Property BindingManager As BindingManager
         Get
             Return Bd
+        End Get
+    End Property
+
+    Private Dm As DataManager
+    Public ReadOnly Property DataManager As DataManager
+        Get
+            Return Dm
         End Get
     End Property
 
@@ -234,8 +242,10 @@ Public Class ProjectData
                             ReturnStr = scData.BtnStr(index - SCUnitCount + 1)
                         End If
                 End Select
-                If IsFullname And ToolTipText <> "" Then
-                    ReturnStr = ReturnStr & "(" & ToolTipText & ")"
+                If Datfile <> SCDatFiles.DatFiles.units Then
+                    If IsFullname And ToolTipText <> "" Then
+                        ReturnStr = ReturnStr & "(" & ToolTipText & ")"
+                    End If
                 End If
             Catch ex As Exception
 
@@ -305,6 +315,8 @@ Public Class ProjectData
         '초기화
         SaveData = New SaveableData
         Bd = New BindingManager
+        Dm = New DataManager
+        CodeSelecters = New List(Of CodeSelecter)
     End Sub
 
 

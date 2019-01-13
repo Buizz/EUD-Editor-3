@@ -80,4 +80,20 @@
         End If
     End Sub
 
+
+    Public Sub ReLoad(tObjectID As Integer, tDatFile As SCDatFiles.DatFiles)
+        ObjectID = tObjectID
+        DatFile = tDatFile
+
+        ToolTipCommand.ReLoad(DatFile, ObjectID, UICommand.EUIType.ToolTip)
+        GroupCommand.ReLoad(DatFile, ObjectID, UICommand.EUIType.Group)
+
+        'ObjName.Content = pjData.UnitName(ObjectID)
+        'ObjToolTip.Text = pjData.Dat.ToolTip(DatFile, ObjectID)
+        'ObjGroup.Text = pjData.Dat.Group(DatFile, ObjectID)
+
+        ObjToolTip.DataContext = pjData.BindingManager.UIManager(DatFile, ObjectID)
+        ObjGroup.DataContext = pjData.BindingManager.UIManager(DatFile, ObjectID)
+    End Sub
+
 End Class

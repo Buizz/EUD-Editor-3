@@ -30,17 +30,28 @@ Public Class IconSelecter
         ResetItem.Command = DatCommand
         ResetItem.CommandParameter = DatCommand.CommandType.Reset
     End Sub
+    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+        DatFile = _DatFile
+        ObjectID = _ObjectID
+        Parameter = _Parameter
+
+        Field.ReLoad(DatFile, ObjectID, Parameter)
+
+        DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+
+        DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+    End Sub
 
 
     Private Sub Click(sender As Object, e As RoutedEventArgs) Handles btn.Click
         'CodeList.SetFliter(CodeSelecter.ESortType.n123)
-
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
         If valueType <> SCDatFiles.DatFiles.None Then
             CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
+            CodeList.MaxWidth = btn.RenderSize.Width + 32
+            CodeList.Width = btn.RenderSize.Width + 32
             CodeSelect.IsOpen = True
         End If
-
     End Sub
 
     Private Sub CodeList_Select(Code As Object, e As RoutedEventArgs)

@@ -1,9 +1,18 @@
 ﻿Imports System.IO
 Imports System.Windows.Forms
+Imports System.Windows.Threading
 Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public Sub RefreshWindows()
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(DataEditor) Then
+                    ' win.Dispatcher.Invoke(DispatcherPriority.Render, DispatcherPriority.Normal);
+                End If
+            Next
+        End Sub
+
         Public Sub CloseWindows()
             For Each win As Window In Application.Current.Windows
                 If win.GetType Is GetType(DataEditor) Then

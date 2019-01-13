@@ -14,6 +14,38 @@
         HPV
     End Enum
 
+    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
+        DatFile = _DatFile
+        ObjectID = _ObjectID
+        Parameter = _Parameter
+        SpecialFlag = _SFlag
+
+        Dim PropertyName As String = "Value"
+
+
+        DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+
+        Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+
+        Dim binding As New Binding()
+
+        Select Case SpecialFlag
+            Case SFlag.HP
+                PropertyName = "HPValue"
+                ValueText.Width = 7 * 8
+            Case SFlag.HPV
+                TextStr.Margin = New Thickness(0)
+                TextStr.Text = ""
+        End Select
+
+        binding.ValidationRules.Add(New NotTextValidationRule)
+        binding.Path = New PropertyPath(PropertyName)
+        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+        binding.ValidatesOnDataErrors = True
+        binding.NotifyOnValidationError = True
+        ValueText.SetBinding(TextBox.TextProperty, binding)
+    End Sub
+
 
     Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
         DatFile = _DatFile
@@ -88,8 +120,8 @@
 
         ResetItem.Command = DatCommand
         ResetItem.CommandParameter = DatCommand.CommandType.Reset
-
     End Sub
+
 
 
     Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles ValueText.ContextMenuOpening

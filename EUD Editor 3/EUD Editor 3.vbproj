@@ -146,14 +146,14 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Class\Binding\BindingManager.vb" />
-    <Compile Include="Class\Binding\CodeBinding.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
-    <Compile Include="Class\Binding\TestCommand.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
-    <Compile Include="Class\Command\UICommand.vb" />
+    <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
+    <Compile Include="Class\Command\DateEditor\UICommand.vb" />
+    <Compile Include="Class\DataManager.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
     <Compile Include="Class\Language.vb" />
@@ -165,7 +165,7 @@
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
-    <Compile Include="Class\Command\DatCommand.vb" />
+    <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
@@ -199,8 +199,14 @@
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\PluginWindow.xaml.vb">
+      <DependentUpon>PluginWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\TriggerEditor.xaml.vb">
+      <DependentUpon>TriggerEditor.xaml</DependentUpon>
     </Compile>
     <Page Include="Data\Language\us-EN.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -262,7 +268,15 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\PluginWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\SettingWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\TriggerEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

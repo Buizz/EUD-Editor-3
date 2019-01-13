@@ -1,4 +1,4 @@
-﻿Public Class DatCommand
+﻿Public Class UICommand
     Implements ICommand
 
     Public Enum CommandType
@@ -6,45 +6,42 @@
         Paste
         Reset
     End Enum
+    Public Enum EUIType
+        ToolTip
+        Group
+    End Enum
 
-    Private Datfile As SCDatFiles.DatFiles
-    Private ParameterName As String
+    Private UIType As EUIType
+
     Private ObjectID As Integer
-
-
-    Public Sub New(tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer)
-        Datfile = tDatfile
-        ParameterName = tParameter
-        ObjectID = tObjectID
-    End Sub
-
+    Private DatFile As SCDatFiles.DatFiles
 
     Public Event CanExecuteChanged As EventHandler Implements ICommand.CanExecuteChanged
 
+    Public Sub New(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _UIType As EUIType)
+        DatFile = _DatFile
+        ObjectID = _ObjectID
+        UIType = _UIType
+    End Sub
+    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _UIType As EUIType)
+        DatFile = _DatFile
+        ObjectID = _ObjectID
+        UIType = _UIType
+    End Sub
 
     Public Sub Execute(parameter As Object) Implements ICommand.Execute
         Select Case parameter
             Case CommandType.Copy
-                My.Computer.Clipboard.SetText("안녕")
             Case CommandType.Paste
             Case CommandType.Reset
-                pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).DataReset()
+                Select Case UIType
+                    Case EUIType.ToolTip
+                        pjData.BindingManager.UIManager(DatFile, ObjectID).ToolTipReset()
+                    Case EUIType.Group
+                        pjData.BindingManager.UIManager(DatFile, ObjectID).GroupReset()
+                End Select
         End Select
-        'Throw New NotImplementedException()
     End Sub
-
-    '[
-    '  {
-    '    "unit.dat": {
-    '      "Hit Point": [
-    '        127,
-    '        993214
-    '      ]
-    '    },
-    '    "sprite.dat": 4
-    '  }
-    ']
-
 
     Public Function CanExecute(parameter As Object) As Boolean Implements ICommand.CanExecute
         Return IsEnabled(parameter)

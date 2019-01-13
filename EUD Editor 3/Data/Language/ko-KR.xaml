@@ -24,9 +24,14 @@
 
     <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기</sys:String>
     <sys:String x:Key="ToolTip Compile">컴파일</sys:String>
-    <sys:String x:Key="ToolTip DE">데이터에디터</sys:String>
-    <sys:String x:Key="ToolTip TE">트리거에디터</sys:String>
+    <sys:String x:Key="ToolTip DE">데이터 에디터</sys:String>
+    <sys:String x:Key="ToolTip TE">트리거 에디터</sys:String>
     <sys:String x:Key="ToolTip Plugin">플러그인 설정</sys:String>
+
+    <sys:String x:Key="DataEditor">데이터 에디터</sys:String>
+    <sys:String x:Key="TriggerEditor">트리거 에디터</sys:String>
+    <sys:String x:Key="PluginSetting">플러그인 설정</sys:String>
+
 
     <sys:String x:Key="StarExeFile">스타크래프트 실행 파일</sys:String>
     <sys:String x:Key="euddraftExe">euddraft 실행 파일</sys:String>
@@ -34,9 +39,6 @@
     <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>
     <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s</sys:String>
     <!--<sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>-->
-
-
-    <sys:String x:Key="FliterEnter">필터를 입력하세요.</sys:String>
 
     <sys:String x:Key="NoName">제목 없음</sys:String>
     <sys:String x:Key="None">없음</sys:String>
@@ -56,10 +58,9 @@
     <sys:String x:Key="Copy">복사</sys:String>
     <sys:String x:Key="Paste">붙여넣기</sys:String>
     <sys:String x:Key="Reset">초기화</sys:String>
+    <sys:String x:Key="Check">확인</sys:String>
 
- 
 
-    
     <sys:String x:Key="ColseSaveMsg">변경 내용을 %S1에 저장하시겠습니까?</sys:String>
     
 
@@ -83,11 +84,40 @@
     <sys:String x:Key="Error complieFail euddraft is not exist!">컴파일에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error FailLoad DataEditor">데이터 에디터 로드에 실패했습니다.</sys:String>
+    <sys:String x:Key="Error FailLoad TriggerEditor">트리거 에디터 로드에 실패했습니다.</sys:String>
+
+
+
     
     
+    <!--CodeSelecter-->
+    <sys:String x:Key="FliterEnter">검색</sys:String>
+
+
+    <!--DataEditor-->
+    <sys:String x:Key="TopMost">항상 위</sys:String>
+    <sys:String x:Key="Transparency">투명도</sys:String>
+
+    <sys:String x:Key="CommandExpander">명령 창</sys:String>
+    <sys:String x:Key="CodeExpander">코드</sys:String>
+
+
+    <sys:String x:Key="TabClose">탭 닫기</sys:String>
+    <sys:String x:Key="RightTabsClose">우측 탭 닫기</sys:String>
+    <sys:String x:Key="OtherTabsClose">다른 탭 닫기</sys:String>
+    <sys:String x:Key="OpenTab">새 텝으로 열기</sys:String>
+    <sys:String x:Key="OpenWindow">새 창으로 열기</sys:String>
+
+
+
+
+
     <!--MapOpenError-->
     <sys:String x:Key="Error Not support SCM">SCM맵은 지원하지 않습니다.</sys:String>
 
+    
+    
+    
 
     <sys:String x:Key="units_Graphics">비행정보</sys:String>
     <sys:String x:Key="units_Subunit 1">부가유닛1</sys:String>

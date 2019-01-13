@@ -5,6 +5,19 @@
 
     Private DatCommand As DatCommand
 
+    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+        DatFile = _DatFile
+        ObjectID = _ObjectID
+        Parameter = _Parameter
+
+        Field.ReLoad(DatFile, ObjectID, Parameter)
+        Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+
+        DataContext = DB
+
+
+        DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+    End Sub
     Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
         DatFile = _DatFile
         ObjectID = _ObjectID

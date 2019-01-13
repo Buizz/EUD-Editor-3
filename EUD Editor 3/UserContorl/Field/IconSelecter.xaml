@@ -10,16 +10,14 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"  MaxHeight="34" Height="34">
     <DockPanel LastChildFill="True">
-        <Popup x:Name="CodeSelect" AllowsTransparency="True" StaysOpen="False" PopupAnimation="Fade">
-            <materialDesign:Card x:Name="Card" MaxHeight="400" Width="370" MaxWidth="370"  materialDesign:ShadowAssist.ShadowDepth="Depth2">
-                <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select"/>
-            </materialDesign:Card>
-        </Popup>
-
         <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left"/>
         <DockPanel >
             <Image Source="{Binding ValueImage}" Width="32" Height="32" DockPanel.Dock="Left" />
-            <Button x:Name="OpenNew" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignRaisedButton}"  Content="확인"  Padding="4,0" Margin="4,0" Height="28"/>
+
+            <Popup x:Name="CodeSelect" Focusable="False" StaysOpen="False" >
+                <local:CodeSelecter  x:Name="CodeList" ListSelect="CodeList_Select" MaxHeight="300"  />
+            </Popup>
+            <Button x:Name="OpenNew" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignRaisedButton}"  Content="{StaticResource Check}"  Padding="4,0" Margin="4,0" Height="28"/>
             <Button x:Name="btn" Style="{StaticResource MaterialDesignFlatButton}"  Content="{Binding ValueText}" Background="{Binding BackColor}" Foreground="{DynamicResource MaterialDesignBody}" Padding="3,0" Margin="0,4" Height="Auto">
                 <Button.ContextMenu>
                     <ContextMenu >

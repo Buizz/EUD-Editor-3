@@ -10,8 +10,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" MaxHeight="32" Height="32">
     <StackPanel Orientation="Horizontal">
-        <Border Background="{Binding BackColor}" Margin="0,4"  >
-            <CheckBox x:Name="chbox" Content="{Binding Explain}" Foreground="{DynamicResource MaterialDesignBody}" IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" >
+        <Border Background="{Binding BackColor}" Margin="0,5,0,3"  >
+            <CheckBox x:Name="chbox" Content="{Binding Explain}" Foreground="{DynamicResource MaterialDesignBody}" IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="0,1,0,0" Margin="0" >
                 <CheckBox.ContextMenu>
                     <ContextMenu >
                         <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>

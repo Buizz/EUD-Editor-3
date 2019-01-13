@@ -9,38 +9,193 @@ Public Class CodeSelecter
     Private StartIndex As Integer
 
     Public Event ListSelect As RoutedEventHandler
+    Public Event OpenWindow As RoutedEventHandler
+    Public Event OpenTab As RoutedEventHandler
 
+    Private LastSelectIndex As Integer = -1
+    Private Sub CodeIndexerList_Select(sender As Object, e As MouseButtonEventArgs) Handles CodeIndexerList.MouseLeftButtonUp
+        If Fliter.SortType <> ESortType.Tree And Not Fliter.IsIcon Then
+            If CodeIndexerList.SelectedItem Is Nothing Then
+                Exit Sub
+            End If
+            Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
 
-    Private Sub List_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        Dim es As SelectionChangedEventArgs = e
-        If es.AddedItems.Count <> 0 Then
-            Dim index As Integer
-
-            Dim tempItem As ListBoxItem = es.AddedItems(0)
-            index = tempItem.Tag
-
-            Dim returnval() As Integer = {CurrentPage, index}
-
-            RaiseEvent ListSelect(returnval, e)
-        End If
-    End Sub
-    Private Sub CodeIndexerTree_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
-        If e.NewValue IsNot Nothing Then
-            Dim selectNode As TreeViewItem = e.NewValue
-
-            If selectNode.Items.Count = 0 Then
-                Dim returnval() As Integer = {CurrentPage, selectNode.Tag}
+            Dim Selectindex As Integer = ListboxItem.Tag
+            If LastSelectIndex = -1 Or LastSelectIndex <> Selectindex Then
+                LastSelectIndex = Selectindex
+                Dim returnval() As Integer = {CurrentPage, LastSelectIndex}
                 RaiseEvent ListSelect(returnval, e)
             End If
         End If
+    End Sub
+    Private Sub CodeIndexerImage_Select(sender As Object, e As MouseButtonEventArgs) Handles CodeIndexerImage.MouseLeftButtonUp
+        If Fliter.SortType <> ESortType.Tree And Fliter.IsIcon Then
+            If CodeIndexerImage.SelectedItem Is Nothing Then
+                Exit Sub
+            End If
+            Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
 
+            Dim Selectindex As Integer = ListboxItem.Tag
+
+            If LastSelectIndex = -1 Or LastSelectIndex <> Selectindex Then
+                LastSelectIndex = Selectindex
+                Dim returnval() As Integer = {CurrentPage, LastSelectIndex}
+                RaiseEvent ListSelect(returnval, e)
+            End If
+        End If
+    End Sub
+
+    Private Sub CodeIndexerTree_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
+        If Fliter.SortType = ESortType.Tree Then
+            If e.NewValue IsNot Nothing Then
+                Dim selectNode As TreeViewItem = e.NewValue
+
+                If selectNode.Items.Count = 0 Then
+                    Dim returnval() As Integer = {CurrentPage, selectNode.Tag}
+                    RaiseEvent ListSelect(returnval, e)
+                End If
+            End If
+        End If
         ' RaiseEvent ListSelect(sender, e)
     End Sub
 
+    'Private Sub TreeView_PreviewMouseRightButtonDown(sender As Object, e As MouseButtonEventArgs)
+    '    MsgBox("dpfj")
+    '    Dim TreeViewItem As TreeViewItem = VisualUpwardSearch(e.OriginalSource)
+
+    '    If (TreeViewItem Is Nothing) Then
+
+    '        TreeViewItem.Focus()
+    '        e.Handled = True
+    '    End If
+    'End Sub
+
+    'Private Function VisualUpwardSearch(source As DependencyObject) As TreeViewItem
+    '    While (source IsNot Nothing And Not (source.GetType = GetType(TreeViewItem)))
+    '        source = VisualTreeHelper.GetParent(source)
+    '    End While
+
+    '    Return CType(source, TreeViewItem)
+    'End Function
+
+    Private Sub ContextMenu_Opened(sender As Object, e As RoutedEventArgs)
+        Select Case Fliter.SortType
+            Case ESortType.Tree
+                If CodeIndexerTree.SelectedItem Is Nothing Then
+                    Exit Sub
+                End If
 
 
+                Dim selectNode As TreeViewItem = CodeIndexerTree.SelectedItem
+                Dim index As Integer = selectNode.Tag
+                'MsgBox(index)
+            Case Else
+                If Fliter.IsIcon Then
+                    If CodeIndexerImage.SelectedItem Is Nothing Then
+                        Exit Sub
+                    End If
+                    Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
+
+                    Dim index As Integer = ListboxItem.Tag
+
+
+                    'MsgBox(index)
+                Else
+                    If CodeIndexerList.SelectedItem Is Nothing Then
+                        Exit Sub
+                    End If
+                    Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
+
+                    Dim index As Integer = ListboxItem.Tag
+
+
+
+                    'MsgBox(index)
+                End If
+        End Select
+    End Sub
+
+
+    Private Sub OpentabMenuItem_Click(sender As Object, e As RoutedEventArgs)
+        Dim index As Integer
+        Select Case Fliter.SortType
+            Case ESortType.Tree
+                If CodeIndexerTree.SelectedItem Is Nothing Then
+                    Exit Sub
+                End If
+
+                Dim selectNode As TreeViewItem = CodeIndexerTree.SelectedItem
+                index = selectNode.Tag
+                'MsgBox(index)
+            Case Else
+                If Fliter.IsIcon Then
+                    If CodeIndexerImage.SelectedItem Is Nothing Then
+                        Exit Sub
+                    End If
+                    Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
+
+                    index = ListboxItem.Tag
+                Else
+                    If CodeIndexerList.SelectedItem Is Nothing Then
+                        Exit Sub
+                    End If
+                    Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
+
+                    index = ListboxItem.Tag
+                End If
+        End Select
+
+        RaiseEvent OpenTab(index, e)
+    End Sub
+
+    Private Sub OpenWindowMenuItem_Click(sender As Object, e As RoutedEventArgs)
+
+        Dim index As Integer
+        Select Case Fliter.SortType
+            Case ESortType.Tree
+                If CodeIndexerTree.SelectedItem Is Nothing Then
+                    Exit Sub
+                End If
+
+                Dim selectNode As TreeViewItem = CodeIndexerTree.SelectedItem
+                index = selectNode.Tag
+                'MsgBox(index)
+            Case Else
+                If Fliter.IsIcon Then
+                    If CodeIndexerImage.SelectedItem Is Nothing Then
+                        Exit Sub
+                    End If
+                    Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
+
+                    index = ListboxItem.Tag
+                Else
+                    If CodeIndexerList.SelectedItem Is Nothing Then
+                        Exit Sub
+                    End If
+                    Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
+
+                    index = ListboxItem.Tag
+                End If
+        End Select
+
+        RaiseEvent OpenWindow(index, e)
+    End Sub
+
+    Private Sub CopyItem_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub PasteItem_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+    Private Sub ResetItem_Click(sender As Object, e As RoutedEventArgs)
+
+    End Sub
+
+
+    Private LoadCmp As Boolean = False
     Public Sub New()
-
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
@@ -48,7 +203,10 @@ Public Class CodeSelecter
         Fliter = New tFliter
         factoryPanel.SetValue(WrapPanel.IsItemsHostProperty, True)
         Templat.VisualTree = factoryPanel
+        TreeviewItemDic = New Dictionary(Of Integer, TreeViewItem)
+        LoadCmp = True
     End Sub
+
 
     Private Structure UnitName
         Public Name As String
@@ -61,6 +219,12 @@ Public Class CodeSelecter
     End Structure
 
     Private CurrentPage As EPageType
+    Public ReadOnly Property Page As EPageType
+        Get
+            Return CurrentPage
+        End Get
+    End Property
+
     Public Enum EPageType
         Unit = 0
         Weapon = 1
@@ -110,6 +274,8 @@ Public Class CodeSelecter
         Else
             CurrentPage = pagetype
         End If
+
+        LastSelectIndex = -1
         IsComboBox = combobox
         StartIndex = _StartIndex
 
@@ -156,9 +322,9 @@ Public Class CodeSelecter
         tborder.Child = bitmap
         tborder.Background = Brushes.Black
         If isSizeBig Then
-            tborder.Margin = New Thickness(-7)
+            tborder.Margin = New Thickness(-7, -7, -7, -7)
         Else
-            tborder.Margin = New Thickness(-10)
+            tborder.Margin = New Thickness(-8, -10, -10, -10)
         End If
 
         Return tborder
@@ -181,9 +347,9 @@ Public Class CodeSelecter
         tborder.Child = bitmap
         tborder.Background = Brushes.Black
         If isSizeBig Then
-            tborder.Margin = New Thickness(-7)
+            tborder.Margin = New Thickness(-7, -7, -7, -7)
         Else
-            tborder.Margin = New Thickness(-10)
+            tborder.Margin = New Thickness(-8, -10, -10, -10)
         End If
 
         Return tborder
@@ -210,14 +376,7 @@ Public Class CodeSelecter
                     Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Icon", i)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
-
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -227,14 +386,8 @@ Public Class CodeSelecter
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", i)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
@@ -243,14 +396,7 @@ Public Class CodeSelecter
                 For i = 0 To SCSpriteCount - 1
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", i)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
-
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
@@ -258,13 +404,7 @@ Public Class CodeSelecter
             Case EPageType.Image
                 For i = 0 To SCImageCount - 1
                     Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
-
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(i, Fliter.IsIcon))
@@ -273,14 +413,7 @@ Public Class CodeSelecter
                 For i = 0 To SCUpgradeCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", i)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
-
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -289,14 +422,7 @@ Public Class CodeSelecter
                 For i = 0 To SCTechCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", i)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
-
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -305,14 +431,7 @@ Public Class CodeSelecter
                 For i = 0 To SCOrderCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.orders, "Highlight", i)
 
-                    Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String
-
-                    If tooltip = "" Then
-                        cname = pjData.CodeLabel(pagetype, i)
-                    Else
-                        cname = pjData.CodeLabel(pagetype, i) & " (" & tooltip & ")"
-                    End If
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -411,7 +530,8 @@ Public Class CodeSelecter
                         If index = StartIndex Then
                             SelectItem = tListItem
                             If IsComboBox Then
-                                tListItem.Background = Brushes.PaleVioletRed
+                                tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                                tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
                             End If
                         End If
 
@@ -433,7 +553,7 @@ Public Class CodeSelecter
                     Dim stackpanel As New StackPanel
                     stackpanel.Orientation = Orientation.Horizontal
                     stackpanel.Children.Add(GetIcon(0, Fliter.IsIcon))
-                    stackpanel.Children.Add(TextBlock)
+                    stackpanel.Children.Add(textblock)
 
                     Dim tListItem As New ListBoxItem()
                     tListItem.Tag = CodeIndexerList.Items.Count
@@ -442,7 +562,8 @@ Public Class CodeSelecter
                     If CodeIndexerList.Items.Count = StartIndex Then
                         SelectItem = tListItem
                         If IsComboBox Then
-                            tListItem.Background = Brushes.PaleVioletRed
+                            tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                            tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
                         End If
                     End If
 
@@ -452,6 +573,7 @@ Public Class CodeSelecter
                 CodeIndexerList.ScrollIntoView(SelectItem)
             Case ESortType.Tree
                 CodeIndexerTree.Items.Clear()
+                TreeviewItemDic.Clear()
 
 
                 CodeIndexerTree.BeginInit()
@@ -479,7 +601,62 @@ Public Class CodeSelecter
     End Sub
 
 
-    Private Sub AddTreeList(tv As TreeView, itemPath As String, itemName As String, timage As Border, Isbig As Boolean, index As Integer, isSelect As Boolean)
+    Public Sub RefreshTreeviewItem(key As SCDatFiles.DatFiles, ObjectID As String)
+        If key = CurrentPage And Fliter.SortType = ESortType.Tree Then
+            Dim TargetItem As TreeViewItem = TreeviewItemDic(ObjectID)
+            Dim _ParrentTreeview As Object = DeleteMe(TargetItem)
+
+            While _ParrentTreeview IsNot Nothing
+                Dim parrentTreeview As TreeViewItem = _ParrentTreeview
+                If parrentTreeview.Items.Count = 0 Then
+                    _ParrentTreeview = DeleteMe(parrentTreeview)
+                Else
+                    _ParrentTreeview = parrentTreeview.Parent
+                    If _ParrentTreeview.GetType = GetType(TreeView) Then
+                        Exit While
+                    End If
+                End If
+            End While  '부모가 있을 경우
+            '만약에 부모의 자식이 하나도 없을 경우 그 부모도 지운다.(이걸 부모가 TreeView일때까지 반복
+
+
+
+            MoveTreeList(CodeIndexerTree, TargetItem)
+            CodeIndexerTree.Items.Add(TargetItem)
+            'TreeviewItemDic(ObjectID).Header = "ㅎㅎ"
+        End If
+    End Sub
+    Private Function DeleteMe(TargetItem As TreeViewItem) As TreeViewItem
+        If TargetItem.Parent.GetType = GetType(TreeViewItem) Then
+            Dim parrentTreeview As TreeViewItem = TargetItem.Parent
+            parrentTreeview.Items.Remove(TargetItem)
+            Return parrentTreeview
+        ElseIf TargetItem.Parent.GetType = GetType(TreeView) Then
+            Dim parrentTreeview As TreeView = TargetItem.Parent
+            parrentTreeview.Items.Remove(TargetItem)
+            Return Nothing
+        End If
+        Return Nothing
+    End Function
+
+
+
+    'Dim TempTarget As TreeViewItem = parrentTreeview
+    'If TempTarget.Items.Count = 0 Then '부모의 수가 아무것도 없을 경우 자신을 지운다.
+
+
+
+    'If TempTarget.Parent.GetType = GetType(TreeViewItem) Then
+    'ElseIf TempTarget.Parent.GetType = GetType(TreeView) Then
+    'End If
+
+    'End If
+
+
+    Private TreeviewItemDic As Dictionary(Of Integer, TreeViewItem)
+    Private Sub MoveTreeList(tv As TreeView, TreeItem As TreeViewItem)
+        Dim index As Integer = TreeItem.Tag
+        Dim itemPath As String = pjData.Dat.Group(CurrentPage, index)
         Dim groups As String() = itemPath.Split({"\"}, StringSplitOptions.RemoveEmptyEntries)
 
         Dim ItempColl As ItemCollection = tv.Items
@@ -497,10 +674,39 @@ Public Class CodeSelecter
                     ItempColl = SelectTreeitem.Items
                     PassGroup = True
 
+                    Exit For
+                End If
+            Next
+            If Not PassGroup Then
+                Dim ttreeitem As New TreeViewItem()
 
-                    If isSelect Then
-                        ttreeitem.IsExpanded = True
-                    End If
+                ttreeitem.Header = groups(gindex)
+                ItempColl.Add(ttreeitem)
+
+                SelectTreeitem = ttreeitem
+                ItempColl = SelectTreeitem.Items
+            End If
+        Next
+
+        ItempColl.Add(TreeItem)
+    End Sub
+    Private Sub AddTreeList(tv As TreeView, itemPath As String, itemName As String, timage As Border, Isbig As Boolean, index As Integer, isSelect As Boolean)
+        Dim groups As String() = itemPath.Split({"\"}, StringSplitOptions.RemoveEmptyEntries)
+
+        Dim ItempColl As ItemCollection = tv.Items
+        Dim SelectTreeitem As TreeViewItem = Nothing
+
+        Dim PassGroup As Boolean = False
+
+
+        For gindex = 0 To groups.Count - 1
+            PassGroup = False
+            For i = 0 To ItempColl.Count - 1
+                Dim ttreeitem As TreeViewItem = ItempColl(i)
+                If groups(gindex) = ttreeitem.Header.ToString Then
+                    SelectTreeitem = ttreeitem
+                    ItempColl = SelectTreeitem.Items
+                    PassGroup = True
 
                     Exit For
                 End If
@@ -536,13 +742,23 @@ Public Class CodeSelecter
             CodeItem.Tag = index
             ItempColl.Add(CodeItem)
 
+            TreeviewItemDic.Add(index, CodeItem)
         Else
             Dim textblock As New TextBlock
-            textblock.Text = itemName
-            textblock.Padding = New Thickness(15, 0, 0, 0)
+            textblock.Padding = New Thickness(15, 8, 0, 0)
+
+
+            Dim NameBinding As Binding = New Binding("Name")
+            NameBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
+            textblock.SetBinding(TextBlock.TextProperty, NameBinding)
+
 
             Dim stackpanel As New StackPanel
+            stackpanel.Margin = New Thickness(-8, -8, -12, -8)
+            stackpanel.Height = 32
+            stackpanel.Width = 500
             stackpanel.Orientation = Orientation.Horizontal
+            timage.Margin = New Thickness(timage.Margin.Left + 8, timage.Margin.Top, timage.Margin.Right, timage.Margin.Bottom)
             stackpanel.Children.Add(timage)
             stackpanel.Children.Add(textblock)
 
@@ -552,30 +768,29 @@ Public Class CodeSelecter
             CodeItem.Tag = index
             ItempColl.Add(CodeItem)
 
+            If isSelect And IsComboBox Then
+                CodeItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                stackpanel.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                textblock.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+
+                Dim _ParrentTreeview As Object = CodeItem.Parent
+                While _ParrentTreeview.GetType = GetType(TreeViewItem)
+                    Dim parrentTreeview As TreeViewItem = _ParrentTreeview
+                    parrentTreeview.IsExpanded = True
+
+                    _ParrentTreeview = parrentTreeview.Parent
+                End While
+
+
+
+            End If
+            TreeviewItemDic.Add(index, CodeItem)
         End If
 
-        If isSelect Then
-            CodeItem.Background = Brushes.PaleVioletRed
-        End If
     End Sub
 
 
 
-
-
-    Private Sub Btn_sortn123(sender As Object, e As RoutedEventArgs)
-        SetFliter(ESortType.n123)
-        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
-    End Sub
-    Private Sub Btn_sortABC(sender As Object, e As RoutedEventArgs)
-        SetFliter(ESortType.ABC)
-        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
-    End Sub
-
-    Private Sub Btn_sortTree(sender As Object, e As RoutedEventArgs)
-        SetFliter(ESortType.Tree)
-        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
-    End Sub
 
     Private Sub ToolBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Fliter.IsIcon = L_IconBtn.IsSelected
@@ -589,6 +804,34 @@ Public Class CodeSelecter
         If (e.Key = Key.Return) Then
             Fliter.fliterText = FliterText.Text
             ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+        End If
+    End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        FliterText.Text = ""
+        Fliter.fliterText = ""
+        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+    End Sub
+
+
+    Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If LoadCmp Then
+            Select Case SortListBox.SelectedIndex
+                Case 0
+                    SetFliter(ESortType.n123)
+                    ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+                Case 1
+                    SetFliter(ESortType.ABC)
+                    ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+                Case 2
+                    SetFliter(ESortType.Tree)
+                    ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+                Case -1
+                    LoadCmp = False
+                    SortListBox.SelectedIndex = Fliter.SortType
+                    LoadCmp = True
+            End Select
+
         End If
     End Sub
 End Class
