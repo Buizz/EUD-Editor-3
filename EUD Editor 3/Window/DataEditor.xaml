@@ -96,9 +96,9 @@
                     <ListBoxItem>
                         명령
                     </ListBoxItem>
-                    <ListBoxItem>
+                    <!--<ListBoxItem>
                         버튼셋
-                    </ListBoxItem>
+                    </ListBoxItem>-->
                 </ListBox>
 
 

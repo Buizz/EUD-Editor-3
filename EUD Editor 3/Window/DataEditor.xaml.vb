@@ -3,6 +3,10 @@ Imports MaterialDesignThemes.Wpf
 
 Public Class DataEditor
     Public Sub OpenbyMainWindow()
+        Dim TabContent As TabablzControl = MainTab.Content
+        Dim mainTah As TabItem = GetTabItem(SCDatFiles.DatFiles.units, 0)
+        TabContent.Items.Add(mainTah)
+        TabContent.SelectedItem = mainTah
         CodeExpander.IsExpanded = True
         Console.IsExpanded = False
     End Sub
