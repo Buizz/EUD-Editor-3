@@ -5,6 +5,7 @@ Public Class CodeSelecter
     Private Templat As ItemsPanelTemplate = New ItemsPanelTemplate()
 
 
+    Private IsFirstLoad As Boolean = False
     Private IsComboBox As Boolean
     Private StartIndex As Integer
 
@@ -13,6 +14,45 @@ Public Class CodeSelecter
     Public Event OpenTab As RoutedEventHandler
 
     Private LastSelectIndex As Integer = -1
+
+    Private timer As New Date
+    Private Sub CodeIndexerList_KeyDown(sender As Object, e As KeyEventArgs) Handles CodeIndexerList.PreviewKeyDown
+        If timer.AddMilliseconds(50) < Now Then
+            timer = Now
+        Else
+            Exit Sub
+        End If
+        If Fliter.SortType <> ESortType.Tree And Not Fliter.IsIcon Then
+            If CodeIndexerList.SelectedItem Is Nothing Then
+                Exit Sub
+            End If
+            Dim ListboxItem As ListBoxItem
+
+            If e.Key = Key.Down Then
+                If CodeIndexerList.SelectedIndex + 1 < CodeIndexerList.Items.Count Then
+                    ListboxItem = CodeIndexerList.Items(CodeIndexerList.SelectedIndex + 1)
+                Else
+                    ListboxItem = CodeIndexerList.SelectedItem
+                End If
+            ElseIf e.Key = Key.Up Then
+                If CodeIndexerList.SelectedIndex > 0 Then
+                    ListboxItem = CodeIndexerList.Items(CodeIndexerList.SelectedIndex - 1)
+                Else
+                    ListboxItem = CodeIndexerList.SelectedItem
+                End If
+            Else
+                Exit Sub
+            End If
+            Dim Selectindex As Integer = ListboxItem.Tag
+
+            If LastSelectIndex = -1 Or LastSelectIndex <> Selectindex Then
+                LastSelectIndex = Selectindex
+                Dim returnval() As Integer = {CurrentPage, LastSelectIndex}
+                RaiseEvent ListSelect(returnval, e)
+            End If
+        End If
+    End Sub
+
     Private Sub CodeIndexerList_Select(sender As Object, e As MouseButtonEventArgs) Handles CodeIndexerList.MouseLeftButtonUp
         If Fliter.SortType <> ESortType.Tree And Not Fliter.IsIcon Then
             If CodeIndexerList.SelectedItem Is Nothing Then
@@ -78,51 +118,15 @@ Public Class CodeSelecter
     '    Return CType(source, TreeViewItem)
     'End Function
 
+    Private MenuOpendSelectIndex As Integer
     Private Sub ContextMenu_Opened(sender As Object, e As RoutedEventArgs)
-        Select Case Fliter.SortType
-            Case ESortType.Tree
-                If CodeIndexerTree.SelectedItem Is Nothing Then
-                    Exit Sub
-                End If
-
-
-                Dim selectNode As TreeViewItem = CodeIndexerTree.SelectedItem
-                Dim index As Integer = selectNode.Tag
-                'MsgBox(index)
-            Case Else
-                If Fliter.IsIcon Then
-                    If CodeIndexerImage.SelectedItem Is Nothing Then
-                        Exit Sub
-                    End If
-                    Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
-
-                    Dim index As Integer = ListboxItem.Tag
-
-
-                    'MsgBox(index)
-                Else
-                    If CodeIndexerList.SelectedItem Is Nothing Then
-                        Exit Sub
-                    End If
-                    Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
-
-                    Dim index As Integer = ListboxItem.Tag
-
-
-
-                    'MsgBox(index)
-                End If
-        End Select
-    End Sub
-
-
-    Private Sub OpentabMenuItem_Click(sender As Object, e As RoutedEventArgs)
         Dim index As Integer
         Select Case Fliter.SortType
             Case ESortType.Tree
                 If CodeIndexerTree.SelectedItem Is Nothing Then
                     Exit Sub
                 End If
+
 
                 Dim selectNode As TreeViewItem = CodeIndexerTree.SelectedItem
                 index = selectNode.Tag
@@ -135,6 +139,9 @@ Public Class CodeSelecter
                     Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
 
                     index = ListboxItem.Tag
+
+
+                    'MsgBox(index)
                 Else
                     If CodeIndexerList.SelectedItem Is Nothing Then
                         Exit Sub
@@ -142,55 +149,78 @@ Public Class CodeSelecter
                     Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
 
                     index = ListboxItem.Tag
+
+
+
+                    'MsgBox(index)
                 End If
         End Select
 
-        RaiseEvent OpenTab(index, e)
+        MenuOpendSelectIndex = index
+        If SCCodeCount(CurrentPage) <= MenuOpendSelectIndex Then
+            If IsComboBox Then
+                Dim ContextMenu As ContextMenu = FindResource("OnlyOpenWindon")
+                For i = 0 To ContextMenu.Items.Count - 1
+                    Dim MenuItem As MenuItem = ContextMenu.Items(i)
+                    MenuItem.IsEnabled = False
+                Next
+            Else
+                Dim ContextMenu As ContextMenu = FindResource("ContextMenu")
+                For i = 0 To ContextMenu.Items.Count - 1
+                    Dim MenuItem As MenuItem = ContextMenu.Items(i)
+                    MenuItem.IsEnabled = False
+                Next
+            End If
+
+            Exit Sub
+        Else
+            If IsComboBox Then
+                Dim ContextMenu As ContextMenu = FindResource("OnlyOpenWindon")
+                For i = 0 To ContextMenu.Items.Count - 1
+                    Dim MenuItem As MenuItem = ContextMenu.Items(i)
+                    MenuItem.IsEnabled = True
+                Next
+            Else
+                Dim ContextMenu As ContextMenu = FindResource("ContextMenu")
+                For i = 0 To ContextMenu.Items.Count - 1
+                    Dim MenuItem As MenuItem = ContextMenu.Items(i)
+                    MenuItem.IsEnabled = True
+                Next
+            End If
+        End If
+
+
+        If Not IsComboBox Then
+            Dim ContextMenu As ContextMenu = FindResource("ContextMenu")
+            Dim MenuItem As MenuItem = ContextMenu.Items(1)
+            MenuItem.IsEnabled = pjData.DataManager.PasteAble(CurrentPage, index)
+        End If
+
+    End Sub
+
+
+    Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        TabItemTool.WindowTabItem(CurrentPage, MenuOpendSelectIndex)
+    End Sub
+
+    Private Sub OpentabMenuItem_Click(sender As Object, e As RoutedEventArgs)
+        RaiseEvent OpenTab(MenuOpendSelectIndex, e)
     End Sub
 
     Private Sub OpenWindowMenuItem_Click(sender As Object, e As RoutedEventArgs)
-
-        Dim index As Integer
-        Select Case Fliter.SortType
-            Case ESortType.Tree
-                If CodeIndexerTree.SelectedItem Is Nothing Then
-                    Exit Sub
-                End If
-
-                Dim selectNode As TreeViewItem = CodeIndexerTree.SelectedItem
-                index = selectNode.Tag
-                'MsgBox(index)
-            Case Else
-                If Fliter.IsIcon Then
-                    If CodeIndexerImage.SelectedItem Is Nothing Then
-                        Exit Sub
-                    End If
-                    Dim ListboxItem As ListBoxItem = CodeIndexerImage.SelectedItem
-
-                    index = ListboxItem.Tag
-                Else
-                    If CodeIndexerList.SelectedItem Is Nothing Then
-                        Exit Sub
-                    End If
-                    Dim ListboxItem As ListBoxItem = CodeIndexerList.SelectedItem
-
-                    index = ListboxItem.Tag
-                End If
-        End Select
-
-        RaiseEvent OpenWindow(index, e)
+        RaiseEvent OpenWindow(MenuOpendSelectIndex, e)
     End Sub
 
     Private Sub CopyItem_Click(sender As Object, e As RoutedEventArgs)
-
+        pjData.DataManager.CopyDatObject(CurrentPage, MenuOpendSelectIndex)
     End Sub
 
     Private Sub PasteItem_Click(sender As Object, e As RoutedEventArgs)
-
+        pjData.DataManager.PasteDatObject(CurrentPage, MenuOpendSelectIndex)
     End Sub
 
     Private Sub ResetItem_Click(sender As Object, e As RoutedEventArgs)
-
+        pjData.DataManager.ResetDatObject(CurrentPage, MenuOpendSelectIndex)
     End Sub
 
 
@@ -204,6 +234,7 @@ Public Class CodeSelecter
         factoryPanel.SetValue(WrapPanel.IsItemsHostProperty, True)
         Templat.VisualTree = factoryPanel
         TreeviewItemDic = New Dictionary(Of Integer, TreeViewItem)
+
         LoadCmp = True
     End Sub
 
@@ -278,6 +309,17 @@ Public Class CodeSelecter
         LastSelectIndex = -1
         IsComboBox = combobox
         StartIndex = _StartIndex
+        If Not IsFirstLoad Then
+            IsFirstLoad = True
+            If IsComboBox Then
+                CodeIndexerImage.ContextMenu = FindResource("OnlyOpenWindon")
+                CodeIndexerList.ContextMenu = FindResource("OnlyOpenWindon")
+            End If
+
+
+
+        End If
+
 
         Select Case Fliter.SortType
             Case ESortType.n123, ESortType.ABC
@@ -483,11 +525,23 @@ Public Class CodeSelecter
                             SelectItem = tListItem
                         End If
 
-                        If Fliter.fliterText IsNot Nothing Then
-                            If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
-                                CodeIndexerImage.Items.Add(tListItem)
+
+                        Dim CheckPss As Boolean = False
+                        If Fliter.IsEdit Then
+                            Dim IsEdit As Boolean = pjData.Dat.GetDatFile(pagetype).CheckDirty(index)
+                            If Not IsEdit Then
+                                CheckPss = True
                             End If
                         Else
+                            If Fliter.fliterText IsNot Nothing Then
+                                If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                    CheckPss = True
+                                End If
+                            Else
+                                CheckPss = True
+                            End If
+                        End If
+                        If CheckPss Then
                             CodeIndexerImage.Items.Add(tListItem)
                         End If
                     Next
@@ -505,7 +559,7 @@ Public Class CodeSelecter
                         Dim unitname As String = ObjectNames(index)  '"[" & Format(i, "000") & "]  " & pjData.UnitName(i)
 
                         Dim textblock As New TextBlock
-
+                        textblock.TextWrapping = TextWrapping.WrapWithOverflow
                         Dim NameBinding As Binding = New Binding("Name")
                         NameBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
                         textblock.SetBinding(TextBlock.TextProperty, NameBinding)
@@ -513,8 +567,7 @@ Public Class CodeSelecter
                         'textblock.Text = unitname
                         textblock.Padding = New Thickness(15, 0, 0, 0)
 
-                        Dim stackpanel As New StackPanel
-                        stackpanel.Orientation = Orientation.Horizontal
+                        Dim stackpanel As New DockPanel
                         stackpanel.Children.Add(ObjectImages(index))
                         stackpanel.Children.Add(textblock)
 
@@ -535,23 +588,36 @@ Public Class CodeSelecter
                             End If
                         End If
 
-                        If Fliter.fliterText IsNot Nothing Then
-                            If Fliter.fliterText = "" Or unitname.ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
-                                CodeIndexerList.Items.Add(tListItem)
+
+                        Dim CheckPss As Boolean = False
+                        If Fliter.IsEdit Then
+                            Dim IsEdit As Boolean = pjData.Dat.GetDatFile(pagetype).CheckDirty(index)
+                            If Not IsEdit Then
+                                CheckPss = True
                             End If
                         Else
+                            If Fliter.fliterText IsNot Nothing Then
+                                If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                    CheckPss = True
+                                End If
+                            Else
+                                CheckPss = True
+                            End If
+                        End If
+                        If CheckPss Then
                             CodeIndexerList.Items.Add(tListItem)
                         End If
+
                     Next
                 End If
-                If IsComboBox Then
+                If IsComboBox And (pagetype = EPageType.Unit Or pagetype = EPageType.Weapon) Then
                     Dim textblock As New TextBlock
+                    textblock.TextWrapping = TextWrapping.Wrap
                     textblock.Text = Tool.GetText("None")
                     textblock.Padding = New Thickness(15, 0, 0, 0)
 
 
-                    Dim stackpanel As New StackPanel
-                    stackpanel.Orientation = Orientation.Horizontal
+                    Dim stackpanel As New DockPanel
                     stackpanel.Children.Add(GetIcon(0, Fliter.IsIcon))
                     stackpanel.Children.Add(textblock)
 
@@ -745,6 +811,7 @@ Public Class CodeSelecter
             TreeviewItemDic.Add(index, CodeItem)
         Else
             Dim textblock As New TextBlock
+            textblock.TextWrapping = TextWrapping.WrapWithOverflow
             textblock.Padding = New Thickness(15, 8, 0, 0)
 
 
@@ -834,5 +901,6 @@ Public Class CodeSelecter
 
         End If
     End Sub
+
 End Class
 

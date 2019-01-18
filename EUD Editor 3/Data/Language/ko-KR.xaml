@@ -42,6 +42,7 @@
 
     <sys:String x:Key="NoName">제목 없음</sys:String>
     <sys:String x:Key="None">없음</sys:String>
+    <sys:String x:Key="NotUse">사용안함</sys:String>
 
 
     <sys:String x:Key="Theme">테마</sys:String>
@@ -85,6 +86,7 @@
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error FailLoad DataEditor">데이터 에디터 로드에 실패했습니다.</sys:String>
     <sys:String x:Key="Error FailLoad TriggerEditor">트리거 에디터 로드에 실패했습니다.</sys:String>
+    <sys:String x:Key="Error FailLoad PluginSet">플러그인 세팅 로드에 실패했습니다.</sys:String>
 
 
 
@@ -108,6 +110,11 @@
     <sys:String x:Key="OpenTab">새 텝으로 열기</sys:String>
     <sys:String x:Key="OpenWindow">새 창으로 열기</sys:String>
 
+    <sys:String x:Key="SortCode">코드순</sys:String>
+    <sys:String x:Key="SortABC">알파벳순</sys:String>
+    <sys:String x:Key="SortTree">트리뷰</sys:String>
+    <sys:String x:Key="FliterIcon">아이콘보기</sys:String>
+    <sys:String x:Key="FliterEdit">편집된 것만 보기</sys:String>
 
 
 
@@ -129,7 +136,8 @@
     <sys:String x:Key="units_Shield Amount">쉴드</sys:String>
     <sys:String x:Key="units_Hit Points">체력</sys:String>
     <sys:String x:Key="units_Elevation Level">높이</sys:String>
-    <sys:String x:Key="units_Unknown (old Movement):">방어구</sys:String>
+    <sys:String x:Key="units_Unknown (old Movement)">이동 플래그</sys:String>
+    <sys:String x:Key="units_Unknown (old Movement)_V">0x01|0x02|0x04|0x08|0x10|0x20|0x40|0x80</sys:String>
     <sys:String x:Key="units_Rank/Sublabel">계급</sys:String>
     <sys:String x:Key="units_Comp AI Idle">방어구</sys:String>
     <sys:String x:Key="units_Human AI Idle">방어구</sys:String>
@@ -141,7 +149,9 @@
     <sys:String x:Key="units_Air Weapon">공중무기</sys:String>
     <sys:String x:Key="units_Max Air Hits">타격수</sys:String>
     <sys:String x:Key="units_AI Internal">방어구</sys:String>
-    <sys:String x:Key="units_Special Ability Flags:">방어구</sys:String>
+    <sys:String x:Key="units_Special Ability Flags">스페셜 어빌리티 플래그</sys:String>
+    <sys:String x:Key="units_Special Ability Flags_V">건물|애드온|공중유닛|자원을 캔다|부가 유닛|날 수 있는 건물|영웅|HP 자동 회복|기본모습|클로킹|1 Egg 2 Unit|단일 개체|자원 창고(반납)|자원 저장 건물|로보틱|디텍터|바이오닉|크립 필요|Unused|파일런 필요|버로우 가능 유닛|마법 유닛|영구 클로킹|아이템 가질 수 있음|인구 수 확인 무시|중간 오버레이|큰 오버레이|타겟 방향 자동 공격|전투에 반응|절대 무적|기계 유닛|유닛을 생산</sys:String>
+    
     <sys:String x:Key="units_Target Acquisition Range">인지거리</sys:String>
     <sys:String x:Key="units_Sight Range">시야</sys:String>
     <sys:String x:Key="units_Armor Upgrade">방어구</sys:String>
@@ -169,7 +179,7 @@
     <sys:String x:Key="units_Vespene Cost">가스</sys:String>
     <sys:String x:Key="units_Build Time">시간</sys:String>
     <sys:String x:Key="units_Unknown1">방어구</sys:String>
-    <sys:String x:Key="units_Staredit Group Flags:">방어구</sys:String>
+    <sys:String x:Key="units_Staredit Group Flags">방어구</sys:String>
     <sys:String x:Key="units_Supply Provided">필요인구</sys:String>
     <sys:String x:Key="units_Supply Required">공급인구</sys:String>
     <sys:String x:Key="units_Space Required">필요공간</sys:String>
@@ -178,5 +188,5 @@
     <sys:String x:Key="units_Destroy Score">파괴점수</sys:String>
     <sys:String x:Key="units_Unit Map String">방어구</sys:String>
     <sys:String x:Key="units_Broodwar Unit Flag">브루드워유닛</sys:String>
-    <sys:String x:Key="units_Staredit Availability Flags:">방어구</sys:String>
+    <sys:String x:Key="units_Staredit Availability Flags">방어구</sys:String>
 </ResourceDictionary>

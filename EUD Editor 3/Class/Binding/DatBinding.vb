@@ -13,10 +13,29 @@ Public Class DatBinding
     Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
 
+    Private FlagBindingManager As List(Of FlagBinding)
+    Public ReadOnly Property GetFlagBinding(index As Integer) As FlagBinding
+        Get
+            Return FlagBindingManager(index)
+        End Get
+    End Property
+
     Public Sub New(tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer)
+        Dim ValueStart As Integer = pjData.Dat.ParamInfo(tDatfile, tParameter, SCDatFiles.EParamInfo.VarStart)
+        Dim ValueSize As Byte = pjData.Dat.ParamInfo(tDatfile, tParameter, SCDatFiles.EParamInfo.Size)
+
         Datfile = tDatfile
         Parameter = tParameter
-        ObjectID = tObjectID
+        ObjectID = tObjectID + ValueStart
+
+        FlagBindingManager = New List(Of FlagBinding)
+        For i = 0 To ValueSize * 8 - 1
+            FlagBindingManager.Add(New FlagBinding(Me, Datfile, Parameter, ObjectID, i))
+        Next
+    End Sub
+
+    Public Sub BackColorRefresh()
+        NotifyPropertyChanged("BackColor")
     End Sub
 
     Private Sub PropertyChangedPack()
@@ -27,6 +46,10 @@ Public Class DatBinding
         NotifyPropertyChanged("BackColor")
         NotifyPropertyChanged("ValueText")
         NotifyPropertyChanged("ValueImage")
+        NotifyPropertyChanged("ValueFlag")
+        For i = 0 To FlagBindingManager.Count - 1
+            FlagBindingManager(i).PropertyChangedPack()
+        Next
     End Sub
 
     Public Property Value() As String
@@ -46,6 +69,33 @@ Public Class DatBinding
         End Get
 
         Set(ByVal tvalue As String)
+            If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
+                'MsgBox("데이터 파인딩 셋")
+                pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
+                pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
+                PropertyChangedPack()
+            End If
+        End Set
+    End Property
+
+    Public Property ValueFlag() As String
+        Get
+            'MsgBox("데이터 파인딩 겟")
+            '만약 맵데이터에 있는 항목이라면? 
+            If pjData.IsMapLoading Then
+                'MsgBox(pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID) & vbCrLf &
+                'pjData.Dat.Data(Datfile, Parameter, ObjectID))
+                If pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault And Not pjData.MapData.DatFile.Values(Datfile, Parameter, ObjectID).IsDefault Then '기본 안 값 쓴다면
+                    Return Hex(pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID))
+                End If
+            End If
+
+
+            Return Hex(pjData.Dat.Data(Datfile, Parameter, ObjectID))
+        End Get
+
+        Set(ByVal tvalue As String)
+            tvalue = "&H" & tvalue
             If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
                 'MsgBox("데이터 파인딩 셋")
                 pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
@@ -147,7 +197,12 @@ Public Class DatBinding
         Get
             Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
             If valueType <> SCDatFiles.DatFiles.None Then
-                Return pjData.CodeLabel(valueType, pjData.Dat.Data(Datfile, Parameter, ObjectID), True)
+                Dim Value As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+                If SCCodeCount(valueType) > Value Then
+                    Return pjData.CodeLabel(valueType, Value, True)
+                Else
+                    Return Tool.GetText("None")
+                End If
             Else
                 Return Tool.GetText("None")
             End If
@@ -269,4 +324,148 @@ Public Class DatBinding
     Private Sub NotifyPropertyChanged(ByVal info As String)
         RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
     End Sub
+
+    Public Class FlagBinding
+        Implements INotifyPropertyChanged
+
+        Private ParrentBinding As DatBinding
+
+        Private Datfile As SCDatFiles.DatFiles
+        Private Parameter As String
+        Private ObjectID As Integer
+        Private FlagIndex As Integer
+
+        Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+        Public Sub New(tParrentBinding As DatBinding, tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer, tFlagIndex As Integer)
+            ParrentBinding = tParrentBinding
+
+            Datfile = tDatfile
+            Parameter = tParameter
+            ObjectID = tObjectID
+            FlagIndex = tFlagIndex
+        End Sub
+
+
+        Public Property MiniFlag As Boolean
+            Get
+                Dim value As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+                Dim flag As Boolean = (value And Math.Pow(2, FlagIndex))
+
+
+                Return flag
+            End Get
+
+            Set(ByVal tvalue As Boolean)
+                Dim value As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+
+                '원래 값
+                Dim flag As Boolean = (value And Math.Pow(2, FlagIndex))
+
+                If tvalue <> flag Then '값이 변했음
+                    If tvalue Then
+                        Dim CValue As Long = value + Math.Pow(2, FlagIndex)
+                        pjData.Dat.Data(Datfile, Parameter, ObjectID) = CValue
+                    Else
+                        Dim CValue As Long = value - Math.Pow(2, FlagIndex)
+                        pjData.Dat.Data(Datfile, Parameter, ObjectID) = CValue
+                    End If
+
+                    '1111 1001
+                    '1111 1101
+
+                    '1111 1001
+                    '0000 0100
+
+
+                    '1111 1101
+                    '1111 1001
+
+                    '1111 1011
+
+                    pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
+
+                    ParrentBinding.PropertyChangedPack()
+                    PropertyChangedPack()
+                End If
+
+
+
+
+                'If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
+                '    'MsgBox("데이터 파인딩 셋")
+                '    pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
+                '    pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
+
+                'End If
+            End Set
+        End Property
+
+        Public ReadOnly Property MiniBackColor As SolidColorBrush
+            Get
+                Dim value As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+                '현재 값
+                Dim flag As Boolean = (value And Math.Pow(2, FlagIndex))
+
+                Dim Truevalue As Long = scData.DefaultDat.Data(Datfile, Parameter, ObjectID)
+                '실제 값
+                Dim Trueflag As Boolean = (Truevalue And Math.Pow(2, FlagIndex))
+
+
+                Dim IsDefault As Boolean = pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault
+
+
+
+                If Not IsDefault Then
+                    If (flag <> Trueflag) Then '수정된 값일 경우
+                        Return New SolidColorBrush(pgData.FiledFalgColor)
+                    Else
+                        If flag Then
+                            Return New SolidColorBrush(pgData.FiledMapEditColor)
+                        Else
+                            Return New SolidColorBrush(Color.FromArgb(0, 0, 0, 0))
+                        End If
+                    End If
+                End If
+
+
+                'New SolidColorBrush(pgData.FiledEditColor)
+                If flag Then
+                    Return New SolidColorBrush(pgData.FiledMapEditColor)
+                Else
+                    Return New SolidColorBrush(pgData.FiledDefault)
+                End If
+
+
+
+                'If IsDefault And Not IsMapDataDefault Then '만약 맵 데이터가 존재 할 경우
+                '    Return New SolidColorBrush(pgData.FiledMapEditColor)
+                'Else
+                '    If IsDefault Then
+
+                '        'MsgBox("회색")
+                '        Return New SolidColorBrush(pgData.FiledDefault)
+                '    Else
+
+                '        'MsgBox("빨간색")
+                '        Return New SolidColorBrush(pgData.FiledEditColor)
+                '    End If
+                'End If
+                'Return New SolidColorBrush(pgData.FiledMapEditColor)
+            End Get
+        End Property
+
+
+
+        Public Sub PropertyChangedPack()
+            NotifyPropertyChanged("MiniFlag")
+            NotifyPropertyChanged("MiniBackColor")
+        End Sub
+
+
+        Private Sub NotifyPropertyChanged(ByVal info As String)
+            RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
+        End Sub
+    End Class
 End Class
+

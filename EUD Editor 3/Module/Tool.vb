@@ -1,18 +1,11 @@
 ﻿Imports System.IO
-Imports System.Windows.Forms
 Imports System.Windows.Threading
+Imports Dragablz
+Imports MaterialDesignThemes.Wpf
 Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
-        Public Sub RefreshWindows()
-            For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(DataEditor) Then
-                    ' win.Dispatcher.Invoke(DispatcherPriority.Render, DispatcherPriority.Normal);
-                End If
-            Next
-        End Sub
-
         Public Sub CloseWindows()
             For Each win As Window In Application.Current.Windows
                 If win.GetType Is GetType(DataEditor) Then
@@ -83,11 +76,11 @@ Namespace Tool
         End Sub
 
         Public Function OpenMapSet() As Boolean
-            Dim opendialog As New OpenFileDialog With {
+            Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
             .Filter = Tool.GetText("SCX Fliter"),
             .Title = Tool.GetText("SCX Select")
-}
-
+            }
+            Dim LastOpenMapName As String = pjData.OpenMapName
             '맵이 플텍맵인지 아닌지 검사해야됨.
             '맵이 저장맵이랑 이름이 같은지 검사해야됨.
             If opendialog.ShowDialog() = Forms.DialogResult.OK Then
@@ -101,7 +94,7 @@ Namespace Tool
                 If pjData.IsMapLoading Then
                     Return True
                 Else
-                    pjData.OpenMapName = ""
+                    pjData.OpenMapName = LastOpenMapName
                     Return False
                 End If
             End If
@@ -109,7 +102,7 @@ Namespace Tool
         End Function
 
         Public Function SaveMapSet() As Boolean
-            Dim savedialog As New SaveFileDialog With {
+            Dim savedialog As New System.Windows.Forms.SaveFileDialog With {
             .Filter = Tool.GetText("SCX Fliter"),
             .Title = Tool.GetText("SCX Save Select"),
             .OverwritePrompt = False
@@ -171,11 +164,11 @@ Namespace Tool
         End Property
 
 
-        Public SaveProjectDialog As SaveFileDialog
+        Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
 
         Private MainWindow As MainWindow
         Public Sub Init()
-            SaveProjectDialog = New SaveFileDialog
+            SaveProjectDialog = New System.Windows.Forms.SaveFileDialog
             SaveProjectDialog.Filter = GetText("SaveFliter")
 
 
@@ -211,4 +204,152 @@ Namespace Tool
 
         End Sub
     End Module
+End Namespace
+Namespace TabItemTool
+    Module TabItemTool
+        Public Sub WindowTabItem(Datfile As SCDatFiles.DatFiles, index As Integer)
+            Dim DataEditorForm As New DataEditor
+            DataEditorForm.Show()
+            DataEditorForm.OpenbyMainWindow(GetTabItem(Datfile, index))
+        End Sub
+
+        Private TabTypeArray As Type() = {GetType(UnitData)}
+        Public Sub ChanageTabItem(Datfile As SCDatFiles.DatFiles, index As Integer, MainTab As Dockablz.Layout)
+            Dim MainContent As Object = MainTab.Content
+            While MainContent.GetType <> GetType(TabablzControl)
+                Select Case MainContent.GetType
+                    Case GetType(TabablzControl)
+                        Exit While
+                    Case GetType(Dockablz.Branch)
+                        Dim tBranch As Dockablz.Branch = MainContent
+                        MainContent = tBranch.FirstItem
+                End Select
+            End While
+
+            Dim TabContent As TabablzControl = MainContent
+
+
+
+            If TabContent.Items.Count <> 0 Then
+                Dim ChangesTabItem As TabItem = TabContent.Items(0)
+                If ChangesTabItem.Content.GetType() = TabTypeArray(Datfile) Then '같은거 일 경우
+                    Dim TGrid As Grid = ChangesTabItem.Header
+                    Dim TabText As TextBlock = TGrid.Children.Item(0)
+
+                    Dim myBinding As Binding = New Binding("Name")
+                    myBinding.Source = pjData.BindingManager.UIManager(Datfile, index)
+                    TabText.SetBinding(TextBlock.TextProperty, myBinding)
+
+
+                    ChangesTabItem.Content.ReLoad(Datfile, index)
+                    TabContent.SelectedItem = ChangesTabItem
+                Else
+                    Dim TabItem As TabItem = GetTabItem(Datfile, index)
+                    TabContent.Items.RemoveAt(0)
+                    TabContent.Items.Insert(0, TabItem)
+                    TabContent.SelectedItem = TabItem
+                End If
+
+            Else
+                Dim TabItem As TabItem = GetTabItem(Datfile, index)
+                TabContent.Items.Add(TabItem)
+                TabContent.SelectedItem = TabItem
+            End If
+        End Sub
+        Public Sub PlusTabItem(Datfile As SCDatFiles.DatFiles, index As Integer, MainTab As Dockablz.Layout)
+            Dim MainContent As Object = MainTab.Content
+            While MainContent.GetType <> GetType(TabablzControl)
+                Select Case MainContent.GetType
+                    Case GetType(TabablzControl)
+                        Exit While
+                    Case GetType(Dockablz.Branch)
+                        Dim tBranch As Dockablz.Branch = MainContent
+                        MainContent = tBranch.FirstItem
+                End Select
+            End While
+
+            Dim TabContent As TabablzControl = MainContent
+
+            Dim TabItem As TabItem = GetTabItem(Datfile, index)
+            TabContent.Items.Add(TabItem)
+            TabContent.SelectedItem = TabItem
+        End Sub
+
+        Public Function GetTabItem(Datfile As SCDatFiles.DatFiles, index As Integer) As TabItem
+            Dim TabItem As New TabItem
+            Dim TabGrid As New Grid
+            Dim TabText As New TextBlock
+            Dim TabContextMenu As New ContextMenu
+            'TabText.Text = pjData.CodeLabel(CodePage, index)
+            TabText.Foreground = Application.Current.Resources("IdealForegroundColorBrush")
+            TabText.HorizontalAlignment = HorizontalAlignment.Center
+            TabText.VerticalAlignment = VerticalAlignment.Center
+
+
+
+
+
+            Dim TabCloseCommand As New TabCloseCommand(TabItem)
+
+            Dim RightCloseMenuItem As New MenuItem
+            Dim OtherCloseMenuItem As New MenuItem
+            If True Then
+                Dim tabmenuitem As New MenuItem
+                tabmenuitem.Header = Tool.GetText("TabClose")
+                tabmenuitem.Command = TabablzControl.CloseItemCommand
+
+                Dim PIcon As New PackIcon()
+                PIcon.Kind = PackIconKind.Close
+                tabmenuitem.Icon = PIcon
+                TabContextMenu.Items.Add(tabmenuitem)
+            End If
+
+            If True Then
+                RightCloseMenuItem.Header = Tool.GetText("RightTabsClose")
+                RightCloseMenuItem.CommandParameter = TabCloseCommand.CommandType.RightClose
+                RightCloseMenuItem.Command = TabCloseCommand
+
+                Dim PIcon As New PackIcon()
+                PIcon.Kind = PackIconKind.ArrowExpandRight
+                RightCloseMenuItem.Icon = PIcon
+                TabContextMenu.Items.Add(RightCloseMenuItem)
+            End If
+
+            If True Then
+                OtherCloseMenuItem.Header = Tool.GetText("OtherTabsClose")
+                OtherCloseMenuItem.CommandParameter = TabCloseCommand.CommandType.OtherClose
+                OtherCloseMenuItem.Command = TabCloseCommand
+
+                Dim PIcon As New PackIcon()
+                PIcon.Kind = PackIconKind.ArrowSplitVertical
+                OtherCloseMenuItem.Icon = PIcon
+                TabContextMenu.Items.Add(OtherCloseMenuItem)
+            End If
+
+            Dim TabCloseEnabled As New TabCloseEnabled(TabItem, RightCloseMenuItem, OtherCloseMenuItem)
+            TabItem.AddHandler(MenuItem.ContextMenuOpeningEvent, New RoutedEventHandler(AddressOf TabCloseEnabled.OpenEvent))
+
+            'TabGrid.Background = Application.Current.Resources("PrimaryHueMidBrush")
+            TabGrid.ContextMenu = TabContextMenu
+            TabGrid.Height = 34
+            TabGrid.Margin = New Thickness(0, -5, 0, -5)
+            TabGrid.Children.Add(TabText)
+
+
+            TabItem.Header = TabGrid
+
+
+            Dim myBinding As Binding = New Binding("Name")
+            Select Case Datfile
+                Case SCDatFiles.DatFiles.units
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, index)
+                    TabItem.Content = New UnitData(index)
+            End Select
+            TabText.SetBinding(TextBlock.TextProperty, myBinding)
+
+            Return TabItem
+        End Function
+    End Module
+
+
 End Namespace

@@ -308,7 +308,34 @@ Class MainWindow
     End Sub
 
     Private Sub Btn_Plugin_Click(sender As Object, e As RoutedEventArgs)
+        If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
+            If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
+                .Filter = "StarCraft.exe|StarCraft.exe",
+                .FileName = "StarCraft.exe",
+                .Title = Tool.GetText("StarExeFile Select")
+                }
 
+
+                If opendialog.ShowDialog() = Forms.DialogResult.OK Then
+                    pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
+                    scData.LoadMPQData()
+                    BtnRefresh()
+                Else
+                    Tool.ErrorMsgBox(Tool.GetText("Error FailLoad PluginSet"))
+                    Exit Sub
+                End If
+            Else
+                Tool.ErrorMsgBox(Tool.GetText("Error FailLoad PluginSet"))
+                Exit Sub
+            End If
+        End If
+
+
+        'pjData.SetDirty(True)
+        Dim PluginForm As New PluginWindow
+        PluginForm.Show()
+        'DataEditorForm.OpenbyMainWindow()
     End Sub
 
     Private Sub MenuItemSave_Click(sender As Object, e As RoutedEventArgs)

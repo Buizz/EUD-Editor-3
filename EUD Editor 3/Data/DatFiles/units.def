@@ -9,14 +9,17 @@ OutputEntrycount=228
 
 1Name=Subunit 1
 1Size=2
+1Type=0
 
 2Name=Subunit 2
 2Size=2
+2Type=0
 
 3Name=Infestation
 3Size=2
 3VarStart=106
 3VarEnd=201
+3Type=0
 
 4Name=Construction Animation
 4Size=4

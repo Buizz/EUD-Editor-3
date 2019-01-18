@@ -44,7 +44,6 @@
         US.Init(DatFiles, ObjectID, US.Tag)
         SIR.Init(DatFiles, ObjectID, SIR.Tag)
         TAR.Init(DatFiles, ObjectID, TAR.Tag)
-
         'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)

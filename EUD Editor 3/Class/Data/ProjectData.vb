@@ -199,11 +199,12 @@ Public Class ProjectData
         End Get
     End Property
 
-    Public Property CodeLabel(Datfile As SCDatFiles.DatFiles, index As Integer, Optional IsFullname As Boolean = False)
+    Public ReadOnly Property CodeLabel(Datfile As SCDatFiles.DatFiles, index As Integer, Optional IsFullname As Boolean = False) As String
         Get
-            Dim ToolTipText As String = SaveData.Dat.ToolTip(Datfile, index)
             Dim ReturnStr As String = Tool.GetText("None")
             Try
+                Dim ToolTipText As String = SaveData.Dat.ToolTip(Datfile, index)
+
                 Select Case Datfile
                     Case SCDatFiles.DatFiles.units
                         ReturnStr = UnitName(index)
@@ -242,6 +243,8 @@ Public Class ProjectData
                             ReturnStr = scData.BtnStr(index - SCUnitCount + 1)
                         End If
                 End Select
+
+
                 If Datfile <> SCDatFiles.DatFiles.units Then
                     If IsFullname And ToolTipText <> "" Then
                         ReturnStr = ReturnStr & "(" & ToolTipText & ")"
@@ -254,9 +257,6 @@ Public Class ProjectData
 
             Return ReturnStr
         End Get
-        Set(value)
-
-        End Set
     End Property
 
 
@@ -293,7 +293,7 @@ Public Class ProjectData
             Else
                 Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
 
-                If ToolTipText.Trim <> "" Then
+                If ToolTipText <> "" Then
                     Return RealName & " (" & ToolTipText & ")"
                 Else
                     Return RealName
@@ -314,6 +314,8 @@ Public Class ProjectData
     Public Sub New()
         '초기화
         SaveData = New SaveableData
+    End Sub
+    Public Sub InitData()
         Bd = New BindingManager
         Dm = New DataManager
         CodeSelecters = New List(Of CodeSelecter)
@@ -360,6 +362,7 @@ Public Class ProjectData
         If isNewfile Then
             _pjdata = New ProjectData
             _pjdata.NewFIle()
+            _pjdata.InitData()
         Else
             Dim tFilename As String
             Dim LoadProjectDialog As New System.Windows.Forms.OpenFileDialog
@@ -386,6 +389,7 @@ Public Class ProjectData
         Dim bf As BinaryFormatter = New BinaryFormatter()
         _pjdata = New ProjectData
         _pjdata.NewFIle()
+        _pjdata.InitData()
         _pjdata.SaveData = bf.Deserialize(stm)
         _pjdata.LoadInit(FileName)
         stm.Close()

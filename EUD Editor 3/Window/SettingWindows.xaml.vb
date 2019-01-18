@@ -27,12 +27,7 @@ Public Class SettingWindows
             End If
         Next
 
-        '밝기
-        If pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
-            ToggleBtn.IsChecked = True
-        Else
-            ToggleBtn.IsChecked = False
-        End If
+
 
         CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanuage)
     End Sub
@@ -88,15 +83,7 @@ Public Class SettingWindows
 
 
 
-    Private Sub ToggleButton_Checked(sender As Object, e As RoutedEventArgs)
-        pgData.SetTheme(False)
-        Tool.RefreshWindows()
-    End Sub
 
-    Private Sub ToggleButton_Unchecked(sender As Object, e As RoutedEventArgs)
-        pgData.SetTheme(True)
-        Tool.RefreshWindows()
-    End Sub
 
     Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If e.AddedItems.Count <> 0 Then

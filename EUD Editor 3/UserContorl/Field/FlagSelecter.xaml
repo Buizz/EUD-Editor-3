@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"  d:DesignWidth="347.013" d:DesignHeight="285.996">
+    <DockPanel>
+        <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="top"/>
+        <WrapPanel x:Name="CheckboxList" Orientation="Vertical" Background="{Binding BackColor}">
+            <WrapPanel.ContextMenu>
+                <ContextMenu >
+                    <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+                    <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+                    <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+                </ContextMenu>
+            </WrapPanel.ContextMenu>
+        </WrapPanel>
+    </DockPanel>
 </UserControl>

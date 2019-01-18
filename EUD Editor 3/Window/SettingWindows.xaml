@@ -10,106 +10,69 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
+        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Title="{StaticResource Setting}" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440" Topmost="True">
 
     <Grid>
         <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="5" TabStripPlacement="Left" Background="{DynamicResource MaterialDesignPaper}" >
             <TabItem x:Name="TabItem_ProjectSetting" Header="{StaticResource Project Setting}" >
-                <Grid >
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="20"/>
-                        
-                        <RowDefinition Height="30"/>
-                    </Grid.RowDefinitions>
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="114"/>
-                        <ColumnDefinition Width="5"/>
-                    </Grid.ColumnDefinitions>
-                    <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox x:Name="TBOpenMap" Grid.Row="2" Grid.Column="1" Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}"
+                <StackPanel >
+                    <Label  Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" />
+
+                        <TextBox x:Name="TBOpenMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True"  />
+                    </DockPanel>
+                  
+                    <Separator Background="#4CA0A0A0"/>
 
-                    <Button Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" />
+                    <Label Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                    <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
-                    <Label Grid.Row="4" Grid.Column="1" Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox  x:Name="TBSaveMap" Grid.Row="5" Grid.Column="1" Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnSaveMapSet_Click" />
+
+                        <TextBox  x:Name="TBSaveMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
-                    <Button Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnSaveMapSet_Click" />
+       
+                    </DockPanel>
 
 
-                    <Separator Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
-                    <Label Grid.Row="7" Grid.Column="1" Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <StackPanel Grid.Row="8" Grid.ColumnSpan="2" Grid.RowSpan="2" Grid.Column="1" Orientation="Horizontal">
+                    <Separator Background="#4CA0A0A0"/>
+
+                    <Label Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <StackPanel Orientation="Horizontal">
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource AutoCompile}"/>
                     </StackPanel>
 
-                </Grid>
+                </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource Default Setting}">
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="20"/>
-                        
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="20"/>
-                        
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="20"/>
-                        
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-                        
-                        <RowDefinition Height="20"/>
-                        
-                        <RowDefinition Height="25"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="114"/>
-                        <ColumnDefinition Width="5"/>
-                    </Grid.ColumnDefinitions>
+                <StackPanel>
+                    
                     <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
+
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnStarCraftexe" />
+                        <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
-
-                    <Button  Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnStarCraftexe" />
-
+                    </DockPanel>
+                    
                     <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
                     <Label Grid.Row="4" Grid.Column="1" Content="{StaticResource euddraftExe}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
-  materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
-                    <Button Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top"  Click="Btneuddraftexe" />
 
+
+                    <DockPanel>
+                        <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top"  Click="Btneuddraftexe" />
+                        <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
+  materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
+                    </DockPanel>
                     <Separator Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
                     <Label Grid.Row="7" Grid.Column="1" Content="{StaticResource Language}" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -122,51 +85,16 @@
 
                     <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
-                    <Label Grid.Row="10" Grid.Column="1" Content="{StaticResource Theme}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <StackPanel  Grid.Row="11" Grid.Column="1" Orientation="Horizontal">
-                        <Label  Content="{StaticResource Light}" />
-                        <ToggleButton x:Name="ToggleBtn" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked"
-  Style="{StaticResource MaterialDesignSwitchToggleButton}"
-  HorizontalAlignment="Left" />
-                        <Label  Content="{StaticResource Dark}" />
-                    </StackPanel>
-                                 
+     
                    
-                </Grid>
+                </StackPanel>
             </TabItem>
+            <TabItem Header="{StaticResource Theme}">
+                <local:ThemeContorl/>
+            </TabItem>
+
             <TabItem Header="{StaticResource DatEdit Setting}" >
-                <Grid>
-                    <Grid.RowDefinitions>
-                        <RowDefinition Height="10"/>
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-
-                        <RowDefinition Height="20"/>
-
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-
-                        <RowDefinition Height="20"/>
-
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-
-                        <RowDefinition Height="20"/>
-
-                        <RowDefinition Height="25"/>
-                        <RowDefinition Height="30"/>
-
-                        <RowDefinition Height="20"/>
-
-                        <RowDefinition Height="25"/>
-                    </Grid.RowDefinitions>
-
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="5"/>
-                        <ColumnDefinition/>
-                        <ColumnDefinition Width="114"/>
-                        <ColumnDefinition Width="5"/>
-                    </Grid.ColumnDefinitions>
+                <StackPanel>
                     <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource Code Lan}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1" Margin="10,0" SelectionChanged="CBCodeLan_SelectionChanged"
                     MinWidth="72"
@@ -176,7 +104,7 @@
                         <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
                         <ComboBoxItem Content="{StaticResource Code CTbl}"/>
                     </ComboBox>
-                 </Grid>
+                 </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource TE Setting}" >
                 <Grid />

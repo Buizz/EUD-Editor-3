@@ -11,6 +11,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
+        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
         Topmost="True" 

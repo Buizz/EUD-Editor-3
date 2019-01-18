@@ -11,10 +11,11 @@
              mc:Ignorable="d"   MaxHeight="34" Height="34" Padding="4">
     <StackPanel Orientation="Horizontal">
         <TextBlock x:Name="TextStr" Text="{Binding Explain}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0" />
-        <TextBox x:Name="ValueText" Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Foreground="{DynamicResource MaterialDesignBody}"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="50">
+        <TextBox 
+            
+            x:Name="ValueText"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="50">
             <TextBox.ContextMenu>
                 <ContextMenu >
-
                     <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
                     <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
                     <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>

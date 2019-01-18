@@ -9,6 +9,7 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:EUD_Editor_3"
+        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Title="{StaticResource PluginSetting}" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True">

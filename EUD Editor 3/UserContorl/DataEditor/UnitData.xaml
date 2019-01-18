@@ -24,11 +24,11 @@
             <TabItem x:Name="Defualt" Header="기본정보" >
                 
             </TabItem>
-            <TabItem Header="고급정보">
+            <TabItem x:Name="Special" Header="고급정보">
 
             </TabItem>
         </dragablz:TabablzControl>
-        <ListBox Grid.Column="0"  >
+        <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
             <ListBoxItem Content="기본정보"/>
             <ListBoxItem Content="고급정보"/>
             <ListBoxItem Content="사운드"/>

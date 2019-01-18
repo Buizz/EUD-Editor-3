@@ -121,9 +121,6 @@ Public Class SCDatFiles
     <Serializable()>
     Public Class CDatFile
         Public Function CheckDirty(ObjectID As Integer) As Boolean
-
-
-
             For i = 0 To Paramaters.Count - 1
                 If Paramaters(i).GetValue(ObjectID) IsNot Nothing Then
                     If Not Paramaters(i).GetValue(ObjectID).IsDefault Then
@@ -131,7 +128,6 @@ Public Class SCDatFiles
                     End If
                 End If
             Next
-
             Return True
         End Function
 
@@ -148,7 +144,11 @@ Public Class SCDatFiles
         End Property
         Public Property ToolTip(index As Integer) As String
             Get
-                Return CodeToolTip(index)
+                If CodeToolTip.Count > index Then
+                    Return CodeToolTip(index)
+                Else
+                    Return ""
+                End If
             End Get
             Set(value As String)
                 CodeToolTip(index) = value
@@ -253,6 +253,7 @@ Public Class SCDatFiles
             '꼮!!!!!!!!!!!!!! 일단 지금은 바쁘니까 넘어간다.
             Public Property Data(index As Integer) As Long
                 Get
+                    index -= VarStart
                     If index < Values.Count Then
                         Return Values(index).Data
                     Else
@@ -262,6 +263,7 @@ Public Class SCDatFiles
 
                 End Get
                 Set(value As Long)
+                    index -= VarStart
                     If (0 <= value) And (value < Math.Pow(256, Size)) Then
                         Values(index).Data = value
                     ElseIf value < 0 Then
@@ -279,7 +281,7 @@ Public Class SCDatFiles
                     If Values.Count > realIndex And realIndex >= 0 Then
                         Return Values(realIndex)
                     Else
-                        Return Nothing
+                        Return Nothing 'ew Value(0, False)
                     End If
                 End Get
             End Property

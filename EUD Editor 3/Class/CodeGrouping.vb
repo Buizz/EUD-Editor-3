@@ -93,25 +93,69 @@
 
                 For i = 0 To SCUnitCount - 1
                     Dim GroundWeapon As Byte = tempDat.Data(SCDatFiles.DatFiles.units, "Ground Weapon", i)
-                    Dim AirWeapon = tempDat.Data(SCDatFiles.DatFiles.units, "Air Weapon", i)
+                    Dim AirWeapon As Byte = tempDat.Data(SCDatFiles.DatFiles.units, "Air Weapon", i)
 
-                    Dim WeaponN As Byte = Math.Min(GroundWeapon, AirWeapon)
+                    If GroundWeapon = AirWeapon And GroundWeapon < 130 Then
+                        Dim WeaponN As Byte = GroundWeapon
 
-                    Dim flag As Byte = tempDat.Data(SCDatFiles.DatFiles.units, "Staredit Group Flags", i)
+                        Dim flag As Byte = tempDat.Data(SCDatFiles.DatFiles.units, "Staredit Group Flags", i)
 
-                    WeaponRace(WeaponN) = flag + 1
+                        WeaponRace(WeaponN) = flag + 1
 
-                    Dim unitnmae As String
-                    If scData Is Nothing Then
-                        unitnmae = tstat_txt.Strings(i).val1
+                        Dim unitnmae As String
+                        If scData Is Nothing Then
+                            unitnmae = tstat_txt.Strings(i).val1
+                        Else
+                            unitnmae = scData.GetStat_txt(i)
+                        End If
+                        If WeaponUnit(WeaponN) <> "" Then
+                            WeaponUnit(WeaponN) = WeaponUnit(WeaponN) & ", " & unitnmae
+                        Else
+                            WeaponUnit(WeaponN) = unitnmae
+                        End If
                     Else
-                        unitnmae = scData.GetStat_txt(i)
+                        If GroundWeapon < 130 Then
+                            Dim WeaponN As Byte = GroundWeapon
+
+                            Dim flag As Byte = tempDat.Data(SCDatFiles.DatFiles.units, "Staredit Group Flags", i)
+
+                            WeaponRace(WeaponN) = flag + 1
+
+                            Dim unitnmae As String
+                            If scData Is Nothing Then
+                                unitnmae = tstat_txt.Strings(i).val1 & " G"
+                            Else
+                                unitnmae = scData.GetStat_txt(i) & " G"
+                            End If
+                            If WeaponUnit(WeaponN) <> "" Then
+                                WeaponUnit(WeaponN) = WeaponUnit(WeaponN) & ", " & unitnmae
+                            Else
+                                WeaponUnit(WeaponN) = unitnmae
+                            End If
+                        End If
+                        If AirWeapon < 130 Then
+                            Dim WeaponN As Byte = AirWeapon
+
+                            Dim flag As Byte = tempDat.Data(SCDatFiles.DatFiles.units, "Staredit Group Flags", i)
+
+                            WeaponRace(WeaponN) = flag + 1
+
+                            Dim unitnmae As String
+                            If scData Is Nothing Then
+                                unitnmae = tstat_txt.Strings(i).val1 & " A"
+                            Else
+                                unitnmae = scData.GetStat_txt(i) & " A"
+                            End If
+                            If WeaponUnit(WeaponN) <> "" Then
+                                WeaponUnit(WeaponN) = WeaponUnit(WeaponN) & ", " & unitnmae
+                            Else
+                                WeaponUnit(WeaponN) = unitnmae
+                            End If
+                        End If
                     End If
-                    If WeaponUnit(WeaponN) <> "" Then
-                        WeaponUnit(WeaponN) = WeaponUnit(WeaponN) & ", " & unitnmae
-                    Else
-                        WeaponUnit(WeaponN) = unitnmae
-                    End If
+
+
+
                 Next
                 '13Name=Targeting
                 '13Size=1

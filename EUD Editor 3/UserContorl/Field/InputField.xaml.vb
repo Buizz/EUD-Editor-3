@@ -12,6 +12,7 @@
         None
         HP
         HPV
+        FLAG
     End Enum
 
     Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
@@ -22,28 +23,42 @@
 
         Dim PropertyName As String = "Value"
 
-
+        Select Case SpecialFlag
+            Case SFlag.HP
+                PropertyName = "HPValue"
+            Case SFlag.HPV
+            Case SFlag.FLAG
+                PropertyName = "ValueFlag"
+        End Select
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
 
         Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
 
         Dim binding As New Binding()
 
-        Select Case SpecialFlag
-            Case SFlag.HP
-                PropertyName = "HPValue"
-                ValueText.Width = 7 * 8
-            Case SFlag.HPV
-                TextStr.Margin = New Thickness(0)
-                TextStr.Text = ""
-        End Select
 
-        binding.ValidationRules.Add(New NotTextValidationRule)
-        binding.Path = New PropertyPath(PropertyName)
-        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-        binding.ValidatesOnDataErrors = True
-        binding.NotifyOnValidationError = True
-        ValueText.SetBinding(TextBox.TextProperty, binding)
+        If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+            Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+            Select Case SpecialFlag
+                Case SFlag.FLAG
+                    binding.ValidationRules.Add(New HexValidationRule)
+                Case Else
+                    binding.ValidationRules.Add(New NotTextValidationRule)
+            End Select
+            binding.ValidatesOnDataErrors = True
+            binding.NotifyOnValidationError = True
+            binding.Path = New PropertyPath(PropertyName)
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            binding.Mode = BindingMode.TwoWay
+            ValueText.SetBinding(TextBox.TextProperty, binding)
+            ValueText.IsEnabled = True
+        Else
+            Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
+            binding.Mode = BindingMode.OneWay
+            ValueText.SetBinding(TextBox.TextProperty, binding)
+            ValueText.Text = Application.Current.Resources("NotUse")
+            ValueText.IsEnabled = False
+        End If
     End Sub
 
 
@@ -53,12 +68,17 @@
         Parameter = _Parameter
         SpecialFlag = _SFlag
 
+
+
+
+
+        'If Parameter = "Infestation" Then
+        '    MsgBox("시작")
+        '    MsgBox("오브젝트아이디 : " & ObjectID)
+        '    MsgBox("값 : " & pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value)
+        'End If
+
         Dim PropertyName As String = "Value"
-
-
-        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
-
-        Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         Dim paramSize As Byte = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.Size)
 
         Dim CharLen As Byte = 5
@@ -73,8 +93,8 @@
         ValueText.Width = 7 * CharLen
 
 
+        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
         Dim binding As New Binding()
-
         Select Case SpecialFlag
             Case SFlag.HP
                 PropertyName = "HPValue"
@@ -82,14 +102,45 @@
             Case SFlag.HPV
                 TextStr.Margin = New Thickness(0)
                 TextStr.Text = ""
+            Case SFlag.FLAG
+                PropertyName = "ValueFlag"
+                ValueText.Width = 7 * 2 * paramSize
         End Select
 
-        binding.ValidationRules.Add(New NotTextValidationRule)
-        binding.Path = New PropertyPath(PropertyName)
-        binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-        binding.ValidatesOnDataErrors = True
-        binding.NotifyOnValidationError = True
-        ValueText.SetBinding(TextBox.TextProperty, binding)
+
+        If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+            Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+            Select Case SpecialFlag
+                Case SFlag.FLAG
+                    binding.ValidationRules.Add(New HexValidationRule)
+                Case Else
+                    binding.ValidationRules.Add(New NotTextValidationRule)
+            End Select
+            binding.ValidatesOnDataErrors = True
+            binding.NotifyOnValidationError = True
+            binding.Path = New PropertyPath(PropertyName)
+            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+            binding.Mode = BindingMode.TwoWay
+            ValueText.SetBinding(TextBox.TextProperty, binding)
+            ValueText.IsEnabled = True
+        Else
+            Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
+            binding.Mode = BindingMode.OneWay
+            ValueText.SetBinding(TextBox.TextProperty, binding)
+            ValueText.Text = Application.Current.Resources("NotUse")
+            ValueText.IsEnabled = False
+            Exit Sub
+        End If
+
+
+
+
+
+
+
+
+
+
 
 
         Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
@@ -120,6 +171,11 @@
 
         ResetItem.Command = DatCommand
         ResetItem.CommandParameter = DatCommand.CommandType.Reset
+
+
+        'If Parameter = "Infestation" Then
+        '    MsgBox("끝")
+        'End If
     End Sub
 
 
@@ -129,4 +185,32 @@
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)
     End Sub
+
+    Private Sub TextBoxMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles ValueText.MouseWheel
+        Dim ChangeValue As Integer = e.Delta / 100
+        Select Case SpecialFlag
+            Case SFlag.HP
+                ChangeValue *= 256
+            Case Else
+
+        End Select
+        pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+    End Sub
+
+
+    Private Sub TextboxPreviewKeyDown(sender As Object, e As KeyEventArgs) Handles ValueText.PreviewKeyDown
+        Dim ChangeValue As Integer = 1
+        Select Case SpecialFlag
+            Case SFlag.HP
+                ChangeValue *= 256
+            Case Else
+
+        End Select
+        If e.Key = Key.Up Then
+            pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+        ElseIf e.Key = Key.Down Then
+            pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value -= ChangeValue
+        End If
+    End Sub
+
 End Class

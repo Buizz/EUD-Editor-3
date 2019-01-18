@@ -26,6 +26,10 @@ Public Class UIManager
     End Property
 
 
+    Public Sub BackColorRefresh()
+        NotifyPropertyChanged("Back")
+    End Sub
+
     Public Sub ChangeProperty()
         NotifyPropertyChanged("Back")
     End Sub
