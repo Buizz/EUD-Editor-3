@@ -51,4 +51,9 @@
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)
     End Sub
+
+    Private Sub combobox_PreeviewMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles MainComboBox.PreviewMouseWheel
+        Dim ChangeValue As Integer = e.Delta / 100
+        pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+    End Sub
 End Class

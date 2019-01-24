@@ -287,29 +287,32 @@
             End If
 
             B = tlong
-            strFormat.Text = B
             ColorRGBRefresh()
         End If
     End Sub
 
     Private Sub AText_TextChanged(sender As Object, e As KeyEventArgs)
-        Dim tlong As Long
-        Try
-            tlong = AText.Text
-        Catch ex As Exception
-            AText.Text = A
-            Exit Sub
-        End Try
-        If tlong > 255 Then
-            AText.Text = 255
-            tlong = 255
-        End If
-        If tlong < 0 Then
-            AText.Text = 0
-            tlong = 0
+        If TextBoxuseable And e.Key = Key.Enter Then
+            Dim tlong As Long
+            Try
+                tlong = AText.Text
+            Catch ex As Exception
+                AText.Text = A
+                Exit Sub
+            End Try
+            If tlong > 255 Then
+                AText.Text = 255
+                tlong = 255
+            End If
+            If tlong < 0 Then
+                AText.Text = 0
+                tlong = 0
+            End If
+
+            A = tlong
+            ColorRGBRefresh()
         End If
 
-        A = tlong
     End Sub
 
     Private Sub RText_LostKeyboardFocus(sender As Object, e As KeyboardFocusChangedEventArgs)
@@ -382,23 +385,25 @@
     End Sub
 
     Private Sub AText_LostKeyboardFocus(sender As Object, e As KeyboardFocusChangedEventArgs)
-        Dim tlong As Long
-        Try
-            tlong = AText.Text
-        Catch ex As Exception
-            AText.Text = A
-            Exit Sub
-        End Try
-        If tlong > 255 Then
-            AText.Text = 255
-            tlong = 255
-        End If
-        If tlong < 0 Then
-            AText.Text = 0
-            tlong = 0
+        If TextBoxuseable Then
+            Dim tlong As Long
+            Try
+                tlong = AText.Text
+            Catch ex As Exception
+                AText.Text = A
+                Exit Sub
+            End Try
+            If tlong > 255 Then
+                AText.Text = 255
+                tlong = 255
+            End If
+            If tlong < 0 Then
+                AText.Text = 0
+                tlong = 0
+            End If
+            A = tlong
         End If
 
-        A = tlong
     End Sub
 
     Private Sub UserControl_PreviewMouseMove(sender As Object, e As MouseEventArgs)

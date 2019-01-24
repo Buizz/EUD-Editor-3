@@ -36,7 +36,7 @@ Public Class GRP
     Public GRPFrame As New List(Of GRPFrameData)
 
 
-
+    Private GRPCashing() As BitmapImage
 
     Private isremapping As Boolean
     Private paletttypenum As Integer
@@ -65,6 +65,7 @@ Public Class GRP
     Public Sub New(filename As String, Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0, Optional _PalletType As PalettType = PalettType.platform)
         LoadGRP(Tool.LoadDataFromMPQ("unit\" & filename))
         LoadPalette(_PalletType, _DrawFunction, _RemappingNum)
+        ReDim GRPCashing(framecount)
     End Sub
 
     Public Function LoadPalette(PalletNum As PalettType, Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0)
@@ -325,11 +326,13 @@ Public Class GRP
         Return retval
     End Function
     Public Function DrawGRP(frame As Integer, Optional Unitcolor As Integer = 0, Optional FileBackGround As Boolean = False) As BitmapImage
-        'GRPFrame(frame).frameWidth
-        'GRPFrame(frame).frameHeight
-        Dim unitColors(7) As Byte
 
         frame = frame Mod framecount
+        If GRPCashing(frame) IsNot Nothing Then
+            Return GRPCashing(frame)
+        End If
+
+        Dim unitColors(7) As Byte
 
         If Unitcolor <> 0 Then
             Dim filestream As New FileStream(My.Application.Info.DirectoryPath & "\Data\" & "Colorunit.dat", FileMode.Open)
@@ -416,8 +419,8 @@ Public Class GRP
             End If
 
 
-
-            Return Bitmap2BitmapImage(bm)
+            GRPCashing(frame) = Bitmap2BitmapImage(bm)
+            Return GRPCashing(frame)
         Catch ex As Exception
             Return Nothing
         End Try

@@ -14,6 +14,11 @@ Public Class IconSelecter
 
         Field.Init(DatFile, ObjectID, Parameter)
 
+        Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
+        If valueType = SCDatFiles.DatFiles.sfxdata Or valueType = SCDatFiles.DatFiles.portdata Then
+            IconBox.Visibility = Visibility.Collapsed
+            OpenNew.Visibility = Visibility.Collapsed
+        End If
         If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
 
             DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
@@ -54,6 +59,7 @@ Public Class IconSelecter
 
         ResetItem.Command = DatCommand
         ResetItem.CommandParameter = DatCommand.CommandType.Reset
+
     End Sub
     Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
         DatFile = _DatFile
@@ -110,7 +116,10 @@ Public Class IconSelecter
         'CodeList.SetFliter(CodeSelecter.ESortType.n123)
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
         If valueType <> SCDatFiles.DatFiles.None Then
-            CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
+            If Not CodeList.DataLoadCmp Then
+                CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
+            End If
+
             CodeList.MaxWidth = btn.RenderSize.Width + 32
             CodeList.Width = btn.RenderSize.Width + 32
             CodeSelect.IsOpen = True

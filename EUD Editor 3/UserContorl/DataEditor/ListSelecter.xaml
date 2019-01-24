@@ -1,0 +1,97 @@
+﻿<UserControl x:Class="ListSelecter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+              Background="{DynamicResource MaterialDesignPaper}" d:DesignWidth="353" d:DesignHeight="184">
+
+    <UserControl.Resources>
+        <ContextMenu x:Key="OnlyOpenWindon" Opened="ContextMenu_Opened">
+            <MenuItem Header="{StaticResource OpenWindow}" Click="MenuItem_Click" Icon="{materialDesign:PackIcon Kind=WindowMaximize}"/>
+        </ContextMenu>
+        <ContextMenu x:Key="ContextMenu" Opened="ContextMenu_Opened">
+            <MenuItem x:Name="CopyItem" Click="CopyItem_Click" Header="{StaticResource Copy}" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+            <MenuItem x:Name="PasteItem" Click="PasteItem_Click" Header="{StaticResource Paste}" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+            <MenuItem x:Name="ResetItem" Click="ResetItem_Click" Header="{StaticResource Reset}" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+            <Separator/>
+            <MenuItem Header="{StaticResource OpenTab}" Click="OpentabMenuItem_Click" Icon="{materialDesign:PackIcon Kind=TabPlus}"/>
+            <MenuItem Header="{StaticResource OpenWindow}" Click="OpenWindowMenuItem_Click" Icon="{materialDesign:PackIcon Kind=WindowMaximize}"/>
+
+        </ContextMenu>
+        <ContextMenu x:Key="GroupOption" Opened="ContextMenu_Opened">
+            <MenuItem Header="이름 바꾸기" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+        </ContextMenu>
+
+    </UserControl.Resources>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="100*"/>
+            <RowDefinition Height="28"/>
+            <RowDefinition Height="35"/>
+        </Grid.RowDefinitions>
+        <ListBox ContextMenu="{StaticResource ContextMenu}" x:Name="CodeIndexerImage"  Grid.RowSpan="1" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+            <ListBox.ItemsPanel>
+                <ItemsPanelTemplate>
+                    <WrapPanel />
+                </ItemsPanelTemplate>
+            </ListBox.ItemsPanel>
+        </ListBox>
+
+
+        <ListBox ContextMenu="{StaticResource ContextMenu}" x:Name="CodeIndexerList"  Grid.RowSpan="1" ScrollViewer.VerticalScrollBarVisibility="Visible" >
+
+        </ListBox>
+        <TreeView 
+             x:Name="CodeIndexerTree"  Grid.RowSpan="1"  Visibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"  SelectedItemChanged="CodeIndexerTree_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+
+        </TreeView>
+        <DockPanel Grid.Row="1">
+            <materialDesign:PackIcon Kind="Magnify" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
+            <Button  DockPanel.Dock="Right"
+                     Style="{StaticResource MaterialDesignFlatButton}"
+                     HorizontalAlignment="Left" Width="20" Height="20" Click="Button_Click">
+                <materialDesign:PackIcon  DockPanel.Dock="Right" Kind="Close" VerticalAlignment="Stretch" Foreground="{DynamicResource MaterialDesignBody}" Margin="-14,0,0,0" />
+            </Button>
+            <TextBox x:Name="FliterText" Grid.Row="1" KeyDown="FliterKeyDown"
+              materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
+              Foreground="{DynamicResource MaterialDesignBody}" />
+        </DockPanel>
+
+
+        <ToolBarTray x:Name="toolBarTray"  Grid.Row="2" >
+            <ToolBar Width="{Binding ActualWidth, ElementName=toolBarTray}" ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}"  >
+                <DockPanel  Width="{Binding ActualWidth, ElementName=toolBarTray}" LastChildFill="False" Margin="-10,0" >
+                    <ListBox x:Name="SortListBox" SelectionChanged="ListBox_SelectionChanged" Margin="10,0,0,0" >
+                        <ListBoxItem x:Name="Btnsortn123" Padding="0" MinWidth="0" Width="34" Height="34" IsSelected="True" ToolTip="{StaticResource SortCode}">
+                            <materialDesign:PackIcon Kind="SortNumeric"  Margin="-10" />
+                        </ListBoxItem>
+                        <ListBoxItem x:Name="BtnsortABC" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource SortABC}">
+                            <materialDesign:PackIcon Kind="SortAlphabetical" Margin="-10"/>
+                        </ListBoxItem>
+                        <ListBoxItem x:Name="BtnsortTree" Padding="0" MinWidth="0" Width="34" ToolTip="{StaticResource SortTree}">
+                            <materialDesign:PackIcon Kind="FileTree"  Margin="-10"/>
+                        </ListBoxItem>
+                    </ListBox>
+
+                    <ListBox SelectionMode="Extended" DockPanel.Dock="Right" SelectionChanged="ToolBox_SelectionChanged" Margin="0,0,-5,0" >
+                        <ListBoxItem x:Name="L_IconBtn" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource FliterIcon}">
+                            <materialDesign:PackIcon Kind="ImageArea" Margin="-10"/>
+                        </ListBoxItem >
+                        <ListBoxItem x:Name="L_IsEditBtn" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource FliterEdit}">
+                            <materialDesign:PackIcon Kind="PencilBox" Margin="-10"/>
+                        </ListBoxItem>
+                    </ListBox>
+                </DockPanel>
+            </ToolBar>
+        </ToolBarTray>
+
+
+
+    </Grid>
+</UserControl>

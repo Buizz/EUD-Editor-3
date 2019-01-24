@@ -1,4 +1,6 @@
 ﻿Public Class Unit_Default
+    Private Const UnitDatPage As Integer = 0
+
     Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.units
 
     Public Property ObjectID As Integer
@@ -12,7 +14,7 @@
         DataContext = pjData
         ObjectID = tObjectID
 
-        NameBar.Init(ObjectID, SCDatFiles.DatFiles.units)
+        NameBar.Init(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
         HP.Init(DatFiles, ObjectID, HP.Tag, InputField.SFlag.HP)
         HP2.Init(DatFiles, ObjectID, HP.Tag, InputField.SFlag.HPV)
         SA.Init(DatFiles, ObjectID, SA.Tag)
@@ -49,7 +51,7 @@
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
 
-        NameBar.ReLoad(ObjectID, DatFiles)
+        NameBar.ReLoad(ObjectID, DatFiles, UnitDatPage)
         HP.ReLoad(DatFiles, ObjectID, HP.Tag, InputField.SFlag.HP)
         HP2.ReLoad(DatFiles, ObjectID, HP.Tag, InputField.SFlag.HPV)
         SA.ReLoad(DatFiles, ObjectID, SA.Tag)

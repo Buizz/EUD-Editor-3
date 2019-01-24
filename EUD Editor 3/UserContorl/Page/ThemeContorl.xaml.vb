@@ -55,6 +55,17 @@ Public Class ThemeContorl
     Private Sub ButtonClick(sender As Object, e As RoutedEventArgs)
         Dim index As Integer = sender.Tag
 
+
+        Application.Current.Resources.Remove("PrimaryHueLightBrush")
+        Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
+        Application.Current.Resources.Remove("PrimaryHueMidBrush")
+        Application.Current.Resources.Remove("PrimaryHueMidForegroundBrush")
+        Application.Current.Resources.Remove("PrimaryHueDarkBrush")
+        Application.Current.Resources.Remove("PrimaryHueDarkForegroundBrush")
+        Application.Current.Resources.Remove("SecondaryAccentBrush")
+        Application.Current.Resources.Remove("SecondaryAccentForegroundBrush")
+
+
         Dim helper As New PaletteHelper
         helper.ReplacePrimaryColor(DefaultPalettName(index))
 
@@ -63,7 +74,6 @@ Public Class ThemeContorl
         Catch ex As Exception
             helper.ReplaceAccentColor("lime")
         End Try
-
     End Sub
 
 
@@ -154,6 +164,7 @@ Public Class ThemeContorl
 
         Dim AccentColor As Color = ColorPicker.ColorFromHSV(h + 40, s * 0.6, Math.Min(v * 1.6, 1))
 
+
         Application.Current.Resources("PrimaryHueLightBrush") = New SolidColorBrush(LightColor)
         Application.Current.Resources("PrimaryHueMidBrush") = New SolidColorBrush(MainColor)
         Application.Current.Resources("PrimaryHueDarkBrush") = New SolidColorBrush(DarkColor)
@@ -172,8 +183,18 @@ Public Class ThemeContorl
     Private Sub LightColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
         Dim MainColor As Color = sender
 
+        'For i = 0 To Application.Current.Resources.Keys.Count - 1
+        '    MsgBox(Application.Current.Resources.Keys(i).ToString)
+        'Next
+
+
+
         Application.Current.Resources("PrimaryHueLightBrush") = New SolidColorBrush(MainColor)
         Application.Current.Resources("PrimaryHueLightForegroundBrush") = CheckBlack(MainColor)
+        'Application.Current.Resources.Remove("PrimaryHueLightBrush")
+
+
+        'Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
     End Sub
 
     Private Sub DefaultColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
@@ -195,6 +216,88 @@ Public Class ThemeContorl
 
         Application.Current.Resources("SecondaryAccentBrush") = New SolidColorBrush(MainColor)
         Application.Current.Resources("SecondaryAccentForegroundBrush") = CheckBlack(MainColor)
+    End Sub
+
+    Private Sub DefaultData_Click(sender As Object, e As RoutedEventArgs)
+        DefaultDataPopup.IsOpen = True
+        DefaultDataColorPicker.InitColor(pgData.PFiledDefault)
+    End Sub
+
+    Private Sub MapEditorData_Click(sender As Object, e As RoutedEventArgs)
+        MapEditorDataPopup.IsOpen = True
+        MapEditorDataColorPicker.InitColor(pgData.PFiledMapEditColor)
+    End Sub
+
+    Private Sub EditedData_Click(sender As Object, e As RoutedEventArgs)
+        EditedDataPopup.IsOpen = True
+        EditedDataColorPicker.InitColor(pgData.PFiledEditColor)
+    End Sub
+
+    Private Sub CheckedData_Click(sender As Object, e As RoutedEventArgs)
+        CheckedDataPopup.IsOpen = True
+        CheckedDataColorPicker.InitColor(pgData.PFiledFalgColor)
+    End Sub
+
+    Private Sub DefaultDataColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
+        Dim MainColor As Color = sender
+        pgData.PFiledDefault = MainColor
+        If Tool.IsProjectLoad Then
+            pjData.BindingManager.DataRefresh()
+        End If
+        DefaultData.Background = New SolidColorBrush(pgData.PFiledDefault)
+    End Sub
+
+    Private Sub MapEditorColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
+        Dim MainColor As Color = sender
+        pgData.PFiledMapEditColor = MainColor
+        If Tool.IsProjectLoad Then
+            pjData.BindingManager.DataRefresh()
+        End If
+        MapEditorData.Background = New SolidColorBrush(pgData.PFiledMapEditColor)
+    End Sub
+
+    Private Sub EditedDataColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
+        Dim MainColor As Color = sender
+        pgData.PFiledEditColor = MainColor
+        If Tool.IsProjectLoad Then
+            pjData.BindingManager.DataRefresh()
+        End If
+        EditedData.Background = New SolidColorBrush(pgData.PFiledEditColor)
+    End Sub
+
+    Private Sub CheckedDataColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
+        Dim MainColor As Color = sender
+        pgData.PFiledFalgColor = MainColor
+        If Tool.IsProjectLoad Then
+            pjData.BindingManager.DataRefresh()
+        End If
+        CheckedData.Background = New SolidColorBrush(pgData.PFiledFalgColor)
+    End Sub
+
+    Private Sub Button_Click_5(sender As Object, e As RoutedEventArgs)
+        pgData.PFiledDefault = ColorConverter.ConvertFromString("#60DDCDCD")
+        pgData.PFiledMapEditColor = ColorConverter.ConvertFromString("#60A1C7FF")
+        pgData.PFiledEditColor = ColorConverter.ConvertFromString("#60FFA3FA")
+        pgData.PFiledFalgColor = ColorConverter.ConvertFromString("#80FF8F6A")
+
+        DefaultData.Background = New SolidColorBrush(pgData.PFiledDefault)
+        MapEditorData.Background = New SolidColorBrush(pgData.PFiledMapEditColor)
+        EditedData.Background = New SolidColorBrush(pgData.PFiledEditColor)
+        CheckedData.Background = New SolidColorBrush(pgData.PFiledFalgColor)
+
+        Application.Current.Resources.Remove("PrimaryHueLightBrush")
+        Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
+        Application.Current.Resources.Remove("PrimaryHueMidBrush")
+        Application.Current.Resources.Remove("PrimaryHueMidForegroundBrush")
+        Application.Current.Resources.Remove("PrimaryHueDarkBrush")
+        Application.Current.Resources.Remove("PrimaryHueDarkForegroundBrush")
+        Application.Current.Resources.Remove("SecondaryAccentBrush")
+        Application.Current.Resources.Remove("SecondaryAccentForegroundBrush")
+
+
+        Dim helper As New PaletteHelper
+        helper.ReplacePrimaryColor("bluegrey")
+        helper.ReplaceAccentColor("lime")
     End Sub
 End Class
 'MaterialDesignToolButton

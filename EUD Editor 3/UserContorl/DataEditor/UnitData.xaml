@@ -22,9 +22,15 @@
                      Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
                      >
             <TabItem x:Name="Defualt" Header="기본정보" >
-                
+
             </TabItem>
             <TabItem x:Name="Special" Header="고급정보">
+
+            </TabItem>
+            <TabItem x:Name="Sound" Header="사운드">
+
+            </TabItem>
+            <TabItem x:Name="Graphic" Header="그래픽">
 
             </TabItem>
         </dragablz:TabablzControl>

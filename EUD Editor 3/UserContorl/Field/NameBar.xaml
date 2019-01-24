@@ -14,21 +14,24 @@
         <StackPanel       
                               Orientation="Horizontal"
                               Margin="8">
-            <Button
+            <Button ToolTip="{StaticResource PageCopy}" 
+                    Click="DataPageCopyClick"
                     Style="{StaticResource MaterialDesignToolButton}"
                     Width="30"
                     Padding="2 0 2 0"
                     materialDesign:RippleAssist.IsCentered="True">
                 <materialDesign:PackIcon Kind="ContentCopy" />
             </Button>
-            <Button
+            <Button ToolTip="{StaticResource PagePaste}" 
+                    Click="DataPagePasteClick"
                     Style="{StaticResource MaterialDesignToolButton}"
                     Width="30"
                     Padding="2 0 2 0"
                     materialDesign:RippleAssist.IsCentered="True">
                 <materialDesign:PackIcon Kind="ContentPaste" />
             </Button>
-            <Button
+            <Button ToolTip="{StaticResource PageReset}" 
+                    Click="DataPageResetClick"
                     Style="{StaticResource MaterialDesignToolButton}"
                     Width="30"
                     Padding="2 0 2 0"
@@ -37,29 +40,25 @@
             </Button>
         </StackPanel>
 
-        <TextBox x:Name="ObjToolTip"  Text="{Binding Path=ToolTip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  materialDesign:HintAssist.Hint="툴팁"
+        <TextBox x:Name="ObjToolTip"  Text="{Binding Path=ToolTip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  materialDesign:HintAssist.Hint="{StaticResource ToolTip}"
                   Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="40" Margin="0,0,20,0" MinWidth="100">
       
             <TextBox.ContextMenu>
                 <ContextMenu>
-
-
-                    <MenuItem x:Name="TtCopyItem" Header="복사" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
-                    <MenuItem x:Name="TtPasteItem" Header="붙여넣기" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
-                    <MenuItem x:Name="TtResetItem" Header="초기화" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+                    <MenuItem x:Name="TtCopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Command="Copy" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+                    <MenuItem x:Name="TtPasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Command="Paste" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+                    <MenuItem x:Name="TtResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>
 
-        <TextBox x:Name="ObjGroup" Text="{Binding Path=Group, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="그룹" 
+        <TextBox x:Name="ObjGroup" Text="{Binding Path=Group, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{StaticResource Group}" 
                       Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="40"  Tag="Hit Points" Margin="0,0,20,0" MinWidth="200" >
             <TextBox.ContextMenu>
                 <ContextMenu>
-
-
-                    <MenuItem x:Name="GCopyItem" Header="복사" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
-                    <MenuItem x:Name="GPasteItem" Header="붙여넣기" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
-                    <MenuItem x:Name="GResetItem" Header="초기화" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+                    <MenuItem x:Name="GCopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Command="Copy"  Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+                    <MenuItem x:Name="GPasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Command="Paste" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+                    <MenuItem x:Name="GResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
                 </ContextMenu>
             </TextBox.ContextMenu>
         </TextBox>

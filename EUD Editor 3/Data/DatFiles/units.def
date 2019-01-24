@@ -6,6 +6,7 @@ OutputEntrycount=228
 [FORMAT]
 0Name=Graphics
 0Size=1
+0Type=2
 
 1Name=Subunit 1
 1Size=2
@@ -23,6 +24,7 @@ OutputEntrycount=228
 
 4Name=Construction Animation
 4Size=4
+4Type=4
 
 5Name=Unit Direction
 5Size=1
@@ -102,28 +104,35 @@ OutputEntrycount=228
 29Name=Ready Sound
 29Size=2
 29VarEnd=105
+29Type=9
 
 30Name=What Sound Start
 30Size=2
+30Type=9
 
 31Name=What Sound End
 31Size=2
+31Type=9
 
 32Name=Piss Sound Start
 32Size=2
 32VarEnd=105
+32Type=9
 
 33Name=Piss Sound End
 33Size=2
 33VarEnd=105
+33Type=9
 
 34Name=Yes Sound Start
 34Size=2
 34VarEnd=105
+34Type=9
 
 35Name=Yes Sound End
 35Size=2
 35VarEnd=105
+35Type=9
 
 36Name=StarEdit Placement Box Width
 36Size=2
@@ -171,6 +180,7 @@ OutputEntrycount=228
 
 44Name=Portrait
 44Size=2
+44Type=8
 
 45Name=Mineral Cost
 45Size=2

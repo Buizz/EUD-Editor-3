@@ -61,6 +61,12 @@
     <sys:String x:Key="Reset">초기화</sys:String>
     <sys:String x:Key="Check">확인</sys:String>
 
+    <sys:String x:Key="PageCopy">복사</sys:String>
+    <sys:String x:Key="PagePaste">붙여넣기</sys:String>
+    <sys:String x:Key="PageReset">초기화</sys:String>
+
+    <sys:String x:Key="Group">그룹</sys:String>
+    <sys:String x:Key="ToolTip">툴팁</sys:String>
 
     <sys:String x:Key="ColseSaveMsg">변경 내용을 %S1에 저장하시겠습니까?</sys:String>
     
@@ -132,10 +138,14 @@
     <sys:String x:Key="units_Infestation">감염유닛</sys:String>
     <sys:String x:Key="units_Construction Animation">생산모습</sys:String>
     <sys:String x:Key="units_Unit Direction">생산방향</sys:String>
+    <sys:String x:Key="units_Unit Direction_V">상(수직)|우상|우상|우상|우상|우상|우상|우상|우(수직)|우하|우하|우하|우하|우하|우하|우하|하(수직)|좌하|좌하|좌하|좌하|좌하|좌하|좌하|좌(수직)|좌상|좌상|좌상|좌상|좌상|좌상|좌상|랜덤</sys:String>
+    
     <sys:String x:Key="units_Shield Enable">사용</sys:String>
     <sys:String x:Key="units_Shield Amount">쉴드</sys:String>
     <sys:String x:Key="units_Hit Points">체력</sys:String>
     <sys:String x:Key="units_Elevation Level">높이</sys:String>
+    <sys:String x:Key="units_Elevation Level_V">밑 지상|밑 지상|지상 위치|지상 위치|지상 위치|지상 위치|지상 위치|지상 위치|지상 위치|지상 위치|지상 위치|지상 위치|공중|공중|공중|공중|공중|공중|공중|공중</sys:String>
+    
     <sys:String x:Key="units_Unknown (old Movement)">이동 플래그</sys:String>
     <sys:String x:Key="units_Unknown (old Movement)_V">0x01|0x02|0x04|0x08|0x10|0x20|0x40|0x80</sys:String>
     <sys:String x:Key="units_Rank/Sublabel">계급</sys:String>
@@ -159,22 +169,22 @@
     <sys:String x:Key="units_Unit Size_V">독립적크기|소형|중형|대형</sys:String>
     <sys:String x:Key="units_Armor">방어력</sys:String>
     <sys:String x:Key="units_Right-click Action">방어구</sys:String>
-    <sys:String x:Key="units_Ready Sound">방어구</sys:String>
-    <sys:String x:Key="units_What Sound Start">방어구</sys:String>
-    <sys:String x:Key="units_What Sound End">방어구</sys:String>
-    <sys:String x:Key="units_Piss Sound Start">방어구</sys:String>
-    <sys:String x:Key="units_Piss Sound End">방어구</sys:String>
-    <sys:String x:Key="units_Yes Sound Start">방어구</sys:String>
-    <sys:String x:Key="units_Yes Sound End">방어구</sys:String>
-    <sys:String x:Key="units_StarEdit Placement Box Width">방어구</sys:String>
-    <sys:String x:Key="units_StarEdit Placement Box Height">방어구</sys:String>
-    <sys:String x:Key="units_Addon Horizontal (X) Position">방어구</sys:String>
-    <sys:String x:Key="units_Addon Vertical (Y) Position">방어구</sys:String>
-    <sys:String x:Key="units_Unit Size Left">방어구</sys:String>
-    <sys:String x:Key="units_Unit Size Up">방어구</sys:String>
-    <sys:String x:Key="units_Unit Size Right">방어구</sys:String>
-    <sys:String x:Key="units_Unit Size Down">방어구</sys:String>
-    <sys:String x:Key="units_Portrait">방어구</sys:String>
+    <sys:String x:Key="units_Ready Sound">기다림</sys:String>
+    <sys:String x:Key="units_What Sound Start">물어봄(첫번째)</sys:String>
+    <sys:String x:Key="units_What Sound End">물어봄(마지막)</sys:String>
+    <sys:String x:Key="units_Piss Sound Start">짜증(첫번째)</sys:String>
+    <sys:String x:Key="units_Piss Sound End">짜증(마지막)</sys:String>
+    <sys:String x:Key="units_Yes Sound Start">대답(첫번째)</sys:String>
+    <sys:String x:Key="units_Yes Sound End">대답(마지막)</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Width">너비</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Height">높이</sys:String>
+    <sys:String x:Key="units_Addon Horizontal (X) Position">가로</sys:String>
+    <sys:String x:Key="units_Addon Vertical (Y) Position">세로</sys:String>
+    <sys:String x:Key="units_Unit Size Left">좌</sys:String>
+    <sys:String x:Key="units_Unit Size Up">우</sys:String>
+    <sys:String x:Key="units_Unit Size Right">상</sys:String>
+    <sys:String x:Key="units_Unit Size Down">하</sys:String>
+    <sys:String x:Key="units_Portrait">얼굴모습</sys:String>
     <sys:String x:Key="units_Mineral Cost">미네랄</sys:String>
     <sys:String x:Key="units_Vespene Cost">가스</sys:String>
     <sys:String x:Key="units_Build Time">시간</sys:String>

@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Public Module SCConst
-    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189}
+    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144}
 
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
@@ -14,6 +14,8 @@ Public Module SCConst
 
 
     Public SCtbltxtCount As UShort = 1547
+    Public SCSfxdataCount As UShort = 1144
+    Public SCPortdataCount As UShort = 220
 
     Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
      "upgrades", "techdata", "orders", "portdata", "sfxdata"}
@@ -22,11 +24,24 @@ End Module
 Public Class StarCraftData
     Private GRPFiles(SCImageCount) As String
     Private ImageName(SCImageCount) As String
+    Private pSfxName(SCSfxdataCount) As String
+    Private pPortdataName(SCSfxdataCount) As String
     Public ReadOnly Property ImageStr(index As Integer) As String
         Get
             Return ImageName(index)
         End Get
     End Property
+    Public ReadOnly Property SfxName(index As Integer) As String
+        Get
+            Return pSfxName(index)
+        End Get
+    End Property
+    Public ReadOnly Property PortdataName(index As Integer) As String
+        Get
+            Return pPortdataName(index)
+        End Get
+    End Property
+
 
     Private ExtraBtnStr(22) As String
     Public ReadOnly Property BtnStr(index As Integer) As String
@@ -43,6 +58,16 @@ Public Class StarCraftData
     Private ReadOnly Property ImageStrPath As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\Images.txt"
+        End Get
+    End Property
+    Private ReadOnly Property SfxNamePath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\Sfxdata.txt"
+        End Get
+    End Property
+    Private ReadOnly Property PordataPath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\Portdata.txt"
         End Get
     End Property
     Private ReadOnly Property BtnStrPath As String
@@ -80,7 +105,7 @@ Public Class StarCraftData
 
     Private ReadOnly stat_txt_kor_eng As tblReader
     Private ReadOnly stat_txt_kor_kor As tblReader
-    
+
     Private SDGRP(SCImageCount) As GRP
     Private HDGRP(SCImageCount) As GRP
     Public ReadOnly Property GetGRP(index As Integer, frame As Integer, IsRemaster As Boolean) As BitmapImage
@@ -156,6 +181,27 @@ Public Class StarCraftData
             index += 1
         End While
         sr.Close()
+
+        sr = New StreamReader(SfxNamePath)
+        index = 0
+        While Not sr.EndOfStream
+            pSfxName(index) = sr.ReadLine()
+
+            index += 1
+        End While
+        sr.Close()
+
+
+        sr = New StreamReader(PordataPath)
+        index = 0
+        While Not sr.EndOfStream
+            pPortdataName(index) = sr.ReadLine()
+
+            index += 1
+        End While
+        sr.Close()
+
+
 
         LoadMPQData()
 

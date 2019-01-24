@@ -1,6 +1,6 @@
 ﻿Imports System.ComponentModel
 
-Public Class CodeSelecter
+Public Class ListSelecter
     Private factoryPanel As FrameworkElementFactory = New FrameworkElementFactory(GetType(WrapPanel))
     Private Templat As ItemsPanelTemplate = New ItemsPanelTemplate()
 
@@ -231,7 +231,7 @@ Public Class CodeSelecter
         pjData.DataManager.ResetDatObject(CurrentPage, MenuOpendSelectIndex)
     End Sub
 
-    Public DataLoadCmp As Boolean = False
+
     Private LoadCmp As Boolean = False
     Public Sub New()
         ' 디자이너에서 이 호출이 필요합니다.
@@ -310,8 +310,8 @@ Public Class CodeSelecter
         Fliter.SetFliter(tfliter)
     End Sub
 
+
     Public Sub ListReset(Optional pagetype As EPageType = EPageType.Nottting, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0)
-        DataLoadCmp = True
         If pagetype = EPageType.Nottting Then
             pagetype = CurrentPage
         Else
@@ -526,6 +526,8 @@ Public Class CodeSelecter
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
         End Select
+
+
         Select Case Fliter.SortType
             Case ESortType.n123, ESortType.ABC
                 Dim SelectItem As ListBoxItem = Nothing

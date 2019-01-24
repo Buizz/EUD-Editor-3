@@ -71,7 +71,7 @@
                     <ColumnDefinition Width="100*"/>
                 </Grid.ColumnDefinitions>
 
-                <local:CodeSelecter x:Name="CodeList" Grid.Column="1" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
+                <local:ListSelecter x:Name="CodeList" Grid.Column="1" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
                 <ListBox  Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
                     <ListBoxItem>
                         유닛

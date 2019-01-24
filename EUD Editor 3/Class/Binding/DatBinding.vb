@@ -36,6 +36,9 @@ Public Class DatBinding
 
     Public Sub BackColorRefresh()
         NotifyPropertyChanged("BackColor")
+        For i = 0 To FlagBindingManager.Count - 1
+            FlagBindingManager(i).PropertyChangedPack()
+        Next
     End Sub
 
     Private Sub PropertyChangedPack()

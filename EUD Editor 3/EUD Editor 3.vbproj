@@ -182,8 +182,17 @@
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
+    <Compile Include="UserContorl\DataEditor\ListSelecter.xaml.vb">
+      <DependentUpon>ListSelecter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\CodeSelecter.xaml.vb">
       <DependentUpon>CodeSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Graphic.xaml.vb">
+      <DependentUpon>Unit_Graphic.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Sound.xaml.vb">
+      <DependentUpon>Unit_Sound.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_Special.xaml.vb">
       <DependentUpon>Unit_Special.xaml</DependentUpon>
@@ -253,7 +262,19 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserContorl\DataEditor\ListSelecter.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserContorl\DataEditor\CodeSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\DataPages\Unit_Graphic.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\DataPages\Unit_Sound.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -546,6 +567,12 @@
     <None Include="Data\Resources\BlackIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <EmbeddedResource Include="Data\Texts\Sfxdata.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Texts\Portdata.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

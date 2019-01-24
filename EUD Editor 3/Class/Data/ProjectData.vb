@@ -182,7 +182,7 @@ Public Class ProjectData
     Private SaveData As SaveableData
 
 
-    Public Property CodeSelecters As List(Of CodeSelecter)
+    Public Property CodeSelecters As List(Of ListSelecter)
 
 
     Private Bd As BindingManager
@@ -203,7 +203,6 @@ Public Class ProjectData
         Get
             Dim ReturnStr As String = Tool.GetText("None")
             Try
-                Dim ToolTipText As String = SaveData.Dat.ToolTip(Datfile, index)
 
                 Select Case Datfile
                     Case SCDatFiles.DatFiles.units
@@ -235,6 +234,12 @@ Public Class ProjectData
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index) - 1
 
                         ReturnStr = Stat_txt(tLabel)
+                    Case SCDatFiles.DatFiles.portdata
+                        ReturnStr = scData.PortdataName(index)
+
+                    Case SCDatFiles.DatFiles.sfxdata
+                        ReturnStr = scData.SfxName(index)
+
                     Case SCDatFiles.DatFiles.button
                         If index < SCUnitCount - 1 Then
                             ReturnStr = UnitName(index)
@@ -243,8 +248,10 @@ Public Class ProjectData
                             ReturnStr = scData.BtnStr(index - SCUnitCount + 1)
                         End If
                 End Select
-
-
+                Dim ToolTipText As String = ""
+                If Datfile <= SCDatFiles.DatFiles.orders Then
+                    ToolTipText = SaveData.Dat.ToolTip(Datfile, index)
+                End If
                 If Datfile <> SCDatFiles.DatFiles.units Then
                     If IsFullname And ToolTipText <> "" Then
                         ReturnStr = ReturnStr & "(" & ToolTipText & ")"
@@ -318,7 +325,7 @@ Public Class ProjectData
     Public Sub InitData()
         Bd = New BindingManager
         Dm = New DataManager
-        CodeSelecters = New List(Of CodeSelecter)
+        CodeSelecters = New List(Of ListSelecter)
     End Sub
 
 

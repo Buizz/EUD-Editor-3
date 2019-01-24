@@ -16,10 +16,10 @@
     <Grid>
         <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="5" TabStripPlacement="Left" Background="{DynamicResource MaterialDesignPaper}" >
             <TabItem x:Name="TabItem_ProjectSetting" Header="{StaticResource Project Setting}" >
-                <StackPanel >
+                <StackPanel Margin="10">
                     <Label  Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                    <DockPanel>
+                    <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" />
 
                         <TextBox x:Name="TBOpenMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}"
@@ -31,7 +31,7 @@
                     <Label Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
 
-                    <DockPanel>
+                    <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnSaveMapSet_Click" />
 
                         <TextBox  x:Name="TBSaveMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
@@ -44,7 +44,7 @@
                     <Separator Background="#4CA0A0A0"/>
 
                     <Label Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <StackPanel Orientation="Horizontal">
+                    <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource AutoCompile}"/>
@@ -53,11 +53,11 @@
                 </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource Default Setting}">
-                <StackPanel>
+                <StackPanel Margin="10">
                     
                     <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-                    <DockPanel>
+                    <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnStarCraftexe" />
                         <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
@@ -68,7 +68,7 @@
                     <Label Grid.Row="4" Grid.Column="1" Content="{StaticResource euddraftExe}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
 
-                    <DockPanel>
+                    <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top"  Click="Btneuddraftexe" />
                         <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
@@ -76,7 +76,7 @@
                     <Separator Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
                     <Label Grid.Row="7" Grid.Column="1" Content="{StaticResource Language}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <ComboBox x:Name="CBLanguage" Grid.Row="8" Grid.Column="1" Margin="10,0" SelectionChanged="CBLanguage_SelectionChanged" 
+                    <ComboBox x:Name="CBLanguage" Grid.Row="8" Grid.Column="1" Margin="5" SelectionChanged="CBLanguage_SelectionChanged" 
                     MinWidth="72"
                     VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
                         <ComboBoxItem Content="한국어" Tag="ko-KR"/>
@@ -94,9 +94,9 @@
             </TabItem>
 
             <TabItem Header="{StaticResource DatEdit Setting}" >
-                <StackPanel>
+                <StackPanel Margin="10">
                     <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource Code Lan}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1" Margin="10,0" SelectionChanged="CBCodeLan_SelectionChanged"
+                    <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1"  Margin="5" SelectionChanged="CBCodeLan_SelectionChanged"
                     MinWidth="72"
                     VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
                         <ComboBoxItem Content="{StaticResource Code CEng}"/>
