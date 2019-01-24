@@ -1,5 +1,5 @@
-﻿Public Class Unit_Sound
-    Private Const UnitDatPage As Integer = 2
+﻿Public Class Unit_MapEdit
+    Private Const UnitDatPage As Integer = 4
 
     Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.units
 
@@ -16,13 +16,10 @@
 
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
 
-        RS.Init(DatFiles, ObjectID, RS.Tag, 100)
-        YSS.Init(DatFiles, ObjectID, YSS.Tag, 100)
-        YSE.Init(DatFiles, ObjectID, YSE.Tag, 100)
-        WSS.Init(DatFiles, ObjectID, WSS.Tag, 100)
-        WSE.Init(DatFiles, ObjectID, WSE.Tag, 100)
-        PSS.Init(DatFiles, ObjectID, PSS.Tag, 100)
-        PSE.Init(DatFiles, ObjectID, PSE.Tag, 100)
+        SAF.Init(DatFiles, ObjectID, SAF.Tag, 180)
+
+        SGF.Init(DatFiles, ObjectID, SGF.Tag, 130)
+        RS.Init(DatFiles, ObjectID, RS.Tag)
         'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
@@ -30,13 +27,9 @@
 
         NameBar.ReLoad(ObjectID, DatFiles, UnitDatPage)
 
-        RS.ReLoad(DatFiles, ObjectID, RS.Tag)
-        YSS.ReLoad(DatFiles, ObjectID, YSS.Tag)
-        YSE.ReLoad(DatFiles, ObjectID, YSE.Tag)
-        WSS.ReLoad(DatFiles, ObjectID, WSS.Tag)
-        WSE.ReLoad(DatFiles, ObjectID, WSE.Tag)
-        PSS.ReLoad(DatFiles, ObjectID, PSS.Tag)
-        PSE.ReLoad(DatFiles, ObjectID, PSE.Tag)
-    End Sub
+        SAF.ReLoad(DatFiles, ObjectID, SAF.Tag)
 
+        SGF.ReLoad(DatFiles, ObjectID, SGF.Tag)
+        RS.ReLoad(DatFiles, ObjectID, RS.Tag)
+    End Sub
 End Class

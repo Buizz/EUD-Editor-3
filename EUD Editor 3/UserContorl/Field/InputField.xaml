@@ -10,7 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"   MaxHeight="34" Height="34" Padding="4">
     <StackPanel Orientation="Horizontal">
-        <TextBlock x:Name="TextStr" Text="{Binding Explain}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0" />
+        <TextBlock x:Name="TextStr" Text="{Binding Explain}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
         <TextBox 
             
             x:Name="ValueText"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="50">

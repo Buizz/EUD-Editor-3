@@ -4,6 +4,8 @@
         Unit_Special.ReLoad(DatFiles, ObjectID)
         Unit_Sound.ReLoad(DatFiles, ObjectID)
         Unit_Graphic.ReLoad(DatFiles, ObjectID)
+        Unit_MapEdit.ReLoad(DatFiles, ObjectID)
+        Unit_AIOrder.ReLoad(DatFiles, ObjectID)
     End Sub
 
     Public Sub New(tObjectID As Integer)
@@ -16,17 +18,23 @@
         Unit_Special = New Unit_Special(tObjectID)
         Unit_Sound = New Unit_Sound(tObjectID)
         Unit_Graphic = New Unit_Graphic(tObjectID)
+        Unit_MapEdit = New Unit_MapEdit(tObjectID)
+        Unit_AIOrder = New Unit_AIOrder(tObjectID)
 
         Defualt.Content = Unit_Default
         Special.Content = Unit_Special
         Sound.Content = Unit_Sound
         Graphic.Content = Unit_Graphic
+        MapEdit.Content = Unit_MapEdit
+        AIOrder.Content = Unit_AIOrder
     End Sub
 
     Private Unit_Default As Unit_Default
     Private Unit_Special As Unit_Special
     Private Unit_Sound As Unit_Sound
     Private Unit_Graphic As Unit_Graphic
+    Private Unit_MapEdit As Unit_MapEdit
+    Private Unit_AIOrder As Unit_AIOrder
 
     Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         MainTab.SelectedIndex = TypeListBox.SelectedIndex

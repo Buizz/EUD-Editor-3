@@ -6,6 +6,9 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public ReadOnly ProhibitParam() As String = {"Unit Map String", "Unknown1"}
+
+
         Public Sub CloseWindows()
             For Each win As Window In Application.Current.Windows
                 If win.GetType Is GetType(DataEditor) Then
@@ -210,10 +213,10 @@ Namespace TabItemTool
         Public Sub WindowTabItem(Datfile As SCDatFiles.DatFiles, index As Integer)
             Dim DataEditorForm As New DataEditor
             DataEditorForm.Show()
-            DataEditorForm.OpenbyMainWindow(GetTabItem(Datfile, index))
+            DataEditorForm.OpenbyOthers(GetTabItem(Datfile, index), Datfile)
         End Sub
 
-        Private TabTypeArray As Type() = {GetType(UnitData)}
+        Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData)}
         Public Sub ChanageTabItem(Datfile As SCDatFiles.DatFiles, index As Integer, MainTab As Dockablz.Layout)
             Dim MainContent As Object = MainTab.Content
             While MainContent.GetType <> GetType(TabablzControl)
@@ -345,6 +348,9 @@ Namespace TabItemTool
                 Case SCDatFiles.DatFiles.units
                     myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, index)
                     TabItem.Content = New UnitData(index)
+                Case SCDatFiles.DatFiles.weapons
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.weapons, index)
+                    TabItem.Content = New WeaponData(index)
             End Select
             TabText.SetBinding(TextBlock.TextProperty, myBinding)
 

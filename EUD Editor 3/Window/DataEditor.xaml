@@ -15,7 +15,7 @@
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
         Topmost="True" 
-        Title="{StaticResource DataEditor}" Height="630" Width="1220" WindowStartupLocation="Manual" >
+        Title="{StaticResource DataEditor}" Height="630" Width="740" WindowStartupLocation="Manual" >
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
     </Window.Resources>
@@ -53,7 +53,7 @@
             </DockPanel>
         </Expander>
 
-        <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left">
+        <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" >
             <Expander.Header>
                 <TextBlock
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"

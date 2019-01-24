@@ -49,18 +49,23 @@ OutputEntrycount=228
 
 12Name=Comp AI Idle
 12Size=1
+12Type=7
 
 13Name=Human AI Idle
 13Size=1
+13Type=7
 
 14Name=Return to Idle
 14Size=1
+14Type=7
 
 15Name=Attack Unit
 15Size=1
+15Type=7
 
 16Name=Attack Move
 16Size=1
+16Type=7
 
 17Name=Ground Weapon
 17Size=1

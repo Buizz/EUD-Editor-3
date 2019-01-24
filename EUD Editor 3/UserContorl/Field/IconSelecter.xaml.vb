@@ -7,12 +7,12 @@ Public Class IconSelecter
 
     Private DatCommand As DatCommand
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
 
-        Field.Init(DatFile, ObjectID, Parameter)
+        Field.Init(DatFile, ObjectID, Parameter, InputField.SFlag.None, TextWidth)
 
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
         If valueType = SCDatFiles.DatFiles.sfxdata Or valueType = SCDatFiles.DatFiles.portdata Then
@@ -118,6 +118,8 @@ Public Class IconSelecter
         If valueType <> SCDatFiles.DatFiles.None Then
             If Not CodeList.DataLoadCmp Then
                 CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
+            Else
+                CodeList.Refresh(pjData.Dat.Data(DatFile, Parameter, ObjectID))
             End If
 
             CodeList.MaxWidth = btn.RenderSize.Width + 32
@@ -142,5 +144,11 @@ Public Class IconSelecter
         pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
     End Sub
 
-
+    Private Sub OpenNew_Click(sender As Object, e As RoutedEventArgs) Handles OpenNew.Click
+        Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
+        Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
+        If CheckOverFlow(valueType, value) Then
+            TabItemTool.WindowTabItem(valueType, value)
+        End If
+    End Sub
 End Class

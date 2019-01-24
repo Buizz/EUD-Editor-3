@@ -17,6 +17,15 @@ Public Class DataManager
 
         PageMask(2) = New List(Of String)
         PageMask(2).AddRange({"Ready Sound", "What Sound Start", "What Sound End", "Piss Sound Start", "Piss Sound End", "Yes Sound Start", "Yes Sound End"})
+
+        PageMask(3) = New List(Of String)
+        PageMask(3).AddRange({"Graphics", "Construction Animation", "Portrait", "Elevation Level", "Unit Direction", "Unit Size Left", "Unit Size Right", "Unit Size Up", "Unit Size Down", "StarEdit Placement Box Width", "StarEdit Placement Box Height", "Addon Horizontal (X) Position", "Addon Vertical (Y) Position"})
+
+        PageMask(4) = New List(Of String)
+        PageMask(4).AddRange({"Staredit Availability Flags", "Staredit Group Flags", "Rank/Sublabel"})
+
+        PageMask(5) = New List(Of String)
+        PageMask(5).AddRange({"Comp AI Idle", "Human AI Idle", "Return to Idle", "Attack Unit", "Attack Move", "Right-click Action", "AI Internal"})
     End Sub
 
 
@@ -77,7 +86,9 @@ Public Class DataManager
                 Dim Value As Long = valueStrs(1)
 
                 If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
-                    pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
+                    If pjData.Dat.ParamInfo(DatFiles, ParamaterName, SCDatFiles.EParamInfo.IsEnabled) Then
+                        pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
+                    End If
                 End If
             Next
         End If

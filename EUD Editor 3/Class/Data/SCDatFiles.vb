@@ -33,6 +33,7 @@ Public Class SCDatFiles
         VarEnd = 2
         VarCount = 3
         ValueType = 4
+        IsEnabled = 5
     End Enum
 
     Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False, Optional IsBindingData As Boolean = False)
@@ -321,6 +322,11 @@ Public Class SCDatFiles
                     End Select
                 End While
 
+
+                If Tool.ProhibitParam.ToList.IndexOf(ParamaterName) >= 0 Then
+                    Enabled = False
+                End If
+
                 Values = New List(Of Value)
 
                 Dim currentpos As UInteger = br.BaseStream.Position '베이스 스트림을 기억하고
@@ -345,6 +351,8 @@ Public Class SCDatFiles
                     Else
                         Values.Add(New Value(value))
                     End If
+
+
                     'If VarArray = 4 Then
                     '    MsgBox(Hex(br.BaseStream.Position - Size) & vbCrLf & "유닛코드 : " & i & " 이름 : " & ParamaterName & " 값 : " & Values.Last)
                     'End If
@@ -381,6 +389,8 @@ Public Class SCDatFiles
                             Return Values.Count
                         Case EParamInfo.ValueType
                             Return ValueType
+                        Case EParamInfo.IsEnabled
+                            Return Enabled
                     End Select
                     Return 0
                 End Get
@@ -396,6 +406,7 @@ Public Class SCDatFiles
 
             Private ValueType As SCDatFiles.DatFiles = DatFiles.None
 
+            Private Enabled As Boolean = True
 
             Private Values As List(Of Value)
             <Serializable()>

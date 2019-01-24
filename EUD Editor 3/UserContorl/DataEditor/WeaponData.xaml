@@ -1,0 +1,71 @@
+﻿<UserControl x:Class="WeaponData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
+             d:DesignHeight="482"  d:DesignWidth="710">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+        <local:NameBar x:Name="NameBar"/>
+        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <materialDesign:Card Height="227" Width="419" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="타격정보" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10">
+                            <StackPanel>
+                                <local:InputField x:Name="DA" Width="170" Tag="Damage Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <local:InputField x:Name="DB" Width="170" Tag="Damage Bonus" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <local:InputField x:Name="DF" Width="170" Tag="Damage Factor" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                            <StackPanel >
+                                <local:ComboxSelecter x:Name="WT" Width="220" Tag="Weapon Type" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <local:ComboxSelecter x:Name="ET" Width="220" Tag="Explosion Type" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <local:InputField x:Name="WC" Width="220" Tag="Weapon Cooldown" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                            <local:IconSelecter x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" />
+                            <local:IconSelecter x:Name="DU" Tag="Damage Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top" Width="320" />
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="227" Width="129" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+
+                    <WrapPanel Grid.Row="1" >
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14" Text="사거리"  Width="148" Padding="6,6,6,0"/>
+                        <WrapPanel Margin="10,0">
+                            <local:InputField x:Name="MinR" Tag="Minimum Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="MaxR" Tag="Maximum Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                   
+                        </WrapPanel>
+
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14" Text="스플래쉬 범위" Width="148" Padding="6,0"/>
+                        <WrapPanel Margin="10,0">
+                            <local:InputField x:Name="ISR" Tag="Inner Splash Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="MSR" Tag="Medium Splash Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:InputField x:Name="OSR" Tag="Outer Splash Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                        </WrapPanel>
+                    </WrapPanel>
+                </materialDesign:Card>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

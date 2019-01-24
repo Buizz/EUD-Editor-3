@@ -310,6 +310,39 @@ Public Class CodeSelecter
         Fliter.SetFliter(tfliter)
     End Sub
 
+    Public Sub Refresh(StartIndex As Integer)
+        Select Case Fliter.SortType
+            Case ESortType.Tree
+            Case Else
+                Dim Listbox As ListBox
+                If Fliter.IsIcon Then
+
+                    Listbox = CodeIndexerImage
+                Else
+                    Listbox = CodeIndexerList
+                End If
+
+                For i = 0 To Listbox.Items.Count - 1
+                    Dim Listboxitem As ListBoxItem = Listbox.Items(i)
+                    Dim index As Integer = Listboxitem.Tag
+
+                    If index = StartIndex Then
+                        Listbox.SelectedItem = Listboxitem
+                        Listboxitem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                        Listboxitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                        Listbox.ScrollIntoView(Listboxitem)
+                    Else
+
+                        Listboxitem.Background = Application.Current.Resources("MaterialDesignPaper")
+                        Listboxitem.Foreground = Application.Current.Resources("MaterialDesignBody")
+
+                    End If
+
+                Next
+        End Select
+    End Sub
+
+
     Public Sub ListReset(Optional pagetype As EPageType = EPageType.Nottting, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0)
         DataLoadCmp = True
         If pagetype = EPageType.Nottting Then

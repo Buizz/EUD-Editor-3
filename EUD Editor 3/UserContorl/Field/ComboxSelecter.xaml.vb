@@ -18,12 +18,12 @@
 
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
     End Sub
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
 
-        Field.Init(DatFile, ObjectID, Parameter)
+        Field.Init(DatFile, ObjectID, Parameter, InputField.SFlag.None, TextWidth)
 
         Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         DataContext = DB
@@ -52,8 +52,10 @@
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)
     End Sub
 
-    Private Sub combobox_PreeviewMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles MainComboBox.PreviewMouseWheel
-        Dim ChangeValue As Integer = e.Delta / 100
-        pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+    Private Sub combobox_PreeviewMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles MainComboBox.MouseWheel
+        If Not MainComboBox.IsDropDownOpen Then
+            Dim ChangeValue As Integer = e.Delta / 100
+            pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+        End If
     End Sub
 End Class

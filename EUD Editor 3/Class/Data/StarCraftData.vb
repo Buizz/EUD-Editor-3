@@ -19,6 +19,11 @@ Public Module SCConst
 
     Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
      "upgrades", "techdata", "orders", "portdata", "sfxdata"}
+
+    Public Function CheckOverFlow(Datfiles As SCDatFiles.DatFiles, Value As Long) As Boolean
+        Return SCCodeCount(Datfiles) > Value
+    End Function
+
 End Module
 
 Public Class StarCraftData

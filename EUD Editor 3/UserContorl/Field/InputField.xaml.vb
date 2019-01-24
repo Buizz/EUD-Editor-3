@@ -62,13 +62,15 @@
     End Sub
 
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
         SpecialFlag = _SFlag
 
-
+        If TextWidth <> 0 Then
+            TextStr.Width = TextWidth
+        End If
 
 
 

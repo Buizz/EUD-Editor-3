@@ -33,6 +33,12 @@
             <TabItem x:Name="Graphic" Header="그래픽">
 
             </TabItem>
+            <TabItem x:Name="MapEdit" Header="맵 에디트">
+
+            </TabItem>
+            <TabItem x:Name="AIOrder" Header="인공지능행동">
+
+            </TabItem>
         </dragablz:TabablzControl>
         <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
             <ListBoxItem Content="기본정보"/>
@@ -40,7 +46,7 @@
             <ListBoxItem Content="사운드"/>
             <ListBoxItem Content="그래픽"/>
             <ListBoxItem Content="맵 에디트"/>
-            <ListBoxItem Content="인공지능"/>
+            <ListBoxItem Content="인공지능행동"/>
             <ListBoxItem Content="유닛정보"/>
             <ListBoxItem Content="요구사항"/>
             <ListBoxItem Content="와이어프레임"/>

@@ -1,0 +1,72 @@
+﻿<UserControl x:Class="Unit_MapEdit"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
+             d:DesignHeight="482"  d:DesignWidth="610">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="50"/>
+            <RowDefinition Height="40*"/>
+        </Grid.RowDefinitions>
+        <local:NameBar x:Name="NameBar"/>
+        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <materialDesign:Card Height="240" Width="388" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="소속된 능력" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10">
+                            <local:FlagSelecter x:Name="SAF" Tag="Staredit Availability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="240" Width="182" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="소속된 그룹" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10">
+                            <local:FlagSelecter x:Name="SGF" Tag="Staredit Group Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="140" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="문자 정보" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10">
+                            <local:InputField x:Name="RS" Tag="Rank/Sublabel" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+            </WrapPanel>
+        </ScrollViewer>
+    </Grid>
+</UserControl>

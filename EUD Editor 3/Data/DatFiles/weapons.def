@@ -12,6 +12,7 @@ OutputEntrycount=130
 
 2Name=Unused
 2Size=1
+2Type=6
 
 3Name=Target Flags:Air,Ground,Mechanical,Organic,non-Building,non-Robotic,Terrain,"Org. or Mech.",Own
 3Size=2
@@ -24,6 +25,7 @@ OutputEntrycount=130
 
 6Name=Damage Upgrade
 6Size=1
+6Type=5
 
 7Name=Weapon Type
 7Size=1

@@ -10,16 +10,20 @@ Public Class DataEditor
         CodeExpander.IsExpanded = True
         Console.IsExpanded = False
 
-        Dim asdf As Binding = New Binding("sad")
     End Sub
 
-    Public Sub OpenbyMainWindow(tab As TabItem)
+    Public Sub OpenbyOthers(tab As TabItem, Optional Page As Integer = 0)
         Dim TabContent As TabablzControl = MainTab.Content
         TabContent.Items.Add(tab)
         TabContent.SelectedItem = tab
 
-        CodeExpander.IsExpanded = True
+        CodeExpander.IsExpanded = False
         Console.IsExpanded = False
+
+        If Page <> 0 Then
+            ListReset(Page)
+        End If
+
     End Sub
     '데이터 상태랑 선택한 인덱스랑 어떤 페이지인지 알고 있어야 함
 
@@ -155,13 +159,18 @@ Public Class DataEditor
     Private Sub CodeIndexer_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim SelectSender As ListBox = sender
 
-        If SelectSender.SelectedIndex = 8 Then
+        ListReset(SelectSender.SelectedIndex)
+
+    End Sub
+    Private Sub ListReset(SelectIndex As Integer)
+        If SelectIndex = 8 Then
             CodeList.ListReset(SCDatFiles.DatFiles.button, False)
         Else
 
-            CodeList.ListReset(SelectSender.SelectedIndex, False)
+            CodeList.ListReset(SelectIndex, False)
         End If
     End Sub
+
 
     Private Sub CodeList_Select(Code As Object, e As RoutedEventArgs)
         Dim CodePage As SCDatFiles.DatFiles = Code(0)
@@ -204,4 +213,15 @@ Public Class DataEditor
         End If
     End Sub
 
+
+
+    Private LastSize As Integer
+    Private Sub CodeExpander_SizeChanged(sender As Object, e As SizeChangedEventArgs)
+        If e.WidthChanged Then
+            Dim Gap As Integer = e.NewSize.Width - LastSize
+            LastSize = e.NewSize.Width
+
+            Me.Width += Gap
+        End If
+    End Sub
 End Class

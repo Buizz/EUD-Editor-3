@@ -182,6 +182,12 @@
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
+    <Compile Include="UserContorl\DataEditor\DataPages\Unit_AIOrder.xaml.vb">
+      <DependentUpon>Unit_AIOrder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\DataPages\Unit_MapEdit.xaml.vb">
+      <DependentUpon>Unit_MapEdit.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\ListSelecter.xaml.vb">
       <DependentUpon>ListSelecter.xaml</DependentUpon>
     </Compile>
@@ -202,6 +208,9 @@
     </Compile>
     <Compile Include="UserContorl\DataEditor\UnitData.xaml.vb">
       <DependentUpon>UnitData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\WeaponData.xaml.vb">
+      <DependentUpon>WeaponData.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\BoolSelecter.xaml.vb">
       <DependentUpon>BoolSelecter.xaml</DependentUpon>
@@ -262,6 +271,14 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserContorl\DataEditor\DataPages\Unit_AIOrder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\DataPages\Unit_MapEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\DataEditor\ListSelecter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -287,6 +304,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\DataEditor\UnitData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\WeaponData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

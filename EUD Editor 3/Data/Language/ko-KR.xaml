@@ -149,16 +149,18 @@
     <sys:String x:Key="units_Unknown (old Movement)">이동 플래그</sys:String>
     <sys:String x:Key="units_Unknown (old Movement)_V">0x01|0x02|0x04|0x08|0x10|0x20|0x40|0x80</sys:String>
     <sys:String x:Key="units_Rank/Sublabel">계급</sys:String>
-    <sys:String x:Key="units_Comp AI Idle">방어구</sys:String>
-    <sys:String x:Key="units_Human AI Idle">방어구</sys:String>
-    <sys:String x:Key="units_Return to Idle">방어구</sys:String>
-    <sys:String x:Key="units_Attack Unit">방어구</sys:String>
-    <sys:String x:Key="units_Attack Move">방어구</sys:String>
+    <sys:String x:Key="units_Comp AI Idle">컴퓨터 기본</sys:String>
+    <sys:String x:Key="units_Human AI Idle">사람 기본</sys:String>
+    <sys:String x:Key="units_Return to Idle">원상태로</sys:String>
+    <sys:String x:Key="units_Attack Unit">유닛 공격</sys:String>
+    <sys:String x:Key="units_Attack Move">공격&amp;이동</sys:String>
     <sys:String x:Key="units_Ground Weapon">지상무기</sys:String>
     <sys:String x:Key="units_Max Ground Hits">타격수</sys:String>
     <sys:String x:Key="units_Air Weapon">공중무기</sys:String>
     <sys:String x:Key="units_Max Air Hits">타격수</sys:String>
-    <sys:String x:Key="units_AI Internal">방어구</sys:String>
+    <sys:String x:Key="units_AI Internal">내부 인공지능</sys:String>
+    <sys:String x:Key="units_AI Internal_V">"Strategic Sucide missions" AI를 무시한다.|"Guard" 상태가 되지 않는다.</sys:String>
+    
     <sys:String x:Key="units_Special Ability Flags">스페셜 어빌리티 플래그</sys:String>
     <sys:String x:Key="units_Special Ability Flags_V">건물|애드온|공중유닛|자원을 캔다|부가 유닛|날 수 있는 건물|영웅|HP 자동 회복|기본모습|클로킹|1 Egg 2 Unit|단일 개체|자원 창고(반납)|자원 저장 건물|로보틱|디텍터|바이오닉|크립 필요|Unused|파일런 필요|버로우 가능 유닛|마법 유닛|영구 클로킹|아이템 가질 수 있음|인구 수 확인 무시|중간 오버레이|큰 오버레이|타겟 방향 자동 공격|전투에 반응|절대 무적|기계 유닛|유닛을 생산</sys:String>
     
@@ -168,7 +170,9 @@
     <sys:String x:Key="units_Unit Size">피격타입</sys:String>
     <sys:String x:Key="units_Unit Size_V">독립적크기|소형|중형|대형</sys:String>
     <sys:String x:Key="units_Armor">방어력</sys:String>
-    <sys:String x:Key="units_Right-click Action">방어구</sys:String>
+    <sys:String x:Key="units_Right-click Action">우클릭 행동</sys:String>
+    <sys:String x:Key="units_Right-click Action_V">명령없음 / 자동 Attack|기본 이동 / 기본  Attack|기본 이동 / 없음  Attack|이동없음 / 기본 Attack|자원캐기|자원캐기 / 수리|없음</sys:String>
+    
     <sys:String x:Key="units_Ready Sound">기다림</sys:String>
     <sys:String x:Key="units_What Sound Start">물어봄(첫번째)</sys:String>
     <sys:String x:Key="units_What Sound End">물어봄(마지막)</sys:String>
@@ -188,15 +192,49 @@
     <sys:String x:Key="units_Mineral Cost">미네랄</sys:String>
     <sys:String x:Key="units_Vespene Cost">가스</sys:String>
     <sys:String x:Key="units_Build Time">시간</sys:String>
-    <sys:String x:Key="units_Unknown1">방어구</sys:String>
-    <sys:String x:Key="units_Staredit Group Flags">방어구</sys:String>
+    <sys:String x:Key="units_Unknown1">요구사항시작위치</sys:String>
+    <sys:String x:Key="units_Staredit Group Flags">그룹 플래그</sys:String>
+    <sys:String x:Key="units_Staredit Group Flags_V">저그|테란|프로토스|유닛(사람)|건물|생산건물|독립유닛|중립</sys:String>
+    
     <sys:String x:Key="units_Supply Provided">필요인구</sys:String>
     <sys:String x:Key="units_Supply Required">공급인구</sys:String>
     <sys:String x:Key="units_Space Required">필요공간</sys:String>
     <sys:String x:Key="units_Space Provided">탑승공간</sys:String>
     <sys:String x:Key="units_Build Score">생산점수</sys:String>
     <sys:String x:Key="units_Destroy Score">파괴점수</sys:String>
-    <sys:String x:Key="units_Unit Map String">방어구</sys:String>
+    <sys:String x:Key="units_Unit Map String">맵 스트링</sys:String>
     <sys:String x:Key="units_Broodwar Unit Flag">브루드워유닛</sys:String>
-    <sys:String x:Key="units_Staredit Availability Flags">방어구</sys:String>
+    <sys:String x:Key="units_Staredit Availability Flags">스타에딧 어빌리티 플래그</sys:String>
+    <sys:String x:Key="units_Staredit Availability Flags_V">비 자연물|유닛기제 &amp; 팔레트|브리핑|플레이어 세팅|모든 종족에|두다드 상태설정|비 로케이션 트리거|유닛/영웅 설정|로케이션 트리거|브르드워|사용안됨|사용안됨|사용안됨|사용안됨|사용안됨|사용안됨</sys:String>
+
+    <sys:String x:Key="weapons_Label">이름</sys:String>
+    <sys:String x:Key="weapons_Graphics">그래픽</sys:String>
+    <sys:String x:Key="weapons_Unused">사용안함</sys:String>
+    <sys:String x:Key="weapons_Target Flags">대상</sys:String>
+    
+    <sys:String x:Key="weapons_Minimum Range">최소</sys:String>
+    <sys:String x:Key="weapons_Maximum Range">최대</sys:String>
+    <sys:String x:Key="weapons_Damage Upgrade">업그레이드</sys:String>
+    <sys:String x:Key="weapons_Weapon Type">무기 형식</sys:String>
+    <sys:String x:Key="weapons_Weapon Type_V">알수없음|폭발형|진동형|노멀데미지|방어력 무시(스톰)</sys:String>
+
+    <sys:String x:Key="weapons_Weapon Behavior">투사방식</sys:String>
+
+    <sys:String x:Key="weapons_Remove After">잔여시간</sys:String>
+    <sys:String x:Key="weapons_Explosion Type">폭발형</sys:String>
+    <sys:String x:Key="weapons_Explosion Type_V">없음|기본|원방형 스플레시|일방형 스플레시|락다운|핵미사일|패러사이트|브루들링|EMP 쇼크웨이브|이레디엣|인스네어|플래이그|스태시스필드|다크스웜|컨슘|야마토건|리스토레이션|웹|액시드|마인드컨트롤|피드백|옵틱컬플레어|마엘스톰|알수없음 2|공중 스플레시</sys:String>
+
+    <sys:String x:Key="weapons_Inner Splash Range">안쪽</sys:String>
+    <sys:String x:Key="weapons_Medium Splash Range">중간</sys:String>
+    <sys:String x:Key="weapons_Outer Splash Range">외각</sys:String>
+    <sys:String x:Key="weapons_Damage Amount">공격력</sys:String>
+    <sys:String x:Key="weapons_Damage Bonus">추가수치</sys:String>
+    <sys:String x:Key="weapons_Weapon Cooldown">쿨타임</sys:String>
+    <sys:String x:Key="weapons_Damage Factor">투사체 수</sys:String>
+    <sys:String x:Key="weapons_Attack Angle">공격 각도</sys:String>
+    <sys:String x:Key="weapons_Launch Spin">발사 회전률</sys:String>
+    <sys:String x:Key="weapons_Forward Offset">발사 위치</sys:String>
+    <sys:String x:Key="weapons_Upward Offset">발사 높이</sys:String>
+    <sys:String x:Key="weapons_Target Error Message">에러메세지</sys:String>
+    <sys:String x:Key="weapons_Icon">아이콘</sys:String>
 </ResourceDictionary>
