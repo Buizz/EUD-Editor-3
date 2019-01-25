@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Public Module SCConst
-    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144}
+    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144, 390, 1547}
 
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
@@ -10,12 +10,12 @@ Public Module SCConst
     Public SCUpgradeCount As Byte = 61
     Public SCTechCount As Byte = 44
     Public SCOrderCount As UShort = 189
+    Public SCPortdataCount As UShort = 220
+    Public SCSfxdataCount As UShort = 1144
     Public SCIconCount As UShort = 390
 
 
     Public SCtbltxtCount As UShort = 1547
-    Public SCSfxdataCount As UShort = 1144
-    Public SCPortdataCount As UShort = 220
 
     Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
      "upgrades", "techdata", "orders", "portdata", "sfxdata"}
@@ -31,6 +31,12 @@ Public Class StarCraftData
     Private ImageName(SCImageCount) As String
     Private pSfxName(SCSfxdataCount) As String
     Private pPortdataName(SCSfxdataCount) As String
+    Private pIconName(SCSfxdataCount) As String
+    Public ReadOnly Property IconName(index As Integer) As String
+        Get
+            Return pIconName(index)
+        End Get
+    End Property
     Public ReadOnly Property ImageStr(index As Integer) As String
         Get
             Return ImageName(index)
@@ -55,6 +61,11 @@ Public Class StarCraftData
         End Get
     End Property
 
+    Private ReadOnly Property IconPath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\Icon.txt"
+        End Get
+    End Property
     Private ReadOnly Property GRPTextPath As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\GRPfile.txt"
@@ -207,6 +218,15 @@ Public Class StarCraftData
         sr.Close()
 
 
+
+        sr = New StreamReader(IconPath)
+        index = 0
+        While Not sr.EndOfStream
+            pIconName(index) = sr.ReadLine()
+
+            index += 1
+        End While
+        sr.Close()
 
         LoadMPQData()
 

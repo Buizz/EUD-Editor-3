@@ -23,7 +23,7 @@ Namespace Tool
             End Get
         End Property
 
-        Private ReadOnly MPQFiles() As String = {"BrooDat.mpq", "StarDat.mpq", "BroodWar.mpq", "Starcraft.mpq"}
+        Private ReadOnly MPQFiles() As String = {"patch_rt.mpq", "patch_ed.mpq", "BrooDat.mpq", "BroodWar.mpq", "StarDat.mpq"}
         Public Function LoadDataFromMPQ(filename As String) As Byte()
             Dim hmpq As UInteger
             Dim hfile As UInteger
@@ -216,7 +216,7 @@ Namespace TabItemTool
             DataEditorForm.OpenbyOthers(GetTabItem(Datfile, index), Datfile)
         End Sub
 
-        Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData)}
+        Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData), GetType(FlingyData), GetType(SpriteData), GetType(ImageData), GetType(UpgradeData), GetType(TechData), GetType(OrderData)}
         Public Sub ChanageTabItem(Datfile As SCDatFiles.DatFiles, index As Integer, MainTab As Dockablz.Layout)
             Dim MainContent As Object = MainTab.Content
             While MainContent.GetType <> GetType(TabablzControl)
@@ -351,6 +351,24 @@ Namespace TabItemTool
                 Case SCDatFiles.DatFiles.weapons
                     myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.weapons, index)
                     TabItem.Content = New WeaponData(index)
+                Case SCDatFiles.DatFiles.flingy
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.flingy, index)
+                    TabItem.Content = New FlingyData(index)
+                Case SCDatFiles.DatFiles.sprites
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.sprites, index)
+                    TabItem.Content = New SpriteData(index)
+                Case SCDatFiles.DatFiles.images
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.images, index)
+                    TabItem.Content = New ImageData(index)
+                Case SCDatFiles.DatFiles.upgrades
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.upgrades, index)
+                    TabItem.Content = New UpgradeData(index)
+                Case SCDatFiles.DatFiles.techdata
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.techdata, index)
+                    TabItem.Content = New TechData(index)
+                Case SCDatFiles.DatFiles.orders
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.orders, index)
+                    TabItem.Content = New OrderData(index)
             End Select
             TabText.SetBinding(TextBlock.TextProperty, myBinding)
 

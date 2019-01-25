@@ -188,6 +188,12 @@
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_MapEdit.xaml.vb">
       <DependentUpon>Unit_MapEdit.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\DataEditor\FlingyData.xaml.vb">
+      <DependentUpon>FlingyData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\ImageData.xaml.vb">
+      <DependentUpon>ImageData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\ListSelecter.xaml.vb">
       <DependentUpon>ListSelecter.xaml</DependentUpon>
     </Compile>
@@ -206,8 +212,20 @@
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_Default.xaml.vb">
       <DependentUpon>Unit_Default.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\DataEditor\OrderData.xaml.vb">
+      <DependentUpon>OrderData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\SpriteData.xaml.vb">
+      <DependentUpon>SpriteData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\TechData.xaml.vb">
+      <DependentUpon>TechData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\UnitData.xaml.vb">
       <DependentUpon>UnitData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\UpgradeData.xaml.vb">
+      <DependentUpon>UpgradeData.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\DataEditor\WeaponData.xaml.vb">
       <DependentUpon>WeaponData.xaml</DependentUpon>
@@ -217,6 +235,9 @@
     </Compile>
     <Compile Include="UserContorl\Field\ComboxSelecter.xaml.vb">
       <DependentUpon>ComboxSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\FlagSelecterMini.xaml.vb">
+      <DependentUpon>FlagSelecterMini.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\FlagSelecter.xaml.vb">
       <DependentUpon>FlagSelecter.xaml</DependentUpon>
@@ -279,6 +300,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\DataEditor\FlingyData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\ImageData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\DataEditor\ListSelecter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -303,7 +332,23 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\DataEditor\OrderData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\SpriteData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\TechData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\DataEditor\UnitData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\UpgradeData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -318,6 +363,10 @@
     <Page Include="UserContorl\Field\ComboxSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\FlagSelecterMini.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserContorl\Field\FlagSelecter.xaml">
       <SubType>Designer</SubType>
@@ -592,6 +641,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\Texts\Portdata.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Texts\Icon.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="SFmpq.dll">

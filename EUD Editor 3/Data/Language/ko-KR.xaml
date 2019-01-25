@@ -42,7 +42,7 @@
 
     <sys:String x:Key="NoName">제목 없음</sys:String>
     <sys:String x:Key="None">없음</sys:String>
-    <sys:String x:Key="NotUse">사용안함</sys:String>
+    <sys:String x:Key="NotUse">X</sys:String>
 
 
     <sys:String x:Key="Theme">테마</sys:String>
@@ -95,6 +95,8 @@
     <sys:String x:Key="Error FailLoad PluginSet">플러그인 세팅 로드에 실패했습니다.</sys:String>
 
 
+    <!--MapOpenError-->
+    <sys:String x:Key="Error Not support SCM">SCM맵은 지원하지 않습니다.</sys:String>
 
     
     
@@ -122,15 +124,41 @@
     <sys:String x:Key="FliterIcon">아이콘보기</sys:String>
     <sys:String x:Key="FliterEdit">편집된 것만 보기</sys:String>
 
+    <sys:String x:Key="UnitDefault">기본정보</sys:String>
+    <sys:String x:Key="UnitSpecial">고급정보</sys:String>
+    <sys:String x:Key="UnitSound">사운드</sys:String>
+    <sys:String x:Key="UnitGraphic">그래픽</sys:String>
+    <sys:String x:Key="UnitMapEdit">에디트</sys:String>
+    <sys:String x:Key="UnitAIOrder">인공지능명령</sys:String>
+
+    <sys:String x:Key="UnitInfor">유닛정보</sys:String>
+    <sys:String x:Key="UnitRequir">요구사항</sys:String>
+    <sys:String x:Key="UnitWireFrame">와이어프레임</sys:String>
+
+    <sys:String x:Key="UnitBionic">유닛 생체 정보</sys:String>
+    <sys:String x:Key="UnitCreate">생산정보</sys:String>
+    <sys:String x:Key="UnitWeapon">무기</sys:String>
+    <sys:String x:Key="UnitSupply">인구</sys:String>
+    <sys:String x:Key="UnitEntrance">탑승공간</sys:String>
+    <sys:String x:Key="UnitOthers">기타정보</sys:String>
+
+
+    <sys:String x:Key="UnitSpecialAbilityFlag">스페셜 어빌리티 플래그</sys:String>
+    <sys:String x:Key="UnitSpecialOthers">기타정보</sys:String>
+    <sys:String x:Key="UnitMovementFlag">이동플래그</sys:String>
+
+    <sys:String x:Key="UnitStarEditFlag">소속된 능력</sys:String>
+    <sys:String x:Key="UnitGroupFlag">소속된 그룹</sys:String>
+    <sys:String x:Key="UnitString">문자 정보</sys:String>
+
+    <sys:String x:Key="UnitGraphicinfor">그래픽 정보</sys:String>
+    <sys:String x:Key="UnitSize">유닛 크기</sys:String>
+    <sys:String x:Key="UnitCreateSize">건설크기</sys:String>
+    <sys:String x:Key="UnitAddonPos">애드온 위치</sys:String>
 
 
 
-    <!--MapOpenError-->
-    <sys:String x:Key="Error Not support SCM">SCM맵은 지원하지 않습니다.</sys:String>
 
-    
-    
-    
 
     <sys:String x:Key="units_Graphics">비행정보</sys:String>
     <sys:String x:Key="units_Subunit 1">부가유닛1</sys:String>
@@ -211,6 +239,9 @@
     <sys:String x:Key="weapons_Graphics">그래픽</sys:String>
     <sys:String x:Key="weapons_Unused">사용안함</sys:String>
     <sys:String x:Key="weapons_Target Flags">대상</sys:String>
+    <sys:String x:Key="weapons_Target Flags_V">공중|지상|메카닉|바이오닉|비 건물|비 로보틱|지형|바/메카닉|소유한 것</sys:String>
+
+    
     
     <sys:String x:Key="weapons_Minimum Range">최소</sys:String>
     <sys:String x:Key="weapons_Maximum Range">최대</sys:String>
@@ -218,7 +249,8 @@
     <sys:String x:Key="weapons_Weapon Type">무기 형식</sys:String>
     <sys:String x:Key="weapons_Weapon Type_V">알수없음|폭발형|진동형|노멀데미지|방어력 무시(스톰)</sys:String>
 
-    <sys:String x:Key="weapons_Weapon Behavior">투사방식</sys:String>
+    <sys:String x:Key="weapons_Weapon Behavior">방식</sys:String>
+    <sys:String x:Key="weapons_Weapon Behavior_V">타겟에맞춤|타겟을 따라감|타겟에 사라짐|사이오닉 스톰방식|타겟 주의에 나옴|공격유닛에서 나옴|자살공격|쿠션튕기기|목표물에서 회전|최고 거리까지 뻗어나가기</sys:String>
 
     <sys:String x:Key="weapons_Remove After">잔여시간</sys:String>
     <sys:String x:Key="weapons_Explosion Type">폭발형</sys:String>
@@ -228,13 +260,13 @@
     <sys:String x:Key="weapons_Medium Splash Range">중간</sys:String>
     <sys:String x:Key="weapons_Outer Splash Range">외각</sys:String>
     <sys:String x:Key="weapons_Damage Amount">공격력</sys:String>
-    <sys:String x:Key="weapons_Damage Bonus">추가수치</sys:String>
+    <sys:String x:Key="weapons_Damage Bonus">+</sys:String>
     <sys:String x:Key="weapons_Weapon Cooldown">쿨타임</sys:String>
-    <sys:String x:Key="weapons_Damage Factor">투사체 수</sys:String>
-    <sys:String x:Key="weapons_Attack Angle">공격 각도</sys:String>
-    <sys:String x:Key="weapons_Launch Spin">발사 회전률</sys:String>
-    <sys:String x:Key="weapons_Forward Offset">발사 위치</sys:String>
-    <sys:String x:Key="weapons_Upward Offset">발사 높이</sys:String>
+    <sys:String x:Key="weapons_Damage Factor">개체 수</sys:String>
+    <sys:String x:Key="weapons_Attack Angle">유효각</sys:String>
+    <sys:String x:Key="weapons_Launch Spin">발사각</sys:String>
+    <sys:String x:Key="weapons_Forward Offset">위치</sys:String>
+    <sys:String x:Key="weapons_Upward Offset">높이</sys:String>
     <sys:String x:Key="weapons_Target Error Message">에러메세지</sys:String>
     <sys:String x:Key="weapons_Icon">아이콘</sys:String>
 </ResourceDictionary>

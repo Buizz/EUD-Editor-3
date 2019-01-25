@@ -82,17 +82,27 @@
 
         Dim PropertyName As String = "Value"
         Dim paramSize As Byte = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.Size)
+        Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
+        If valueType = SCDatFiles.DatFiles.None Then
+            Dim CharLen As Byte = 5
+            Select Case paramSize
+                Case 1
+                    CharLen = 3
+                Case 2
+                    CharLen = 5
+                Case 4
+                    CharLen = 10
+            End Select
+            ValueText.Width = 7 * CharLen
+        Else
+            If valueType <= SCDatFiles.DatFiles.portdata Or valueType = SCDatFiles.DatFiles.Icon Then
+                ValueText.Width = 7 * 3
+            Else
+                ValueText.Width = 7 * 4
+            End If
+        End If
 
-        Dim CharLen As Byte = 5
-        Select Case paramSize
-            Case 1
-                CharLen = 3
-            Case 2
-                CharLen = 5
-            Case 4
-                CharLen = 10
-        End Select
-        ValueText.Width = 7 * CharLen
+
 
 
         DatCommand = New DatCommand(DatFile, Parameter, ObjectID)

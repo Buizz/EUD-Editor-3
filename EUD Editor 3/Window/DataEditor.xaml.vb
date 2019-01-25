@@ -36,7 +36,7 @@ Public Class DataEditor
         'MsgBox("생성")
         pjData.CodeSelecters.Add(CodeList)
         CodeList.SetFliter(CodeSelecter.ESortType.n123)
-        CodeList.ListReset(CodeSelecter.EPageType.Unit, False)
+        CodeList.ListReset(SCDatFiles.DatFiles.units, False)
 
         'Dim asdgfaqwea As Func(Of TabItem) = AddressOf dsafads
         'MainTab.NewItemFactory = asdgfaqwea

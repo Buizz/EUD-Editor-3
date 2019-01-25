@@ -29,7 +29,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="유닛 생체 정보" Padding="6"/>
+                              Text="{StaticResource UnitBionic}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
                             <local:InputField x:Name="HP2" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -49,7 +49,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="생산정보" Padding="6"/>
+                              Text="{StaticResource UnitCreate}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
 
                             <local:InputField x:Name="MC" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -74,7 +74,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="무기" Padding="6"/>
+                              Text="{StaticResource UnitWeapon}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10"  >
                             <local:IconSelecter x:Name="GW" Width="480" Tag="Ground Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
                             <local:InputField x:Name="MGH" Tag="Max Ground Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -93,7 +93,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="인구" Padding="6"/>
+                              Text="{StaticResource UnitSupply}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
 
                             <local:InputField x:Name="SR" Tag="Supply Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -112,7 +112,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="탑승공간" Padding="6"/>
+                              Text="{StaticResource UnitEntrance}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
 
                            <local:InputField x:Name="SPR" Tag="Space Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -131,7 +131,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="기타정보" Padding="6"/>
+                              Text="{StaticResource UnitOthers}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10"   >
                             <local:InputField x:Name="SIR" Tag="Sight Range" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                             <local:InputField x:Name="TAR" Tag="Target Acquisition Range" HorizontalAlignment="Left" VerticalAlignment="Top" />

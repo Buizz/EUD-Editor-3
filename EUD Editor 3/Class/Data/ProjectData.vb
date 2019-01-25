@@ -239,7 +239,8 @@ Public Class ProjectData
 
                     Case SCDatFiles.DatFiles.sfxdata
                         ReturnStr = scData.SfxName(index)
-
+                    Case SCDatFiles.DatFiles.Icon
+                        ReturnStr = scData.IconName(index)
                     Case SCDatFiles.DatFiles.button
                         If index < SCUnitCount - 1 Then
                             ReturnStr = UnitName(index)

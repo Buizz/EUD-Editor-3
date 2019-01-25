@@ -24,7 +24,12 @@ Public Class IconSelecter
             DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
             btn.IsEnabled = True
             IconImage.IsEnabled = True
-            OpenNew.IsEnabled = True
+            If valueType = SCDatFiles.DatFiles.Icon Then
+                OpenNew.Visibility = Visibility.Collapsed
+            Else
+                OpenNew.IsEnabled = True
+            End If
+
 
             Dim tBinding1 As New Binding
             tBinding1.Path = New PropertyPath("ValueText")

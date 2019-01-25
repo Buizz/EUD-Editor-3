@@ -28,7 +28,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="사운드" Padding="6"/>
+                              Text="{StaticResource UnitSound}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:IconSelecter x:Name="RS" Tag="Ready Sound" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
 

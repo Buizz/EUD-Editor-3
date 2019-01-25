@@ -21,10 +21,13 @@ Public Class SCDatFiles
         portdata = 8
         sfxdata = 9
 
+        Icon = 10
+        stattxt = 11
+
         'Firegraft
-        statusinfor = 10
-        button = 11
-        require = 12
+        statusinfor = 12
+        button = 13
+        require = 14
         None = 255
     End Enum
     Public Enum EParamInfo

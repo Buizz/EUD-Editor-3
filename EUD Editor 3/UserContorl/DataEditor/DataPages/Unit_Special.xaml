@@ -32,7 +32,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="스페셜 어빌리티 플래그" Padding="6"/>
+                              Text="{StaticResource UnitSpecialAbilityFlag}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:FlagSelecter x:Name="SAF" Tag="Special Ability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
@@ -48,7 +48,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="기타정보" Padding="6"/>
+                              Text="{StaticResource UnitSpecialOthers}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
                             <local:IconSelecter x:Name="IFE" Tag="Infestation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" />
                             <local:IconSelecter x:Name="S1" Tag="Subunit 1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370"/>
@@ -66,7 +66,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="이동플래그" Padding="6"/>
+                              Text="{StaticResource UnitMovementFlag}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
                             <local:FlagSelecter x:Name="UDM" Tag="Unknown (old Movement)" HorizontalAlignment="Left" VerticalAlignment="Top" />
 

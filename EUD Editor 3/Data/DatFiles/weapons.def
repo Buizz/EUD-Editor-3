@@ -9,6 +9,7 @@ OutputEntrycount=130
 
 1Name=Graphics
 1Size=4
+1Type=2
 
 2Name=Unused
 2Size=1
@@ -77,3 +78,4 @@ OutputEntrycount=130
 
 23Name=Icon
 23Size=2
+23Type=10

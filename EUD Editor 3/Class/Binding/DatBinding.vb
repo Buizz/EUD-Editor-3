@@ -259,6 +259,9 @@ Public Class DatBinding
 
                     isIcon = True
                     ImageIndex = tIcon
+                Case SCDatFiles.DatFiles.Icon
+                    isIcon = True
+                    ImageIndex = value
             End Select
             If isIcon Then
                 Return scData.GetIcon(ImageIndex, False)

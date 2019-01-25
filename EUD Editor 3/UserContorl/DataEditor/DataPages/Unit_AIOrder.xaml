@@ -27,7 +27,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="인공지능명령" Padding="6"/>
+                              Text="{StaticResource UnitAIOrder}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:IconSelecter x:Name="CAI" Tag="Comp AI Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
                             <local:IconSelecter x:Name="HAI" Tag="Human AI Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540"/>

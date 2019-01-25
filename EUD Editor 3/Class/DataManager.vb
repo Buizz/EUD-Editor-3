@@ -58,21 +58,25 @@ Public Class DataManager
     End Sub
 
     Public Sub PasteDatPage(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer, UnitDatPage As Integer)
-        If DataPagePasteAble(DatFiles, ObjectID) Then
-            Dim tTemplate As Template = JsonConvert.DeserializeObject(Of Template)((My.Computer.Clipboard.GetText))
+        If DatFiles = SCDatFiles.DatFiles.units Then
+            If DataPagePasteAble(DatFiles, ObjectID) Then
+                Dim tTemplate As Template = JsonConvert.DeserializeObject(Of Template)((My.Computer.Clipboard.GetText))
 
 
-            For i = 0 To tTemplate.Values.Count - 1
-                Dim valueStrs As String() = tTemplate.Values(i).Split(":")
-                Dim ParamaterName As String = valueStrs(0)
-                Dim Value As Long = valueStrs(1)
+                For i = 0 To tTemplate.Values.Count - 1
+                    Dim valueStrs As String() = tTemplate.Values(i).Split(":")
+                    Dim ParamaterName As String = valueStrs(0)
+                    Dim Value As Long = valueStrs(1)
 
-                If PageMask(UnitDatPage).IndexOf(ParamaterName) >= 0 Then
-                    If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
-                        pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
+                    If PageMask(UnitDatPage).IndexOf(ParamaterName) >= 0 Then
+                        If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
+                            pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
+                        End If
                     End If
-                End If
-            Next
+                Next
+            End If
+        Else
+            PasteDatObject(DatFiles, ObjectID)
         End If
     End Sub
     Public Sub PasteDatObject(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
@@ -117,7 +121,7 @@ Public Class DataManager
                 'Next
             Next
         Else
-            PasteDatObject(DatFiles, ObjectID)
+            ResetDatObject(DatFiles, ObjectID)
         End If
     End Sub
     Public Sub ResetDatObject(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)

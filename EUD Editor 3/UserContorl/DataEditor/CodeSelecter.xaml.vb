@@ -257,29 +257,14 @@ Public Class CodeSelecter
         End Sub
     End Structure
 
-    Private CurrentPage As EPageType
-    Public ReadOnly Property Page As EPageType
+    Private CurrentPage As SCDatFiles.DatFiles
+    Public ReadOnly Property Page As SCDatFiles.DatFiles
         Get
             Return CurrentPage
         End Get
     End Property
 
-    Public Enum EPageType
-        Unit = 0
-        Weapon = 1
-        Fligy = 2
-        Sprite = 3
-        Image = 4
-        Upgrade = 5
-        Tech = 6
-        Order = 7
-        Portdata = 8
-        Sfxdata = 9
 
-        ButtonSet = 11
-        Nottting
-
-    End Enum
     Public Enum ESortType
         n123
         ABC
@@ -343,9 +328,9 @@ Public Class CodeSelecter
     End Sub
 
 
-    Public Sub ListReset(Optional pagetype As EPageType = EPageType.Nottting, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0)
+    Public Sub ListReset(Optional pagetype As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0)
         DataLoadCmp = True
-        If pagetype = EPageType.Nottting Then
+        If pagetype = SCDatFiles.DatFiles.None Then
             pagetype = CurrentPage
         Else
             CurrentPage = pagetype
@@ -356,7 +341,7 @@ Public Class CodeSelecter
         StartIndex = _StartIndex
         If Not IsFirstLoad Then
             IsFirstLoad = True
-            If CurrentPage <= EPageType.Order Then
+            If CurrentPage <= SCDatFiles.DatFiles.orders Then
                 If IsComboBox Then
                     CodeIndexerImage.ContextMenu = FindResource("OnlyOpenWindon")
                     CodeIndexerList.ContextMenu = FindResource("OnlyOpenWindon")
@@ -365,10 +350,13 @@ Public Class CodeSelecter
                 CodeIndexerImage.ContextMenu = Nothing
                 CodeIndexerList.ContextMenu = Nothing
 
-                L_IconBtn.Visibility = Visibility.Collapsed
+                If CurrentPage <> SCDatFiles.DatFiles.Icon Then
+                    L_IconBtn.Visibility = Visibility.Collapsed
+                End If
+
                 L_IsEditBtn.Visibility = Visibility.Collapsed
 
-                If CurrentPage = EPageType.Portdata Then
+                If CurrentPage = SCDatFiles.DatFiles.portdata Or CurrentPage = SCDatFiles.DatFiles.Icon Or CurrentPage = SCDatFiles.DatFiles.stattxt Then
                     BtnsortTree.Visibility = Visibility.Collapsed
                 End If
             End If
@@ -455,14 +443,14 @@ Public Class CodeSelecter
         Return tborder
     End Function
 
-    Private Sub ListResetData(pagetype As EPageType, StartIndex As Integer)
+    Private Sub ListResetData(pagetype As SCDatFiles.DatFiles, StartIndex As Integer)
         '리스트에 들어갈 거는 리스트이름과 아이콘, 그룹패스뿐임.
         '이것만 잘 넘겨주면 됨
         Dim ObjectNames As New List(Of String)
         Dim ObjectImages As New List(Of Border)
 
         Select Case pagetype
-            Case EPageType.Unit
+            Case SCDatFiles.DatFiles.units
                 For i = 0 To SCUnitCount - 1
                     Dim tGraphics As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", i)
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
@@ -471,7 +459,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(pjData.CodeLabel(pagetype, i))
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
-            Case EPageType.Weapon
+            Case SCDatFiles.DatFiles.weapons
                 For i = 0 To SCWeaponCount - 1
                     Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Icon", i)
@@ -481,7 +469,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
-            Case EPageType.Fligy
+            Case SCDatFiles.DatFiles.flingy
                 For i = 0 To SCFlingyCount - 1
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", i)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
@@ -492,7 +480,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
-            Case EPageType.Sprite
+            Case SCDatFiles.DatFiles.sprites
                 For i = 0 To SCSpriteCount - 1
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", i)
 
@@ -501,7 +489,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
-            Case EPageType.Image
+            Case SCDatFiles.DatFiles.images
                 For i = 0 To SCImageCount - 1
                     Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
                     Dim cname As String = pjData.CodeLabel(pagetype, i)
@@ -509,7 +497,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(i, Fliter.IsIcon))
                 Next
-            Case EPageType.Upgrade
+            Case SCDatFiles.DatFiles.upgrades
                 For i = 0 To SCUpgradeCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", i)
 
@@ -518,7 +506,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
-            Case EPageType.Tech
+            Case SCDatFiles.DatFiles.techdata
                 For i = 0 To SCTechCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", i)
 
@@ -527,7 +515,7 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
-            Case EPageType.Order
+            Case SCDatFiles.DatFiles.orders
                 For i = 0 To SCOrderCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.orders, "Highlight", i)
 
@@ -536,19 +524,28 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
                 Next
-            Case EPageType.Portdata
+            Case SCDatFiles.DatFiles.portdata
                 For i = 0 To SCPortdataCount - 1
                     Dim cname As String = scData.PortdataName(i)
 
                     ObjectNames.Add(cname)
                 Next
-            Case EPageType.Sfxdata
+            Case SCDatFiles.DatFiles.sfxdata
                 For i = 0 To SCSfxdataCount - 1
                     Dim cname As String = scData.SfxName(i)
 
                     ObjectNames.Add(cname)
                 Next
-            Case EPageType.ButtonSet
+            Case SCDatFiles.DatFiles.Icon
+                For i = 0 To SCIconCount - 1
+                    Dim cname As String = scData.IconName(i)
+
+                    ObjectNames.Add(cname)
+                    ObjectImages.Add(GetIcon(i, Fliter.IsIcon))
+                Next
+
+
+            Case SCDatFiles.DatFiles.button
                 '어캐작성하노 ㅋㅋ 
                 For i = 0 To SCUnitCount - 1
                     Dim tGraphics As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", i)
@@ -631,7 +628,7 @@ Public Class CodeSelecter
                         Dim textblock As New TextBlock
                         textblock.TextWrapping = TextWrapping.WrapWithOverflow
 
-                        If pagetype <= EPageType.Order Then
+                        If pagetype <= SCDatFiles.DatFiles.orders Then
                             Dim NameBinding As Binding = New Binding("Name")
                             NameBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
                             textblock.SetBinding(TextBlock.TextProperty, NameBinding)
@@ -644,7 +641,7 @@ Public Class CodeSelecter
 
                         Dim stackpanel As New DockPanel
 
-                        If pagetype <= EPageType.Order Then
+                        If ObjectImages.Count > index Then
                             textblock.Padding = New Thickness(15, 0, 0, 0)
                             stackpanel.Children.Add(ObjectImages(index))
                         End If
@@ -655,7 +652,7 @@ Public Class CodeSelecter
                         tListItem.Tag = index
                         tListItem.Content = stackpanel
 
-                        If pagetype <= EPageType.Order Then
+                        If pagetype <= SCDatFiles.DatFiles.orders Then
                             Dim BackBinding As Binding = New Binding("Back")
                             BackBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
                             tListItem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
@@ -693,7 +690,7 @@ Public Class CodeSelecter
 
                     Next
                 End If
-                If IsComboBox And (pagetype = EPageType.Unit Or pagetype = EPageType.Weapon) Then
+                If IsComboBox And (pagetype = SCDatFiles.DatFiles.units Or pagetype = SCDatFiles.DatFiles.weapons Or pagetype = SCDatFiles.DatFiles.techdata) Then
                     Dim textblock As New TextBlock
                     textblock.TextWrapping = TextWrapping.Wrap
                     textblock.Text = Tool.GetText("None")
@@ -731,21 +728,21 @@ Public Class CodeSelecter
                     Dim CodeGroup As String
                     Dim Imageborder As Border
 
-                    If CurrentPage <= EPageType.Order Then
+                    If CurrentPage <= SCDatFiles.DatFiles.orders Then
                         Imageborder = ObjectImages(i)
                     Else
                         Imageborder = Nothing
                     End If
 
 
-                    If CurrentPage = EPageType.Sfxdata Then
+                    If CurrentPage = SCDatFiles.DatFiles.sfxdata Then
                         CodeGroup = Codename
                         Codename = Codename.Split("\").Last
 
                         CodeGroup = CodeGroup.Replace(Codename, "")
 
                     Else
-                        If CurrentPage = EPageType.ButtonSet Then
+                        If CurrentPage = SCDatFiles.DatFiles.button Then
                             CodeGroup = ""
                         Else
                             CodeGroup = pjData.Dat.Group(CurrentPage, i)
@@ -914,7 +911,7 @@ Public Class CodeSelecter
             textblock.TextWrapping = TextWrapping.WrapWithOverflow
             textblock.Padding = New Thickness(15, 8, 0, 0)
 
-            If CurrentPage <= EPageType.Order Then
+            If CurrentPage <= SCDatFiles.DatFiles.orders Then
                 Dim NameBinding As Binding = New Binding("Name")
                 NameBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
                 textblock.SetBinding(TextBlock.TextProperty, NameBinding)
@@ -971,21 +968,21 @@ Public Class CodeSelecter
         Fliter.IsIcon = L_IconBtn.IsSelected
         Fliter.IsEdit = L_IsEditBtn.IsSelected
 
-        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
     End Sub
 
 
     Private Sub FliterKeyDown(sender As Object, e As KeyEventArgs)
         If (e.Key = Key.Return) Then
             Fliter.fliterText = FliterText.Text
-            ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+            ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
         End If
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         FliterText.Text = ""
         Fliter.fliterText = ""
-        ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
     End Sub
 
 
@@ -994,13 +991,13 @@ Public Class CodeSelecter
             Select Case SortListBox.SelectedIndex
                 Case 0
                     SetFliter(ESortType.n123)
-                    ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
                 Case 1
                     SetFliter(ESortType.ABC)
-                    ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
                 Case 2
                     SetFliter(ESortType.Tree)
-                    ListReset(EPageType.Nottting, IsComboBox, StartIndex)
+                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
                 Case -1
                     LoadCmp = False
                     SortListBox.SelectedIndex = Fliter.SortType

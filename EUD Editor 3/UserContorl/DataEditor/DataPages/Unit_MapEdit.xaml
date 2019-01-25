@@ -27,7 +27,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="소속된 능력" Padding="6"/>
+                              Text="{StaticResource UnitStarEditFlag}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:FlagSelecter x:Name="SAF" Tag="Staredit Availability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
@@ -43,7 +43,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="소속된 그룹" Padding="6"/>
+                              Text="{StaticResource UnitGroupFlag}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:FlagSelecter x:Name="SGF" Tag="Staredit Group Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
@@ -59,7 +59,7 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="문자 정보" Padding="6"/>
+                              Text="{StaticResource UnitString}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
                             <local:InputField x:Name="RS" Tag="Rank/Sublabel" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
