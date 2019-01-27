@@ -142,10 +142,12 @@ Class MainWindow
     End Sub
 
     Private Sub Window_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
+        Tool.CloseWindows()
         e.Cancel = ShutDownProgram()
     End Sub
 
     Private Sub BtnNewFile_Click(sender As Object, e As RoutedEventArgs)
+        Tool.CloseWindows()
         ProjectData.Load(True, pjData)
         BtnRefresh()
     End Sub
@@ -159,7 +161,6 @@ Class MainWindow
     End Sub
 
     Private Sub BtnClose_Click(sender As Object, e As RoutedEventArgs)
-        Tool.CloseWindows()
 
         If pjData.CloseFile() Then
             pjData = Nothing
@@ -174,6 +175,7 @@ Class MainWindow
     End Sub
 
     Private Sub BtnLoad_Click(sender As Object, e As RoutedEventArgs)
+
         ProjectData.Load(False, pjData)
         BtnRefresh()
     End Sub

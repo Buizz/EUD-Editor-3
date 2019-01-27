@@ -23,11 +23,12 @@ Public Class SCDatFiles
 
         Icon = 10
         stattxt = 11
+        IscriptID = 12
 
         'Firegraft
-        statusinfor = 12
-        button = 13
-        require = 14
+        statusinfor = 13
+        button = 14
+        require = 15
         None = 255
     End Enum
     Public Enum EParamInfo
@@ -259,7 +260,7 @@ Public Class SCDatFiles
                 Get
                     index -= VarStart
                     If index < Values.Count Then
-                        Return Values(index).Data
+                        Return Values(index).Data + InitVar
                     Else
                         Return 0
                     End If
@@ -267,6 +268,7 @@ Public Class SCDatFiles
 
                 End Get
                 Set(value As Long)
+                    value -= InitVar
                     index -= VarStart
                     If (0 <= value) And (value < Math.Pow(256, Size)) Then
                         Values(index).Data = value
@@ -320,6 +322,8 @@ Public Class SCDatFiles
                             VarIndex = value
                         Case "Type"
                             ValueType = value
+                        Case "InitVar"
+                            InitVar = value
                         Case Else
                             MsgBox(key)
                     End Select
@@ -408,6 +412,7 @@ Public Class SCDatFiles
 
 
             Private ValueType As SCDatFiles.DatFiles = DatFiles.None
+            Private InitVar As Integer = 0
 
             Private Enabled As Boolean = True
 

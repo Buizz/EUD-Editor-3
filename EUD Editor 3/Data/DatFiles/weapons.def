@@ -6,6 +6,8 @@ OutputEntrycount=130
 [FORMAT]
 0Name=Label
 0Size=2
+0Type=11
+0InitVar=-1
 
 1Name=Graphics
 1Size=4
@@ -75,6 +77,8 @@ OutputEntrycount=130
 
 22Name=Target Error Message
 22Size=2
+22Type=11
+22InitVar=-1
 
 23Name=Icon
 23Size=2

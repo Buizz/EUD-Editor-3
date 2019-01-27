@@ -14,11 +14,14 @@
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
     End Sub
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
 
+        If TextWidth <> 0 Then
+            tBorder.Margin = New Thickness(TextWidth, 5, 0, 3)
+        End If
         'Field.Init(DatFile, ObjectID, Parameter)
 
         DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)

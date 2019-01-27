@@ -14,12 +14,24 @@
 
         NameBar.Init(ObjectID, DatFiles, 0)
 
-        'DA.Init(DatFiles, ObjectID, DA.Tag)
+        SP.Init(DatFiles, ObjectID, SP.Tag, 100)
+        SPEED.Init(DatFiles, ObjectID, SPEED.Tag, InputField.SFlag.None, 100)
+        AC.Init(DatFiles, ObjectID, AC.Tag, InputField.SFlag.None, 100)
+        HD.Init(DatFiles, ObjectID, HD.Tag, InputField.SFlag.None, 100)
+        TR.Init(DatFiles, ObjectID, TR.Tag, InputField.SFlag.None, 100)
+        MC.Init(DatFiles, ObjectID, MC.Tag, 100)
+        UN.Init(DatFiles, ObjectID, UN.Tag, InputField.SFlag.None, 100)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
         NameBar.ReLoad(ObjectID, DatFiles, 0)
 
-        'DA.ReLoad(DatFiles, ObjectID, DA.Tag)
+        SP.ReLoad(DatFiles, ObjectID, SP.Tag)
+        SPEED.ReLoad(DatFiles, ObjectID, SPEED.Tag)
+        AC.ReLoad(DatFiles, ObjectID, AC.Tag)
+        HD.ReLoad(DatFiles, ObjectID, HD.Tag)
+        TR.ReLoad(DatFiles, ObjectID, TR.Tag)
+        MC.ReLoad(DatFiles, ObjectID, MC.Tag)
+        UN.ReLoad(DatFiles, ObjectID, UN.Tag)
     End Sub
 End Class

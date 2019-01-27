@@ -6,6 +6,7 @@ OutputEntrycount=209
 [FORMAT]
 0Name=Sprite
 0Size=2
+0Type=3
 
 1Name=Speed
 1Size=4

@@ -106,6 +106,7 @@ Public Class ProjectData
 
     Public Sub SetDirty(Isd As Boolean)
         tIsDirty = Isd
+        Tool.RefreshMainWindow()
     End Sub
 #End Region
 
@@ -182,7 +183,7 @@ Public Class ProjectData
     Private SaveData As SaveableData
 
 
-    Public Property CodeSelecters As List(Of ListSelecter)
+    Public Property CodeSelecters As List(Of CodeSelecter)
 
 
     Private Bd As BindingManager
@@ -208,7 +209,7 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.units
                         ReturnStr = UnitName(index)
                     Case SCDatFiles.DatFiles.weapons
-                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index) - 1
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index)
 
                         ReturnStr = Stat_txt(tLabel)
                     Case SCDatFiles.DatFiles.flingy
@@ -223,15 +224,15 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.images
                         ReturnStr = scData.ImageStr(index)
                     Case SCDatFiles.DatFiles.upgrades
-                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index) - 1
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index)
 
                         ReturnStr = Stat_txt(tLabel)
                     Case SCDatFiles.DatFiles.techdata
-                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index) - 1
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index)
 
                         ReturnStr = Stat_txt(tLabel)
                     Case SCDatFiles.DatFiles.orders
-                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index) - 1
+                        Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index)
 
                         ReturnStr = Stat_txt(tLabel)
                     Case SCDatFiles.DatFiles.portdata
@@ -241,6 +242,10 @@ Public Class ProjectData
                         ReturnStr = scData.SfxName(index)
                     Case SCDatFiles.DatFiles.Icon
                         ReturnStr = scData.IconName(index)
+                    Case SCDatFiles.DatFiles.stattxt
+                        ReturnStr = Stat_txt(index)
+                    Case SCDatFiles.DatFiles.IscriptID
+                        ReturnStr = scData.IscriptName(index)
                     Case SCDatFiles.DatFiles.button
                         If index < SCUnitCount - 1 Then
                             ReturnStr = UnitName(index)
@@ -326,7 +331,7 @@ Public Class ProjectData
     Public Sub InitData()
         Bd = New BindingManager
         Dm = New DataManager
-        CodeSelecters = New List(Of ListSelecter)
+        CodeSelecters = New List(Of CodeSelecter)
     End Sub
 
 
@@ -473,12 +478,14 @@ Public Class ProjectData
             Dim dialog As MsgBoxResult = MsgBox(Tool.GetText("ColseSaveMsg").Replace("%S1", SafeFilename), MsgBoxStyle.YesNoCancel)
             If dialog = MsgBoxResult.Yes Then
                 If Save() Then
+                    Tool.CloseWindows()
                     tIsLoad = False
                     Return True
                 Else
                     Return False
                 End If
             ElseIf dialog = MsgBoxResult.No Then
+                Tool.CloseWindows()
                 tIsLoad = False
                 Return True
             ElseIf dialog = MsgBoxResult.Cancel Then
@@ -487,6 +494,7 @@ Public Class ProjectData
 
         End If
 
+        Tool.CloseWindows()
         tIsLoad = False
         Return True
     End Function

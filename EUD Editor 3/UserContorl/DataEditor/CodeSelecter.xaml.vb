@@ -350,21 +350,30 @@ Public Class CodeSelecter
                 CodeIndexerImage.ContextMenu = Nothing
                 CodeIndexerList.ContextMenu = Nothing
 
-                If CurrentPage <> SCDatFiles.DatFiles.Icon Then
-                    L_IconBtn.Visibility = Visibility.Collapsed
-                End If
 
-                L_IsEditBtn.Visibility = Visibility.Collapsed
-
-                If CurrentPage = SCDatFiles.DatFiles.portdata Or CurrentPage = SCDatFiles.DatFiles.Icon Or CurrentPage = SCDatFiles.DatFiles.stattxt Then
-                    BtnsortTree.Visibility = Visibility.Collapsed
-                End If
             End If
 
 
-
-
         End If
+
+        If CurrentPage > SCDatFiles.DatFiles.orders Then
+            If CurrentPage <> SCDatFiles.DatFiles.Icon Then
+                L_IconBtn.Visibility = Visibility.Collapsed
+            End If
+            If CurrentPage <> SCDatFiles.DatFiles.stattxt Then
+                L_IsEditBtn.Visibility = Visibility.Collapsed
+            End If
+
+            If CurrentPage = SCDatFiles.DatFiles.portdata Or CurrentPage = SCDatFiles.DatFiles.Icon Or CurrentPage = SCDatFiles.DatFiles.IscriptID Then
+                BtnsortTree.Visibility = Visibility.Collapsed
+            End If
+        Else
+            L_IconBtn.Visibility = Visibility.Visible
+            BtnsortTree.Visibility = Visibility.Visible
+            L_IsEditBtn.Visibility = Visibility.Visible
+        End If
+
+
 
 
         Select Case Fliter.SortType
@@ -387,10 +396,6 @@ Public Class CodeSelecter
 
 
         ListResetData(pagetype, StartIndex)
-
-
-
-
     End Sub
     Private Function GetIcon(iconIndex As Integer, isSizeBig As Boolean) As Border
         Dim imgSource As ImageSource = scData.GetIcon(iconIndex, False)
@@ -543,7 +548,20 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(i, Fliter.IsIcon))
                 Next
+            Case SCDatFiles.DatFiles.stattxt
+                For i = 0 To SCtbltxtCount - 1
+                    Dim cname As String = pjData.Stat_txt(i)
 
+                    ObjectNames.Add(cname)
+                Next
+
+
+            Case SCDatFiles.DatFiles.IscriptID
+                For i = 0 To SCIscriptCount - 1
+                    Dim cname As String = scData.IscriptName(i)
+
+                    ObjectNames.Add(cname)
+                Next
 
             Case SCDatFiles.DatFiles.button
                 '어캐작성하노 ㅋㅋ 
@@ -614,6 +632,31 @@ Public Class CodeSelecter
                     Next
                 Else
                     CodeIndexerList.Items.Clear()
+
+                    If IsComboBox And (pagetype = SCDatFiles.DatFiles.stattxt) Then
+                        Dim textblock As New TextBlock
+                        textblock.TextWrapping = TextWrapping.Wrap
+                        textblock.Text = Tool.GetText("None")
+
+                        Dim stackpanel As New DockPanel
+                        stackpanel.Children.Add(textblock)
+
+                        Dim tListItem As New ListBoxItem()
+                        tListItem.Tag = -1
+                        tListItem.Content = stackpanel
+
+                        If CodeIndexerList.Items.Count = StartIndex Then
+                            SelectItem = tListItem
+                            If IsComboBox Then
+                                tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                                tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                            End If
+                        End If
+
+
+                        CodeIndexerList.Items.Add(tListItem)
+                    End If
+
                     For i = 0 To ObjectNames.Count - 1
                         Dim index As Integer
                         If Fliter.SortType = ESortType.ABC Then

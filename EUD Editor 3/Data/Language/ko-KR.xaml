@@ -156,6 +156,32 @@
     <sys:String x:Key="UnitCreateSize">건설크기</sys:String>
     <sys:String x:Key="UnitAddonPos">애드온 위치</sys:String>
 
+    <sys:String x:Key="FlingyInfor">비행정보</sys:String>
+    <sys:String x:Key="SpriteInfor">스프라이트 정보</sys:String>
+    <sys:String x:Key="UpgradeScreen">화면 정보</sys:String>
+    <sys:String x:Key="UpgradeCost">기본비용</sys:String>
+    <sys:String x:Key="UpgradeExtraCost">추가비용</sys:String>
+    <sys:String x:Key="UpgradeInfor">업그레이드 정보</sys:String>
+
+    <sys:String x:Key="TechScreen">화면 정보</sys:String>
+    <sys:String x:Key="TechCost">비용</sys:String>
+    <sys:String x:Key="TechInfor">기술정보</sys:String>
+    <sys:String x:Key="OrderInfor">명령 정보</sys:String>
+
+    <sys:String x:Key="ImageInfor">이미지 정보</sys:String>
+    <sys:String x:Key="ImageDefault">일반 정보</sys:String>
+    <sys:String x:Key="ImageScreen">화면 출력 정보</sys:String>
+
+
+    <sys:String x:Key="Unit">유닛</sys:String>
+    <sys:String x:Key="Weaopon">무기</sys:String>
+    <sys:String x:Key="Fling">비행정보</sys:String>
+    <sys:String x:Key="Sprite">스프라이트</sys:String>
+    <sys:String x:Key="Image">이미지</sys:String>
+    <sys:String x:Key="Upgrade">업그레이드</sys:String>
+    <sys:String x:Key="Tech">기술</sys:String>
+    <sys:String x:Key="Order">명령</sys:String>
+    <sys:String x:Key="StarTxt">스타텍스트</sys:String>
 
 
 
@@ -235,14 +261,15 @@
     <sys:String x:Key="units_Staredit Availability Flags">스타에딧 어빌리티 플래그</sys:String>
     <sys:String x:Key="units_Staredit Availability Flags_V">비 자연물|유닛기제 &amp; 팔레트|브리핑|플레이어 세팅|모든 종족에|두다드 상태설정|비 로케이션 트리거|유닛/영웅 설정|로케이션 트리거|브르드워|사용안됨|사용안됨|사용안됨|사용안됨|사용안됨|사용안됨</sys:String>
 
+    
+    
+    
     <sys:String x:Key="weapons_Label">이름</sys:String>
     <sys:String x:Key="weapons_Graphics">그래픽</sys:String>
     <sys:String x:Key="weapons_Unused">사용안함</sys:String>
     <sys:String x:Key="weapons_Target Flags">대상</sys:String>
     <sys:String x:Key="weapons_Target Flags_V">공중|지상|메카닉|바이오닉|비 건물|비 로보틱|지형|바/메카닉|소유한 것</sys:String>
 
-    
-    
     <sys:String x:Key="weapons_Minimum Range">최소</sys:String>
     <sys:String x:Key="weapons_Maximum Range">최대</sys:String>
     <sys:String x:Key="weapons_Damage Upgrade">업그레이드</sys:String>
@@ -269,4 +296,101 @@
     <sys:String x:Key="weapons_Upward Offset">높이</sys:String>
     <sys:String x:Key="weapons_Target Error Message">에러메세지</sys:String>
     <sys:String x:Key="weapons_Icon">아이콘</sys:String>
+
+    
+    
+    <sys:String x:Key="flingy_Sprite">스프라이트</sys:String>
+    <sys:String x:Key="flingy_Speed">최고속도</sys:String>
+    <sys:String x:Key="flingy_Acceleration">가속도</sys:String>
+    <sys:String x:Key="flingy_Halt Distance">제동거리</sys:String>
+    <sys:String x:Key="flingy_Turn Radius">회전반경</sys:String>
+    <sys:String x:Key="flingy_Unused">Iscript 마스크</sys:String>
+    <sys:String x:Key="flingy_Movement Control">이동 제어</sys:String>
+    <sys:String x:Key="flingy_Movement Control_V">Flingy.dat 파일로제어|부분적으로 제어, 무기형태|Iscript.bin 파일로제어</sys:String>
+
+    
+    
+    <sys:String x:Key="sprites_Image File">이미지</sys:String>
+    <sys:String x:Key="sprites_Health Bar">체력바</sys:String>
+    <sys:String x:Key="sprites_Unknown2">알수없음</sys:String>
+    <sys:String x:Key="sprites_Is Visible">보여짐</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Image">선택원이미지</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Offset">선택원위치</sys:String>
+    
+    
+    
+    <sys:String x:Key="images_GRP File">GRP 파일</sys:String>
+    <sys:String x:Key="images_Gfx Turns">그래픽회전</sys:String>
+    <sys:String x:Key="images_Clickable">클릭가능</sys:String>
+    <sys:String x:Key="images_Use Full Iscript">모든 스크립트</sys:String>
+    <sys:String x:Key="images_Draw If Cloaked">클로킹시 표시</sys:String>
+    <sys:String x:Key="images_Draw Function">기능</sys:String>
+    <sys:String x:Key="images_Draw Function_V">기본형으로 그리기|알수없음1|적 클로킹(+마법l)|자기의 클로킹(+마법)|동맹 클로킹|자기의 클로킹(+마법)|자기의 클로킹(그리기만)|(다운됨)|이엠피 쇼크웨이브|다시 그리기|그림자/해양(dark.pcx)|알수없음11|워프 번쩍임(에디터에서 다운됨)|그래픽을 반대방향으로 돌림 (프레임)|알수없음14|그래픽숨기기|할루시네이션효과|워프 번쩍임</sys:String>
+    
+    <sys:String x:Key="images_Remapping">색상표</sys:String>
+    <sys:String x:Key="images_Remapping_V">새로 그리지않기|ofire.pcx (오랜지)|gfire.pcx (녹색)|bfire.pcx (파랑)|bexpl.pcx (파랑2)|Special (자기자신 클로킹)|(crash)|(crash)|알수없음8 (?)|알수없음9 (?)</sys:String>
+    
+    <sys:String x:Key="images_Iscript ID">스크립트 ID</sys:String>
+    <sys:String x:Key="images_Shield Overlay">쉴드오버레이</sys:String>
+    <sys:String x:Key="images_Attack Overlay">공격오버레이</sys:String>
+    <sys:String x:Key="images_Damage Overlay">피해오버레이</sys:String>
+    <sys:String x:Key="images_Special Overlay">특수오버레이</sys:String>
+    <sys:String x:Key="images_Landing Dust Overlay">착륙오버레이</sys:String>
+    <sys:String x:Key="images_Lift-Off Overlay">이륙오버레이</sys:String>
+
+
+
+    <sys:String x:Key="upgrades_Mineral Cost Base">미네랄</sys:String>
+    <sys:String x:Key="upgrades_Mineral Cost Factor">미네랄</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Base">가스</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Factor">가스</sys:String>
+    <sys:String x:Key="upgrades_Research Time Base">시간</sys:String>
+    <sys:String x:Key="upgrades_Research Time Factor">시간</sys:String>
+    <sys:String x:Key="upgrades_Unknown6">알수없음</sys:String>
+    <sys:String x:Key="upgrades_Icon">아이콘</sys:String>
+    <sys:String x:Key="upgrades_Label">이름</sys:String>
+    <sys:String x:Key="upgrades_Race">종족</sys:String>
+    <sys:String x:Key="upgrades_Race_V">저그|테란|프로토스|모두</sys:String>
+    
+    <sys:String x:Key="upgrades_Max. Repeats">단계 수</sys:String>
+    <sys:String x:Key="upgrades_Broodwar Flag">브르드워</sys:String>
+
+
+
+    <sys:String x:Key="techdata_Mineral Cost">미네랄</sys:String>
+    <sys:String x:Key="techdata_Vespene Cost">가스</sys:String>
+    <sys:String x:Key="techdata_Resarch Time">시간</sys:String>
+    <sys:String x:Key="techdata_Energy Required">에너지</sys:String>
+    <sys:String x:Key="techdata_Unknown 4">알수없음</sys:String>
+    <sys:String x:Key="techdata_Icon">아이콘</sys:String>
+    <sys:String x:Key="techdata_Label">이름</sys:String>
+    <sys:String x:Key="techdata_Race">종족</sys:String>
+    <sys:String x:Key="techdata_Race_V">저그|테란|프로토스|모두</sys:String>
+    
+    <sys:String x:Key="techdata_Unused">사용안됨</sys:String>
+    <sys:String x:Key="techdata_Brood War Flag">브르드워</sys:String>
+    
+    
+    
+    <sys:String x:Key="orders_Label">이름</sys:String>
+    <sys:String x:Key="orders_Use Weapon Targeting">무기 타겟팅 사용</sys:String>
+    <sys:String x:Key="orders_Unknown2">두번째 명령 사용</sys:String>
+    <sys:String x:Key="orders_Unknown3">알수없음3</sys:String>
+    <sys:String x:Key="orders_Unknown4">알수없음4</sys:String>
+    <sys:String x:Key="orders_Unknown5">알수없음5</sys:String>
+    <sys:String x:Key="orders_Can Be Interrupted">중간에 취소 가능</sys:String>
+    <sys:String x:Key="orders_Unknown7">알수없음7</sys:String>
+    <sys:String x:Key="orders_Can Be Queued">오더 큐 사용</sys:String>
+    <sys:String x:Key="orders_Unknown9">알수없음9</sys:String>
+    <sys:String x:Key="orders_Unknown10">지형에 막힘</sys:String>
+    <sys:String x:Key="orders_Unknown11">알수없음11</sys:String>
+    <sys:String x:Key="orders_Unknown12">알수없음12</sys:String>
+    <sys:String x:Key="orders_Targeting">목표지정</sys:String>
+    <sys:String x:Key="orders_Energy">에너지</sys:String>
+    <sys:String x:Key="orders_Animation">애니메이션</sys:String>
+    <sys:String x:Key="orders_Animation_V">기본|죽음|지상 공격 - 기본|공중 공격 - 기본|사용안됨1|지상 공격 - 반복|공중 공격 - 반복|특수 능력 시전|지상 공격 - 돌아오기|공중 공격 - 돌아오기|사용안됨2|걷기|걷기 - 돌아오기|특수 상태1|특수 상태2|건물 완성 - 근접|건물 완성|건물착지|건물띄우기|생산 중|생산 중 - 돌아오기|워프|사용안됨3|기본 - 스타에딧|사용 불가 - Disable|버로우|언버로우|사용 가능 - Enable|일반적인/기본 애니메이션</sys:String>
+
+    <sys:String x:Key="orders_Highlight">활성화버튼</sys:String>
+    <sys:String x:Key="orders_Unknown17">알수없음</sys:String>
+    <sys:String x:Key="orders_Obscured Order">불명확명령</sys:String>
 </ResourceDictionary>

@@ -18,7 +18,7 @@
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="230" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <materialDesign:Card Height="274" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
@@ -27,22 +27,16 @@
                         <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="타격정보" Padding="6"/>
+                              Text="{StaticResource FlingyInfor}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10,2">
-                            <StackPanel Width="340">
-                                <DockPanel >
-                                    <local:InputField x:Name="DA"  Tag="Damage Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                    <local:InputField x:Name="DB" Tag="Damage Bonus" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                    <local:ComboxSelecter  x:Name="WT" DockPanel.Dock="Right" Tag="Weapon Type" VerticalAlignment="Top" />
-                                </DockPanel>
-                                <DockPanel >
-                                    <local:InputField x:Name="WC"  Tag="Weapon Cooldown" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                    <local:ComboxSelecter DockPanel.Dock="Right" x:Name="ET"  Tag="Explosion Type" VerticalAlignment="Top" />
-                                </DockPanel>
-                            </StackPanel>
-                            <local:IconSelecter x:Name="DU" Tag="Damage Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                            <local:IconSelecter x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                            <local:FlagSelecterMini x:Name="TF" Tag="Target Flags" HorizontalAlignment="Left" VerticalAlignment="Top" Width="342" Height="57"/>
+
+                            <local:IconSelecter x:Name="SP" Tag="Sprite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" />
+                            <local:InputField x:Name="SPEED" Tag="Speed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                            <local:InputField x:Name="AC" Tag="Acceleration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                            <local:InputField x:Name="HD" Tag="Halt Distance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                            <local:InputField x:Name="TR" Tag="Turn Radius" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                            <local:ComboxSelecter x:Name="MC" Tag="Movement Control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                            <local:InputField x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
                         </WrapPanel>
                     </Grid>
                 </materialDesign:Card>

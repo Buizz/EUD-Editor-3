@@ -71,35 +71,17 @@
                     <ColumnDefinition Width="100*"/>
                 </Grid.ColumnDefinitions>
 
-                <local:ListSelecter x:Name="CodeList" Grid.Column="1" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
+                <local:CodeSelecter x:Name="CodeList" Grid.Column="1" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
                 <ListBox  Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
-                    <ListBoxItem>
-                        유닛
-                    </ListBoxItem>
-                    <ListBoxItem >
-                        무기
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        비행정보
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        스프라이트
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        이미지
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        업그레이드
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        기술
-                    </ListBoxItem>
-                    <ListBoxItem>
-                        명령
-                    </ListBoxItem>
-                    <!--<ListBoxItem>
-                        버튼셋
-                    </ListBoxItem>-->
+                    <ListBoxItem Content="{StaticResource Unit}" Tag="0"/>
+                    <ListBoxItem Content="{StaticResource Weaopon}" Tag="1"/>
+                    <ListBoxItem Content="{StaticResource Fling}" Tag="2"/>
+                    <ListBoxItem Content="{StaticResource Sprite}" Tag="3"/>
+                    <ListBoxItem Content="{StaticResource Image}" Tag="4"/>
+                    <ListBoxItem Content="{StaticResource Upgrade}" Tag="5"/>
+                    <ListBoxItem Content="{StaticResource Tech}" Tag="6"/>
+                    <ListBoxItem Content="{StaticResource Order}" Tag="7"/>
+                    <ListBoxItem Content="{StaticResource StarTxt}" Tag="11"/>
                 </ListBox>
 
 

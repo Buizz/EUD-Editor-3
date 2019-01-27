@@ -19,7 +19,7 @@
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="240" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <materialDesign:Card Height="287" Width="592" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />

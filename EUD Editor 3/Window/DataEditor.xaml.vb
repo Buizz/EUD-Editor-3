@@ -158,17 +158,11 @@ Public Class DataEditor
 
     Private Sub CodeIndexer_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim SelectSender As ListBox = sender
-
-        ListReset(SelectSender.SelectedIndex)
-
+        Dim SelectDatType As SCDatFiles.DatFiles = SelectSender.SelectedItem.Tag
+        ListReset(SelectDatType)
     End Sub
     Private Sub ListReset(SelectIndex As Integer)
-        If SelectIndex = 8 Then
-            CodeList.ListReset(SCDatFiles.DatFiles.button, False)
-        Else
-
-            CodeList.ListReset(SelectIndex, False)
-        End If
+        CodeList.ListReset(SelectIndex, False)
     End Sub
 
 

@@ -21,9 +21,12 @@ OutputEntrycount=44
 
 5Name=Icon
 5Size=2
+5Type=10
 
 6Name=Label
 6Size=2
+6Type=11
+6InitVar=-1
 
 7Name=Race
 7Size=1

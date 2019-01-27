@@ -100,9 +100,9 @@
                               DockPanel.Dock="Left" FontSize="14"
                               Text="무기 화면 정보" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10,2">
-                            <local:InputField x:Name="LAL" Width="370" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:IconSelecter x:Name="LAL" Width="370" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-                            <local:InputField x:Name="TEM" Width="370" Tag="Target Error Message" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:IconSelecter x:Name="TEM" Width="370" Tag="Target Error Message" HorizontalAlignment="Left" VerticalAlignment="Top" />
                             <local:IconSelecter x:Name="GRP" Tag="Graphics" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" />
                             <local:IconSelecter x:Name="ICON" Tag="Icon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" />
                         </WrapPanel>

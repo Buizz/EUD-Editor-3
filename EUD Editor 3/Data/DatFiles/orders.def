@@ -6,6 +6,8 @@ OutputEntrycount=189
 [FORMAT]
 0Name=Label
 0Size=2
+0Type=11
+0InitVar=-1
 
 1Name=Use Weapon Targeting
 1Size=1
@@ -45,18 +47,22 @@ OutputEntrycount=189
 
 13Name=Targeting
 13Size=1
+13Type=1
 
 14Name=Energy
 14Size=1
+14Type=6
 
 15Name=Animation
 15Size=1
 
 16Name=Highlight
 16Size=2
+16Type=10
 
 17Name=Unknown17
 17Size=2
 
 18Name=Obscured Order
 18Size=1
+18Type=7

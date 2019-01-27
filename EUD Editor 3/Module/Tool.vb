@@ -6,12 +6,12 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
-        Public ReadOnly ProhibitParam() As String = {"Unit Map String", "Unknown1"}
+        Public ReadOnly ProhibitParam() As String = {"Unit Map String", "Unknown1", "Unknown2", "Health Bar", "Sel.Circle Image", "Sel.Circle Offset", "Unused", "Unknown 4", "Unknown6", "Unknown17"}
 
 
         Public Sub CloseWindows()
             For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(DataEditor) Then
+                If win.GetType Is GetType(DataEditor) Or win.GetType Is GetType(TriggerEditor) Or win.GetType Is GetType(PluginWindow) Then
                     win.Close()
                 End If
             Next
@@ -216,7 +216,7 @@ Namespace TabItemTool
             DataEditorForm.OpenbyOthers(GetTabItem(Datfile, index), Datfile)
         End Sub
 
-        Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData), GetType(FlingyData), GetType(SpriteData), GetType(ImageData), GetType(UpgradeData), GetType(TechData), GetType(OrderData)}
+        Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData), GetType(FlingyData), GetType(SpriteData), GetType(ImageData), GetType(UpgradeData), GetType(TechData), GetType(OrderData), Nothing, Nothing, Nothing, GetType(StatTxtData)}
         Public Sub ChanageTabItem(Datfile As SCDatFiles.DatFiles, index As Integer, MainTab As Dockablz.Layout)
             Dim MainContent As Object = MainTab.Content
             While MainContent.GetType <> GetType(TabablzControl)
@@ -369,6 +369,9 @@ Namespace TabItemTool
                 Case SCDatFiles.DatFiles.orders
                     myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.orders, index)
                     TabItem.Content = New OrderData(index)
+                Case SCDatFiles.DatFiles.stattxt
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.stattxt, index)
+                    TabItem.Content = New StatTxtData(index)
             End Select
             TabText.SetBinding(TextBlock.TextProperty, myBinding)
 

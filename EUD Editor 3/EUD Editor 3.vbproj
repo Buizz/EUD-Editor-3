@@ -218,6 +218,9 @@
     <Compile Include="UserContorl\DataEditor\SpriteData.xaml.vb">
       <DependentUpon>SpriteData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\DataEditor\StatTxtData.xaml.vb">
+      <DependentUpon>StatTxtData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\TechData.xaml.vb">
       <DependentUpon>TechData.xaml</DependentUpon>
     </Compile>
@@ -337,6 +340,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\DataEditor\SpriteData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\StatTxtData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -644,6 +651,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <EmbeddedResource Include="Data\Texts\Icon.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Texts\IscriptIDList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
     <Content Include="SFmpq.dll">

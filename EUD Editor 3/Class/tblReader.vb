@@ -36,13 +36,15 @@ Public Class tblReader
             fs.Position = header(i)
             Dim bytes1 As New List(Of Byte)
             Dim bytes2 As New List(Of Byte)
+
+            Dim charCount As Integer = 0
             While True
                 Dim val As Byte = br.ReadByte() '바이트씩 읽으면서 0이 나오면 종료.
-                If val = 0 Then
+                If val = 0 And charCount >= 2 Then 'charCount가 2이상일 경우 부터만
                     If i = count - 1 Then
                         Exit While
                     Else
-                        While fs.Position < header(i + 1)
+                        While fs.Position < header(i + 1) '문자 끝까지 읽기.
                             If val = 0 Then
                                 bytes2.Add(124)
                             Else
@@ -50,9 +52,6 @@ Public Class tblReader
                             End If
                             val = br.ReadByte()
                         End While
-
-
-
                     End If
 
 
@@ -68,8 +67,15 @@ Public Class tblReader
 
                     Exit While
                 Else
+                    If val < 32 And val <> 10 And val <> 13 Then
+                        bytes1.Add(60)
 
-                    bytes1.Add(val)
+                        bytes1.AddRange(System.Text.Encoding.Default.GetBytes(Hex(val).PadLeft(2, "0")))
+
+                        bytes1.Add(62)
+                    Else
+                        bytes1.Add(val)
+                    End If
                     bytes2.Add(val)
                     'If val < 32 Then
                     '    bytes1.Add(val)
@@ -78,6 +84,7 @@ Public Class tblReader
                     'End If
 
                 End If
+                charCount += 1
             End While
             Dim val1 As String = System.Text.Encoding.Default.GetChars(bytes1.ToArray)
             Dim val2 As String = System.Text.Encoding.Default.GetChars(bytes2.ToArray)

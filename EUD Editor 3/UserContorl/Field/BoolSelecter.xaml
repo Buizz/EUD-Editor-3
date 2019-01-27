@@ -9,17 +9,16 @@
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" MaxHeight="32" Height="32">
-    <StackPanel Orientation="Horizontal">
-        <Border Background="{Binding BackColor}" Margin="0,5,0,3"  >
-            <CheckBox x:Name="chbox" Content="{Binding Explain}"  IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="0,1,0,0" Margin="0" >
-                <CheckBox.ContextMenu>
-                    <ContextMenu >
-                        <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
-                        <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
-                        <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
-                    </ContextMenu>
-                </CheckBox.ContextMenu>
-            </CheckBox>
-        </Border>
-    </StackPanel>
+
+    <Border x:Name="tBorder" Background="{Binding BackColor}" Margin="0,5,0,3"  >
+        <CheckBox x:Name="chbox" Content="{Binding Explain}"  IsChecked="{Binding Checked, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Padding="0,1,0,0" >
+            <CheckBox.ContextMenu>
+                <ContextMenu >
+                    <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
+                    <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
+                    <MenuItem x:Name="ResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
+                </ContextMenu>
+            </CheckBox.ContextMenu>
+        </CheckBox>
+    </Border>
 </UserControl>

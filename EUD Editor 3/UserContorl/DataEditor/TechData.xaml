@@ -18,6 +18,59 @@
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                <materialDesign:Card Height="107" Width="550" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="{StaticResource TechScreen}" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10,2">
+                            <local:IconSelecter x:Name="ICO" Tag="Icon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="530" />
+                            <local:IconSelecter x:Name="LAB" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="168" Width="135" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="{StaticResource TechCost}" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10,2">
+                            <local:InputField x:Name="MCB" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                            <local:InputField x:Name="VCB" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                            <local:InputField x:Name="RTB" Tag="Resarch Time" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                            <local:InputField x:Name="MR" Tag="Energy Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
+
+                <materialDesign:Card Height="74" Width="240"  Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="{StaticResource TechInfor}" Padding="6"/>
+                        <WrapPanel Grid.Row="1" Margin="10,2">
+                            <local:ComboxSelecter x:Name="RAC" Tag="Race" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:BoolSelecter x:Name="BF" Tag="Brood War Flag" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+                        </WrapPanel>
+                    </Grid>
+                </materialDesign:Card>
             </WrapPanel>
         </ScrollViewer>
     </Grid>

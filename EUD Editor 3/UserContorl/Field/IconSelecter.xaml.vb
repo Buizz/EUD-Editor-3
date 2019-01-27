@@ -15,10 +15,14 @@ Public Class IconSelecter
         Field.Init(DatFile, ObjectID, Parameter, InputField.SFlag.None, TextWidth)
 
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
-        If valueType = SCDatFiles.DatFiles.sfxdata Or valueType = SCDatFiles.DatFiles.portdata Then
+        If valueType = SCDatFiles.DatFiles.sfxdata Or valueType = SCDatFiles.DatFiles.portdata Or valueType = SCDatFiles.DatFiles.IscriptID Then
             IconBox.Visibility = Visibility.Collapsed
             OpenNew.Visibility = Visibility.Collapsed
         End If
+        If valueType = SCDatFiles.DatFiles.stattxt Then
+            IconBox.Visibility = Visibility.Collapsed
+        End If
+
         If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
 
             DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
@@ -152,8 +156,12 @@ Public Class IconSelecter
     Private Sub OpenNew_Click(sender As Object, e As RoutedEventArgs) Handles OpenNew.Click
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
         Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
-        If CheckOverFlow(valueType, value) Then
-            TabItemTool.WindowTabItem(valueType, value)
+        If valueType = SCDatFiles.DatFiles.stattxt Then
+        Else
+            If CheckOverFlow(valueType, value) Then
+                TabItemTool.WindowTabItem(valueType, value)
+            End If
         End If
+
     End Sub
 End Class

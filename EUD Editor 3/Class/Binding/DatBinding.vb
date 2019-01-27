@@ -73,6 +73,7 @@ Public Class DatBinding
 
         Set(ByVal tvalue As String)
             If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
+                pjData.SetDirty(True)
                 'MsgBox("데이터 파인딩 셋")
                 pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
                 pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False

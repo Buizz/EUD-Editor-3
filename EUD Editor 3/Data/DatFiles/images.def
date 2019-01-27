@@ -27,6 +27,7 @@ OutputEntrycount=999
 
 7Name=Iscript ID
 7Size=4
+7Type=12
 
 8Name=Shield Overlay
 8Size=4

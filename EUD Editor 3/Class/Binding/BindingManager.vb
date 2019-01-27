@@ -1,8 +1,9 @@
 ﻿Public Class BindingManager
     Private _UIManager() As List(Of UIManager)
+    Private _UIManagerKey As Dictionary(Of SCDatFiles.DatFiles, Integer)
     Public ReadOnly Property UIManager(key As SCDatFiles.DatFiles, index As Integer) As UIManager
         Get
-            Return _UIManager(key)(index)
+            Return _UIManager(_UIManagerKey(key))(index)
         End Get
     End Property
 
@@ -14,14 +15,26 @@
 
     Public Sub New()
         'NullBinding = New DatBinding()
+        _UIManagerKey = New Dictionary(Of SCDatFiles.DatFiles, Integer)
 
-        ReDim _UIManager(7)
+        ReDim _UIManager(8)
         For k = 0 To 7
             _UIManager(k) = New List(Of UIManager)
+            _UIManagerKey.Add(k, k)
             For i = 0 To SCCodeCount(k) - 1
                 _UIManager(k).Add(New UIManager(k, i))
             Next
         Next
+
+        Dim DatIndex As Integer = 8
+        _UIManager(DatIndex) = New List(Of UIManager)
+        _UIManagerKey.Add(SCDatFiles.DatFiles.stattxt, DatIndex)
+        For i = 0 To SCCodeCount(DatIndex) - 1
+            _UIManager(DatIndex).Add(New UIManager(DatIndex, i))
+        Next
+
+
+
 
         ReDim DataBindings(scData.DefaultDat.DatFileList.Count)
         ReDim DataParamKeys(scData.DefaultDat.DatFileList.Count)

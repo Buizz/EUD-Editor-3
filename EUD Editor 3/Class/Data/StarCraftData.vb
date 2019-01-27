@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Public Module SCConst
-    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144, 390, 1547}
+    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144, 390, 1547, 412}
 
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
@@ -16,6 +16,7 @@ Public Module SCConst
 
 
     Public SCtbltxtCount As UShort = 1547
+    Public SCIscriptCount As UShort = 412
 
     Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
      "upgrades", "techdata", "orders", "portdata", "sfxdata"}
@@ -30,8 +31,14 @@ Public Class StarCraftData
     Private GRPFiles(SCImageCount) As String
     Private ImageName(SCImageCount) As String
     Private pSfxName(SCSfxdataCount) As String
-    Private pPortdataName(SCSfxdataCount) As String
-    Private pIconName(SCSfxdataCount) As String
+    Private pPortdataName(SCPortdataCount) As String
+    Private pIconName(SCIconCount) As String
+    Private pIscriptName(SCIscriptCount) As String
+    Public ReadOnly Property IscriptName(index As Integer) As String
+        Get
+            Return pIscriptName(index)
+        End Get
+    End Property
     Public ReadOnly Property IconName(index As Integer) As String
         Get
             Return pIconName(index)
@@ -61,6 +68,11 @@ Public Class StarCraftData
         End Get
     End Property
 
+    Private ReadOnly Property IscirptPath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\IscriptIDList.txt"
+        End Get
+    End Property
     Private ReadOnly Property IconPath As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\Icon.txt"
@@ -223,6 +235,16 @@ Public Class StarCraftData
         index = 0
         While Not sr.EndOfStream
             pIconName(index) = sr.ReadLine()
+
+            index += 1
+        End While
+        sr.Close()
+
+
+        sr = New StreamReader(IscirptPath)
+        index = 0
+        While Not sr.EndOfStream
+            pIscriptName(index) = sr.ReadLine()
 
             index += 1
         End While

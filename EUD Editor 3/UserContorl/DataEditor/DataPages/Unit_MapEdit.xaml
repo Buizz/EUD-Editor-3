@@ -61,7 +61,7 @@
                               DockPanel.Dock="Left" FontSize="14"
                               Text="{StaticResource UnitString}" Padding="6"/>
                         <WrapPanel Grid.Row="1" Margin="10">
-                            <local:InputField x:Name="RS" Tag="Rank/Sublabel" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <local:IconSelecter x:Name="RS" Tag="Rank/Sublabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="538" />
 
                         </WrapPanel>
                     </Grid>

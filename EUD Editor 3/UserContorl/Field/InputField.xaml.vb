@@ -96,9 +96,9 @@
             ValueText.Width = 7 * CharLen
         Else
             If valueType <= SCDatFiles.DatFiles.portdata Or valueType = SCDatFiles.DatFiles.Icon Then
-                ValueText.Width = 7 * 3
+                ValueText.MinWidth = 7 * 3
             Else
-                ValueText.Width = 7 * 4
+                ValueText.MinWidth = 7 * 4
             End If
         End If
 
