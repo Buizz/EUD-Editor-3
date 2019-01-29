@@ -16,15 +16,21 @@ Public Class UIManager
         ObjectID = tObjectID
     End Sub
 
-    Public Property Name() As String
+    Public ReadOnly Property Name() As String
         Get
             Return pjData.CodeLabel(Datfile, ObjectID, True)
         End Get
-        Set(value As String)
-
-        End Set
+    End Property
+    Public ReadOnly Property TabName() As String
+        Get
+            Return Tool.GetText(Datfilesname(Datfile)) & " '" & pjData.CodeLabel(Datfile, ObjectID, True) & "'"
+        End Get
     End Property
 
+    Public Sub NameRefresh()
+        NotifyPropertyChanged("Name")
+        NotifyPropertyChanged("TabName")
+    End Sub
 
     Public Sub BackColorRefresh()
         NotifyPropertyChanged("Back")
@@ -36,49 +42,103 @@ Public Class UIManager
 
     Public ReadOnly Property Back() As SolidColorBrush
         Get
-            If pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) Then
-                Return Application.Current.Resources("MaterialDesignPaper")
+            If SCDatFiles.CheckValidDat(Datfile) Then
+                If pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
             Else
-                Return New SolidColorBrush(pgData.FiledEditColor)
+                Select Case Datfile
+                    Case SCDatFiles.DatFiles.stattxt
+                        If pjData.ExtraDat.Stat_txt(ObjectID) = ExtraDatFiles.StatNullString Then
+                            Return Application.Current.Resources("MaterialDesignPaper")
+                        Else
+                            Return New SolidColorBrush(pgData.FiledEditColor)
+                        End If
+                End Select
+
+                Return Application.Current.Resources("MaterialDesignPaper")
             End If
         End Get
     End Property
 
     Public Property ToolTip() As String
         Get
-            Return pjData.Dat.ToolTip(Datfile, ObjectID)
+            If SCDatFiles.CheckValidDat(Datfile) Then
+                Return pjData.Dat.ToolTip(Datfile, ObjectID)
+            Else
+                Return pjData.ExtraDat.ToolTip(Datfile, ObjectID)
+            End If
+
+
         End Get
 
         Set(ByVal tvalue As String)
-            If Not (tvalue = pjData.Dat.ToolTip(Datfile, ObjectID)) Then
-                pjData.Dat.ToolTip(Datfile, ObjectID) = tvalue
-                NotifyPropertyChanged("ToolTip")
-                NotifyPropertyChanged("Name")
+            If SCDatFiles.CheckValidDat(Datfile) Then
+                If Not (tvalue = pjData.Dat.ToolTip(Datfile, ObjectID)) Then
+                    pjData.Dat.ToolTip(Datfile, ObjectID) = tvalue
+                    NotifyPropertyChanged("ToolTip")
+                    NotifyPropertyChanged("Name")
+                    NotifyPropertyChanged("TabName")
+                End If
+            Else
+                If Not (tvalue = pjData.ExtraDat.ToolTip(Datfile, ObjectID)) Then
+                    pjData.ExtraDat.ToolTip(Datfile, ObjectID) = tvalue
+                    NotifyPropertyChanged("ToolTip")
+                    NotifyPropertyChanged("Name")
+                    NotifyPropertyChanged("TabName")
+                End If
             End If
+
         End Set
     End Property
 
     Public Property Group() As String
         Get
-            Return pjData.Dat.Group(Datfile, ObjectID)
+            If SCDatFiles.CheckValidDat(Datfile) Then
+                Return pjData.Dat.Group(Datfile, ObjectID)
+            Else
+                Return pjData.ExtraDat.Group(Datfile, ObjectID)
+            End If
+
         End Get
 
         Set(ByVal tvalue As String)
-            If Not (tvalue = pjData.Dat.Group(Datfile, ObjectID)) Then
-                pjData.Dat.Group(Datfile, ObjectID) = tvalue
-                pjData.BindingManager.RefreshCodeTree(Datfile, ObjectID)
-                NotifyPropertyChanged("Group")
+            If SCDatFiles.CheckValidDat(Datfile) Then
+                If Not (tvalue = pjData.Dat.Group(Datfile, ObjectID)) Then
+                    pjData.Dat.Group(Datfile, ObjectID) = tvalue
+                    pjData.BindingManager.RefreshCodeTree(Datfile, ObjectID)
+                    NotifyPropertyChanged("Group")
+                End If
+            Else
+                If Not (tvalue = pjData.ExtraDat.Group(Datfile, ObjectID)) Then
+                    pjData.ExtraDat.Group(Datfile, ObjectID) = tvalue
+                    pjData.BindingManager.RefreshCodeTree(Datfile, ObjectID)
+                    NotifyPropertyChanged("Group")
+                End If
             End If
         End Set
     End Property
 
     Public Sub ToolTipReset()
-        pjData.Dat.ToolTip(Datfile, ObjectID) = scData.DefaultDat.ToolTip(Datfile, ObjectID)
+        If SCDatFiles.CheckValidDat(Datfile) Then
+            pjData.Dat.ToolTip(Datfile, ObjectID) = scData.DefaultDat.ToolTip(Datfile, ObjectID)
+        Else
+            pjData.ExtraDat.ToolTipReset(Datfile, ObjectID)
+        End If
+
         NotifyPropertyChanged("ToolTip")
         NotifyPropertyChanged("Name")
+        NotifyPropertyChanged("TabName")
     End Sub
     Public Sub GroupReset()
-        pjData.Dat.Group(Datfile, ObjectID) = scData.DefaultDat.Group(Datfile, ObjectID)
+        If SCDatFiles.CheckValidDat(Datfile) Then
+            pjData.Dat.Group(Datfile, ObjectID) = scData.DefaultDat.Group(Datfile, ObjectID)
+        Else
+            pjData.ExtraDat.ToolTipReset(Datfile, ObjectID)
+        End If
+
         NotifyPropertyChanged("Group")
     End Sub
 

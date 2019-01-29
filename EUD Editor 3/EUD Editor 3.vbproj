@@ -100,6 +100,9 @@
     <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
     </Reference>
+    <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
+      <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
+    </Reference>
     <Reference Include="lua51, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
       <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\lua51.dll</HintPath>
     </Reference>
@@ -120,6 +123,9 @@
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
+    <Reference Include="NumericUpDownLib, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Dirkster.NumericUpDownLib.2.1.1\lib\net4\NumericUpDownLib.dll</HintPath>
     </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
@@ -159,6 +165,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\Binding\BindingManager.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
+    <Compile Include="Class\Binding\StatTxtBinding.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
@@ -167,6 +174,7 @@
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
     <Compile Include="Class\Command\DateEditor\UICommand.vb" />
     <Compile Include="Class\DataManager.vb" />
+    <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
     <Compile Include="Class\Language.vb" />
@@ -175,6 +183,7 @@
     <Compile Include="Class\Data\ProjectData.vb" />
     <Compile Include="Class\Data\SCDatFiles.vb" />
     <Compile Include="Class\Data\StarCraftData.vb" />
+    <Compile Include="Class\MyCompletionData.vb" />
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
@@ -235,6 +244,12 @@
     </Compile>
     <Compile Include="UserContorl\Field\BoolSelecter.xaml.vb">
       <DependentUpon>BoolSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\ColoredTextBlock.xaml.vb">
+      <DependentUpon>ColoredTextBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\ColoredTextBox.xaml.vb">
+      <DependentUpon>ColoredTextBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\ComboxSelecter.xaml.vb">
       <DependentUpon>ComboxSelecter.xaml</DependentUpon>
@@ -364,6 +379,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\Field\BoolSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\ColoredTextBlock.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\Field\ColoredTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

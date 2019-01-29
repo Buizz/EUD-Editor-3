@@ -1,6 +1,18 @@
 ﻿Imports Newtonsoft.Json
 
 Public Class DataManager
+    Private Const ValueSpliter As String = "ᚏ"
+
+    Public Shared Function GetGroups(Datfile As SCDatFiles.DatFiles, index As Integer) As String
+        If SCDatFiles.CheckValidDat(Datfile) Then
+            Return pjData.Dat.Group(Datfile, index)
+        Else
+            Return pjData.ExtraDat.Group(Datfile, index)
+        End If
+    End Function
+
+
+
     'UnitDat의 경우 페이지 별 담당하는 파라미터들이 다름. 그걸 정의해야됨
     Private PageMask() As List(Of String)
     Public Sub New()
@@ -37,21 +49,30 @@ Public Class DataManager
 
     Public Sub CopyDatObject(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         Dim Template As New Template(Datfilesname(DatFiles), ObjectID)
-        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
-            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
+        If SCDatFiles.CheckValidDat(DatFiles) Then
+            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
 
-            If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
-                Continue For
-            End If
+                If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
+                    Continue For
+                End If
 
-            Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-            Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-            Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
 
-            Dim Value As Long = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
-            Template.Values.Add(Paramname & ":" & Value)
-        Next
+                Dim Value As Long = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
+                Template.Values.Add(Paramname & ValueSpliter & Value)
+            Next
+        Else
+            Select Case DatFiles
+                Case SCDatFiles.DatFiles.stattxt
+                    Template.Values.Add("Value" & ValueSpliter & pjData.Stat_txt(ObjectID))
+            End Select
+        End If
+
+
         Dim tempStr As String = JsonConvert.SerializeObject(Template)
 
         My.Computer.Clipboard.SetText(tempStr)
@@ -64,7 +85,7 @@ Public Class DataManager
 
 
                 For i = 0 To tTemplate.Values.Count - 1
-                    Dim valueStrs As String() = tTemplate.Values(i).Split(":")
+                    Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
                     Dim ParamaterName As String = valueStrs(0)
                     Dim Value As Long = valueStrs(1)
 
@@ -83,18 +104,31 @@ Public Class DataManager
         If DataObjectPasteAble(DatFiles, ObjectID) Then
             Dim tTemplate As Template = JsonConvert.DeserializeObject(Of Template)((My.Computer.Clipboard.GetText))
 
+            If SCDatFiles.CheckValidDat(DatFiles) Then
+                For i = 0 To tTemplate.Values.Count - 1
+                    Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
+                    Dim ParamaterName As String = valueStrs(0)
+                    Dim Value As Long = valueStrs(1)
 
-            For i = 0 To tTemplate.Values.Count - 1
-                Dim valueStrs As String() = tTemplate.Values(i).Split(":")
-                Dim ParamaterName As String = valueStrs(0)
-                Dim Value As Long = valueStrs(1)
-
-                If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
-                    If pjData.Dat.ParamInfo(DatFiles, ParamaterName, SCDatFiles.EParamInfo.IsEnabled) Then
-                        pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
+                    If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
+                        If pjData.Dat.ParamInfo(DatFiles, ParamaterName, SCDatFiles.EParamInfo.IsEnabled) Then
+                            pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
+                        End If
                     End If
-                End If
-            Next
+                Next
+            Else
+                Select Case DatFiles
+                    Case SCDatFiles.DatFiles.stattxt
+                        For i = 0 To tTemplate.Values.Count - 1
+                            Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
+                            Dim ParamaterName As String = valueStrs(0)
+                            Dim Value As String = valueStrs(1)
+                            If ParamaterName = "Value" Then
+                                pjData.BindingManager.StatTxtBinding(ObjectID).Value = Value
+                            End If
+                        Next
+                End Select
+            End If
         End If
     End Sub
     Public Sub ResetDatPage(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer, UnitDatPage As Integer)
@@ -125,24 +159,31 @@ Public Class DataManager
         End If
     End Sub
     Public Sub ResetDatObject(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
-            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
+        If SCDatFiles.CheckValidDat(DatFiles) Then
+            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
 
-            If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
-                Continue For
-            End If
+                If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
+                    Continue For
+                End If
 
 
 
-            Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-            Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-            Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
-            pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID).DataReset()
-            'For j = ValueStart To ValueEnd
-            '    pjData.BindingManager.DatBinding(DatFiles, Paramname, j).DataReset()
-            'Next
-        Next
+                pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID).DataReset()
+                'For j = ValueStart To ValueEnd
+                '    pjData.BindingManager.DatBinding(DatFiles, Paramname, j).DataReset()
+                'Next
+            Next
+        Else
+            Select Case DatFiles
+                Case SCDatFiles.DatFiles.stattxt
+                    pjData.BindingManager.StatTxtBinding(ObjectID).DataReset()
+            End Select
+        End If
     End Sub
 
 

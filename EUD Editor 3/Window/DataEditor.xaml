@@ -10,7 +10,8 @@
         xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:EUD_Editor_3"
-        mc:Ignorable="d"
+                      xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+                      mc:Ignorable="d"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
@@ -36,14 +37,16 @@
         <Expander Name="Console" DockPanel.Dock="Bottom" Header="{StaticResource CommandExpander}" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" IsExpanded="True">
             <DockPanel>
 
-                <TextBox
+
+
+                <avalonEdit:TextEditor  
+                    Foreground="{StaticResource MaterialDesignBody}"
                     x:Name="ConsoleText"
                     DockPanel.Dock="Bottom" 
-                    VerticalAlignment="Top"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto">
-                </TextBox>
+                    VerticalAlignment="Top" 
+                    VerticalScrollBarVisibility="Auto">>
 
+                </avalonEdit:TextEditor>
                 <TextBox
                     x:Name="ConsoleLog"
                     IsReadOnly="true"
@@ -73,15 +76,15 @@
 
                 <local:CodeSelecter x:Name="CodeList" Grid.Column="1" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
                 <ListBox  Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
-                    <ListBoxItem Content="{StaticResource Unit}" Tag="0"/>
-                    <ListBoxItem Content="{StaticResource Weaopon}" Tag="1"/>
-                    <ListBoxItem Content="{StaticResource Fling}" Tag="2"/>
-                    <ListBoxItem Content="{StaticResource Sprite}" Tag="3"/>
-                    <ListBoxItem Content="{StaticResource Image}" Tag="4"/>
-                    <ListBoxItem Content="{StaticResource Upgrade}" Tag="5"/>
-                    <ListBoxItem Content="{StaticResource Tech}" Tag="6"/>
-                    <ListBoxItem Content="{StaticResource Order}" Tag="7"/>
-                    <ListBoxItem Content="{StaticResource StarTxt}" Tag="11"/>
+                    <ListBoxItem Content="{StaticResource units}" Tag="0"/>
+                    <ListBoxItem Content="{StaticResource weapons}" Tag="1"/>
+                    <ListBoxItem Content="{StaticResource flingy}" Tag="2"/>
+                    <ListBoxItem Content="{StaticResource sprites}" Tag="3"/>
+                    <ListBoxItem Content="{StaticResource images}" Tag="4"/>
+                    <ListBoxItem Content="{StaticResource upgrades}" Tag="5"/>
+                    <ListBoxItem Content="{StaticResource techdata}" Tag="6"/>
+                    <ListBoxItem Content="{StaticResource orders}" Tag="7"/>
+                    <ListBoxItem Content="{StaticResource Startxt}" Tag="11"/>
                 </ListBox>
 
 

@@ -173,15 +173,38 @@
     <sys:String x:Key="ImageScreen">화면 출력 정보</sys:String>
 
 
-    <sys:String x:Key="Unit">유닛</sys:String>
-    <sys:String x:Key="Weaopon">무기</sys:String>
-    <sys:String x:Key="Fling">비행정보</sys:String>
-    <sys:String x:Key="Sprite">스프라이트</sys:String>
-    <sys:String x:Key="Image">이미지</sys:String>
-    <sys:String x:Key="Upgrade">업그레이드</sys:String>
-    <sys:String x:Key="Tech">기술</sys:String>
-    <sys:String x:Key="Order">명령</sys:String>
-    <sys:String x:Key="StarTxt">스타텍스트</sys:String>
+    <sys:String x:Key="units">유닛</sys:String>
+    <sys:String x:Key="weapons">무기</sys:String>
+    <sys:String x:Key="flingy">비행정보</sys:String>
+    <sys:String x:Key="sprites">스프라이트</sys:String>
+    <sys:String x:Key="images">이미지</sys:String>
+    <sys:String x:Key="upgrades">업그레이드</sys:String>
+    <sys:String x:Key="techdata">기술</sys:String>
+    <sys:String x:Key="orders">명령</sys:String>
+    <sys:String x:Key="Startxt">텍스트</sys:String>
+
+
+
+    <sys:String x:Key="StatDatalimit">한정자</sys:String>
+    <sys:String x:Key="StatDatalimit0">없음</sys:String>
+    <sys:String x:Key="StatDatalimit1">일반명령</sys:String>
+    <sys:String x:Key="StatDatalimit2">유닛 생산</sys:String>
+    <sys:String x:Key="StatDatalimit3">N업그레이드</sys:String>
+    <sys:String x:Key="StatDatalimit4">스킬 사용</sys:String>
+    <sys:String x:Key="StatDatalimit5">테크업그레이드</sys:String>
+    <sys:String x:Key="StatDatalimit6">유닛 변태</sys:String>
+
+
+
+    <sys:String x:Key="StatDataShortCut">단축키</sys:String>
+    <sys:String x:Key="StatDataShortCut0">없음</sys:String>
+
+
+
+
+
+
+
 
 
 

@@ -28,28 +28,14 @@ Public Class SaveableData
         OpenMapName = ""
         SaveMapName = ""
 
-        ReDim _Stat_txt(SCtbltxtCount)
     End Sub
-    Private _Stat_txt() As String
-    Public Property Stat_txt(index As Integer) As String
-        Get
-            Dim text As String
-            Try
-                text = _Stat_txt(index)
-                Return text
-            Catch ex As Exception
-                Return "Error"
-            End Try
-        End Get
-        Set(value As String)
-            _Stat_txt(index) = value
-        End Set
-    End Property
+
 
 
 
 
     Public Dat As SCDatFiles
+    Public ExtraDat As ExtraDatFiles
 End Class
 
 
@@ -112,6 +98,12 @@ Public Class ProjectData
 
 
 #Region "Member"
+
+    Public ReadOnly Property ExtraDat As ExtraDatFiles
+        Get
+            Return SaveData.ExtraDat
+        End Get
+    End Property
     Public ReadOnly Property Dat As SCDatFiles
         Get
             Return SaveData.Dat
@@ -123,15 +115,15 @@ Public Class ProjectData
                 Return Tool.GetText("None")
             End If
 
-            If SaveData.Stat_txt(index) = "" Then
+            If SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString Then
                 Return scData.GetStat_txt(index)
             Else
-                Return SaveData.Stat_txt(index)
+                Return SaveData.ExtraDat.Stat_txt(index)
             End If
 
         End Get
         Set(value As String)
-            SaveData.Stat_txt(index) = value
+            SaveData.ExtraDat.Stat_txt(index) = value
         End Set
     End Property
 
@@ -200,6 +192,19 @@ Public Class ProjectData
         End Get
     End Property
 
+    Private Function CodeTrimer(texts As String) As String
+        Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
+        Dim MatchCollection As Text.RegularExpressions.MatchCollection = rgx.Matches(texts)
+
+        For i = 0 To MatchCollection.Count - 1
+            texts = texts.Replace(MatchCollection(i).Value, "")
+            If i = 0 And MatchCollection(i).Index = 1 Then
+                texts = Mid(texts, 2)
+            End If
+        Next
+
+        Return texts
+    End Function
     Public ReadOnly Property CodeLabel(Datfile As SCDatFiles.DatFiles, index As Integer, Optional IsFullname As Boolean = False) As String
         Get
             Dim ReturnStr As String = Tool.GetText("None")
@@ -211,7 +216,7 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.weapons
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index)
 
-                        ReturnStr = Stat_txt(tLabel)
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
                     Case SCDatFiles.DatFiles.flingy
                         Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
                         Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
@@ -226,15 +231,15 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.upgrades
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index)
 
-                        ReturnStr = Stat_txt(tLabel)
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
                     Case SCDatFiles.DatFiles.techdata
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index)
 
-                        ReturnStr = Stat_txt(tLabel)
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
                     Case SCDatFiles.DatFiles.orders
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index)
 
-                        ReturnStr = Stat_txt(tLabel)
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
                     Case SCDatFiles.DatFiles.portdata
                         ReturnStr = scData.PortdataName(index)
 
@@ -255,8 +260,10 @@ Public Class ProjectData
                         End If
                 End Select
                 Dim ToolTipText As String = ""
-                If Datfile <= SCDatFiles.DatFiles.orders Then
+                If SCDatFiles.CheckValidDat(Datfile) Then
                     ToolTipText = SaveData.Dat.ToolTip(Datfile, index)
+                Else
+                    ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
                 End If
                 If Datfile <> SCDatFiles.DatFiles.units Then
                     If IsFullname And ToolTipText <> "" Then
@@ -342,6 +349,7 @@ Public Class ProjectData
         SaveData.OpenMapName = ""
         SaveData.SaveMapName = ""
         SaveData.Dat = New SCDatFiles(False, False, True)
+        SaveData.ExtraDat = New ExtraDatFiles
 
         'MsgBox("프로젝트 초기화")
     End Sub

@@ -317,8 +317,11 @@ Public Class CodeSelecter
                         Listboxitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
                         Listbox.ScrollIntoView(Listboxitem)
                     Else
-
-                        Listboxitem.Background = Application.Current.Resources("MaterialDesignPaper")
+                        If BindingManager.CheckUIAble(CurrentPage) And index >= 0 Then
+                            Dim BackBinding As Binding = New Binding("Back")
+                            BackBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
+                            Listboxitem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
+                        End If
                         Listboxitem.Foreground = Application.Current.Resources("MaterialDesignBody")
 
                     End If
@@ -341,7 +344,7 @@ Public Class CodeSelecter
         StartIndex = _StartIndex
         If Not IsFirstLoad Then
             IsFirstLoad = True
-            If CurrentPage <= SCDatFiles.DatFiles.orders Then
+            If SCDatFiles.CheckValidDat(CurrentPage) Or CurrentPage = SCDatFiles.DatFiles.stattxt Then
                 If IsComboBox Then
                     CodeIndexerImage.ContextMenu = FindResource("OnlyOpenWindon")
                     CodeIndexerList.ContextMenu = FindResource("OnlyOpenWindon")
@@ -349,8 +352,6 @@ Public Class CodeSelecter
             Else
                 CodeIndexerImage.ContextMenu = Nothing
                 CodeIndexerList.ContextMenu = Nothing
-
-
             End If
 
 
@@ -358,13 +359,27 @@ Public Class CodeSelecter
 
         If CurrentPage > SCDatFiles.DatFiles.orders Then
             If CurrentPage <> SCDatFiles.DatFiles.Icon Then
+                If Fliter.IsIcon Then
+                    L_IconBtn.IsSelected = False
+                    Fliter.IsIcon = False
+                End If
+
                 L_IconBtn.Visibility = Visibility.Collapsed
             End If
             If CurrentPage <> SCDatFiles.DatFiles.stattxt Then
+                If Fliter.IsEdit Then
+                    L_IsEditBtn.IsSelected = False
+                    Fliter.IsEdit = False
+                End If
+
                 L_IsEditBtn.Visibility = Visibility.Collapsed
             End If
 
             If CurrentPage = SCDatFiles.DatFiles.portdata Or CurrentPage = SCDatFiles.DatFiles.Icon Or CurrentPage = SCDatFiles.DatFiles.IscriptID Then
+                If Fliter.SortType = ESortType.Tree Then
+                    Fliter.SetFliter(ESortType.n123)
+                End If
+
                 BtnsortTree.Visibility = Visibility.Collapsed
             End If
         Else
@@ -671,7 +686,7 @@ Public Class CodeSelecter
                         Dim textblock As New TextBlock
                         textblock.TextWrapping = TextWrapping.WrapWithOverflow
 
-                        If pagetype <= SCDatFiles.DatFiles.orders Then
+                        If BindingManager.CheckUIAble(pagetype) Then
                             Dim NameBinding As Binding = New Binding("Name")
                             NameBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
                             textblock.SetBinding(TextBlock.TextProperty, NameBinding)
@@ -695,7 +710,7 @@ Public Class CodeSelecter
                         tListItem.Tag = index
                         tListItem.Content = stackpanel
 
-                        If pagetype <= SCDatFiles.DatFiles.orders Then
+                        If BindingManager.CheckUIAble(pagetype) Then
                             Dim BackBinding As Binding = New Binding("Back")
                             BackBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
                             tListItem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
@@ -714,7 +729,14 @@ Public Class CodeSelecter
 
                         Dim CheckPss As Boolean = False
                         If Fliter.IsEdit Then
-                            Dim IsEdit As Boolean = pjData.Dat.GetDatFile(pagetype).CheckDirty(index)
+                            Dim IsEdit As Boolean
+                            If SCDatFiles.CheckValidDat(pagetype) Then
+                                IsEdit = pjData.Dat.GetDatFile(pagetype).CheckDirty(index)
+                            Else
+                                IsEdit = pjData.ExtraDat.CheckDirty(pagetype, index)
+                            End If
+
+
                             If Not IsEdit Then
                                 CheckPss = True
                             End If
@@ -788,7 +810,11 @@ Public Class CodeSelecter
                         If CurrentPage = SCDatFiles.DatFiles.button Then
                             CodeGroup = ""
                         Else
-                            CodeGroup = pjData.Dat.Group(CurrentPage, i)
+                            If SCDatFiles.CheckValidDat(CurrentPage) Then
+                                CodeGroup = pjData.Dat.Group(CurrentPage, i)
+                            Else
+                                CodeGroup = pjData.ExtraDat.Group(CurrentPage, i)
+                            End If
                         End If
                     End If
 
@@ -862,7 +888,7 @@ Public Class CodeSelecter
     Private TreeviewItemDic As Dictionary(Of Integer, TreeViewItem)
     Private Sub MoveTreeList(tv As TreeView, TreeItem As TreeViewItem)
         Dim index As Integer = TreeItem.Tag
-        Dim itemPath As String = pjData.Dat.Group(CurrentPage, index)
+        Dim itemPath As String = DataManager.GetGroups(CurrentPage, index)
         Dim groups As String() = itemPath.Split({"\"}, StringSplitOptions.RemoveEmptyEntries)
 
         Dim ItempColl As ItemCollection = tv.Items

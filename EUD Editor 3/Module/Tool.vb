@@ -239,7 +239,8 @@ Namespace TabItemTool
                     Dim TGrid As Grid = ChangesTabItem.Header
                     Dim TabText As TextBlock = TGrid.Children.Item(0)
 
-                    Dim myBinding As Binding = New Binding("Name")
+
+                    Dim myBinding As Binding = New Binding("TabName")
                     myBinding.Source = pjData.BindingManager.UIManager(Datfile, index)
                     TabText.SetBinding(TextBlock.TextProperty, myBinding)
 
@@ -343,7 +344,7 @@ Namespace TabItemTool
             TabItem.Header = TabGrid
 
 
-            Dim myBinding As Binding = New Binding("Name")
+            Dim myBinding As Binding = New Binding("TabName")
             Select Case Datfile
                 Case SCDatFiles.DatFiles.units
                     myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, index)

@@ -30,7 +30,7 @@ Public Class DataEditor
 
 
 
-
+    Private completion As ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         'MsgBox("생성")
@@ -40,9 +40,42 @@ Public Class DataEditor
 
         'Dim asdgfaqwea As Func(Of TabItem) = AddressOf dsafads
         'MainTab.NewItemFactory = asdgfaqwea
+        AddHandler ConsoleText.TextArea.TextEntering, AddressOf textEditor_TextArea_TextEntering
+        AddHandler ConsoleText.TextArea.TextEntered, AddressOf textEditor_TextArea_TextEntered
 
     End Sub
 
+    Private completionWindow As ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow
+    Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
+        If (e.Text = ".") Then
+            'Open code completion after the user has pressed dot
+            completionWindow = New ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow(ConsoleText.TextArea)
+            Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = completionWindow.CompletionList.CompletionData
+            data.Add(New MyCompletionData("Item1"))
+            data.Add(New MyCompletionData("Item2"))
+            data.Add(New MyCompletionData("Item3"))
+            completionWindow.Show()
+            AddHandler completionWindow.Closed, Sub()
+                                                    completionWindow = Nothing
+                                                End Sub
+        End If
+
+
+
+    End Sub
+
+    Private Sub textEditor_TextArea_TextEntering(sender As Object, e As TextCompositionEventArgs)
+        If (e.Text.Length > 0 And completionWindow IsNot Nothing) Then
+            If (Not Char.IsLetterOrDigit(e.Text(0))) Then
+
+                completionWindow.CompletionList.RequestInsertion(e)
+            End If
+        End If
+
+
+
+
+    End Sub
     'Private Function dsafads() As TabItem
     '    Dim index As Integer = 20
 
@@ -176,14 +209,15 @@ Public Class DataEditor
 
 
     Private RightShiftDown As Boolean
-    Private Sub ConsoleKeyDown(sender As Object, e As KeyEventArgs) Handles ConsoleText.KeyDown
+    Private ClearText As Boolean
+    Private Sub ConsoleKeyDown(sender As Object, e As KeyEventArgs) Handles ConsoleText.PreviewKeyDown
         If e.Key = Key.RightShift Then
             RightShiftDown = True
         End If
         If e.Key = Key.Return Then
             If RightShiftDown Then
-                ConsoleText.SelectedText = vbCrLf
-                ConsoleText.CaretIndex += 1
+                'ConsoleText.SelectedText = vbCrLf
+                'ConsoleText.SelectionStart += 1
             Else
                 ConsoleLog.AppendText(vbCrLf)
                 ConsoleLog.AppendText(ConsoleText.Text)
@@ -197,13 +231,18 @@ Public Class DataEditor
                 End Try
 
                 ConsoleLog.ScrollToEnd()
-                ConsoleText.Text = ""
+                ClearText = True
+
             End If
         End If
     End Sub
     Private Sub ConsoleKeyUp(sender As Object, e As KeyEventArgs) Handles ConsoleText.KeyUp
         If e.Key = Key.RightShift Then
             RightShiftDown = False
+        End If
+        If ClearText Then
+            ConsoleText.Clear()
+            ClearText = False
         End If
     End Sub
 

@@ -1,6 +1,8 @@
 ﻿Imports System.IO
 Public Module SCConst
     Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144, 390, 1547, 412}
+    Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
+     "upgrades", "techdata", "orders", "portdata", "sfxdata", "Icon", "Startxt", "Iscript"}
 
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
@@ -18,13 +20,44 @@ Public Module SCConst
     Public SCtbltxtCount As UShort = 1547
     Public SCIscriptCount As UShort = 412
 
-    Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
-     "upgrades", "techdata", "orders", "portdata", "sfxdata"}
 
     Public Function CheckOverFlow(Datfiles As SCDatFiles.DatFiles, Value As Long) As Boolean
         Return SCCodeCount(Datfiles) > Value
     End Function
 
+    Public ColorTable() As Color = {
+    Nothing,
+    Color.FromRgb(184, 184, 232),
+    Color.FromRgb(184, 184, 232),
+    Color.FromRgb(220, 220, 60),
+    Color.FromRgb(255, 255, 255),
+    Color.FromRgb(132, 116, 116),
+    Color.FromRgb(200, 24, 24),
+    Color.FromRgb(16, 252, 24),
+    Color.FromRgb(244, 4, 4),
+    Nothing,
+    Nothing,
+    Color.FromArgb(0, 0, 0, 0),
+    Nothing,
+    Nothing,
+    Color.FromRgb(12, 72, 204),
+    Color.FromRgb(44, 180, 148),
+    Color.FromRgb(136, 64, 156),
+    Color.FromRgb(248, 140, 20),
+    Nothing,'우측정렬
+    Nothing,'가운대정렬
+    Color.FromArgb(0, 0, 0, 0),
+    Color.FromRgb(112, 48, 20),
+    Color.FromRgb(204, 224, 208),
+    Color.FromRgb(252, 252, 56),
+    Color.FromRgb(8, 128, 8),
+    Color.FromRgb(252, 252, 124),
+    Color.FromRgb(184, 184, 232),
+    Color.FromRgb(236, 196, 176),
+    Color.FromRgb(64, 104, 212),
+    Color.FromRgb(116, 164, 124),
+    Color.FromRgb(144, 144, 184),
+    Color.FromRgb(0, 228, 252)}
 End Module
 
 Public Class StarCraftData

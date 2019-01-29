@@ -6,6 +6,10 @@ Public Class SCDatFiles
     Private Datfile As List(Of CDatFile)
 
 
+    Public Shared Function CheckValidDat(dat As DatFiles) As Boolean
+        Return dat <= DatFiles.orders
+    End Function
+
 
     Private DatfileDic As Dictionary(Of DatFiles, CDatFile)
 
@@ -45,13 +49,16 @@ Public Class SCDatFiles
 
         Datfile = New List(Of CDatFile)
 
-        For Each str As String In Datfilesname
+        For i = 0 To 9
+            Dim str As String = Datfilesname(i)
+
             Dim tDatfile As New CDatFile(str, IsProjectData, TemporyData, IsBindingData)
 
 
             Datfile.Add(tDatfile)
             DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
         Next
+
     End Sub
     Public Sub New()
         DatfileDic = New Dictionary(Of DatFiles, CDatFile)

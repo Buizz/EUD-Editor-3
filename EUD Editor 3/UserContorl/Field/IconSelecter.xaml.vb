@@ -156,12 +156,8 @@ Public Class IconSelecter
     Private Sub OpenNew_Click(sender As Object, e As RoutedEventArgs) Handles OpenNew.Click
         Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
         Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
-        If valueType = SCDatFiles.DatFiles.stattxt Then
-        Else
-            If CheckOverFlow(valueType, value) Then
-                TabItemTool.WindowTabItem(valueType, value)
-            End If
+        If CheckOverFlow(valueType, value) Then
+            TabItemTool.WindowTabItem(valueType, value)
         End If
-
     End Sub
 End Class

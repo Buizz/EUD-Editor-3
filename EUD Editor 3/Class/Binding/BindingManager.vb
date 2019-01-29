@@ -7,6 +7,20 @@
         End Get
     End Property
 
+    Public Shared Function CheckUIAble(DatFile As SCDatFiles.DatFiles) As Boolean
+        If SCDatFiles.CheckValidDat(DatFile) Then
+            Return True
+        Else
+            If DatFile = SCDatFiles.DatFiles.stattxt Then
+                Return True
+            Else
+                Return False
+            End If
+        End If
+
+
+    End Function
+
     Public Sub RefreshCodeTree(key As SCDatFiles.DatFiles, ObjectID As String)
         For i = 0 To pjData.CodeSelecters.Count - 1
             pjData.CodeSelecters(i).RefreshTreeviewItem(key, ObjectID)
@@ -26,14 +40,19 @@
             Next
         Next
 
-        Dim DatIndex As Integer = 8
-        _UIManager(DatIndex) = New List(Of UIManager)
-        _UIManagerKey.Add(SCDatFiles.DatFiles.stattxt, DatIndex)
+        Dim DatIndex As SCDatFiles.DatFiles = SCDatFiles.DatFiles.stattxt
+        Dim ArrayIndex As Integer = 8
+        _UIManager(ArrayIndex) = New List(Of UIManager)
+        _UIManagerKey.Add(DatIndex, ArrayIndex)
         For i = 0 To SCCodeCount(DatIndex) - 1
-            _UIManager(DatIndex).Add(New UIManager(DatIndex, i))
+            _UIManager(ArrayIndex).Add(New UIManager(DatIndex, i))
         Next
 
 
+        ReDim pStatTxtBinding(SCtbltxtCount)
+        For i = 0 To SCtbltxtCount - 1
+            pStatTxtBinding(i) = New StatTxtBinding(i)
+        Next
 
 
         ReDim DataBindings(scData.DefaultDat.DatFileList.Count)
@@ -93,6 +112,15 @@
         End Get
     End Property
 
+
+
+    Public ReadOnly Property StatTxtBinding(index As Integer) As StatTxtBinding
+        Get
+            Return pStatTxtBinding(index)
+        End Get
+    End Property
+
+    Private pStatTxtBinding() As StatTxtBinding
 
     'Private NullBinding As DatBinding
     Private DataBindings() As List(Of List(Of DatBinding))
