@@ -41,6 +41,25 @@ Public Class DataManager
     End Sub
 
 
+    Public Function CheckDirtyPage(ObjectID As Integer, UnitDatPage As Integer) As Boolean
+
+        Dim DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.units
+        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
+            If PageMask(UnitDatPage).IndexOf(Paramname) < 0 Then
+                Continue For
+            End If
+
+            If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
+                Continue For
+            End If
+
+            If Not pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetValue(ObjectID).IsDefault Then
+                Return False
+            End If
+        Next
+        Return True
+    End Function
     '복사 붙여넣기 등등을 담당.
     '바인딩을 이용하는게 특징.
     Public Sub CopyDatPage(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)

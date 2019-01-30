@@ -28,7 +28,22 @@ Public Class SaveableData
         OpenMapName = ""
         SaveMapName = ""
 
+        mTempFileLoc = 0
     End Sub
+
+
+    Private mTempFileLoc As String
+    '기본 폴더 사용
+    '맵 폴더 사용
+    '사용자 지정폴더
+    Public Property TempFileLoc As String
+        Get
+            Return mTempFileLoc
+        End Get
+        Set(value As String)
+            mTempFileLoc = value
+        End Set
+    End Property
 
 
 
@@ -115,10 +130,14 @@ Public Class ProjectData
                 Return Tool.GetText("None")
             End If
 
-            If SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString Then
-                Return scData.GetStat_txt(index)
+            If pgData.Setting(ProgramData.TSetting.CDLanuageChange) Then
+                If SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString Then
+                    Return scData.GetStat_txt(index)
+                Else
+                    Return SaveData.ExtraDat.Stat_txt(index)
+                End If
             Else
-                Return SaveData.ExtraDat.Stat_txt(index)
+                Return scData.GetStat_txt(index)
             End If
 
         End Get
@@ -127,6 +146,28 @@ Public Class ProjectData
         End Set
     End Property
 
+    Public Property TempFileLoc As String
+        Get
+            Select Case SaveData.TempFileLoc
+                Case "DefaultFolder"
+                    Return 0
+                Case "MapFolder"
+                    Return 1
+                Case Else
+                    Return SaveData.TempFileLoc
+            End Select
+        End Get
+        Set(value As String)
+            Select Case value
+                Case 0
+                    SaveData.TempFileLoc = "DefaultFolder"
+                Case 1
+                    SaveData.TempFileLoc = "MapFolder"
+                Case Else
+                    SaveData.TempFileLoc = value
+            End Select
+        End Set
+    End Property
     Public Property OpenMapName As String
         Get
             Return SaveData.OpenMapName
@@ -143,8 +184,6 @@ Public Class ProjectData
             End If
         End Set
     End Property
-
-
     Public Property SaveMapName As String
         Get
             Return SaveData.SaveMapName
@@ -155,6 +194,17 @@ Public Class ProjectData
                 SaveData.SaveMapName = value
             End If
         End Set
+    End Property
+    Public ReadOnly Property SaveMapdirectory As String
+        Get
+            Dim returnval As String
+            Try
+                returnval = SaveData.SaveMapName.Remove(SaveData.SaveMapName.LastIndexOf("\"))
+            Catch ex As Exception
+                Return ""
+            End Try
+            Return returnval
+        End Get
     End Property
 
     Private _MapData As MapData
@@ -191,6 +241,14 @@ Public Class ProjectData
             Return Dm
         End Get
     End Property
+
+    Private Ed As EudplibData
+    Public ReadOnly Property EudplibData As EudplibData
+        Get
+            Return Ed
+        End Get
+    End Property
+
 
     Private Function CodeTrimer(texts As String) As String
         Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
@@ -338,6 +396,7 @@ Public Class ProjectData
     Public Sub InitData()
         Bd = New BindingManager
         Dm = New DataManager
+        Ed = New EudplibData
         CodeSelecters = New List(Of CodeSelecter)
     End Sub
 
@@ -508,6 +567,5 @@ Public Class ProjectData
     End Function
 
     '일단 코드불러오는거 먼저 하자. stat_txt.bin을 불러오고 그걸 바탕으로 만들자.(이미지나 스프라이트를 제외하고는 한글 이름으로 가능하니까 이미지나 스프라이트는 데이터로 준비)
-
 
 End Class

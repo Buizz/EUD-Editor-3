@@ -8,9 +8,9 @@
         Loaded="Window_Loaded"
         Activated="Window_Activated"
         Closing="Window_Closing"
-    Title="MainWindow" Height="78" Width="720" AllowsTransparency="True"  Background="{x:Null}" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None" >
-    <Grid >
-        <Grid.Resources>
+    Title="MainWindow"  Width="720" Height="78" AllowsTransparency="True"  Background="{x:Null}" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None"  >
+    <DockPanel VerticalAlignment="Top" >
+        <DockPanel.Resources>
             <Style x:Key="RoundButtonTemplate" TargetType="Button">
                 <Setter Property="Background" Value="#FFACACAC"/>
                 <Setter Property="Foreground" Value="{x:Null}" />
@@ -30,7 +30,7 @@
                                     <Setter TargetName="Border" Property="BorderBrush" Value="{x:Null}" />
                                 </Trigger>
                                 <Trigger Property="IsEnabled" Value="True">
-             
+
                                     <Setter TargetName="Border" Property="BorderBrush" Value="{x:Null}" />
                                 </Trigger>
                                 <Trigger Property="IsMouseOver" Value="True">
@@ -47,8 +47,8 @@
                 </Setter>
             </Style>
 
-        </Grid.Resources>
-        <Grid Name="MainControl"  Background="#00000000">
+        </DockPanel.Resources>
+        <Grid Name="MainControl" Background="#00000000">
             <Grid.Triggers>
                 <EventTrigger RoutedEvent="Button.MouseEnter">
                     <BeginStoryboard>
@@ -107,21 +107,23 @@
                 <ColumnDefinition Width="25*"/>
                 <ColumnDefinition Width="20*"/>
             </Grid.ColumnDefinitions>
+            <ProgressBar Grid.ColumnSpan="11" x:Name="CompileProgress" Height="18" IsIndeterminate="True" Visibility="Collapsed" />
+
 
             <Rectangle Name="BackGroundColor" Grid.ColumnSpan="11" Grid.Row="1" Fill="White" Opacity="0"/>
 
             <!--<Label Grid.ColumnSpan="3" HorizontalAlignment="Left" Height="23" Grid.RowSpan="2"  VerticalAlignment="Top" Width="120" Content="EUD Editor 3 V0.1" FontWeight="Bold" Foreground="#FFBEC700"/>-->
 
 
-            <Button Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="BtnSetting_Click" Background="White">
+            <Button x:Name="BtnSetting" Grid.Column="0" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="BtnSetting_Click" Background="White">
                 <Image  Source="Icon/settings.png"/>
                 <!-- 세팅-->
             </Button>
-            <Button Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="BtnNewFile_Click" Background="White">
+            <Button x:Name="BtnNewfile" Grid.Column="1" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="BtnNewFile_Click" Background="White">
                 <Image  Source="Icon/file.png"/>
                 <!-- 새파일-->
             </Button>
-            <Button Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="BtnLoad_Click" Background="White">
+            <Button x:Name="BtnOpenFile" Grid.Column="2" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="BtnLoad_Click" Background="White">
                 <Image  Source="Icon/folder-open.png"/>
                 <!-- 열기-->
             </Button>
@@ -162,7 +164,7 @@
                 <!-- 플러그인-->
             </Button>
 
-            <Button Grid.Column="10" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="ButClose_Click" Background="White">
+            <Button x:Name="Btn_ShutDown" Grid.Column="10" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" Click="ButClose_Click" Background="White">
                 <Image  Source="Icon/power.png"/>
                 <!-- 종료-->
             </Button>
@@ -178,5 +180,5 @@
         </Grid>
 
 
-    </Grid>
+    </DockPanel>
 </Window>

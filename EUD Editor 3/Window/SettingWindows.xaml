@@ -14,42 +14,59 @@
         Title="{StaticResource Setting}" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440" Topmost="True">
 
     <Grid>
-        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="5" TabStripPlacement="Left" Background="{DynamicResource MaterialDesignPaper}" >
+        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="6" TabStripPlacement="Left" Background="{DynamicResource MaterialDesignPaper}" >
             <TabItem x:Name="TabItem_ProjectSetting" Header="{StaticResource Project Setting}" >
                 <StackPanel Margin="10">
                     <Label  Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-
                     <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" />
-
                         <TextBox x:Name="TBOpenMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True"  />
                     </DockPanel>
                   
+                    
                     <Separator Background="#4CA0A0A0"/>
 
+                    
                     <Label Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-
-
                     <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnSaveMapSet_Click" />
-
                         <TextBox  x:Name="TBSaveMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
-       
                     </DockPanel>
 
-
-
+                    
                     <Separator Background="#4CA0A0A0"/>
 
+
+                    <Label Content="{StaticResource TempFileLoc}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <DockPanel Margin="5">
+                        <ComboBox 
+                            SelectionChanged="TempFileCombobox_SelectionChanged"
+                            x:Name="TempFileCombobox"
+                            MinWidth="80"
+                            VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}">
+                            <ComboBoxItem Content="{StaticResource TempFileLoc0}" />
+                            <ComboBoxItem Content="{StaticResource TempFileLoc1}"/>
+                            <ComboBoxItem Content="{StaticResource TempFileLoc2}"/>
+                        </ComboBox>
+                        <Button x:Name="TempFilebtn" DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="TempFilebtn_Click"/>
+                        <TextBox x:Name="TempFiletextbox"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
+  materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
+                    </DockPanel>
+                        
+                    
+                    <Separator Background="#4CA0A0A0"/>
+
+                    
                     <Label Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
-                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
-                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource AutoCompile}"/>
+                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
+                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
+                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}"/>
                     </StackPanel>
 
+                    
                 </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource Default Setting}">
@@ -102,9 +119,9 @@
                         <ComboBoxItem Content="{StaticResource Code CEng}"/>
                         <ComboBoxItem Content="{StaticResource Code CKor-Eng}"/>
                         <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
-                        <ComboBoxItem Content="{StaticResource Code CTbl}"/>
                     </ComboBox>
-                 </StackPanel>
+                    <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
+                </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource TE Setting}" >
                 <Grid />

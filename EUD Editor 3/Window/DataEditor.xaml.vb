@@ -2,7 +2,46 @@
 Imports MaterialDesignThemes.Wpf
 
 Public Class DataEditor
-    Public Sub OpenbyMainWindow()
+    Private LuaManager As LuaManager
+
+    Private WindowOpenType As OpenType
+    Public Enum OpenType
+        MainWindow
+        Orders
+        Drag
+    End Enum
+
+    Public Sub New(OType As OpenType)
+
+        ' 디자이너에서 이 호출이 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        Select Case OType
+            Case OpenType.MainWindow
+                OpenbyMainWindow()
+        End Select
+        WindowOpenType = OpenType.MainWindow
+    End Sub
+    Public Sub New(tab As TabItem, Optional Page As Integer = 0)
+
+        ' 디자이너에서 이 호출이 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        WindowOpenType = OpenType.Orders
+        OpenbyOthers(tab, Page)
+    End Sub
+    Public Sub New()
+
+        ' 디자이너에서 이 호출이 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        WindowOpenType = OpenType.Drag
+    End Sub
+
+    Private Sub OpenbyMainWindow()
         Dim TabContent As TabablzControl = MainTab.Content
         Dim mainTah As TabItem = TabItemTool.GetTabItem(SCDatFiles.DatFiles.units, 0)
         TabContent.Items.Add(mainTah)
@@ -12,7 +51,7 @@ Public Class DataEditor
 
     End Sub
 
-    Public Sub OpenbyOthers(tab As TabItem, Optional Page As Integer = 0)
+    Private Sub OpenbyOthers(tab As TabItem, Optional Page As Integer = 0)
         Dim TabContent As TabablzControl = MainTab.Content
         TabContent.Items.Add(tab)
         TabContent.SelectedItem = tab
@@ -27,13 +66,20 @@ Public Class DataEditor
     End Sub
     '데이터 상태랑 선택한 인덱스랑 어떤 페이지인지 알고 있어야 함
 
+    Private LastSize As Integer
+    Private Sub CodeExpander_SizeChanged(sender As Object, e As SizeChangedEventArgs)
+        If e.WidthChanged Then
+            Dim Gap As Integer = e.NewSize.Width - LastSize
+            LastSize = e.NewSize.Width
 
+            Me.Width += Gap
+        End If
+    End Sub
 
 
     Private completion As ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
-        'MsgBox("생성")
         pjData.CodeSelecters.Add(CodeList)
         CodeList.SetFliter(CodeSelecter.ESortType.n123)
         CodeList.ListReset(SCDatFiles.DatFiles.units, False)
@@ -42,40 +88,91 @@ Public Class DataEditor
         'MainTab.NewItemFactory = asdgfaqwea
         AddHandler ConsoleText.TextArea.TextEntering, AddressOf textEditor_TextArea_TextEntering
         AddHandler ConsoleText.TextArea.TextEntered, AddressOf textEditor_TextArea_TextEntered
+        ConsoleText.Clear()
 
+        LuaManager = New LuaManager(ConsoleLog)
+        If WindowOpenType = OpenType.Drag Then
+            Me.Width = 740 + 450 + 48
+        End If
     End Sub
 
     Private completionWindow As ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow
-    Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
-        If (e.Text = ".") Then
-            'Open code completion after the user has pressed dot
+
+
+    Private permissionChar() As String = {" ", "(", ")", "[", "]", "{", "}", vbTab}
+    Private Sub ConsoleText_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+        Dim inputkey As String = e.Key.ToString
+
+        If inputkey.Length <> 1 Then
+            Return
+        End If
+
+        Dim flag As Boolean
+        If completionWindow Is Nothing Then
+
+            Dim LastSelectStart As Integer = ConsoleText.SelectionStart
+            Dim LastSelectLength As Integer = ConsoleText.SelectionLength
+
+            If ConsoleText.SelectionStart > 1 Then
+                ConsoleText.SelectionStart -= 1
+                ConsoleText.SelectionLength = 1
+                'MsgBox(ConsoleText.SelectedText)
+                flag = (permissionChar.ToList.IndexOf(ConsoleText.SelectedText) >= 0)
+                'MsgBox(ConsoleText.SelectedText)
+                ConsoleText.SelectionLength = LastSelectLength
+                ConsoleText.SelectionStart = LastSelectStart
+            Else
+                flag = True
+            End If
+
+        Else
+            flag = True
+        End If
+
+
+        If completionWindow Is Nothing And LuaManager.CheckExistFunc(inputkey) And flag Then
             completionWindow = New ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow(ConsoleText.TextArea)
             Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = completionWindow.CompletionList.CompletionData
-            data.Add(New MyCompletionData("Item1"))
-            data.Add(New MyCompletionData("Item2"))
-            data.Add(New MyCompletionData("Item3"))
+
+            For i = 0 To LuaManager.Functions.Count - 1
+                data.Add(New DataEditCompletionData(LuaManager.Functions(i), LuaManager.ToolTips(i), ConsoleText, DataEditCompletionData.EIconType.Funcname))
+            Next
+            For i = 0 To LuaManager.Propertys.Count - 1
+                data.Add(New DataEditCompletionData(LuaManager.Propertys(i), LuaManager.PropertyToolTips(i), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
+            Next
+            For i = 0 To LuaManager.LuaKeyWord.Count - 1
+                data.Add(New DataEditCompletionData(LuaManager.LuaKeyWord(i), Nothing, ConsoleText, DataEditCompletionData.EIconType.KeyWord))
+            Next
+
+            'completionWindow.CompletionList.Foreground = Brushes.Black
+            completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
+            completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
+
             completionWindow.Show()
+            completionWindow.CompletionList.SelectItem(inputkey)
+
+            'completionWindow.CompletionList.ListBox.Style = Application.Current.Resources("MaterialDesignToolToggleListBox")
             AddHandler completionWindow.Closed, Sub()
                                                     completionWindow = Nothing
                                                 End Sub
         End If
+    End Sub
 
 
 
+    Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
     End Sub
 
     Private Sub textEditor_TextArea_TextEntering(sender As Object, e As TextCompositionEventArgs)
         If (e.Text.Length > 0 And completionWindow IsNot Nothing) Then
-            If (Not Char.IsLetterOrDigit(e.Text(0))) Then
-
+            If e.Text = vbTab Then
                 completionWindow.CompletionList.RequestInsertion(e)
+            ElseIf Not Char.IsLetterOrDigit(e.Text(0)) Then
+                completionWindow.Close()
             End If
         End If
-
-
-
-
     End Sub
+
     'Private Function dsafads() As TabItem
     '    Dim index As Integer = 20
 
@@ -219,20 +316,26 @@ Public Class DataEditor
                 'ConsoleText.SelectedText = vbCrLf
                 'ConsoleText.SelectionStart += 1
             Else
-                ConsoleLog.AppendText(vbCrLf)
-                ConsoleLog.AppendText(ConsoleText.Text)
-
-                Try
-                    pgData.LuaManager.DoString(ConsoleText.Text)
-                Catch ex As Exception
+                If ConsoleText.Text.Trim <> "" Then
                     ConsoleLog.AppendText(vbCrLf)
-                    ConsoleLog.AppendText(ex.Message)
-                    'ConsoleLog.AppendText(ex.ToString)
-                End Try
+                    ConsoleLog.AppendText(ConsoleText.Text)
 
-                ConsoleLog.ScrollToEnd()
-                ClearText = True
+                    Try
+                        LuaManager.DoString(ConsoleText.Text)
+                    Catch ex As Exception
+                        'MsgBox(ex.ToString)
+                        ConsoleLog.AppendText(vbCrLf)
+                        ConsoleLog.AppendText(ex.Message)
+                        'ConsoleLog.AppendText(ex.ToString)
+                    End Try
 
+                    ConsoleLog.ScrollToEnd()
+                    ConsoleText.Clear()
+                    ClearText = True
+                Else
+                    ConsoleText.Clear()
+                    ClearText = True
+                End If
             End If
         End If
     End Sub
@@ -248,13 +351,17 @@ Public Class DataEditor
 
 
 
-    Private LastSize As Integer
-    Private Sub CodeExpander_SizeChanged(sender As Object, e As SizeChangedEventArgs)
-        If e.WidthChanged Then
-            Dim Gap As Integer = e.NewSize.Width - LastSize
-            LastSize = e.NewSize.Width
 
-            Me.Width += Gap
-        End If
+
+    Private Sub OpenFucnFolder(sender As Object, e As RoutedEventArgs)
+        Process.Start("explorer.exe", "/root," & LuaManager.LuaFloderPath)
+    End Sub
+
+    Private Sub refreshLua(sender As Object, e As RoutedEventArgs)
+        LuaManager = New LuaManager(ConsoleLog)
+    End Sub
+
+    Private Sub LogClear(sender As Object, e As RoutedEventArgs)
+        ConsoleLog.Clear()
     End Sub
 End Class

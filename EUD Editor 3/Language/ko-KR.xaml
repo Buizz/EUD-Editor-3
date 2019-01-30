@@ -8,9 +8,22 @@
     <sys:String x:Key="OpenMap">연결된 맵</sys:String>
     <sys:String x:Key="SaveMap">저장맵</sys:String>
     <sys:String x:Key="Find">찾아보기</sys:String>
+
+
+
+    <sys:String x:Key="TempFileLoc">임시 파일 위치</sys:String>
+    <sys:String x:Key="TempFileLoc0">Data폴더</sys:String>
+    <sys:String x:Key="TempFileLoc1">맵 파일 폴더</sys:String>
+    <sys:String x:Key="TempFileLoc2">사용자 지정</sys:String>
+    
+    
+    
     <sys:String x:Key="TBLChange">Tbl변형</sys:String>
     <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
-    <sys:String x:Key="AutoCompile">자동 컴파일</sys:String>
+    <sys:String x:Key="AutoCompile">자동 빌드</sys:String>
+    
+    
+    
     <sys:String x:Key="Project Setting">프로젝트 설정</sys:String>
     <sys:String x:Key="Default Setting">기본 설정</sys:String>
     <sys:String x:Key="DatEdit Setting">데이터 에디터</sys:String>
@@ -22,8 +35,13 @@
     <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
     <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
 
+    
+    
+    
+    
+    
     <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기</sys:String>
-    <sys:String x:Key="ToolTip Compile">컴파일</sys:String>
+    <sys:String x:Key="ToolTip Compile">빌드</sys:String>
     <sys:String x:Key="ToolTip DE">데이터 에디터</sys:String>
     <sys:String x:Key="ToolTip TE">트리거 에디터</sys:String>
     <sys:String x:Key="ToolTip Plugin">플러그인 설정</sys:String>
@@ -36,7 +54,8 @@
     <sys:String x:Key="StarExeFile">스타크래프트 실행 파일</sys:String>
     <sys:String x:Key="euddraftExe">euddraft 실행 파일</sys:String>
 
-    <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>
+    <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s</sys:String>
+    <!--<sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>-->
     <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s</sys:String>
     <!--<sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>-->
 
@@ -53,7 +72,8 @@
     <sys:String x:Key="Code CEng">영어</sys:String>
     <sys:String x:Key="Code CKor-Eng">한글(음역)</sys:String>
     <sys:String x:Key="Code CKor-Kor">한글(완역)</sys:String>
-    <sys:String x:Key="Code CTbl">Tbl에서 추출</sys:String>
+
+    <sys:String x:Key="Code CTbl">수정된 텍스트 반영</sys:String>
 
 
     <sys:String x:Key="Copy">복사</sys:String>
@@ -77,7 +97,7 @@
 
     <sys:String x:Key="Error OpenMap is not SaveMap">연결된 맵과 저장맵의 이름은 같을 수 없습니다.</sys:String>
     <sys:String x:Key="Error OpenMap is not exist reset">연결된 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
-    <sys:String x:Key="Error SaveMap is not exist reset">저장 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
+    <sys:String x:Key="Error SaveMap is not exist reset">저장 맵을 생성 할 수 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error SettingSave Fail">프로그램 세팅 저장을 실패했습니다.</sys:String>
     <sys:String x:Key="Error ProgramInit Fail">프로그램 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
     <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
@@ -86,13 +106,17 @@
     <sys:String x:Key="Error NotExistMPQ reset">MPQ파일이 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail OpenMap is not exist!">컴파일에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail SaveMap is not exist!">컴파일에 실패했습니다. 저장 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail euddraft is not exist!">컴파일에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail OpenMap is not exist!">빌드에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail SaveMap is not exist!">빌드에 실패했습니다. 저장 맵을 생성 할 수 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail euddraft is not exist!">빌드에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error FailLoad DataEditor">데이터 에디터 로드에 실패했습니다.</sys:String>
     <sys:String x:Key="Error FailLoad TriggerEditor">트리거 에디터 로드에 실패했습니다.</sys:String>
     <sys:String x:Key="Error FailLoad PluginSet">플러그인 세팅 로드에 실패했습니다.</sys:String>
+
+    <sys:String x:Key="Error compiling">빌드 중에는 종료 할 수 없습니다.</sys:String>
+    <sys:String x:Key="Compile">빌드 중...</sys:String>
+    
 
 
     <!--MapOpenError-->
@@ -105,6 +129,11 @@
 
 
     <!--DataEditor-->
+    <sys:String x:Key="OpenFuncFoloder">함수 폴더 열기</sys:String>
+    <sys:String x:Key="refreshLua">새로고침</sys:String>
+    <sys:String x:Key="LogClear">로그 지우기</sys:String>
+    
+    
     <sys:String x:Key="TopMost">항상 위</sys:String>
     <sys:String x:Key="Transparency">투명도</sys:String>
 

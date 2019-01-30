@@ -9,12 +9,6 @@ Public Class SettingWindows
         TBStarCraftexe.Text = pgData.Setting(ProgramData.TSetting.starcraft)
         TBeuddraftexe.Text = pgData.Setting(ProgramData.TSetting.euddraft)
 
-        If Tool.IsProjectLoad Then
-            TBOpenMap.Text = pjData.OpenMapName
-            TBSaveMap.Text = pjData.SaveMapName
-        End If
-
-
         '언어 설정
         Dim CurrentLan As String = pgData.Setting(ProgramData.TSetting.Language)
         'MsgBox(CurrentLan)
@@ -30,6 +24,28 @@ Public Class SettingWindows
 
 
         CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanuage)
+        ChangeTblUse.IsChecked = pgData.Setting(ProgramData.TSetting.CDLanuageChange)
+
+
+        If Tool.IsProjectLoad Then
+            TBOpenMap.Text = pjData.OpenMapName
+            TBSaveMap.Text = pjData.SaveMapName
+
+
+            Select Case pjData.TempFileLoc
+                Case "0", "1"
+                    TempFileCombobox.SelectedIndex = pjData.TempFileLoc
+                    TempFileCombobox.Width = 529
+                    TempFiletextbox.Visibility = Visibility.Collapsed
+                    TempFilebtn.Visibility = Visibility.Collapsed
+                Case Else
+                    TempFiletextbox.Text = pjData.TempFileLoc
+                    TempFileCombobox.SelectedIndex = 2
+                    TempFileCombobox.Width = 80
+                    TempFiletextbox.Visibility = Visibility.Visible
+                    TempFilebtn.Visibility = Visibility.Visible
+            End Select
+        End If
     End Sub
 
 
@@ -103,6 +119,37 @@ Public Class SettingWindows
 
             pgData.Setting(ProgramData.TSetting.CDLanuage) = SelectItem.SelectedIndex
         End If
+    End Sub
+
+    Private Sub ChangeTblUse_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.CDLanuageChange) = ChangeTblUse.IsChecked
+    End Sub
+
+    Private Sub TempFilebtn_Click(sender As Object, e As RoutedEventArgs)
+        Dim folderSelect As New System.Windows.Forms.FolderBrowserDialog
+
+        If folderSelect.ShowDialog = Forms.DialogResult.OK Then
+            pjData.TempFileLoc = folderSelect.SelectedPath
+
+            TempFiletextbox.Text = pjData.TempFileLoc
+        End If
+    End Sub
+
+    Private Sub TempFileCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
+        Select Case TempFileCombobox.SelectedIndex
+            Case 0, 1
+                pjData.TempFileLoc = TempFileCombobox.SelectedIndex
+                TempFileCombobox.Width = 529
+                TempFiletextbox.Visibility = Visibility.Collapsed
+                TempFilebtn.Visibility = Visibility.Collapsed
+            Case Else
+                pjData.TempFileLoc = ""
+                TempFiletextbox.Text = ""
+                TempFileCombobox.Width = 80
+                TempFiletextbox.Visibility = Visibility.Visible
+                TempFilebtn.Visibility = Visibility.Visible
+        End Select
     End Sub
 
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged

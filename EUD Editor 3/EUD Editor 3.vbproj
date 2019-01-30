@@ -174,6 +174,7 @@
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
     <Compile Include="Class\Command\DateEditor\UICommand.vb" />
     <Compile Include="Class\DataManager.vb" />
+    <Compile Include="Class\Data\EudplibData.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
@@ -183,7 +184,7 @@
     <Compile Include="Class\Data\ProjectData.vb" />
     <Compile Include="Class\Data\SCDatFiles.vb" />
     <Compile Include="Class\Data\StarCraftData.vb" />
-    <Compile Include="Class\MyCompletionData.vb" />
+    <Compile Include="Class\DataEditCompletionData.vb" />
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
@@ -290,11 +291,11 @@
     <Compile Include="Window\TriggerEditor.xaml.vb">
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
     </Compile>
-    <Page Include="Data\Language\us-EN.xaml">
+    <Page Include="Language\us-EN.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="Data\Language\ko-KR.xaml">
+    <Page Include="Language\ko-KR.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -614,6 +615,8 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Class\Binding\CodeName\" />
+    <Folder Include="Data\eudplibData\" />
+    <Folder Include="Data\Lua\DataEditor\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\file.png" />
@@ -679,6 +682,16 @@
     <EmbeddedResource Include="Data\Texts\IscriptIDList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Data\Resources\Func.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Resources\Setting.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Resources\KeyWord.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Resources\success.wav" />
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

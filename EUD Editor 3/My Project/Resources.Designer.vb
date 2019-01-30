@@ -59,5 +59,14 @@ Namespace My.Resources
                 resourceCulture = value
             End Set
         End Property
+        
+        '''<summary>
+        '''  System.IO.MemoryStream과(와) 유사한 System.IO.UnmanagedMemoryStream 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property success() As System.IO.UnmanagedMemoryStream
+            Get
+                Return ResourceManager.GetStream("success", resourceCulture)
+            End Get
+        End Property
     End Module
 End Namespace

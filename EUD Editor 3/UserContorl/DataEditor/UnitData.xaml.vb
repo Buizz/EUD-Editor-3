@@ -6,6 +6,8 @@
         Unit_Graphic.ReLoad(DatFiles, ObjectID)
         Unit_MapEdit.ReLoad(DatFiles, ObjectID)
         Unit_AIOrder.ReLoad(DatFiles, ObjectID)
+
+        TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, ObjectID)
     End Sub
 
     Public Sub New(tObjectID As Integer)
@@ -27,6 +29,8 @@
         Graphic.Content = Unit_Graphic
         MapEdit.Content = Unit_MapEdit
         AIOrder.Content = Unit_AIOrder
+
+        TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, tObjectID)
     End Sub
 
     Private Unit_Default As Unit_Default

@@ -852,9 +852,14 @@ Public Class CodeSelecter
             '만약에 부모의 자식이 하나도 없을 경우 그 부모도 지운다.(이걸 부모가 TreeView일때까지 반복
 
 
-
             MoveTreeList(CodeIndexerTree, TargetItem)
-            CodeIndexerTree.Items.Add(TargetItem)
+            Try
+                CodeIndexerTree.Items.Add(TargetItem)
+            Catch ex As Exception
+
+            End Try
+
+
             'TreeviewItemDic(ObjectID).Header = "ㅎㅎ"
         End If
     End Sub

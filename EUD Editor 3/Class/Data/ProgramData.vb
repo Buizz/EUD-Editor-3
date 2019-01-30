@@ -36,7 +36,7 @@ Public Class ProgramData
     End Sub
     Public Sub SetLanguage(LanName As String)
         Dim dict As New ResourceDictionary()
-        dict.Source = New Uri("Data\Language\" & LanName & ".xaml", UriKind.Relative)
+        dict.Source = New Uri("Language\" & LanName & ".xaml", UriKind.Relative)
 
         Application.Current.Resources.MergedDictionaries.Add(dict)
 
@@ -44,7 +44,6 @@ Public Class ProgramData
     End Sub
 
 
-    Public ReadOnly Property LuaManager As LuaManager
 
     '사용자 지정 컬러
     Public Property PFiledDefault As Color
@@ -104,14 +103,26 @@ Public Class ProgramData
     End Property
 
 
+    Public Property IsCompilng As Boolean
+
 
 
     Private pgsetting As IniClass
-
-
     Public Sub New()
         pgsetting = New IniClass(Tool.GetSettingFile)
-        LuaManager = New LuaManager
+
+        Try
+            Dim bool As Boolean = Setting(ProgramData.TSetting.CDLanuageChange)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.CDLanuageChange) = True
+        End Try
+        Try
+            Dim uint As UInt32 = Setting(ProgramData.TSetting.CDLanuage)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.CDLanuage) = 0
+        End Try
+
+        IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
     End Sub
 
@@ -136,11 +147,13 @@ Public Class ProgramData
         MapEditorData = 14
         EditedData = 15
         CheckedData = 16
+        CDLanuageChange = 17
     End Enum
     Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
     "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush",
     "PrimaryHueDarkBrush", "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush",
-    "DefaultData", "MapEditorData", "EditedData", "CheckedData"}
+    "DefaultData", "MapEditorData", "EditedData", "CheckedData",
+    "CDLanuageChange"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))
@@ -150,20 +163,20 @@ Public Class ProgramData
         End Set
     End Property
     Public Sub SaveSetting()
-        pgData.Setting(ProgramData.TSetting.DefaultData) = pgData.PFiledDefault.ToString()
-        pgData.Setting(ProgramData.TSetting.MapEditorData) = pgData.PFiledMapEditColor.ToString()
-        pgData.Setting(ProgramData.TSetting.EditedData) = pgData.PFiledEditColor.ToString()
-        pgData.Setting(ProgramData.TSetting.CheckedData) = pgData.PFiledFalgColor.ToString()
+        Setting(ProgramData.TSetting.DefaultData) = pgData.PFiledDefault.ToString()
+        Setting(ProgramData.TSetting.MapEditorData) = pgData.PFiledMapEditColor.ToString()
+        Setting(ProgramData.TSetting.EditedData) = pgData.PFiledEditColor.ToString()
+        Setting(ProgramData.TSetting.CheckedData) = pgData.PFiledFalgColor.ToString()
 
 
-        pgData.Setting(ProgramData.TSetting.PrimaryHueLightBrush) = CType(Application.Current.Resources("PrimaryHueLightBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.PrimaryHueMidBrush) = CType(Application.Current.Resources("PrimaryHueMidBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.PrimaryHueDarkBrush) = CType(Application.Current.Resources("PrimaryHueDarkBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.PrimaryHueLightForegroundBrush) = CType(Application.Current.Resources("PrimaryHueLightForegroundBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.PrimaryHueMidForegroundBrush) = CType(Application.Current.Resources("PrimaryHueMidForegroundBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.PrimaryHueDarkForegroundBrush) = CType(Application.Current.Resources("PrimaryHueDarkForegroundBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.SecondaryAccentBrush) = CType(Application.Current.Resources("SecondaryAccentBrush"), SolidColorBrush).Color.ToString
-        pgData.Setting(ProgramData.TSetting.SecondaryAccentForegroundBrush) = CType(Application.Current.Resources("SecondaryAccentForegroundBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.PrimaryHueLightBrush) = CType(Application.Current.Resources("PrimaryHueLightBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.PrimaryHueMidBrush) = CType(Application.Current.Resources("PrimaryHueMidBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.PrimaryHueDarkBrush) = CType(Application.Current.Resources("PrimaryHueDarkBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.PrimaryHueLightForegroundBrush) = CType(Application.Current.Resources("PrimaryHueLightForegroundBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.PrimaryHueMidForegroundBrush) = CType(Application.Current.Resources("PrimaryHueMidForegroundBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.PrimaryHueDarkForegroundBrush) = CType(Application.Current.Resources("PrimaryHueDarkForegroundBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.SecondaryAccentBrush) = CType(Application.Current.Resources("SecondaryAccentBrush"), SolidColorBrush).Color.ToString
+        Setting(ProgramData.TSetting.SecondaryAccentForegroundBrush) = CType(Application.Current.Resources("SecondaryAccentForegroundBrush"), SolidColorBrush).Color.ToString
 
         pgsetting.WriteIni()
     End Sub

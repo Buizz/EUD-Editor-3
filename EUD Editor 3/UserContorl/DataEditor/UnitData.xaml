@@ -41,18 +41,15 @@
             </TabItem>
         </dragablz:TabablzControl>
         <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
-            <ListBoxItem Content="{StaticResource UnitDefault}"/>
-            <ListBoxItem Content="{StaticResource UnitSpecial}"/>
-            <ListBoxItem Content="{StaticResource UnitSound}"/>
-            <ListBoxItem Content="{StaticResource UnitGraphic}"/>
-            <ListBoxItem Content="{StaticResource UnitMapEdit}"/>
-            <ListBoxItem Content="{StaticResource UnitAIOrder}"/>
+            <ListBoxItem Content="{StaticResource UnitDefault}" Background="{Binding BackPage0}"/>
+            <ListBoxItem Content="{StaticResource UnitSpecial}" Background="{Binding BackPage1}"/>
+            <ListBoxItem Content="{StaticResource UnitSound}" Background="{Binding BackPage2}"/>
+            <ListBoxItem Content="{StaticResource UnitGraphic}" Background="{Binding BackPage3}"/>
+            <ListBoxItem Content="{StaticResource UnitMapEdit}" Background="{Binding BackPage4}"/>
+            <ListBoxItem Content="{StaticResource UnitAIOrder}" Background="{Binding BackPage5}"/>
             <ListBoxItem Content="{StaticResource UnitInfor}"/>
             <ListBoxItem Content="{StaticResource UnitRequir}"/>
             <ListBoxItem Content="{StaticResource UnitWireFrame}"/>
-            
-
-
         </ListBox>
 
     </Grid>

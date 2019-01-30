@@ -34,11 +34,100 @@ Public Class UIManager
 
     Public Sub BackColorRefresh()
         NotifyPropertyChanged("Back")
+        NotifyPropertyChanged("BackPage0")
+        NotifyPropertyChanged("BackPage1")
+        NotifyPropertyChanged("BackPage2")
+        NotifyPropertyChanged("BackPage3")
+        NotifyPropertyChanged("BackPage4")
+        NotifyPropertyChanged("BackPage5")
     End Sub
 
     Public Sub ChangeProperty()
         NotifyPropertyChanged("Back")
+        NotifyPropertyChanged("BackPage0")
+        NotifyPropertyChanged("BackPage1")
+        NotifyPropertyChanged("BackPage2")
+        NotifyPropertyChanged("BackPage3")
+        NotifyPropertyChanged("BackPage4")
+        NotifyPropertyChanged("BackPage5")
     End Sub
+
+    Public ReadOnly Property BackPage0() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 0) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPage1() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 1) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPage2() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 2) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPage3() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 3) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPage4() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 4) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPage5() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 5) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+
+
+
+
 
     Public ReadOnly Property Back() As SolidColorBrush
         Get

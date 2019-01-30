@@ -36,10 +36,23 @@
     <DockPanel>
         <Expander Name="Console" DockPanel.Dock="Bottom" Header="{StaticResource CommandExpander}" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" IsExpanded="True">
             <DockPanel>
-
+                <ToolBarTray x:Name="toolBarTray"  DockPanel.Dock="Top" >
+                    <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}"  >
+                        <Button Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource OpenFuncFoloder}" Click="OpenFucnFolder">
+                            <materialDesign:PackIcon Kind="FolderOpen"  Margin="-10" />
+                        </Button>
+                        <Button Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource refreshLua}" Click="refreshLua">
+                            <materialDesign:PackIcon Kind="Restart" Margin="-10"/>
+                        </Button>
+                        <Button  Padding="0" MinWidth="0" Width="34"  Height="34" ToolTip="{StaticResource LogClear}" Click="LogClear">
+                            <materialDesign:PackIcon Kind="RubbishBinEmpty"  Margin="-10"/>
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
 
 
                 <avalonEdit:TextEditor  
+                    PreviewKeyDown="ConsoleText_PreviewKeyDown"
                     Foreground="{StaticResource MaterialDesignBody}"
                     x:Name="ConsoleText"
                     DockPanel.Dock="Bottom" 
@@ -52,7 +65,7 @@
                     IsReadOnly="true"
                     VerticalAlignment="Top"
                     TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto" Height="150" />
+                    VerticalScrollBarVisibility="Auto" Height="130" />
             </DockPanel>
         </Expander>
 

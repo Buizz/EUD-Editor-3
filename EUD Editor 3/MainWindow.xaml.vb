@@ -6,6 +6,30 @@ Class MainWindow
         Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
                                                                     Dim tbool As Boolean = Tool.IsProjectLoad
 
+                                                                    If pgData.IsCompilng Then
+                                                                        ProgramName.Text = Tool.GetText("Compile")
+                                                                        'ProgramName.Visibility = Visibility.Collapsed
+                                                                        CompileProgress.Visibility = Visibility.Visible
+                                                                        BtnSetting.IsEnabled = False
+                                                                        BtnNewfile.IsEnabled = False
+                                                                        BtnOpenFile.IsEnabled = False
+                                                                        Btn_ShutDown.IsEnabled = False
+                                                                        BtnClose.IsEnabled = False
+                                                                        BtnSave.IsEnabled = False
+                                                                        Btn_insert.IsEnabled = False
+                                                                        Return
+                                                                    Else
+                                                                        'ProgramName.Visibility = Visibility.Visible
+                                                                        CompileProgress.Visibility = Visibility.Collapsed
+                                                                        BtnSetting.IsEnabled = True
+                                                                        BtnNewfile.IsEnabled = True
+                                                                        BtnOpenFile.IsEnabled = True
+                                                                        Btn_ShutDown.IsEnabled = True
+
+                                                                        ProgramName.Text = Tool.GetTitleName
+                                                                    End If
+
+
 
                                                                     BtnClose.IsEnabled = tbool
                                                                     BtnSave.IsEnabled = tbool
@@ -15,8 +39,6 @@ Class MainWindow
                                                                     Btn_scmd.IsEnabled = tbool
                                                                     Btn_TriggerEdit.IsEnabled = tbool
 
-                                                                    ProgramName.Text = Tool.GetTitleName
-
                                                                     If tbool Then
                                                                         If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
                                                                             Btn_scmd.Background = Brushes.White
@@ -24,7 +46,7 @@ Class MainWindow
                                                                             Btn_scmd.Background = Brushes.Pink
                                                                         End If
                                                                         If My.Computer.FileSystem.FileExists(pjData.OpenMapName) And
-                                                                        My.Computer.FileSystem.FileExists(pjData.SaveMapName) And
+                                                                        My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) And
                                                                          My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
                                                                             Btn_insert.Background = Brushes.White
                                                                         Else
@@ -42,7 +64,6 @@ Class MainWindow
                                                                         End If
                                                                     End If
                                                                 End Sub))
-
     End Sub
 
 
@@ -64,20 +85,34 @@ Class MainWindow
     End Sub
 
     Private Sub ButClose_Click(sender As Object, e As RoutedEventArgs)
-        Tool.CloseWindows()
-        If Tool.IsProjectLoad Then
-            If pjData.CloseFile() Then
-                pjData = Nothing
-                Me.Close()
-                Exit Sub
-            Else
-                Exit Sub
-            End If
-        End If
-
         Me.Close()
         BtnRefresh()
     End Sub
+
+    Private Sub Window_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
+        If pgData.IsCompilng Then
+            Tool.ErrorMsgBox(Tool.GetText("Error compiling"))
+            e.Cancel = True
+        Else
+            Tool.CloseWindows()
+            If Tool.IsProjectLoad Then
+                If pjData.CloseFile() Then
+                    pjData = Nothing
+
+                    Return
+                Else
+                    e.Cancel = True
+                    Return
+                End If
+            End If
+
+            e.Cancel = ShutDownProgram()
+        End If
+
+    End Sub
+
+
+
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         If InitProgram() Then
@@ -85,9 +120,6 @@ Class MainWindow
         End If
         'MsgBox(System.Threading.Thread.CurrentThread.CurrentUICulture.ToString())
     End Sub
-
-
-
 
 
     Private Sub ContorlPanel_MouseDown(sender As Object, e As MouseButtonEventArgs)
@@ -141,11 +173,6 @@ Class MainWindow
         End If
     End Sub
 
-    Private Sub Window_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
-        Tool.CloseWindows()
-        e.Cancel = ShutDownProgram()
-    End Sub
-
     Private Sub BtnNewFile_Click(sender As Object, e As RoutedEventArgs)
         Tool.CloseWindows()
         ProjectData.Load(True, pjData)
@@ -181,6 +208,8 @@ Class MainWindow
     End Sub
 
     Private Sub Btn_scmd_Click(sender As Object, e As RoutedEventArgs)
+        BtnRefresh()
+
         If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
             Process.Start(pjData.OpenMapName)
             Exit Sub
@@ -197,6 +226,8 @@ Class MainWindow
     End Sub
 
     Private Sub Btn_insert_Click(sender As Object, e As RoutedEventArgs)
+        BtnRefresh()
+
         If Not My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
             If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 If Not Tool.OpenMapSet Then
@@ -209,7 +240,7 @@ Class MainWindow
                 Exit Sub
             End If
         End If
-        If Not My.Computer.FileSystem.FileExists(pjData.SaveMapName) Then
+        If Not My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) Then
             If MsgBox(Tool.GetText("Error SaveMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 If Not Tool.SaveMapSet Then
                     Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
@@ -243,11 +274,13 @@ Class MainWindow
             End If
         End If
 
-        MsgBox("삽입완료")
+        pjData.EudplibData.Build()
     End Sub
 
 
     Private Sub BtnDataEditor_Click(sender As Object, e As RoutedEventArgs)
+        BtnRefresh()
+
         If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
             If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
@@ -273,12 +306,13 @@ Class MainWindow
 
 
         'pjData.SetDirty(True)
-        Dim DataEditorForm As New DataEditor
+        Dim DataEditorForm As New DataEditor(DataEditor.OpenType.MainWindow)
         DataEditorForm.Show()
-        DataEditorForm.OpenbyMainWindow()
     End Sub
 
     Private Sub Btn_TriggerEdit_Click(sender As Object, e As RoutedEventArgs)
+        BtnRefresh()
+
         If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
             If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
@@ -310,6 +344,8 @@ Class MainWindow
     End Sub
 
     Private Sub Btn_Plugin_Click(sender As Object, e As RoutedEventArgs)
+        BtnRefresh()
+
         If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
             If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {

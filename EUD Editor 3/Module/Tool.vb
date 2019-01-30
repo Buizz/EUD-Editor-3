@@ -167,6 +167,7 @@ Namespace Tool
         End Property
 
 
+
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
 
         Private MainWindow As MainWindow
@@ -211,9 +212,9 @@ End Namespace
 Namespace TabItemTool
     Module TabItemTool
         Public Sub WindowTabItem(Datfile As SCDatFiles.DatFiles, index As Integer)
-            Dim DataEditorForm As New DataEditor
+            Dim DataEditorForm As New DataEditor(GetTabItem(Datfile, index), Datfile)
+            'DataEditorForm.OpenbyOthers(GetTabItem(Datfile, index), Datfile)
             DataEditorForm.Show()
-            DataEditorForm.OpenbyOthers(GetTabItem(Datfile, index), Datfile)
         End Sub
 
         Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData), GetType(FlingyData), GetType(SpriteData), GetType(ImageData), GetType(UpgradeData), GetType(TechData), GetType(OrderData), Nothing, Nothing, Nothing, GetType(StatTxtData)}
