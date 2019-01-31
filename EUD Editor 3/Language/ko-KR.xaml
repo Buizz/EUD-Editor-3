@@ -14,7 +14,8 @@
     <sys:String x:Key="TempFileLoc">임시 파일 위치</sys:String>
     <sys:String x:Key="TempFileLoc0">Data폴더</sys:String>
     <sys:String x:Key="TempFileLoc1">맵 파일 폴더</sys:String>
-    <sys:String x:Key="TempFileLoc2">사용자 지정</sys:String>
+    <sys:String x:Key="TempFileLoc2">세이브 파일 폴더</sys:String>
+    <sys:String x:Key="TempFileLoc3">사용자 지정</sys:String>
     
     
     
@@ -106,9 +107,12 @@
     <sys:String x:Key="Error NotExistMPQ reset">MPQ파일이 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error complieFail NotSaved Project">빌드에 실패했습니다. 세이브 파일 폴더 지정 형식은 세이브 파일이 존재해야 합니다.</sys:String>
     <sys:String x:Key="Error complieFail OpenMap is not exist!">빌드에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
     <sys:String x:Key="Error complieFail SaveMap is not exist!">빌드에 실패했습니다. 저장 맵을 생성 할 수 없습니다.</sys:String>
     <sys:String x:Key="Error complieFail euddraft is not exist!">빌드에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
+    <sys:String x:Key="Error TempFolder is not exist reset">임시 파일 폴더가 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
+    <sys:String x:Key="Error complieFail TempFolder is not exist!">빌드에 실패했습니다. 임시 파일 폴더가 지정되어 있지 않습니다.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error FailLoad DataEditor">데이터 에디터 로드에 실패했습니다.</sys:String>
     <sys:String x:Key="Error FailLoad TriggerEditor">트리거 에디터 로드에 실패했습니다.</sys:String>
@@ -132,9 +136,10 @@
     <sys:String x:Key="OpenFuncFoloder">함수 폴더 열기</sys:String>
     <sys:String x:Key="refreshLua">새로고침</sys:String>
     <sys:String x:Key="LogClear">로그 지우기</sys:String>
-    
-    
+
+
     <sys:String x:Key="TopMost">항상 위</sys:String>
+    <sys:String x:Key="TopMostOption">항상 위로 켜짐</sys:String>
     <sys:String x:Key="Transparency">투명도</sys:String>
 
     <sys:String x:Key="CommandExpander">명령 창</sys:String>
@@ -291,8 +296,8 @@
     <sys:String x:Key="units_Addon Horizontal (X) Position">가로</sys:String>
     <sys:String x:Key="units_Addon Vertical (Y) Position">세로</sys:String>
     <sys:String x:Key="units_Unit Size Left">좌</sys:String>
-    <sys:String x:Key="units_Unit Size Up">우</sys:String>
-    <sys:String x:Key="units_Unit Size Right">상</sys:String>
+    <sys:String x:Key="units_Unit Size Up">상</sys:String>
+    <sys:String x:Key="units_Unit Size Right">우</sys:String>
     <sys:String x:Key="units_Unit Size Down">하</sys:String>
     <sys:String x:Key="units_Portrait">얼굴모습</sys:String>
     <sys:String x:Key="units_Mineral Cost">미네랄</sys:String>

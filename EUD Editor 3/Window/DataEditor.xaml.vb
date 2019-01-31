@@ -94,6 +94,7 @@ Public Class DataEditor
         If WindowOpenType = OpenType.Drag Then
             Me.Width = 740 + 450 + 48
         End If
+        Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
     End Sub
 
     Private completionWindow As ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow

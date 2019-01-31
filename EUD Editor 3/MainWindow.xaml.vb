@@ -228,52 +228,6 @@ Class MainWindow
     Private Sub Btn_insert_Click(sender As Object, e As RoutedEventArgs)
         BtnRefresh()
 
-        If Not My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
-            If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-                If Not Tool.OpenMapSet Then
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail OpenMap is not exist!"))
-                    Exit Sub
-                End If
-                BtnRefresh()
-            Else
-                Tool.ErrorMsgBox(Tool.GetText("Error complieFail OpenMap is not exist!"))
-                Exit Sub
-            End If
-        End If
-        If Not My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) Then
-            If MsgBox(Tool.GetText("Error SaveMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-                If Not Tool.SaveMapSet Then
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
-                    Exit Sub
-                End If
-                BtnRefresh()
-            Else
-                Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
-                Exit Sub
-            End If
-        End If
-        If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
-            If MsgBox(Tool.GetText("Error euddraft is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-                Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
-                .Filter = "euddraft.exe|euddraft.exe",
-                .FileName = "euddraft.exe",
-                .Title = Tool.GetText("euddraftExe Select")
-            }
-
-
-                If opendialog.ShowDialog() = Forms.DialogResult.OK Then
-                    pgData.Setting(ProgramData.TSetting.euddraft) = opendialog.FileName
-                    BtnRefresh()
-                Else
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
-                    Exit Sub
-                End If
-            Else
-                Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
-                Exit Sub
-            End If
-        End If
-
         pjData.EudplibData.Build()
     End Sub
 

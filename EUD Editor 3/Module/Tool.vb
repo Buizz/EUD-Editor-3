@@ -6,6 +6,95 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
+
+        Private MainWindow As MainWindow
+        Public Sub Init()
+            SaveProjectDialog = New System.Windows.Forms.SaveFileDialog
+            SaveProjectDialog.Filter = GetText("SaveFliter")
+
+            OffsetDicInit()
+
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(MainWindow) Then
+                    MainWindow = win
+                End If
+            Next
+        End Sub
+
+        Private OffsetDic As Dictionary(Of String, UInteger)
+        Public Function GetOffset(dat As SCDatFiles.DatFiles, ParamName As String) As UInteger
+            Return OffsetDic(Datfilesname(dat) & "_" & ParamName)
+        End Function
+        Public Function GetOffset(FullName As String) As UInteger
+            Return OffsetDic(FullName)
+        End Function
+        Private Sub OffsetDicInit()
+            OffsetDic = New Dictionary(Of String, UInteger)
+            Dim fs As New FileStream(OffsetPath, FileMode.Open)
+            Dim sr As New StreamReader(fs)
+
+            While Not sr.EndOfStream
+                Dim str As String = sr.ReadLine()
+
+                Dim Key As String = str.Split("=")(0)
+                Dim Value As UInteger = "&H" & str.Split("=")(1).Remove(0, 2)
+
+                OffsetDic.Add(Key, Value)
+            End While
+
+
+
+            sr.Close()
+            fs.Close()
+        End Sub
+
+        Public Function GetRelativePath(BasePath As String, RelativePath As String) As String
+            Dim resultPath As String = ""
+
+            'MsgBox("원본 주소 :" & BasePath & vbCrLf & "대상 주소 :" & RelativePath)
+            Dim BaseSplit() As String = BasePath.Split("\")
+            Dim RelativeSplit() As String = RelativePath.Split("\")
+
+            For index = 0 To Math.Min(BaseSplit.Count, RelativeSplit.Count) - 1
+                If index = 0 And BaseSplit(index) <> RelativeSplit(index) Then
+                    'MsgBox("드라이버가 다르잖아 ㅅㅂ..")
+                    Return RelativePath
+                End If
+                If BaseSplit(index) <> RelativeSplit(index) Then
+                    For i = 0 To BaseSplit.Count - index - 2
+                        resultPath = resultPath & "..\"
+                    Next
+                    For i = index To RelativeSplit.Count - 1
+                        If i = index Then
+                            resultPath = resultPath & RelativeSplit(i)
+                        Else
+                            resultPath = resultPath & "\" & RelativeSplit(i)
+                        End If
+                    Next
+                    Exit For
+                End If
+            Next
+
+            'zzz\ asd \ c \ ㅎㅎ.txt
+            '4개
+
+            'zzz\ asd \ bcx \ aqw \ zxv \ 하이.txt
+            '6개
+
+            '..\..\..\c\ㅎㅎ.txt
+
+            '2부터 다름.
+
+            '6 - 2 - 1 = 3개의 ..\를 넣고
+            '4 - 2 = 2의 주소부터 넣는다.
+
+            'MsgBox(resultPath)
+            Return resultPath
+        End Function
+
+
+
         Public ReadOnly ProhibitParam() As String = {"Unit Map String", "Unknown1", "Unknown2", "Health Bar", "Sel.Circle Image", "Sel.Circle Offset", "Unused", "Unknown 4", "Unknown6", "Unknown17"}
 
 
@@ -75,7 +164,10 @@ Namespace Tool
 
         Public Sub ErrorMsgBox(str As String, Optional Logstr As String = "")
             MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
-            MsgBox("테스트용 로그 확인" & vbCrLf & Logstr)
+
+            If Logstr <> "" Then
+                MsgBox("테스트용 로그 확인" & vbCrLf & Logstr)
+            End If
         End Sub
 
         Public Function OpenMapSet() As Boolean
@@ -125,6 +217,11 @@ Namespace Tool
             Return False
         End Function
 
+        Public ReadOnly Property OffsetPath() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Offset.txt"
+            End Get
+        End Property
         Public ReadOnly Property GetSettingFile() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Setting.ini"
@@ -166,24 +263,59 @@ Namespace Tool
             End Get
         End Property
 
+        Public Function GetDirectoy(Path As String) As String
+            Dim BaseDirectPath As String = System.AppDomain.CurrentDomain.BaseDirectory
+            Dim PathBlock() As String = Path.Split("\")
 
+            Dim FullPath As String = BaseDirectPath & Path
 
-        Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
+            If Not My.Computer.FileSystem.DirectoryExists(FullPath) Then
+                For index = 0 To PathBlock.Count - 1
+                    FullPath = BaseDirectPath
+                    For i = 0 To index
+                        If i = 0 Then
+                            FullPath = FullPath & PathBlock(i)
+                        Else
+                            FullPath = FullPath & "\" & PathBlock(i)
+                        End If
+                    Next
+                    If Not My.Computer.FileSystem.DirectoryExists(FullPath) Then
+                        My.Computer.FileSystem.CreateDirectory(FullPath)
+                    End If
+                Next
+            End If
 
-        Private MainWindow As MainWindow
-        Public Sub Init()
-            SaveProjectDialog = New System.Windows.Forms.SaveFileDialog
-            SaveProjectDialog.Filter = GetText("SaveFliter")
+            Return BaseDirectPath & Path
+        End Function
+        Public Function GetDirectoy(BaseDirect As String, Path As String) As String
+            Dim BaseDirectPath As String = BaseDirect
+            Dim PathBlock() As String = Path.Split("\")
 
+            Dim FullPath As String = BaseDirectPath & Path
 
+            If Not My.Computer.FileSystem.DirectoryExists(FullPath) Then
+                For index = 0 To PathBlock.Count - 1
+                    FullPath = BaseDirectPath
+                    For i = 0 To index
+                        If i = 0 Then
+                            FullPath = FullPath & PathBlock(i)
+                        Else
+                            FullPath = FullPath & "\" & PathBlock(i)
+                        End If
+                    Next
+                    If Not My.Computer.FileSystem.DirectoryExists(FullPath) Then
+                        My.Computer.FileSystem.CreateDirectory(FullPath)
+                    End If
+                Next
+            End If
 
+            Return BaseDirectPath & Path
+        End Function
 
-            For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(MainWindow) Then
-                    MainWindow = win
-                End If
-            Next
-        End Sub
+        Public Function StripFileName(ByVal name As String) As String
+            Return System.Text.RegularExpressions.Regex.Replace(name, "[\\/:*?""<>|]", "_")
+        End Function
+
 
         Public Sub RefreshMainWindow()
             Try

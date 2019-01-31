@@ -4,29 +4,62 @@ Imports Newtonsoft.Json
 
 <Serializable()>
 Public Class SaveableData
+    Public Sub Close()
+        RelativeDataRefresh()
+    End Sub
+
+
+    Public Sub RelativeDataRefresh()
+        If My.Computer.FileSystem.FileExists(pjData.Filename) Then
+            mRelativeOpenMapName = Tool.GetRelativePath(pjData.Filename, OpenMapName)
+            mRelativeSaveMapName = Tool.GetRelativePath(pjData.Filename, SaveMapName)
+        End If
+
+        'MsgBox("RelativeDataRefresh")
+    End Sub
+
     Private mOpenMapName As String
     Private mSaveMapName As String
+    Private mRelativeOpenMapName As String
+    Private mRelativeSaveMapName As String
     Public Property OpenMapName As String
         Get
+            If Not My.Computer.FileSystem.FileExists(mOpenMapName) And mRelativeOpenMapName <> "" Then '오픈 맵이 존재하지 않을 경우
+                Dim tempOpenMapName As String = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(pjData.Filename), mRelativeOpenMapName))
+                If My.Computer.FileSystem.FileExists(tempOpenMapName) Then '상대경로로 존재할 경우
+                    mOpenMapName = tempOpenMapName
+                End If
+            End If
             Return mOpenMapName
         End Get
         Set(value As String)
             mOpenMapName = value
+            RelativeDataRefresh()
         End Set
     End Property
 
     Public Property SaveMapName As String
         Get
+            If mSaveMapName <> "" Then
+                If Not My.Computer.FileSystem.DirectoryExists(Path.GetDirectoryName(mSaveMapName)) And mRelativeSaveMapName <> "" Then '저장맵의 폴더가 존재하지 않을 경우
+                    Dim tempSaveMapName As String = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(pjData.Filename), mRelativeSaveMapName))
+                    If My.Computer.FileSystem.DirectoryExists(Path.GetDirectoryName(tempSaveMapName)) Then '상대경로로 존재할 경우
+                        mSaveMapName = tempSaveMapName
+                    End If
+                End If
+            End If
+
             Return mSaveMapName
         End Get
         Set(value As String)
             mSaveMapName = value
+            RelativeDataRefresh()
         End Set
     End Property
 
     Public Sub New()
-        OpenMapName = ""
-        SaveMapName = ""
+        mOpenMapName = ""
+        mSaveMapName = ""
 
         mTempFileLoc = 0
     End Sub
@@ -58,10 +91,14 @@ End Class
 Public Class ProjectData
 #Region "Filed"
     Private tFilename As String
-    Public ReadOnly Property Filename As String
+    Public Property Filename As String
         Get
             Return tFilename
         End Get
+        Set(value As String)
+            tFilename = value
+            SaveData.RelativeDataRefresh()
+        End Set
     End Property
     Public ReadOnly Property SafeFilename As String
         Get
@@ -158,6 +195,7 @@ Public Class ProjectData
             End Select
         End Get
         Set(value As String)
+            SetDirty(True)
             Select Case value
                 Case 0
                     SaveData.TempFileLoc = "DefaultFolder"
@@ -195,11 +233,32 @@ Public Class ProjectData
             End If
         End Set
     End Property
+    Public ReadOnly Property OpenMapSafeName As String
+        Get
+            Return SaveData.OpenMapName.Split("\").Last
+        End Get
+    End Property
+    Public ReadOnly Property SaveMapSafeName As String
+        Get
+            Return SaveData.SaveMapName.Split("\").Last
+        End Get
+    End Property
+    Public ReadOnly Property OpenMapdirectory As String
+        Get
+            Dim returnval As String
+            Try
+                returnval = Path.GetDirectoryName(SaveData.OpenMapName)
+            Catch ex As Exception
+                Return ""
+            End Try
+            Return returnval
+        End Get
+    End Property
     Public ReadOnly Property SaveMapdirectory As String
         Get
             Dim returnval As String
             Try
-                returnval = SaveData.SaveMapName.Remove(SaveData.SaveMapName.LastIndexOf("\"))
+                returnval = Path.GetDirectoryName(SaveData.SaveMapName)
             Catch ex As Exception
                 Return ""
             End Try
@@ -242,8 +301,8 @@ Public Class ProjectData
         End Get
     End Property
 
-    Private Ed As EudplibData
-    Public ReadOnly Property EudplibData As EudplibData
+    Private Ed As BuildData
+    Public ReadOnly Property EudplibData As BuildData
         Get
             Return Ed
         End Get
@@ -396,7 +455,7 @@ Public Class ProjectData
     Public Sub InitData()
         Bd = New BindingManager
         Dm = New DataManager
-        Ed = New EudplibData
+        Ed = New BuildData
         CodeSelecters = New List(Of CodeSelecter)
     End Sub
 
@@ -413,10 +472,10 @@ Public Class ProjectData
         'MsgBox("프로젝트 초기화")
     End Sub
 
-    Public Sub LoadInit(filename As String)
+    Public Sub LoadInit(_filename As String)
         tIsLoad = True
         tIsDirty = False
-        tFilename = filename
+        Filename = _filename
         'MsgBox("로드 프로젝트 초기화")
         If My.Computer.FileSystem.FileExists(SaveData.OpenMapName) Then
             _MapData = New MapData(SaveData.OpenMapName)
@@ -427,6 +486,11 @@ Public Class ProjectData
         Else
             _MapData = Nothing
             SaveData.OpenMapName = ""
+        End If
+
+
+        If Not My.Computer.FileSystem.DirectoryExists(SaveMapdirectory) Then
+            SaveData.SaveMapName = ""
         End If
     End Sub
 
@@ -500,21 +564,21 @@ Public Class ProjectData
 
 
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                tFilename = Tool.SaveProjectDialog.FileName '파일 이름 교체
+                Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
             Else
                 Return False
             End If
         End If
-        If tFilename = "" Then ' 새파일
+        If Filename = "" Then ' 새파일
             Tool.SaveProjectDialog.FileName = SafeFilename
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                tFilename = Tool.SaveProjectDialog.FileName '파일 이름 교체
+                Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
             Else
                 Return False
             End If
         End If
 
-        Dim stm As Stream = File.Open(tFilename, FileMode.Create, FileAccess.ReadWrite)
+        Dim stm As Stream = File.Open(Filename, FileMode.Create, FileAccess.ReadWrite)
         Dim bf As BinaryFormatter = New BinaryFormatter()
         bf.Serialize(stm, Me.SaveData)
         stm.Close()
@@ -563,6 +627,7 @@ Public Class ProjectData
 
         Tool.CloseWindows()
         tIsLoad = False
+        SaveData.Close()
         Return True
     End Function
 

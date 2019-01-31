@@ -49,6 +49,7 @@
                             <ComboBoxItem Content="{StaticResource TempFileLoc0}" />
                             <ComboBoxItem Content="{StaticResource TempFileLoc1}"/>
                             <ComboBoxItem Content="{StaticResource TempFileLoc2}"/>
+                            <ComboBoxItem Content="{StaticResource TempFileLoc3}"/>
                         </ComboBox>
                         <Button x:Name="TempFilebtn" DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="TempFilebtn_Click"/>
                         <TextBox x:Name="TempFiletextbox"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
@@ -120,7 +121,12 @@
                         <ComboBoxItem Content="{StaticResource Code CKor-Eng}"/>
                         <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
                     </ComboBox>
-                    <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Grid.Row="6" Grid.Column="1" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
+                    <StackPanel Margin="5" Orientation="Horizontal">
+                        <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="TopMostforce" Checked="TopMostforce_Checked"  Unchecked="TopMostforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+
+                    </StackPanel>
+                        
                 </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource TE Setting}" >

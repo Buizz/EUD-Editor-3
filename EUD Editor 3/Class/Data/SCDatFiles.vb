@@ -13,6 +13,7 @@ Public Class SCDatFiles
 
     Private DatfileDic As Dictionary(Of DatFiles, CDatFile)
 
+
     Public Enum DatFiles
         units = 0
         weapons = 1
@@ -48,7 +49,6 @@ Public Class SCDatFiles
         DatfileDic = New Dictionary(Of DatFiles, CDatFile)
 
         Datfile = New List(Of CDatFile)
-
         For i = 0 To 9
             Dim str As String = Datfilesname(i)
 
@@ -58,21 +58,23 @@ Public Class SCDatFiles
             Datfile.Add(tDatfile)
             DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
         Next
-
     End Sub
-    Public Sub New()
-        DatfileDic = New Dictionary(Of DatFiles, CDatFile)
-
-        Datfile = New List(Of CDatFile)
-
-        For Each str As String In Datfilesname
-            Dim tDatfile As New CDatFile(str, True, False, False)
 
 
-            Datfile.Add(tDatfile)
-            DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
-        Next
-    End Sub
+
+    'Public Sub New()
+    '    DatfileDic = New Dictionary(Of DatFiles, CDatFile)
+
+    '    Datfile = New List(Of CDatFile)
+
+    '    For Each str As String In Datfilesname
+    '        Dim tDatfile As New CDatFile(str, True, False, False)
+
+
+    '        Datfile.Add(tDatfile)
+    '        DatfileDic.Add(Datfile.Count - 1, Datfile.Last)
+    '    Next
+    'End Sub
 
     Public ReadOnly Property DatFileList As List(Of CDatFile)
         Get
@@ -296,6 +298,13 @@ Public Class SCDatFiles
                     Else
                         Return Nothing 'ew Value(0, False)
                     End If
+                End Get
+            End Property
+            Public ReadOnly Property PureData(index As Integer) As Value
+                Get
+                    Dim realIndex As Integer = index
+
+                    Return Values(realIndex)
                 End Get
             End Property
 

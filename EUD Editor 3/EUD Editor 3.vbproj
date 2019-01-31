@@ -170,11 +170,13 @@
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
+    <Compile Include="Class\BulidData\WriteDatFile.vb" />
+    <Compile Include="Class\BulidData\WriteedsFile.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
     <Compile Include="Class\Command\DateEditor\UICommand.vb" />
     <Compile Include="Class\DataManager.vb" />
-    <Compile Include="Class\Data\EudplibData.vb" />
+    <Compile Include="Class\BulidData\Main.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
