@@ -12,6 +12,8 @@
         DataContext = pjData
         ObjectID = tObjectID
 
+        UsedCodeList.Init(DatFiles, ObjectID)
+
         NameBar.Init(ObjectID, DatFiles, 0)
 
         IFI.Init(DatFiles, ObjectID, IFI.Tag, 100)
@@ -23,6 +25,9 @@
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
+
+        UsedCodeList.ReLoad(DatFiles, ObjectID)
+
         NameBar.ReLoad(ObjectID, DatFiles, 0)
 
         IFI.ReLoad(DatFiles, ObjectID, IFI.Tag)

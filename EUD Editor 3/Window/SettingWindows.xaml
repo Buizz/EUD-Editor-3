@@ -19,9 +19,13 @@
                 <StackPanel Margin="10">
                     <Label  Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                     <DockPanel Margin="5">
-                        <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" />
-                        <TextBox x:Name="TBOpenMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}"
+                        <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnOpenMapSet_Click" Margin="0" />
+                        <Button Click="Button_Click" Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Left"  Margin="0,-4" >
+                            <materialDesign:PackIcon Kind="FolderOpen"   />
+                        </Button>
+                        <TextBox x:Name="TBOpenMap"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True"  />
+                     
                     </DockPanel>
                   
                     
@@ -31,7 +35,10 @@
                     <Label Content="{StaticResource SaveMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                     <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnSaveMapSet_Click" />
-                        <TextBox  x:Name="TBSaveMap"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
+                        <Button Click="Button_Click_1" Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Left" Margin="0,-4" >
+                            <materialDesign:PackIcon Kind="FolderOpen"   />
+                        </Button>
+                        <TextBox  x:Name="TBSaveMap"  Foreground="{DynamicResource MaterialDesignBody}" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     </DockPanel>
 
@@ -41,6 +48,9 @@
 
                     <Label Content="{StaticResource TempFileLoc}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                     <DockPanel Margin="5">
+                        <Button Click="Button_Click_2" Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Left" Margin="0,-4" >
+                            <materialDesign:PackIcon Kind="FolderOpen"   />
+                        </Button>
                         <ComboBox 
                             SelectionChanged="TempFileCombobox_SelectionChanged"
                             x:Name="TempFileCombobox"
@@ -62,7 +72,7 @@
                     
                     <Label Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="UseCustomTbl" Checked="UseCustomTbl_Checked" Unchecked="UseCustomTbl_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}"/>
                     </StackPanel>
@@ -73,7 +83,7 @@
             <TabItem Header="{StaticResource Default Setting}">
                 <StackPanel Margin="10">
                     
-                    <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <Label Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
                     <DockPanel Margin="5">
                         <Button DockPanel.Dock="Right" Grid.Row="2" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top" Click="BtnStarCraftexe" />
@@ -83,13 +93,20 @@
                     
                     <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
-                    <Label Grid.Row="4" Grid.Column="1" Content="{StaticResource euddraftExe}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <Label  Content="{StaticResource euddraftExe}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
 
                     <DockPanel Margin="5">
-                        <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top"  Click="Btneuddraftexe" />
-                        <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
+                        <DockPanel DockPanel.Dock="top">
+                            <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2" Height="26" Content="{StaticResource Find}" VerticalAlignment="Top"  Click="Btneuddraftexe" />
+                            <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
+                        </DockPanel>
+                        <DockPanel DockPanel.Dock="top" LastChildFill="False">
+                            <Label x:Name="euddraftVersion1" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                            <Label x:Name="euddraftVersion2" DockPanel.Dock="Right" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                        </DockPanel>
+         
                     </DockPanel>
                     <Separator Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 

@@ -10,35 +10,38 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
              d:DesignHeight="482"  d:DesignWidth="720">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="40*"/>
-        </Grid.RowDefinitions>
-        <local:NameBar x:Name="NameBar"/>
-        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="274" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                              Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
-                              Text="{StaticResource SpriteInfor}" Padding="6"/>
-                        <StackPanel Grid.Row="1" Margin="10,2">
+    <DockPanel>
+        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" Width="140"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <local:NameBar x:Name="NameBar"/>
+            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <materialDesign:Card Height="274" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource SpriteInfor}" Padding="6"/>
+                            <StackPanel Grid.Row="1" Margin="10,2">
 
-                            <local:IconSelecter x:Name="IFI" Tag="Image File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="358"  />
-                            <local:BoolSelecter x:Name="IV" Tag="Is Visible" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <local:IconSelecter x:Name="SCI" IsEnabled="False" Tag="Sel.Circle Image" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                            <local:InputField x:Name="SCO" IsEnabled="False" Tag="Sel.Circle Offset" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                            <local:InputField x:Name="HB" IsEnabled="False" Tag="Health Bar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
-        </ScrollViewer>
-    </Grid>
+                                <local:IconSelecter x:Name="IFI" Tag="Image File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="358"  />
+                                <local:BoolSelecter x:Name="IV" Tag="Is Visible" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                <local:IconSelecter x:Name="SCI" IsEnabled="False" Tag="Sel.Circle Image" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                                <local:InputField x:Name="SCO" IsEnabled="False" Tag="Sel.Circle Offset" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                                <local:InputField x:Name="HB" IsEnabled="False" Tag="Health Bar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </UserControl>

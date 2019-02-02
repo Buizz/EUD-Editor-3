@@ -1,0 +1,18 @@
+﻿<UserControl x:Class="UsedCodeList"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             d:DesignHeight="482" d:DesignWidth="140" >
+    <DockPanel>
+        <Border DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}">
+            <TextBlock Text="{StaticResource CodeUseIndexer}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Margin="8"/>
+        </Border>
+        
+        <ListBox x:Name="MainListBox" ItemsSource="{Binding Items}">
+            
+        </ListBox>
+    </DockPanel>
+</UserControl>

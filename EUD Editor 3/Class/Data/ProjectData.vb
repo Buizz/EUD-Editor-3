@@ -4,20 +4,7 @@ Imports Newtonsoft.Json
 
 <Serializable()>
 Public Class SaveableData
-    Public Sub Close()
-        RelativeDataRefresh()
-    End Sub
-
-
-    Public Sub RelativeDataRefresh()
-        If My.Computer.FileSystem.FileExists(pjData.Filename) Then
-            mRelativeOpenMapName = Tool.GetRelativePath(pjData.Filename, OpenMapName)
-            mRelativeSaveMapName = Tool.GetRelativePath(pjData.Filename, SaveMapName)
-        End If
-
-        'MsgBox("RelativeDataRefresh")
-    End Sub
-
+#Region "Setting"
     Private mOpenMapName As String
     Private mSaveMapName As String
     Private mRelativeOpenMapName As String
@@ -57,18 +44,7 @@ Public Class SaveableData
         End Set
     End Property
 
-    Public Sub New()
-        mOpenMapName = ""
-        mSaveMapName = ""
-
-        mTempFileLoc = 0
-    End Sub
-
-
     Private mTempFileLoc As String
-    '기본 폴더 사용
-    '맵 폴더 사용
-    '사용자 지정폴더
     Public Property TempFileLoc As String
         Get
             Return mTempFileLoc
@@ -78,8 +54,53 @@ Public Class SaveableData
         End Set
     End Property
 
+    Private mUseCustomTbl As Boolean
+    Public Property UseCustomTbl As Boolean
+        Get
+            Return mUseCustomTbl
+        End Get
+        Set(value As Boolean)
+            mUseCustomTbl = value
+        End Set
+    End Property
+
+    Private Sub SettingInit()
+        mOpenMapName = ""
+        mSaveMapName = ""
+
+        mTempFileLoc = 0
+        UseCustomTbl = True
+    End Sub
+#End Region
+
+    Public Sub New()
+        SettingInit()
+    End Sub
+
+    Private mLastVersion As System.Version
+    Public Property LastVersion As System.Version
+        Get
+            Return mLastVersion
+        End Get
+        Set(value As System.Version)
+            mLastVersion = value
+        End Set
+    End Property
 
 
+    Public Sub Close()
+        RelativeDataRefresh()
+    End Sub
+
+
+    Public Sub RelativeDataRefresh()
+        If My.Computer.FileSystem.FileExists(pjData.Filename) Then
+            mRelativeOpenMapName = Tool.GetRelativePath(pjData.Filename, OpenMapName)
+            mRelativeSaveMapName = Tool.GetRelativePath(pjData.Filename, SaveMapName)
+        End If
+
+        'MsgBox("RelativeDataRefresh")
+    End Sub
 
 
     Public Dat As SCDatFiles
@@ -146,6 +167,15 @@ Public Class ProjectData
         tIsDirty = Isd
         Tool.RefreshMainWindow()
     End Sub
+    Public Property UseCustomtbl As Boolean
+        Get
+            Return SaveData.UseCustomTbl
+        End Get
+        Set(value As Boolean)
+            tIsDirty = True
+            SaveData.UseCustomTbl = value
+        End Set
+    End Property
 #End Region
 
 
@@ -159,6 +189,25 @@ Public Class ProjectData
     Public ReadOnly Property Dat As SCDatFiles
         Get
             Return SaveData.Dat
+        End Get
+    End Property
+
+    Public ReadOnly Property BuildStat_txtIsDefault(index As Integer) As Boolean
+        Get
+            Return SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString
+        End Get
+    End Property
+    Public ReadOnly Property BuildStat_txt(index As Integer) As String
+        Get
+            If index = -1 Then
+                Return Tool.GetText("None")
+            End If
+
+            If SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString Then
+                Return scData.GetStat_txt(index)
+            Else
+                Return SaveData.ExtraDat.Stat_txt(index)
+            End If
         End Get
     End Property
     Public Property Stat_txt(index As Integer) As String
@@ -548,6 +597,8 @@ Public Class ProjectData
 
 
     Public Function Save(Optional IsSaveAs As Boolean = False) As Boolean
+        SaveData.LastVersion = pgData.Version
+
         If IsSaveAs = True Then '다른이름으로 저장 일 경우 
             Tool.SaveProjectDialog.FileName = SafeFilename
 

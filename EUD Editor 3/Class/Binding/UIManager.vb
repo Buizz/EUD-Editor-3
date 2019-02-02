@@ -133,7 +133,11 @@ Public Class UIManager
         Get
             If SCDatFiles.CheckValidDat(Datfile) Then
                 If pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) Then
-                    Return Application.Current.Resources("MaterialDesignPaper")
+                    If pjData.MapData.DatFile.GetDatFile(Datfile).CheckDirty(ObjectID) Then
+                        Return Application.Current.Resources("MaterialDesignPaper")
+                    Else
+                        Return New SolidColorBrush(pgData.FiledMapEditColor)
+                    End If
                 Else
                     Return New SolidColorBrush(pgData.FiledEditColor)
                 End If

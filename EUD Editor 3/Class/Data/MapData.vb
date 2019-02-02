@@ -198,131 +198,149 @@ Public Class MapData
             '    CHKSWITCHNAME.Add(binary.ReadUInt32)
             'Next
 
+            If True Then
+                SearchCHK("UPGx", binary)
+                size = binary.ReadUInt32
 
-            'mem.Position = SearchCHK("UPGx", buffer)
-
-            'size = binary.ReadUInt32
-
-            'Dim TEMPIsUPGDefault() As Byte
-            ''## (61개) = 각 업그레이드의 허용 상태
-            ''   - 00 = 변화값을 따름
-            ''   - 01 = 기본값을 따름
-            'TEMPIsUPGDefault = binary.ReadBytes(62)
-
-
-            'Dim TEMPUPGMin(60) As UInteger
-            ''#### (61개) = 첫 업그레이드 미네랄 비용
-            'For i = 0 To 60
-            '    TEMPUPGMin(i) = binary.ReadUInt16()
-            'Next
-
-            'Dim TEMPUPGADDMin(60) As UInteger
-            ''#### (61개) = 추가 업그레이드 미네랄 비용
-            'For i = 0 To 60
-            '    TEMPUPGADDMin(i) = binary.ReadUInt16()
-            'Next
-
-            'Dim TEMPUPGGas(60) As UInteger
-            ''#### (61개) = 첫 업그레이드 가스 비용
-            'For i = 0 To 60
-            '    TEMPUPGGas(i) = binary.ReadUInt16()
-            'Next
-
-            'Dim TEMPUPGADDGas(60) As UInteger
-            ''#### (61개) = 추가 업그레이드 가스 비용
-            'For i = 0 To 60
-            '    TEMPUPGADDGas(i) = binary.ReadUInt16()
-            'Next
-
-            'Dim TEMPUPGTime(60) As UInteger
-            ''#### (61개) = 첫 업그레이드 시간
-            'For i = 0 To 60
-            '    TEMPUPGTime(i) = binary.ReadUInt16()
-            'Next
-
-            'Dim TEMPUPGADDTime(60) As UInteger
-            ''#### (61개) = 추가 업그레이드 시간
-            'For i = 0 To 60
-            '    TEMPUPGADDTime(i) = binary.ReadUInt16()
-            'Next
+                Dim TEMPIsUPGDefault() As Byte
+                '## (61개) = 각 업그레이드의 허용 상태
+                '   - 00 = 변화값을 따름
+                '   - 01 = 기본값을 따름
+                TEMPIsUPGDefault = binary.ReadBytes(62)
 
 
+                Dim TEMPUPGMin(60) As UInteger
+                '#### (61개) = 첫 업그레이드 미네랄 비용
+                For i = 0 To 60
+                    TEMPUPGMin(i) = binary.ReadUInt16()
+                Next
 
-            'For i = 0 To 60
-            '    If TEMPIsUPGDefault(i) = 0 Then
-            '        Key = "Mineral Cost Base"
-            '        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i) = CLng(TEMPUPGMin(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i)
+                Dim TEMPUPGADDMin(60) As UInteger
+                '#### (61개) = 추가 업그레이드 미네랄 비용
+                For i = 0 To 60
+                    TEMPUPGADDMin(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Mineral Cost Factor"
-            '        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i) = CLng(TEMPUPGADDMin(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i)
+                Dim TEMPUPGGas(60) As UInteger
+                '#### (61개) = 첫 업그레이드 가스 비용
+                For i = 0 To 60
+                    TEMPUPGGas(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Vespene Cost Base"
-            '        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i) = CLng(TEMPUPGGas(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i)
+                Dim TEMPUPGADDGas(60) As UInteger
+                '#### (61개) = 추가 업그레이드 가스 비용
+                For i = 0 To 60
+                    TEMPUPGADDGas(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Vespene Cost Factor"
-            '        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i) = CLng(TEMPUPGADDGas(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i)
+                Dim TEMPUPGTime(60) As UInteger
+                '#### (61개) = 첫 업그레이드 시간
+                For i = 0 To 60
+                    TEMPUPGTime(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Research Time Base"
-            '        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i) = CLng(TEMPUPGTime(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i)
-
-            '        Key = "Research Time Factor"
-            '        DatEditDATA(DTYPE.upgrades).mapdata(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i) = CLng(TEMPUPGADDTime(i)) - DatEditDATA(DTYPE.upgrades).data(DatEditDATA(DTYPE.upgrades).keyDic(Key))(i)
-
-            '    End If
-            'Next
+                Dim TEMPUPGADDTime(60) As UInteger
+                '#### (61개) = 추가 업그레이드 시간
+                For i = 0 To 60
+                    TEMPUPGADDTime(i) = binary.ReadUInt16()
+                Next
 
 
 
+                For i = 0 To 60
+                    If TEMPIsUPGDefault(i) = 0 Then
+                        Dim key As String
 
-            'mem.Position = SearchCHK("TECx", buffer)
-            'size = binary.ReadUInt32
+                        key = "Mineral Cost Base"
+                        Dat.Data(SCDatFiles.DatFiles.upgrades, key, i) = TEMPUPGMin(i)
+                        Dat.Values(SCDatFiles.DatFiles.upgrades, key, i).IsDefault = False
+
+                        key = "Mineral Cost Factor"
+                        Dat.Data(SCDatFiles.DatFiles.upgrades, key, i) = TEMPUPGADDMin(i)
+                        Dat.Values(SCDatFiles.DatFiles.upgrades, key, i).IsDefault = False
+
+                        key = "Vespene Cost Base"
+                        Dat.Data(SCDatFiles.DatFiles.upgrades, key, i) = TEMPUPGGas(i)
+                        Dat.Values(SCDatFiles.DatFiles.upgrades, key, i).IsDefault = False
+
+                        key = "Vespene Cost Factor"
+                        Dat.Data(SCDatFiles.DatFiles.upgrades, key, i) = TEMPUPGADDGas(i)
+                        Dat.Values(SCDatFiles.DatFiles.upgrades, key, i).IsDefault = False
+
+                        key = "Research Time Base"
+                        Dat.Data(SCDatFiles.DatFiles.upgrades, key, i) = TEMPUPGTime(i)
+                        Dat.Values(SCDatFiles.DatFiles.upgrades, key, i).IsDefault = False
+
+                        key = "Research Time Factor"
+                        Dat.Data(SCDatFiles.DatFiles.upgrades, key, i) = TEMPUPGADDTime(i)
+                        Dat.Values(SCDatFiles.DatFiles.upgrades, key, i).IsDefault = False
+                    End If
+                Next
+            End If
 
 
 
-            'Dim TEMPIsTECHDefault() As Byte
-            ''0# = 기술의 허용 상태 (00 사용불가, 01 사용가능)
-            'TEMPIsTECHDefault = binary.ReadBytes(44)
+            If True Then
+                SearchCHK("TECx", binary)
+                size = binary.ReadUInt32
 
 
-            'Dim TEMPTECHMin(43) As UInteger
-            ''#### = 미네랄 비용
-            'For i = 0 To 43
-            '    TEMPTECHMin(i) = binary.ReadUInt16()
-            'Next
 
-            'Dim TEMPTECHGas(43) As UInteger
-            ''#### = 가스 비용
-            'For i = 0 To 43
-            '    TEMPTECHGas(i) = binary.ReadUInt16()
-            'Next
+                Dim TEMPIsTECHDefault() As Byte
+                '0# = 기술의 허용 상태 (00 사용불가, 01 사용가능)
+                TEMPIsTECHDefault = binary.ReadBytes(44)
 
-            'Dim TEMPTECHTime(43) As UInteger
-            ''#### = 걸리는 시간
-            'For i = 0 To 43
-            '    TEMPTECHTime(i) = binary.ReadUInt16()
-            'Next
 
-            'Dim TEMPTECHADDEnerge(43) As UInteger
-            ''##00 = 필요 마나
-            'For i = 0 To 43
-            '    TEMPTECHADDEnerge(i) = binary.ReadUInt16()
-            'Next
+                Dim TEMPTECHMin(43) As UInteger
+                '#### = 미네랄 비용
+                For i = 0 To 43
+                    TEMPTECHMin(i) = binary.ReadUInt16()
+                Next
 
-            'For i = 0 To 43
-            '    If TEMPIsTECHDefault(i) = 0 Then
-            '        Key = "Mineral Cost"
-            '        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(Key))(i) = CLng(TEMPTECHMin(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(Key))(i)
+                Dim TEMPTECHGas(43) As UInteger
+                '#### = 가스 비용
+                For i = 0 To 43
+                    TEMPTECHGas(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Vespene Cost"
-            '        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(Key))(i) = CLng(TEMPTECHGas(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(Key))(i)
+                Dim TEMPTECHTime(43) As UInteger
+                '#### = 걸리는 시간
+                For i = 0 To 43
+                    TEMPTECHTime(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Resarch Time"
-            '        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(Key))(i) = CLng(TEMPTECHTime(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(Key))(i)
+                Dim TEMPTECHADDEnerge(43) As UInteger
+                '##00 = 필요 마나
+                For i = 0 To 43
+                    TEMPTECHADDEnerge(i) = binary.ReadUInt16()
+                Next
 
-            '        Key = "Energy Required"
-            '        DatEditDATA(DTYPE.techdata).mapdata(DatEditDATA(DTYPE.techdata).keyDic(Key))(i) = CLng(TEMPTECHADDEnerge(i)) - DatEditDATA(DTYPE.techdata).data(DatEditDATA(DTYPE.techdata).keyDic(Key))(i)
-            '    End If
-            'Next
+                For i = 0 To 43
+                    If TEMPIsTECHDefault(i) = 0 Then
+                        Dim Key As String
+
+                        Key = "Mineral Cost"
+                        Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHMin(i)
+                        Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
+
+                        Key = "Vespene Cost"
+                        Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHGas(i)
+                        Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
+
+                        Key = "Resarch Time"
+                        Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHTime(i)
+                        Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
+
+                        Key = "Energy Required"
+                        Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHADDEnerge(i)
+                        Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
+                    End If
+                Next
+
+            End If
+
+
+
 
 
 
@@ -430,10 +448,10 @@ Public Class MapData
                         If weaponnum <> 130 Then
                             Key = "Damage Amount"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaDmg(weaponnum)
-                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, weaponnum).IsDefault = False
                             Key = "Damage Bonus"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaUmg(weaponnum)
-                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, weaponnum).IsDefault = False
                         End If
 
 
@@ -443,10 +461,10 @@ Public Class MapData
                         If weaponnum <> 130 Then
                             Key = "Damage Amount"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaDmg(weaponnum)
-                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, weaponnum).IsDefault = False
                             Key = "Damage Bonus"
                             Dat.Data(SCDatFiles.DatFiles.weapons, Key, weaponnum) = TEMPWeaUmg(weaponnum)
-                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, i).IsDefault = False
+                            Dat.Values(SCDatFiles.DatFiles.weapons, Key, weaponnum).IsDefault = False
                         End If
                     End If
                 Next

@@ -21,44 +21,49 @@
         Parameter = _Parameter
         SpecialFlag = _SFlag
 
-        Dim PropertyName As String = "Value"
-
-        Select Case SpecialFlag
-            Case SFlag.HP
-                PropertyName = "HPValue"
-            Case SFlag.HPV
-            Case SFlag.FLAG
-                PropertyName = "ValueFlag"
-        End Select
-        DatCommand.ReLoad(DatFile, Parameter, ObjectID)
-
-        Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
-
-        Dim binding As New Binding()
-
-
-        If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
-            Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
-            Select Case SpecialFlag
-                Case SFlag.FLAG
-                    binding.ValidationRules.Add(New HexValidationRule)
-                Case Else
-                    binding.ValidationRules.Add(New NotTextValidationRule)
-            End Select
-            binding.ValidatesOnDataErrors = True
-            binding.NotifyOnValidationError = True
-            binding.Path = New PropertyPath(PropertyName)
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            binding.Mode = BindingMode.TwoWay
-            ValueText.SetBinding(TextBox.TextProperty, binding)
-            ValueText.IsEnabled = True
+        If Parameter = "UnitName" Then
+            ValueText.Text = ObjectID
         Else
-            Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
-            binding.Mode = BindingMode.OneWay
-            ValueText.SetBinding(TextBox.TextProperty, binding)
-            ValueText.Text = Application.Current.Resources("NotUse")
-            ValueText.IsEnabled = False
+            Dim PropertyName As String = "Value"
+
+            Select Case SpecialFlag
+                Case SFlag.HP
+                    PropertyName = "HPValue"
+                Case SFlag.HPV
+                Case SFlag.FLAG
+                    PropertyName = "ValueFlag"
+            End Select
+            DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+
+            Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+
+            Dim binding As New Binding()
+
+
+            If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+                Select Case SpecialFlag
+                    Case SFlag.FLAG
+                        binding.ValidationRules.Add(New HexValidationRule)
+                    Case Else
+                        binding.ValidationRules.Add(New NotTextValidationRule)
+                End Select
+                binding.ValidatesOnDataErrors = True
+                binding.NotifyOnValidationError = True
+                binding.Path = New PropertyPath(PropertyName)
+                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                binding.Mode = BindingMode.TwoWay
+                ValueText.SetBinding(TextBox.TextProperty, binding)
+                ValueText.IsEnabled = True
+            Else
+                Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
+                binding.Mode = BindingMode.OneWay
+                ValueText.SetBinding(TextBox.TextProperty, binding)
+                ValueText.Text = Application.Current.Resources("NotUse")
+                ValueText.IsEnabled = False
+            End If
         End If
+
     End Sub
 
 
@@ -72,6 +77,116 @@
             TextStr.Width = TextWidth
         End If
 
+        If Parameter = "UnitName" Then
+            TextStr.Text = Tool.GetText("UnitName")
+            ValueText.Width = 7 * 5
+            ValueText.Text = ObjectID
+            ValueText.IsEnabled = False
+        Else
+            Dim PropertyName As String = "Value"
+            Dim paramSize As Byte = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.Size)
+            Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
+            If valueType = SCDatFiles.DatFiles.None Then
+                Dim CharLen As Byte = 5
+                Select Case paramSize
+                    Case 1
+                        CharLen = 3
+                    Case 2
+                        CharLen = 5
+                    Case 4
+                        CharLen = 10
+                End Select
+                ValueText.Width = 7 * CharLen
+            Else
+                If valueType <= SCDatFiles.DatFiles.portdata Or valueType = SCDatFiles.DatFiles.Icon Then
+                    ValueText.MinWidth = 7 * 3
+                Else
+                    ValueText.MinWidth = 7 * 4
+                End If
+            End If
+
+
+
+
+            DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+            Dim binding As New Binding()
+            Select Case SpecialFlag
+                Case SFlag.HP
+                    PropertyName = "HPValue"
+                    ValueText.Width = 7 * 8
+                Case SFlag.HPV
+                    TextStr.Margin = New Thickness(0)
+                    TextStr.Text = ""
+                Case SFlag.FLAG
+                    PropertyName = "ValueFlag"
+                    ValueText.Width = 7 * 2 * paramSize
+            End Select
+
+
+            If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
+                Select Case SpecialFlag
+                    Case SFlag.FLAG
+                        binding.ValidationRules.Add(New HexValidationRule)
+                    Case Else
+                        binding.ValidationRules.Add(New NotTextValidationRule)
+                End Select
+                binding.ValidatesOnDataErrors = True
+                binding.NotifyOnValidationError = True
+                binding.Path = New PropertyPath(PropertyName)
+                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                binding.Mode = BindingMode.TwoWay
+                ValueText.SetBinding(TextBox.TextProperty, binding)
+                ValueText.IsEnabled = True
+            Else
+                Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
+                binding.Mode = BindingMode.OneWay
+                ValueText.SetBinding(TextBox.TextProperty, binding)
+                ValueText.Text = Application.Current.Resources("NotUse")
+                ValueText.IsEnabled = False
+                Exit Sub
+            End If
+
+
+
+
+
+
+
+
+
+
+
+
+            Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
+            Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {
+                    .CommandParameter = DatCommand.CommandType.Copy
+                }
+            ValueText.InputBindings.Add(CopyKeybinding)
+
+            Dim PasteKeyGesture As KeyGesture = New KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V")
+            Dim PasteKeybinding As New KeyBinding(DatCommand, PasteKeyGesture) With {
+                    .CommandParameter = DatCommand.CommandType.Paste
+                }
+            ValueText.InputBindings.Add(PasteKeybinding)
+
+            Dim ResetKeyGesture As KeyGesture = New KeyGesture(Key.R, ModifierKeys.Control, "Ctrl+R")
+            Dim ResetKeybinding As New KeyBinding(DatCommand, ResetKeyGesture) With {
+                    .CommandParameter = DatCommand.CommandType.Reset
+                }
+            ValueText.InputBindings.Add(ResetKeybinding)
+
+
+
+            CopyItem.Command = DatCommand
+            CopyItem.CommandParameter = DatCommand.CommandType.Copy
+
+            PasteItem.Command = DatCommand
+            PasteItem.CommandParameter = DatCommand.CommandType.Paste
+
+            ResetItem.Command = DatCommand
+            ResetItem.CommandParameter = DatCommand.CommandType.Reset
+        End If
 
 
         'If Parameter = "Infestation" Then
@@ -80,109 +195,7 @@
         '    MsgBox("값 : " & pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value)
         'End If
 
-        Dim PropertyName As String = "Value"
-        Dim paramSize As Byte = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.Size)
-        Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
-        If valueType = SCDatFiles.DatFiles.None Then
-            Dim CharLen As Byte = 5
-            Select Case paramSize
-                Case 1
-                    CharLen = 3
-                Case 2
-                    CharLen = 5
-                Case 4
-                    CharLen = 10
-            End Select
-            ValueText.Width = 7 * CharLen
-        Else
-            If valueType <= SCDatFiles.DatFiles.portdata Or valueType = SCDatFiles.DatFiles.Icon Then
-                ValueText.MinWidth = 7 * 3
-            Else
-                ValueText.MinWidth = 7 * 4
-            End If
-        End If
 
-
-
-
-        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
-        Dim binding As New Binding()
-        Select Case SpecialFlag
-            Case SFlag.HP
-                PropertyName = "HPValue"
-                ValueText.Width = 7 * 8
-            Case SFlag.HPV
-                TextStr.Margin = New Thickness(0)
-                TextStr.Text = ""
-            Case SFlag.FLAG
-                PropertyName = "ValueFlag"
-                ValueText.Width = 7 * 2 * paramSize
-        End Select
-
-
-        If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
-            Me.DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
-            Select Case SpecialFlag
-                Case SFlag.FLAG
-                    binding.ValidationRules.Add(New HexValidationRule)
-                Case Else
-                    binding.ValidationRules.Add(New NotTextValidationRule)
-            End Select
-            binding.ValidatesOnDataErrors = True
-            binding.NotifyOnValidationError = True
-            binding.Path = New PropertyPath(PropertyName)
-            binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-            binding.Mode = BindingMode.TwoWay
-            ValueText.SetBinding(TextBox.TextProperty, binding)
-            ValueText.IsEnabled = True
-        Else
-            Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
-            binding.Mode = BindingMode.OneWay
-            ValueText.SetBinding(TextBox.TextProperty, binding)
-            ValueText.Text = Application.Current.Resources("NotUse")
-            ValueText.IsEnabled = False
-            Exit Sub
-        End If
-
-
-
-
-
-
-
-
-
-
-
-
-        Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
-        Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {
-                .CommandParameter = DatCommand.CommandType.Copy
-            }
-        ValueText.InputBindings.Add(CopyKeybinding)
-
-        Dim PasteKeyGesture As KeyGesture = New KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V")
-        Dim PasteKeybinding As New KeyBinding(DatCommand, PasteKeyGesture) With {
-                .CommandParameter = DatCommand.CommandType.Paste
-            }
-        ValueText.InputBindings.Add(PasteKeybinding)
-
-        Dim ResetKeyGesture As KeyGesture = New KeyGesture(Key.R, ModifierKeys.Control, "Ctrl+R")
-        Dim ResetKeybinding As New KeyBinding(DatCommand, ResetKeyGesture) With {
-                .CommandParameter = DatCommand.CommandType.Reset
-            }
-        ValueText.InputBindings.Add(ResetKeybinding)
-
-
-
-        CopyItem.Command = DatCommand
-        CopyItem.CommandParameter = DatCommand.CommandType.Copy
-
-        PasteItem.Command = DatCommand
-        PasteItem.CommandParameter = DatCommand.CommandType.Paste
-
-        ResetItem.Command = DatCommand
-        ResetItem.CommandParameter = DatCommand.CommandType.Reset
 
 
         'If Parameter = "Infestation" Then

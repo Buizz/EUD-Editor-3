@@ -9,7 +9,7 @@ Public Class SettingWindows
 
         TBStarCraftexe.Text = pgData.Setting(ProgramData.TSetting.starcraft)
         TBeuddraftexe.Text = pgData.Setting(ProgramData.TSetting.euddraft)
-
+        CheckeuddraftVersion(pgData.Setting(ProgramData.TSetting.euddraft))
         '언어 설정
         Dim CurrentLan As String = pgData.Setting(ProgramData.TSetting.Language)
         'MsgBox(CurrentLan)
@@ -32,6 +32,8 @@ Public Class SettingWindows
         If Tool.IsProjectLoad Then
             TBOpenMap.Text = pjData.OpenMapName
             TBSaveMap.Text = pjData.SaveMapName
+
+            UseCustomTbl.IsChecked = pjData.UseCustomtbl
 
 
             Select Case pjData.TempFileLoc
@@ -80,10 +82,57 @@ Public Class SettingWindows
 
 
         If opendialog.ShowDialog() = Forms.DialogResult.OK Then
-            pgData.Setting(ProgramData.TSetting.euddraft) = opendialog.FileName
+            CheckeuddraftVersion(opendialog.FileName)
 
+
+            pgData.Setting(ProgramData.TSetting.euddraft) = opendialog.FileName
             TBeuddraftexe.Text = opendialog.FileName
         End If
+    End Sub
+    Private Sub CheckeuddraftVersion(filename As String)
+        If My.Computer.FileSystem.FileExists(filename) Then
+            CheckThreading = New System.Threading.Thread(AddressOf CheckProgress)
+            CheckThreading.Start(filename)
+        Else
+            euddraftVersion1.Content = Nothing
+            euddraftVersion2.Content = Nothing
+        End If
+    End Sub
+    Private CheckThreading As Threading.Thread
+    Private Sub CheckProgress(filename As String)
+        Dim process As New Process
+        Dim startInfo As New ProcessStartInfo
+
+        startInfo.FileName = filename
+
+        'startInfo.StandardOutputEncoding = Text.Encoding.UTF32
+        'startInfo.StandardErrorEncoding = Text.Encoding.UTF32
+        startInfo.RedirectStandardOutput = True
+        startInfo.RedirectStandardInput = True
+        startInfo.RedirectStandardError = True
+        startInfo.WindowStyle = ProcessWindowStyle.Hidden
+        startInfo.CreateNoWindow = True
+
+        startInfo.UseShellExecute = False
+
+        process.StartInfo = startInfo
+        process.Start()
+
+        Dim StandardOutput As String = ""
+        Dim StandardError As String = ""
+
+        While Not process.HasExited
+            process.StandardInput.Write(vbCrLf)
+        End While
+        StandardOutput = process.StandardOutput.ReadLine
+
+        Dim FrishLine As String = StandardOutput.Split(":")(0).Trim
+
+        Dispatcher.Invoke(Windows.Threading.DispatcherPriority.Normal,
+        New Action(Sub()
+                       euddraftVersion1.Content = Tool.GetText("euddraftVersion1") & FrishLine
+                       euddraftVersion2.Content = Tool.GetText("euddraftVersion2") & "euddraft " & pgData.RecommendeuddraftVersion.ToString
+                   End Sub))
     End Sub
 
 
@@ -161,6 +210,30 @@ Public Class SettingWindows
                     TempFiletextbox.Visibility = Visibility.Visible
                     TempFilebtn.Visibility = Visibility.Visible
             End Select
+        End If
+    End Sub
+
+    Private Sub UseCustomTbl_Checked(sender As Object, e As RoutedEventArgs)
+        If DatLoad Then
+            pjData.UseCustomtbl = UseCustomTbl.IsChecked
+        End If
+    End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        If My.Computer.FileSystem.DirectoryExists(pjData.OpenMapdirectory) Then
+            Process.Start("explorer.exe", "/root," & pjData.OpenMapdirectory)
+        End If
+    End Sub
+
+    Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
+        If My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) Then
+            Process.Start("explorer.exe", "/root," & pjData.SaveMapdirectory)
+        End If
+    End Sub
+
+    Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
+        If My.Computer.FileSystem.DirectoryExists(BuildData.TempFloder) Then
+            Process.Start("explorer.exe", "/root," & BuildData.TempFloder)
         End If
     End Sub
 

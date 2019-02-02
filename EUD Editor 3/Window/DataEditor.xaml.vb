@@ -92,7 +92,7 @@ Public Class DataEditor
 
         LuaManager = New LuaManager(ConsoleLog)
         If WindowOpenType = OpenType.Drag Then
-            Me.Width = 740 + 450 + 48
+            Me.Width = 740 + 450 + 48 + 140
         End If
         Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
     End Sub

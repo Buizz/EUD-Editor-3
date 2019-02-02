@@ -12,12 +12,18 @@ Partial Public Class BuildData
         sb.AppendLine("")
         If My.Computer.FileSystem.FileExists(DatpyFilePath) Then
             sb.AppendLine("[DataEditor.py]")
+            sb.AppendLine("")
         End If
-
-        '[EUDEditor.py]
 
         '[TriggerEditor.eps]
 
+
+        sb.AppendLine("[dataDumper]")
+        If pjData.UseCustomtbl Then
+            sb.AppendLine(Tool.GetRelativePath(EdsFilePath, tblFilePath) & " : 0x6D5A30, copy")
+        End If
+        '"[dataDumper]
+        'D\:\source\repos\EUDEditor\EUD Editor\bin\x86\Release\Data\temp\stat_txt.tbl : 0x6D5A30, copy"
         '[dataDumper]
         'D\:\source\repos\EUDEditor\EUD Editor\bin\x86\Release\Data\temp\RequireData : 0x58D740, copy
 

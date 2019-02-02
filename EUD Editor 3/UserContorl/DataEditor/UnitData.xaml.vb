@@ -1,5 +1,7 @@
 ﻿Public Class UnitData
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
+        UsedCodeList.ReLoad(SCDatFiles.DatFiles.units, ObjectID)
+
         Unit_Default.ReLoad(DatFiles, ObjectID)
         Unit_Special.ReLoad(DatFiles, ObjectID)
         Unit_Sound.ReLoad(DatFiles, ObjectID)
@@ -16,6 +18,8 @@
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        UsedCodeList.Init(SCDatFiles.DatFiles.units, tObjectID)
+
         Unit_Default = New Unit_Default(tObjectID)
         Unit_Special = New Unit_Special(tObjectID)
         Unit_Sound = New Unit_Sound(tObjectID)

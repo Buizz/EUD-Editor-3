@@ -14,6 +14,11 @@ Partial Public Class BuildData
             Return Tool.GetRelativePath(EdsFilePath, pjData.SaveMapName)
         End Get
     End Property
+    Private ReadOnly Property tblFilePath() As String
+        Get
+            Return TempFilePath & "\custom_txt.tbl"
+        End Get
+    End Property
     Private ReadOnly Property EdsFilePath() As String
         Get
             Return EudPlibFilePath & "\EUDEditor.eds"
@@ -29,7 +34,12 @@ Partial Public Class BuildData
             Return Tool.GetDirectoy(TempFloder & "\", "eudplibData")
         End Get
     End Property
-    Private ReadOnly Property TempFloder() As String
+    Private ReadOnly Property TempFilePath() As String
+        Get
+            Return Tool.GetDirectoy(TempFloder & "\", "temp")
+        End Get
+    End Property
+    Public Shared ReadOnly Property TempFloder() As String
         Get
             If pjData.TempFileLoc = "0" Then
                 '기본 데이터 폴더 사용할 경우.
@@ -65,7 +75,7 @@ Partial Public Class BuildData
     '맵 두개가 다른 폴더면 기본 폴더에 저장
     Private MainThread As Threading.Thread
     Public Sub Build()
-        Tool.GetRelativePath(EudPlibFilePath & "\EUDEditor.eds", pjData.OpenMapName)
+        'Tool.GetRelativePath(EudPlibFilePath & "\EUDEditor.eds", pjData.OpenMapName)
         'Tool.GetRelativePath("zzz\asd\c\ㅎㅎ.txt", "zzz\asd\bcx\aqw\zxv\하이.txt")
         'Tool.GetRelativePath("zzz\asd\bcx\aqw\zxv\하이.txt", "zzz\asd\c\ㅎㅎ.txt")
 
@@ -125,7 +135,7 @@ Partial Public Class BuildData
         If pjData.TempFileLoc <> "0" And pjData.TempFileLoc <> "1" Then
             If pjData.TempFileLoc = "2" Then
                 If Not My.Computer.FileSystem.FileExists(pjData.Filename) Then
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail TempFolder is not exist!"))
+                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail NotSaved Project"))
                     Return False
                 End If
             Else
@@ -168,6 +178,10 @@ Partial Public Class BuildData
         WriteDatFile()
 
         'Tbl파일 작성(옵션에 따라)
+        If pjData.UseCustomtbl Then
+            WriteTbl()
+        End If
+
         'Req데이터 작성
 
 
@@ -196,6 +210,36 @@ Partial Public Class BuildData
 
 
     Private Sub Starteds()
+        Dim StandardOutput As String = ""
+        Dim StandardError As String = ""
+
+        Dim RestartCount As Integer
+        While True
+            Dim process As Process = ProcessStart()
+
+            While Not process.HasExited
+                process.StandardInput.Write(vbCrLf)
+                StandardOutput = process.StandardOutput.ReadToEnd
+                StandardError = process.StandardError.ReadToEnd
+                Threading.Thread.Sleep(100)
+            End While
+            If InStr(StandardError, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
+                'MsgBox("빌드 실패. 재시도 합니다  재시도 횟수: " & RestartCount & vbCrLf & StandardOutput & StandardError)
+                StandardError = ""
+                RestartCount += 1
+                Continue While
+            End If
+            'Dim tempstr() As String = StandardOutput.Split(vbCrLf)
+
+            'MsgBox(tempstr(tempstr.Count - 2))
+            '임시 판단
+            If StandardOutput.IndexOf("Output scenario.chk") < 0 Then
+                MsgBox(StandardOutput & vbCrLf & StandardError, MsgBoxStyle.Critical)
+            End If
+            Exit While
+        End While
+    End Sub
+    Private Function ProcessStart() As Process
         Dim process As New Process
         Dim startInfo As New ProcessStartInfo
 
@@ -215,28 +259,12 @@ Partial Public Class BuildData
 
         startInfo.UseShellExecute = False
 
+
         process.StartInfo = startInfo
         process.Start()
 
-        Dim StandardOutput As String = ""
-        Dim StandardError As String = ""
-
-        While Not process.HasExited
-            process.StandardInput.Write(vbCrLf)
-            StandardOutput = process.StandardOutput.ReadToEnd
-            StandardError = process.StandardError.ReadToEnd
-            Threading.Thread.Sleep(100)
-        End While
-
-        'Dim tempstr() As String = StandardOutput.Split(vbCrLf)
-
-        'MsgBox(tempstr(tempstr.Count - 2))
-        '임시 판단
-        If StandardOutput.IndexOf("Output scenario.chk") < 0 Then
-            MsgBox(StandardOutput, MsgBoxStyle.Critical)
-        End If
-        process.WaitForExit()
-    End Sub
+        Return process
+    End Function
 
 
 End Class

@@ -1,7 +1,11 @@
 ﻿Imports MaterialDesignThemes.Wpf
 
 Public Class ProgramData
-    Public ReadOnly Property Version As String = "0.0.1"
+    '<주 버전>.<부 버전>.<빌드 번호>.<수정>
+    Public ReadOnly Property Version As System.Version = Reflection.Assembly.GetExecutingAssembly().GetName().Version '"0.0.1"
+    Public ReadOnly Property RecommendeuddraftVersion As New System.Version(0, 8, 3, 5)
+
+
 
     Public Sub SetTheme(IsLight As Boolean)
         Dim palettes As New PaletteHelper

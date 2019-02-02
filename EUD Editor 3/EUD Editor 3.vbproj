@@ -172,6 +172,8 @@
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\BulidData\WriteDatFile.vb" />
     <Compile Include="Class\BulidData\WriteedsFile.vb" />
+    <Compile Include="Class\BulidData\WriteTbl.vb" />
+    <Compile Include="Class\CodeConnecter.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
     <Compile Include="Class\Command\DateEditor\UICommand.vb" />
@@ -189,6 +191,7 @@
     <Compile Include="Class\DataEditCompletionData.vb" />
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
+    <Compile Include="Class\tblWriter.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Module\GlobalObj.vb" />
@@ -274,6 +277,9 @@
     </Compile>
     <Compile Include="UserContorl\ColorPicker\ColorPicker.xaml.vb">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\UsedCodeList.xaml.vb">
+      <DependentUpon>UsedCodeList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Page\ThemeContorl.xaml.vb">
       <DependentUpon>ThemeContorl.xaml</DependentUpon>
@@ -418,6 +424,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\ColorPicker\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\UsedCodeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

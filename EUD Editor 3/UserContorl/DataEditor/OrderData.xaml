@@ -10,52 +10,55 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
              d:DesignHeight="482"  d:DesignWidth="720">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="50"/>
-            <RowDefinition Height="40*"/>
-        </Grid.RowDefinitions>
-        <local:NameBar x:Name="NameBar"/>
-        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="402" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                              Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
-                              Text="{StaticResource OrderInfor}" Padding="6"/>
-                        <StackPanel Grid.Row="1" Margin="10,2">
+    <DockPanel>
+        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" Width="140"/>
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <local:NameBar x:Name="NameBar"/>
+            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <materialDesign:Card Height="402" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource OrderInfor}" Padding="6"/>
+                            <StackPanel Grid.Row="1" Margin="10,2">
 
-                            <local:IconSelecter x:Name="TG" Tag="Targeting" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600"/>
-                            <local:IconSelecter x:Name="EN" Tag="Energy" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600" />
-                            <local:IconSelecter x:Name="OO" Tag="Obscured Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" />
-                            <local:IconSelecter x:Name="LAB" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600" />
-                            <local:ComboxSelecter x:Name="ANI" Tag="Animation" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="400" />
-                            <local:IconSelecter x:Name="HIGH" Tag="Highlight" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="400"/>
+                                <local:IconSelecter x:Name="TG" Tag="Targeting" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600"/>
+                                <local:IconSelecter x:Name="EN" Tag="Energy" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600" />
+                                <local:IconSelecter x:Name="OO" Tag="Obscured Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" />
+                                <local:IconSelecter x:Name="LAB" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600" />
+                                <local:ComboxSelecter x:Name="ANI" Tag="Animation" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="400" />
+                                <local:IconSelecter x:Name="HIGH" Tag="Highlight" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="400"/>
 
-                            <WrapPanel>
-                                <local:BoolSelecter x:Name="FLAG1" Width="220" Tag="Use Weapon Targeting" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG2" Width="220" Tag="Unknown2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG3" Width="220" Tag="Unknown3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG4" Width="220" Tag="Unknown4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG5" Width="220" Tag="Unknown5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG6" Width="220" Tag="Can Be Interrupted" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG7" Width="220" Tag="Unknown7" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG8" Width="220" Tag="Can Be Queued" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG9" Width="220" Tag="Unknown9" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG10" Width="220" Tag="Unknown10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG11" Width="220" Tag="Unknown11" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                <local:BoolSelecter x:Name="FLAG12" Width="220" Tag="Unknown12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                <WrapPanel>
+                                    <local:BoolSelecter x:Name="FLAG1" Width="220" Tag="Use Weapon Targeting" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG2" Width="220" Tag="Unknown2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG3" Width="220" Tag="Unknown3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG4" Width="220" Tag="Unknown4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG5" Width="220" Tag="Unknown5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG6" Width="220" Tag="Can Be Interrupted" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG7" Width="220" Tag="Unknown7" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG8" Width="220" Tag="Can Be Queued" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG9" Width="220" Tag="Unknown9" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG10" Width="220" Tag="Unknown10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG11" Width="220" Tag="Unknown11" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
+                                    <local:BoolSelecter x:Name="FLAG12" Width="220" Tag="Unknown12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
 
-                            </WrapPanel>
-                        </StackPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
-        </ScrollViewer>
-    </Grid>
+                                </WrapPanel>
+                            </StackPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
 </UserControl>

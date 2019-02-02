@@ -12,6 +12,8 @@
         DataContext = pjData
         ObjectID = tObjectID
 
+        UsedCodeList.Init(DatFiles, ObjectID)
+
         NameBar.Init(ObjectID, DatFiles, 0)
 
         MainTextBox.DataContext = pjData.BindingManager.StatTxtBinding(ObjectID)
@@ -85,6 +87,8 @@
 
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
         ObjectID = tObjectID
+
+        UsedCodeList.ReLoad(DatFiles, ObjectID)
 
         NameBar.ReLoad(ObjectID, DatFiles, 0)
 

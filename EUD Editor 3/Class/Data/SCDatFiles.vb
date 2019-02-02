@@ -43,6 +43,7 @@ Public Class SCDatFiles
         VarCount = 3
         ValueType = 4
         IsEnabled = 5
+        VarArray = 6
     End Enum
 
     Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False, Optional IsBindingData As Boolean = False)
@@ -414,6 +415,8 @@ Public Class SCDatFiles
                             Return ValueType
                         Case EParamInfo.IsEnabled
                             Return Enabled
+                        Case EParamInfo.VarArray
+                            Return VarArray
                     End Select
                     Return 0
                 End Get

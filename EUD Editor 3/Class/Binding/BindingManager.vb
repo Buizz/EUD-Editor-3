@@ -1,4 +1,11 @@
 ﻿Public Class BindingManager
+    Private _CodeConnecter As Dictionary(Of SCDatFiles.DatFiles, List(Of CodeConnecter))
+    Public ReadOnly Property CodeConnecter(key As SCDatFiles.DatFiles, index As Integer) As CodeConnecter
+        Get
+            Return _CodeConnecter(key)(index)
+        End Get
+    End Property
+
     Private _UIManager() As List(Of UIManager)
     Private _UIManagerKey As Dictionary(Of SCDatFiles.DatFiles, Integer)
     Public ReadOnly Property UIManager(key As SCDatFiles.DatFiles, index As Integer) As UIManager
@@ -30,9 +37,10 @@
     Public Sub New()
         'NullBinding = New DatBinding()
         _UIManagerKey = New Dictionary(Of SCDatFiles.DatFiles, Integer)
+        _CodeConnecter = New Dictionary(Of SCDatFiles.DatFiles, List(Of CodeConnecter))
 
         ReDim _UIManager(8)
-        For k = 0 To 7
+        For k = 0 To SCDatFiles.DatFiles.orders
             _UIManager(k) = New List(Of UIManager)
             _UIManagerKey.Add(k, k)
             For i = 0 To SCCodeCount(k) - 1
@@ -71,6 +79,18 @@
                 Next
             Next
         Next
+
+        For k = 0 To SCDatFiles.DatFiles.orders
+            _CodeConnecter.Add(k, New List(Of CodeConnecter))
+            For i = 0 To SCCodeCount(k) - 1
+                _CodeConnecter(k).Add(New CodeConnecter(k, i))
+            Next
+        Next
+        _CodeConnecter.Add(SCDatFiles.DatFiles.stattxt, New List(Of CodeConnecter))
+        For i = 0 To SCtbltxtCount - 1
+            _CodeConnecter(SCDatFiles.DatFiles.stattxt).Add(New CodeConnecter(SCDatFiles.DatFiles.stattxt, i))
+        Next
+
     End Sub
 
     Public Sub DataRefresh()

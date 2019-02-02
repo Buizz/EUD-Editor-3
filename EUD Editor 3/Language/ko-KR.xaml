@@ -16,10 +16,10 @@
     <sys:String x:Key="TempFileLoc1">맵 파일 폴더</sys:String>
     <sys:String x:Key="TempFileLoc2">세이브 파일 폴더</sys:String>
     <sys:String x:Key="TempFileLoc3">사용자 지정</sys:String>
-    
-    
-    
-    <sys:String x:Key="TBLChange">Tbl변형</sys:String>
+
+
+
+    <sys:String x:Key="TBLChange">사용저 정의 tbl사용</sys:String>
     <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
     <sys:String x:Key="AutoCompile">자동 빌드</sys:String>
     
@@ -54,6 +54,8 @@
 
     <sys:String x:Key="StarExeFile">스타크래프트 실행 파일</sys:String>
     <sys:String x:Key="euddraftExe">euddraft 실행 파일</sys:String>
+    <sys:String x:Key="euddraftVersion1">현재 버전 : </sys:String>
+    <sys:String x:Key="euddraftVersion2">권장버전 : </sys:String>
 
     <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s</sys:String>
     <!--<sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>-->
@@ -86,6 +88,7 @@
     <sys:String x:Key="PagePaste">붙여넣기</sys:String>
     <sys:String x:Key="PageReset">초기화</sys:String>
 
+    <sys:String x:Key="UnitName">이름</sys:String>
     <sys:String x:Key="Group">그룹</sys:String>
     <sys:String x:Key="ToolTip">툴팁</sys:String>
 
@@ -133,6 +136,9 @@
 
 
     <!--DataEditor-->
+    <sys:String x:Key="CodeUseIndexer">코드 사용 목록</sys:String>
+
+    
     <sys:String x:Key="OpenFuncFoloder">함수 폴더 열기</sys:String>
     <sys:String x:Key="refreshLua">새로고침</sys:String>
     <sys:String x:Key="LogClear">로그 지우기</sys:String>
@@ -306,9 +312,9 @@
     <sys:String x:Key="units_Unknown1">요구사항시작위치</sys:String>
     <sys:String x:Key="units_Staredit Group Flags">그룹 플래그</sys:String>
     <sys:String x:Key="units_Staredit Group Flags_V">저그|테란|프로토스|유닛(사람)|건물|생산건물|독립유닛|중립</sys:String>
-    
-    <sys:String x:Key="units_Supply Provided">필요인구</sys:String>
-    <sys:String x:Key="units_Supply Required">공급인구</sys:String>
+
+    <sys:String x:Key="units_Supply Provided">공급인구</sys:String>
+    <sys:String x:Key="units_Supply Required">필요인구</sys:String>
     <sys:String x:Key="units_Space Required">필요공간</sys:String>
     <sys:String x:Key="units_Space Provided">탑승공간</sys:String>
     <sys:String x:Key="units_Build Score">생산점수</sys:String>

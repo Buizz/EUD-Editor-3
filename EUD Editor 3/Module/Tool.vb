@@ -245,10 +245,10 @@ Namespace Tool
                         Filename = GetText("NoName")
                     End If
 
-                    Return Filename & IsDirty & " - EUD Editor 3 v" & pgData.Version
+                    Return Filename & IsDirty & " - EUD Editor 3 v" & pgData.Version.ToString
                 End If
             End If
-            Return "EUD Editor 3 v" & pgData.Version
+            Return "EUD Editor 3 v" & pgData.Version.ToString
         End Function
 
         Public ReadOnly Property GetLanguageFolder() As String
@@ -291,8 +291,11 @@ Namespace Tool
             Dim BaseDirectPath As String = BaseDirect
             Dim PathBlock() As String = Path.Split("\")
 
-            Dim FullPath As String = BaseDirectPath & Path
+            If Path = "" Or BaseDirectPath = "" Then
+                Return ""
+            End If
 
+            Dim FullPath As String = BaseDirectPath & Path
             If Not My.Computer.FileSystem.DirectoryExists(FullPath) Then
                 For index = 0 To PathBlock.Count - 1
                     FullPath = BaseDirectPath

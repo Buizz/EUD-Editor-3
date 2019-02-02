@@ -76,7 +76,9 @@ Public Class LuaManager
         RegFunction("ResetDat", "resetdat", ToolTipColorBlock("<1>function <0>resetdat(DatName =<2>" & DatIndex & "<0>, ParamaterName , ObjectId)" & vbCrLf & "Dat데이터를 초기화 합니다."))
 
 
-        RegFunction("SetCodeLabel", "setcodelabel", ToolTipColorBlock("<1>function <0>setcodelabel(DatName, ObjectId)" & vbCrLf & "오브젝트의 이름을 읽어옵니다."))
+        RegFunction("GetCodeLabel", "getcodelabel", ToolTipColorBlock("<1>function <0>getcodelabel(DatName, ObjectId)" & vbCrLf & "오브젝트의 이름을 읽어옵니다."))
+        RegFunction("GetCodeCount", "getcodecount", ToolTipColorBlock("<1>function <0>getcodecount(DatName)" & vbCrLf & "각 코드의 총 갯수를 반환합니다."))
+        RegFunction("GetDatName", "getdatname", ToolTipColorBlock("<1>function <0>getdatname(Index)" & vbCrLf & "해당 DatFile의 이름을 가져옵니다."))
 
 
         RegFunction("SetToolTip", "settooltip", ToolTipColorBlock("<1>function <0>settooltip(DatName, ObjectId, Value)" & vbCrLf & "ToolTip테이터를 수정합니다."))
@@ -232,12 +234,22 @@ Public Class LuaManager
     End Sub
 
 
-    Public Function SetCodeLabel(DatName As String, ObjectId As Integer) As String
+    Public Function GetCodeLabel(DatName As String, ObjectId As Integer) As String
         Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
         If Datfile = SCDatFiles.DatFiles.None Then
             Return ""
         End If
         Return pjData.BindingManager.UIManager(Datfile, ObjectId).Name
+    End Function
+    Public Function GetCodeCount(DatName As String) As Integer
+        Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
+        If Datfile = SCDatFiles.DatFiles.None Then
+            Return ""
+        End If
+        Return SCCodeCount(Datfile)
+    End Function
+    Public Function GetDatName(Datindex As Integer) As String
+        Return Datfilesname(Datindex)
     End Function
 
     Public Sub SetToolTip(DatName As String, ObjectId As Integer, NewValue As String)

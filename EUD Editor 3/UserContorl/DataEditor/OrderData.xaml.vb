@@ -12,6 +12,8 @@
         DataContext = pjData
         ObjectID = tObjectID
 
+        UsedCodeList.Init(DatFiles, ObjectID)
+
         NameBar.Init(ObjectID, DatFiles, 0)
 
         TG.Init(DatFiles, ObjectID, TG.Tag, 100)
@@ -36,6 +38,9 @@
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
+
+        UsedCodeList.ReLoad(DatFiles, ObjectID)
+
         NameBar.ReLoad(ObjectID, DatFiles, 0)
 
         TG.ReLoad(DatFiles, ObjectID, TG.Tag)

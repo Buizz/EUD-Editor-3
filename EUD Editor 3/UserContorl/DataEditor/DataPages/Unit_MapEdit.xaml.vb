@@ -20,6 +20,7 @@
 
         SGF.Init(DatFiles, ObjectID, SGF.Tag, 130)
         RS.Init(DatFiles, ObjectID, RS.Tag)
+        NameLabel.Init(DatFiles, ObjectID, NameLabel.Tag)
         'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
@@ -31,5 +32,6 @@
 
         SGF.ReLoad(DatFiles, ObjectID, SGF.Tag)
         RS.ReLoad(DatFiles, ObjectID, RS.Tag)
+        NameLabel.ReLoad(DatFiles, ObjectID, NameLabel.Tag)
     End Sub
 End Class
