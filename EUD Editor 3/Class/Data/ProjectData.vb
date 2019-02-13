@@ -318,7 +318,13 @@ Public Class ProjectData
     Private _MapData As MapData
     Public ReadOnly Property MapData As MapData
         Get
-            Return _MapData
+            If _MapData IsNot Nothing Then
+                Return _MapData
+            Else
+                Tool.ErrorMsgBox("시스템에러 맵데이터가 없음")
+                Return Nothing
+            End If
+
         End Get
     End Property
 

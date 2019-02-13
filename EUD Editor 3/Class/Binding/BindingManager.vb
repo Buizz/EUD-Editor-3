@@ -1,10 +1,36 @@
 ﻿Public Class BindingManager
+    Private pStatTxtBinding() As StatTxtBinding
+
+    'Private NullBinding As DatBinding
+    Private DataBindings() As List(Of List(Of DatBinding))
+    Private DataParamKeys() As Dictionary(Of String, Integer)
+
+
+
+    Private _CodeConnectGroup As Dictionary(Of SCDatFiles.DatFiles, CodeConnectGroup)
+    Public ReadOnly Property CodeConnectGroup(key As SCDatFiles.DatFiles) As CodeConnectGroup
+        Get
+            Return _CodeConnectGroup(key)
+        End Get
+    End Property
+
+
     Private _CodeConnecter As Dictionary(Of SCDatFiles.DatFiles, List(Of CodeConnecter))
     Public ReadOnly Property CodeConnecter(key As SCDatFiles.DatFiles, index As Integer) As CodeConnecter
         Get
             Return _CodeConnecter(key)(index)
         End Get
     End Property
+    Public Sub RefreshCodeUseData(Datfile As SCDatFiles.DatFiles, ParamName As String, index As Integer)
+        For i = 0 To _CodeConnectGroup.Count - 1
+            If _CodeConnectGroup.Values(i).IsParamExist(ParamName) Then
+                CodeConnecter(_CodeConnectGroup.Values(i).GetDatFile, index).ItemsReferesh()
+
+
+            End If
+        Next
+    End Sub
+
 
     Private _UIManager() As List(Of UIManager)
     Private _UIManagerKey As Dictionary(Of SCDatFiles.DatFiles, Integer)
@@ -38,6 +64,13 @@
         'NullBinding = New DatBinding()
         _UIManagerKey = New Dictionary(Of SCDatFiles.DatFiles, Integer)
         _CodeConnecter = New Dictionary(Of SCDatFiles.DatFiles, List(Of CodeConnecter))
+        _CodeConnectGroup = New Dictionary(Of SCDatFiles.DatFiles, CodeConnectGroup)
+
+        For k = 0 To SCDatFiles.DatFiles.orders
+            _CodeConnectGroup.Add(k, New CodeConnectGroup(k))
+        Next
+        _CodeConnectGroup.Add(SCDatFiles.DatFiles.stattxt, New CodeConnectGroup(SCDatFiles.DatFiles.stattxt))
+
 
         ReDim _UIManager(8)
         For k = 0 To SCDatFiles.DatFiles.orders
@@ -71,8 +104,17 @@
 
             For i = 0 To scData.DefaultDat.DatFileList(k).ParamaterList.Count - 1
                 Dim keyName As String = scData.DefaultDat.DatFileList(k).ParamaterList(i).GetParamname
+                Dim ValueType As SCDatFiles.DatFiles = scData.DefaultDat.DatFileList(k).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.ValueType)
 
-                DataParamKeys(k).Add(keyName, i)
+                If ValueType <> SCDatFiles.DatFiles.None Then
+                    If _CodeConnectGroup.Keys.ToList.IndexOf(ValueType) >= 0 Then
+                        _CodeConnectGroup(ValueType).Add(k, keyName)
+                    End If
+
+                End If
+
+
+                    DataParamKeys(k).Add(keyName, i)
                 DataBindings(k).Add(New List(Of DatBinding))
                 For j = 0 To scData.DefaultDat.DatFileList(k).ParamaterList(i).GetValueCount - 1
                     DataBindings(k)(i).Add(New DatBinding(k, keyName, j))
@@ -90,6 +132,15 @@
         For i = 0 To SCtbltxtCount - 1
             _CodeConnecter(SCDatFiles.DatFiles.stattxt).Add(New CodeConnecter(SCDatFiles.DatFiles.stattxt, i))
         Next
+
+
+
+
+
+
+
+
+
 
     End Sub
 
@@ -139,11 +190,4 @@
             Return pStatTxtBinding(index)
         End Get
     End Property
-
-    Private pStatTxtBinding() As StatTxtBinding
-
-    'Private NullBinding As DatBinding
-    Private DataBindings() As List(Of List(Of DatBinding))
-    Private DataParamKeys() As Dictionary(Of String, Integer)
-
 End Class

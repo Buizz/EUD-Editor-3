@@ -317,7 +317,7 @@ Public Class CodeSelecter
                         Listboxitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
                         Listbox.ScrollIntoView(Listboxitem)
                     Else
-                        If BindingManager.CheckUIAble(CurrentPage) And index >= 0 Then
+                        If BindingManager.CheckUIAble(CurrentPage) And index >= 0 And SCCodeCount(CurrentPage) > index Then
                             Dim BackBinding As Binding = New Binding("Back")
                             BackBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
                             Listboxitem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)

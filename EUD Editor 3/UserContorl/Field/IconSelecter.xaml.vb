@@ -18,7 +18,12 @@ Public Class IconSelecter
             btn.Background = New SolidColorBrush(pgData.FiledDefault)
             btn.Content = pjData.Stat_txt(ObjectID)
             btn.ContextMenu = Nothing
-            Dim strindex As Integer = pjData.MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", ObjectID)
+
+            Dim strindex As Integer = 0
+            If pjData.IsMapLoading Then
+                strindex = pjData.MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", ObjectID)
+            End If
+
 
             If strindex <> 0 Then
                 btn.IsEnabled = False
@@ -98,7 +103,10 @@ Public Class IconSelecter
             Field.ReLoad(DatFile, ObjectID, Parameter)
             IconBox.Visibility = Visibility.Collapsed
             btn.Content = pjData.Stat_txt(ObjectID)
-            Dim strindex As Integer = pjData.MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", ObjectID)
+            Dim strindex As Integer = 0
+            If pjData.IsMapLoading Then
+                strindex = pjData.MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", ObjectID)
+            End If
 
             If strindex <> 0 Then
                 btn.IsEnabled = False
@@ -189,8 +197,10 @@ Public Class IconSelecter
     End Sub
 
     Private Sub btnMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
-        Dim ChangeValue As Integer = e.Delta / 100
-        pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+        If Parameter <> "UnitName" Then
+            Dim ChangeValue As Integer = e.Delta / 100
+            pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+        End If
     End Sub
 
     Private Sub OpenNew_Click(sender As Object, e As RoutedEventArgs) Handles OpenNew.Click

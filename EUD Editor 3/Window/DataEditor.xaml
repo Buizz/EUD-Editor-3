@@ -16,7 +16,7 @@
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
         Topmost="True" 
-        Title="{StaticResource DataEditor}" Height="630" Width="880" WindowStartupLocation="Manual" >
+        Title="{StaticResource DataEditor}" Height="630" Width="780" WindowStartupLocation="Manual" >
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
     </Window.Resources>

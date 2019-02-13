@@ -75,8 +75,19 @@ Public Class DatBinding
             If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
                 pjData.SetDirty(True)
                 'MsgBox("데이터 파인딩 셋")
+                Dim tData As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+
                 pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
                 pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
+                Try
+                    pjData.BindingManager.RefreshCodeUseData(Datfile, Parameter, tData)
+                    pjData.BindingManager.RefreshCodeUseData(Datfile, Parameter, tvalue)
+                Catch ex As Exception
+
+                End Try
+
+
+
                 PropertyChangedPack()
             End If
         End Set

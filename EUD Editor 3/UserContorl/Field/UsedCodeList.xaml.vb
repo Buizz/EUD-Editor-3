@@ -13,12 +13,26 @@
         Datfile = _DatFile
         ObjectID = _ObjectID
 
+        Dim bind As New Binding
+        bind.Source = pjData.BindingManager.CodeConnecter(Datfile, ObjectID).Items
+        MainListBox.SetBinding(ListBox.ItemsSourceProperty, bind)
 
-        Me.DataContext = pjData.BindingManager.CodeConnecter(Datfile, ObjectID)
+        'MainListBox.ItemsSource = New Binding
+
+
+        'Me.DataContext = pjData.BindingManager.CodeConnecter(Datfile, ObjectID)
     End Sub
 
 
     Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer)
+        Datfile = _DatFile
+        ObjectID = _ObjectID
 
+        Dim bind As New Binding
+        bind.Source = pjData.BindingManager.CodeConnecter(Datfile, ObjectID).Items
+        MainListBox.SetBinding(ListBox.ItemsSourceProperty, bind)
+
+
+        'Me.DataContext = pjData.BindingManager.CodeConnecter(Datfile, ObjectID)
     End Sub
 End Class

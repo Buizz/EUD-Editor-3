@@ -9,9 +9,9 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="860" Background="{DynamicResource MaterialDesignPaper}">
+             d:DesignHeight="450" d:DesignWidth="760" Background="{DynamicResource MaterialDesignPaper}">
     <DockPanel>
-        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" Width="140"/>
+        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
 
         <Grid>
             <Grid.ColumnDefinitions>

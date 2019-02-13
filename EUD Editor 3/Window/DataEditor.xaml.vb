@@ -11,6 +11,7 @@ Public Class DataEditor
         Drag
     End Enum
 
+    Private OpenPage As SCDatFiles.DatFiles = SCDatFiles.DatFiles.units
     Public Sub New(OType As OpenType)
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -23,7 +24,7 @@ Public Class DataEditor
         End Select
         WindowOpenType = OpenType.MainWindow
     End Sub
-    Public Sub New(tab As TabItem, Optional Page As Integer = 0)
+    Public Sub New(tab As TabItem, Optional Page As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
@@ -51,7 +52,7 @@ Public Class DataEditor
 
     End Sub
 
-    Private Sub OpenbyOthers(tab As TabItem, Optional Page As Integer = 0)
+    Private Sub OpenbyOthers(tab As TabItem, Optional Page As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None)
         Dim TabContent As TabablzControl = MainTab.Content
         TabContent.Items.Add(tab)
         TabContent.SelectedItem = tab
@@ -59,10 +60,10 @@ Public Class DataEditor
         CodeExpander.IsExpanded = False
         Console.IsExpanded = False
 
-        If Page <> 0 Then
-            ListReset(Page)
-        End If
-
+        'If Page <> SCDatFiles.DatFiles.None Then
+        '    ListReset(Page)
+        'End If
+        OpenPage = Page
     End Sub
     '데이터 상태랑 선택한 인덱스랑 어떤 페이지인지 알고 있어야 함
 
@@ -82,7 +83,7 @@ Public Class DataEditor
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         pjData.CodeSelecters.Add(CodeList)
         CodeList.SetFliter(CodeSelecter.ESortType.n123)
-        CodeList.ListReset(SCDatFiles.DatFiles.units, False)
+        CodeList.ListReset(OpenPage, False)
 
         'Dim asdgfaqwea As Func(Of TabItem) = AddressOf dsafads
         'MainTab.NewItemFactory = asdgfaqwea
@@ -92,7 +93,7 @@ Public Class DataEditor
 
         LuaManager = New LuaManager(ConsoleLog)
         If WindowOpenType = OpenType.Drag Then
-            Me.Width = 740 + 450 + 48 + 140
+            Me.Width = 740 + 450 + 48 + 40
         End If
         Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
     End Sub
@@ -292,7 +293,7 @@ Public Class DataEditor
         Dim SelectDatType As SCDatFiles.DatFiles = SelectSender.SelectedItem.Tag
         ListReset(SelectDatType)
     End Sub
-    Private Sub ListReset(SelectIndex As Integer)
+    Private Sub ListReset(SelectIndex As SCDatFiles.DatFiles)
         CodeList.ListReset(SelectIndex, False)
     End Sub
 

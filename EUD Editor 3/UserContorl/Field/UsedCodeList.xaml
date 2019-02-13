@@ -6,13 +6,19 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
              d:DesignHeight="482" d:DesignWidth="140" >
-    <DockPanel>
-        <Border DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueMidBrush}">
-            <TextBlock Text="{StaticResource CodeUseIndexer}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"  Margin="8"/>
-        </Border>
-        
-        <ListBox x:Name="MainListBox" ItemsSource="{Binding Items}">
-            
+    <Expander ExpandDirection="left">
+        <Expander.Header>
+            <TextBlock
+        Text="{StaticResource CodeUseIndexer}"
+        RenderTransformOrigin=".5,.5">
+                <TextBlock.LayoutTransform>
+                    <RotateTransform
+            Angle="90" />
+                </TextBlock.LayoutTransform>
+            </TextBlock>
+        </Expander.Header>
+        <ListBox x:Name="MainListBox" ItemsSource="{Binding}" ><!--ItemsSource="{Binding Items, Mode=TwoWay, UpdateSourceTrigger=LostFocus}-->
         </ListBox>
-    </DockPanel>
+    </Expander>
+
 </UserControl>
