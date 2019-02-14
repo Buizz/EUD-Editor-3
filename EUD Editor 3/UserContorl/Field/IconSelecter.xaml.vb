@@ -58,6 +58,7 @@ Public Class IconSelecter
 
                 Dim tBinding1 As New Binding
                 tBinding1.Path = New PropertyPath("ValueText")
+                'tBinding1.Source = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).ValueTextBinding
                 btn.SetBinding(Button.ContentProperty, tBinding1)
 
                 Dim tBinding2 As New Binding
@@ -127,6 +128,7 @@ Public Class IconSelecter
 
                 Dim tBinding1 As New Binding
                 tBinding1.Path = New PropertyPath("ValueText")
+                'tBinding1.Source = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).ValueTextBinding
                 btn.SetBinding(Button.ContentProperty, tBinding1)
 
                 Dim tBinding2 As New Binding

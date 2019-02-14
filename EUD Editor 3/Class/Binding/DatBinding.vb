@@ -48,8 +48,10 @@ Public Class DatBinding
         NotifyPropertyChanged("Value")
         NotifyPropertyChanged("BackColor")
         NotifyPropertyChanged("ValueText")
+        'NotifyPropertyChanged("ValueTextBinding")
         NotifyPropertyChanged("ValueImage")
         NotifyPropertyChanged("ValueFlag")
+
         For i = 0 To FlagBindingManager.Count - 1
             FlagBindingManager(i).PropertyChangedPack()
         Next
@@ -87,9 +89,14 @@ Public Class DatBinding
                 End Try
 
 
+                '만약 요주의 데이터들일 경우. Ex라벨에 관련된것.
+                If Parameter = "Label" Then
+                    pjData.BindingManager.UIManager(Datfile, ObjectID).NameRefresh()
+                End If
+
 
                 PropertyChangedPack()
-            End If
+                End If
         End Set
     End Property
 
@@ -223,6 +230,23 @@ Public Class DatBinding
             End If
         End Get
     End Property
+    'Public ReadOnly Property ValueTextBinding As UIManager
+    '    Get
+    '        'MsgBox("ㅆ:빋")
+    '        Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
+    '        If valueType <> SCDatFiles.DatFiles.None Then
+    '            Dim Value As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+
+    '            If SCCodeCount(valueType) > Value Then
+    '                Return pjData.BindingManager.UIManager(valueType, Value)
+    '            Else
+    '                Return Nothing
+    '            End If
+    '        Else
+    '            Return Nothing
+    '        End If
+    '    End Get
+    'End Property
 
 
     Public ReadOnly Property ValueImage As ImageSource

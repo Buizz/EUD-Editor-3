@@ -79,6 +79,7 @@
     <sys:String x:Key="Code CTbl">수정된 텍스트 반영</sys:String>
 
 
+    <sys:String x:Key="Cut">잘라내기</sys:String>
     <sys:String x:Key="Copy">복사</sys:String>
     <sys:String x:Key="Paste">붙여넣기</sys:String>
     <sys:String x:Key="Reset">초기화</sys:String>

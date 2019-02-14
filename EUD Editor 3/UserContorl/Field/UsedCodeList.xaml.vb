@@ -2,7 +2,7 @@
     Private Datfile As SCDatFiles.DatFiles
     Private ObjectID As Integer
 
-
+    Private MyList As CodeCollection
     'Dat종류, 오브젝트 아이디만 있으면 됨
 
     'Dat종류에 따른 출처들을 미리 정리해두자
@@ -13,8 +13,10 @@
         Datfile = _DatFile
         ObjectID = _ObjectID
 
+        MyList = pjData.BindingManager.CodeConnecter(Datfile, ObjectID).Items
+
         Dim bind As New Binding
-        bind.Source = pjData.BindingManager.CodeConnecter(Datfile, ObjectID).Items
+        bind.Source = MyList
         MainListBox.SetBinding(ListBox.ItemsSourceProperty, bind)
 
         'MainListBox.ItemsSource = New Binding
@@ -28,11 +30,31 @@
         Datfile = _DatFile
         ObjectID = _ObjectID
 
+        pjData.BindingManager.CodeConnecter(Datfile, ObjectID).DeleteList(MyList)
+        MyList = pjData.BindingManager.CodeConnecter(Datfile, ObjectID).Items
+
         Dim bind As New Binding
-        bind.Source = pjData.BindingManager.CodeConnecter(Datfile, ObjectID).Items
+        bind.Source = MyList
         MainListBox.SetBinding(ListBox.ItemsSourceProperty, bind)
 
 
         'Me.DataContext = pjData.BindingManager.CodeConnecter(Datfile, ObjectID)
+    End Sub
+
+
+    Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
+        pjData.BindingManager.CodeConnecter(Datfile, ObjectID).DeleteList(MyList)
+    End Sub
+
+    Private Sub MainListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        'MsgBox(MainListBox.SelectedItem.Tag)
+        If MainListBox.SelectedItem IsNot Nothing Then
+            Dim Tags() As String = MainListBox.SelectedItem.Tag.ToString.Split(",")
+
+            Dim DatFiles As SCDatFiles.DatFiles = Tags(0)
+            Dim index As Integer = Tags(2)
+            TabItemTool.WindowTabItem(DatFiles, index)
+        End If
+
     End Sub
 End Class

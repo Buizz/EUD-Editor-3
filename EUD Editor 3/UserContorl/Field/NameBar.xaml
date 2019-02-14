@@ -45,6 +45,7 @@
       
             <TextBox.ContextMenu>
                 <ContextMenu>
+                    <MenuItem x:Name="TtCutItem" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Command="Cut" Icon="{materialDesign:PackIcon Kind=ContentCut}"/>
                     <MenuItem x:Name="TtCopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Command="Copy" Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
                     <MenuItem x:Name="TtPasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Command="Paste" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
                     <MenuItem x:Name="TtResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>
@@ -56,6 +57,7 @@
                       Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="40"  Tag="Hit Points" Margin="0,0,20,0" MinWidth="200" >
             <TextBox.ContextMenu>
                 <ContextMenu>
+                    <MenuItem x:Name="GCCutItem" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Command="Cut" Icon="{materialDesign:PackIcon Kind=ContentCut}"/>
                     <MenuItem x:Name="GCopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Command="Copy"  Icon="{materialDesign:PackIcon Kind=ContentCopy}"/>
                     <MenuItem x:Name="GPasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Command="Paste" Icon="{materialDesign:PackIcon Kind=ContentPaste}"/>
                     <MenuItem x:Name="GResetItem" Header="{StaticResource Reset}" InputGestureText="Ctrl+R" Icon="{materialDesign:PackIcon Kind=Restore}"/>

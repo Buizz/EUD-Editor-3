@@ -31,6 +31,23 @@ Public Class StatTxtBinding
                 NotifyPropertyChanged("Value")
                 pjData.BindingManager.UIManager(SCDatFiles.DatFiles.stattxt, ObjectID).NameRefresh()
                 pjData.BindingManager.UIManager(SCDatFiles.DatFiles.stattxt, ObjectID).BackColorRefresh()
+
+                If ObjectID < 228 Then
+                    pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, ObjectID).NameRefresh()
+                End If
+                '해당 라벨을 쓰는 것들에게 전부 리프레시 명령을 내려야함..
+                Dim CodeGroup As CodeConnectGroup = pjData.BindingManager.CodeConnectGroup(SCDatFiles.DatFiles.stattxt)
+                For i = 0 To CodeGroup.Count - 1
+                    Dim DatFile As SCDatFiles.DatFiles = CodeGroup.GetDatType(i)
+                    Dim ParamName As String = CodeGroup.GetParamName(i)
+
+                    For k = 0 To SCCodeCount(DatFile) - 1
+                        If pjData.Dat.Data(DatFile, ParamName, k) = ObjectID Then '현재 이 Stat를 사용중일 경우
+                            pjData.BindingManager.UIManager(DatFile, k).NameRefresh()
+                        End If
+                    Next
+
+                Next
             End If
         End Set
     End Property

@@ -457,6 +457,8 @@ Public Class ProjectData
     Private ReadOnly Property UnitName(index As Byte) As String
         Get
             Dim RealName As String = Stat_txt(index)
+            Dim DefaultName As String = scData.GetStat_txt(index)
+
             If MapLoading Then
                 Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
                 Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
@@ -466,21 +468,21 @@ Public Class ProjectData
                     If strindex = 0 Then
                         Return RealName & " (" & ToolTipText & ")"
                     Else
-                        Return MapData.Str(strindex - 1) & " (" & ToolTipText & ")" & vbCrLf & RealName
+                        Return MapData.Str(strindex - 1) & " (" & ToolTipText & ")" & vbCrLf & DefaultName
                     End If
 
                 Else
                     If strindex = 0 Then
                         Return RealName
                     Else
-                        Return MapData.Str(strindex - 1) & vbCrLf & RealName
+                        Return MapData.Str(strindex - 1) & vbCrLf & DefaultName
                     End If
                 End If
 
                 If strindex = 0 Then
                     Return RealName
                 Else
-                    Return MapData.Str(strindex - 1) & " (" & ToolTipText & ")" & vbCrLf & RealName
+                    Return MapData.Str(strindex - 1) & " (" & ToolTipText & ")" & vbCrLf & DefaultName
                 End If
             Else
                 Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)

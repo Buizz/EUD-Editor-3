@@ -15,7 +15,7 @@ Imports System.Windows
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("EUD Editor 3")>
-<Assembly: AssemblyCopyright("Copyright ©  2018 JPoker")>
+<Assembly: AssemblyCopyright("Copyright ©  2019 JPoker")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(false)>
 

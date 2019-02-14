@@ -30,6 +30,7 @@ Public Class UIManager
     Public Sub NameRefresh()
         NotifyPropertyChanged("Name")
         NotifyPropertyChanged("TabName")
+        '이때 발동
     End Sub
 
     Public Sub BackColorRefresh()
