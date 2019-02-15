@@ -14,7 +14,12 @@
 
         Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         DataContext = DB
-
+        If True Then
+            Dim tbind As New Binding
+            tbind.Path = New PropertyPath("ToolTipText")
+            CheckboxList.SetBinding(CheckboxList.ToolTipProperty, tbind)
+            'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+        End If
         CheckboxList.Children.Clear()
         Dim RelaWidth As Integer = ItemWidth
         Dim itmes As String() = DB.ComboxItems
@@ -64,7 +69,12 @@
         Field.ReLoad(DatFile, ObjectID, Parameter, InputField.SFlag.FLAG)
         Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         DataContext = DB
-
+        If True Then
+            Dim tbind As New Binding
+            tbind.Path = New PropertyPath("ToolTipText")
+            CheckboxList.SetBinding(CheckboxList.ToolTipProperty, tbind)
+            'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+        End If
         Dim itmes As String() = DB.ComboxItems
         For i = 0 To itmes.Count - 1
             Dim tBorder As Border = CheckboxList.Children.Item(i)

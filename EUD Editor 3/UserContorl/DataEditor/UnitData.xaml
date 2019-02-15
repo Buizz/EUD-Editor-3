@@ -42,6 +42,15 @@
                 <TabItem x:Name="AIOrder" Header="{StaticResource UnitAIOrder}">
 
                 </TabItem>
+                <TabItem x:Name="SInforData" Header="{StaticResource UnitInfor}">
+
+                </TabItem>
+                <TabItem x:Name="WireFrame" Header="{StaticResource UnitWireFrame}">
+
+                </TabItem>
+                <TabItem x:Name="Requir" Header="{StaticResource UnitRequir}">
+
+                </TabItem>
             </dragablz:TabablzControl>
             <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
                 <ListBoxItem Content="{StaticResource UnitDefault}" Background="{Binding BackPage0}"/>
@@ -51,8 +60,8 @@
                 <ListBoxItem Content="{StaticResource UnitMapEdit}" Background="{Binding BackPage4}"/>
                 <ListBoxItem Content="{StaticResource UnitAIOrder}" Background="{Binding BackPage5}"/>
                 <ListBoxItem Content="{StaticResource UnitInfor}"/>
-                <ListBoxItem Content="{StaticResource UnitRequir}"/>
                 <ListBoxItem Content="{StaticResource UnitWireFrame}"/>
+                <ListBoxItem Content="{StaticResource UnitRequir}"/>
             </ListBox>
 
         </Grid>

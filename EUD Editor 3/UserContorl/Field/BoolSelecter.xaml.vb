@@ -10,6 +10,13 @@
         ObjectID = _ObjectID
         Parameter = _Parameter
 
+        If True Then
+            Dim tbind As New Binding
+            tbind.Path = New PropertyPath("ToolTipText")
+            chbox.SetBinding(CheckBox.ToolTipProperty, tbind)
+            'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+        End If
+
         DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
     End Sub
@@ -23,6 +30,12 @@
             tBorder.Margin = New Thickness(TextWidth, 5, 0, 3)
         End If
         'Field.Init(DatFile, ObjectID, Parameter)
+        If True Then
+            Dim tbind As New Binding
+            tbind.Path = New PropertyPath("ToolTipText")
+            chbox.SetBinding(CheckBox.ToolTipProperty, tbind)
+            'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+        End If
 
         DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         DatCommand = New DatCommand(DatFile, Parameter, ObjectID)

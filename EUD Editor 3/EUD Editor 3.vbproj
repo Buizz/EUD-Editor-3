@@ -197,6 +197,9 @@
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
+    <Compile Include="UserContorl\DataEditor\DataPages\Unit_WireFrame.xaml.vb">
+      <DependentUpon>Unit_WireFrame.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_AIOrder.xaml.vb">
       <DependentUpon>Unit_AIOrder.xaml</DependentUpon>
     </Compile>
@@ -227,8 +230,11 @@
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_Default.xaml.vb">
       <DependentUpon>Unit_Default.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\OrderData.xaml.vb">
-      <DependentUpon>OrderData.xaml</DependentUpon>
+    <Compile Include="UserContorl\DataEditor\DataPages\Order_Data.xaml.vb">
+      <DependentUpon>Order_Data.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\RequirePage\RequireData.xaml.vb">
+      <DependentUpon>RequireData.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\DataEditor\SpriteData.xaml.vb">
       <DependentUpon>SpriteData.xaml</DependentUpon>
@@ -236,14 +242,26 @@
     <Compile Include="UserContorl\DataEditor\StatTxtData.xaml.vb">
       <DependentUpon>StatTxtData.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\DataEditor\DataPages\StatusInforData.xaml.vb">
+      <DependentUpon>StatusInforData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\DataPages\Tech_Data.xaml.vb">
+      <DependentUpon>Tech_Data.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\OrderData.xaml.vb">
+      <DependentUpon>OrderData.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DataEditor\UpgradeData.xaml.vb">
+      <DependentUpon>UpgradeData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\TechData.xaml.vb">
       <DependentUpon>TechData.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\DataEditor\UnitData.xaml.vb">
       <DependentUpon>UnitData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\UpgradeData.xaml.vb">
-      <DependentUpon>UpgradeData.xaml</DependentUpon>
+    <Compile Include="UserContorl\DataEditor\DataPages\Upgrade_Data.xaml.vb">
+      <DependentUpon>Upgrade_Data.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\DataEditor\WeaponData.xaml.vb">
       <DependentUpon>WeaponData.xaml</DependentUpon>
@@ -319,6 +337,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserContorl\DataEditor\DataPages\Unit_WireFrame.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserContorl\DataEditor\DataPages\Unit_AIOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -359,9 +381,13 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\OrderData.xaml">
+    <Page Include="UserContorl\DataEditor\DataPages\Order_Data.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\RequirePage\RequireData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserContorl\DataEditor\SpriteData.xaml">
       <SubType>Designer</SubType>
@@ -371,15 +397,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\TechData.xaml">
+    <Page Include="UserContorl\DataEditor\DataPages\StatusInforData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\DataPages\Tech_Data.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\DataEditor\OrderData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\DataEditor\UpgradeData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\DataEditor\TechData.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="UserContorl\DataEditor\UnitData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\UpgradeData.xaml">
+    <Page Include="UserContorl\DataEditor\DataPages\Upgrade_Data.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

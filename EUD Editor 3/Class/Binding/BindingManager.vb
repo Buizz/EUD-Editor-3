@@ -165,6 +165,9 @@
             Next
         Next
     End Sub
+
+
+
     Public ReadOnly Property DatBinding(key As SCDatFiles.DatFiles, name As String, index As Integer) As DatBinding
         Get
             Dim ValueStart As Integer = pjData.Dat.ParamInfo(key, name, SCDatFiles.EParamInfo.VarStart)

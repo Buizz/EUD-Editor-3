@@ -30,8 +30,9 @@
     Public Sub Execute(parameter As Object) Implements ICommand.Execute
         Select Case parameter
             Case CommandType.Copy
-                My.Computer.Clipboard.SetText("안녕")
+                My.Computer.Clipboard.SetText(pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).Value)
             Case CommandType.Paste
+                pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).Value = My.Computer.Clipboard.GetText
             Case CommandType.Reset
                 pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).DataReset()
         End Select
@@ -62,10 +63,14 @@
                     Return True
                 Case CommandType.Paste
                     Dim clipboard As String = My.Computer.Clipboard.GetText
-                    If clipboard = "수열" Then
-                        Return True
-                    End If
-                    Return False
+                    Dim num As Long
+                    Try
+                        num = clipboard
+                    Catch ex As Exception
+                        Return False
+                    End Try
+
+                    Return True
                 Case CommandType.Reset
                     Return True
             End Select

@@ -52,10 +52,54 @@ Public Class DatBinding
         NotifyPropertyChanged("ValueImage")
         NotifyPropertyChanged("ValueFlag")
 
+        NotifyPropertyChanged("ToolTipText")
         For i = 0 To FlagBindingManager.Count - 1
             FlagBindingManager(i).PropertyChangedPack()
         Next
     End Sub
+
+    Public ReadOnly Property ToolTipText() As TextBlock
+        Get
+            Dim DefaultValue As Long = scData.DefaultDat.Data(Datfile, Parameter, ObjectID)
+
+
+            Dim returnStr As String = ""
+            returnStr = "<0>뎃파일 이름 : <2>" & Tool.GetText(Datfilesname(Datfile)) & "(" & Datfilesname(Datfile) & ")" & vbCrLf &
+             "<0>파라미터 : <2>" & Tool.GetText(Datfilesname(Datfile) & "_" & Parameter) & "(" & Parameter & ")" & vbCrLf
+            'returnStr = returnStr & "인덱스 : " & ObjectID & vbCrLf
+            'returnStr = returnStr & "사이즈 : " & scData.DefaultDat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.Size) & vbCrLf
+
+            Dim ValueType As SCDatFiles.DatFiles = scData.DefaultDat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
+            If ValueType <> SCDatFiles.DatFiles.None Then
+                returnStr = returnStr & "<0>값 타입 : <3>" & Tool.GetText(Datfilesname(ValueType)) & vbCrLf
+            End If
+            'returnStr = returnStr & "베이스오프셋 : 0x" & Hex(Tool.GetOffset(Datfile, Parameter)).ToUpper & vbCrLf
+
+            If Not pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault Then
+                returnStr = returnStr & "<0>원본 값 : <3>" & DefaultValue & vbCrLf
+            End If
+
+            If pjData.IsMapLoading Then
+                If Not pjData.MapData.DatFile.Values(Datfile, Parameter, ObjectID).IsDefault Then '기본 안 값 쓴다면
+                    returnStr = returnStr & "<0>맵 데이터 값 : <3>" & pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID) & vbCrLf
+                End If
+            End If
+
+            'If Not pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault Then
+            '    returnStr = returnStr & "   변경 된 값 : " & pjData.Dat.Data(Datfile, Parameter, ObjectID)
+            'End If
+
+            returnStr = returnStr & vbCrLf & "<0>" & Tool.GetText(Datfilesname(Datfile) & "_" & Parameter & "_ToolTip")
+
+            Dim Tb As TextBlock = Tool.TextColorBlock(returnStr.Trim)
+            Tb.TextWrapping = TextWrapping.WrapWithOverflow
+            Tb.MaxWidth = 250
+
+            Return Tb
+        End Get
+    End Property
+
+
 
     Public Property Value() As String
         Get

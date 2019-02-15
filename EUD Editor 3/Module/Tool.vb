@@ -22,6 +22,87 @@ Namespace Tool
             Next
         End Sub
 
+        Private TextBlockColorTable() As SolidColorBrush = {
+        Application.Current.Resources("MaterialDesignBackground"),
+        New SolidColorBrush(Color.FromRgb(86, 156, 214)),
+         New SolidColorBrush(Color.FromRgb(128, 193, 132)),
+         New SolidColorBrush(Color.FromRgb(72, 180, 142)),
+         New SolidColorBrush(Color.FromRgb(181, 206, 168)),
+         New SolidColorBrush(Color.FromRgb(255, 167, 167))} '붉은색 (주의)
+        Public Function TextColorBlock(textstr As String) As TextBlock
+            Dim TextBlcck As New TextBlock
+
+            Dim inlines As InlineCollection = TextBlcck.Inlines
+            inlines.Clear()
+            Dim MainText As String = textstr '.Replace(vbCrLf, "<A>")
+
+
+            Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
+
+            Dim LastColor As Integer = 0
+            Dim LastCode As Integer = 0
+            Dim Startindex As Integer = 1
+            For i = 0 To rgx.Matches(MainText).Count - 1
+                Dim tMatch As Text.RegularExpressions.Match = rgx.Matches(MainText).Item(i)
+
+                Dim Value As String = tMatch.Value
+                Value = Mid(Value, 2, Value.Length - 2)
+
+                Dim ColorCode As Integer = -1
+                Try
+                    ColorCode = "&H" & Value
+                    If ColorCode > TextBlockColorTable.Count - 1 Then
+                        Continue For
+                    End If
+                Catch ex As Exception
+                    Continue For
+                End Try
+
+                Dim AddedText As String = Mid(MainText, Startindex, tMatch.Index - Startindex + 1)
+
+
+                Dim Run As New Run(AddedText)
+                Run.Foreground = TextBlockColorTable(LastColor)
+                inlines.Add(Run)
+                Startindex = tMatch.Index + Value.Length + 3
+                LastCode = ColorCode
+                If ColorCode <> -1 Then
+                    LastColor = ColorCode
+                End If
+                If LastCode = &HA Then
+                    inlines.Add(vbCrLf)
+                    LastColor = 0
+                End If
+            Next
+
+            If True Then
+                Dim AddedText As String = Mid(MainText, Startindex, MainText.Length - Startindex + 1)
+                Dim Run As New Run(AddedText)
+                Run.Foreground = TextBlockColorTable(LastColor)
+                inlines.Add(Run)
+            End If
+
+            Return TextBlcck
+        End Function
+
+        Public Function ParamaterParser(PName As String, Datname As String) As String
+            If ParamaterList.IndexOf(PName) >= 0 Then
+                Return PName
+            End If
+
+            For i = 0 To ParamaterList.Count - 1
+                'MsgBox(GetText(ParamaterList(i)) & " " & PName)
+                If GetText(Datname & "_" & ParamaterList(i)) = PName Then
+                    Return ParamaterList(i)
+                End If
+            Next
+
+
+            Return PName
+        End Function
+
+
+        Private ParamaterList As List(Of String)
         Private OffsetDic As Dictionary(Of String, UInteger)
         Public Function GetOffset(dat As SCDatFiles.DatFiles, ParamName As String) As UInteger
             Return OffsetDic(Datfilesname(dat) & "_" & ParamName)
@@ -30,6 +111,7 @@ Namespace Tool
             Return OffsetDic(FullName)
         End Function
         Private Sub OffsetDicInit()
+            ParamaterList = New List(Of String)
             OffsetDic = New Dictionary(Of String, UInteger)
             Dim fs As New FileStream(OffsetPath, FileMode.Open)
             Dim sr As New StreamReader(fs)
@@ -41,6 +123,9 @@ Namespace Tool
                 Dim Value As UInteger = "&H" & str.Split("=")(1).Remove(0, 2)
 
                 OffsetDic.Add(Key, Value)
+                If Key.IndexOf("_") <> -1 Then
+                    ParamaterList.Add(Key.Split("_")(1))
+                End If
             End While
 
 

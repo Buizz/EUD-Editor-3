@@ -115,12 +115,14 @@ Public Class CodeConnecter
 
                     If pjData.Dat.Data(Datfiles, ParamName, Realindex) = ObjectID Then
                         Dim tListBox As New ListBoxItem
-                        tListBox.Tag = Datfiles & "," & ParamName & "," & index
+                        tListBox.Tag = Datfiles & "," & ParamName & "," & Realindex
+                        tListBox.ToolTip = Tool.GetText(Datfilesname(Datfiles)) & " '" & Tool.GetText(Datfilesname(Datfiles) & "_" & ParamName) & "'"
+
                         Dim Textblock As New TextBlock
                         Textblock.TextWrapping = TextWrapping.Wrap
 
                         Dim myBinding As Binding = New Binding("TabName")
-                        myBinding.Source = pjData.BindingManager.UIManager(Datfiles, index)
+                        myBinding.Source = pjData.BindingManager.UIManager(Datfiles, Realindex)
                         Textblock.SetBinding(TextBlock.TextProperty, myBinding)
 
                         tListBox.Content = Textblock

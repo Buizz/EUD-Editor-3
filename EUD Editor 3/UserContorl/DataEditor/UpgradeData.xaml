@@ -3,93 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+            xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
-             d:DesignHeight="482"  d:DesignWidth="770">
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="760" Background="{DynamicResource MaterialDesignPaper}">
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
-        <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="40*"/>
-            </Grid.RowDefinitions>
-            <local:NameBar x:Name="NameBar"/>
-            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="107" Width="550" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource UpgradeScreen}" Padding="6"/>
-                            <WrapPanel Grid.Row="1" Margin="10,2"> 
-                                <local:IconSelecter x:Name="ICO" Tag="Icon" HorizontalAlignment="Left" VerticalAlignment="Top" Width="530" />
-                                <local:IconSelecter x:Name="LAB" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                            </WrapPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                    <materialDesign:Card Height="133" Width="135" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource UpgradeCost}" Padding="6"/>
-                            <WrapPanel Grid.Row="1" Margin="10,2">
-                                <local:InputField x:Name="MCB" Tag="Mineral Cost Base" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                                <local:InputField x:Name="VCB" Tag="Vespene Cost Base" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                                <local:InputField x:Name="RTB" Tag="Research Time Base" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                            </WrapPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                    <materialDesign:Card Height="133" Width="135"  Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource UpgradeExtraCost}" Padding="6"/>
-                            <WrapPanel Grid.Row="1" Margin="10,2">
-                                <local:InputField x:Name="MCF" Tag="Mineral Cost Factor" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                                <local:InputField x:Name="VCF" Tag="Vespene Cost Factor" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                                <local:InputField x:Name="RTF" Tag="Research Time Factor" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                            </WrapPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                    <materialDesign:Card Height="133" Width="175"  Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource UpgradeInfor}" Padding="6"/>
-                            <WrapPanel Grid.Row="1" Margin="10,2">
-                                <local:InputField x:Name="MR" Tag="Max. Repeats" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                <local:ComboxSelecter x:Name="RAC" Tag="Race" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                                <local:BoolSelecter x:Name="BF" Tag="Broodwar Flag" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                            </WrapPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                </WrapPanel>
-            </ScrollViewer>
+        <Grid>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
+
+
+
+            <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
+                     Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
+                     >
+                <TabItem x:Name="Defualt" Header="{StaticResource DefaultInfor}" >
+
+                </TabItem>
+                <TabItem x:Name="Requir" Header="{StaticResource UpgradeRequir}">
+
+                </TabItem>
+            </dragablz:TabablzControl>
+            <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
+                <ListBoxItem Content="{StaticResource DefaultInfor}"/>
+                <ListBoxItem Content="{StaticResource UpgradeRequir}"/>
+            </ListBox>
+
         </Grid>
     </DockPanel>
+    
 </UserControl>

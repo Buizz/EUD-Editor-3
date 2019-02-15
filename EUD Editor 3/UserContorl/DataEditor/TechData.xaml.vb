@@ -1,46 +1,38 @@
 ﻿Public Class TechData
-    Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.techdata
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
+        UsedCodeList.ReLoad(SCDatFiles.DatFiles.techdata, ObjectID)
 
-    Public Property ObjectID As Integer
+        Tech_Data.ReLoad(DatFiles, ObjectID)
+        RequireUseData.ReLoad(DatFiles, ObjectID, True)
+        RequireReserachData.ReLoad(DatFiles, ObjectID)
 
+        TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.techdata, ObjectID)
+    End Sub
 
     Public Sub New(tObjectID As Integer)
+
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
-        DataContext = pjData
-        ObjectID = tObjectID
+        UsedCodeList.Init(SCDatFiles.DatFiles.techdata, tObjectID)
 
-        UsedCodeList.Init(DatFiles, ObjectID)
+        Tech_Data = New Tech_Data(tObjectID)
+        RequireUseData = New RequireData(SCDatFiles.DatFiles.techdata, tObjectID, True)
+        RequireReserachData = New RequireData(SCDatFiles.DatFiles.techdata, tObjectID)
 
-        NameBar.Init(ObjectID, DatFiles, 0)
+        Defualt.Content = Tech_Data
+        ReserachRequir.Content = RequireUseData
+        UseRequir.Content = RequireReserachData
 
-        ICO.Init(DatFiles, ObjectID, ICO.Tag)
-        LAB.Init(DatFiles, ObjectID, LAB.Tag)
-        MCB.Init(DatFiles, ObjectID, MCB.Tag)
-        VCB.Init(DatFiles, ObjectID, VCB.Tag)
-        RTB.Init(DatFiles, ObjectID, RTB.Tag)
-
-        MR.Init(DatFiles, ObjectID, MR.Tag)
-        RAC.Init(DatFiles, ObjectID, RAC.Tag)
-        BF.Init(DatFiles, ObjectID, BF.Tag)
+        TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.techdata, tObjectID)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        ObjectID = ObjectID
 
-        UsedCodeList.ReLoad(DatFiles, ObjectID)
+    Private Tech_Data As Tech_Data
+    Private RequireUseData As RequireData
+    Private RequireReserachData As RequireData
 
-        NameBar.ReLoad(ObjectID, DatFiles, 0)
-
-        ICO.ReLoad(DatFiles, ObjectID, ICO.Tag)
-        LAB.ReLoad(DatFiles, ObjectID, LAB.Tag)
-        MCB.ReLoad(DatFiles, ObjectID, MCB.Tag)
-        VCB.ReLoad(DatFiles, ObjectID, VCB.Tag)
-        RTB.ReLoad(DatFiles, ObjectID, RTB.Tag)
-
-        MR.ReLoad(DatFiles, ObjectID, MR.Tag)
-        RAC.ReLoad(DatFiles, ObjectID, RAC.Tag)
-        BF.ReLoad(DatFiles, ObjectID, BF.Tag)
+    Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        MainTab.SelectedIndex = TypeListBox.SelectedIndex
     End Sub
 End Class

@@ -14,7 +14,12 @@
         Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
 
         DataContext = DB
-
+        If True Then
+            Dim tbind As New Binding
+            tbind.Path = New PropertyPath("ToolTipText")
+            MainComboBox.SetBinding(ComboBox.ToolTipProperty, tbind)
+            'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+        End If
 
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
     End Sub
@@ -27,6 +32,12 @@
 
         Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
         DataContext = DB
+        If True Then
+            Dim tbind As New Binding
+            tbind.Path = New PropertyPath("ToolTipText")
+            MainComboBox.SetBinding(ComboBox.ToolTipProperty, tbind)
+            'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+        End If
 
         Dim itmes As String() = DB.ComboxItems
         For i = 0 To itmes.Count - 1

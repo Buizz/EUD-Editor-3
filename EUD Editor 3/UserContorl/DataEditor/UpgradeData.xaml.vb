@@ -1,50 +1,34 @@
 ﻿Public Class UpgradeData
-    Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.upgrades
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
+        UsedCodeList.ReLoad(SCDatFiles.DatFiles.upgrades, ObjectID)
 
-    Public Property ObjectID As Integer
+        Upgrade_Data.ReLoad(DatFiles, ObjectID)
+        RequireData.ReLoad(DatFiles, ObjectID)
 
+        TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.upgrades, ObjectID)
+    End Sub
 
     Public Sub New(tObjectID As Integer)
+
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
-        DataContext = pjData
-        ObjectID = tObjectID
+        UsedCodeList.Init(SCDatFiles.DatFiles.upgrades, tObjectID)
 
-        UsedCodeList.Init(DatFiles, ObjectID)
+        Upgrade_Data = New Upgrade_Data(tObjectID)
+        RequireData = New RequireData(SCDatFiles.DatFiles.upgrades, tObjectID)
 
-        NameBar.Init(ObjectID, DatFiles, 0)
+        Defualt.Content = Upgrade_Data
+        Requir.Content = RequireData
 
-        ICO.Init(DatFiles, ObjectID, ICO.Tag)
-        LAB.Init(DatFiles, ObjectID, LAB.Tag)
-        MCB.Init(DatFiles, ObjectID, MCB.Tag)
-        VCB.Init(DatFiles, ObjectID, VCB.Tag)
-        RTB.Init(DatFiles, ObjectID, RTB.Tag)
-        MCF.Init(DatFiles, ObjectID, MCF.Tag)
-        VCF.Init(DatFiles, ObjectID, VCF.Tag)
-        RTF.Init(DatFiles, ObjectID, RTF.Tag)
-        MR.Init(DatFiles, ObjectID, MR.Tag)
-        RAC.Init(DatFiles, ObjectID, RAC.Tag)
-        BF.Init(DatFiles, ObjectID, BF.Tag)
+        TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.upgrades, tObjectID)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        ObjectID = ObjectID
 
-        UsedCodeList.ReLoad(DatFiles, ObjectID)
+    Private Upgrade_Data As Upgrade_Data
+    Private RequireData As RequireData
 
-        NameBar.ReLoad(ObjectID, DatFiles, 0)
-
-        ICO.ReLoad(DatFiles, ObjectID, ICO.Tag)
-        LAB.ReLoad(DatFiles, ObjectID, LAB.Tag)
-        MCB.ReLoad(DatFiles, ObjectID, MCB.Tag)
-        VCB.ReLoad(DatFiles, ObjectID, VCB.Tag)
-        RTB.ReLoad(DatFiles, ObjectID, RTB.Tag)
-        MCF.ReLoad(DatFiles, ObjectID, MCF.Tag)
-        VCF.ReLoad(DatFiles, ObjectID, VCF.Tag)
-        RTF.ReLoad(DatFiles, ObjectID, RTF.Tag)
-        MR.ReLoad(DatFiles, ObjectID, MR.Tag)
-        RAC.ReLoad(DatFiles, ObjectID, RAC.Tag)
-        BF.ReLoad(DatFiles, ObjectID, BF.Tag)
+    Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        MainTab.SelectedIndex = TypeListBox.SelectedIndex
     End Sub
 End Class

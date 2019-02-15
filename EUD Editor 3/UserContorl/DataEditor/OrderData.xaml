@@ -3,62 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
-             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
-             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
-             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+            xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+            xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+            xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+            xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
-             d:DesignHeight="482"  d:DesignWidth="770">
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="760" Background="{DynamicResource MaterialDesignPaper}">
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
+
         <Grid>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="50"/>
-                <RowDefinition Height="40*"/>
-            </Grid.RowDefinitions>
-            <local:NameBar x:Name="NameBar"/>
-            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="402" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource OrderInfor}" Padding="6"/>
-                            <StackPanel Grid.Row="1" Margin="10,2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="100*"/>
+            </Grid.ColumnDefinitions>
 
-                                <local:IconSelecter x:Name="TG" Tag="Targeting" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600"/>
-                                <local:IconSelecter x:Name="EN" Tag="Energy" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600" />
-                                <local:IconSelecter x:Name="OO" Tag="Obscured Order" HorizontalAlignment="Left" VerticalAlignment="Top" Width="600" />
-                                <local:IconSelecter x:Name="LAB" Tag="Label" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="600" />
-                                <local:ComboxSelecter x:Name="ANI" Tag="Animation" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="400" />
-                                <local:IconSelecter x:Name="HIGH" Tag="Highlight" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="400"/>
 
-                                <WrapPanel>
-                                    <local:BoolSelecter x:Name="FLAG1" Width="220" Tag="Use Weapon Targeting" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG2" Width="220" Tag="Unknown2" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG3" Width="220" Tag="Unknown3" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG4" Width="220" Tag="Unknown4" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG5" Width="220" Tag="Unknown5" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG6" Width="220" Tag="Can Be Interrupted" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG7" Width="220" Tag="Unknown7" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG8" Width="220" Tag="Can Be Queued" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG9" Width="220" Tag="Unknown9" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG10" Width="220" Tag="Unknown10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG11" Width="220" Tag="Unknown11" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
-                                    <local:BoolSelecter x:Name="FLAG12" Width="220" Tag="Unknown12" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="0,-4"/>
 
-                                </WrapPanel>
-                            </StackPanel>
-                        </Grid>
-                    </materialDesign:Card>
-                </WrapPanel>
-            </ScrollViewer>
+            <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
+                     Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
+                     >
+                <TabItem x:Name="Defualt" Header="{StaticResource UnitDefault}" >
+
+                </TabItem>
+                <TabItem x:Name="Requir" Header="{StaticResource UnitRequir}">
+
+                </TabItem>
+            </dragablz:TabablzControl>
+            <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
+                <ListBoxItem Content="{StaticResource DefaultInfor}"/>
+                <ListBoxItem Content="{StaticResource OrderRequir}"/>
+            </ListBox>
+
         </Grid>
     </DockPanel>
+    
 </UserControl>

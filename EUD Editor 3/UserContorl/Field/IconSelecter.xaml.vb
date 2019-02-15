@@ -45,6 +45,12 @@ Public Class IconSelecter
             End If
 
             If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                If True Then
+                    Dim tbind As New Binding
+                    tbind.Path = New PropertyPath("ToolTipText")
+                    btn.SetBinding(Button.ToolTipProperty, tbind)
+                    'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+                End If
 
                 DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
                 btn.IsEnabled = True
@@ -120,6 +126,13 @@ Public Class IconSelecter
             Field.ReLoad(DatFile, ObjectID, Parameter)
 
             If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                If True Then
+                    Dim tbind As New Binding
+                    tbind.Path = New PropertyPath("ToolTipText")
+                    btn.SetBinding(Button.ToolTipProperty, tbind)
+                    'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
+                End If
+
                 DataContext = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
 
                 btn.IsEnabled = True

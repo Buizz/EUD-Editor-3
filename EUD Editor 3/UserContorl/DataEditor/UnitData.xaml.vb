@@ -8,6 +8,9 @@
         Unit_Graphic.ReLoad(DatFiles, ObjectID)
         Unit_MapEdit.ReLoad(DatFiles, ObjectID)
         Unit_AIOrder.ReLoad(DatFiles, ObjectID)
+        StatusInforData.ReLoad(DatFiles, ObjectID)
+        Unit_WireFrame.ReLoad(DatFiles, ObjectID)
+        RequireData.ReLoad(DatFiles, ObjectID)
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, ObjectID)
     End Sub
@@ -26,6 +29,9 @@
         Unit_Graphic = New Unit_Graphic(tObjectID)
         Unit_MapEdit = New Unit_MapEdit(tObjectID)
         Unit_AIOrder = New Unit_AIOrder(tObjectID)
+        StatusInforData = New StatusInforData(tObjectID)
+        Unit_WireFrame = New Unit_WireFrame(tObjectID)
+        RequireData = New RequireData(SCDatFiles.DatFiles.units, tObjectID)
 
         Defualt.Content = Unit_Default
         Special.Content = Unit_Special
@@ -33,6 +39,9 @@
         Graphic.Content = Unit_Graphic
         MapEdit.Content = Unit_MapEdit
         AIOrder.Content = Unit_AIOrder
+        SInforData.Content = StatusInforData
+        WireFrame.Content = Unit_WireFrame
+        Requir.Content = RequireData
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, tObjectID)
     End Sub
@@ -43,6 +52,9 @@
     Private Unit_Graphic As Unit_Graphic
     Private Unit_MapEdit As Unit_MapEdit
     Private Unit_AIOrder As Unit_AIOrder
+    Private StatusInforData As StatusInforData
+    Private Unit_WireFrame As Unit_WireFrame
+    Private RequireData As RequireData
 
     Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         MainTab.SelectedIndex = TypeListBox.SelectedIndex
