@@ -36,6 +36,10 @@
     Private _UIManagerKey As Dictionary(Of SCDatFiles.DatFiles, Integer)
     Public ReadOnly Property UIManager(key As SCDatFiles.DatFiles, index As Integer) As UIManager
         Get
+            If key = SCDatFiles.DatFiles.statusinfor Or key = SCDatFiles.DatFiles.Unitrequire Or key = SCDatFiles.DatFiles.wireframe Then
+                key = SCDatFiles.DatFiles.units
+            End If
+
             Return _UIManager(_UIManagerKey(key))(index)
         End Get
     End Property
@@ -114,7 +118,7 @@
                 End If
 
 
-                    DataParamKeys(k).Add(keyName, i)
+                DataParamKeys(k).Add(keyName, i)
                 DataBindings(k).Add(New List(Of DatBinding))
                 For j = 0 To scData.DefaultDat.DatFileList(k).ParamaterList(i).GetValueCount - 1
                     DataBindings(k)(i).Add(New DatBinding(k, keyName, j))
@@ -138,10 +142,25 @@
 
 
 
+        StatusDatFn1Binding = New List(Of ExtraDatBinding)
+        StatusDatFn2Binding = New List(Of ExtraDatBinding)
+        For i = 0 To SCUnitCount - 1
+            StatusDatFn1Binding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Status", i))
+            StatusDatFn2Binding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Display", i))
+        Next
 
 
+        WireFrameDatBinding = New List(Of ExtraDatBinding)
+        GrpFrameDatBinding = New List(Of ExtraDatBinding)
+        TranFrameDatBinding = New List(Of ExtraDatBinding)
 
-
+        For i = 0 To SCUnitCount - 1
+            WireFrameDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "wire", i))
+            GrpFrameDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "grp", i))
+            If i < SCMenCount Then
+                TranFrameDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "tran", i))
+            End If
+        Next
     End Sub
 
     Public Sub DataRefresh()
@@ -191,6 +210,40 @@
     Public ReadOnly Property StatTxtBinding(index As Integer) As StatTxtBinding
         Get
             Return pStatTxtBinding(index)
+        End Get
+    End Property
+
+
+    Private StatusDatFn1Binding As List(Of ExtraDatBinding)
+    Private StatusDatFn2Binding As List(Of ExtraDatBinding)
+
+    Private WireFrameDatBinding As List(Of ExtraDatBinding)
+    Private GrpFrameDatBinding As List(Of ExtraDatBinding)
+    Private TranFrameDatBinding As List(Of ExtraDatBinding)
+    Public ReadOnly Property ExtraDatBinding(key As SCDatFiles.DatFiles, name As String, index As Integer) As ExtraDatBinding
+        Get
+            Select Case key
+                Case SCDatFiles.DatFiles.statusinfor
+                    If name = "Status" Then
+                        Return StatusDatFn1Binding(index)
+                    ElseIf name = "Display" Then
+                        Return StatusDatFn2Binding(index)
+                    End If
+                Case SCDatFiles.DatFiles.wireframe
+                    If name = "wire" Then
+                        Return WireFrameDatBinding(index)
+                    ElseIf name = "grp" Then
+                        Return GrpFrameDatBinding(index)
+                    ElseIf name = "tran" Then
+                        If index < SCMenCount Then
+                            Return TranFrameDatBinding(index)
+                        Else
+                            Return Nothing
+                        End If
+
+                    End If
+            End Select
+            Return Nothing
         End Get
     End Property
 End Class

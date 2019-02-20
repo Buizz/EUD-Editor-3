@@ -32,8 +32,13 @@ Public Class SCDatFiles
 
         'Firegraft
         statusinfor = 13
-        button = 14
-        require = 15
+        wireframe = 14
+        Unitrequire = 15
+        Upgraderequire = 16
+        TechResearchrequire = 17
+        TechUserequire = 18
+        Orderrequire = 19
+        button = 20
         None = 255
     End Enum
     Public Enum EParamInfo
@@ -109,7 +114,11 @@ Public Class SCDatFiles
 
     Public ReadOnly Property ParamInfo(key As DatFiles, paramName As String, Type As EParamInfo) As Integer
         Get
-            Return DatfileDic(key).GetParamInfo(paramName, Type)
+            If DatfileDic.Keys.ToList.IndexOf(key) >= 0 Then
+                Return DatfileDic(key).GetParamInfo(paramName, Type)
+            Else
+                Return DatfileDic(DatFiles.units).GetParamInfo("Subunit 1", Type)
+            End If
         End Get
     End Property
 

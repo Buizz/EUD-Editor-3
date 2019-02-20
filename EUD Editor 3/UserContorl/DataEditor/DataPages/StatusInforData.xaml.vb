@@ -1,7 +1,7 @@
 ﻿Public Class StatusInforData
     Private Const UnitDatPage As Integer = 6
 
-    Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.units
+    Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.statusinfor
 
     Public Property ObjectID As Integer
 
@@ -16,27 +16,26 @@
 
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
 
-        'CAI.Init(DatFiles, ObjectID, CAI.Tag, 80)
-        'HAI.Init(DatFiles, ObjectID, HAI.Tag, 80)
-        'RTI.Init(DatFiles, ObjectID, RTI.Tag, 80)
-        'AU.Init(DatFiles, ObjectID, AU.Tag, 80)
-        'AM.Init(DatFiles, ObjectID, AM.Tag, 80)
+        JOINER.Init(DatFiles, ObjectID, JOINER.Tag)
+        ST.Init(DatFiles, ObjectID, ST.Tag)
+        DI.Init(DatFiles, ObjectID, DI.Tag)
 
-        'RCA.Init(DatFiles, ObjectID, RCA.Tag)
-        'AI.Init(DatFiles, ObjectID, AI.Tag, 300)
+        WI.Init(SCDatFiles.DatFiles.wireframe, ObjectID, WI.Tag)
+        GR.Init(SCDatFiles.DatFiles.wireframe, ObjectID, GR.Tag)
+        TR.Init(SCDatFiles.DatFiles.wireframe, ObjectID, TR.Tag)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
+    Public Sub ReLoad(tDatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
 
-        NameBar.ReLoad(ObjectID, DatFiles, UnitDatPage)
+        NameBar.ReLoad(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
 
-        'CAI.ReLoad(DatFiles, ObjectID, CAI.Tag)
-        'HAI.ReLoad(DatFiles, ObjectID, HAI.Tag)
-        'RTI.ReLoad(DatFiles, ObjectID, RTI.Tag)
-        'AU.ReLoad(DatFiles, ObjectID, AU.Tag)
-        'AM.ReLoad(DatFiles, ObjectID, AM.Tag)
+        JOINER.ReLoad(DatFiles, ObjectID, JOINER.Tag)
+        ST.ReLoad(DatFiles, ObjectID, ST.Tag)
+        DI.ReLoad(DatFiles, ObjectID, DI.Tag)
 
-        'RCA.ReLoad(DatFiles, ObjectID, RCA.Tag)
-        'AI.ReLoad(DatFiles, ObjectID, AI.Tag)
+
+        WI.ReLoad(SCDatFiles.DatFiles.wireframe, ObjectID, WI.Tag)
+        GR.ReLoad(SCDatFiles.DatFiles.wireframe, ObjectID, GR.Tag)
+        TR.ReLoad(SCDatFiles.DatFiles.wireframe, ObjectID, TR.Tag)
     End Sub
 End Class

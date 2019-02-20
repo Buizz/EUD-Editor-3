@@ -1,16 +1,17 @@
 ﻿Public Class UnitData
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
+        Public Property ObjectID As Integer
+
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
+        ObjectID = tObjectID
+
         UsedCodeList.ReLoad(SCDatFiles.DatFiles.units, ObjectID)
 
-        Unit_Default.ReLoad(DatFiles, ObjectID)
-        Unit_Special.ReLoad(DatFiles, ObjectID)
-        Unit_Sound.ReLoad(DatFiles, ObjectID)
-        Unit_Graphic.ReLoad(DatFiles, ObjectID)
-        Unit_MapEdit.ReLoad(DatFiles, ObjectID)
-        Unit_AIOrder.ReLoad(DatFiles, ObjectID)
-        StatusInforData.ReLoad(DatFiles, ObjectID)
-        Unit_WireFrame.ReLoad(DatFiles, ObjectID)
-        RequireData.ReLoad(DatFiles, ObjectID)
+
+        For i = 0 To LoadSatus.Count - 1
+            LoadSatus(i) = False
+        Next
+
+        LoasScreen(MainTab.SelectedIndex, ObjectID)
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, ObjectID)
     End Sub
@@ -22,26 +23,11 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         UsedCodeList.Init(SCDatFiles.DatFiles.units, tObjectID)
+        ObjectID = tObjectID
 
-        Unit_Default = New Unit_Default(tObjectID)
-        Unit_Special = New Unit_Special(tObjectID)
-        Unit_Sound = New Unit_Sound(tObjectID)
-        Unit_Graphic = New Unit_Graphic(tObjectID)
-        Unit_MapEdit = New Unit_MapEdit(tObjectID)
-        Unit_AIOrder = New Unit_AIOrder(tObjectID)
-        StatusInforData = New StatusInforData(tObjectID)
-        Unit_WireFrame = New Unit_WireFrame(tObjectID)
-        RequireData = New RequireData(SCDatFiles.DatFiles.units, tObjectID)
+        ReDim LoadSatus(7)
+        LoasScreen(0, ObjectID)
 
-        Defualt.Content = Unit_Default
-        Special.Content = Unit_Special
-        Sound.Content = Unit_Sound
-        Graphic.Content = Unit_Graphic
-        MapEdit.Content = Unit_MapEdit
-        AIOrder.Content = Unit_AIOrder
-        SInforData.Content = StatusInforData
-        WireFrame.Content = Unit_WireFrame
-        Requir.Content = RequireData
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.units, tObjectID)
     End Sub
@@ -53,10 +39,77 @@
     Private Unit_MapEdit As Unit_MapEdit
     Private Unit_AIOrder As Unit_AIOrder
     Private StatusInforData As StatusInforData
-    Private Unit_WireFrame As Unit_WireFrame
     Private RequireData As RequireData
+    Private LoadSatus() As Boolean
+
+    Private Sub LoasScreen(index As Byte, tObjectID As Integer)
+        If Not LoadSatus(index) Then
+            Select Case index
+                Case 0
+                    If Unit_Default Is Nothing Then
+                        Unit_Default = New Unit_Default(tObjectID)
+                        Defualt.Content = Unit_Default
+                    Else
+                        Unit_Default.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
+                    End If
+                Case 1
+                    If Unit_Special Is Nothing Then
+                        Unit_Special = New Unit_Special(tObjectID)
+                        Special.Content = Unit_Special
+                    Else
+                        Unit_Special.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
+                    End If
+                Case 2
+                    If Unit_Sound Is Nothing Then
+                        Unit_Sound = New Unit_Sound(tObjectID)
+                        Sound.Content = Unit_Sound
+                    Else
+                        Unit_Sound.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
+                    End If
+                Case 3
+                    If Unit_Graphic Is Nothing Then
+                        Unit_Graphic = New Unit_Graphic(tObjectID)
+                        Graphic.Content = Unit_Graphic
+                    Else
+                        Unit_Graphic.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
+                    End If
+                Case 4
+                    If Unit_MapEdit Is Nothing Then
+                        Unit_MapEdit = New Unit_MapEdit(tObjectID)
+                        MapEdit.Content = Unit_MapEdit
+                    Else
+                        Unit_MapEdit.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
+                    End If
+                Case 5
+                    If Unit_AIOrder Is Nothing Then
+                        Unit_AIOrder = New Unit_AIOrder(tObjectID)
+                        AIOrder.Content = Unit_AIOrder
+                    Else
+                        Unit_AIOrder.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
+                    End If
+                Case 6
+                    If StatusInforData Is Nothing Then
+                        StatusInforData = New StatusInforData(tObjectID)
+                        SInforData.Content = StatusInforData
+                    Else
+                        StatusInforData.ReLoad(SCDatFiles.DatFiles.statusinfor, ObjectID)
+                    End If
+                Case 7
+                    If RequireData Is Nothing Then
+                        RequireData = New RequireData(SCDatFiles.DatFiles.Unitrequire, tObjectID)
+                        Requir.Content = RequireData
+                    Else
+                        RequireData.ReLoad(SCDatFiles.DatFiles.Unitrequire, ObjectID)
+                    End If
+            End Select
+            LoadSatus(index) = True
+        End If
+    End Sub
+
 
     Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        'Dim tTabitem As TabItem = MainTab.Items(TypeListBox.SelectedIndex)
+        LoasScreen(TypeListBox.SelectedIndex, ObjectID)
         MainTab.SelectedIndex = TypeListBox.SelectedIndex
     End Sub
 End Class

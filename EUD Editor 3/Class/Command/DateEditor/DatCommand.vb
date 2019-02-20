@@ -28,14 +28,29 @@
 
 
     Public Sub Execute(parameter As Object) Implements ICommand.Execute
-        Select Case parameter
-            Case CommandType.Copy
-                My.Computer.Clipboard.SetText(pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).Value)
-            Case CommandType.Paste
-                pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).Value = My.Computer.Clipboard.GetText
-            Case CommandType.Reset
-                pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).DataReset()
+        Select Case Datfile
+            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+                Select Case parameter
+                    Case CommandType.Copy
+                        My.Computer.Clipboard.SetText(pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectID).Value)
+                    Case CommandType.Paste
+                        pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectID).Value = My.Computer.Clipboard.GetText
+                    Case CommandType.Reset
+                        pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectID).DataReset()
+                End Select
+
+            Case Else
+                Select Case parameter
+                    Case CommandType.Copy
+                        My.Computer.Clipboard.SetText(pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).Value)
+                    Case CommandType.Paste
+                        pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).Value = My.Computer.Clipboard.GetText
+                    Case CommandType.Reset
+                        pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectID).DataReset()
+                End Select
         End Select
+
+
         'Throw New NotImplementedException()
     End Sub
 

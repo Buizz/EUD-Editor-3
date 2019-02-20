@@ -41,6 +41,7 @@ Public Class UIManager
         NotifyPropertyChanged("BackPage3")
         NotifyPropertyChanged("BackPage4")
         NotifyPropertyChanged("BackPage5")
+        NotifyPropertyChanged("BackPage6")
     End Sub
 
     Public Sub ChangeProperty()
@@ -51,6 +52,7 @@ Public Class UIManager
         NotifyPropertyChanged("BackPage3")
         NotifyPropertyChanged("BackPage4")
         NotifyPropertyChanged("BackPage5")
+        NotifyPropertyChanged("BackPage6")
     End Sub
 
     Public ReadOnly Property BackPage0() As SolidColorBrush
@@ -125,6 +127,18 @@ Public Class UIManager
             Return Nothing
         End Get
     End Property
+    Public ReadOnly Property BackPage6() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 6) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
 
 
 
@@ -133,9 +147,17 @@ Public Class UIManager
     Public ReadOnly Property Back() As SolidColorBrush
         Get
             If SCDatFiles.CheckValidDat(Datfile) Then
-                If pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) Then
+                Dim TrueFlag As Boolean
+                Select Case Datfile
+                    Case SCDatFiles.DatFiles.units
+                        TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And pjData.ExtraDat.CheckDirty(SCDatFiles.DatFiles.statusinfor, ObjectID) And pjData.ExtraDat.CheckDirty(SCDatFiles.DatFiles.wireframe, ObjectID)
+                    Case Else
+                        TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID)
+                End Select
+
+                If TrueFlag Then
                     If pjData.IsMapLoading Then
-                        If pjData.MapData.DatFile.GetDatFile(Datfile).CheckDirty(ObjectID) Then
+                        If TrueFlag Then
                             Return Application.Current.Resources("MaterialDesignPaper")
                         Else
                             Return New SolidColorBrush(pgData.FiledMapEditColor)

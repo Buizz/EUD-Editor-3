@@ -45,9 +45,6 @@
                 <TabItem x:Name="SInforData" Header="{StaticResource UnitInfor}">
 
                 </TabItem>
-                <TabItem x:Name="WireFrame" Header="{StaticResource UnitWireFrame}">
-
-                </TabItem>
                 <TabItem x:Name="Requir" Header="{StaticResource UnitRequir}">
 
                 </TabItem>
@@ -59,8 +56,7 @@
                 <ListBoxItem Content="{StaticResource UnitGraphic}" Background="{Binding BackPage3}"/>
                 <ListBoxItem Content="{StaticResource UnitMapEdit}" Background="{Binding BackPage4}"/>
                 <ListBoxItem Content="{StaticResource UnitAIOrder}" Background="{Binding BackPage5}"/>
-                <ListBoxItem Content="{StaticResource UnitInfor}"/>
-                <ListBoxItem Content="{StaticResource UnitWireFrame}"/>
+                <ListBoxItem Content="{StaticResource UnitInfor}" Background="{Binding BackPage6}"/>
                 <ListBoxItem Content="{StaticResource UnitRequir}"/>
             </ListBox>
 

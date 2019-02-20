@@ -421,8 +421,11 @@ Public Class ProjectData
                         ReturnStr = scData.IconName(index)
                     Case SCDatFiles.DatFiles.stattxt
                         ReturnStr = Stat_txt(index)
+
                     Case SCDatFiles.DatFiles.IscriptID
                         ReturnStr = scData.IscriptName(index)
+                    Case SCDatFiles.DatFiles.wireframe
+                        ReturnStr = UnitName(index)
                     Case SCDatFiles.DatFiles.button
                         If index < SCUnitCount - 1 Then
                             ReturnStr = UnitName(index)

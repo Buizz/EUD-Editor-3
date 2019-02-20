@@ -20,6 +20,7 @@ Public Module SCConst
     Public SCtbltxtCount As UShort = 1547
     Public SCIscriptCount As UShort = 412
 
+    Public SCMenCount As Byte = 106
 
     Public Function CheckOverFlow(Datfiles As SCDatFiles.DatFiles, Value As Long) As Boolean
         Return SCCodeCount(Datfiles) > Value
@@ -193,6 +194,44 @@ Public Class StarCraftData
     End Property
 
 
+    Private SDWireFrame As GRP
+    Private HDWireFrame As GRP
+    Private SDGrpFrame As GRP
+    Private HDGrpFrame As GRP
+    Private SDTramFrame As GRP
+    Private HDTramFrame As GRP
+    Public ReadOnly Property GetWireFrame(index As Integer, IsRemaster As Boolean) As BitmapImage
+        Get
+            If IsRemaster Then
+                Return Nothing
+            Else
+                Return SDWireFrame.DrawGRP(index)
+            End If
+        End Get
+    End Property
+
+
+    Public ReadOnly Property GetGrpFrame(index As Integer, IsRemaster As Boolean) As BitmapImage
+        Get
+            If IsRemaster Then
+                Return Nothing
+            Else
+                Return SDGrpFrame.DrawGRP(index)
+            End If
+        End Get
+    End Property
+
+
+    Public ReadOnly Property GetTranFrame(index As Integer, IsRemaster As Boolean) As BitmapImage
+        Get
+            If IsRemaster Then
+                Return Nothing
+            Else
+                Return SDTramFrame.DrawGRP(index)
+            End If
+        End Get
+    End Property
+
 
     Private IsLoadMPQ As Boolean
     Public ReadOnly Property LoadStarCraftData As Boolean
@@ -203,11 +242,13 @@ Public Class StarCraftData
 
 
 
+    Public DefaultExtraDat As ExtraDatFiles
     Public DefaultDat As SCDatFiles
     Private Offsets As Dictionary(Of String, String)
 
     Public Sub New()
         DefaultDat = New SCDatFiles(False)
+        DefaultExtraDat = New ExtraDatFiles
         Offsets = New Dictionary(Of String, String)
         '오프셋 읽기
 
@@ -305,6 +346,11 @@ Public Class StarCraftData
             Next
 
             SDICON = New GRP("cmdbtns\cmdicons.grp", 0, 0, PalettType.Icons)
+
+
+            SDWireFrame = New GRP("wirefram\wirefram.grp", 0, 0, PalettType.Icons)
+            SDGrpFrame = New GRP("wirefram\grpwire.grp", 0, 0, PalettType.Icons)
+            SDTramFrame = New GRP("wirefram\tranwire.grp", 0, 0, PalettType.Icons)
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"))
             Return

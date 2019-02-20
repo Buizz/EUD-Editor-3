@@ -178,7 +178,7 @@
     <sys:String x:Key="UnitMapEdit">에디트</sys:String>
     <sys:String x:Key="UnitAIOrder">인공지능명령</sys:String>
 
-    <sys:String x:Key="UnitInfor">유닛정보</sys:String>
+    <sys:String x:Key="UnitInfor">화면정보</sys:String>
     <sys:String x:Key="UnitRequir">생산조건</sys:String>
     <sys:String x:Key="UnitWireFrame">와이어프레임</sys:String>
 
@@ -229,6 +229,7 @@
     <sys:String x:Key="techdata">기술</sys:String>
     <sys:String x:Key="orders">명령</sys:String>
     <sys:String x:Key="Startxt">텍스트</sys:String>
+    <sys:String x:Key="Icon">아이콘</sys:String>
 
 
 
@@ -636,5 +637,12 @@
 
 
 
+    <sys:String x:Key="FG_StatusInfor1">유닛종류</sys:String>
+    <sys:String x:Key="FG_StatusInfor1_V">건물|유닛|격납유닛|수송유닛|수송인구유닛|파워업유닛|부화유닛(에그)|합체유닛(다크아칸)|선택불가(핵미사일,스캔)|스캐럽, 맵리벌레|UnusedProtossBuilding</sys:String>
+    <sys:String x:Key="FG_Status">상태기능</sys:String>
+    <sys:String x:Key="FG_Display">표시기능</sys:String>
 
+    <sys:String x:Key="FG_WireFrame">일반</sys:String>
+    <sys:String x:Key="FG_GrpFrame">부대</sys:String>
+    <sys:String x:Key="FG_TranFrame">탑승</sys:String>
 </ResourceDictionary>

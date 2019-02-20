@@ -18,7 +18,7 @@
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="334" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <materialDesign:Card Height="155" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
@@ -28,11 +28,32 @@
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
                               Text="{StaticResource UnitInfor}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                         
-                            <local:FlagSelecter x:Name="AI" Tag="AI Internal" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <StackPanel Grid.Row="1" Margin="10">
 
-                        </WrapPanel>
+                            <local:ComboxSelecter x:Name="JOINER" Tag="Join" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="250"/>
+                            <local:InputField x:Name="ST" Tag="Status" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                            <local:InputField x:Name="DI" Tag="Display" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+                        </StackPanel>
+                    </Grid>
+                </materialDesign:Card>
+                <materialDesign:Card Height="228" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <Grid>
+                        <Grid.RowDefinitions>
+                            <RowDefinition Height="25" />
+                            <RowDefinition Height="*" />
+                        </Grid.RowDefinitions>
+                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                              Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              DockPanel.Dock="Left" FontSize="14"
+                              Text="{StaticResource UnitWireFrame}" Padding="6"/>
+                        <StackPanel Grid.Row="1" Margin="10">
+
+                            <local:IconSelecter x:Name="WI" Tag="wire" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" />
+                            <local:IconSelecter x:Name="GR" Tag="grp" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="300"/>
+                            <local:IconSelecter x:Name="TR" Tag="tran" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="300" />
+
+                        </StackPanel>
                     </Grid>
                 </materialDesign:Card>
             </WrapPanel>
