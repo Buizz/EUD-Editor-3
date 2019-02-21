@@ -29,6 +29,11 @@ Public Class ExtraDatBinding
 
     End Sub
 
+
+    Public Sub PPropertyChangedPack()
+        PropertyChangedPack()
+    End Sub
+
     Private Sub PropertyChangedPack()
         pjData.BindingManager.UIManager(Datfile, ObjectID).ChangeProperty()
         'NotifyPropertyChanged("HPValue")
@@ -144,6 +149,18 @@ Public Class ExtraDatBinding
                         Return pjData.ExtraDat.StatusFunction1(ObjectID)
                     ElseIf Parameter = "Display" Then
                         Return pjData.ExtraDat.StatusFunction2(ObjectID)
+                    ElseIf Parameter = "Joint" Then
+                        Dim Status As Byte = pjData.ExtraDat.StatusFunction1(ObjectID)
+                        Dim Display As Byte = pjData.ExtraDat.StatusFunction2(ObjectID)
+
+                        For i = 0 To scData.StatusCodeCount - 1
+                            If scData.StatusCode(i)(0) = Status And scData.StatusCode(i)(1) = Display Then
+                                Return i
+                            End If
+                        Next
+
+
+                        Return -1
                     End If
                 Case SCDatFiles.DatFiles.wireframe
                     If Parameter = "wire" Then
@@ -167,6 +184,8 @@ Public Class ExtraDatBinding
                         OldValue = pjData.ExtraDat.StatusFunction1(ObjectID)
                     ElseIf Parameter = "Display" Then
                         OldValue = pjData.ExtraDat.StatusFunction2(ObjectID)
+                    ElseIf Parameter = "Joint" Then
+                        OldValue = tvalue + 1
                     End If
                 Case SCDatFiles.DatFiles.wireframe
                     If Parameter = "wire" Then
@@ -187,9 +206,16 @@ Public Class ExtraDatBinding
                             If Parameter = "Status" Then
                                 pjData.ExtraDat.DefaultStatusFunction1(ObjectID) = False
                                 pjData.ExtraDat.StatusFunction1(ObjectID) = tvalue
+                                pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Joint", ObjectID).PPropertyChangedPack()
                             ElseIf Parameter = "Display" Then
                                 pjData.ExtraDat.DefaultStatusFunction2(ObjectID) = False
                                 pjData.ExtraDat.StatusFunction2(ObjectID) = tvalue
+                                pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Joint", ObjectID).PPropertyChangedPack()
+                            ElseIf Parameter = "Joint" Then
+                                If tvalue >= 0 And tvalue <= scData.StatusCodeCount Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Status", ObjectID).Value = scData.StatusCode(tvalue)(0)
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Display", ObjectID).Value = scData.StatusCode(tvalue)(1)
+                                End If
                             End If
                         Case SCDatFiles.DatFiles.wireframe
                             If Parameter = "wire" Then
@@ -224,6 +250,8 @@ Public Class ExtraDatBinding
                         IsDefault = pjData.ExtraDat.DefaultStatusFunction1(ObjectID)
                     ElseIf Parameter = "Display" Then
                         IsDefault = pjData.ExtraDat.DefaultStatusFunction2(ObjectID)
+                    ElseIf Parameter = "Joint" Then
+                        IsDefault = pjData.ExtraDat.DefaultStatusFunction1(ObjectID) And pjData.ExtraDat.DefaultStatusFunction2(ObjectID)
                     End If
                 Case SCDatFiles.DatFiles.wireframe
                     If Parameter = "wire" Then
@@ -259,9 +287,14 @@ Public Class ExtraDatBinding
                 If Parameter = "Status" Then
                     pjData.ExtraDat.DefaultStatusFunction1(ObjectID) = True
                     pjData.ExtraDat.StatusFunction1(ObjectID) = scData.DefaultExtraDat.StatusFunction1(ObjectID)
+                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Joint", ObjectID).PropertyChangedPack()
                 ElseIf Parameter = "Display" Then
                     pjData.ExtraDat.DefaultStatusFunction2(ObjectID) = True
                     pjData.ExtraDat.StatusFunction2(ObjectID) = scData.DefaultExtraDat.StatusFunction2(ObjectID)
+                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Joint", ObjectID).PropertyChangedPack()
+                ElseIf Parameter = "Joint" Then
+                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Status", ObjectID).DataReset()
+                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Display", ObjectID).DataReset()
                 End If
             Case SCDatFiles.DatFiles.wireframe
                 If Parameter = "wire" Then

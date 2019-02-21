@@ -180,6 +180,7 @@
     <Compile Include="Class\DataManager.vb" />
     <Compile Include="Class\BulidData\Main.vb" />
     <Compile Include="Class\Binding\ExtraDatBinding.vb" />
+    <Compile Include="Class\Data\RequireData.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />

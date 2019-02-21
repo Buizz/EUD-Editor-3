@@ -3,6 +3,12 @@
 <Serializable()>
 Public Class ExtraDatFiles
     Public Shared StatNullString As String = "NULLSTRING"
+    Private _WireFrame() As Byte
+    Private _GrpFrame() As Byte
+    Private _TranFrame() As Byte
+    Private _DefaultWireFrame() As Boolean
+    Private _DefaultGrpFrame() As Boolean
+    Private _DefaultTranFrame() As Boolean
 
     '기타 뎃파일들의 그룹, 툴팁 등을 관리.
     Public Property Group(key As SCDatFiles.DatFiles, index As Integer) As String
@@ -31,6 +37,7 @@ Public Class ExtraDatFiles
     Public Sub New()
         LoadStatusData()
         LoadWireFrame()
+        LoadReqdata()
 
         ToolTipDic = New Dictionary(Of SCDatFiles.DatFiles, List(Of String))
         GroupDic = New Dictionary(Of SCDatFiles.DatFiles, List(Of String))
@@ -50,15 +57,120 @@ Public Class ExtraDatFiles
         For i = 0 To SCtbltxtCount - 1
             _Stat_txt(i) = StatNullString
         Next
+
+
+
+    End Sub
+
+    Public Enum RequireUse
+        DefaultUse
+        DontUse
+        AlwaysUse
+        AlwaysCurrentUse
+        CustomUse
+    End Enum
+
+    Private RequireData(4) As List(Of SReqDATA)
+    Private RequireDataUSE(4) As List(Of Boolean)
+    Private Class SReqDATA
+        '요구사항 각 내용.
+        Public pos As UInt16
+        Public Code As List(Of UShort)
+    End Class
+    Private Sub LoadReqdata()
+        Dim filepath As String = Tool.GetDatFolder & "\require"
+
+
+        Dim fs As New FileStream(filepath & ".dat", FileMode.Open)
+        Dim br As New BinaryReader(fs)
+
+        For i = 0 To 4
+            RequireData(i) = New List(Of SReqDATA)
+            RequireDataUSE(i) = New List(Of Boolean)
+        Next
+        For i = 0 To SCCodeCount(SCDatFiles.DatFiles.units) - 1
+            RequireData(0).Add(New SReqDATA)
+            RequireDataUSE(0).Add(True)
+
+            Dim cot As Integer = RequireData(0).Count - 1
+            RequireData(0)(cot).pos = br.ReadUInt16()
+        Next
+        For i = 0 To SCCodeCount(SCDatFiles.DatFiles.upgrades) - 1
+            RequireData(1).Add(New SReqDATA)
+            RequireDataUSE(1).Add(True)
+
+            Dim cot As Integer = RequireData(1).Count - 1
+            RequireData(1)(cot).pos = br.ReadUInt16()
+        Next
+        For i = 0 To SCCodeCount(SCDatFiles.DatFiles.techdata) - 1
+            RequireData(2).Add(New SReqDATA)
+            RequireDataUSE(2).Add(True)
+
+            Dim cot As Integer = RequireData(2).Count - 1
+            RequireData(2)(cot).pos = br.ReadUInt16()
+        Next
+        For i = 0 To SCCodeCount(SCDatFiles.DatFiles.techdata) - 1
+            RequireData(3).Add(New SReqDATA)
+            RequireDataUSE(3).Add(True)
+
+            Dim cot As Integer = RequireData(3).Count - 1
+            RequireData(3)(cot).pos = br.ReadUInt16()
+        Next
+        For i = 0 To SCCodeCount(SCDatFiles.DatFiles.orders) - 1
+            RequireData(4).Add(New SReqDATA)
+            RequireDataUSE(4).Add(True)
+
+            Dim cot As Integer = RequireData(4).Count - 1
+            RequireData(4)(cot).pos = br.ReadUInt16()
+        Next
+
+
+
+
+        Dim pos() As UInteger = {&H46C, &H8B4, &HBFC, &HD3C, &HFEC}
+        Dim tnum As Integer
+        Dim codetype() As Integer = {SCDatFiles.DatFiles.units, SCDatFiles.DatFiles.upgrades, SCDatFiles.DatFiles.techdata, SCDatFiles.DatFiles.techdata, SCDatFiles.DatFiles.orders}
+        For k = 0 To 4
+            tnum = k
+
+            Dim count As Integer = SCCodeCount(codetype(k)) - 1
+
+            For i = 0 To count
+                RequireData(tnum)(i).Code = New List(Of UInt16)
+
+
+                If RequireData(tnum)(i).pos <> 0 Then
+                    fs.Position = pos(k) + RequireData(tnum)(i).pos * 2
+
+                    Dim opcode As UInt16 = 1
+                    While True
+                        Dim issubeol As Boolean
+                        opcode = br.ReadUInt16()
+                        If opcode = &HFF1F Or opcode = &HFF20 Then
+                            issubeol = True
+                        End If
+
+                        If opcode <> &HFFFF Then
+                            RequireData(tnum)(i).Code.Add(opcode)
+                        End If
+                        If opcode = &HFFFF Then
+                            If issubeol Then
+                                RequireData(tnum)(i).Code.Add(opcode)
+                                issubeol = False
+                            Else
+                                Exit While
+                            End If
+                        End If
+                    End While
+                End If
+            Next
+        Next
+
+        br.Close()
+        fs.Close()
     End Sub
 
 
-    Private _WireFrame() As Byte
-    Private _GrpFrame() As Byte
-    Private _TranFrame() As Byte
-    Private _DefaultWireFrame() As Boolean
-    Private _DefaultGrpFrame() As Boolean
-    Private _DefaultTranFrame() As Boolean
 
     Public Property DefaultWireFrame(index As Integer) As Boolean
         Get
@@ -223,9 +335,15 @@ Public Class ExtraDatFiles
             Case SCDatFiles.DatFiles.stattxt
                 Return pjData.ExtraDat.Stat_txt(index) = StatNullString
             Case SCDatFiles.DatFiles.statusinfor
-                Return _statusFn1IsDefault(index) = True And _statusFn2IsDefault(index) = True
+                Return _statusFn1IsDefault(index) And _statusFn2IsDefault(index)
             Case SCDatFiles.DatFiles.wireframe
-                Return DefaultWireFrame(index) = True And DefaultGrpFrame(index) = True And DefaultTranFrame(index) = True
+                If index < SCMenCount Then
+                    Return DefaultWireFrame(index) And DefaultGrpFrame(index) And DefaultTranFrame(index)
+                Else
+                    Return DefaultWireFrame(index) And DefaultGrpFrame(index)
+                End If
+
+
         End Select
         Return False
     End Function

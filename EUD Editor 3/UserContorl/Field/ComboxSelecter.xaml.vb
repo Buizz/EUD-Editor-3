@@ -14,6 +14,8 @@
             Case SCDatFiles.DatFiles.statusinfor
                 Field.ReLoad(DatFile, ObjectID, Parameter)
 
+                DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
+                DatCommand.ReLoad(DatFile, Parameter, ObjectID)
             Case Else
                 Field.ReLoad(DatFile, ObjectID, Parameter)
                 Dim DB As DatBinding = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID)
@@ -38,10 +40,24 @@
             Case SCDatFiles.DatFiles.statusinfor
                 Field.Init(DatFile, ObjectID, Parameter, InputField.SFlag.None, TextWidth)
 
+                DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
+
                 Dim itmes As String() = Tool.GetText("FG_StatusInfor1_V").Split("|")
                 For i = 0 To itmes.Count - 1
                     MainComboBox.Items.Add(itmes(i))
                 Next
+
+                DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+
+
+                CopyItem.Command = DatCommand
+                CopyItem.CommandParameter = DatCommand.CommandType.Copy
+
+                PasteItem.Command = DatCommand
+                PasteItem.CommandParameter = DatCommand.CommandType.Paste
+
+                ResetItem.Command = DatCommand
+                ResetItem.CommandParameter = DatCommand.CommandType.Reset
             Case Else
                 Field.Init(DatFile, ObjectID, Parameter, InputField.SFlag.None, TextWidth)
 
@@ -82,7 +98,13 @@
     Private Sub combobox_PreeviewMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles MainComboBox.MouseWheel
         If Not MainComboBox.IsDropDownOpen Then
             Dim ChangeValue As Integer = e.Delta / 100
-            pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.statusinfor
+                    pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+                Case Else
+                    pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+            End Select
         End If
     End Sub
 End Class

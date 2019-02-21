@@ -140,6 +140,8 @@
 
 
 
+        StatusJoint = New List(Of ExtraDatBinding)
+
 
 
         StatusDatFn1Binding = New List(Of ExtraDatBinding)
@@ -147,6 +149,7 @@
         For i = 0 To SCUnitCount - 1
             StatusDatFn1Binding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Status", i))
             StatusDatFn2Binding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Display", i))
+            StatusJoint.Add(New ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Joint", i))
         Next
 
 
@@ -214,6 +217,8 @@
     End Property
 
 
+    Private StatusJoint As List(Of ExtraDatBinding)
+
     Private StatusDatFn1Binding As List(Of ExtraDatBinding)
     Private StatusDatFn2Binding As List(Of ExtraDatBinding)
 
@@ -228,6 +233,8 @@
                         Return StatusDatFn1Binding(index)
                     ElseIf name = "Display" Then
                         Return StatusDatFn2Binding(index)
+                    ElseIf name = "Joint" Then
+                        Return StatusJoint(index)
                     End If
                 Case SCDatFiles.DatFiles.wireframe
                     If name = "wire" Then

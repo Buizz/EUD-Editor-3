@@ -30,7 +30,7 @@
                               Text="{StaticResource UnitInfor}" Padding="6"/>
                         <StackPanel Grid.Row="1" Margin="10">
 
-                            <local:ComboxSelecter x:Name="JOINER" Tag="Join" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="250"/>
+                            <local:ComboxSelecter x:Name="JOINER" Tag="Joint" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="250"/>
                             <local:InputField x:Name="ST" Tag="Status" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                             <local:InputField x:Name="DI" Tag="Display" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 

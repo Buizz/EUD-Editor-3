@@ -5,6 +5,8 @@ Public Class CodeSelecter
     Private Templat As ItemsPanelTemplate = New ItemsPanelTemplate()
 
 
+    Private Flag As Integer
+
     Private IsFirstLoad As Boolean = False
     Private IsComboBox As Boolean
     Private StartIndex As Integer
@@ -295,7 +297,9 @@ Public Class CodeSelecter
         Fliter.SetFliter(tfliter)
     End Sub
 
-    Public Sub Refresh(StartIndex As Integer)
+    Public Sub Refresh(tStartIndex As Integer, Optional tFlag As Integer = 0)
+        Flag = tFlag
+        StartIndex = tStartIndex
         Select Case Fliter.SortType
             Case ESortType.Tree
             Case Else
@@ -311,17 +315,20 @@ Public Class CodeSelecter
                     Dim Listboxitem As ListBoxItem = Listbox.Items(i)
                     Dim index As Integer = Listboxitem.Tag
 
-                    If index = StartIndex Then
+                    If index = tStartIndex Then
                         Listbox.SelectedItem = Listboxitem
                         Listboxitem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
                         Listboxitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
                         Listbox.ScrollIntoView(Listboxitem)
                     Else
-                        If BindingManager.CheckUIAble(CurrentPage) And index >= 0 And SCCodeCount(CurrentPage) > index Then
-                            Dim BackBinding As Binding = New Binding("Back")
-                            BackBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
-                            Listboxitem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
+                        If BindingManager.CheckUIAble(CurrentPage) And index >= 0 Then
+                            If SCCodeCount(CurrentPage) > index Then
+                                Dim BackBinding As Binding = New Binding("Back")
+                                BackBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
+                                Listboxitem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
+                            End If
                         End If
+                        Listboxitem.Background = Application.Current.Resources("MaterialDesignBackground")
                         Listboxitem.Foreground = Application.Current.Resources("MaterialDesignBody")
 
                     End If
@@ -331,13 +338,16 @@ Public Class CodeSelecter
     End Sub
 
 
-    Public Sub ListReset(Optional pagetype As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0)
+    Public Sub ListReset(Optional pagetype As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0, Optional _tFlag As Integer = 0)
         DataLoadCmp = True
         If pagetype = SCDatFiles.DatFiles.None Then
             pagetype = CurrentPage
         Else
             CurrentPage = pagetype
         End If
+
+
+        Flag = _tFlag
 
         LastSelectIndex = -1
         IsComboBox = combobox
@@ -463,7 +473,47 @@ Public Class CodeSelecter
         Return tborder
     End Function
 
-    Private Sub ListResetData(pagetype As SCDatFiles.DatFiles, StartIndex As Integer)
+    Private Function GetWireFrame(grpIndex As Integer, isSizeBig As Boolean) As Border
+        Dim imgSource As ImageSource
+
+        Select Case Flag
+            Case 1
+                imgSource = scData.GetWireFrame(grpIndex, False)
+            Case 2
+                imgSource = scData.GetGrpFrame(grpIndex, False)
+            Case Else
+                imgSource = scData.GetTranFrame(grpIndex, False)
+        End Select
+
+
+
+        Dim bitmap As New Image
+        bitmap.BeginInit()
+        bitmap.Source = imgSource
+        If isSizeBig Then
+            bitmap.Width = 56
+            bitmap.Height = 56
+        Else
+            bitmap.Width = 30
+            bitmap.Height = 30
+        End If
+        bitmap.EndInit()
+
+        Dim tborder As New Border
+        tborder.Child = bitmap
+        tborder.Background = Brushes.Black
+        If isSizeBig Then
+            tborder.Margin = New Thickness(-7, -7, -7, -7)
+        Else
+            tborder.Margin = New Thickness(-8, -10, -10, -10)
+        End If
+
+        Return tborder
+    End Function
+
+    Private Sub ListResetData(pagetype As SCDatFiles.DatFiles, tStartIndex As Integer)
+        StartIndex = tStartIndex
+
         '리스트에 들어갈 거는 리스트이름과 아이콘, 그룹패스뿐임.
         '이것만 잘 넘겨주면 됨
         Dim ObjectNames As New List(Of String)
@@ -578,6 +628,19 @@ Public Class CodeSelecter
                     ObjectNames.Add(cname)
                 Next
 
+            Case SCDatFiles.DatFiles.wireframe
+                If Flag <> 3 Then
+                    For i = 0 To SCUnitCount - 1
+                        ObjectNames.Add(pjData.CodeLabel(pagetype, i))
+                        ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
+                    Next
+                Else
+                    For i = 0 To SCMenCount - 1
+                        ObjectNames.Add(pjData.CodeLabel(pagetype, i))
+                        ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
+                    Next
+                End If
+
             Case SCDatFiles.DatFiles.button
                 '어캐작성하노 ㅋㅋ 
                 For i = 0 To SCUnitCount - 1
@@ -621,7 +684,7 @@ Public Class CodeSelecter
                         tListItem.Tag = index
                         tListItem.Content = ObjectImages(index)
 
-                        If index = StartIndex Then
+                        If index = tStartIndex Then
                             SelectItem = tListItem
                         End If
 
@@ -660,7 +723,7 @@ Public Class CodeSelecter
                         tListItem.Tag = -1
                         tListItem.Content = stackpanel
 
-                        If CodeIndexerList.Items.Count = StartIndex Then
+                        If CodeIndexerList.Items.Count = tStartIndex Then
                             SelectItem = tListItem
                             If IsComboBox Then
                                 tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
@@ -718,7 +781,7 @@ Public Class CodeSelecter
 
 
 
-                        If index = StartIndex Then
+                        If index = tStartIndex Then
                             SelectItem = tListItem
                             If IsComboBox Then
                                 tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
@@ -770,7 +833,7 @@ Public Class CodeSelecter
                     tListItem.Tag = CodeIndexerList.Items.Count
                     tListItem.Content = stackpanel
 
-                    If CodeIndexerList.Items.Count = StartIndex Then
+                    If CodeIndexerList.Items.Count = tStartIndex Then
                         SelectItem = tListItem
                         If IsComboBox Then
                             tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
@@ -793,37 +856,37 @@ Public Class CodeSelecter
                     Dim CodeGroup As String
                     Dim Imageborder As Border
 
-                    If CurrentPage <= SCDatFiles.DatFiles.orders Then
+                    If SCDatFiles.CheckValidDat(CurrentPage) Or CurrentPage = SCDatFiles.DatFiles.wireframe Then
                         Imageborder = ObjectImages(i)
                     Else
                         Imageborder = Nothing
                     End If
 
+                    Select Case CurrentPage
+                        Case SCDatFiles.DatFiles.sfxdata
+                            CodeGroup = Codename
+                            Codename = Codename.Split("\").Last
 
-                    If CurrentPage = SCDatFiles.DatFiles.sfxdata Then
-                        CodeGroup = Codename
-                        Codename = Codename.Split("\").Last
-
-                        CodeGroup = CodeGroup.Replace(Codename, "")
-
-                    Else
-                        If CurrentPage = SCDatFiles.DatFiles.button Then
+                            CodeGroup = CodeGroup.Replace(Codename, "")
+                        Case SCDatFiles.DatFiles.button
                             CodeGroup = ""
-                        Else
+                        Case SCDatFiles.DatFiles.wireframe
+                            CodeGroup = pjData.Dat.Group(SCDatFiles.DatFiles.units, i)
+                        Case Else
                             If SCDatFiles.CheckValidDat(CurrentPage) Then
                                 CodeGroup = pjData.Dat.Group(CurrentPage, i)
                             Else
                                 CodeGroup = pjData.ExtraDat.Group(CurrentPage, i)
                             End If
-                        End If
-                    End If
+                    End Select
+
 
                     If Fliter.fliterText IsNot Nothing Then
                         If Fliter.fliterText = "" Or Codename.ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
-                            AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, i = StartIndex)
+                            AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, i = tStartIndex)
                         End If
                     Else
-                        AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, i = StartIndex)
+                        AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, i = tStartIndex)
                     End If
 
 

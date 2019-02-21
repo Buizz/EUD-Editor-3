@@ -282,19 +282,50 @@ Public Class IconSelecter
         If Parameter = "UnitName" Then
             TabItemTool.WindowTabItem(SCDatFiles.DatFiles.stattxt, ObjectID)
         Else
-            'CodeList.SetFliter(CodeSelecter.ESortType.n123)
-            Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
-            If valueType <> SCDatFiles.DatFiles.None Then
-                If Not CodeList.DataLoadCmp Then
-                    CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
-                Else
-                    CodeList.Refresh(pjData.Dat.Data(DatFile, Parameter, ObjectID))
-                End If
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.wireframe
+                    'CodeList.SetFliter(CodeSelecter.ESortType.n123)
+                    Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.wireframe
 
-                CodeList.MaxWidth = btn.RenderSize.Width + 32
-                CodeList.Width = btn.RenderSize.Width + 32
-                CodeSelect.IsOpen = True
-            End If
+                    Dim flag As Integer
+
+                    Dim value As Long
+                    If Parameter = "wire" Then
+                        value = pjData.ExtraDat.WireFrame(ObjectID)
+                        flag = 1
+                    ElseIf Parameter = "grp" Then
+                        value = pjData.ExtraDat.GrpFrame(ObjectID)
+                        flag = 2
+                    ElseIf Parameter = "tran" Then
+                        value = pjData.ExtraDat.TranFrame(ObjectID)
+                        flag = 3
+                    End If
+                    If Not CodeList.DataLoadCmp Then
+                        CodeList.ListReset(valueType, True, value, flag)
+                    Else
+                        CodeList.Refresh(value, flag)
+                    End If
+
+                    CodeList.MaxWidth = btn.RenderSize.Width + 32
+                    CodeList.Width = btn.RenderSize.Width + 32
+                    CodeSelect.IsOpen = True
+                Case Else
+                    'CodeList.SetFliter(CodeSelecter.ESortType.n123)
+                    Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
+                    If valueType <> SCDatFiles.DatFiles.None Then
+                        If Not CodeList.DataLoadCmp Then
+                            CodeList.ListReset(valueType, True, pjData.Dat.Data(DatFile, Parameter, ObjectID))
+                        Else
+                            CodeList.Refresh(pjData.Dat.Data(DatFile, Parameter, ObjectID))
+                        End If
+
+                        CodeList.MaxWidth = btn.RenderSize.Width + 32
+                        CodeList.Width = btn.RenderSize.Width + 32
+                        CodeSelect.IsOpen = True
+                    End If
+            End Select
+
+
         End If
     End Sub
 
@@ -314,7 +345,14 @@ Public Class IconSelecter
     Private Sub btnMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
         If Parameter <> "UnitName" Then
             Dim ChangeValue As Integer = e.Delta / 100
-            pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.wireframe
+                    pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+                Case Else
+                    pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
+            End Select
+
+
         End If
     End Sub
 

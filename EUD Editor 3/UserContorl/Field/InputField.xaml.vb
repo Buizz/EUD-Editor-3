@@ -23,57 +23,73 @@
 
         Select Case DatFile
             Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
-                DatCommand.ReLoad(DatFile, Parameter, ObjectID)
-                Me.DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
-                'If True Then
-                '    Dim tbind As New Binding
-                '    tbind.Path = New PropertyPath("ToolTipText")
-                '    ValueText.SetBinding(TextBox.ToolTipProperty, tbind)
-                'End If
 
-                'DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
-                Dim binding As New Binding()
-                Select Case SpecialFlag
-                    Case SFlag.FLAG
-                        binding.ValidationRules.Add(New HexValidationRule)
-                    Case Else
-                        binding.ValidationRules.Add(New NotTextValidationRule)
-                End Select
-                binding.ValidatesOnDataErrors = True
-                binding.NotifyOnValidationError = True
-                binding.Path = New PropertyPath("Value")
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-                binding.Mode = BindingMode.TwoWay
-                ValueText.SetBinding(TextBox.TextProperty, binding)
-
-                Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
-                Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {
-                        .CommandParameter = DatCommand.CommandType.Copy
-                    }
-                ValueText.InputBindings.Add(CopyKeybinding)
-
-                Dim PasteKeyGesture As KeyGesture = New KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V")
-                Dim PasteKeybinding As New KeyBinding(DatCommand, PasteKeyGesture) With {
-                        .CommandParameter = DatCommand.CommandType.Paste
-                    }
-                ValueText.InputBindings.Add(PasteKeybinding)
-
-                Dim ResetKeyGesture As KeyGesture = New KeyGesture(Key.R, ModifierKeys.Control, "Ctrl+R")
-                Dim ResetKeybinding As New KeyBinding(DatCommand, ResetKeyGesture) With {
-                        .CommandParameter = DatCommand.CommandType.Reset
-                    }
-                ValueText.InputBindings.Add(ResetKeybinding)
+                If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                    ValueText.IsEnabled = True
+                    DatCommand.ReLoad(DatFile, Parameter, ObjectID)
 
 
+                    Me.DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
+                    'If True Then
+                    '    Dim tbind As New Binding
+                    '    tbind.Path = New PropertyPath("ToolTipText")
+                    '    ValueText.SetBinding(TextBox.ToolTipProperty, tbind)
+                    'End If
 
-                CopyItem.Command = DatCommand
-                CopyItem.CommandParameter = DatCommand.CommandType.Copy
+                    'DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+                    Dim binding As New Binding()
+                    Select Case SpecialFlag
+                        Case SFlag.FLAG
+                            binding.ValidationRules.Add(New HexValidationRule)
+                        Case Else
+                            binding.ValidationRules.Add(New NotTextValidationRule)
+                    End Select
+                    binding.ValidatesOnDataErrors = True
+                    binding.NotifyOnValidationError = True
+                    binding.Path = New PropertyPath("Value")
+                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    binding.Mode = BindingMode.TwoWay
+                    ValueText.SetBinding(TextBox.TextProperty, binding)
 
-                PasteItem.Command = DatCommand
-                PasteItem.CommandParameter = DatCommand.CommandType.Paste
+                    Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
+                    Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {
+                            .CommandParameter = DatCommand.CommandType.Copy
+                        }
+                    ValueText.InputBindings.Add(CopyKeybinding)
 
-                ResetItem.Command = DatCommand
-                ResetItem.CommandParameter = DatCommand.CommandType.Reset
+                    Dim PasteKeyGesture As KeyGesture = New KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V")
+                    Dim PasteKeybinding As New KeyBinding(DatCommand, PasteKeyGesture) With {
+                            .CommandParameter = DatCommand.CommandType.Paste
+                        }
+                    ValueText.InputBindings.Add(PasteKeybinding)
+
+                    Dim ResetKeyGesture As KeyGesture = New KeyGesture(Key.R, ModifierKeys.Control, "Ctrl+R")
+                    Dim ResetKeybinding As New KeyBinding(DatCommand, ResetKeyGesture) With {
+                            .CommandParameter = DatCommand.CommandType.Reset
+                        }
+                    ValueText.InputBindings.Add(ResetKeybinding)
+
+
+
+                    CopyItem.Command = DatCommand
+                    CopyItem.CommandParameter = DatCommand.CommandType.Copy
+
+                    PasteItem.Command = DatCommand
+                    PasteItem.CommandParameter = DatCommand.CommandType.Paste
+
+                    ResetItem.Command = DatCommand
+                    ResetItem.CommandParameter = DatCommand.CommandType.Reset
+                Else
+                    Dim binding As New Binding()
+                    binding.Mode = BindingMode.OneWay
+                    ValueText.SetBinding(TextBox.TextProperty, Binding)
+                    ValueText.Text = Application.Current.Resources("NotUse")
+                    ValueText.IsEnabled = False
+                    Exit Sub
+                End If
+
+
+
             Case Else
                 If Parameter = "UnitName" Then
                     ValueText.Text = ObjectID
@@ -175,7 +191,7 @@
                     TextStr.Text = Tool.GetText("FG_Status")
                 ElseIf Parameter = "Display" Then
                     TextStr.Text = Tool.GetText("FG_Display")
-                ElseIf Parameter = "Join" Then
+                ElseIf Parameter = "Joint" Then
                     TextStr.Text = Tool.GetText("FG_StatusInfor1")
                 ElseIf Parameter = "wire" Then
                     TextStr.Text = Tool.GetText("FG_WireFrame")
@@ -184,57 +200,68 @@
                 ElseIf Parameter = "tran" Then
                     TextStr.Text = Tool.GetText("FG_TranFrame")
                 End If
+                If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                    ValueText.IsEnabled = True
+                    Me.DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
+                    'If True Then
+                    '    Dim tbind As New Binding
+                    '    tbind.Path = New PropertyPath("ToolTipText")
+                    '    ValueText.SetBinding(TextBox.ToolTipProperty, tbind)
+                    'End If
 
-                Me.DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
-                'If True Then
-                '    Dim tbind As New Binding
-                '    tbind.Path = New PropertyPath("ToolTipText")
-                '    ValueText.SetBinding(TextBox.ToolTipProperty, tbind)
-                'End If
+                    DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+                    Dim binding As New Binding()
+                    Select Case SpecialFlag
+                        Case SFlag.FLAG
+                            binding.ValidationRules.Add(New HexValidationRule)
+                        Case Else
+                            binding.ValidationRules.Add(New NotTextValidationRule)
+                    End Select
+                    binding.ValidatesOnDataErrors = True
+                    binding.NotifyOnValidationError = True
+                    binding.Path = New PropertyPath("Value")
+                    binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
+                    binding.Mode = BindingMode.TwoWay
+                    ValueText.SetBinding(TextBox.TextProperty, binding)
 
-                DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
-                Dim binding As New Binding()
-                Select Case SpecialFlag
-                    Case SFlag.FLAG
-                        Binding.ValidationRules.Add(New HexValidationRule)
-                    Case Else
-                        Binding.ValidationRules.Add(New NotTextValidationRule)
-                End Select
-                Binding.ValidatesOnDataErrors = True
-                Binding.NotifyOnValidationError = True
-                binding.Path = New PropertyPath("Value")
-                binding.UpdateSourceTrigger = UpdateSourceTrigger.PropertyChanged
-                binding.Mode = BindingMode.TwoWay
-                ValueText.SetBinding(TextBox.TextProperty, binding)
+                    Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
+                    Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {
+                        .CommandParameter = DatCommand.CommandType.Copy
+                    }
+                    ValueText.InputBindings.Add(CopyKeybinding)
 
-                Dim CopyKeyGesture As KeyGesture = New KeyGesture(Key.C, ModifierKeys.Control, "Ctrl+C")
-                Dim CopyKeybinding As New KeyBinding(DatCommand, CopyKeyGesture) With {
-                    .CommandParameter = DatCommand.CommandType.Copy
-                }
-                ValueText.InputBindings.Add(CopyKeybinding)
+                    Dim PasteKeyGesture As KeyGesture = New KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V")
+                    Dim PasteKeybinding As New KeyBinding(DatCommand, PasteKeyGesture) With {
+                        .CommandParameter = DatCommand.CommandType.Paste
+                    }
+                    ValueText.InputBindings.Add(PasteKeybinding)
 
-                Dim PasteKeyGesture As KeyGesture = New KeyGesture(Key.V, ModifierKeys.Control, "Ctrl+V")
-                Dim PasteKeybinding As New KeyBinding(DatCommand, PasteKeyGesture) With {
-                    .CommandParameter = DatCommand.CommandType.Paste
-                }
-                ValueText.InputBindings.Add(PasteKeybinding)
-
-                Dim ResetKeyGesture As KeyGesture = New KeyGesture(Key.R, ModifierKeys.Control, "Ctrl+R")
-                Dim ResetKeybinding As New KeyBinding(DatCommand, ResetKeyGesture) With {
-                    .CommandParameter = DatCommand.CommandType.Reset
-                }
-                ValueText.InputBindings.Add(ResetKeybinding)
+                    Dim ResetKeyGesture As KeyGesture = New KeyGesture(Key.R, ModifierKeys.Control, "Ctrl+R")
+                    Dim ResetKeybinding As New KeyBinding(DatCommand, ResetKeyGesture) With {
+                        .CommandParameter = DatCommand.CommandType.Reset
+                    }
+                    ValueText.InputBindings.Add(ResetKeybinding)
 
 
 
-                CopyItem.Command = DatCommand
-                CopyItem.CommandParameter = DatCommand.CommandType.Copy
+                    CopyItem.Command = DatCommand
+                    CopyItem.CommandParameter = DatCommand.CommandType.Copy
 
-                PasteItem.Command = DatCommand
-                PasteItem.CommandParameter = DatCommand.CommandType.Paste
+                    PasteItem.Command = DatCommand
+                    PasteItem.CommandParameter = DatCommand.CommandType.Paste
 
-                ResetItem.Command = DatCommand
-                ResetItem.CommandParameter = DatCommand.CommandType.Reset
+                    ResetItem.Command = DatCommand
+                    ResetItem.CommandParameter = DatCommand.CommandType.Reset
+                Else
+                    Dim binding As New Binding()
+                    Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
+                    Binding.Mode = BindingMode.OneWay
+                    ValueText.SetBinding(TextBox.TextProperty, Binding)
+                    ValueText.Text = Application.Current.Resources("NotUse")
+                    ValueText.IsEnabled = False
+                    Exit Sub
+                End If
+
             Case Else
                 If TextWidth <> 0 Then
                     TextStr.Width = TextWidth

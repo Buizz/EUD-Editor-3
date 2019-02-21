@@ -246,7 +246,33 @@ Public Class StarCraftData
     Public DefaultDat As SCDatFiles
     Private Offsets As Dictionary(Of String, String)
 
+    Private _StatusCode As List(Of Byte())
+    Public ReadOnly Property StatusCode(index As Integer) As Byte()
+        Get
+            Return _StatusCode(index)
+        End Get
+    End Property
+    Public ReadOnly Property StatusCodeCount() As Integer
+        Get
+            Return _StatusCode.Count
+        End Get
+    End Property
+
     Public Sub New()
+        _StatusCode = New List(Of Byte())
+        _StatusCode.Add({2, 1})
+        _StatusCode.Add({1, 0})
+        _StatusCode.Add({4, 3})
+        _StatusCode.Add({3, 2})
+        _StatusCode.Add({7, 6})
+        _StatusCode.Add({8, 7})
+        _StatusCode.Add({6, 5})
+        _StatusCode.Add({5, 4})
+        _StatusCode.Add({0, 8})
+        _StatusCode.Add({1, 8})
+        _StatusCode.Add({2, 8})
+
+
         DefaultDat = New SCDatFiles(False)
         DefaultExtraDat = New ExtraDatFiles
         Offsets = New Dictionary(Of String, String)
@@ -360,8 +386,6 @@ Public Class StarCraftData
 
         IsLoadMPQ = True
     End Sub
-
-
 
 
 
