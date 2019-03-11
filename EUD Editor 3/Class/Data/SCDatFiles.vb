@@ -39,6 +39,9 @@ Public Class SCDatFiles
         TechUserequire = 18
         Orderrequire = 19
         button = 20
+
+
+        Stechdata = 254
         None = 255
     End Enum
     Public Enum EParamInfo

@@ -160,10 +160,40 @@
         For i = 0 To SCUnitCount - 1
             WireFrameDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "wire", i))
             GrpFrameDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "grp", i))
+
             If i < SCMenCount Then
                 TranFrameDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "tran", i))
             End If
         Next
+
+
+        ReDim pRequireDataBinding(4)
+
+        pRequireDataBinding(0) = New List(Of RequireDataBinding)
+        For i = 0 To SCUnitCount - 1
+            pRequireDataBinding(0).Add(New RequireDataBinding(i, SCDatFiles.DatFiles.units))
+        Next
+
+        pRequireDataBinding(1) = New List(Of RequireDataBinding)
+        For i = 0 To SCUpgradeCount - 1
+            pRequireDataBinding(1).Add(New RequireDataBinding(i, SCDatFiles.DatFiles.upgrades))
+        Next
+
+        pRequireDataBinding(2) = New List(Of RequireDataBinding)
+        For i = 0 To SCTechCount - 1
+            pRequireDataBinding(2).Add(New RequireDataBinding(i, SCDatFiles.DatFiles.techdata))
+        Next
+
+        pRequireDataBinding(3) = New List(Of RequireDataBinding)
+        For i = 0 To SCTechCount - 1
+            pRequireDataBinding(3).Add(New RequireDataBinding(i, SCDatFiles.DatFiles.Stechdata))
+        Next
+
+        pRequireDataBinding(4) = New List(Of RequireDataBinding)
+        For i = 0 To SCOrderCount - 1
+            pRequireDataBinding(4).Add(New RequireDataBinding(i, SCDatFiles.DatFiles.orders))
+        Next
+
     End Sub
 
     Public Sub DataRefresh()
@@ -215,6 +245,28 @@
             Return pStatTxtBinding(index)
         End Get
     End Property
+
+
+    Public ReadOnly Property RequireDataBinding(index As Integer, DatFile As SCDatFiles.DatFiles) As RequireDataBinding
+        Get
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.units
+                    Return pRequireDataBinding(0)(index)
+                Case SCDatFiles.DatFiles.upgrades
+                    Return pRequireDataBinding(1)(index)
+                Case SCDatFiles.DatFiles.techdata
+                    Return pRequireDataBinding(2)(index)
+                Case SCDatFiles.DatFiles.Stechdata
+                    Return pRequireDataBinding(3)(index)
+                Case SCDatFiles.DatFiles.orders
+                    Return pRequireDataBinding(4)(index)
+            End Select
+            Return Nothing
+        End Get
+    End Property
+
+
+    Private pRequireDataBinding() As List(Of RequireDataBinding)
 
 
     Private StatusJoint As List(Of ExtraDatBinding)

@@ -689,9 +689,10 @@ Public Class CodeSelecter
                         End If
 
 
+
                         Dim CheckPss As Boolean = False
                         If Fliter.IsEdit Then
-                            Dim IsEdit As Boolean = pjData.Dat.GetDatFile(pagetype).CheckDirty(index)
+                            Dim IsEdit As Boolean = pjData.DataManager.CheckDirtyObject(pagetype, index)
                             If Not IsEdit Then
                                 CheckPss = True
                             End If
@@ -792,12 +793,8 @@ Public Class CodeSelecter
 
                         Dim CheckPss As Boolean = False
                         If Fliter.IsEdit Then
-                            Dim IsEdit As Boolean
-                            If SCDatFiles.CheckValidDat(pagetype) Then
-                                IsEdit = pjData.Dat.GetDatFile(pagetype).CheckDirty(index)
-                            Else
-                                IsEdit = pjData.ExtraDat.CheckDirty(pagetype, index)
-                            End If
+                            Dim IsEdit As Boolean = pjData.DataManager.CheckDirtyObject(pagetype, index)
+
 
 
                             If Not IsEdit Then

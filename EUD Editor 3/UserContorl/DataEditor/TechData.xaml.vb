@@ -22,8 +22,8 @@
         RequireReserachData = New RequireData(SCDatFiles.DatFiles.techdata, tObjectID)
 
         Defualt.Content = Tech_Data
-        ReserachRequir.Content = RequireUseData
-        UseRequir.Content = RequireReserachData
+        ReserachRequir.Content = RequireReserachData
+        UseRequir.Content = RequireUseData
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.techdata, tObjectID)
     End Sub

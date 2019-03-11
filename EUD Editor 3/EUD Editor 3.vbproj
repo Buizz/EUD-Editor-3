@@ -165,6 +165,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\Binding\BindingManager.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
+    <Compile Include="Class\Binding\RequireDataBinding.vb" />
     <Compile Include="Class\Binding\StatTxtBinding.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
@@ -180,7 +181,7 @@
     <Compile Include="Class\DataManager.vb" />
     <Compile Include="Class\BulidData\Main.vb" />
     <Compile Include="Class\Binding\ExtraDatBinding.vb" />
-    <Compile Include="Class\Data\RequireData.vb" />
+    <Compile Include="Class\Data\CRequireData.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP.vb" />
@@ -297,6 +298,9 @@
     </Compile>
     <Compile Include="UserContorl\ColorPicker\ColorPicker.xaml.vb">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\Require\RequireListBox.xaml.vb">
+      <DependentUpon>RequireListBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\UsedCodeList.xaml.vb">
       <DependentUpon>UsedCodeList.xaml</DependentUpon>
@@ -468,6 +472,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\ColorPicker\ColorPicker.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\Require\RequireListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

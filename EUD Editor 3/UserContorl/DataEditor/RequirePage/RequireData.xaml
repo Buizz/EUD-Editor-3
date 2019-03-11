@@ -18,7 +18,28 @@
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="334" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <ToolBarTray x:Name="toolBarTray"  Grid.Row="1" >
+                    <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}">
+                        <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <ProgressBar Value="25" Width="70" Height="10" />
+                        <TextBlock Text="(1065/1235 byte)" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="일괄 설정" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
+
+                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click">
+                            기본값
+                        </Button>
+                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_1">
+                            사용안함
+                        </Button>
+                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_2">
+                            무조건허용
+                        </Button>
+                        <Button ToolTip="{StaticResource SortCode}"  Padding="16,4" Click="Button_Click_3">
+                            조건허용
+                        </Button>
+                    </ToolBar>
+                </ToolBarTray>
+                <materialDesign:Card Height="353" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
@@ -28,11 +49,7 @@
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
                               Text="요구사항" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                         
-                            <local:FlagSelecter x:Name="AI" Tag="AI Internal" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                        </WrapPanel>
+                        <local:RequireListBox x:Name="RequireListbox"  Grid.Row="1" Margin="10"/>
                     </Grid>
                 </materialDesign:Card>
             </WrapPanel>

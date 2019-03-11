@@ -96,10 +96,10 @@
                     End If
                 Case 7
                     If RequireData Is Nothing Then
-                        RequireData = New RequireData(SCDatFiles.DatFiles.Unitrequire, tObjectID)
+                        RequireData = New RequireData(SCDatFiles.DatFiles.units, tObjectID)
                         Requir.Content = RequireData
                     Else
-                        RequireData.ReLoad(SCDatFiles.DatFiles.Unitrequire, ObjectID)
+                        RequireData.ReLoad(SCDatFiles.DatFiles.units, ObjectID)
                     End If
             End Select
             LoadSatus(index) = True

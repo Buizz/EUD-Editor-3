@@ -62,22 +62,37 @@ Public Class ExtraDatFiles
 
     End Sub
 
-    Public Enum RequireUse
-        DefaultUse
-        DontUse
-        AlwaysUse
-        AlwaysCurrentUse
-        CustomUse
-    End Enum
 
-    Private RequireData(4) As List(Of SReqDATA)
-    Private RequireDataUSE(4) As List(Of Boolean)
-    Private Class SReqDATA
+    Public ReadOnly Property RequireData(DType As SCDatFiles.DatFiles) As CRequireData
+        Get
+            Select Case DType
+                Case SCDatFiles.DatFiles.units
+                    Return RequireDatas(0)
+                Case SCDatFiles.DatFiles.upgrades
+                    Return RequireDatas(1)
+                Case SCDatFiles.DatFiles.techdata
+                    Return RequireDatas(2)
+                Case SCDatFiles.DatFiles.Stechdata
+                    Return RequireDatas(3)
+                Case SCDatFiles.DatFiles.orders
+                    Return RequireDatas(4)
+            End Select
+            Return RequireDatas(0)
+        End Get
+    End Property
+
+
+    Private RequireDatas(4) As CRequireData
+
+
+    Public Class SReqDATA
         '요구사항 각 내용.
         Public pos As UInt16
         Public Code As List(Of UShort)
     End Class
     Private Sub LoadReqdata()
+        Dim RequireData(4) As List(Of SReqDATA)
+
         Dim filepath As String = Tool.GetDatFolder & "\require"
 
 
@@ -86,39 +101,33 @@ Public Class ExtraDatFiles
 
         For i = 0 To 4
             RequireData(i) = New List(Of SReqDATA)
-            RequireDataUSE(i) = New List(Of Boolean)
         Next
         For i = 0 To SCCodeCount(SCDatFiles.DatFiles.units) - 1
             RequireData(0).Add(New SReqDATA)
-            RequireDataUSE(0).Add(True)
 
             Dim cot As Integer = RequireData(0).Count - 1
             RequireData(0)(cot).pos = br.ReadUInt16()
         Next
         For i = 0 To SCCodeCount(SCDatFiles.DatFiles.upgrades) - 1
             RequireData(1).Add(New SReqDATA)
-            RequireDataUSE(1).Add(True)
 
             Dim cot As Integer = RequireData(1).Count - 1
             RequireData(1)(cot).pos = br.ReadUInt16()
         Next
         For i = 0 To SCCodeCount(SCDatFiles.DatFiles.techdata) - 1
             RequireData(2).Add(New SReqDATA)
-            RequireDataUSE(2).Add(True)
 
             Dim cot As Integer = RequireData(2).Count - 1
             RequireData(2)(cot).pos = br.ReadUInt16()
         Next
         For i = 0 To SCCodeCount(SCDatFiles.DatFiles.techdata) - 1
             RequireData(3).Add(New SReqDATA)
-            RequireDataUSE(3).Add(True)
 
             Dim cot As Integer = RequireData(3).Count - 1
             RequireData(3)(cot).pos = br.ReadUInt16()
         Next
         For i = 0 To SCCodeCount(SCDatFiles.DatFiles.orders) - 1
             RequireData(4).Add(New SReqDATA)
-            RequireDataUSE(4).Add(True)
 
             Dim cot As Integer = RequireData(4).Count - 1
             RequireData(4)(cot).pos = br.ReadUInt16()
@@ -168,6 +177,13 @@ Public Class ExtraDatFiles
 
         br.Close()
         fs.Close()
+
+
+        RequireDatas(0) = New CRequireData(SCDatFiles.DatFiles.units, RequireData(0))
+        RequireDatas(1) = New CRequireData(SCDatFiles.DatFiles.upgrades, RequireData(1))
+        RequireDatas(2) = New CRequireData(SCDatFiles.DatFiles.techdata, RequireData(2))
+        RequireDatas(3) = New CRequireData(SCDatFiles.DatFiles.techdata, RequireData(3), True)
+        RequireDatas(4) = New CRequireData(SCDatFiles.DatFiles.orders, RequireData(4))
     End Sub
 
 

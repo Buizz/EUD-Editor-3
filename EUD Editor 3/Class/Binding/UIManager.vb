@@ -147,13 +147,8 @@ Public Class UIManager
     Public ReadOnly Property Back() As SolidColorBrush
         Get
             If SCDatFiles.CheckValidDat(Datfile) Then
-                Dim TrueFlag As Boolean
-                Select Case Datfile
-                    Case SCDatFiles.DatFiles.units
-                        TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And pjData.ExtraDat.CheckDirty(SCDatFiles.DatFiles.statusinfor, ObjectID) And pjData.ExtraDat.CheckDirty(SCDatFiles.DatFiles.wireframe, ObjectID)
-                    Case Else
-                        TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID)
-                End Select
+                Dim TrueFlag As Boolean = pjData.DataManager.CheckDirtyObject(Datfile, ObjectID)
+
 
                 If TrueFlag Then
                     If pjData.IsMapLoading Then

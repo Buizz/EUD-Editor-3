@@ -12,6 +12,25 @@ Public Class DataManager
     End Function
 
 
+    Public Function CheckDirtyObject(Datfile As SCDatFiles.DatFiles, ObjectID As Integer) As Boolean
+        Dim TrueFlag As Boolean
+        Select Case Datfile
+            Case SCDatFiles.DatFiles.units
+                TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And pjData.ExtraDat.CheckDirty(SCDatFiles.DatFiles.statusinfor, ObjectID) And pjData.ExtraDat.CheckDirty(SCDatFiles.DatFiles.wireframe, ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.units).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
+
+            Case SCDatFiles.DatFiles.upgrades
+                TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.upgrades).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
+            Case SCDatFiles.DatFiles.techdata
+                TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.techdata).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.Stechdata).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
+            Case SCDatFiles.DatFiles.orders
+                TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.orders).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
+            Case Else
+                TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.units).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
+        End Select
+
+        Return TrueFlag
+    End Function
+
 
     'UnitDat의 경우 페이지 별 담당하는 파라미터들이 다름. 그걸 정의해야됨
     Private PageMask() As List(Of String)
