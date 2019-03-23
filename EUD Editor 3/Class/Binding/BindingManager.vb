@@ -194,6 +194,13 @@
             pRequireDataBinding(4).Add(New RequireDataBinding(i, SCDatFiles.DatFiles.orders))
         Next
 
+        pRequireCapacityBinding = New List(Of RequireCapacityBinding)
+        pRequireCapacityBinding.Add(New RequireCapacityBinding(SCDatFiles.DatFiles.units))
+        pRequireCapacityBinding.Add(New RequireCapacityBinding(SCDatFiles.DatFiles.upgrades))
+        pRequireCapacityBinding.Add(New RequireCapacityBinding(SCDatFiles.DatFiles.techdata))
+        pRequireCapacityBinding.Add(New RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata))
+        pRequireCapacityBinding.Add(New RequireCapacityBinding(SCDatFiles.DatFiles.orders))
+
     End Sub
 
     Public Sub DataRefresh()
@@ -265,8 +272,26 @@
         End Get
     End Property
 
+    Public ReadOnly Property RequireCapacityBinding(DatFile As SCDatFiles.DatFiles) As RequireCapacityBinding
+        Get
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.units
+                    Return pRequireCapacityBinding(0)
+                Case SCDatFiles.DatFiles.upgrades
+                    Return pRequireCapacityBinding(1)
+                Case SCDatFiles.DatFiles.techdata
+                    Return pRequireCapacityBinding(2)
+                Case SCDatFiles.DatFiles.Stechdata
+                    Return pRequireCapacityBinding(3)
+                Case SCDatFiles.DatFiles.orders
+                    Return pRequireCapacityBinding(4)
+            End Select
+            Return Nothing
+        End Get
+    End Property
 
     Private pRequireDataBinding() As List(Of RequireDataBinding)
+    Private pRequireCapacityBinding As List(Of RequireCapacityBinding)
 
 
     Private StatusJoint As List(Of ExtraDatBinding)

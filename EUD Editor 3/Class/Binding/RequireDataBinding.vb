@@ -25,6 +25,9 @@ Public Class RequireDataBinding
         NotifyPropertyChanged("IsAlwaysUse")
         NotifyPropertyChanged("IsAlwaysCurrentUse")
         NotifyPropertyChanged("IsCustomUse")
+
+
+        pjData.BindingManager.RequireCapacityBinding(DatFile).PropertyChangedPack()
     End Sub
 
 

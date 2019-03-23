@@ -165,6 +165,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\Binding\BindingManager.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
+    <Compile Include="Class\Binding\RequireCapacityBinding.vb" />
     <Compile Include="Class\Binding\RequireDataBinding.vb" />
     <Compile Include="Class\Binding\StatTxtBinding.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
@@ -301,6 +302,9 @@
     </Compile>
     <Compile Include="UserContorl\Field\Require\RequireListBox.xaml.vb">
       <DependentUpon>RequireListBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\Field\Require\RequireListBoxItem.xaml.vb">
+      <DependentUpon>RequireListBoxItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\UsedCodeList.xaml.vb">
       <DependentUpon>UsedCodeList.xaml</DependentUpon>
@@ -476,6 +480,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\Field\Require\RequireListBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\Field\Require\RequireListBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

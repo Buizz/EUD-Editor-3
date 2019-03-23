@@ -8,21 +8,54 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DockPanel>
+            <StackPanel DockPanel.Dock="left">
+                <RadioButton Margin="4" IsChecked="{Binding IsDefaultUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_DefaultUse}" Checked="RadioButton_Checked" />
+                <RadioButton Margin="4" IsChecked="{Binding IsDontUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_DontUse}" Checked="RadioButton_Checked" />
+                <RadioButton Margin="4" IsChecked="{Binding IsAlwaysUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysUse}" Checked="RadioButton_Checked" />
+                <RadioButton Margin="4" IsChecked="{Binding IsAlwaysCurrentUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysCurrentUse}" Checked="RadioButton_Checked" />
+                <RadioButton Margin="4" IsChecked="{Binding IsCustomUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_CustomUse}" Checked="RadioButton_Checked" />
+            </StackPanel>
+            <Border  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" ClipToBounds="True">
+                <Grid>
+                    <ListBox x:Name="MainListBox" SelectionChanged="MainListBox_SelectionChanged" MouseUp="MainListBox_MouseUp" PreviewMouseLeftButtonDown="MainListBox_PreviewMouseLeftButtonDown" PreviewMouseMove="MainListBox_PreviewMouseMove" PreviewMouseLeftButtonUp="MainListBox_PreviewMouseLeftButtonUp" >
+                        <ListBox.ContextMenu>
+                            <ContextMenu Opened="ContextMenu_Opened" >
+                                <MenuItem x:Name="NewItem" Header="{StaticResource NewCode}" InputGestureText="Ctrl+N" Icon="{materialDesign:PackIcon Kind=FileOutline}" Click="NewItem_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="CutItem" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Icon="{materialDesign:PackIcon Kind=ContentCut}" Click="CutItem_Click"/>
+                                <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}" Click="CopyItem_Click"/>
+                                <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}" Click="PasteItem_Click"/>
+                                <Separator/>
+                                <MenuItem x:Name="DeleteItem" Header="{StaticResource CodeDelete}" InputGestureText="Delete" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="DeleteItem_Click"/>
+                            </ContextMenu>
+                        </ListBox.ContextMenu>
+                    </ListBox>
+                    <Border x:Name="DragImage"  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
 
-    <DockPanel>
-        <StackPanel DockPanel.Dock="left">
-            <RadioButton Margin="4" IsChecked="{Binding IsDefaultUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="기본값" />
-            <RadioButton Margin="4" IsChecked="{Binding IsDontUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="사용안함" />
-            <RadioButton Margin="4" IsChecked="{Binding IsAlwaysUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="무조건허용" />
-            <RadioButton Margin="4" IsChecked="{Binding IsAlwaysCurrentUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="조건허용" />
-            <RadioButton Margin="4" IsChecked="{Binding IsCustomUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="사용자정의" />
-        </StackPanel>
-        <Border  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" ClipToBounds="True">
-            <ListBox x:Name="MainListBox"  >
-                <ListBoxItem Content="하이1"/>
-                <ListBoxItem Content="하이2"/>
-            </ListBox>
+                    </Border>
+                </Grid>
+
+            </Border>
+        </DockPanel>
+        <Border Background="#7F000000" Visibility="Hidden">
+            <materialDesign:Card Margin="80" Background="{DynamicResource MaterialDesignPaper}" 
+    materialDesign:ShadowAssist.ShadowDepth="Depth3" VerticalAlignment="Stretch">
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <DockPanel LastChildFill="False"  Grid.Row="1">
+                        <Button Width="130" DockPanel.Dock="Right" Content="취소" Style="{StaticResource MaterialDesignFlatButton}"/>
+                        <Button Width="130" DockPanel.Dock="Right" Content="확인" Style="{StaticResource MaterialDesignFlatButton}"/>
+                     </DockPanel>
+               
+                </Grid>
+                </materialDesign:Card>
         </Border>
-    </DockPanel>
+    </Grid>
+    
         
 </UserControl>

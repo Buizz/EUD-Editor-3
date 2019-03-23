@@ -20,23 +20,15 @@
             <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <ToolBarTray x:Name="toolBarTray"  Grid.Row="1" >
                     <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}">
-                        <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <ProgressBar Value="25" Width="70" Height="10" />
-                        <TextBlock Text="(1065/1235 byte)" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
+                        <ProgressBar x:Name="ReqCapacity" Value="{Binding ReqCapacity}" Width="70" Height="10" />
+                        <TextBlock x:Name="ReqCapacityText" Text="{Binding ReqCapacityText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
                         <TextBlock Text="일괄 설정" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
 
-                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click">
-                            기본값
-                        </Button>
-                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_1">
-                            사용안함
-                        </Button>
-                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_2">
-                            무조건허용
-                        </Button>
-                        <Button ToolTip="{StaticResource SortCode}"  Padding="16,4" Click="Button_Click_3">
-                            조건허용
-                        </Button>
+                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click" Content="{StaticResource FG_DefaultUse}"/>
+                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_1" Content="{StaticResource FG_DontUse}"/>
+                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_2" Content="{StaticResource FG_AlwaysUse}"/>
+                        <Button ToolTip="{StaticResource SortCode}"  Padding="16,4" Click="Button_Click_3" Content="{StaticResource FG_AlwaysCurrentUse}"/>
                     </ToolBar>
                 </ToolBarTray>
                 <materialDesign:Card Height="353" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >

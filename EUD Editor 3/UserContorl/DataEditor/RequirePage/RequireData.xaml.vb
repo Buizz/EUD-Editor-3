@@ -24,6 +24,13 @@
                 RealDatFiles = DatFiles
         End Select
 
+        If IsUseRequire Then
+            ReqCapacity.DataContext = pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata)
+            ReqCapacityText.DataContext = pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata)
+        Else
+            ReqCapacity.DataContext = pjData.BindingManager.RequireCapacityBinding(DatFiles)
+            ReqCapacityText.DataContext = pjData.BindingManager.RequireCapacityBinding(DatFiles)
+        End If
 
         DataContext = pjData
 
@@ -56,6 +63,15 @@
                 RealDatFiles = DatFiles
         End Select
 
+
+        If IsUseRequire Then
+            ReqCapacity.DataContext = pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata)
+            ReqCapacityText.DataContext = pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata)
+        Else
+            ReqCapacity.DataContext = pjData.BindingManager.RequireCapacityBinding(DatFiles)
+            ReqCapacityText.DataContext = pjData.BindingManager.RequireCapacityBinding(DatFiles)
+        End If
+
         NameBar.ReLoad(ObjectID, DatFiles, UnitDatPage)
         If tIsUseRequire Then
             RequireListbox.ReLoad(SCDatFiles.DatFiles.Stechdata, ObjectID, RequireListbox.Tag)
@@ -76,23 +92,27 @@
         For i = 0 To SCCodeCount(RealDatFiles) - 1
             pjData.BindingManager.RequireDataBinding(i, DatFiles).IsDefaultUse = True
         Next
+        RequireListbox.ListReset
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
         For i = 0 To SCCodeCount(RealDatFiles) - 1
             pjData.BindingManager.RequireDataBinding(i, DatFiles).IsDontUse = True
         Next
+        RequireListbox.ListReset
     End Sub
 
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
         For i = 0 To SCCodeCount(RealDatFiles) - 1
             pjData.BindingManager.RequireDataBinding(i, DatFiles).IsAlwaysUse = True
         Next
+        RequireListbox.ListReset
     End Sub
 
     Private Sub Button_Click_3(sender As Object, e As RoutedEventArgs)
         For i = 0 To SCCodeCount(RealDatFiles) - 1
             pjData.BindingManager.RequireDataBinding(i, DatFiles).IsAlwaysCurrentUse = True
         Next
+        RequireListbox.ListReset
     End Sub
 End Class
