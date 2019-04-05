@@ -448,7 +448,7 @@ Public Class CodeSelecter
         Return tborder
     End Function
     Private Function GetImage(grpIndex As Integer, isSizeBig As Boolean) As Border
-        Dim imgSource As ImageSource = scData.GetGRP(grpIndex, 37, False)
+        Dim imgSource As ImageSource = scData.GetGRP(grpIndex, 12, False)
         Dim bitmap As New Image
         bitmap.BeginInit()
         bitmap.Source = imgSource

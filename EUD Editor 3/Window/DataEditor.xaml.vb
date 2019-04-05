@@ -212,6 +212,7 @@ Public Class DataEditor
 
     Private Sub MetroWindow_Closed(sender As Object, e As EventArgs)
         pjData.CodeSelecters.Remove(CodeList)
+        pgData.Setting(ProgramData.TSetting.DataEditorTopMost) = Me.Topmost
         'MsgBox("파괴")
     End Sub
 
@@ -366,4 +367,5 @@ Public Class DataEditor
     Private Sub LogClear(sender As Object, e As RoutedEventArgs)
         ConsoleLog.Clear()
     End Sub
+
 End Class

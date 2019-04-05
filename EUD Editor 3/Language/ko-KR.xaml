@@ -81,10 +81,13 @@
 
     <!--ContextMenu-->
     <sys:String x:Key="Cut">잘라내기</sys:String>
+    <sys:String x:Key="Edit">수정</sys:String>
     <sys:String x:Key="Copy">복사</sys:String>
     <sys:String x:Key="Paste">붙여넣기</sys:String>
     <sys:String x:Key="Reset">초기화</sys:String>
     <sys:String x:Key="Check">확인</sys:String>
+    <sys:String x:Key="Okay">확인</sys:String>
+    <sys:String x:Key="Cancel">취소</sys:String>
     <sys:String x:Key="PageCopy">복사</sys:String>
     <sys:String x:Key="PagePaste">붙여넣기</sys:String>
     <sys:String x:Key="PageReset">초기화</sys:String>
@@ -654,7 +657,7 @@
     
     
     <!--Require-->
-    <sys:String x:Key="RequireText">(요구 유닛 설정)|또는|대상 유닛 설정|요구 유닛 설정|요구 에드온 설정|지상에 있는 건물|공중에 있는 건물|변태나 훈련중이 아님|애드온 건설중이 아님|기술 연구 중이 아님|업그레이드 중이 아님|건설 중이 아님|부착된 에드온이 없음|나이더스 카날 출구가 없음|격납 공간이 있음|연구 완료 상태|격납된 핵이 없음|버러우 상태가 아님|공격 가능|렐리 지정 가능|이동 가능|무기를 보유 중|일꾼임|공중에 뜰 수 있는 건물|수송 유닛|파워옵스 유닛|부가 유닛에게 허용|마인을 보유 중|영웅 유닛에게 허용|홀드 가능|환상에게 허용|Upgrade_Lv-1 요구 조건|Upgrade_Lv-2 요구 조건|Upgrade_Lv-3 요구 조건|Grey|Blank|브르드워 전용|Is_researched|버러우 상태|조건 분기</sys:String>
+    <sys:String x:Key="RequireText">(요구 유닛 설정)|또는|대상 유닛 설정|요구 유닛 설정|요구 에드온 설정|지상에 있는 건물|공중에 있는 건물|변태나 훈련중이 아님|애드온 건설중이 아님|기술 연구 중이 아님|업그레이드 중이 아님|건설 중이 아님|부착된 에드온이 없음|나이더스 카날 출구가 없음|격납 공간이 있음|연구 완료 상태|격납된 핵이 없음|버러우 상태가 아님|공격 가능|렐리 지정 가능|이동 가능|무기를 보유 중|일꾼임|공중에 뜰 수 있는 건물|수송 유닛|파워옵스 유닛|부가 유닛에게 허용|마인을 보유 중|영웅 유닛에게 허용|홀드 가능|환상에게 허용|Upgrade_Lv-1 요구 조건|Upgrade_Lv-2 요구 조건|Upgrade_Lv-3 요구 조건|Grey|Blank|브르드워 전용|요구 기술 설정|버러우 상태|조건 분기</sys:String>
     <sys:String x:Key="RequireSubListEnd">Upgrade 요구 조건 끝</sys:String>
 
     <sys:String x:Key="FG_DefaultUse">기본값</sys:String>

@@ -60,6 +60,7 @@
             Case SCDatFiles.DatFiles.orders
                 Return 1316
         End Select
+        Return 0
     End Function
 
 
@@ -213,8 +214,21 @@
                 Return _opCode
             End Get
             Set(tvalue As EOpCode)
-                _opCode = tvalue
+                If opCode = 39 Then
+                    _opCode = EOpCode.End_of_Sublist
+                Else
+                    _opCode = tvalue
+                End If
             End Set
+        End Property
+        Public ReadOnly Property opCodeIndex As Integer
+            Get
+                If _opCode = EOpCode.End_of_Sublist Then
+                    Return 39
+                Else
+                    Return _opCode
+                End If
+            End Get
         End Property
 
         Public ReadOnly Property opText As String
@@ -225,6 +239,23 @@
                     Dim RequireTexts As String() = Tool.GetText("RequireText").Split("|")
 
                     Return RequireTexts(_opCode)
+                End If
+            End Get
+        End Property
+        Public ReadOnly Property ValueText As String
+            Get
+                If _opCode = EOpCode.Is_researched Then
+                    If SCCodeCount(SCDatFiles.DatFiles.techdata) > _value Then
+                        Return pjData.CodeLabel(SCDatFiles.DatFiles.techdata, _value, True)
+                    Else
+                        Return Tool.GetText("None")
+                    End If
+                Else
+                    If SCCodeCount(SCDatFiles.DatFiles.units) > _value Then
+                        Return pjData.CodeLabel(SCDatFiles.DatFiles.units, _value, True)
+                    Else
+                        Return Tool.GetText("None")
+                    End If
                 End If
             End Get
         End Property

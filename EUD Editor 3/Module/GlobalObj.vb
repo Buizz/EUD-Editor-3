@@ -155,6 +155,7 @@
     End Function
 
     Public Function ShutDownProgram() As Boolean
+        'MsgBox("프로그램종료")
         Try
             pgData.SaveSetting()
         Catch ex As Exception

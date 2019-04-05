@@ -23,7 +23,7 @@ Public Module SCConst
     Public SCMenCount As Byte = 106
 
     Public Function CheckOverFlow(Datfiles As SCDatFiles.DatFiles, Value As Long) As Boolean
-        Return SCCodeCount(Datfiles) > Value
+        Return (SCCodeCount(Datfiles) > Value) And Value >= 0
     End Function
 
     Public ColorTable() As Color = {

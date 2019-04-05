@@ -17,7 +17,7 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+            <WrapPanel MaxWidth="610" HorizontalAlignment="Left" VerticalAlignment="Top" >
                 <ToolBarTray x:Name="toolBarTray"  Grid.Row="1" >
                     <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}">
                         <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
@@ -31,7 +31,7 @@
                         <Button ToolTip="{StaticResource SortCode}"  Padding="16,4" Click="Button_Click_3" Content="{StaticResource FG_AlwaysCurrentUse}"/>
                     </ToolBar>
                 </ToolBarTray>
-                <materialDesign:Card Height="353" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" MinWidth="590" MinHeight="353" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />

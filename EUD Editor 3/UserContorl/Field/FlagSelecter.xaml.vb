@@ -17,7 +17,7 @@
         If True Then
             Dim tbind As New Binding
             tbind.Path = New PropertyPath("ToolTipText")
-            CheckboxList.SetBinding(CheckboxList.ToolTipProperty, tbind)
+            CheckboxList.SetBinding(CheckBox.ToolTipProperty, tbind)
             'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
         End If
 
@@ -73,7 +73,7 @@
         If True Then
             Dim tbind As New Binding
             tbind.Path = New PropertyPath("ToolTipText")
-            CheckboxList.SetBinding(CheckboxList.ToolTipProperty, tbind)
+            CheckboxList.SetBinding(CheckBox.ToolTipProperty, tbind)
             'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
         End If
 

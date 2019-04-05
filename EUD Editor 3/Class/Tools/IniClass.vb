@@ -59,13 +59,16 @@ Public Class IniClass
         End If
     End Sub
     Public Sub WriteIni()
+        'MsgBox("ini저장")
         Dim filestream As New FileStream(Filename, FileMode.Create)
         Dim strWriter As New StreamWriter(filestream)
 
+        'Dim tstr As String
         For i = 0 To Datas.Count - 1
+            'tstr = tstr & vbCrLf & Datas.Keys(i) & " = " & Datas.Values(i)
             strWriter.Write(Datas.Keys(i) & " = " & Datas.Values(i) & vbCrLf)
         Next
-
+        'MsgBox(tstr)
 
 
 

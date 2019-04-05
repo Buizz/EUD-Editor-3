@@ -98,15 +98,13 @@ Class MainWindow
             If Tool.IsProjectLoad Then
                 If pjData.CloseFile() Then
                     pjData = Nothing
-
-                    Return
                 Else
                     e.Cancel = True
                     Return
                 End If
             End If
-
-            e.Cancel = ShutDownProgram()
+            ShutDownProgram()
+            'e.Cancel = ShutDownProgram()
         End If
 
     End Sub
