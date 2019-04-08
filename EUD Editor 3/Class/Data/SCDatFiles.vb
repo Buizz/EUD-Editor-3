@@ -38,7 +38,8 @@ Public Class SCDatFiles
         TechResearchrequire = 17
         TechUserequire = 18
         Orderrequire = 19
-        button = 20
+        ButtonData = 20
+        ButtonSet = 21
 
 
         Stechdata = 254
@@ -124,7 +125,9 @@ Public Class SCDatFiles
             End If
         End Get
     End Property
-
+    Public Function CheckParamExist(key As DatFiles, name As String) As Boolean
+        Return DatfileDic(key).CheckParamExist(name)
+    End Function
 
 
     Public Property Group(key As DatFiles, index As Integer) As String
@@ -206,12 +209,15 @@ Public Class SCDatFiles
                 ParamDic(name).Data(index) = value
             End Set
         End Property
+
         Public ReadOnly Property GetParamInfo(name As String, Type As EParamInfo) As Long
             Get
                 Return ParamDic(name).GetInfo(Type)
             End Get
         End Property
-
+        Public Function CheckParamExist(name As String) As Boolean
+            Return (ParamDic.Keys.ToList.IndexOf(name) >= 0)
+        End Function
 
 
         Public Sub New(tFIleName As String, IsProjectData As Boolean, TemporyData As Boolean, IsBindingData As Boolean)

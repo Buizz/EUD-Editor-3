@@ -666,4 +666,16 @@
     <sys:String x:Key="FG_AlwaysCurrentUse">조건허용</sys:String>
     <sys:String x:Key="FG_CustomUse">사용자정의</sys:String>
 
+    <sys:String x:Key="FG_DefaultUseToolTip">코드 전체를 기본값으로 변경합니다.</sys:String>
+    <sys:String x:Key="FG_DontUseToolTip">코드 전체를 사용안함으로 변경합니다.</sys:String>
+    <sys:String x:Key="FG_AlwaysUseToolTip">코드 전체를 무조건 허용으로 변경합니다. 모든 유닛이 사용 가능해 집니다.</sys:String>
+    <sys:String x:Key="FG_AlwaysCurrentUseToolTip">코드 전체를 조건 허용으로 변경합니다. 사용 유닛은 바뀌지 않고 조건만 허용됩니다.</sys:String>
+    <sys:String x:Key="FG_CustomUseToolTip">사용자정의</sys:String>
+
+    <!--색 코드-->
+    <sys:String x:Key="ColorNames">기본 색 사용|Pale Blue|Yellow|White|Grey|Red|Green|Red (P1)|NULL|NULL|&lt;1&gt;투명|&lt;1&gt;Remove beyond|NULL|Blue (P2)|Teal (P3)|Purple (P4)|Orange (P5)|Right Aling|Center Align|&lt;1&gt;투명|Brown (P6)|white (P7)|Yellow (P8)|Green (P9)|Brighter Yellow (P10)|Cyan|Pinkish (P11)|Dark Cyan (P12)|Greygreen|BlueGrey|Truquoise</sys:String>
+
+    <!--버튼셋-->
+    <sys:String x:Key="buttonSet">버튼셋</sys:String>
+    <sys:String x:Key="button">버튼데이터</sys:String>
 </ResourceDictionary>

@@ -29,7 +29,7 @@
 
     Public Sub Execute(parameter As Object) Implements ICommand.Execute
         Select Case Datfile
-            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                 Select Case parameter
                     Case CommandType.Copy
                         My.Computer.Clipboard.SetText(pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectID).Value)

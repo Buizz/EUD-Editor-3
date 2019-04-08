@@ -13,24 +13,26 @@
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="50"/>
+            <RowDefinition Height="27"/>
             <RowDefinition Height="40*"/>
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
-        <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <ToolBarTray x:Name="toolBarTray"  Grid.Row="1" >
-                    <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}">
-                        <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
-                        <ProgressBar x:Name="ReqCapacity" Value="{Binding ReqCapacity}" Width="70" Height="10" />
-                        <TextBlock x:Name="ReqCapacityText" Text="{Binding ReqCapacityText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                        <TextBlock Text="일괄 설정" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
+        <ToolBarTray x:Name="toolBarTray"  Grid.Row="1" >
+            <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}">
+                <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
+                <ProgressBar x:Name="ReqCapacity" Value="{Binding ReqCapacity}" Width="70" Height="10" />
+                <TextBlock x:Name="ReqCapacityText" Text="{Binding ReqCapacityText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                <TextBlock Text="일괄 설정" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
 
-                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click" Content="{StaticResource FG_DefaultUse}"/>
-                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_1" Content="{StaticResource FG_DontUse}"/>
-                        <Button ToolTip="{StaticResource SortCode}" Padding="16,4" Click="Button_Click_2" Content="{StaticResource FG_AlwaysUse}"/>
-                        <Button ToolTip="{StaticResource SortCode}"  Padding="16,4" Click="Button_Click_3" Content="{StaticResource FG_AlwaysCurrentUse}"/>
-                    </ToolBar>
-                </ToolBarTray>
+                <Button ToolTip="{StaticResource FG_DefaultUseToolTip}" Padding="16,4" Click="Button_Click" Content="{StaticResource FG_DefaultUse}"/>
+                <Button ToolTip="{StaticResource FG_DontUseToolTip}" Padding="16,4" Click="Button_Click_1" Content="{StaticResource FG_DontUse}"/>
+                <Button ToolTip="{StaticResource FG_AlwaysUseToolTip}" Padding="16,4" Click="Button_Click_2" Content="{StaticResource FG_AlwaysUse}"/>
+                <Button ToolTip="{StaticResource FG_AlwaysCurrentUseToolTip}"  Padding="16,4" Click="Button_Click_3" Content="{StaticResource FG_AlwaysCurrentUse}"/>
+            </ToolBar>
+        </ToolBarTray>
+        <ScrollViewer  Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+            <WrapPanel MaxWidth="610" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                
                 <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" MinWidth="590" MinHeight="353" >
                     <Grid>
                         <Grid.RowDefinitions>

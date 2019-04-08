@@ -426,12 +426,11 @@ Public Class ProjectData
                         ReturnStr = scData.IscriptName(index)
                     Case SCDatFiles.DatFiles.wireframe
                         ReturnStr = UnitName(index)
-                    Case SCDatFiles.DatFiles.button
-                        If index < SCUnitCount - 1 Then
+                    Case SCDatFiles.DatFiles.ButtonData
+                        If index < SCUnitCount Then
                             ReturnStr = UnitName(index)
                         Else
-
-                            ReturnStr = scData.BtnStr(index - SCUnitCount + 1)
+                            ReturnStr = scData.BtnStr(index - SCUnitCount)
                         End If
                 End Select
                 Dim ToolTipText As String = ""

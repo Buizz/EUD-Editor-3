@@ -57,6 +57,50 @@ Public Class IconSelecter
 
                 ResetItem.Command = DatCommand
                 ResetItem.CommandParameter = DatCommand.CommandType.Reset
+            Case SCDatFiles.DatFiles.ButtonSet
+                Field.Init(DatFile, ObjectID, Parameter, InputField.SFlag.None, TextWidth)
+                'OpenNew.Visibility = Visibility.Collapsed
+
+
+                If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                    DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
+                    btn.IsEnabled = True
+                    IconImage.IsEnabled = True
+
+                    Dim tBinding1 As New Binding
+                    tBinding1.Path = New PropertyPath("ValueText")
+                    'tBinding1.Source = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).ValueTextBinding
+                    btn.SetBinding(Button.ContentProperty, tBinding1)
+
+                    Dim tBinding2 As New Binding
+                    tBinding2.Path = New PropertyPath("ValueImage")
+                    IconImage.SetBinding(Image.SourceProperty, tBinding2)
+
+                    Dim tBinding3 As New Binding
+                    tBinding3.Path = New PropertyPath("BackColor")
+                    btn.SetBinding(Button.BackgroundProperty, tBinding3)
+                Else
+                    btn.Content = Tool.GetText("NotUse")
+                    IconImage.Source = New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/BlackIcon.png"))
+                    IconImage.IsEnabled = False
+                    btn.IsEnabled = False
+                    OpenNew.IsEnabled = False
+                    Exit Sub
+                End If
+
+                DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+
+
+
+
+                CopyItem.Command = DatCommand
+                CopyItem.CommandParameter = DatCommand.CommandType.Copy
+
+                PasteItem.Command = DatCommand
+                PasteItem.CommandParameter = DatCommand.CommandType.Paste
+
+                ResetItem.Command = DatCommand
+                ResetItem.CommandParameter = DatCommand.CommandType.Reset
             Case Else
                 If _Parameter = "UnitName" Then
                     IconBox.Visibility = Visibility.Collapsed
@@ -157,6 +201,51 @@ Public Class IconSelecter
 
         Select Case DatFile
             Case SCDatFiles.DatFiles.wireframe
+
+
+                Field.ReLoad(DatFile, ObjectID, Parameter)
+
+                If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
+                    DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
+
+                    btn.IsEnabled = True
+                    IconImage.IsEnabled = True
+
+                    Dim tBinding1 As New Binding
+                    tBinding1.Path = New PropertyPath("ValueText")
+                    'tBinding1.Source = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).ValueTextBinding
+                    btn.SetBinding(Button.ContentProperty, tBinding1)
+
+                    Dim tBinding2 As New Binding
+                    tBinding2.Path = New PropertyPath("ValueImage")
+                    IconImage.SetBinding(Image.SourceProperty, tBinding2)
+
+                    Dim tBinding3 As New Binding
+                    tBinding3.Path = New PropertyPath("BackColor")
+                    btn.SetBinding(Button.BackgroundProperty, tBinding3)
+                Else
+                    btn.Content = Tool.GetText("NotUse")
+                    IconImage.Source = New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/BlackIcon.png"))
+                    IconImage.IsEnabled = False
+                    btn.IsEnabled = False
+                    OpenNew.IsEnabled = False
+                    Exit Sub
+                End If
+                If DatCommand Is Nothing Then
+                    DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+
+                    CopyItem.Command = DatCommand
+                    CopyItem.CommandParameter = DatCommand.CommandType.Copy
+
+                    PasteItem.Command = DatCommand
+                    PasteItem.CommandParameter = DatCommand.CommandType.Paste
+
+                    ResetItem.Command = DatCommand
+                    ResetItem.CommandParameter = DatCommand.CommandType.Reset
+                Else
+                    DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+                End If
+            Case SCDatFiles.DatFiles.ButtonSet
 
 
                 Field.ReLoad(DatFile, ObjectID, Parameter)
@@ -309,6 +398,22 @@ Public Class IconSelecter
                     CodeList.MaxWidth = btn.RenderSize.Width + 32
                     CodeList.Width = btn.RenderSize.Width + 32
                     CodeSelect.IsOpen = True
+                Case SCDatFiles.DatFiles.ButtonSet
+                    'CodeList.SetFliter(CodeSelecter.ESortType.n123)
+                    Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.ButtonData
+
+
+                    Dim value As Long = pjData.ExtraDat.ButtonSet(ObjectID)
+
+                    If Not CodeList.DataLoadCmp Then
+                        CodeList.ListReset(valueType, True, value)
+                    Else
+                        CodeList.Refresh(value)
+                    End If
+
+                    CodeList.MaxWidth = btn.RenderSize.Width + 32
+                    CodeList.Width = btn.RenderSize.Width + 32
+                    CodeSelect.IsOpen = True
                 Case Else
                     'CodeList.SetFliter(CodeSelecter.ESortType.n123)
                     Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
@@ -346,7 +451,7 @@ Public Class IconSelecter
         If Parameter <> "UnitName" Then
             Dim ChangeValue As Integer = e.Delta / 100
             Select Case DatFile
-                Case SCDatFiles.DatFiles.wireframe
+                Case SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                     pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
                 Case Else
                     pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
@@ -360,11 +465,21 @@ Public Class IconSelecter
         If Parameter = "UnitName" Then
             TabItemTool.WindowTabItem(SCDatFiles.DatFiles.stattxt, ObjectID)
         Else
-            Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
-            Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
-            If CheckOverFlow(valueType, value) Then
-                TabItemTool.WindowTabItem(valueType, value)
-            End If
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.ButtonSet
+                    Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.ButtonData
+                    Dim value As Integer = pjData.ExtraDat.ButtonSet(ObjectID)
+                    If CheckOverFlow(valueType, value) Then
+                        TabItemTool.WindowTabItem(valueType, value)
+                    End If
+                Case Else
+                    Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
+                    Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
+                    If CheckOverFlow(valueType, value) Then
+                        TabItemTool.WindowTabItem(valueType, value)
+                    End If
+            End Select
+
         End If
 
     End Sub

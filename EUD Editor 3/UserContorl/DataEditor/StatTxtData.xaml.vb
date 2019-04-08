@@ -18,34 +18,25 @@
 
         MainTextBox.DataContext = pjData.BindingManager.StatTxtBinding(ObjectID)
 
-        AddPalett(&H1, "기본 색 사용")
-        AddPalett(&H2, "Pale Blue")
-        AddPalett(&H3, "Yellow")
-        AddPalett(&H4, "White")
-        AddPalett(&H5, "Grey")
-        AddPalett(&H6, "Red")
-        AddPalett(&H7, "Green")
-        AddPalett(&H8, "Red (P1)")
-        AddPalett(&HB, "<1>투명")
-        AddPalett(&HC, "<1>Remove beyond")
-        AddPalett(&HE, "Blue (P2)")
-        AddPalett(&HF, "Teal (P3)")
-        AddPalett(&H10, "Purple (P4)")
-        AddPalett(&H11, "Orange (P5)")
-        AddPalett(&H12, "Right Aling")
-        AddPalett(&H13, "Center Align")
-        AddPalett(&H14, "<1>투명")
-        AddPalett(&H15, "Brown (P6)")
-        AddPalett(&H16, "white (P7)")
-        AddPalett(&H17, "Yellow (P8)")
-        AddPalett(&H18, "Green (P9)")
-        AddPalett(&H19, "Brighter Yellow (P10)")
-        AddPalett(&H1A, "Cyan")
-        AddPalett(&H1B, "Pinkish (P11)")
-        AddPalett(&H1C, "Dark Cyan (P12)")
-        AddPalett(&H1D, "Greygreen")
-        AddPalett(&H1E, "BlueGrey")
-        AddPalett(&H1F, "Truquoise")
+        Dim str As String() = Tool.GetText("ColorNames").Split("|")
+
+        For i = 0 To str.Count - 1
+            If str(i) <> "NULL" Then
+                AddPalett(i + 1, str(i))
+            End If
+        Next
+
+        For i = 0 To SCConst.ASCIICount
+            If scData.ASCIICode(i) <> "NUL" Then
+                Dim tcomboboxitem As New ComboBoxItem
+                tcomboboxitem.Content = scData.ASCIICode(i)
+                tcomboboxitem.Tag = i
+
+
+                ShortCombobox.Items.Add(tcomboboxitem)
+            End If
+        Next
+
     End Sub
     Private Sub AddPalett(ColorCode As Integer, tip As String)
 
@@ -96,297 +87,281 @@
         MainTextBox.DataContext = pjData.BindingManager.StatTxtBinding(ObjectID)
     End Sub
 
-    Private LastStr As String
-    Private PressBackSpace As Boolean = False
     Private Sub TextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
-        LimitShortCut(MainTextBox.Text)
-
-        If PressBackSpace Then
-            PressBackSpace = False
-
-            If LastStr = ">" Then
-                Dim tLastStr As String = ""
-
-
-                If MainTextBox.SelectionStart >= 3 Then
-                    MainTextBox.SelectionStart -= 3
-                    MainTextBox.SelectionLength = 3
-
-                    tLastStr = MainTextBox.SelectedText & LastStr
-
-                    MainTextBox.SelectionStart += 3
-                    MainTextBox.SelectionLength = 0
-                Else
-                    MainTextBox.SelectionLength = MainTextBox.SelectionStart
-                    MainTextBox.SelectionStart = 0
-
-                    tLastStr = MainTextBox.SelectedText & LastStr
-
-                    MainTextBox.SelectionStart = MainTextBox.Text.Length
-                    MainTextBox.SelectionLength = 0
-                End If
-
-
-
-
-
-
-                Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-
-                If rgx.Match(tLastStr).Success Then
-                    Dim ValueStr As String = rgx.Match(tLastStr).Value
-                    ValueStr = Mid(rgx.Match(tLastStr).Value, 2, ValueStr.Length - 2)
-                    Dim Value As Integer
-                    Try
-                        Value = "&H" & ValueStr
-
-                        MainTextBox.SelectionStart -= ValueStr.Length + 1
-                        MainTextBox.SelectionLength = ValueStr.Length + 1
-
-                        MainTextBox.SelectedText = ""
-                    Catch ex As Exception
-
-                    End Try
-                End If
-            End If
-            'MsgBox(e.Changes.First.RemovedLength)
+        If MainTextBox.Text.Count > 1 Then
+            LimitShortCut(MainTextBox.Text)
         End If
+
+
+
         Dim ColorText As String = MainTextBox.Text
 
         If LimitCombobx.SelectedIndex <> 0 And ShortCombobox.SelectedIndex <> 0 Then
-            If ShortCombobox.SelectedIndex = 27 Then
-                Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                ColorText = Mid(ColorText, rgx.Matches(ColorText)(1).Length + rgx.Matches(ColorText)(1).Index + 1)
-            Else
-                Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                ColorText = Mid(ColorText, rgx.Match(ColorText).Length + rgx.Match(ColorText).Index + 1)
+            If MainTextBox.Text.Count > 1 Then
+                ColorText = ChangeCharAt(1, ColorText, "")
+            End If
+            If MainTextBox.Text.Count > 0 Then
+                ColorText = ChangeCharAt(0, ColorText, "")
             End If
         End If
 
 
-
+        '컬러박스 정리
         PreviewText.TextColred(ColorText)
     End Sub
 
-    Private Sub MainTextBox_PreviewKeyDown(sender As Object, e As KeyEventArgs)
-        If e.Key = Key.Back Then
-            If MainTextBox.SelectionStart > 0 Then
-                MainTextBox.SelectionStart -= 1
-                MainTextBox.SelectionLength = 1
-
-                LastStr = MainTextBox.SelectedText
-
-                MainTextBox.SelectionStart += 1
-                MainTextBox.SelectionLength = 0
-            Else
-                LastStr = ""
-            End If
-
-
-
-            PressBackSpace = True
-            'MsgBox(LastStr & " " & MainTextBox.Text)
-        End If
-    End Sub
-
-    Private Sub MainTextBox_PreviewKeyUp(sender As Object, e As KeyEventArgs)
-        If e.Key = Key.Back Then
-            PressBackSpace = False
-            'MsgBox(LastStr & " " & MainTextBox.Text)
-        End If
-    End Sub
-
+    Private DonotChangeCombobox As Boolean = True
     Private Sub LimitShortCut(texts As String)
         DonotChangeCombobox = False
 
-        '첫번째 글자가 ESC인지 확인
-        '두번째 글자가 코드인지 확인
+        'MsgBox(GetCharAt(0, texts) & "_" & GetCharAt(1, texts))
+        Dim FristKey As String = GetCharAt(0, texts)
+        Dim LastKey As String = GetCharAt(1, texts)
 
-        'regex를 통해 첫번째로 나온 글자의 위치 파악. 만약 0일경우 ESC일 수 있으니 두번쨰꺼도 확인.
+        Dim LastKeyIndex As Integer = -1
+        If LastKey.Count > 1 Then
+            Try
+                LastKeyIndex = LastKey
+            Catch ex As Exception
 
-        '두번째 글자가 코드일 경우 0~5인지 확인,
-        '0~5이면 첫번째 글자가 일치
-        Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-
-        Dim Matchs As Text.RegularExpressions.Match = rgx.Match(texts)
-        If Matchs.Success Then
-            Dim LimitIndex As Integer = -1
-            Dim ShortCutKey As Integer = -1
-
-            If Matchs.Index = 0 And rgx.Matches(texts).Count > 1 Then 'ESC일 수도 있음
-
-                Dim FristValuestr As String = Mid(Matchs.Value, 2, Matchs.Value.Length - 2)
-                '첫번째 수가 타당한 수인지.
+            End Try
+        End If
 
 
+
+        If LastKeyIndex >= 0 And LastKeyIndex <= 5 Then
+            Dim KeyExist As Boolean = False
+            If FristKey.Count > 1 Then
+                Dim KeyValue As Integer
                 Try
-                    Dim intValue As Integer = "&H" & FristValuestr
+                    KeyValue = "&H" & FristKey
+                    If KeyValue <= 255 Then
+                        For i = 0 To ShortCombobox.Items.Count - 1
+                            Dim comboboxit As ComboBoxItem = ShortCombobox.Items(i)
 
-                    If intValue <> 27 Then
-                        LimitCombobx.SelectedIndex = 0
-                        ShortCombobox.SelectedIndex = 0
-                        DonotChangeCombobox = True
-                        Return
+                            If KeyValue = comboboxit.Tag Then
+                                ShortCombobox.SelectedIndex = i
+                                KeyExist = True
+                                Exit For
+                            End If
+                        Next
                     End If
                 Catch ex As Exception
-                    DonotChangeCombobox = True
-                    Return
+
                 End Try
-
-
-                Dim Startindex As Integer = rgx.Matches(texts)(1).Index
-                If Startindex <> FristValuestr.Length + 2 Then
-                    LimitCombobx.SelectedIndex = 0
-                    ShortCombobox.SelectedIndex = 0
-                    DonotChangeCombobox = True
-                    Return
-                End If
-
-                Dim Valuestr As Integer = Mid(rgx.Matches(texts)(1).Value, 2, rgx.Matches(texts)(1).Value.Length - 2)
-                Try
-                    LimitIndex = "&H" & Valuestr
-                Catch ex As Exception
-                    LimitCombobx.SelectedIndex = 0
-                    ShortCombobox.SelectedIndex = 0
-                    DonotChangeCombobox = True
-                    Return
-                End Try
-
-
-                ShortCutKey = 26
-            ElseIf Matchs.Index = 1 Then
-                Dim Valuestr As String = Mid(Matchs.Value, 2, Matchs.Value.Length - 2)
-                Try
-                    LimitIndex = "&H" & Valuestr
-                Catch ex As Exception
-                    LimitCombobx.SelectedIndex = 0
-                    ShortCombobox.SelectedIndex = 0
-                    DonotChangeCombobox = True
-                    Return
-                End Try
-                Dim Shortstr As String = texts.First
-                '97~122
-
-                ShortCutKey = AscW(Shortstr.ToLower) - 97
-                If ShortCutKey < 0 Or ShortCutKey > 25 Then
-                    LimitCombobx.SelectedIndex = 0
-                    ShortCombobox.SelectedIndex = 0
-                    DonotChangeCombobox = True
-                    Return
-                End If
             End If
-            If LimitIndex <> -1 And ShortCutKey <> -1 Then
-                LimitCombobx.SelectedIndex = LimitIndex + 1
-                ShortCombobox.SelectedIndex = ShortCutKey + 1
+
+            If Not KeyExist Then
+                If FristKey.Count = 1 Then
+                    Dim tKeyValue As Integer = AscW(FristKey)
+                    If tKeyValue <= 255 Then
+                        For i = 0 To ShortCombobox.Items.Count - 1
+                            Dim comboboxit As ComboBoxItem = ShortCombobox.Items(i)
+
+                            If tKeyValue = comboboxit.Tag Then
+                                ShortCombobox.SelectedIndex = i
+                                LimitCombobx.SelectedIndex = LastKey + 1
+                                KeyExist = True
+                                Exit For
+                            End If
+                        Next
+                    End If
+                End If
+
+
+                If Not KeyExist Then
+                    LimitCombobx.SelectedIndex = 0
+                    ShortCombobox.SelectedIndex = 0
+                End If
             Else
-                LimitCombobx.SelectedIndex = 0
-                ShortCombobox.SelectedIndex = 0
+                LimitCombobx.SelectedIndex = LastKey + 1
             End If
-
         Else
             LimitCombobx.SelectedIndex = 0
             ShortCombobox.SelectedIndex = 0
-            DonotChangeCombobox = True
-            Return
         End If
+
 
 
         DonotChangeCombobox = True
     End Sub
+    Private Function ChangeCharAt(index As Integer, str As String, tostr As String) As String
+        Dim MatchPass As Integer = 0
 
-    'pjData.BindingManager.StatTxtBinding(ObjectID)
+        Dim TempChar As String = "ᚏ"
+        Dim SpecialKeys As New List(Of String)
+        Dim SpecialKeyPos As New List(Of Integer)
+        Dim OriginalKeys As New List(Of String)
 
-    Private DonotChangeCombobox As Boolean = True
+        Dim rgx As New Text.RegularExpressions.Regex("<([^<>])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
+        Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+        'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
+        '만약 Virtual안에 있으면 해당 번호로 돌려줌.
+        For i = 0 To Matchs.Count - 1
+            Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+
+            Dim pureStr As String = ExtratStr(tMatchs(MatchPass).Value)
+            Dim ResultStr As String = pureStr
+
+            Dim PassFlag As Boolean = False
+            '값의 순수성 검사.(Virtual KEY문자이거나 16진수 이거나 판단)
+            For keys = 0 To SCConst.ASCIICount
+                If scData.ASCIICode(keys) = pureStr Then 'Virtual KEY일 경우
+                    ResultStr = Hex(keys).PadLeft(2, "0")
+                    PassFlag = True
+                End If
+            Next
+            If Not PassFlag Then
+                Try
+                    Dim Isnum As Long = "&H" & pureStr '16진수인지 판별
+                    ResultStr = Hex(Isnum).PadLeft(2, "0")
+                    PassFlag = True
+                Catch ex As Exception
+
+                End Try
+            End If
+            If Not PassFlag Then
+                MatchPass += 1
+                Continue For
+            End If
+
+            OriginalKeys.Add(tMatchs(MatchPass).Value)
+            SpecialKeys.Add(ResultStr)
+            SpecialKeyPos.Add(tMatchs(MatchPass).Index)
+            str = Replace(str, tMatchs(MatchPass).Value, TempChar, 1, 1)
+        Next
+        If str(index) = TempChar Then
+            For i = 0 To SpecialKeyPos.Count - 1
+                If SpecialKeyPos(i) = index Then
+                    str = Replace(str, TempChar, tostr, 1, 1)
+                Else
+                    str = Replace(str, TempChar, OriginalKeys(i), 1, 1)
+                End If
+            Next
+        Else
+            '12 3 45  index = 2
+            str = Mid(str, 1, index) & tostr & Mid(str, index + 2)
+            For i = 0 To SpecialKeyPos.Count - 1
+                str = Replace(str, TempChar, OriginalKeys(i), 1, 1)
+            Next
+        End If
+        Return str
+    End Function
+    Private Function GetCharAt(index As Integer, str As String) As String
+        Dim MatchPass As Integer = 0
+
+        Dim TempChar As String = "ᚏ"
+        Dim SpecialKeys As New List(Of String)
+        Dim SpecialKeyPos As New List(Of Integer)
+
+        Dim rgx As New Text.RegularExpressions.Regex("<([^<>])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
+        Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+        'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
+        '만약 Virtual안에 있으면 해당 번호로 돌려줌.
+        For i = 0 To Matchs.Count - 1
+            Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+
+            Dim pureStr As String = ExtratStr(tMatchs(MatchPass).Value)
+            Dim ResultStr As String = pureStr
+
+            Dim PassFlag As Boolean = False
+            '값의 순수성 검사.(Virtual KEY문자이거나 16진수 이거나 판단)
+            For keys = 0 To SCConst.ASCIICount
+                If scData.ASCIICode(keys) = pureStr Then 'Virtual KEY일 경우
+                    ResultStr = Hex(keys).PadLeft(2, "0")
+                    PassFlag = True
+                End If
+            Next
+            If Not PassFlag Then
+                Try
+                    Dim Isnum As Long = "&H" & pureStr '16진수인지 판별
+                    ResultStr = Hex(Isnum).PadLeft(2, "0")
+                    PassFlag = True
+                Catch ex As Exception
+
+                End Try
+            End If
+            If Not PassFlag Then
+                MatchPass += 1
+                Continue For
+            End If
+
+
+            SpecialKeys.Add(ResultStr)
+            SpecialKeyPos.Add(tMatchs(MatchPass).Index)
+            str = Replace(str, tMatchs(MatchPass).Value, TempChar, 1, 1)
+        Next
+        If str(index) = TempChar Then
+            For i = 0 To SpecialKeyPos.Count - 1
+                If SpecialKeyPos(i) = index Then
+                    Return SpecialKeys(i)
+                End If
+            Next
+        Else
+            Return str(index)
+        End If
+        Return " "
+    End Function
+
+
+
+    Private Function ExtratStr(str As String) As String
+        Return Mid(str, 2, str.Length - 2)
+    End Function
+
+
+    Private Sub MainTextBox_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+
+    End Sub
+
+    Private Sub MainTextBox_PreviewKeyUp(sender As Object, e As KeyEventArgs)
+
+    End Sub
+
     Private Sub LimitCombobx_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If DonotChangeCombobox Then
+            DonotChangeCombobox = False
+
             Dim CurrentText As String = pjData.BindingManager.StatTxtBinding(ObjectID).Value
 
-            DonotChangeCombobox = False
-            If ShortCombobox.SelectedIndex = 0 Then '바뀌지 않은 상태를 의미
-                ShortCombobox.SelectedIndex = 1
-
-                CurrentText = "a<" & Hex(LimitCombobx.SelectedIndex - 1).ToUpper.PadLeft(2, "0") & ">" & CurrentText
-                pjData.BindingManager.StatTxtBinding(ObjectID).Value = CurrentText
-
-                DonotChangeCombobox = True
-                Return
-            End If
-            If LimitCombobx.SelectedIndex = 0 Then '지우기
-                If ShortCombobox.SelectedIndex = 27 Then 'ESC가 단축키일 경우
-                    Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                    CurrentText = Mid(CurrentText, rgx.Matches(CurrentText)(1).Length + rgx.Matches(CurrentText)(1).Index + 1)
-                Else
-                    Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                    CurrentText = Mid(CurrentText, rgx.Match(CurrentText).Length + rgx.Match(CurrentText).Index + 1)
-                End If
-
-                ShortCombobox.SelectedIndex = 0
-
-                pjData.BindingManager.StatTxtBinding(ObjectID).Value = CurrentText
-                DonotChangeCombobox = True
-                Return
-            End If
 
 
-            If ShortCombobox.SelectedIndex = 27 Then 'ESC가 단축키일 경우
-                Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                CurrentText = Replace(CurrentText, rgx.Matches(CurrentText)(1).Value, "<" & Hex(LimitCombobx.SelectedIndex - 1).ToUpper.PadLeft(2, "0") & ">", 1, 1)
+            If ShortCombobox.SelectedIndex = 0 Then '선택이 안되어 있을 경우, 즉 처음일 경우
+                CurrentText = "<a><" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">" & CurrentText
             Else
-                Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                CurrentText = Replace(CurrentText, rgx.Match(CurrentText).Value, "<" & Hex(LimitCombobx.SelectedIndex - 1).ToUpper.PadLeft(2, "0") & ">", 1, 1)
+                If LimitCombobx.SelectedIndex = 0 Then '둘다 0으로 선택되었을 경우
+                    CurrentText = ChangeCharAt(1, CurrentText, "")
+                    CurrentText = ChangeCharAt(0, CurrentText, "")
+                Else
+                    CurrentText = ChangeCharAt(1, CurrentText, "<" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">")
+                End If
             End If
 
             pjData.BindingManager.StatTxtBinding(ObjectID).Value = CurrentText
+
             DonotChangeCombobox = True
         End If
     End Sub
 
     Private Sub ShortCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If DonotChangeCombobox Then
-            Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
+            DonotChangeCombobox = False
+
             Dim CurrentText As String = pjData.BindingManager.StatTxtBinding(ObjectID).Value
 
-            DonotChangeCombobox = False
-            If LimitCombobx.SelectedIndex = 0 Then '바뀌지 않은 상태를 의미
-                LimitCombobx.SelectedIndex = 1
+            Dim tcomboboxitem As ComboBoxItem = ShortCombobox.SelectedItem
+            Dim SelectText As String = tcomboboxitem.Content
 
-                CurrentText = ShortCombobox.SelectedItem.Tag & "<00>" & CurrentText
-                pjData.BindingManager.StatTxtBinding(ObjectID).Value = CurrentText
-
-                DonotChangeCombobox = True
-                Return
-            End If
-            If ShortCombobox.SelectedIndex = 0 Then '지우기
-                If rgx.Matches(CurrentText).Count = 1 Then
-                    CurrentText = Mid(CurrentText, rgx.Match(CurrentText).Length + rgx.Match(CurrentText).Index + 1)
-                Else
-                    If rgx.Matches(CurrentText)(0).Index = 0 Then
-                        CurrentText = Mid(CurrentText, rgx.Matches(CurrentText)(1).Length + rgx.Matches(CurrentText)(1).Index + 1)
-                    Else
-                        CurrentText = Mid(CurrentText, rgx.Matches(CurrentText)(0).Length + rgx.Matches(CurrentText)(0).Index + 1)
-                    End If
-                End If
-
-                pjData.BindingManager.StatTxtBinding(ObjectID).Value = CurrentText
-
-                LimitCombobx.SelectedIndex = 0
-                DonotChangeCombobox = True
-                Return
-            End If
-            If rgx.Matches(CurrentText).Count = 1 Then
-                CurrentText = CurrentText.Remove(0, 1)
-                CurrentText = ShortCombobox.SelectedItem.Tag & CurrentText
+            If LimitCombobx.SelectedIndex = 0 Then '선택이 안되어 있을 경우, 즉 처음일 경우
+                CurrentText = "<" & SelectText & ">" & "<00>" & CurrentText
             Else
-                If rgx.Matches(CurrentText)(0).Index = 0 Then 'ESC가 단축키일 경우
-                    CurrentText = Replace(CurrentText, rgx.Matches(CurrentText)(0).Value, ShortCombobox.SelectedItem.Tag, 1, 1)
+                If ShortCombobox.SelectedIndex = 0 Then '둘다 0으로 선택되었을 경우
+                    CurrentText = ChangeCharAt(1, CurrentText, "")
+                    CurrentText = ChangeCharAt(0, CurrentText, "")
                 Else
-                    CurrentText = CurrentText.Remove(0, 1)
-                    CurrentText = ShortCombobox.SelectedItem.Tag & CurrentText
+                    CurrentText = ChangeCharAt(0, CurrentText, "<" & SelectText & ">")
                 End If
             End If
-
-
-
 
             pjData.BindingManager.StatTxtBinding(ObjectID).Value = CurrentText
 

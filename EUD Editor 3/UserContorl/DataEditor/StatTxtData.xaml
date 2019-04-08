@@ -37,34 +37,7 @@
                     <ComboBox x:Name="ShortCombobox" Width="140" Margin="30,10,10,10"
                               materialDesign:HintAssist.Hint="{StaticResource StatDataShortCut}"
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaxDropDownHeight="200" SelectionChanged="ShortCombobox_SelectionChanged">
-                        <ComboBoxItem Content="{StaticResource StatDataShortCut0}"/>
-                        <ComboBoxItem Content="A" Tag="a"/>
-                        <ComboBoxItem Content="B" Tag="b"/>
-                        <ComboBoxItem Content="C" Tag="c"/>
-                        <ComboBoxItem Content="D" Tag="d"/>
-                        <ComboBoxItem Content="E" Tag="e"/>
-                        <ComboBoxItem Content="F" Tag="f"/>
-                        <ComboBoxItem Content="G" Tag="g"/>
-                        <ComboBoxItem Content="H" Tag="h"/>
-                        <ComboBoxItem Content="I" Tag="i"/>
-                        <ComboBoxItem Content="J" Tag="j"/>
-                        <ComboBoxItem Content="K" Tag="k"/>
-                        <ComboBoxItem Content="L" Tag="l"/>
-                        <ComboBoxItem Content="M" Tag="m"/>
-                        <ComboBoxItem Content="N" Tag="n"/>
-                        <ComboBoxItem Content="O" Tag="o"/>
-                        <ComboBoxItem Content="P" Tag="p"/>
-                        <ComboBoxItem Content="Q" Tag="q"/>
-                        <ComboBoxItem Content="R" Tag="r"/>
-                        <ComboBoxItem Content="S" Tag="s"/>
-                        <ComboBoxItem Content="T" Tag="t"/>
-                        <ComboBoxItem Content="U" Tag="u"/>
-                        <ComboBoxItem Content="V" Tag="v"/>
-                        <ComboBoxItem Content="W" Tag="w"/>
-                        <ComboBoxItem Content="X" Tag="x"/>
-                        <ComboBoxItem Content="Y" Tag="y"/>
-                        <ComboBoxItem Content="Z" Tag="z"/>
-                        <ComboBoxItem Content="ESC" Tag="&lt;1B&gt;"/>
+                        <ComboBoxItem Content="{StaticResource StatDataShortCut0}" Tag="0"/>
                     </ComboBox>
                 </StackPanel>
 

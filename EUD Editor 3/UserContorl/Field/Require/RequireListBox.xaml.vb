@@ -102,7 +102,7 @@ Public Class RequireListBox
 
             MainListBox.Items.Add(listboxitem)
         Next
-        Dim Requse As CRequireData.RequireUse = pjData.ExtraDat.RequireData(DatFile).GetRequireUseStatus(ObjectID)
+        Dim Requse As CRequireData.RequireUse = pjData.ExtraDat.RequireData(DatFile).RequireObjectUsed(ObjectID)
 
         Select Case Requse
             Case CRequireData.RequireUse.CustomUse

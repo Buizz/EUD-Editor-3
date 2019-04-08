@@ -98,6 +98,7 @@
                     <ListBoxItem Content="{StaticResource techdata}" Tag="6"/>
                     <ListBoxItem Content="{StaticResource orders}" Tag="7"/>
                     <ListBoxItem Content="{StaticResource Startxt}" Tag="11"/>
+                    <ListBoxItem Content="{StaticResource buttonSet}" Tag="20"/>
                 </ListBox>
 
 

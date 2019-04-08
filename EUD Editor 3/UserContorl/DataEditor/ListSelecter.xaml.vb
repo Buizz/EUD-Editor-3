@@ -499,7 +499,7 @@ Public Class ListSelecter
 
                     ObjectNames.Add(cname)
                 Next
-            Case SCDatFiles.DatFiles.button
+            Case SCDatFiles.DatFiles.ButtonData
                 '어캐작성하노 ㅋㅋ 
                 For i = 0 To SCUnitCount - 1
                     Dim tGraphics As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", i)
@@ -698,7 +698,7 @@ Public Class ListSelecter
                         CodeGroup = CodeGroup.Replace(Codename, "")
 
                     Else
-                        If CurrentPage = SCDatFiles.DatFiles.button Then
+                        If CurrentPage = SCDatFiles.DatFiles.ButtonData Then
                             CodeGroup = ""
                         Else
                             CodeGroup = pjData.Dat.Group(CurrentPage, i)

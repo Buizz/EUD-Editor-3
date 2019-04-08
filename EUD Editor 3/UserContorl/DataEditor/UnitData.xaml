@@ -57,7 +57,7 @@
                 <ListBoxItem Content="{StaticResource UnitMapEdit}" Background="{Binding BackPage4}"/>
                 <ListBoxItem Content="{StaticResource UnitAIOrder}" Background="{Binding BackPage5}"/>
                 <ListBoxItem Content="{StaticResource UnitInfor}" Background="{Binding BackPage6}"/>
-                <ListBoxItem Content="{StaticResource UnitRequir}"/>
+                <ListBoxItem Content="{StaticResource UnitRequir}" Background="{Binding BackPage7}"/>
             </ListBox>
 
         </Grid>

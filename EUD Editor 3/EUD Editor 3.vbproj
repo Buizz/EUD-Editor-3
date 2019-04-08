@@ -201,6 +201,9 @@
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\Tool.vb" />
+    <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
+      <DependentUpon>ButtonData.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_WireFrame.xaml.vb">
       <DependentUpon>Unit_WireFrame.xaml</DependentUpon>
     </Compile>
@@ -353,6 +356,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="UserContorl\DataEditor\ButtonData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\DataEditor\DataPages\Unit_WireFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -778,6 +785,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Resources\success.wav" />
+    <EmbeddedResource Include="Data\Texts\Virtual-Key Codes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Texts\ASCII Codes.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

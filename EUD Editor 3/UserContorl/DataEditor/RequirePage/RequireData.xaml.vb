@@ -1,5 +1,5 @@
 ﻿Public Class RequireData
-    Private Const UnitDatPage As Integer = 6
+    Private UnitDatPage As Integer = 7
 
     Private DatFiles As SCDatFiles.DatFiles
     Private RealDatFiles As SCDatFiles.DatFiles
@@ -16,6 +16,10 @@
         DatFiles = tDatFiles
         ObjectID = tObjectID
         IsUseRequire = tIsUseRequire
+
+        If IsUseRequire Then
+            UnitDatPage = 8
+        End If
 
         Select Case DatFiles
             Case SCDatFiles.DatFiles.Stechdata

@@ -1,9 +1,5 @@
 ﻿Imports System.IO
 Public Module SCConst
-    Public SCCodeCount() As UShort = {228, 130, 209, 517, 999, 61, 44, 189, 220, 1144, 390, 1547, 412}
-    Public Datfilesname() As String = {"units", "weapons", "flingy", "sprites", "images",
-     "upgrades", "techdata", "orders", "portdata", "sfxdata", "Icon", "Startxt", "Iscript"}
-
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
     Public SCFlingyCount As Byte = 209
@@ -15,12 +11,66 @@ Public Module SCConst
     Public SCPortdataCount As UShort = 220
     Public SCSfxdataCount As UShort = 1144
     Public SCIconCount As UShort = 390
-
-
     Public SCtbltxtCount As UShort = 1547
     Public SCIscriptCount As UShort = 412
 
+
+    Public SCButtonCount As Byte = 250
+
     Public SCMenCount As Byte = 106
+    Public ASCIICount As UShort = 127
+
+
+    Public SCCodeCount() As UShort = {
+        SCUnitCount,'units
+        SCWeaponCount,
+        SCFlingyCount,
+        SCSpriteCount,
+        SCImageCount,
+        SCUpgradeCount,
+        SCTechCount,
+        SCOrderCount,
+        SCPortdataCount,
+        SCSfxdataCount,
+        SCIconCount,
+        SCtbltxtCount,
+        SCIscriptCount,
+        228,'statusinfor
+        228,'wireframe
+        228,'Unitrequire
+        61,'Upgraderequire
+        44,'TechResearchrequire
+        44,'TechUserequire
+        189,'Orderrequire
+        SCButtonCount,
+        SCButtonCount'butto
+    }
+    Public Datfilesname() As String = {
+        "units",
+        "weapons",
+        "flingy",
+        "sprites",
+        "images",
+        "upgrades",
+        "techdata",
+        "orders",
+        "portdata",
+        "sfxdata",
+        "Icon",
+        "Startxt",
+        "Iscript",
+        "statusinfor",
+        "wireframe",
+        "Unitrequire",
+        "Upgraderequire",
+        "TechResearchrequire",
+        "TechUserequire",
+        "Orderrequire",
+        "button",
+        "buttonSet"
+    }
+
+
 
     Public Function CheckOverFlow(Datfiles As SCDatFiles.DatFiles, Value As Long) As Boolean
         Return (SCCodeCount(Datfiles) > Value) And Value >= 0
@@ -68,6 +118,8 @@ Public Class StarCraftData
     Private pPortdataName(SCPortdataCount) As String
     Private pIconName(SCIconCount) As String
     Private pIscriptName(SCIscriptCount) As String
+    Private pvirtualCode(255) As String
+    Private pASCIICode(128) As String
     Public ReadOnly Property IscriptName(index As Integer) As String
         Get
             Return pIscriptName(index)
@@ -94,11 +146,33 @@ Public Class StarCraftData
         End Get
     End Property
 
+    Public ReadOnly Property VirtualCode(index As Integer) As String
+        Get
+            Return pvirtualCode(index)
+        End Get
+    End Property
+
+    Public ReadOnly Property ASCIICode(index As Integer) As String
+        Get
+            Return pASCIICode(index)
+        End Get
+    End Property
 
     Private ExtraBtnStr(22) As String
     Public ReadOnly Property BtnStr(index As Integer) As String
         Get
             Return ExtraBtnStr(index)
+        End Get
+    End Property
+
+    Public ReadOnly Property VirtualKeyCodesPath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Texts\Virtual-Key Codes.txt"
+        End Get
+    End Property
+    Public ReadOnly Property ASCIICodesPath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Texts\ASCII Codes.txt"
         End Get
     End Property
 
@@ -282,6 +356,12 @@ Public Class StarCraftData
         stat_txt_kor_eng = New tblReader(Tool.GetTblFolder & "\stat_txt_kor_eng.tbl")
         stat_txt_kor_kor = New tblReader(Tool.GetTblFolder & "\stat_txt_kor_kor.tbl")
 
+        LoadTexts()
+
+        LoadMPQData()
+    End Sub
+
+    Private Sub LoadTexts()
         'ReadGRPFilenames
         Dim sr As StreamReader = New StreamReader(GRPTextPath)
         Dim index As Integer = 0
@@ -329,8 +409,6 @@ Public Class StarCraftData
         End While
         sr.Close()
 
-
-
         sr = New StreamReader(IconPath)
         index = 0
         While Not sr.EndOfStream
@@ -350,10 +428,26 @@ Public Class StarCraftData
         End While
         sr.Close()
 
-        LoadMPQData()
 
+        sr = New StreamReader(VirtualKeyCodesPath)
+        index = 0
+        While Not sr.EndOfStream
+            pvirtualCode(index) = sr.ReadLine()
+
+            index += 1
+        End While
+        sr.Close()
+
+
+        sr = New StreamReader(ASCIICodesPath)
+        index = 0
+        While Not sr.EndOfStream
+            pASCIICode(index) = sr.ReadLine()
+
+            index += 1
+        End While
+        sr.Close()
     End Sub
-
     Public Sub LoadMPQData()
         IsLoadMPQ = False
         If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.starcraft)) Then

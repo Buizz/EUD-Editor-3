@@ -22,6 +22,9 @@ Namespace Tool
             Next
         End Sub
 
+
+
+
         Private TextBlockColorTable() As SolidColorBrush = {
         Application.Current.Resources("MaterialDesignBackground"),
         New SolidColorBrush(Color.FromRgb(86, 156, 214)),
@@ -437,7 +440,55 @@ Namespace TabItemTool
             DataEditorForm.Show()
         End Sub
 
-        Private TabTypeArray As Type() = {GetType(UnitData), GetType(WeaponData), GetType(FlingyData), GetType(SpriteData), GetType(ImageData), GetType(UpgradeData), GetType(TechData), GetType(OrderData), Nothing, Nothing, Nothing, GetType(StatTxtData)}
+        Private TabTypeArray As Type() = {
+            GetType(UnitData),
+            GetType(WeaponData),
+            GetType(FlingyData),
+            GetType(SpriteData),
+            GetType(ImageData),
+            GetType(UpgradeData),
+            GetType(TechData),
+            GetType(OrderData),
+            Nothing,
+            Nothing,
+            Nothing,
+            GetType(StatTxtData), '11
+            Nothing,
+            Nothing,
+            Nothing,
+            Nothing,
+            Nothing,'16
+            Nothing,
+            Nothing,
+            Nothing,
+            GetType(ButtonData)'20
+        }
+
+
+        'units = 0
+        'weapons = 1
+        'flingy = 2
+        'sprites = 3
+        'images = 4
+        'upgrades = 5
+        'techdata = 6
+        'orders = 7
+        'portdata = 8
+        'sfxdata = 9
+
+        'Icon = 10
+        'stattxt = 11
+        'IscriptID = 12
+
+        ''Firegraft
+        'statusinfor = 13
+        'wireframe = 14
+        'Unitrequire = 15
+        'Upgraderequire = 16
+        'TechResearchrequire = 17
+        'TechUserequire = 18
+        'Orderrequire = 19
+        'button = 20
         Public Sub ChanageTabItem(Datfile As SCDatFiles.DatFiles, index As Integer, MainTab As Dockablz.Layout)
             Dim MainContent As Object = MainTab.Content
             While MainContent.GetType <> GetType(TabablzControl)
@@ -594,6 +645,9 @@ Namespace TabItemTool
                 Case SCDatFiles.DatFiles.stattxt
                     myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.stattxt, index)
                     TabItem.Content = New StatTxtData(index)
+                Case SCDatFiles.DatFiles.ButtonData
+                    myBinding.Source = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.ButtonData, index)
+                    TabItem.Content = New ButtonData(index)
             End Select
             TabText.SetBinding(TextBlock.TextProperty, myBinding)
 

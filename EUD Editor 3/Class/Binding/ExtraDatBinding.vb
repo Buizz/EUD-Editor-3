@@ -91,53 +91,78 @@ Public Class ExtraDatBinding
 
     Public ReadOnly Property ValueText() As String
         Get
-            Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.wireframe
+            Select Case Datfile
+                Case SCDatFiles.DatFiles.wireframe
+                    Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.wireframe
 
-            Dim Value As Long
-            If Parameter = "wire" Then
-                Value = pjData.ExtraDat.WireFrame(ObjectID)
-                If Value >= SCUnitCount Then
-                    Return Tool.GetText("None")
-                End If
-            ElseIf Parameter = "grp" Then
-                Value = pjData.ExtraDat.GrpFrame(ObjectID)
-                If Value >= SCUnitCount Then
-                    Return Tool.GetText("None")
-                End If
-            ElseIf Parameter = "tran" Then
-                Value = pjData.ExtraDat.TranFrame(ObjectID)
-                If Value >= SCMenCount Then
-                    Return Tool.GetText("None")
-                End If
-            End If
-            Return pjData.CodeLabel(valueType, Value, True)
+                    Dim Value As Long
+                    If Parameter = "wire" Then
+                        Value = pjData.ExtraDat.WireFrame(ObjectID)
+                        If Value >= SCUnitCount Then
+                            Return Tool.GetText("None")
+                        End If
+                    ElseIf Parameter = "grp" Then
+                        Value = pjData.ExtraDat.GrpFrame(ObjectID)
+                        If Value >= SCUnitCount Then
+                            Return Tool.GetText("None")
+                        End If
+                    ElseIf Parameter = "tran" Then
+                        Value = pjData.ExtraDat.TranFrame(ObjectID)
+                        If Value >= SCMenCount Then
+                            Return Tool.GetText("None")
+                        End If
+                    End If
+                    Return pjData.CodeLabel(valueType, Value, True)
+                Case SCDatFiles.DatFiles.ButtonSet
+                    Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.ButtonData
+
+                    Dim Value As Long
+                    Value = pjData.ExtraDat.ButtonSet(ObjectID)
+                    If Value >= SCButtonCount Then
+                        Return Tool.GetText("None")
+                    End If
+
+                    Return pjData.CodeLabel(valueType, Value, True)
+            End Select
+            Return Nothing
         End Get
     End Property
 
 
     Public ReadOnly Property ValueImage() As ImageSource
         Get
-            Dim Value As Long
-            If Parameter = "wire" Then
-                Value = pjData.ExtraDat.WireFrame(ObjectID)
-                If Value >= SCUnitCount Then
+            Select Case Datfile
+                Case SCDatFiles.DatFiles.wireframe
+                    Dim Value As Long
+                    If Parameter = "wire" Then
+                        Value = pjData.ExtraDat.WireFrame(ObjectID)
+                        If Value >= SCUnitCount Then
+                            Return scData.GetWireFrame(0, False)
+                        End If
+                        Return scData.GetWireFrame(Value, False)
+                    ElseIf Parameter = "grp" Then
+                        Value = pjData.ExtraDat.GrpFrame(ObjectID)
+                        If Value >= SCUnitCount Then
+                            Return scData.GetWireFrame(0, False)
+                        End If
+                        Return scData.GetGrpFrame(Value, False)
+                    ElseIf Parameter = "tran" Then
+                        Value = pjData.ExtraDat.TranFrame(ObjectID)
+                        If Value >= SCMenCount Then
+                            Return scData.GetWireFrame(0, False)
+                        End If
+                        Return scData.GetTranFrame(Value, False)
+                    End If
                     Return scData.GetWireFrame(0, False)
-                End If
-                Return scData.GetWireFrame(Value, False)
-            ElseIf Parameter = "grp" Then
-                Value = pjData.ExtraDat.GrpFrame(ObjectID)
-                If Value >= SCUnitCount Then
-                    Return scData.GetWireFrame(0, False)
-                End If
-                Return scData.GetGrpFrame(Value, False)
-            ElseIf Parameter = "tran" Then
-                Value = pjData.ExtraDat.TranFrame(ObjectID)
-                If Value >= SCMenCount Then
-                    Return scData.GetWireFrame(0, False)
-                End If
-                Return scData.GetTranFrame(Value, False)
-            End If
-            Return scData.GetWireFrame(0, False)
+                Case SCDatFiles.DatFiles.ButtonSet
+                    Value = pjData.ExtraDat.ButtonSet(ObjectID)
+                    If Value < SCUnitCount Then
+                        Return scData.GetIcon(Value, False)
+                    Else
+                        Return scData.GetIcon(0, False)
+                    End If
+            End Select
+            Return Nothing
         End Get
     End Property
 
@@ -170,6 +195,8 @@ Public Class ExtraDatBinding
                     ElseIf Parameter = "tran" Then
                         Return pjData.ExtraDat.TranFrame(ObjectID)
                     End If
+                Case SCDatFiles.DatFiles.ButtonSet
+                    Return pjData.ExtraDat.ButtonSet(ObjectID)
             End Select
 
 
@@ -195,6 +222,8 @@ Public Class ExtraDatBinding
                     ElseIf Parameter = "tran" Then
                         OldValue = pjData.ExtraDat.TranFrame(ObjectID)
                     End If
+                Case SCDatFiles.DatFiles.ButtonSet
+                    OldValue = pjData.ExtraDat.ButtonSet(ObjectID)
             End Select
 
             If tvalue <> OldValue Then
@@ -228,6 +257,9 @@ Public Class ExtraDatBinding
                                 pjData.ExtraDat.DefaultTranFrame(ObjectID) = False
                                 pjData.ExtraDat.TranFrame(ObjectID) = tvalue
                             End If
+                        Case SCDatFiles.DatFiles.ButtonSet
+                            pjData.ExtraDat.DefaultButtonSet(ObjectID) = False
+                            pjData.ExtraDat.ButtonSet(ObjectID) = tvalue
                     End Select
                 Catch ex As Exception
 
@@ -261,6 +293,8 @@ Public Class ExtraDatBinding
                     ElseIf Parameter = "tran" Then
                         IsDefault = pjData.ExtraDat.DefaultTranFrame(ObjectID)
                     End If
+                Case SCDatFiles.DatFiles.ButtonSet
+                    IsDefault = pjData.ExtraDat.DefaultButtonSet(ObjectID)
             End Select
 
 
@@ -307,6 +341,10 @@ Public Class ExtraDatBinding
                     pjData.ExtraDat.DefaultTranFrame(ObjectID) = True
                     pjData.ExtraDat.TranFrame(ObjectID) = scData.DefaultExtraDat.TranFrame(ObjectID)
                 End If
+            Case SCDatFiles.DatFiles.ButtonSet
+                pjData.ExtraDat.DefaultButtonSet(ObjectID) = True
+                pjData.ExtraDat.ButtonSet(ObjectID) = scData.DefaultExtraDat.ButtonSet(ObjectID)
+
         End Select
 
 

@@ -22,7 +22,7 @@
         SpecialFlag = _SFlag
 
         Select Case DatFile
-            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
 
                 If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
                     ValueText.IsEnabled = True
@@ -185,7 +185,7 @@
         SpecialFlag = _SFlag
 
         Select Case DatFile
-            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                 ValueText.Width = 7 * 3
                 If Parameter = "Status" Then
                     TextStr.Text = Tool.GetText("FG_Status")
@@ -199,6 +199,8 @@
                     TextStr.Text = Tool.GetText("FG_GrpFrame")
                 ElseIf Parameter = "tran" Then
                     TextStr.Text = Tool.GetText("FG_TranFrame")
+                ElseIf Parameter = "ButtonSet" Then
+                    TextStr.Text = Tool.GetText("buttonSet")
                 End If
                 If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
                     ValueText.IsEnabled = True
@@ -410,7 +412,7 @@
         End Select
 
         Select Case DatFile
-            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+            Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                 pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
             Case Else
                 pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
@@ -430,14 +432,14 @@
         End Select
         If e.Key = Key.Up Then
             Select Case DatFile
-                Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+                Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                     pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
                 Case Else
                     pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
             End Select
         ElseIf e.Key = Key.Down Then
             Select Case DatFile
-                Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe
+                Case SCDatFiles.DatFiles.statusinfor, SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                     pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value -= ChangeValue
                 Case Else
                     pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value -= ChangeValue

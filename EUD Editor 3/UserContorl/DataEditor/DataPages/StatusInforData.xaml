@@ -18,7 +18,7 @@
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="155" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <materialDesign:Card Height="185" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />
@@ -30,6 +30,7 @@
                               Text="{StaticResource UnitInfor}" Padding="6"/>
                         <StackPanel Grid.Row="1" Margin="10">
 
+                            <local:IconSelecter x:Name="BS" Tag="ButtonSet" HorizontalAlignment="Left" VerticalAlignment="Top" Width="500" />
                             <local:ComboxSelecter x:Name="JOINER" Tag="Joint" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="250"/>
                             <local:InputField x:Name="ST" Tag="Status" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                             <local:InputField x:Name="DI" Tag="Display" HorizontalAlignment="Left" VerticalAlignment="Top"  />
@@ -37,7 +38,7 @@
                         </StackPanel>
                     </Grid>
                 </materialDesign:Card>
-                <materialDesign:Card Height="228" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                <materialDesign:Card Height="198" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                     <Grid>
                         <Grid.RowDefinitions>
                             <RowDefinition Height="25" />

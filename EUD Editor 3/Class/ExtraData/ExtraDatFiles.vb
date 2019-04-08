@@ -10,6 +10,9 @@ Public Class ExtraDatFiles
     Private _DefaultGrpFrame() As Boolean
     Private _DefaultTranFrame() As Boolean
 
+    Private _ButtonSet() As Byte
+    Private _DefaultButtonSet() As Boolean
+
     '기타 뎃파일들의 그룹, 툴팁 등을 관리.
     Public Property Group(key As SCDatFiles.DatFiles, index As Integer) As String
         Get
@@ -37,6 +40,7 @@ Public Class ExtraDatFiles
     Public Sub New()
         LoadStatusData()
         LoadWireFrame()
+        LoadButonSet()
         LoadReqdata()
 
         ToolTipDic = New Dictionary(Of SCDatFiles.DatFiles, List(Of String))
@@ -60,6 +64,15 @@ Public Class ExtraDatFiles
 
 
 
+        ToolTipDic.Add(SCDatFiles.DatFiles.ButtonData, New List(Of String))
+        GroupDic.Add(SCDatFiles.DatFiles.ButtonData, New List(Of String))
+
+        For i = 0 To SCButtonCount - 1
+            ToolTipDic(SCDatFiles.DatFiles.ButtonData).Add("")
+            GroupDic(SCDatFiles.DatFiles.ButtonData).Add("")
+            ToolTipReset(SCDatFiles.DatFiles.ButtonData, i)
+            GroupReset(SCDatFiles.DatFiles.ButtonData, i)
+        Next
     End Sub
 
 
@@ -263,6 +276,36 @@ Public Class ExtraDatFiles
     End Sub
 
 
+    Public Property DefaultButtonSet(index As Integer) As Boolean
+        Get
+            Return _DefaultButtonSet(index)
+        End Get
+        Set(value As Boolean)
+            _DefaultButtonSet(index) = value
+        End Set
+    End Property
+
+
+    Public Property ButtonSet(index As Integer) As Byte
+        Get
+            Return _ButtonSet(index)
+        End Get
+        Set(value As Byte)
+            _ButtonSet(index) = value
+        End Set
+    End Property
+
+
+    Private Sub LoadButonSet()
+        ReDim _ButtonSet(SCButtonCount - 1)
+        ReDim _DefaultButtonSet(SCButtonCount - 1)
+
+        For i = 0 To SCButtonCount - 1
+            _DefaultButtonSet(i) = True
+
+            _ButtonSet(i) = i
+        Next
+    End Sub
 
     Private statusFnVal1 As List(Of UInteger)
     Private statusFnVal2 As List(Of UInteger)
@@ -358,8 +401,8 @@ Public Class ExtraDatFiles
                 Else
                     Return DefaultWireFrame(index) And DefaultGrpFrame(index)
                 End If
-
-
+            Case SCDatFiles.DatFiles.ButtonSet
+                Return DefaultButtonSet(index)
         End Select
         Return False
     End Function

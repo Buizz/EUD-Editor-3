@@ -32,8 +32,8 @@
                 </TabItem>
             </dragablz:TabablzControl>
             <ListBox x:Name="TypeListBox" Grid.Column="0" SelectionChanged="ListBox_SelectionChanged" >
-                <ListBoxItem Content="{StaticResource DefaultInfor}"/>
-                <ListBoxItem Content="{StaticResource UpgradeRequir}"/>
+                <ListBoxItem Content="{StaticResource DefaultInfor}" Background="{Binding BackPageD}"/>
+                <ListBoxItem Content="{StaticResource UpgradeRequir}" Background="{Binding BackPageReq1}"/>
             </ListBox>
 
         </Grid>

@@ -36,7 +36,7 @@
     Private _UIManagerKey As Dictionary(Of SCDatFiles.DatFiles, Integer)
     Public ReadOnly Property UIManager(key As SCDatFiles.DatFiles, index As Integer) As UIManager
         Get
-            If key = SCDatFiles.DatFiles.statusinfor Or key = SCDatFiles.DatFiles.Unitrequire Or key = SCDatFiles.DatFiles.wireframe Then
+            If key = SCDatFiles.DatFiles.statusinfor Or key = SCDatFiles.DatFiles.Unitrequire Or key = SCDatFiles.DatFiles.wireframe Or key = SCDatFiles.DatFiles.ButtonSet Then
                 key = SCDatFiles.DatFiles.units
             End If
 
@@ -48,7 +48,7 @@
         If SCDatFiles.CheckValidDat(DatFile) Then
             Return True
         Else
-            If DatFile = SCDatFiles.DatFiles.stattxt Then
+            If DatFile = SCDatFiles.DatFiles.stattxt Or DatFile = SCDatFiles.DatFiles.ButtonData Then
                 Return True
             Else
                 Return False
@@ -74,9 +74,10 @@
             _CodeConnectGroup.Add(k, New CodeConnectGroup(k))
         Next
         _CodeConnectGroup.Add(SCDatFiles.DatFiles.stattxt, New CodeConnectGroup(SCDatFiles.DatFiles.stattxt))
+        _CodeConnectGroup.Add(SCDatFiles.DatFiles.ButtonData, New CodeConnectGroup(SCDatFiles.DatFiles.ButtonData))
 
 
-        ReDim _UIManager(8)
+        ReDim _UIManager(9)
         For k = 0 To SCDatFiles.DatFiles.orders
             _UIManager(k) = New List(Of UIManager)
             _UIManagerKey.Add(k, k)
@@ -97,6 +98,15 @@
         ReDim pStatTxtBinding(SCtbltxtCount)
         For i = 0 To SCtbltxtCount - 1
             pStatTxtBinding(i) = New StatTxtBinding(i)
+        Next
+
+
+        DatIndex = SCDatFiles.DatFiles.ButtonData
+        ArrayIndex = 9
+        _UIManager(ArrayIndex) = New List(Of UIManager)
+        _UIManagerKey.Add(DatIndex, ArrayIndex)
+        For i = 0 To SCButtonCount - 1
+            _UIManager(ArrayIndex).Add(New UIManager(DatIndex, i))
         Next
 
 
@@ -166,6 +176,12 @@
             End If
         Next
 
+        ButtonDatBinding = New List(Of ExtraDatBinding)
+        For i = 0 To SCButtonCount - 1
+            ButtonDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, "ButtonSet", i))
+        Next
+
+
 
         ReDim pRequireDataBinding(4)
 
@@ -229,10 +245,14 @@
 
     Public ReadOnly Property DatBinding(key As SCDatFiles.DatFiles, name As String, index As Integer) As DatBinding
         Get
-            Dim ValueStart As Integer = pjData.Dat.ParamInfo(key, name, SCDatFiles.EParamInfo.VarStart)
-            Dim RealIndex As Integer = index - ValueStart
-            If RealIndex >= 0 And DataBindings(key)(DataParamKeys(key)(name)).Count > RealIndex Then
-                Return DataBindings(key)(DataParamKeys(key)(name))(RealIndex)
+            If pjData.Dat.CheckParamExist(key, name) Then
+                Dim ValueStart As Integer = pjData.Dat.ParamInfo(key, name, SCDatFiles.EParamInfo.VarStart)
+                Dim RealIndex As Integer = index - ValueStart
+                If RealIndex >= 0 And DataBindings(key)(DataParamKeys(key)(name)).Count > RealIndex Then
+                    Return DataBindings(key)(DataParamKeys(key)(name))(RealIndex)
+                Else
+                    Return Nothing
+                End If
             Else
                 Return Nothing
             End If
@@ -302,6 +322,9 @@
     Private WireFrameDatBinding As List(Of ExtraDatBinding)
     Private GrpFrameDatBinding As List(Of ExtraDatBinding)
     Private TranFrameDatBinding As List(Of ExtraDatBinding)
+
+
+    Private ButtonDatBinding As List(Of ExtraDatBinding)
     Public ReadOnly Property ExtraDatBinding(key As SCDatFiles.DatFiles, name As String, index As Integer) As ExtraDatBinding
         Get
             Select Case key
@@ -325,6 +348,10 @@
                             Return Nothing
                         End If
 
+                    End If
+                Case SCDatFiles.DatFiles.ButtonSet
+                    If name = "ButtonSet" Then
+                        Return ButtonDatBinding(index)
                     End If
             End Select
             Return Nothing

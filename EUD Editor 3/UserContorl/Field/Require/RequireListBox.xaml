@@ -11,11 +11,11 @@
     <Grid MouseEnter="Grid_MouseEnter">
         <DockPanel>
             <StackPanel DockPanel.Dock="left">
-                <RadioButton Margin="4" IsChecked="{Binding IsDefaultUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_DefaultUse}" Checked="RadioButton_Checked" />
-                <RadioButton Margin="4" IsChecked="{Binding IsDontUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_DontUse}" Checked="RadioButton_Checked" />
-                <RadioButton Margin="4" IsChecked="{Binding IsAlwaysUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysUse}" Checked="RadioButton_Checked" />
-                <RadioButton Margin="4" IsChecked="{Binding IsAlwaysCurrentUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysCurrentUse}" Checked="RadioButton_Checked" />
-                <RadioButton Margin="4" IsChecked="{Binding IsCustomUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_CustomUse}" Checked="RadioButton_Checked" />
+                <RadioButton Margin="4" IsChecked="{Binding IsDefaultUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_DefaultUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
+                <RadioButton Margin="4" IsChecked="{Binding IsDontUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_DontUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
+                <RadioButton Margin="4" IsChecked="{Binding IsAlwaysUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
+                <RadioButton Margin="4" IsChecked="{Binding IsAlwaysCurrentUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysCurrentUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
+                <RadioButton Margin="4" IsChecked="{Binding IsCustomUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_CustomUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
             </StackPanel>
             <Border  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" ClipToBounds="True">
                 <Grid>

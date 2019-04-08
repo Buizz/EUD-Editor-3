@@ -20,6 +20,7 @@
         ST.Init(DatFiles, ObjectID, ST.Tag)
         DI.Init(DatFiles, ObjectID, DI.Tag)
 
+        BS.Init(SCDatFiles.DatFiles.ButtonSet, ObjectID, BS.Tag)
         WI.Init(SCDatFiles.DatFiles.wireframe, ObjectID, WI.Tag)
         GR.Init(SCDatFiles.DatFiles.wireframe, ObjectID, GR.Tag)
         TR.Init(SCDatFiles.DatFiles.wireframe, ObjectID, TR.Tag)
@@ -34,6 +35,7 @@
         DI.ReLoad(DatFiles, ObjectID, DI.Tag)
 
 
+        BS.ReLoad(SCDatFiles.DatFiles.ButtonSet, ObjectID, BS.Tag)
         WI.ReLoad(SCDatFiles.DatFiles.wireframe, ObjectID, WI.Tag)
         GR.ReLoad(SCDatFiles.DatFiles.wireframe, ObjectID, GR.Tag)
         TR.ReLoad(SCDatFiles.DatFiles.wireframe, ObjectID, TR.Tag)

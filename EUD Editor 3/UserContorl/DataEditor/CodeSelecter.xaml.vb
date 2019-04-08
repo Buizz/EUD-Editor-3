@@ -641,15 +641,15 @@ Public Class CodeSelecter
                     Next
                 End If
 
-            Case SCDatFiles.DatFiles.button
+            Case SCDatFiles.DatFiles.ButtonData
                 '어캐작성하노 ㅋㅋ 
                 For i = 0 To SCUnitCount - 1
-                    Dim tGraphics As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", i)
-                    Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
-                    Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
-
-                    ObjectNames.Add(pjData.CodeLabel(pagetype, i))
-                    ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
+                    ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i))
+                    ObjectImages.Add(GetIcon(i, Fliter.IsIcon))
+                Next
+                For i = 0 To SCButtonCount - SCUnitCount - 1
+                    ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i + SCUnitCount))
+                    ObjectImages.Add(GetIcon(0, Fliter.IsIcon))
                 Next
         End Select
         Select Case Fliter.SortType
@@ -865,8 +865,6 @@ Public Class CodeSelecter
                             Codename = Codename.Split("\").Last
 
                             CodeGroup = CodeGroup.Replace(Codename, "")
-                        Case SCDatFiles.DatFiles.button
-                            CodeGroup = ""
                         Case SCDatFiles.DatFiles.wireframe
                             CodeGroup = pjData.Dat.Group(SCDatFiles.DatFiles.units, i)
                         Case Else

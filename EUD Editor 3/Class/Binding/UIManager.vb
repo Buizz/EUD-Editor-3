@@ -35,6 +35,9 @@ Public Class UIManager
 
     Public Sub BackColorRefresh()
         NotifyPropertyChanged("Back")
+        NotifyPropertyChanged("BackPageReq1")
+        NotifyPropertyChanged("BackPageReq2")
+        NotifyPropertyChanged("BackPageD")
         NotifyPropertyChanged("BackPage0")
         NotifyPropertyChanged("BackPage1")
         NotifyPropertyChanged("BackPage2")
@@ -42,10 +45,14 @@ Public Class UIManager
         NotifyPropertyChanged("BackPage4")
         NotifyPropertyChanged("BackPage5")
         NotifyPropertyChanged("BackPage6")
+        NotifyPropertyChanged("BackPage7")
     End Sub
 
     Public Sub ChangeProperty()
         NotifyPropertyChanged("Back")
+        NotifyPropertyChanged("BackPageReq1")
+        NotifyPropertyChanged("BackPageReq2")
+        NotifyPropertyChanged("BackPageD")
         NotifyPropertyChanged("BackPage0")
         NotifyPropertyChanged("BackPage1")
         NotifyPropertyChanged("BackPage2")
@@ -53,8 +60,45 @@ Public Class UIManager
         NotifyPropertyChanged("BackPage4")
         NotifyPropertyChanged("BackPage5")
         NotifyPropertyChanged("BackPage6")
+        NotifyPropertyChanged("BackPage7")
     End Sub
 
+    Public ReadOnly Property BackPageReq1() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.upgrades Or Datfile = SCDatFiles.DatFiles.techdata Or Datfile = SCDatFiles.DatFiles.orders Then
+                If pjData.DataManager.CheckDirtyPageReq(Datfile, ObjectID) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPageReq2() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.techdata Then
+                If pjData.DataManager.CheckDirtyPageReq(SCDatFiles.DatFiles.Stechdata, ObjectID) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
+    Public ReadOnly Property BackPageD() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.upgrades Or Datfile = SCDatFiles.DatFiles.techdata Or Datfile = SCDatFiles.DatFiles.orders Then
+                If pjData.DataManager.CheckDirtyPageDefault(Datfile, ObjectID) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
     Public ReadOnly Property BackPage0() As SolidColorBrush
         Get
             If Datfile = SCDatFiles.DatFiles.units Then
@@ -139,6 +183,18 @@ Public Class UIManager
             Return Nothing
         End Get
     End Property
+    Public ReadOnly Property BackPage7() As SolidColorBrush
+        Get
+            If Datfile = SCDatFiles.DatFiles.units Then
+                If pjData.DataManager.CheckDirtyPage(ObjectID, 7) Then
+                    Return Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            End If
+            Return Nothing
+        End Get
+    End Property
 
 
 
@@ -148,6 +204,7 @@ Public Class UIManager
         Get
             If SCDatFiles.CheckValidDat(Datfile) Then
                 Dim TrueFlag As Boolean = pjData.DataManager.CheckDirtyObject(Datfile, ObjectID)
+
 
 
                 If TrueFlag Then
@@ -251,7 +308,7 @@ Public Class UIManager
         If SCDatFiles.CheckValidDat(Datfile) Then
             pjData.Dat.Group(Datfile, ObjectID) = scData.DefaultDat.Group(Datfile, ObjectID)
         Else
-            pjData.ExtraDat.ToolTipReset(Datfile, ObjectID)
+            pjData.ExtraDat.GroupReset(Datfile, ObjectID)
         End If
 
         NotifyPropertyChanged("Group")

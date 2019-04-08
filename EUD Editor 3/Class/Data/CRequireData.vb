@@ -1,4 +1,5 @@
-﻿Public Class CRequireData
+﻿<Serializable>
+Public Class CRequireData
     Public Shared Function HasValueOpCode(opcode As EOpCode) As Boolean
         Dim OpCodes() As EOpCode = {EOpCode._Must_have_, EOpCode.Current_unit_is, EOpCode.Must_have, EOpCode.Must_have_add_On, EOpCode.Is_researched}
 
@@ -7,7 +8,7 @@
     Private Datfile As SCDatFiles.DatFiles
     Private Flag As Boolean
 
-    Private ReauireDatas As List(Of RequireObject)
+    Private RequireDatas As List(Of RequireObject)
     Private OrigReauireDatas As List(Of RequireObject)
 
 
@@ -22,11 +23,11 @@
         Datfile = tDatfile
         Flag = tFlag
 
-        ReauireDatas = New List(Of RequireObject)
+        RequireDatas = New List(Of RequireObject)
         OrigReauireDatas = New List(Of RequireObject)
 
         For i = 0 To Codes.Count - 1
-            ReauireDatas.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
+            RequireDatas.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
             OrigReauireDatas.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
         Next
     End Sub
@@ -34,11 +35,11 @@
     Public Function GetCapacity() As Integer
         Dim TotalSize As Integer
         TotalSize += 4
-        For i = 0 To ReauireDatas.Count - 1
-            If (ReauireDatas(i).StartPos > 0 And ReauireDatas(i).UseStatus <> RequireUse.DontUse) Or ReauireDatas(i).UseStatus = RequireUse.CustomUse Then
+        For i = 0 To RequireDatas.Count - 1
+            If (RequireDatas(i).StartPos > 0 And RequireDatas(i).UseStatus <> RequireUse.DontUse) Or RequireDatas(i).UseStatus = RequireUse.CustomUse Then
                 TotalSize += 4
-                For j = 0 To ReauireDatas(i).ReauireBlock.Count - 1
-                    TotalSize += ReauireDatas(i).ReauireBlock(j).GetSize()
+                For j = 0 To RequireDatas(i).ReauireBlock.Count - 1
+                    TotalSize += RequireDatas(i).ReauireBlock(j).GetSize()
                 Next
             End If
         Next
@@ -63,53 +64,104 @@
         Return 0
     End Function
 
+    Public Sub PasteCopyData(index As Integer, pasteString As String)
+        Dim str As String() = pasteString.Split(".")
 
-    Public Property GetRequireUseStatus(index As Integer) As RequireUse
-        Get
-            Return ReauireDatas(index).UseStatus
-        End Get
-        Set(value As RequireUse)
-            ReauireDatas(index).UseStatus = value
-        End Set
-    End Property
+        If str(0) = RequireUse.CustomUse Then
+            If Datfile = SCDatFiles.DatFiles.techdata And Flag Then
+                pjData.BindingManager.RequireDataBinding(index, SCDatFiles.DatFiles.Stechdata).IsCustomUse = True
+            Else
+                pjData.BindingManager.RequireDataBinding(index, Datfile).IsCustomUse = True
+            End If
+
+            RequireDatas(index).PasteCopyData(pasteString)
+        Else
+            Select Case str(0)
+                Case RequireUse.AlwaysUse
+                    pjData.BindingManager.RequireDataBinding(index, Datfile).IsAlwaysUse = True
+                Case RequireUse.AlwaysCurrentUse
+                    pjData.BindingManager.RequireDataBinding(index, Datfile).IsAlwaysCurrentUse = True
+                Case RequireUse.DontUse
+                    pjData.BindingManager.RequireDataBinding(index, Datfile).IsDontUse = True
+            End Select
+
+            'RequireObjectUsed(index) = str(0)
+
+
+        End If
+
+
+
+    End Sub
+    Public Function GetCopyString(index As Integer) As String
+        Select Case RequireDatas(index).UseStatus
+            Case RequireUse.CustomUse, RequireUse.DefaultUse
+                Dim tString As String = ""
+                For i = 0 To RequireDatas(index).ReauireBlock.Count - 1
+                    If i = 0 Then
+                        tString = RequireDatas(index).ReauireBlock(i).GetCopyText
+                    Else
+                        tString = tString & "." & RequireDatas(index).ReauireBlock(i).GetCopyText
+                    End If
+                Next
+                If tString <> "" Then
+                    Return RequireUse.CustomUse & "." & tString
+                Else
+                    Return RequireUse.CustomUse
+                End If
+            Case Else
+                Return RequireDatas(index).UseStatus
+        End Select
+    End Function
+
+
+
+    'Public Property GetRequireUseStatus(index As Integer) As RequireUse
+    '    Get
+    '        Return RequireDatas(index).UseStatus
+    '    End Get
+    '    Set(value As RequireUse)
+    '        RequireDatas(index).UseStatus = value
+    '    End Set
+    'End Property
     Public ReadOnly Property GetRequireObject(index As Integer) As List(Of RequireBlock)
         Get
-            Return ReauireDatas(index).ReauireBlock
+            Return RequireDatas(index).ReauireBlock
         End Get
     End Property
     Public Property RequireObjectUsed(index As Integer) As RequireUse
         Get
-            Return ReauireDatas(index).UseStatus
+            Return RequireDatas(index).UseStatus
         End Get
         Set(value As RequireUse)
-            ReauireDatas(index).UseStatus = value
+            RequireDatas(index).UseStatus = value
 
             Select Case value
                 Case RequireUse.DefaultUse
-                    ReauireDatas(index).ReauireBlock.Clear()
+                    RequireDatas(index).ReauireBlock.Clear()
                     For i = 0 To OrigReauireDatas(index).ReauireBlock.Count - 1
-                        ReauireDatas(index).ReauireBlock.Add(New RequireBlock(OrigReauireDatas(index).ReauireBlock(i).opCode, OrigReauireDatas(index).ReauireBlock(i).Value))
+                        RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigReauireDatas(index).ReauireBlock(i).opCode, OrigReauireDatas(index).ReauireBlock(i).Value))
                     Next
 
                 Case RequireUse.DontUse
-                    ReauireDatas(index).ReauireBlock.Clear()
+                    RequireDatas(index).ReauireBlock.Clear()
                 Case RequireUse.AlwaysUse
-                    ReauireDatas(index).ReauireBlock.Clear()
+                    RequireDatas(index).ReauireBlock.Clear()
                 Case RequireUse.AlwaysCurrentUse
-                    ReauireDatas(index).ReauireBlock.Clear()
+                    RequireDatas(index).ReauireBlock.Clear()
 
                     For i = 0 To OrigReauireDatas(index).ReauireBlock.Count - 1
                         If OrigReauireDatas(index).ReauireBlock(i).opCode = EOpCode.Current_unit_is Then
-                            If ReauireDatas(index).ReauireBlock.Count > 0 Then
-                                ReauireDatas(index).ReauireBlock.Add(New RequireBlock(EOpCode.Or_))
+                            If RequireDatas(index).ReauireBlock.Count > 0 Then
+                                RequireDatas(index).ReauireBlock.Add(New RequireBlock(EOpCode.Or_))
                             End If
-                            ReauireDatas(index).ReauireBlock.Add(New RequireBlock(OrigReauireDatas(index).ReauireBlock(i).opCode, OrigReauireDatas(index).ReauireBlock(i).Value))
+                            RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigReauireDatas(index).ReauireBlock(i).opCode, OrigReauireDatas(index).ReauireBlock(i).Value))
                         End If
                     Next
                 Case RequireUse.CustomUse
-                    ReauireDatas(index).ReauireBlock.Clear()
+                    RequireDatas(index).ReauireBlock.Clear()
                     For i = 0 To OrigReauireDatas(index).ReauireBlock.Count - 1
-                        ReauireDatas(index).ReauireBlock.Add(New RequireBlock(OrigReauireDatas(index).ReauireBlock(i).opCode, OrigReauireDatas(index).ReauireBlock(i).Value))
+                        RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigReauireDatas(index).ReauireBlock(i).opCode, OrigReauireDatas(index).ReauireBlock(i).Value))
                     Next
             End Select
         End Set
@@ -119,7 +171,7 @@
 
 
 
-
+    <Serializable>
     Private Class RequireObject
         Private Datfile As SCDatFiles.DatFiles
         Private CodeNum As Integer
@@ -140,7 +192,19 @@
                 Return ReauireBlocks
             End Get
         End Property
+        Public Sub PasteCopyData(pasteString As String)
+            Dim str As String() = pasteString.Split(".")
+            ReauireBlocks.Clear()
+            For i = 1 To str.Count - 1
+                Dim tstr As String() = str(i).Split(",")
+                If tstr.Count = 1 Then
+                    ReauireBlocks.Add(New RequireBlock(tstr(0)))
+                Else
+                    ReauireBlocks.Add(New RequireBlock(tstr(0), tstr(1)))
+                End If
+            Next
 
+        End Sub
         Public Property StartPos As UShort
             Get
                 Return _StartPos
@@ -187,6 +251,7 @@
 
         End Sub
     End Class
+    <Serializable>
     Public Class RequireBlock
         Private _opCode As EOpCode
         Private _value As Byte
@@ -200,6 +265,14 @@
             _opCode = topCode
             _value = tvalue
         End Sub
+
+        Public Function GetCopyText() As String
+            If HasValue() Then
+                Return opCode & "," & Value
+            Else
+                Return opCode
+            End If
+        End Function
 
         Public Property Value As Byte
             Get
