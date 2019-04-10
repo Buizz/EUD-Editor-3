@@ -1,0 +1,67 @@
+Slow Down Replay	4DEB40
+Speed Up Replay	4DEAF0
+Play/Pause Replay	4DEAC0
+Always	4282D0
+Can Create Unit/Building	428E60	0
+Can Build Subunit	428E00	0
+Mixed Group - Move/Patrol/Hold Position	428DA0
+Mixed Group - Stop	428D40
+Unit Has A Weapon	428F30
+Attacking Building	428ED0
+Cancel Last	428530
+Cancel AddOn	428920
+Larva Exist(Upgrading Only)	428500
+Rally Point	429520
+Rally Point - While Upgrading Only	429740
+Construction/Mutation Underway	4284E0
+Upgrade Underway	428900
+Research Underway	4288E0
+Unit Is Carrying Nothing (Gather - Probe)	4284B0
+Unit Is Carrying Something (Return Cargo - Probe)	428480
+Unit's Capacity Has Been Met	428FF0
+Carrying Some Units	428EA0
+Tech Spell Not Researched	429500	6
+Spell Researched	4294E0	6
+Has Spidermine and Is Researched	429470	6
+Upgrade Not At Max Level	429450	5
+Can Cloak	4293E0	6
+Can Decloak	429370	6
+Can Cloak - Mixed	4292C0	6
+Can Decloak - Mixed	429210	6
+Tank Is in Tank Mode	4291C0	6
+Tank Is in Siege Mode	429170	6
+Tank Is in Tank Mode(Move)	428860
+Nuke Available	428810
+Recharge Shields	428440
+Building Can Move And Has Lifted Off	428420
+Building Has Lifted Off	4283F0
+Building Has Landed	4287D0
+Ability Is Researched	4290F0	6
+Is Using Ability	429070	6
+Morph To Lurker	429720	0
+Not Burrowed(Move/Stop/Patrol/Hold Position)	4283C0
+Not Burrowed (Attack)	428FA0
+Has No Cargo (Gather - Drone)	428780
+Has Cargo (Return Cargo - Drone)	428730
+Burrowed (Stop - Lurker)	428360
+Has No Exit	428340	0
+Zerg Basic Buildings	428CB0
+Zerg Advanced Buildings	428C30
+Has interceptors	4286E0
+Has Scarabs	4286A0
+2 Units Selected & Not Researched(Archon Merge)	4296F0	6
+2 Units Selected (Archon Warp)	4296B0	0
+2 Units Selected & Not Researched(Dark Archon Meld)	429680	6
+2 Units Selected (Dark Archon Meld)	429640
+Protoss Basic Buildings	428B80
+Protoss Advanced Buildings	428AD0
+In Constructing (Half - SCV)	428310
+Move (SCV)	428670
+Stop (SCV)	428640
+Attack (SCV)	428610
+Repair (SCV)	4285E0
+Gather (SCV)	4285A0
+Return Cargo (SCV)	428560
+Terran Basic Buildings	428A10
+Terran Advanced Buildings	428990
+Nuke Train	428960	0

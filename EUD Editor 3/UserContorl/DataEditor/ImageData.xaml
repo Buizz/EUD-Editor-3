@@ -20,7 +20,7 @@
             <local:NameBar x:Name="NameBar"/>
             <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="97" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Height="70" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="25" />
@@ -31,11 +31,11 @@
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageInfor}" Padding="6"/>
                             <WrapPanel Grid.Row="1" Margin="10,2">
-                                <local:IconSelecter x:Name="II" Tag="Iscript ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" />
+                                <local:IconSelecter x:Name="II" Tag="Iscript ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="659" />
                             </WrapPanel>
                         </Grid>
                     </materialDesign:Card>
-                    <materialDesign:Card Height="97" Width="349" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Height="97" Width="221" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="25" />
@@ -46,14 +46,14 @@
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageDefault}" Padding="6"/>
                             <WrapPanel Grid.Row="1" Margin="10,2">
-                                <local:BoolSelecter x:Name="GT" Tag="Gfx Turns" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" />
-                                <local:BoolSelecter x:Name="CA" Tag="Clickable" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" />
-                                <local:BoolSelecter x:Name="UFI" Tag="Use Full Iscript" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" />
-                                <local:BoolSelecter x:Name="DIC" Tag="Draw If Cloaked" HorizontalAlignment="Left" VerticalAlignment="Top" Width="80" />
+                                <local:BoolSelecter x:Name="GT" Tag="Gfx Turns" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                <local:BoolSelecter x:Name="CA" Tag="Clickable" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                <local:BoolSelecter x:Name="UFI" Tag="Use Full Iscript" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                <local:BoolSelecter x:Name="DIC" Tag="Draw If Cloaked" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
                             </WrapPanel>
                         </Grid>
                     </materialDesign:Card>
-                    <materialDesign:Card Height="97" Width="349" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Height="97" Width="233" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="25" />

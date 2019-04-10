@@ -5,28 +5,64 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800" >
     <Grid>
-        <TreeView>
-            <TreeViewItem Header="아스나">
-
-                <TreeViewItem Header="아스나">
-
+        <TreeView >
+            <TreeViewItem Header="if" Background="Orange" >
+                <TreeViewItem Header="Condition" Background="Yellow">
+                    <TreeViewItem Header="조건 1" Background="LawnGreen">
+                        
+                    </TreeViewItem>
                 </TreeViewItem>
-                <TreeViewItem Header="아스나">
+                <TreeViewItem Header="than" Background="Yellow" >
+                    <TreeViewItem Header="함수 1" Background="Purple">
 
+                    </TreeViewItem>
+                </TreeViewItem>
+                <TreeViewItem Header="else" Background="Yellow">
+                    <TreeViewItem Header="액션 1" Background="DodgerBlue">
+
+                    </TreeViewItem>
+                    <TreeViewItem Header="액션 2" Background="DodgerBlue">
+
+                    </TreeViewItem>
                 </TreeViewItem>
             </TreeViewItem>
-            <TreeViewItem Header="아스나">
 
-                <TreeViewItem Header="아스나">
+            <TreeViewItem Header="액션 3" Background="DodgerBlue">
 
+            </TreeViewItem>
+            <TreeViewItem Header="액션 4" Background="DodgerBlue">
+
+            </TreeViewItem>
+            <TreeViewItem Header="if" Background="Orange" >
+                <TreeViewItem Header="Condition" Background="Yellow">
+                    <TreeViewItem Header="조건 2" Background="LawnGreen">
+
+                    </TreeViewItem>
+                    <TreeViewItem Header="조건 3" Background="LawnGreen">
+
+                    </TreeViewItem>
                 </TreeViewItem>
-                <TreeViewItem Header="아스나">
+                <TreeViewItem Header="than" Background="Yellow" >
+                    <TreeViewItem Header="함수 2" Background="Purple">
+                        
+                    </TreeViewItem>
+                    <TreeViewItem Header="if" Background="Orange" >
+                        <TreeViewItem Header="Condition" Background="Yellow">
+                            <TreeViewItem Header="조건 4" Background="LawnGreen">
 
-                </TreeViewItem>
-                <TreeViewItem Header="아스나">
+                            </TreeViewItem>
+                            <TreeViewItem Header="조건 5" Background="LawnGreen">
 
+                            </TreeViewItem>
+                        </TreeViewItem>
+                        <TreeViewItem Header="than" Background="Yellow" >
+                            <TreeViewItem Header="함수 3" Background="Purple">
+
+                            </TreeViewItem>
+                        </TreeViewItem>
+                    </TreeViewItem>
                 </TreeViewItem>
             </TreeViewItem>
         </TreeView>

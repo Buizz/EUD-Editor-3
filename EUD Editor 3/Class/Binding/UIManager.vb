@@ -228,6 +228,13 @@ Public Class UIManager
                         Else
                             Return New SolidColorBrush(pgData.FiledEditColor)
                         End If
+                    Case SCDatFiles.DatFiles.ButtonData
+                        Dim TrueFlag As Boolean = pjData.DataManager.CheckDirtyObject(Datfile, ObjectID)
+                        If TrueFlag Then
+                            Return Application.Current.Resources("MaterialDesignPaper")
+                        Else
+                            Return New SolidColorBrush(pgData.FiledEditColor)
+                        End If
                 End Select
 
                 Return Application.Current.Resources("MaterialDesignPaper")

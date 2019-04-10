@@ -28,12 +28,10 @@ Public Class CodeConnecter
     Public Sub ItemsReferesh()
         ListReset()
 
-        'MsgBox(Datfile & " " & ObjectID)
-        'PropertyChangedPack()
+
     End Sub
     Private Sub PropertyChangedPack()
-        'ListReset()
-        'NotifyPropertyChanged("Items")
+
     End Sub
 
     Public Sub DeleteList(CC As CodeCollection)
@@ -43,56 +41,7 @@ Public Class CodeConnecter
         Get
             itemCollection.Add(New CodeCollection)
             ListReset()
-            'itemCollection.Add("작작하라했다")
-
-
             Return itemCollection.Last
-
-
-
-            ''MsgBox("아이템 리프레쉬")
-
-            'Dim listboxitems As New List(Of ListBoxItem)
-
-            'Dim CC As CodeConnectGroup = pjData.BindingManager.CodeConnectGroup(Datfile)
-            'For i = 0 To CC.Count - 1
-            '    Dim Datfiles As SCDatFiles.DatFiles = CC.GetDatType(i)
-            '    Dim ParamName As String = CC.GetParamName(i)
-
-            '    For index = 0 To pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarCount) - 1
-            '        Dim Realindex As Integer = index + pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarStart)
-
-            '        If pjData.Dat.Data(Datfiles, ParamName, Realindex) = ObjectID Then
-            '            Dim tListBox As New ListBoxItem
-            '            Dim Textblock As New TextBlock
-            '            Textblock.TextWrapping = TextWrapping.Wrap
-
-            '            Dim myBinding As Binding = New Binding("TabName")
-            '            myBinding.Source = pjData.BindingManager.UIManager(Datfiles, index)
-            '            Textblock.SetBinding(TextBlock.TextProperty, myBinding)
-
-            '            tListBox.Content = Textblock
-
-            '            'tListBox.Content = Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex
-            '            listboxitems.Add(tListBox)
-            '        End If
-            '        'MsgBox(Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex)
-            '    Next
-            'Next
-
-
-
-            ''For i = 0 To Datfile + 2
-            ''    Dim asfaga As New ListBoxItem
-            ''    asfaga.Content = "asdfa " & i
-            ''    listboxitems.Add(asfaga)
-            ''Next
-
-
-
-
-
-            'Return listboxitems.ToArray
         End Get
 
     End Property
@@ -101,7 +50,6 @@ Public Class CodeConnecter
 
 
     Private Sub ListReset()
-
         For ci = 0 To itemCollection.Count - 1
             itemCollection(ci).Clear()
 
@@ -110,62 +58,114 @@ Public Class CodeConnecter
                 Dim Datfiles As SCDatFiles.DatFiles = CC.GetDatType(i)
                 Dim ParamName As String = CC.GetParamName(i)
 
-                For index = 0 To pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarCount) - 1
-                    Dim Realindex As Integer = index + pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarStart)
+                If ParamName = "ButtonSet" Then
+                    For index = 0 To SCUnitCount - 1
+                        Dim value As Long = pjData.ExtraDat.ButtonSet(index)
 
-                    If pjData.Dat.Data(Datfiles, ParamName, Realindex) = ObjectID Then
-                        Dim tListBox As New ListBoxItem
-                        tListBox.Tag = Datfiles & "," & ParamName & "," & Realindex
-                        tListBox.ToolTip = Tool.GetText(Datfilesname(Datfiles)) & " '" & Tool.GetText(Datfilesname(Datfiles) & "_" & ParamName) & "'"
+                        If value = ObjectID Then
+                            Dim tListBox As New ListBoxItem
+                            tListBox.Tag = Datfiles & "," & ParamName & "," & index
+                            tListBox.ToolTip = Tool.GetText(Datfilesname(Datfiles)) & " '" & Tool.GetText(Datfilesname(Datfiles) & "_" & ParamName) & "'"
 
-                        Dim Textblock As New TextBlock
-                        Textblock.TextWrapping = TextWrapping.Wrap
+                            Dim Textblock As New TextBlock
+                            Textblock.TextWrapping = TextWrapping.Wrap
 
-                        Dim myBinding As Binding = New Binding("TabName")
-                        myBinding.Source = pjData.BindingManager.UIManager(Datfiles, Realindex)
-                        Textblock.SetBinding(TextBlock.TextProperty, myBinding)
+                            Dim myBinding As Binding = New Binding("TabName")
+                            myBinding.Source = pjData.BindingManager.UIManager(Datfiles, index)
+                            Textblock.SetBinding(TextBlock.TextProperty, myBinding)
 
-                        tListBox.Content = Textblock
+                            tListBox.Content = Textblock
 
-                        'tListBox.Content = Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex
-                        itemCollection(ci).Add(tListBox)
-                    End If
-                    'MsgBox(Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex)
-                Next
+                            'tListBox.Content = Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex
+                            itemCollection(ci).Add(tListBox)
+                        End If
+                    Next
+                Else
+                    For index = 0 To pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarCount) - 1
+                        Dim Realindex As Integer = index + pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarStart)
+
+                        Dim value As Long = pjData.Dat.Data(Datfiles, ParamName, Realindex)
+
+                        If value = ObjectID Then
+                            Dim tListBox As New ListBoxItem
+                            tListBox.Tag = Datfiles & "," & ParamName & "," & Realindex
+                            tListBox.ToolTip = Tool.GetText(Datfilesname(Datfiles)) & " '" & Tool.GetText(Datfilesname(Datfiles) & "_" & ParamName) & "'"
+
+                            Dim Textblock As New TextBlock
+                            Textblock.TextWrapping = TextWrapping.Wrap
+
+                            Dim myBinding As Binding = New Binding("TabName")
+                            myBinding.Source = pjData.BindingManager.UIManager(Datfiles, Realindex)
+                            Textblock.SetBinding(TextBlock.TextProperty, myBinding)
+
+                            tListBox.Content = Textblock
+
+                            'tListBox.Content = Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex
+                            itemCollection(ci).Add(tListBox)
+                        End If
+                        'MsgBox(Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex)
+                    Next
+                End If
             Next
         Next
 
     End Sub
 
     Private Sub NotifyPropertyChanged(ByVal info As String)
-        'MsgBox("리프레쉬")
-        'MsgBox("아이템 리프레쉬")
         For ci = 0 To itemCollection.Count - 1
             itemCollection.Clear()
             Dim CC As CodeConnectGroup = pjData.BindingManager.CodeConnectGroup(Datfile)
             For i = 0 To CC.Count - 1
                 Dim Datfiles As SCDatFiles.DatFiles = CC.GetDatType(i)
                 Dim ParamName As String = CC.GetParamName(i)
+                If ParamName = "ButtonSet" Then
+                    If Datfiles = SCDatFiles.DatFiles.units Then
 
-                For index = 0 To pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarCount) - 1
-                    Dim Realindex As Integer = index + pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarStart)
-
-                    If pjData.Dat.Data(Datfiles, ParamName, Realindex) = ObjectID Then
-                        Dim tListBox As New ListBoxItem
-                        Dim Textblock As New TextBlock
-                        Textblock.TextWrapping = TextWrapping.Wrap
-
-                        Dim myBinding As Binding = New Binding("TabName")
-                        myBinding.Source = pjData.BindingManager.UIManager(Datfiles, index)
-                        Textblock.SetBinding(TextBlock.TextProperty, myBinding)
-
-                        tListBox.Content = Textblock
-
-                        'tListBox.Content = Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex
-                        itemCollection(ci).Add(tListBox)
                     End If
-                    'MsgBox(Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex)
-                Next
+                    For index = 0 To SCUnitCount - 1
+                        Dim value As Long = pjData.ExtraDat.ButtonSet(index)
+
+                        If value = ObjectID Then
+                            Dim tListBox As New ListBoxItem
+                            tListBox.Tag = Datfiles & "," & ParamName & "," & index
+                            tListBox.ToolTip = Tool.GetText(Datfilesname(Datfiles)) & " '" & Tool.GetText(Datfilesname(Datfiles) & "_" & ParamName) & "'"
+
+                            Dim Textblock As New TextBlock
+                            Textblock.TextWrapping = TextWrapping.Wrap
+
+                            Dim myBinding As Binding = New Binding("TabName")
+                            myBinding.Source = pjData.BindingManager.UIManager(Datfiles, index)
+                            Textblock.SetBinding(TextBlock.TextProperty, myBinding)
+
+                            tListBox.Content = Textblock
+
+                            'tListBox.Content = Tool.GetText(Datfilesname(Datfiles)) & ParamName & " " & Realindex
+                            itemCollection(ci).Add(tListBox)
+                        End If
+                    Next
+                Else
+                    For index = 0 To pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarCount) - 1
+                        Dim Realindex As Integer = index + pjData.Dat.DatFileList(Datfiles).GetParamInfo(ParamName, SCDatFiles.EParamInfo.VarStart)
+
+                        Dim value As Long = pjData.Dat.Data(Datfiles, ParamName, Realindex)
+
+                        If value = ObjectID Then
+                            Dim tListBox As New ListBoxItem
+                            Dim Textblock As New TextBlock
+                            Textblock.TextWrapping = TextWrapping.Wrap
+
+                            Dim myBinding As Binding = New Binding("TabName")
+                            myBinding.Source = pjData.BindingManager.UIManager(Datfiles, index)
+                            Textblock.SetBinding(TextBlock.TextProperty, myBinding)
+
+                            tListBox.Content = Textblock
+
+                            itemCollection(ci).Add(tListBox)
+                        End If
+                    Next
+                End If
+
+
             Next
         Next
 
@@ -173,16 +173,6 @@ Public Class CodeConnecter
 
 
 
-
-        'For i = 0 To Datfile + 2
-        '    Dim asfaga As New ListBoxItem
-        '    asfaga.Content = "asdfa " & i
-        '    listboxitems.Add(asfaga)
-        'Next
-
-
-        'itemCollection.Add("dsf")
-        'RaiseEvent CollectionChanged(Me, New NotifyCollectionChangedEventArgs(NotifyCollectionChangedAction.Add, "sad"))
     End Sub
 End Class
 

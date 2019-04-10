@@ -22,6 +22,23 @@ Public Class ColoredTextBox
 
 
     Public Sub TextColred(text As String)
+        Dim FristChar As String = StringTool.GetCharAt(0, text)
+        Dim SecondChar As String = StringTool.GetCharAt(1, text)
+
+        Dim Flag As Boolean = False
+
+        If IsNumeric("&H" & SecondChar) Then
+            If "&H" & SecondChar <= 5 Then
+                Flag = True
+            End If
+        End If
+
+        If Flag Then
+            text = StringTool.ChangeCharAt(1, text, "")
+            text = StringTool.ChangeCharAt(0, text, "")
+        End If
+
+
         Dim TextDocument As FlowDocument = Texts.Document
         TextDocument.Blocks.Clear()
 
@@ -30,24 +47,41 @@ Public Class ColoredTextBox
 
         Dim inlines As InlineCollection = tParagraph.Inlines
 
-        Dim MainText As String = text.Replace(vbCrLf, "<A>")
+        Dim MainText As String = text '.Replace(vbCrLf, "<0A>")
 
 
-        Dim rgx As New Regex("<([A-Za-z0-9])+>", RegexOptions.IgnoreCase)
+        Dim rgx As New Regex("<[^>\\]*(?:\\.[^>\\]*)*>", RegexOptions.IgnoreCase)
 
         Dim LastColor As Integer = 1
         Dim LastCode As Integer = 1
         Dim Startindex As Integer = 1
+        Dim MatchIndex As Integer = 0
         For i = 0 To rgx.Matches(MainText).Count - 1
-            Dim tMatch As Match = rgx.Matches(MainText).Item(i)
+            Dim tMatch As Match = rgx.Matches(MainText).Item(i - MatchIndex)
 
             Dim Value As String = tMatch.Value
             Value = Mid(Value, 2, Value.Length - 2)
 
             Dim ColorCode As Integer = -1
             Try
-                ColorCode = "&H" & Value
+                For keys = 0 To SCConst.ASCIICount
+                    If scData.ASCIICode(keys) = Value Then 'Virtual KEY일 경우
+                        If keys > ColorTable.Count - 1 Then
+                            MainText = Replace(MainText, "<" & Value & ">", Chr(keys), 1, 1)
+                            MatchIndex += 1
+                        Else
+                            ColorCode = keys
+                        End If
+                        Exit For
+                    End If
+                Next
+                If ColorCode = -1 Then
+                    ColorCode = "&H" & Value
+                End If
+
                 If ColorCode > ColorTable.Count - 1 Then
+                    MainText = Replace(MainText, "<" & Value & ">", Chr(ColorCode), 1, 1)
+                    MatchIndex += 1
                     Continue For
                 End If
             Catch ex As Exception
@@ -58,6 +92,7 @@ Public Class ColoredTextBox
             '스페이스 하나당 4픽셀
 
             Dim AddedText As String = Mid(MainText, Startindex, tMatch.Index - Startindex + 1)
+            AddedText = StringTool.ChangeSlash(AddedText)
             'MsgBox(AddedText & vbCrLf & "   매치 인덱스:" & tMatch.Index & "  시작인덱스:" & Startindex)
 
             '남은 공간
@@ -106,8 +141,8 @@ Public Class ColoredTextBox
         Next
 
         If True Then
-
             Dim AddedText As String = Mid(MainText, Startindex, MainText.Length - Startindex + 1)
+            AddedText = StringTool.ChangeSlash(AddedText)
             Dim Run As New Run(AddedText)
             Run.Foreground = New SolidColorBrush(ColorTable(LastColor))
             inlines.Add(Run)

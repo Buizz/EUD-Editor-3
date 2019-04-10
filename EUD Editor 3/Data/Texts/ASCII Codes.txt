@@ -1,128 +1,128 @@
 NUL
-SOH
-STX
-ETX
-EOT
-ENQ
-ACK
-BEL
-BS
-TAB
-LF
-VT
-FF
-CR
-SO
-SI
-DLE
-DC1
-DC2
-DC3
-DC4
-NAK
-SYN
-ETB
-CAN
-EM
-SUB
+Ctrl+A
+Ctrl+B
+Ctrl+Shift+C
+Ctrl+D
+Ctrl+E
+Ctrl+F
+Ctrl+G
+NUL
+Tab
+Ctrl+J
+Ctrl+K
+Ctrl+L
+Enter
+Ctrl+N
+Ctrl+O
+Ctrl+P
+Ctrl+Shift+Q
+Ctrl+Shift+R
+Ctrl+Shift+S
+Ctrl+T
+Ctrl+U
+Ctrl+V
+Ctrl+W
+Ctrl+Shift+X
+Ctrl+Y
+Ctrl+Z
 ESC
-FS
-GS
-RS
-US
+Ctrl+\\
+Ctrl+]
+Ctrl+^
+Ctrl+_
 Space
-!
+NUL
 "
-#
-$
-%
-&
+NUL
+NUL
+NUL
+NUL
 '
-(
-)
-*
+NUL
+NUL
+Npad *
 +
 ,
 -
 .
 /
-0
-1
-2
-3
-4
-5
-6
-7
-8
-9
+NPad 0
+NPad 1
+NPad 2
+NPad 3
+NPad 4
+NPad 5
+NPad 6
+NPad 7
+NPad 8
+NPad 9
 :
 ;
+\<
 NUL
-=
-NUL
+\>
 ?
-@
-A
-B
-C
-D
-E
-F
-G
-H
-I
-J
-K
-L
-M
-N
-O
-P
-Q
-R
-S
-T
-U
-V
-W
-X
-Y
-Z
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
+NUL
 [
-\
+\\
 ]
-^
+NUL
 _
 `
-a
-b
-c
-d
-e
-f
-g
-h
-i
-j
-k
-l
-m
-n
-o
-p
-q
-r
-s
-t
-u
-v
-w
-x
-y
-z
+KEY A
+KEY B
+KEY C
+KEY D
+KEY E
+KEY F
+KEY G
+KEY H
+KEY I
+KEY J
+KEY K
+KEY L
+KEY M
+KEY N
+KEY O
+KEY P
+KEY Q
+KEY R
+KEY S
+KEY T
+KEY U
+KEY V
+KEY W
+KEY X
+KEY Y
+KEY Z
 {
 |
 }
 ~
-DEL
+Ctrl+BackSpace

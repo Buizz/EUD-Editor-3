@@ -91,6 +91,7 @@
     <sys:String x:Key="PageCopy">복사</sys:String>
     <sys:String x:Key="PagePaste">붙여넣기</sys:String>
     <sys:String x:Key="PageReset">초기화</sys:String>
+    <sys:String x:Key="CoverWrite">덮어쓰기</sys:String>
     <!--RequireMenu-->
     <sys:String x:Key="NewCode">새로 만들기</sys:String>
     <sys:String x:Key="CodeDelete">삭제</sys:String>
@@ -678,4 +679,18 @@
     <!--버튼셋-->
     <sys:String x:Key="buttonSet">버튼셋</sys:String>
     <sys:String x:Key="button">버튼데이터</sys:String>
+    <sys:String x:Key="BtnList">버튼리스트</sys:String>
+    <sys:String x:Key="BtnInfor">기본 정보</sys:String>
+    <sys:String x:Key="BtnPreview">미리보기</sys:String>
+    <sys:String x:Key="BtnWork">버튼 동작</sys:String>
+
+
+    <sys:String x:Key="BtnLoc">위치</sys:String>
+    <sys:String x:Key="BtnIcon">아이콘</sys:String>
+    <sys:String x:Key="BtnEnaStr">사용가능</sys:String>
+    <sys:String x:Key="BtnDisStr">사용불가</sys:String>
+    <sys:String x:Key="BtnCon">조건</sys:String>
+    <sys:String x:Key="BtnConval">조건 값</sys:String>
+    <sys:String x:Key="BtnAct">액션</sys:String>
+    <sys:String x:Key="BtnActVal">액션 값</sys:String>
 </ResourceDictionary>

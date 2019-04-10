@@ -9,7 +9,6 @@ ShutdownMode="OnMainWindowClose">
         <ResourceDictionary>
             <ResourceDictionary.MergedDictionaries>
                 <ResourceDictionary Source="Language\ko-KR.xaml" />
-
                 <!-- MahApps -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
@@ -28,6 +27,8 @@ ShutdownMode="OnMainWindowClose">
                 <!-- Dragablz Material Design -->
                 <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
 
+                <!-- ListBoxReset -->
+                <ResourceDictionary Source="ResourceDictionary/MaterialListbox.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
             <!-- MahApps Brushes -->

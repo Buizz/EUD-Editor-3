@@ -29,7 +29,7 @@
         For i = 0 To SCConst.ASCIICount
             If scData.ASCIICode(i) <> "NUL" Then
                 Dim tcomboboxitem As New ComboBoxItem
-                tcomboboxitem.Content = scData.ASCIICode(i)
+                tcomboboxitem.Content = StringTool.ChangeSlash(scData.ASCIICode(i))
                 tcomboboxitem.Tag = i
 
 
@@ -94,20 +94,11 @@
 
 
 
-        Dim ColorText As String = MainTextBox.Text
 
-        If LimitCombobx.SelectedIndex <> 0 And ShortCombobox.SelectedIndex <> 0 Then
-            If MainTextBox.Text.Count > 1 Then
-                ColorText = ChangeCharAt(1, ColorText, "")
-            End If
-            If MainTextBox.Text.Count > 0 Then
-                ColorText = ChangeCharAt(0, ColorText, "")
-            End If
-        End If
 
 
         '컬러박스 정리
-        PreviewText.TextColred(ColorText)
+        PreviewText.TextColred(MainTextBox.Text)
     End Sub
 
     Private DonotChangeCombobox As Boolean = True
@@ -115,8 +106,8 @@
         DonotChangeCombobox = False
 
         'MsgBox(GetCharAt(0, texts) & "_" & GetCharAt(1, texts))
-        Dim FristKey As String = GetCharAt(0, texts)
-        Dim LastKey As String = GetCharAt(1, texts)
+        Dim FristKey As String = StringTool.GetCharAt(0, texts)
+        Dim LastKey As String = StringTool.GetCharAt(1, texts)
 
         Dim LastKeyIndex As Integer = -1
         If LastKey.Count > 1 Then
@@ -185,123 +176,7 @@
 
         DonotChangeCombobox = True
     End Sub
-    Private Function ChangeCharAt(index As Integer, str As String, tostr As String) As String
-        Dim MatchPass As Integer = 0
 
-        Dim TempChar As String = "ᚏ"
-        Dim SpecialKeys As New List(Of String)
-        Dim SpecialKeyPos As New List(Of Integer)
-        Dim OriginalKeys As New List(Of String)
-
-        Dim rgx As New Text.RegularExpressions.Regex("<([^<>])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-        Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
-        'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
-        '만약 Virtual안에 있으면 해당 번호로 돌려줌.
-        For i = 0 To Matchs.Count - 1
-            Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
-
-            Dim pureStr As String = ExtratStr(tMatchs(MatchPass).Value)
-            Dim ResultStr As String = pureStr
-
-            Dim PassFlag As Boolean = False
-            '값의 순수성 검사.(Virtual KEY문자이거나 16진수 이거나 판단)
-            For keys = 0 To SCConst.ASCIICount
-                If scData.ASCIICode(keys) = pureStr Then 'Virtual KEY일 경우
-                    ResultStr = Hex(keys).PadLeft(2, "0")
-                    PassFlag = True
-                End If
-            Next
-            If Not PassFlag Then
-                Try
-                    Dim Isnum As Long = "&H" & pureStr '16진수인지 판별
-                    ResultStr = Hex(Isnum).PadLeft(2, "0")
-                    PassFlag = True
-                Catch ex As Exception
-
-                End Try
-            End If
-            If Not PassFlag Then
-                MatchPass += 1
-                Continue For
-            End If
-
-            OriginalKeys.Add(tMatchs(MatchPass).Value)
-            SpecialKeys.Add(ResultStr)
-            SpecialKeyPos.Add(tMatchs(MatchPass).Index)
-            str = Replace(str, tMatchs(MatchPass).Value, TempChar, 1, 1)
-        Next
-        If str(index) = TempChar Then
-            For i = 0 To SpecialKeyPos.Count - 1
-                If SpecialKeyPos(i) = index Then
-                    str = Replace(str, TempChar, tostr, 1, 1)
-                Else
-                    str = Replace(str, TempChar, OriginalKeys(i), 1, 1)
-                End If
-            Next
-        Else
-            '12 3 45  index = 2
-            str = Mid(str, 1, index) & tostr & Mid(str, index + 2)
-            For i = 0 To SpecialKeyPos.Count - 1
-                str = Replace(str, TempChar, OriginalKeys(i), 1, 1)
-            Next
-        End If
-        Return str
-    End Function
-    Private Function GetCharAt(index As Integer, str As String) As String
-        Dim MatchPass As Integer = 0
-
-        Dim TempChar As String = "ᚏ"
-        Dim SpecialKeys As New List(Of String)
-        Dim SpecialKeyPos As New List(Of Integer)
-
-        Dim rgx As New Text.RegularExpressions.Regex("<([^<>])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-        Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
-        'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
-        '만약 Virtual안에 있으면 해당 번호로 돌려줌.
-        For i = 0 To Matchs.Count - 1
-            Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
-
-            Dim pureStr As String = ExtratStr(tMatchs(MatchPass).Value)
-            Dim ResultStr As String = pureStr
-
-            Dim PassFlag As Boolean = False
-            '값의 순수성 검사.(Virtual KEY문자이거나 16진수 이거나 판단)
-            For keys = 0 To SCConst.ASCIICount
-                If scData.ASCIICode(keys) = pureStr Then 'Virtual KEY일 경우
-                    ResultStr = Hex(keys).PadLeft(2, "0")
-                    PassFlag = True
-                End If
-            Next
-            If Not PassFlag Then
-                Try
-                    Dim Isnum As Long = "&H" & pureStr '16진수인지 판별
-                    ResultStr = Hex(Isnum).PadLeft(2, "0")
-                    PassFlag = True
-                Catch ex As Exception
-
-                End Try
-            End If
-            If Not PassFlag Then
-                MatchPass += 1
-                Continue For
-            End If
-
-
-            SpecialKeys.Add(ResultStr)
-            SpecialKeyPos.Add(tMatchs(MatchPass).Index)
-            str = Replace(str, tMatchs(MatchPass).Value, TempChar, 1, 1)
-        Next
-        If str(index) = TempChar Then
-            For i = 0 To SpecialKeyPos.Count - 1
-                If SpecialKeyPos(i) = index Then
-                    Return SpecialKeys(i)
-                End If
-            Next
-        Else
-            Return str(index)
-        End If
-        Return " "
-    End Function
 
 
 
@@ -327,13 +202,13 @@
 
 
             If ShortCombobox.SelectedIndex = 0 Then '선택이 안되어 있을 경우, 즉 처음일 경우
-                CurrentText = "<a><" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">" & CurrentText
+                CurrentText = "<" & scData.ASCIICode(&H61) & "><" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">" & CurrentText
             Else
                 If LimitCombobx.SelectedIndex = 0 Then '둘다 0으로 선택되었을 경우
-                    CurrentText = ChangeCharAt(1, CurrentText, "")
-                    CurrentText = ChangeCharAt(0, CurrentText, "")
+                    CurrentText = StringTool.ChangeCharAt(1, CurrentText, "")
+                    CurrentText = StringTool.ChangeCharAt(0, CurrentText, "")
                 Else
-                    CurrentText = ChangeCharAt(1, CurrentText, "<" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">")
+                    CurrentText = StringTool.ChangeCharAt(1, CurrentText, "<" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">")
                 End If
             End If
 
@@ -350,16 +225,16 @@
             Dim CurrentText As String = pjData.BindingManager.StatTxtBinding(ObjectID).Value
 
             Dim tcomboboxitem As ComboBoxItem = ShortCombobox.SelectedItem
-            Dim SelectText As String = tcomboboxitem.Content
+            Dim SelectText As String = scData.ASCIICode(tcomboboxitem.Tag)
 
             If LimitCombobx.SelectedIndex = 0 Then '선택이 안되어 있을 경우, 즉 처음일 경우
                 CurrentText = "<" & SelectText & ">" & "<00>" & CurrentText
             Else
                 If ShortCombobox.SelectedIndex = 0 Then '둘다 0으로 선택되었을 경우
-                    CurrentText = ChangeCharAt(1, CurrentText, "")
-                    CurrentText = ChangeCharAt(0, CurrentText, "")
+                    CurrentText = StringTool.ChangeCharAt(1, CurrentText, "")
+                    CurrentText = StringTool.ChangeCharAt(0, CurrentText, "")
                 Else
-                    CurrentText = ChangeCharAt(0, CurrentText, "<" & SelectText & ">")
+                    CurrentText = StringTool.ChangeCharAt(0, CurrentText, "<" & SelectText & ">")
                 End If
             End If
 

@@ -195,8 +195,17 @@
                         <ListBoxItem>
                             코드 탐색기
                         </ListBoxItem>
+                        <ListBoxItem>
+                            함수
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            조건
+                        </ListBoxItem>
+                        <ListBoxItem>
+                            액션
+                        </ListBoxItem>
                         <ListBoxItem >
-                            글로벌 오브젝트
+                            변수
                         </ListBoxItem>
                     </ListBox>
 

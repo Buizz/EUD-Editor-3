@@ -18,7 +18,7 @@ Public Class tblWriter
             header(i) = fs.Position
 
 
-            Dim rgx As New Regex("<([^<>])+>", RegexOptions.IgnoreCase)
+            Dim rgx As New Regex("<[^>\\]*(?:\\.[^>\\]*)*>", RegexOptions.IgnoreCase)
             Dim tempstr As String = tblStrings(i)
 
             '==================문자 변형========================
@@ -98,7 +98,7 @@ Public Class tblWriter
             '==================문자 변형========================
 
 
-            bw.Write(Text.Encoding.Default.GetBytes(tempstr))
+            bw.Write(Text.Encoding.Default.GetBytes(StringTool.ChangeSlash(tempstr)))
             bw.Write(CByte(0))
         Next
 

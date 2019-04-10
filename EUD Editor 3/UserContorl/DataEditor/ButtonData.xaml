@@ -18,32 +18,135 @@
                 <RowDefinition Height="40*"/>
             </Grid.RowDefinitions>
             <local:NameBar x:Name="NameBar"/>
-            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="274" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+
+            <Grid Grid.Row="1">
+                <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                    <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical" >
+                        <materialDesign:Card Height="233" Width="215" Background="{DynamicResource MaterialDesignPaper}" Margin="-59,10,10,10" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <DockPanel>
+                                    <ToggleButton x:Name="toggleBtn" Margin="5" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="ToggleBtn_Checked" Unchecked="ToggleBtn_Unchecked" IsChecked="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+
+                                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource FlingyInfor}" Padding="6"/>
-                            <WrapPanel Grid.Row="1" Margin="10,2">
+                                  Text="{StaticResource BtnList}" Padding="6"/>
+                                </DockPanel>
 
-                                <local:IconSelecter x:Name="SP" Tag="Sprite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="423" />
-                                <local:InputField x:Name="SPEED" Tag="Speed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                <local:InputField x:Name="AC" Tag="Acceleration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                <local:InputField x:Name="HD" Tag="Halt Distance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                <local:InputField x:Name="TR" Tag="Turn Radius" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                <local:ComboxSelecter x:Name="MC" Tag="Movement Control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                <local:InputField x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                            </WrapPanel>
+                                <Border Grid.Row="1" Margin="10,2">
+                                    <ListBox x:Name="buttonList" Margin="0,0,0,8" SelectionChanged="ButtonList_SelectionChanged">
+                                        <ListBox.ContextMenu>
+                                            <ContextMenu Opened="ContextMenu_Opened"  >
+                                                <MenuItem x:Name="NewItem" Header="{StaticResource NewCode}" InputGestureText="Ctrl+N" Icon="{materialDesign:PackIcon Kind=FileOutline}" Click="NewItem_Click"/>
+                                                <MenuItem x:Name="CoverWriteItem" Header="{StaticResource CoverWrite}" Icon="{materialDesign:PackIcon Kind=PlaylistEdit}" Click="CoverWriteItem_Click"/>
+                                                <Separator/>
+                                                <MenuItem x:Name="CutItem" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Icon="{materialDesign:PackIcon Kind=ContentCut}" Click="CutItem_Click"/>
+                                                <MenuItem x:Name="CopyItem" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}" Click="CopyItem_Click"/>
+                                                <MenuItem x:Name="PasteItem" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}" Click="PasteItem_Click"/>
+                                                <Separator/>
+                                                <MenuItem x:Name="DeleteItem" Header="{StaticResource CodeDelete}" InputGestureText="Delete" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="DeleteItem_Click"/>
+                                            </ContextMenu>
+                                        </ListBox.ContextMenu>
+                                    </ListBox>
+                                </Border>
+                            </Grid>
+                        </materialDesign:Card>
+
+                        <materialDesign:Card Height="168" Width="293" Background="{DynamicResource MaterialDesignPaper}" Padding="0" Margin="10,0,0,0" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource BtnPreview}" Padding="6"/>
+                                <DockPanel Grid.Row="1" Margin="10,2" Background="Black" >
+                                    <Border Width="96" Height="96" DockPanel.Dock="Left">
+                                        <Image x:Name="PreviewImage" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    </Border>
+                                    <Grid>
+                                        <Grid.RowDefinitions>
+                                            <RowDefinition Height="*"/>
+                                            <RowDefinition Height="*"/>
+                                        </Grid.RowDefinitions>
+                                        <local:ColoredTextBox x:Name="TopText" Grid.Row="0"/>
+                                        <local:ColoredTextBox x:Name="BottomText" Grid.Row="1"/>
+                                    </Grid>
+                                </DockPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card x:Name="DefaultInfor" Height="194" Width="470" Background="{DynamicResource MaterialDesignPaper}" Margin="-68,10,10,10" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource BtnInfor}" Padding="6"/>
+                                <StackPanel Grid.Row="1" Margin="10,2">
+                                    <StackPanel Orientation="Horizontal" Margin="3">
+                                        <TextBlock Text="{StaticResource BtnLoc}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
+                                        <TextBox x:Name="BtnLocation" TextChanged="BtnLocation_TextChanged"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="21" />
+                                    </StackPanel>
+                                    <local:IconSelecterP x:Name="BIconSelecter" ValueChange="BIconSelecter_ValueChange" />
+                                    <local:IconSelecterP x:Name="UseStrSelecter" ValueChange="UseStrSelecter_ValueChange" />
+                                    <local:IconSelecterP x:Name="DUseStrSelecter" ValueChange="DUseStrSelecter_ValueChange" />
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card x:Name="ButtonAction" Height="196" Width="395" Background="{DynamicResource MaterialDesignPaper}" Margin="8,10,10,10" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource BtnWork}" Padding="6"/>
+                                <StackPanel Grid.Row="1" Margin="10,2">
+                                    <ComboBox Margin="3">
+
+                                    </ComboBox>
+                                    <local:IconSelecterP />
+                                    <ComboBox Margin="3">
+
+                                    </ComboBox>
+                                    <local:IconSelecterP />
+                                </StackPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </WrapPanel>
+                </ScrollViewer>
+                <Border x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden"  >
+                    <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" Width="400" Height="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                        <Grid Background="{DynamicResource MaterialDesignPaper}" >
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="*"/>
+                                <RowDefinition Height="60"/>
+                            </Grid.RowDefinitions>
+                            <StackPanel Margin="18">
+
+                            </StackPanel>
+
+                            <DockPanel LastChildFill="False"  Grid.Row="1">
+                                <Button Click="DialogCancelBtn_Click" Width="130" DockPanel.Dock="Right" Content="{StaticResource Cancel}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                                <Button Click="DialogOkayBtn_Click" Width="130" DockPanel.Dock="Right" Content="{StaticResource Okay}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                            </DockPanel>
+
                         </Grid>
                     </materialDesign:Card>
-                </WrapPanel>
-            </ScrollViewer>
+                </Border>
+            </Grid>
+
         </Grid>
     </DockPanel>
 </UserControl>

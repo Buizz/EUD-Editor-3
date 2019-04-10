@@ -3,12 +3,16 @@
 Public Class IconSelecterP
     Private DatFile As SCDatFiles.DatFiles
     Private pValue As Long
-    Public ReadOnly Property Value As Long
+    Public Property Value As Long
         Get
             Return pValue
         End Get
+        Set(value As Long)
+            ValueText.Text = value
+        End Set
     End Property
 
+    Public Event ValueChange As RoutedEventHandler
 
 
     Public Sub Init(_DatFile As SCDatFiles.DatFiles, InitText As String, tValue As Long)
@@ -23,22 +27,33 @@ Public Class IconSelecterP
         ValueText.Text = pValue
         ValueRefresh()
 
-        Select Case DatFile
-            Case SCDatFiles.DatFiles.wireframe
-
-                OpenNew.Visibility = Visibility.Collapsed
 
 
-            Case Else
-                btn.IsEnabled = True
-                IconImage.IsEnabled = True
+        'Select Case DatFile
+        '    Case SCDatFiles.DatFiles.wireframe
+        '        OpenNew.Visibility = Visibility.Collapsed
+        '    Case Else
+        '        btn.IsEnabled = True
+        '        IconImage.IsEnabled = True
+        'End Select
 
 
-        End Select
+        If Not SCDatFiles.CheckValidDat(DatFile) Then
+            Select Case DatFile
+                Case SCDatFiles.DatFiles.ButtonSet
 
+                Case SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.Icon
+                    OpenNew.Visibility = Visibility.Collapsed
+                Case SCDatFiles.DatFiles.stattxt
+                    IconBox.Visibility = Visibility.Collapsed
+                Case Else
+                    OpenNew.Visibility = Visibility.Collapsed
+                    IconBox.Visibility = Visibility.Collapsed
+            End Select
+        End If
 
-
-
+        ValueText.Background = New SolidColorBrush(pgData.FiledDefault)
+        btn.Background = New SolidColorBrush(pgData.FiledDefault)
     End Sub
 
 
@@ -91,11 +106,10 @@ Public Class IconSelecterP
     Private Sub btnMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
         Dim ChangeValue As Integer = e.Delta / 100
 
-        Dim CurrentValue As Integer = ValueText.Text
+        Dim CurrentValue As Integer = pValue
         If CheckOverFlow(DatFile, CurrentValue + ChangeValue) Then
-            ValueText.Text += ChangeValue
+            ValueText.Text = pValue + ChangeValue
         End If
-
     End Sub
 
     Private Sub OpenNew_Click(sender As Object, e As RoutedEventArgs) Handles OpenNew.Click
@@ -105,9 +119,12 @@ Public Class IconSelecterP
     End Sub
 
     Private Sub ValueText_TextChanged(sender As Object, e As TextChangedEventArgs)
-        pValue = ValueText.Text
+        If IsNumeric(ValueText.Text) Then
+            pValue = ValueText.Text
+            RaiseEvent ValueChange(Me, e)
+            ValueRefresh()
+        End If
 
-        ValueRefresh()
     End Sub
     Private Sub ValueRefresh()
         If DatFile <> SCDatFiles.DatFiles.None Then

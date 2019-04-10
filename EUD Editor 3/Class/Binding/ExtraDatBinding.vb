@@ -197,6 +197,8 @@ Public Class ExtraDatBinding
                     End If
                 Case SCDatFiles.DatFiles.ButtonSet
                     Return pjData.ExtraDat.ButtonSet(ObjectID)
+                Case SCDatFiles.DatFiles.ButtonData
+                    Return pjData.ExtraDat.ButtonData.GetButtonSet(ObjectID).IsDefault
             End Select
 
 
@@ -224,6 +226,14 @@ Public Class ExtraDatBinding
                     End If
                 Case SCDatFiles.DatFiles.ButtonSet
                     OldValue = pjData.ExtraDat.ButtonSet(ObjectID)
+                Case SCDatFiles.DatFiles.ButtonData
+                    OldValue = pjData.ExtraDat.ButtonData.GetButtonSet(ObjectID).IsDefault
+
+                    If tvalue = "True" Then
+                        tvalue = 1
+                    Else
+                        tvalue = 0
+                    End If
             End Select
 
             If tvalue <> OldValue Then
@@ -260,6 +270,8 @@ Public Class ExtraDatBinding
                         Case SCDatFiles.DatFiles.ButtonSet
                             pjData.ExtraDat.DefaultButtonSet(ObjectID) = False
                             pjData.ExtraDat.ButtonSet(ObjectID) = tvalue
+                        Case SCDatFiles.DatFiles.ButtonData
+                            pjData.ExtraDat.ButtonData.GetButtonSet(ObjectID).IsDefault = tvalue
                     End Select
                 Catch ex As Exception
 
@@ -344,7 +356,8 @@ Public Class ExtraDatBinding
             Case SCDatFiles.DatFiles.ButtonSet
                 pjData.ExtraDat.DefaultButtonSet(ObjectID) = True
                 pjData.ExtraDat.ButtonSet(ObjectID) = scData.DefaultExtraDat.ButtonSet(ObjectID)
-
+            Case SCDatFiles.DatFiles.ButtonData
+                pjData.ExtraDat.ButtonData.GetButtonSet(ObjectID).IsDefault = True
         End Select
 
 

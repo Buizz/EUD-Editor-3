@@ -285,7 +285,6 @@ Public Class ExtraDatFiles
         End Set
     End Property
 
-
     Public Property ButtonSet(index As Integer) As Byte
         Get
             Return _ButtonSet(index)
@@ -295,6 +294,14 @@ Public Class ExtraDatFiles
         End Set
     End Property
 
+    Public ReadOnly Property ButtonData As CButtonSets
+        Get
+            Return _ButtonData
+        End Get
+    End Property
+
+
+    Private _ButtonData As CButtonSets
 
     Private Sub LoadButonSet()
         ReDim _ButtonSet(SCButtonCount - 1)
@@ -305,6 +312,9 @@ Public Class ExtraDatFiles
 
             _ButtonSet(i) = i
         Next
+
+        Dim filepath As String = Tool.GetDatFolder & "\btnset" & ".dat"
+        _ButtonData = New CButtonSets(filepath)
     End Sub
 
     Private statusFnVal1 As List(Of UInteger)
@@ -403,6 +413,8 @@ Public Class ExtraDatFiles
                 End If
             Case SCDatFiles.DatFiles.ButtonSet
                 Return DefaultButtonSet(index)
+            Case SCDatFiles.DatFiles.ButtonData
+                Return ButtonData.GetButtonSet(index).IsDefault
         End Select
         Return False
     End Function

@@ -1,0 +1,60 @@
+Cancel Infestation	423180
+Rally Point	4244A0
+Select Larva	423930
+Create Unit	4234B0	0
+Cancel Last	423490
+Tank Mode	423470
+Siege Mode	423450	6
+Cancel Construction	423430
+Cancel Moprh	423410
+Move	424440
+Stop	4233F0
+Attack	424380
+Attack(Suicide)	424320
+Attack(building)	4242C0
+Move(Carrier/Reaver)	424260
+Stop Carrier	4233D0
+Stop Reaver	4233B0
+Attack Carrier	424200
+Attack Reaver	4241A0
+Build Subunit	423390	0
+Patrol	424140
+Hold Position	423370
+Research Technology	423350	6
+Cancel Technology Research	423330
+Use Thchnology	423F70	6
+StimPack	4234D0	6
+Research Upgrade	423310	5
+Cancel Upgrade Research	4232F0
+Cancel AddOn	4232D0
+Create Building - Terran	423EB0	0
+Place COP	423E90
+Create Building - Protoss	423DD0	0
+Create AddOn	423D10	0
+Create Building - Zerg	423C50	0
+Place Nydus Canal Exit	423C40	0
+Building Morph	423860	0
+Land	423C30	0
+Repair	423BD0
+Unit Morph	423790	0
+Gather	423B70
+Return Cargo	423760
+Burrow	4232B0	6
+Unburrow	423290
+Cloak	423730	6
+Decloak	423270
+Lift Off	423230
+Load	423B40
+Unload	423B00
+Archon Warp	423210	0
+Dark Archon Warp	4231F0	0
+Recharge Shiedls	423AA0
+Nulear Strike	423A40
+Cancel Nuclear Strike	4231D0
+Heal	4239E0	6
+Slow Down Replay	4DF300
+Play/Pause Replay	4DF2C0
+Spedd Up RePlay	4DF260
+Cancel	429770
+Cancel Place Buildings	429780
+Change Displayed Buttons	459AF0	11

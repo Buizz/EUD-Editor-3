@@ -182,6 +182,7 @@
     <Compile Include="Class\DataManager.vb" />
     <Compile Include="Class\BulidData\Main.vb" />
     <Compile Include="Class\Binding\ExtraDatBinding.vb" />
+    <Compile Include="Class\Data\CButtonData.vb" />
     <Compile Include="Class\Data\CRequireData.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
@@ -200,6 +201,7 @@
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
+    <Compile Include="Module\StringTool.vb" />
     <Compile Include="Module\Tool.vb" />
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
@@ -356,6 +358,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="ResourceDictionary\MaterialListbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\DataEditor\ButtonData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -791,6 +797,8 @@
     <EmbeddedResource Include="Data\Texts\ASCII Codes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Resource Include="Data\Texts\FireGraftActFun.txt" />
+    <Resource Include="Data\Texts\FireGraftConFun.txt" />
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

@@ -148,6 +148,12 @@
         Next
 
 
+        _CodeConnecter.Add(SCDatFiles.DatFiles.ButtonData, New List(Of CodeConnecter))
+        For i = 0 To SCButtonCount - 1
+            _CodeConnecter(SCDatFiles.DatFiles.ButtonData).Add(New CodeConnecter(SCDatFiles.DatFiles.ButtonData, i))
+        Next
+
+        _CodeConnectGroup(SCDatFiles.DatFiles.ButtonData).Add(SCDatFiles.DatFiles.units, "ButtonSet")
 
 
         StatusJoint = New List(Of ExtraDatBinding)
@@ -176,11 +182,12 @@
             End If
         Next
 
-        ButtonDatBinding = New List(Of ExtraDatBinding)
+        ButtonSetBinding = New List(Of ExtraDatBinding)
+        ButtonDataBinding = New List(Of ExtraDatBinding)
         For i = 0 To SCButtonCount - 1
-            ButtonDatBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, "ButtonSet", i))
+            ButtonSetBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, "ButtonSet", i))
+            ButtonDataBinding.Add(New ExtraDatBinding(SCDatFiles.DatFiles.ButtonData, "ButtonData", i))
         Next
-
 
 
         ReDim pRequireDataBinding(4)
@@ -324,7 +331,8 @@
     Private TranFrameDatBinding As List(Of ExtraDatBinding)
 
 
-    Private ButtonDatBinding As List(Of ExtraDatBinding)
+    Private ButtonSetBinding As List(Of ExtraDatBinding)
+    Private ButtonDataBinding As List(Of ExtraDatBinding)
     Public ReadOnly Property ExtraDatBinding(key As SCDatFiles.DatFiles, name As String, index As Integer) As ExtraDatBinding
         Get
             Select Case key
@@ -351,7 +359,11 @@
                     End If
                 Case SCDatFiles.DatFiles.ButtonSet
                     If name = "ButtonSet" Then
-                        Return ButtonDatBinding(index)
+                        Return ButtonSetBinding(index)
+                    End If
+                Case SCDatFiles.DatFiles.ButtonData
+                    If name = "ButtonData" Then
+                        Return ButtonDataBinding(index)
                     End If
             End Select
             Return Nothing

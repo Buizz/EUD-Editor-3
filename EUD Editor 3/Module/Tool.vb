@@ -432,6 +432,8 @@ Namespace Tool
         End Sub
     End Module
 End Namespace
+
+
 Namespace TabItemTool
     Module TabItemTool
         Public Sub WindowTabItem(Datfile As SCDatFiles.DatFiles, index As Integer)

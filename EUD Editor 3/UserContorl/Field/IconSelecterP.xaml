@@ -12,7 +12,7 @@
     <DockPanel LastChildFill="True">
         <StackPanel Orientation="Horizontal" DockPanel.Dock="Left">
             <TextBlock x:Name="TextStr" Text="{Binding Explain}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
-            <TextBox x:Name="ValueText" TextChanged="ValueText_TextChanged"  Background="{Binding BackColor}" VerticalAlignment="Center" />
+            <TextBox x:Name="ValueText" TextChanged="ValueText_TextChanged"  VerticalAlignment="Center" />
         </StackPanel>
         <DockPanel >
             <Border x:Name="IconBox" Width="32" Height="32" Background="Black" >
