@@ -677,6 +677,7 @@
     <sys:String x:Key="ColorNames">기본 색 사용|Pale Blue|Yellow|White|Grey|Red|Green|Red (P1)|NULL|NULL|&lt;1&gt;투명|&lt;1&gt;Remove beyond|NULL|Blue (P2)|Teal (P3)|Purple (P4)|Orange (P5)|Right Aling|Center Align|&lt;1&gt;투명|Brown (P6)|white (P7)|Yellow (P8)|Green (P9)|Brighter Yellow (P10)|Cyan|Pinkish (P11)|Dark Cyan (P12)|Greygreen|BlueGrey|Truquoise</sys:String>
 
     <!--버튼셋-->
+    <sys:String x:Key="buttonSetEtcGroup">기타 버튼</sys:String>
     <sys:String x:Key="buttonSet">버튼셋</sys:String>
     <sys:String x:Key="button">버튼데이터</sys:String>
     <sys:String x:Key="BtnList">버튼리스트</sys:String>
@@ -690,7 +691,11 @@
     <sys:String x:Key="BtnEnaStr">사용가능</sys:String>
     <sys:String x:Key="BtnDisStr">사용불가</sys:String>
     <sys:String x:Key="BtnCon">조건</sys:String>
-    <sys:String x:Key="BtnConval">조건 값</sys:String>
+    <sys:String x:Key="BtnConVal">조건 값</sys:String>
     <sys:String x:Key="BtnAct">액션</sys:String>
     <sys:String x:Key="BtnActVal">액션 값</sys:String>
+
+    <sys:String x:Key="BtnNewString">값</sys:String>
+
+    <sys:String x:Key="BtnNewIndex">기본 커맨드|이동 가능한 건물 커맨드|버러우 커맨드|채취자 커맨드|운송수단 커맨드|빈 버튼|유닛 훈련|유닛 훈련 - 변태|업글 연구|기술 연구|기술 사용|건물 변태|건물 건설 - 변태|건물 건설 - 테란|건물 건설 - 프로토스|건물 건설 - 애드온</sys:String>
 </ResourceDictionary>

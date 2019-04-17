@@ -38,7 +38,22 @@
                                 </DockPanel>
 
                                 <Border Grid.Row="1" Margin="10,2">
-                                    <ListBox x:Name="buttonList" Margin="0,0,0,8" SelectionChanged="ButtonList_SelectionChanged">
+                                    <ListBox x:Name="buttonList" Margin="0,0,0,8" SelectionChanged="ButtonList_SelectionChanged" MouseEnter="ButtonList_MouseEnter">
+                                        <ListBox.InputBindings>
+                                            <KeyBinding Command="{x:Static local:ButtonData.NewItemKeyInputCommand}" Key="N"  Modifiers="Ctrl"/>
+                                            <KeyBinding Command="{x:Static local:ButtonData.CutItemKeyInputCommand}" Key="X"  Modifiers="Ctrl"/>
+                                            <KeyBinding Command="{x:Static local:ButtonData.CopyItemKeyInputCommand}" Key="C"  Modifiers="Ctrl"/>
+                                            <KeyBinding Command="{x:Static local:ButtonData.PasteItemKeyInputCommand}" Key="V"  Modifiers="Ctrl"/>
+                                            <KeyBinding Command="{x:Static local:ButtonData.DeleteItemKeyInputCommand}" Key="Delete" />
+                                        </ListBox.InputBindings>
+                                        <ListBox.CommandBindings>
+                                            <CommandBinding Command="{x:Static local:ButtonData.NewItemKeyInputCommand}"  CanExecute="NewItemCommandCanExecute" Executed="NewItemCommandExcute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.CutItemKeyInputCommand}"  CanExecute="CutCommandCanExecute" Executed="CutItemCommandExcute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.CopyItemKeyInputCommand}"  CanExecute="CopyCommandCanExecute" Executed="CopyItemCommandExcute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.PasteItemKeyInputCommand}"  CanExecute="PasteCommandCanExecute" Executed="PasteItemCommandExcute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.DeleteItemKeyInputCommand}"  CanExecute="DeleteCommandCanExecute" Executed="DeleteItemCommandExcute"/>
+                                        </ListBox.CommandBindings>
+
                                         <ListBox.ContextMenu>
                                             <ContextMenu Opened="ContextMenu_Opened"  >
                                                 <MenuItem x:Name="NewItem" Header="{StaticResource NewCode}" InputGestureText="Ctrl+N" Icon="{materialDesign:PackIcon Kind=FileOutline}" Click="NewItem_Click"/>
@@ -113,29 +128,59 @@
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource BtnWork}" Padding="6"/>
                                 <StackPanel Grid.Row="1" Margin="10,2">
-                                    <ComboBox Margin="3">
+                                    <DockPanel>
+                                        <TextBlock Text="{StaticResource BtnConVal}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
 
-                                    </ComboBox>
-                                    <local:IconSelecterP />
-                                    <ComboBox Margin="3">
+                                        <ComboBox x:Name="ConFunc" Margin="3" SelectionChanged="ConFunc_SelectionChanged">
 
-                                    </ComboBox>
-                                    <local:IconSelecterP />
+                                        </ComboBox>
+                                    </DockPanel>
+                                    <local:IconSelecterP x:Name="ConVal" ValueChange="ConVal_ValueChange"/>
+                                    <DockPanel>
+                                        <TextBlock Text="{StaticResource BtnActVal}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{Binding ElementName=ValueText, Path=Foreground}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
+                                        <ComboBox x:Name="ActFunc" Margin="3" SelectionChanged="ActFunc_SelectionChanged">
+
+                                        </ComboBox>
+                                    </DockPanel>
+
+                                    <local:IconSelecterP x:Name="ActVal" ValueChange="ActVal_ValueChange" />
                                 </StackPanel>
                             </Grid>
                         </materialDesign:Card>
                     </WrapPanel>
                 </ScrollViewer>
                 <Border x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden"  >
-                    <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" Width="400" Height="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" Width="500" Height="400" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Grid Background="{DynamicResource MaterialDesignPaper}" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>
-                                <RowDefinition Height="60"/>
+                                <RowDefinition Height="45"/>
                             </Grid.RowDefinitions>
-                            <StackPanel Margin="18">
+                            <Grid Margin="5">
+                                <Grid.ColumnDefinitions>
+                                    <ColumnDefinition Width="*"/>
+                                    <ColumnDefinition Width="*"/>
+                                </Grid.ColumnDefinitions>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="*"/>
+                                    <RowDefinition Height="40"/>
+                                </Grid.RowDefinitions>
+                                <ListBox x:Name="TypeSelectListBox" Grid.Row="0" Grid.Column="0" SelectionChanged="TypeSelectListBox_SelectionChanged"/>
+                                <Grid x:Name="ButtonPreviewSelecter" Grid.Row="0" Grid.Column="1" Background="Black">
+                                    <Grid.ColumnDefinitions>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                        <ColumnDefinition Width="*"/>
+                                    </Grid.ColumnDefinitions>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
 
-                            </StackPanel>
+                                </Grid>
+                                <local:IconSelecterP x:Name="ValueSelecter" Grid.Row="1" Grid.ColumnSpan="2" ValueChange="ValueSelecter_ValueChange"/>
+                            </Grid>
 
                             <DockPanel LastChildFill="False"  Grid.Row="1">
                                 <Button Click="DialogCancelBtn_Click" Width="130" DockPanel.Dock="Right" Content="{StaticResource Cancel}" Style="{StaticResource MaterialDesignFlatButton}"/>

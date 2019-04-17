@@ -43,7 +43,8 @@ Public Module SCConst
         44,'TechUserequire
         189,'Orderrequire
         SCButtonCount,
-        SCButtonCount'butto
+        SCButtonCount,'butto
+        SCTechCount
     }
     Public Datfilesname() As String = {
         "units",
@@ -67,7 +68,8 @@ Public Module SCConst
         "TechUserequire",
         "Orderrequire",
         "button",
-        "buttonSet"
+        "buttonSet",
+        "Stechdata"
     }
 
 
@@ -112,6 +114,23 @@ Public Module SCConst
 End Module
 
 Public Class StarCraftData
+    Private pstatusFnVal1 As List(Of UInteger)
+    Private pstatusFnVal2 As List(Of UInteger)
+    Public ReadOnly Property statusFnVal1 As List(Of UInteger)
+        Get
+            Return pstatusFnVal1
+        End Get
+    End Property
+
+    Public ReadOnly Property statusFnVal2 As List(Of UInteger)
+        Get
+            Return pstatusFnVal2
+        End Get
+    End Property
+
+
+
+
     Private GRPFiles(SCImageCount) As String
     Private ImageName(SCImageCount) As String
     Private pSfxName(SCSfxdataCount) As String
@@ -358,8 +377,92 @@ Public Class StarCraftData
 
         LoadTexts()
 
+        ReadActConCode()
         LoadMPQData()
+
+        pstatusFnVal1 = New List(Of UInteger)
+        pstatusFnVal2 = New List(Of UInteger)
+        statusFnVal1.AddRange({4343040, 4344192, 4346240, 4345616, 4344656, 4344560, 4344512, 4348160, 4343072})
+        statusFnVal2.AddRange({4353872, 4356240, 4357264, 4355232, 4355040, 4354656, 4357424, 4353760, 4349664})
     End Sub
+
+    Public ReadOnly Property FuncConDict As Dictionary(Of UInteger, ButtonFunc)
+        Get
+            Return ConDict
+        End Get
+    End Property
+    Public ReadOnly Property FuncActDict As Dictionary(Of UInteger, ButtonFunc)
+        Get
+            Return ActDict
+        End Get
+    End Property
+
+
+    Private ConDict As Dictionary(Of UInteger, ButtonFunc) '코드 번호에 대응하는 이름
+    Private ActDict As Dictionary(Of UInteger, ButtonFunc) '코드 번호에 대응하는 이름
+    Private Sub ReadActConCode()
+        ConDict = New Dictionary(Of UInteger, ButtonFunc)
+        ActDict = New Dictionary(Of UInteger, ButtonFunc)
+
+
+        Dim fs As New FileStream(Tool.FiregraftConFunPath, FileMode.Open)
+        Dim sr As New StreamReader(fs)
+
+        While (Not sr.EndOfStream)
+            Dim str As String = sr.ReadLine
+            Dim values() As String = str.Split(vbTab)
+
+            Dim DatType As SCDatFiles.DatFiles
+
+
+            If values.Count <= 2 Then
+                DatType = SCDatFiles.DatFiles.None
+            Else
+                DatType = values(2)
+            End If
+            Dim BtnFunc As New ButtonFunc(values(0), DatType, ConDict.Count)
+
+            ConDict.Add("&H" & values(1), BtnFunc)
+        End While
+
+        sr.Close()
+        fs.Close()
+
+        fs = New FileStream(Tool.FiregraftActFunPath, FileMode.Open)
+        sr = New StreamReader(fs)
+
+        While (Not sr.EndOfStream)
+            Dim str As String = sr.ReadLine
+            Dim values() As String = str.Split(vbTab)
+
+            Dim DatType As SCDatFiles.DatFiles
+
+
+            If values.Count <= 2 Then
+                DatType = SCDatFiles.DatFiles.None
+            Else
+                DatType = values(2)
+            End If
+            Dim BtnFunc As New ButtonFunc(values(0), DatType, ActDict.Count)
+
+            ActDict.Add("&H" & values(1), BtnFunc)
+        End While
+
+        sr.Close()
+        fs.Close()
+    End Sub
+
+
+    Public Structure ButtonFunc
+        Public Index As Integer
+        Public Name As String
+        Public DatType As SCDatFiles.DatFiles
+        Public Sub New(tName As String, tDatType As SCDatFiles.DatFiles, tindex As Integer)
+            Name = tName
+            DatType = tDatType
+            Index = tindex
+        End Sub
+    End Structure
 
     Private Sub LoadTexts()
         'ReadGRPFilenames

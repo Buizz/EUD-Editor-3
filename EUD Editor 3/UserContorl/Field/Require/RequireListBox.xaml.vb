@@ -5,7 +5,7 @@ Public Class RequireListBox
     Private DatFile As SCDatFiles.DatFiles
     Private ObjectID As Integer
     Private Parameter As String
-    Private RequireList As List(Of CRequireData.RequireBlock) = pjData.ExtraDat.RequireData(DatFile).GetRequireObject(ObjectID)
+    Private RequireList As List(Of CRequireData.RequireBlock) = pjData.ExtraDat.RequireData(DatFile).GetRequireBlocks(ObjectID)
 
 
     Public Shared NewItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
@@ -123,7 +123,7 @@ Public Class RequireListBox
 
         DataContext = pjData.BindingManager.RequireDataBinding(ObjectID, DatFile)
 
-        RequireList = pjData.ExtraDat.RequireData(DatFile).GetRequireObject(ObjectID)
+        RequireList = pjData.ExtraDat.RequireData(DatFile).GetRequireBlocks(ObjectID)
         CreateEditWindow.Visibility = Visibility.Hidden
         ListReset()
     End Sub
@@ -134,7 +134,7 @@ Public Class RequireListBox
 
         DataContext = pjData.BindingManager.RequireDataBinding(ObjectID, DatFile)
 
-        RequireList = pjData.ExtraDat.RequireData(DatFile).GetRequireObject(ObjectID)
+        RequireList = pjData.ExtraDat.RequireData(DatFile).GetRequireBlocks(ObjectID)
         CreateEditWindow.Visibility = Visibility.Hidden
         ListReset()
     End Sub

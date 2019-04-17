@@ -43,7 +43,12 @@
 
 
     Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
-        pjData.BindingManager.CodeConnecter(Datfile, ObjectID).DeleteList(MyList)
+        Try
+            pjData.BindingManager.CodeConnecter(Datfile, ObjectID).DeleteList(MyList)
+        Catch ex As Exception
+
+        End Try
+
     End Sub
 
     Private Sub MainListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)

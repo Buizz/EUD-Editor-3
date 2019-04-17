@@ -305,6 +305,17 @@ Namespace Tool
             Return False
         End Function
 
+
+        Public ReadOnly Property FiregraftActFunPath() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Texts\FireGraftActFun.txt"
+            End Get
+        End Property
+        Public ReadOnly Property FiregraftConFunPath() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Texts\FireGraftConFun.txt"
+            End Get
+        End Property
         Public ReadOnly Property OffsetPath() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Offset.txt"

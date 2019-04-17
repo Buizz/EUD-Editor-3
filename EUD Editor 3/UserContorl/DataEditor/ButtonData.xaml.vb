@@ -8,6 +8,30 @@ Public Class ButtonData
     Private ButtonSet As CButtonSet
     Private SelectButton As CButtonData
 
+    Public Shared NewItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(ButtonData))
+    Public Shared CutItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(ButtonData))
+    Public Shared CopyItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(ButtonData))
+    Public Shared PasteItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(ButtonData))
+    Public Shared DeleteItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(ButtonData))
+
+
+    Private Sub NewItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+        SNewItem()
+    End Sub
+    Private Sub CutItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+        SCutItem()
+    End Sub
+    Private Sub CopyItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+        SCopyItem()
+    End Sub
+    Private Sub PasteItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+        SPasteItem()
+    End Sub
+    Private Sub DeleteItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+        SDeleteItem()
+    End Sub
+
+
     Public Sub New(tObjectID As Integer)
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
@@ -33,7 +57,139 @@ Public Class ButtonData
 
         SelectButton = Nothing
         SelectBtnAction()
+
+        For i = 0 To scData.FuncConDict.Values.Count - 1
+            ConFunc.Items.Add(scData.FuncConDict.Values(i).Name)
+        Next
+        For i = 0 To scData.FuncActDict.Values.Count - 1
+            ActFunc.Items.Add(scData.FuncActDict.Values(i).Name)
+        Next
+
+        Dim TypeSelectListString() As String = Tool.GetText("BtnNewIndex").Split("|")
+
+        For i = 0 To TypeSelectListString.Count - 1
+            TypeSelectListBox.Items.Add(TypeSelectListString(i))
+        Next
+
+
+        CreateEditWindow.Visibility = Visibility.Hidden
+
+
+        ReDim ImageBrush(8)
+        For y = 0 To 2
+            For x = 0 To 2
+                Dim btn As New Button
+                'btn.Style = Application.Current.Resources("MaterialDesignFlatButton")
+
+                btn.Width = Double.NaN
+                btn.Height = Double.NaN
+                btn.BorderBrush = Brushes.Transparent
+
+                AddHandler btn.Click, AddressOf BtnClick
+
+                Grid.SetRow(btn, y)
+                Grid.SetColumn(btn, x)
+
+                btn.Content = x + y * 3 + 1 & vbCrLf & vbCrLf & vbCrLf
+                btn.Tag = x + y * 3
+                Dim Brush As New ImageBrush()
+                'Brush.ImageSource = scData.GetIcon(0, False)
+                Brush.Stretch = Stretch.None
+
+                ImageBrush(x + y * 3) = Brush
+
+                btn.Background = Brush
+
+
+                ButtonPreviewSelecter.Children.Add(btn)
+            Next
+        Next
     End Sub
+    Private ImageBrush() As ImageBrush
+    Private Sub BtnClick(sender As Object, e As RoutedEventArgs)
+        SelectPos = sender.Tag
+        TypeSelecterPreivewReset()
+    End Sub
+    Private SelectPos As Integer = 0
+    Private Sub DialogOkayBtn_Click(sender As Object, e As RoutedEventArgs)
+        CloseStroyBoard.Begin(Me)
+
+        ButtonSet.AddButtonType(TypeSelectListBox.SelectedIndex, SelectPos, ValueSelecter.Value)
+        ButtonListReset()
+    End Sub
+    Private Sub TypeSelecterPreivewReset()
+        Dim BType As CButtonSet.BType = TypeSelectListBox.SelectedIndex
+
+        For i = 0 To 8
+            ImageBrush(i).ImageSource = Nothing
+        Next
+
+        Select Case BType
+            Case CButtonSet.BType.DefaultCommand
+                ImageBrush(0).ImageSource = scData.GetIcon(228, False)
+                ImageBrush(1).ImageSource = scData.GetIcon(229, False)
+                ImageBrush(2).ImageSource = scData.GetIcon(230, False)
+                ImageBrush(3).ImageSource = scData.GetIcon(254, False)
+                ImageBrush(4).ImageSource = scData.GetIcon(255, False)
+            Case CButtonSet.BType.MovingablebuildingCommand
+                ImageBrush(0).ImageSource = scData.GetIcon(228, False)
+                ImageBrush(1).ImageSource = scData.GetIcon(229, False)
+                ImageBrush(8).ImageSource = scData.GetIcon(283, False)
+            Case CButtonSet.BType.BurrowCommand
+                ImageBrush(8).ImageSource = scData.GetIcon(259, False)
+            Case CButtonSet.BType.GatherCommand
+                ImageBrush(4).ImageSource = scData.GetIcon(231, False)
+                ImageBrush(5).ImageSource = scData.GetIcon(233, False)
+            Case CButtonSet.BType.TransportCommand
+                ImageBrush(7).ImageSource = scData.GetIcon(309, False)
+                ImageBrush(8).ImageSource = scData.GetIcon(312, False)
+            Case CButtonSet.BType.EmptyButton
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(0, False)
+            Case CButtonSet.BType.UnitTraning
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+            Case CButtonSet.BType.UnitMorph
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+            Case CButtonSet.BType.UpgradeResearch
+                Dim IconIndex As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", ValueSelecter.Value)
+
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex, False)
+            Case CButtonSet.BType.TechResearch
+                Dim IconIndex As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", ValueSelecter.Value)
+
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex, False)
+            Case CButtonSet.BType.TechUse
+                Dim IconIndex As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", ValueSelecter.Value)
+
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex, False)
+            Case CButtonSet.BType.BuildingMorph
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+            Case CButtonSet.BType.BuildingBuild_Morph
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+            Case CButtonSet.BType.BuildingBuild_Terran
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+            Case CButtonSet.BType.BuildingBuild_Protoss
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+            Case CButtonSet.BType.BuildingBuild_Addon
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+        End Select
+    End Sub
+
+
+    Private Sub TypeSelectListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If TypeSelectListBox.SelectedIndex <> -1 Then
+            Dim datfile As SCDatFiles.DatFiles = ButtonSet.ButtonTypeDatFile(TypeSelectListBox.SelectedIndex)
+            If datfile = SCDatFiles.DatFiles.None Then
+                ValueSelecter.Visibility = Visibility.Collapsed
+            Else
+                ValueSelecter.Init(datfile, Tool.GetText("BtnNewString"), 0)
+                ValueSelecter.Visibility = Visibility.Visible
+            End If
+        End If
+        TypeSelecterPreivewReset()
+    End Sub
+
+
+
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
 
@@ -44,6 +200,7 @@ Public Class ButtonData
         ButtonSet = pjData.ExtraDat.ButtonData.GetButtonSet(ObjectID)
         toggleBtn.DataContext = pjData.BindingManager.ExtraDatBinding(DatFiles, "ButtonData", ObjectID)
         ButtonListReset()
+        CreateEditWindow.Visibility = Visibility.Hidden
     End Sub
 
     Private Sub ButtonListReset()
@@ -141,6 +298,32 @@ Public Class ButtonData
             BIconSelecter.Value = SelectButton.icon
             UseStrSelecter.Value = SelectButton.enaStr - 1
             DUseStrSelecter.Value = SelectButton.disStr - 1
+
+            Try
+                ConFunc.SelectedIndex = scData.FuncConDict(SelectButton.con).Index
+                If scData.FuncConDict(SelectButton.con).DatType <> SCDatFiles.DatFiles.None Then
+                    ConVal.Visibility = Visibility.Visible
+                    ConVal.Init(scData.FuncConDict(SelectButton.con).DatType, Tool.GetText("BtnConVal"), SelectButton.conval)
+                Else
+                    ConVal.Visibility = Visibility.Hidden
+                End If
+
+            Catch ex As Exception
+                ConFunc.SelectedIndex = -1
+                ConVal.Visibility = Visibility.Hidden
+            End Try
+            Try
+                ActFunc.SelectedIndex = scData.FuncActDict(SelectButton.act).Index
+                If scData.FuncActDict(SelectButton.act).DatType <> SCDatFiles.DatFiles.None Then
+                    ActVal.Visibility = Visibility.Visible
+                    ActVal.Init(scData.FuncActDict(SelectButton.act).DatType, Tool.GetText("BtnActVal"), SelectButton.actval)
+                Else
+                    ActVal.Visibility = Visibility.Hidden
+                End If
+            Catch ex As Exception
+                ActFunc.SelectedIndex = -1
+                ActVal.Visibility = Visibility.Hidden
+            End Try
         Else
             DefaultInfor.Visibility = Visibility.Hidden
             ButtonAction.Visibility = Visibility.Hidden
@@ -175,8 +358,75 @@ Public Class ButtonData
 
     End Sub
 
-    Private Sub NewItem_Click(sender As Object, e As RoutedEventArgs)
+
+
+
+    Private Sub SNewItem()
         OpenNewWindow()
+    End Sub
+    Private Sub SCutItem()
+        If buttonList.SelectedItem IsNot Nothing Then
+            SelectButton.CopyData()
+            ButtonSet.ButtonS.Remove(SelectButton)
+            buttonList.Items.Remove(buttonList.SelectedItem)
+        End If
+    End Sub
+    Private Sub SCopyItem()
+        If buttonList.SelectedItem IsNot Nothing Then
+            SelectButton.CopyData()
+        End If
+    End Sub
+    Private Sub SPasteItem()
+        If ButtonSet.Pasteable Then
+            ButtonSet.PasteBtn()
+            ButtonListReset()
+        End If
+    End Sub
+    Private Sub SDeleteItem()
+        If buttonList.SelectedItem IsNot Nothing Then
+            ButtonSet.ButtonS.Remove(SelectButton)
+            buttonList.Items.Remove(buttonList.SelectedItem)
+        End If
+    End Sub
+    Private Sub NewItemCommandCanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        e.CanExecute = True
+    End Sub
+    Private Sub CopyCommandCanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If buttonList.SelectedItem IsNot Nothing Then
+            e.CanExecute = True
+        Else
+            e.CanExecute = False
+        End If
+    End Sub
+    Private Sub PasteCommandCanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If ButtonSet.Pasteable Then
+            e.CanExecute = True
+        Else
+            e.CanExecute = False
+        End If
+    End Sub
+    Private Sub CutCommandCanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If buttonList.SelectedItem IsNot Nothing Then
+            e.CanExecute = True
+        Else
+            e.CanExecute = False
+        End If
+    End Sub
+    Private Sub DeleteCommandCanExecute(ByVal sender As Object, ByVal e As CanExecuteRoutedEventArgs)
+        If buttonList.SelectedItem IsNot Nothing Then
+            e.CanExecute = True
+        Else
+            e.CanExecute = False
+        End If
+    End Sub
+
+
+
+
+
+
+    Private Sub NewItem_Click(sender As Object, e As RoutedEventArgs)
+        SNewItem()
     End Sub
 
     Private Sub CoverWriteItem_Click(sender As Object, e As RoutedEventArgs)
@@ -187,37 +437,44 @@ Public Class ButtonData
     End Sub
 
     Private Sub CutItem_Click(sender As Object, e As RoutedEventArgs)
-        SelectButton.CopyData()
-        ButtonSet.ButtonS.Remove(SelectButton)
-        buttonList.Items.Remove(buttonList.SelectedItem)
+        SCutItem()
     End Sub
 
     Private Sub CopyItem_Click(sender As Object, e As RoutedEventArgs)
-        SelectButton.CopyData()
+        SCopyItem()
     End Sub
 
     Private Sub PasteItem_Click(sender As Object, e As RoutedEventArgs)
-        ButtonSet.PasteBtn()
-        ButtonListReset()
+        SPasteItem()
     End Sub
 
     Private Sub DeleteItem_Click(sender As Object, e As RoutedEventArgs)
-        ButtonSet.ButtonS.Remove(SelectButton)
-        buttonList.Items.Remove(buttonList.SelectedItem)
+        SDeleteItem()
     End Sub
 
     Private Sub DialogCancelBtn_Click(sender As Object, e As RoutedEventArgs)
         CloseStroyBoard.Begin(Me)
     End Sub
 
-    Private Sub DialogOkayBtn_Click(sender As Object, e As RoutedEventArgs)
 
-    End Sub
+
+
+
 
     Private Sub OpenNewWindow()
         OpenStroyBoard.Begin(Me)
         'CodeSelecter.SelectedIndex = 2
         CreateEditWindow.Visibility = Visibility.Visible
+
+        TypeSelectListBox.SelectedIndex = 0
+        Dim datfile As SCDatFiles.DatFiles = ButtonSet.ButtonTypeDatFile(TypeSelectListBox.SelectedIndex)
+        If datfile = SCDatFiles.DatFiles.None Then
+            ValueSelecter.Visibility = Visibility.Collapsed
+        Else
+            ValueSelecter.Init(datfile, Tool.GetText("BtnNewString"), 0)
+            ValueSelecter.Visibility = Visibility.Visible
+        End If
+        TypeSelecterPreivewReset
     End Sub
 
 
@@ -331,6 +588,78 @@ Public Class ButtonData
             If IsNumeric(BtnLocation.Text) Then
                 SelectButton.pos = BtnLocation.Text
                 PreviewDraw()
+            End If
+        End If
+    End Sub
+
+    Private Sub ConFunc_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If SelectButton IsNot Nothing Then
+            If ConFunc.SelectedIndex <> -1 Then
+                SelectButton.con = scData.FuncConDict.Keys(ConFunc.SelectedIndex)
+                If scData.FuncConDict(SelectButton.con).DatType <> SCDatFiles.DatFiles.None Then
+                    ConVal.Visibility = Visibility.Visible
+                    ConVal.Init(scData.FuncConDict(SelectButton.con).DatType, Tool.GetText("BtnConVal"), SelectButton.conval)
+                Else
+                    ConVal.Visibility = Visibility.Hidden
+                End If
+
+                PreviewDraw()
+            End If
+        End If
+    End Sub
+
+    Private Sub ConVal_ValueChange(sender As Object, e As RoutedEventArgs)
+        If SelectButton IsNot Nothing Then
+            SelectButton.conval = ConVal.Value
+            PreviewDraw()
+        End If
+    End Sub
+
+    Private Sub ActFunc_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If SelectButton IsNot Nothing Then
+            If ActFunc.SelectedIndex <> -1 Then
+                SelectButton.act = scData.FuncActDict.Keys(ActFunc.SelectedIndex)
+                If scData.FuncActDict(SelectButton.act).DatType <> SCDatFiles.DatFiles.None Then
+                    ActVal.Visibility = Visibility.Visible
+                    ActVal.Init(scData.FuncActDict(SelectButton.act).DatType, Tool.GetText("BtnActVal"), SelectButton.actval)
+                Else
+                    ActVal.Visibility = Visibility.Hidden
+                End If
+
+                PreviewDraw()
+            End If
+        End If
+    End Sub
+
+    Private Sub ActVal_ValueChange(sender As Object, e As RoutedEventArgs)
+        If SelectButton IsNot Nothing Then
+            SelectButton.actval = ActVal.Value
+            PreviewDraw()
+        End If
+    End Sub
+
+    Private Sub ValueSelecter_ValueChange(sender As Object, e As RoutedEventArgs)
+        TypeSelecterPreivewReset()
+    End Sub
+
+    Private Sub ButtonList_MouseEnter(sender As Object, e As MouseEventArgs)
+        If buttonList.Items.Count <> ButtonSet.ButtonS.Count Then
+            ButtonListReset()
+        Else
+            Dim flag As Boolean = False
+            For i = 0 To buttonList.Items.Count - 1
+                Dim Listboxitem As ListBoxItem = buttonList.Items(i)
+
+
+
+                If Listboxitem.Tag IsNot ButtonSet.ButtonS(i) Then
+                    flag = True
+                    Exit For
+                End If
+
+            Next
+            If flag Then
+                ButtonListReset()
             End If
         End If
     End Sub

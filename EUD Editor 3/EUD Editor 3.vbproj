@@ -124,9 +124,6 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
-    <Reference Include="NumericUpDownLib, Version=2.1.1.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\Dirkster.NumericUpDownLib.2.1.1\lib\net4\NumericUpDownLib.dll</HintPath>
-    </Reference>
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Windows.Forms" />
@@ -172,15 +169,18 @@
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
+    <Compile Include="Class\BulidData\BulidPaths.vb" />
+    <Compile Include="Class\BulidData\WriteButtonData.vb" />
     <Compile Include="Class\BulidData\WriteDatFile.vb" />
     <Compile Include="Class\BulidData\WriteedsFile.vb" />
+    <Compile Include="Class\BulidData\WriteReqFile.vb" />
     <Compile Include="Class\BulidData\WriteTbl.vb" />
     <Compile Include="Class\CodeConnecter.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
     <Compile Include="Class\Command\DateEditor\UICommand.vb" />
     <Compile Include="Class\DataManager.vb" />
-    <Compile Include="Class\BulidData\Main.vb" />
+    <Compile Include="Class\BulidData\BulidMain.vb" />
     <Compile Include="Class\Binding\ExtraDatBinding.vb" />
     <Compile Include="Class\Data\CButtonData.vb" />
     <Compile Include="Class\Data\CRequireData.vb" />
@@ -797,8 +797,12 @@
     <EmbeddedResource Include="Data\Texts\ASCII Codes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
-    <Resource Include="Data\Texts\FireGraftActFun.txt" />
-    <Resource Include="Data\Texts\FireGraftConFun.txt" />
+    <EmbeddedResource Include="Data\Texts\FireGraftActFun.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Data\Texts\FireGraftConFun.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </EmbeddedResource>
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

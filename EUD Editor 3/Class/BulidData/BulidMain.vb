@@ -3,64 +3,7 @@ Imports System.Media
 Imports System.Text
 
 Partial Public Class BuildData
-#Region "Paths"
-    Private ReadOnly Property OpenMapPath() As String
-        Get
-            Return Tool.GetRelativePath(EdsFilePath, pjData.OpenMapName)
-        End Get
-    End Property
-    Private ReadOnly Property SaveMapPath() As String
-        Get
-            Return Tool.GetRelativePath(EdsFilePath, pjData.SaveMapName)
-        End Get
-    End Property
-    Private ReadOnly Property tblFilePath() As String
-        Get
-            Return TempFilePath & "\custom_txt.tbl"
-        End Get
-    End Property
-    Private ReadOnly Property EdsFilePath() As String
-        Get
-            Return EudPlibFilePath & "\EUDEditor.eds"
-        End Get
-    End Property
-    Private ReadOnly Property DatpyFilePath() As String
-        Get
-            Return EudPlibFilePath & "\DataEditor.py"
-        End Get
-    End Property
-    Private ReadOnly Property EudPlibFilePath() As String
-        Get
-            Return Tool.GetDirectoy(TempFloder & "\", "eudplibData")
-        End Get
-    End Property
-    Private ReadOnly Property TempFilePath() As String
-        Get
-            Return Tool.GetDirectoy(TempFloder & "\", "temp")
-        End Get
-    End Property
-    Public Shared ReadOnly Property TempFloder() As String
-        Get
-            If pjData.TempFileLoc = "0" Then
-                '기본 데이터 폴더 사용할 경우.
-                Return Tool.GetDirectoy("Data\temp\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
-            ElseIf pjData.TempFileLoc = "1" Then
-                '맵 폴더가 같을 경우
-                Return Tool.GetDirectoy(pjData.OpenMapdirectory & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
 
-            ElseIf pjData.TempFileLoc = "2" Then
-                '맵 폴더가 같을 경우
-                Return Tool.GetDirectoy(Path.GetDirectoryName(pjData.Filename) & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
-            Else
-                Return Tool.GetDirectoy(pjData.TempFileLoc, "\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
-                'If pjData.OpenMapdirectory = pjData.SaveMapdirectory And pjData.OpenMapdirectory = pjData.TempFileLoc Then
-
-
-                'End If
-            End If
-        End Get
-    End Property
-#End Region
     '1. 일단 내장된 파일을 빌드할때 뺴내는 형식에서
     '파일을 내장하지 않고 외부에 빼놓는다
     '2. 외부에 빼놓은 파일을 사용하지 않고 플립설치폴더나 직접 위치를 지정해 해당 플러그인을 기본으로 사용가능
@@ -86,6 +29,8 @@ Partial Public Class BuildData
         'MsgBox("최종 폴더 :" & TempFloder)
     End Sub
 
+
+    '빌드가 가능한지 판단(필수 프로그램 연결)
     Private Function CheckBuildable() As Boolean
         If Not My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
             If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
@@ -165,6 +110,7 @@ Partial Public Class BuildData
     End Function
 
 
+    '########################### 빌드 작업 메인 함수 ############################
     Private Sub BuildProgress()
         '일단 프로그램 못끄게 막고 빌드중이라는 문구와 함께 진행 바 넣어야됨
         pgData.IsCompilng = True
@@ -173,16 +119,20 @@ Partial Public Class BuildData
         '각각의 임시파일들을 만들어야함
 
 
+        'Req데이터 작성
+        WriteRequireData()
+
+
 
         'Dat설정 파일을 저장하는 py제작
         WriteDatFile()
+        WriteExtraDatFile()
 
         'Tbl파일 작성(옵션에 따라)
         If pjData.UseCustomtbl Then
             WriteTbl()
         End If
 
-        'Req데이터 작성
 
 
         'TE관련 삽입

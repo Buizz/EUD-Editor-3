@@ -12,6 +12,7 @@ Partial Public Class BuildData
         sb.AppendLine("")
         If My.Computer.FileSystem.FileExists(DatpyFilePath) Then
             sb.AppendLine("[DataEditor.py]")
+            sb.AppendLine("[ExtraDataEditor.py]")
             sb.AppendLine("")
         End If
 
@@ -20,8 +21,13 @@ Partial Public Class BuildData
 
         sb.AppendLine("[dataDumper]")
         If pjData.UseCustomtbl Then
+            'tbl 파일 쓰기
             sb.AppendLine(Tool.GetRelativePath(EdsFilePath, tblFilePath) & " : 0x6D5A30, copy")
         End If
+        'RequireData 쓰기
+        sb.AppendLine(Tool.GetRelativePath(EdsFilePath, requireFilePath) & " : 0x" & Hex(Tool.GetOffset("Vanilla")) & ", copy")
+
+
         '"[dataDumper]
         'D\:\source\repos\EUDEditor\EUD Editor\bin\x86\Release\Data\temp\stat_txt.tbl : 0x6D5A30, copy"
         '[dataDumper]

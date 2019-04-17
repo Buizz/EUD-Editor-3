@@ -368,30 +368,29 @@ Public Class CodeSelecter
         End If
 
         If CurrentPage > SCDatFiles.DatFiles.orders Then
-            If CurrentPage <> SCDatFiles.DatFiles.Icon Then
-                If Fliter.IsIcon Then
-                    L_IconBtn.IsSelected = False
+            Select Case CurrentPage
+                Case SCDatFiles.DatFiles.stattxt
                     Fliter.IsIcon = False
-                End If
+                    L_IconBtn.Visibility = Visibility.Collapsed
+                Case SCDatFiles.DatFiles.ButtonData
 
-                L_IconBtn.Visibility = Visibility.Collapsed
-            End If
-            If CurrentPage <> SCDatFiles.DatFiles.stattxt Then
-                If Fliter.IsEdit Then
-                    L_IsEditBtn.IsSelected = False
+                Case SCDatFiles.DatFiles.portdata, SCDatFiles.DatFiles.Icon, SCDatFiles.DatFiles.IscriptID
+                    If Fliter.SortType = ESortType.Tree Then
+                        Fliter.SetFliter(ESortType.n123)
+                    End If
+
+                    BtnsortTree.Visibility = Visibility.Collapsed
+                Case Else
+                    If Fliter.IsIcon Then
+                        L_IconBtn.IsSelected = False
+                        Fliter.IsIcon = False
+                    End If
                     Fliter.IsEdit = False
-                End If
+                    L_IsEditBtn.Visibility = Visibility.Collapsed
+                    L_IconBtn.Visibility = Visibility.Collapsed
+            End Select
 
-                L_IsEditBtn.Visibility = Visibility.Collapsed
-            End If
 
-            If CurrentPage = SCDatFiles.DatFiles.portdata Or CurrentPage = SCDatFiles.DatFiles.Icon Or CurrentPage = SCDatFiles.DatFiles.IscriptID Then
-                If Fliter.SortType = ESortType.Tree Then
-                    Fliter.SetFliter(ESortType.n123)
-                End If
-
-                BtnsortTree.Visibility = Visibility.Collapsed
-            End If
         Else
             L_IconBtn.Visibility = Visibility.Visible
             BtnsortTree.Visibility = Visibility.Visible

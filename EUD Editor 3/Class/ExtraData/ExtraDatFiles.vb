@@ -31,7 +31,22 @@ Public Class ExtraDatFiles
         End Set
     End Property
     Public Sub GroupReset(key As SCDatFiles.DatFiles, index As Integer)
-        GroupDic(key)(index) = Math.Floor(index / 100) * 100 & " ~ " & Math.Floor(index / 100) * 100 + 100
+        Select Case key
+            Case SCDatFiles.DatFiles.ButtonData
+                If scData IsNot Nothing Then
+                    If index < SCUnitCount Then
+                        GroupDic(key)(index) = scData.DefaultDat.Group(SCDatFiles.DatFiles.units, index)
+                    Else
+                        GroupDic(key)(index) = Tool.GetText("buttonSetEtcGroup")
+                    End If
+                Else
+                    GroupDic(key)(index) = Tool.GetText("buttonSetEtcGroup")
+                End If
+            Case Else
+                GroupDic(key)(index) = Math.Floor(index / 100) * 100 & " ~ " & Math.Floor(index / 100) * 100 + 100
+        End Select
+
+
     End Sub
     Public Sub ToolTipReset(key As SCDatFiles.DatFiles, index As Integer)
         ToolTipDic(key)(index) = index
@@ -317,8 +332,6 @@ Public Class ExtraDatFiles
         _ButtonData = New CButtonSets(filepath)
     End Sub
 
-    Private statusFnVal1 As List(Of UInteger)
-    Private statusFnVal2 As List(Of UInteger)
     Private _statusFn1() As Byte
     Private _statusFn1IsDefault() As Boolean
     Public Property StatusFunction1(index As Integer) As Byte
@@ -360,9 +373,10 @@ Public Class ExtraDatFiles
 
 
     Private Sub LoadStatusData()
-        statusFnVal1 = New List(Of UInteger)
-        statusFnVal2 = New List(Of UInteger)
-
+        Dim statusFnVal1 As New List(Of UInteger)
+        Dim statusFnVal2 As New List(Of UInteger)
+        statusFnVal1.AddRange({4343040, 4344192, 4346240, 4345616, 4344656, 4344560, 4344512, 4348160, 4343072})
+        statusFnVal2.AddRange({4353872, 4356240, 4357264, 4355232, 4355040, 4354656, 4357424, 4353760, 4349664})
         ReDim _statusFn1(SCUnitCount - 1)
         ReDim _statusFn2(SCUnitCount - 1)
         ReDim _statusFn1IsDefault(SCUnitCount - 1)
@@ -375,8 +389,6 @@ Public Class ExtraDatFiles
         Dim fs As New FileStream(filepath & ".dat", FileMode.Open)
         Dim br As New BinaryReader(fs)
 
-        statusFnVal1.AddRange({4343040, 4344192, 4346240, 4345616, 4344656, 4344560, 4344512, 4348160, 4343072})
-        statusFnVal2.AddRange({4353872, 4356240, 4357264, 4355232, 4355040, 4354656, 4357424, 4353760, 4349664})
 
         For i = 0 To SCUnitCount - 1
             _statusFn1IsDefault(i) = True
@@ -392,7 +404,7 @@ Public Class ExtraDatFiles
 
         Next
 
-        
+
         br.Close()
         fs.Close()
     End Sub

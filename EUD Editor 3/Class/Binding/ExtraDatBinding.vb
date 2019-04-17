@@ -328,6 +328,7 @@ Public Class ExtraDatBinding
     End Property
 
     Public Sub DataReset()
+        pjData.SetDirty(True)
         Select Case Datfile
             Case SCDatFiles.DatFiles.statusinfor
                 If Parameter = "Status" Then

@@ -398,6 +398,8 @@ Public Class DatBinding
     'MaterialDesignBody
 
     Public Sub DataReset()
+        pjData.SetDirty(True)
+
         pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = True
         pjData.Dat.Data(Datfile, Parameter, ObjectID) = scData.DefaultDat.Data(Datfile, Parameter, ObjectID)
 

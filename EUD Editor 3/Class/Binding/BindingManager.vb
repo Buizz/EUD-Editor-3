@@ -364,6 +364,7 @@
                 Case SCDatFiles.DatFiles.ButtonData
                     If name = "ButtonData" Then
                         Return ButtonDataBinding(index)
+                        pjData.SetDirty(True)
                     End If
             End Select
             Return Nothing
