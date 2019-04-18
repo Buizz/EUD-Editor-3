@@ -263,7 +263,7 @@ Public Class StarCraftData
 
     Private SDGRP(SCImageCount) As GRP
     Private HDGRP(SCImageCount) As GRP
-    Public ReadOnly Property GetGRP(index As Integer, frame As Integer, IsRemaster As Boolean) As BitmapImage
+    Public ReadOnly Property GetGRPImage(index As Integer, frame As Integer, IsRemaster As Boolean) As BitmapImage
         Get
             If IsRemaster Then
                 Return Nothing
@@ -272,6 +272,13 @@ Public Class StarCraftData
             End If
         End Get
     End Property
+    Public ReadOnly Property GetGrp(index As Integer) As GRP
+        Get
+            Return SDGRP(index)
+        End Get
+    End Property
+
+
 
 
     Private SDICON As GRP

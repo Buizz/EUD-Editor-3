@@ -34,6 +34,7 @@ Public Class UIManager
     End Sub
 
     Public Sub BackColorRefresh()
+        NotifyPropertyChanged("TreeviewBack")
         NotifyPropertyChanged("Back")
         NotifyPropertyChanged("BackPageReq1")
         NotifyPropertyChanged("BackPageReq2")
@@ -49,6 +50,7 @@ Public Class UIManager
     End Sub
 
     Public Sub ChangeProperty()
+        NotifyPropertyChanged("TreeviewBack")
         NotifyPropertyChanged("Back")
         NotifyPropertyChanged("BackPageReq1")
         NotifyPropertyChanged("BackPageReq2")
@@ -238,6 +240,48 @@ Public Class UIManager
                 End Select
 
                 Return Application.Current.Resources("MaterialDesignPaper")
+            End If
+        End Get
+    End Property
+
+    Public ReadOnly Property TreeviewBack() As SolidColorBrush
+        Get
+            If SCDatFiles.CheckValidDat(Datfile) Then
+                Dim TrueFlag As Boolean = pjData.DataManager.CheckDirtyObject(Datfile, ObjectID)
+
+
+
+                If TrueFlag Then
+                    If pjData.IsMapLoading Then
+                        If TrueFlag Then
+                            Return Application.Current.Resources("MaterialDesignToolBackground")
+                        Else
+                            Return New SolidColorBrush(pgData.FiledMapEditColor)
+                        End If
+                    Else
+                        Return Application.Current.Resources("MaterialDesignToolBackground")
+                    End If
+                Else
+                    Return New SolidColorBrush(pgData.FiledEditColor)
+                End If
+            Else
+                Select Case Datfile
+                    Case SCDatFiles.DatFiles.stattxt
+                        If pjData.ExtraDat.Stat_txt(ObjectID) = ExtraDatFiles.StatNullString Then
+                            Return Application.Current.Resources("MaterialDesignToolBackground")
+                        Else
+                            Return New SolidColorBrush(pgData.FiledEditColor)
+                        End If
+                    Case SCDatFiles.DatFiles.ButtonData
+                        Dim TrueFlag As Boolean = pjData.DataManager.CheckDirtyObject(Datfile, ObjectID)
+                        If TrueFlag Then
+                            Return Application.Current.Resources("MaterialDesignToolBackground")
+                        Else
+                            Return New SolidColorBrush(pgData.FiledEditColor)
+                        End If
+                End Select
+
+                Return Application.Current.Resources("MaterialDesignToolBackground")
             End If
         End Get
     End Property

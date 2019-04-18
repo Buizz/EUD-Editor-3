@@ -8,11 +8,11 @@ Public Class RequireListBox
     Private RequireList As List(Of CRequireData.RequireBlock) = pjData.ExtraDat.RequireData(DatFile).GetRequireBlocks(ObjectID)
 
 
-    Public Shared NewItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
-    Public Shared CutItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
-    Public Shared CopyItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
-    Public Shared PasteItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
-    Public Shared DeleteItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
+    Public Shared NewItemKeyInputCommand As New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
+    Public Shared CutItemKeyInputCommand As New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
+    Public Shared CopyItemKeyInputCommand As New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
+    Public Shared PasteItemKeyInputCommand As New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
+    Public Shared DeleteItemKeyInputCommand As New RoutedUICommand("myCommand", "myCommand", GetType(RequireListBox))
 
     Private Sub __Init()
         Dim items As String() = Tool.GetText("RequireText").Split("|")

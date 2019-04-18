@@ -4,12 +4,27 @@
     Public scData As StarCraftData
 
 
-
+    Public ProjectControlBinding As MainMenuBinding
 
     Public SettiingForm As SettingWindows
 
 
+    Public Function InitProgramDatas() As Boolean
+        Try
+            scData = New StarCraftData
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error LoadStarCraftData Fail"), ex.ToString)
+            Application.Current.Shutdown()
+            Return False
+        End Try
 
+        If Environment.GetCommandLineArgs.Count > 1 Then
+            Dim filename As String = Environment.GetCommandLineArgs(1)
+            ProjectData.Load(filename, pjData)
+            'MsgBox(filename & " 다른파일로 열림")
+        End If
+        Return True
+    End Function
     Public Function InitProgram() As Boolean
         Tool.Init()
 
@@ -21,15 +36,9 @@
             Application.Current.Shutdown()
             Return False
         End Try
-        scData = New StarCraftData
-        Try
 
-        Catch ex As Exception
-            Tool.ErrorMsgBox(Tool.GetText("Error LoadStarCraftData Fail"), ex.ToString)
-            Application.Current.Shutdown()
-            Return False
-        End Try
 
+        ProjectControlBinding = New MainMenuBinding
 
         '언어 설정
         If pgData.Setting(ProgramData.TSetting.Language) = Nothing Then
@@ -123,15 +132,6 @@
 
 
 
-        'Dim helper As New MaterialDesignThemes.Wpf.PaletteHelper
-        'helper.ReplacePrimaryColor(DefaultPalettName(index))
-
-        'Try
-        '    helper.ReplaceAccentColor(DefaultPalettName(index))
-        'Catch ex As Exception
-        '    helper.ReplaceAccentColor("lime")
-        'End Try
-
 
         '세팅파일
         If pgData.Setting(ProgramData.TSetting.euddraft) = Nothing Then
@@ -139,18 +139,22 @@
         End If
 
 
-        Try
-            Tool.SetRegistry()
-        Catch ex As Exception
 
-        End Try
-
-
-        If Environment.GetCommandLineArgs.Count > 1 Then
-            Dim filename As String = Environment.GetCommandLineArgs(1)
-            ProjectData.Load(filename, pjData)
-            'MsgBox(filename & " 다른파일로 열림")
+        If pgData.Setting(ProgramData.TSetting.CheckReg) Then
+            If Tool.CheckexeConnect("e3s") Then
+                Dim dialogResult As MsgBoxResult = MsgBox(Tool.GetText("RegistryConnect"), MsgBoxStyle.YesNoCancel)
+                If dialogResult = MsgBoxResult.Yes Then
+                    SettiingForm = New SettingWindows
+                    SettiingForm.ShowDialog()
+                    'Tool.StartRegSetter()
+                ElseIf dialogResult = MsgBoxResult.Cancel Then
+                    pgData.Setting(ProgramData.TSetting.CheckReg) = False
+                End If
+            End If
         End If
+
+
+
         Return True
     End Function
 

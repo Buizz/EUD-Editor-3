@@ -670,14 +670,14 @@ Public Class ProjectData
             Dim dialog As MsgBoxResult = MsgBox(Tool.GetText("ColseSaveMsg").Replace("%S1", SafeFilename), MsgBoxStyle.YesNoCancel)
             If dialog = MsgBoxResult.Yes Then
                 If Save() Then
-                    Tool.CloseWindows()
+                    Tool.CloseOtherWindow()
                     tIsLoad = False
                     Return True
                 Else
                     Return False
                 End If
             ElseIf dialog = MsgBoxResult.No Then
-                Tool.CloseWindows()
+                Tool.CloseOtherWindow()
                 tIsLoad = False
                 Return True
             ElseIf dialog = MsgBoxResult.Cancel Then
@@ -686,7 +686,7 @@ Public Class ProjectData
 
         End If
 
-        Tool.CloseWindows()
+        Tool.CloseOtherWindow()
         tIsLoad = False
         SaveData.Close()
         Return True

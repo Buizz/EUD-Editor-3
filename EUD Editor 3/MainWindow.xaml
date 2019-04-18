@@ -8,7 +8,7 @@
         Loaded="Window_Loaded"
         Activated="Window_Activated"
         Closing="Window_Closing"
-    Title="MainWindow"  Width="720" Height="78" AllowsTransparency="True"  Background="{x:Null}" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None"  >
+    Title="EUD Editor 3"  Width="720" Height="78" AllowsTransparency="True"  Background="{x:Null}" Topmost="True" WindowStartupLocation="CenterOwner" WindowStyle="None"  >
     <DockPanel VerticalAlignment="Top" >
         <DockPanel.Resources>
             <Style x:Key="RoundButtonTemplate" TargetType="Button">
@@ -151,7 +151,7 @@
                 <Image  Source="Icon/arrow-right-drop-circle.png"/>
                 <!-- 삽입-->
             </Button>
-            <Button x:Name="Btn_DatEdit" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip DE}" Click="BtnDataEditor_Click" IsEnabled="False" Background="White" >
+            <Button x:Name="Btn_DatEdit" Grid.Column="7" Grid.Row="1" HorizontalAlignment="Left"  VerticalAlignment="Top" Style="{StaticResource RoundButtonTemplate}" ToolTip="{DynamicResource ToolTip DE}" Click="BtnDataEditor_Click" Background="White" >
                 <Image  Source="Icon/DatEditIcon.png"/>
                 <!-- DatEdit-->
             </Button>

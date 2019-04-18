@@ -11,7 +11,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Title="{StaticResource Setting}" Height="440" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="440" Topmost="True">
+        Title="{StaticResource Setting}" Height="500" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="500" Topmost="True">
 
     <Grid>
         <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="6" TabStripPlacement="Left" Background="{DynamicResource MaterialDesignPaper}" >
@@ -65,19 +65,22 @@
                         <TextBox x:Name="TempFiletextbox"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     </DockPanel>
-                        
-                    
+
+
                     <Separator Background="#4CA0A0A0"/>
 
-                    
+
                     <Label Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox x:Name="UseCustomTbl" Checked="UseCustomTbl_Checked" Unchecked="UseCustomTbl_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
-                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource chkDataFirst}" Margin="0,0,20,0"/>
+
                         <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}"/>
                     </StackPanel>
-
                     
+                    
+                    <Separator Background="#4CA0A0A0"/>
+
+
                 </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource Default Setting}">
@@ -120,8 +123,41 @@
 
                     <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 
-     
-                   
+                    <Label Content="{StaticResource RegSetting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <StackPanel Margin="5">
+                        <DockPanel Width="220" HorizontalAlignment="Left" >
+                            <Button DockPanel.Dock="Right" x:Name="exeConnectbtn" Content="{StaticResource RegSettingBtn}" Click="ExeConnectbtn_Click" Margin="30,1,1,1"  Height="26"/>
+                            <CheckBox x:Name="regCheck" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource RegSettingCheckbox}"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"/>
+                        </DockPanel>
+                      
+                        <Border  HorizontalAlignment="Left" Width="220"  BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                            <WrapPanel >
+                                <CheckBox x:Name="e3scb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="e3s"/>
+
+                                <CheckBox x:Name="e2scb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="e2s"/>
+
+                                <CheckBox x:Name="e2pcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="e2p"/>
+
+                                <CheckBox x:Name="eescb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="ees"/>
+
+                                <CheckBox x:Name="memcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="mem"/>
+                            </WrapPanel>
+                        </Border>
+                       
+                        <!--e3s e2s e2p ees mem-->
+                      
+
+                    </StackPanel>
+
+                    <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
+                    <Label Content="{StaticResource UpdataSetting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+
                 </StackPanel>
             </TabItem>
             <TabItem Header="{StaticResource Theme}">

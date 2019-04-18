@@ -10,31 +10,51 @@
         xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:EUD_Editor_3"
-                      xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
-                      mc:Ignorable="d"
+        xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+        mc:Ignorable="d"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
         Topmost="True" 
-        Title="{StaticResource DataEditor}" Height="630" Width="780" WindowStartupLocation="Manual" >
+        Title= "{Binding DataEditorName,UpdateSourceTrigger=PropertyChanged}"
+        Height="630" Width="780" WindowStartupLocation="Manual" >
+
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
     </Window.Resources>
 
+
+    
+
     <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <local:ProjectControl x:Name="ControlBar"/>
+            
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <StackPanel Orientation="Horizontal" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Height="32" Text="{StaticResource TopMost}" Padding="7"/>
                     <ToggleButton x:Name="toggleBtn"
                               Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding Topmost, ElementName=metroWindow}"/>
+
                 </StackPanel>
             </StackPanel>
         </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
 
     <DockPanel>
-        <Expander Name="Console" DockPanel.Dock="Bottom" Header="{StaticResource CommandExpander}" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" IsExpanded="True">
+        <Expander Name="Console" DockPanel.Dock="Bottom" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" IsExpanded="True">
+            <Expander.Header>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:PackIcon Kind="Powershell" Margin="0,0,10,0"  />
+                    <TextBlock Text="{StaticResource CommandExpander}"/>
+                    
+                </StackPanel>
+            </Expander.Header>
             <DockPanel>
                 <ToolBarTray x:Name="toolBarTray"  DockPanel.Dock="Top" >
                     <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}"  >

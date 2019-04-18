@@ -41,6 +41,11 @@ Public Class DataEditor
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         WindowOpenType = OpenType.Drag
     End Sub
+    Public Sub CodeViewFold()
+        CodeExpander.IsExpanded = Not CodeExpander.IsExpanded
+    End Sub
+
+
 
     Private Sub OpenbyMainWindow()
         Dim TabContent As TabablzControl = MainTab.Content
@@ -81,6 +86,7 @@ Public Class DataEditor
     Private completion As ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+        Me.DataContext = ProjectControlBinding
         pjData.CodeSelecters.Add(CodeList)
         CodeList.SetFliter(CodeSelecter.ESortType.n123)
         CodeList.ListReset(OpenPage, False)
@@ -96,6 +102,8 @@ Public Class DataEditor
             Me.Width = 740 + 450 + 48 + 40
         End If
         Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
+
+        ControlBar.HotkeyInit(Me)
     End Sub
 
     Private completionWindow As ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow
@@ -213,6 +221,8 @@ Public Class DataEditor
     Private Sub MetroWindow_Closed(sender As Object, e As EventArgs)
         pjData.CodeSelecters.Remove(CodeList)
         pgData.Setting(ProgramData.TSetting.DataEditorTopMost) = Me.Topmost
+        CloseToolWindow()
+
         'MsgBox("파괴")
     End Sub
 

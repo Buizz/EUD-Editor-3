@@ -346,7 +346,7 @@ Public Class DatBinding
             If isIcon Then
                 Return scData.GetIcon(ImageIndex, False)
             Else
-                Return scData.GetGRP(ImageIndex, 12, False)
+                Return scData.GetGRPImage(ImageIndex, 12, False)
             End If
         End Get
     End Property

@@ -23,6 +23,8 @@
         DIC.Init(DatFiles, ObjectID, DIC.Tag)
         DF.Init(DatFiles, ObjectID, DF.Tag)
         REMA.Init(DatFiles, ObjectID, REMA.Tag)
+
+        GRPPlayer.Init(ObjectID)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
@@ -38,5 +40,7 @@
         DIC.ReLoad(DatFiles, ObjectID, DIC.Tag)
         DF.ReLoad(DatFiles, ObjectID, DF.Tag)
         REMA.ReLoad(DatFiles, ObjectID, REMA.Tag)
+
+        GRPPlayer.Init(ObjectID)
     End Sub
 End Class

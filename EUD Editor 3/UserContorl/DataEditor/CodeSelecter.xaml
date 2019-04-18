@@ -47,8 +47,10 @@
         <ListBox ContextMenu="{StaticResource ContextMenu}" x:Name="CodeIndexerList"  Grid.RowSpan="1" ScrollViewer.VerticalScrollBarVisibility="Visible" >
 
         </ListBox>
-        <TreeView 
-             x:Name="CodeIndexerTree"  Grid.RowSpan="1"  Visibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"  SelectedItemChanged="CodeIndexerTree_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
+        <TreeView  x:Name="CodeIndexerTree"  Grid.RowSpan="1"  Visibility="Hidden"
+                   ScrollViewer.VerticalScrollBarVisibility="Visible"
+                   SelectedItemChanged="CodeIndexerTree_SelectedItemChanged"
+                   ScrollViewer.HorizontalScrollBarVisibility="Disabled">
 
         </TreeView>
         <DockPanel Grid.Row="1">
@@ -60,7 +62,7 @@
             </Button>
             <TextBox x:Name="FliterText" Grid.Row="1" KeyDown="FliterKeyDown"
               materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
-              Foreground="{DynamicResource MaterialDesignBody}" />
+              Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" />
         </DockPanel>
 
 

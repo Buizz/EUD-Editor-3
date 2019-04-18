@@ -100,6 +100,9 @@
     <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
     </Reference>
+    <Reference Include="HotKeyManagement.WPF.4">
+      <HintPath>C:\Users\LeeJungHun\Desktop\Dlls\WPF 4.0\HotKeyManagement.WPF.4.dll</HintPath>
+    </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
@@ -162,6 +165,7 @@
     </ApplicationDefinition>
     <Compile Include="Class\Binding\BindingManager.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
+    <Compile Include="Class\Binding\MainMenuBinding.vb" />
     <Compile Include="Class\Binding\RequireCapacityBinding.vb" />
     <Compile Include="Class\Binding\RequireDataBinding.vb" />
     <Compile Include="Class\Binding\StatTxtBinding.vb" />
@@ -186,7 +190,12 @@
     <Compile Include="Class\Data\CRequireData.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
-    <Compile Include="Class\GRP.vb" />
+    <Compile Include="Class\GRP\GRP.vb" />
+    <Compile Include="Class\GRP\GRPBox.vb" />
+    <Compile Include="Class\GRP\GRPImageBox.xaml.vb">
+      <DependentUpon>GRPImageBox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Class\GRP\IScript.vb" />
     <Compile Include="Class\Language.vb" />
     <Compile Include="Class\LuaManager.vb" />
     <Compile Include="Class\Data\MapData.vb" />
@@ -199,10 +208,14 @@
     <Compile Include="Class\tblWriter.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
+    <Compile Include="MainWindow\MainWindowD.xaml.vb">
+      <DependentUpon>MainWindowD.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\StringTool.vb" />
-    <Compile Include="Module\Tool.vb" />
+    <Compile Include="Module\Tools\Tool.vb" />
+    <Compile Include="Module\Tools\WindowControl.vb" />
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
@@ -323,6 +336,9 @@
     <Compile Include="UserContorl\Page\ThemeContorl.xaml.vb">
       <DependentUpon>ThemeContorl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\ProjectControl.xaml.vb">
+      <DependentUpon>ProjectControl.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorPage.xaml.vb">
       <DependentUpon>TriggerEditorPage.xaml</DependentUpon>
     </Compile>
@@ -338,6 +354,10 @@
     <Compile Include="Window\TriggerEditor.xaml.vb">
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
     </Compile>
+    <Page Include="Class\GRP\GRPImageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Language\us-EN.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -358,6 +378,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="MainWindow\MainWindowD.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="ResourceDictionary\MaterialListbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -519,6 +543,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\Page\ThemeContorl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\ProjectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -803,6 +831,9 @@
     <EmbeddedResource Include="Data\Texts\FireGraftConFun.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="Data\RegSetting.exe">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

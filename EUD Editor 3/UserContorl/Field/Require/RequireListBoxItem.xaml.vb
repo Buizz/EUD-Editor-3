@@ -51,7 +51,7 @@
             If isIcon Then
                 Icon.Source = scData.GetIcon(ImageIndex, False)
             Else
-                Icon.Source = scData.GetGRP(ImageIndex, 12, False)
+                Icon.Source = scData.GetGRPImage(ImageIndex, 12, False)
             End If
         Else
             TextV.Visibility = Visibility.Collapsed

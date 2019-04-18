@@ -2,14 +2,23 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:EUD_Editor_3"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
-    <sys:String x:Key="Language">언어</sys:String> 
-    
+    <sys:String x:Key="Language">언어</sys:String>
+
+
+    <sys:String x:Key="DataLoading">실행을 위해 데이터를 불러오는 중...</sys:String>
+    <sys:String x:Key="RegistryConnect">확장자가 연결 되어 있지 않습니다. 연결 하시겠습니까?</sys:String>
+
+
     <sys:String x:Key="Setting">설정</sys:String>
     <sys:String x:Key="OpenMap">연결된 맵</sys:String>
     <sys:String x:Key="SaveMap">저장맵</sys:String>
     <sys:String x:Key="Find">찾아보기</sys:String>
 
+    <sys:String x:Key="RegSetting">확장자 연결</sys:String>
+    <sys:String x:Key="RegSettingBtn">연결</sys:String>
+    <sys:String x:Key="RegSettingCheckbox">실행 시 확인</sys:String>
 
+    <sys:String x:Key="UpdataSetting">업데이트</sys:String>
 
     <sys:String x:Key="TempFileLoc">임시 파일 위치</sys:String>
     <sys:String x:Key="TempFileLoc0">Data폴더</sys:String>
@@ -36,17 +45,25 @@
     <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
     <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
 
-    
-    
-    
-    
-    
-    <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기</sys:String>
-    <sys:String x:Key="ToolTip Compile">빌드</sys:String>
-    <sys:String x:Key="ToolTip DE">데이터 에디터</sys:String>
-    <sys:String x:Key="ToolTip TE">트리거 에디터</sys:String>
-    <sys:String x:Key="ToolTip Plugin">플러그인 설정</sys:String>
 
+
+
+    <sys:String x:Key="ToolTip Setting">프로그램 설정(Ctrl + E)</sys:String>
+    <sys:String x:Key="ToolTip NewFile">새 프로젝트(Ctrl + N)</sys:String>
+    <sys:String x:Key="ToolTip OpenFile">프로젝트 열기(Ctrl + O)</sys:String>
+    <sys:String x:Key="ToolTip SaveFile">프로젝트 저장(Ctrl + S)</sys:String>
+    <sys:String x:Key="ToolTip CloseFile">프로젝트 닫기</sys:String>
+
+    <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기(Ctrl + W)</sys:String>
+    <sys:String x:Key="ToolTip Compile">빌드(Ctrl + B)</sys:String>
+    
+    <sys:String x:Key="ToolTip DE">데이터 에디터(Ctrl + D)</sys:String>
+    <sys:String x:Key="ToolTip TE">트리거 에디터(Ctrl + T)</sys:String>
+    <sys:String x:Key="ToolTip Plugin">플러그인 설정(Ctrl + P)</sys:String>
+
+    
+    
+    
     <sys:String x:Key="DataEditor">데이터 에디터</sys:String>
     <sys:String x:Key="TriggerEditor">트리거 에디터</sys:String>
     <sys:String x:Key="PluginSetting">플러그인 설정</sys:String>
@@ -88,10 +105,14 @@
     <sys:String x:Key="Check">확인</sys:String>
     <sys:String x:Key="Okay">확인</sys:String>
     <sys:String x:Key="Cancel">취소</sys:String>
-    <sys:String x:Key="PageCopy">복사</sys:String>
-    <sys:String x:Key="PagePaste">붙여넣기</sys:String>
-    <sys:String x:Key="PageReset">초기화</sys:String>
+    <sys:String x:Key="PageCopy">페이지 복사</sys:String>
+    <sys:String x:Key="PagePaste">페이지 붙여넣기</sys:String>
+    <sys:String x:Key="PageReset">페이지 초기화</sys:String>
     <sys:String x:Key="CoverWrite">덮어쓰기</sys:String>
+
+    <sys:String x:Key="Save">저장</sys:String>
+
+    <sys:String x:Key="SaveAs">다른 이름으로 저장</sys:String>
     <!--RequireMenu-->
     <sys:String x:Key="NewCode">새로 만들기</sys:String>
     <sys:String x:Key="CodeDelete">삭제</sys:String>
@@ -133,6 +154,7 @@
     <sys:String x:Key="Error FailLoad PluginSet">플러그인 세팅 로드에 실패했습니다.</sys:String>
 
     <sys:String x:Key="Error compiling">빌드 중에는 종료 할 수 없습니다.</sys:String>
+    <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중에는 종료 할 수 없습니다.</sys:String>
     <sys:String x:Key="Compile">빌드 중...</sys:String>
     
 
@@ -160,7 +182,7 @@
     <sys:String x:Key="Transparency">투명도</sys:String>
 
     <sys:String x:Key="CommandExpander">명령 창</sys:String>
-    <sys:String x:Key="CodeExpander">코드</sys:String>
+    <sys:String x:Key="CodeExpander">코드(Ctrl + F)</sys:String>
 
 
     <sys:String x:Key="TabClose">탭 닫기</sys:String>

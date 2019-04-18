@@ -50,6 +50,18 @@ Public Class SettingWindows
                     TempFilebtn.Visibility = Visibility.Visible
             End Select
         End If
+
+        e3scb.IsChecked = Not Tool.CheckexeConnect("e3s")
+        e2scb.IsChecked = Not Tool.CheckexeConnect("e2s")
+        e2pcb.IsChecked = Not Tool.CheckexeConnect("e2p")
+        eescb.IsChecked = Not Tool.CheckexeConnect("ees")
+        memcb.IsChecked = Not Tool.CheckexeConnect("mem")
+
+
+
+        regCheck.IsChecked = pgData.Setting(ProgramData.TSetting.CheckReg)
+
+
         DatLoad = True
     End Sub
 
@@ -235,6 +247,56 @@ Public Class SettingWindows
         If My.Computer.FileSystem.DirectoryExists(BuildData.TempFloder) Then
             Process.Start("explorer.exe", "/root," & BuildData.TempFloder)
         End If
+    End Sub
+
+    Private Sub ExeConnectbtn_Click(sender As Object, e As RoutedEventArgs)
+        Dim argument As String = ""
+
+        If e3scb.IsChecked Then
+            If argument = "" Then
+                argument = "e3s"
+            Else
+                argument = argument & "," & "e3s"
+            End If
+        End If
+        If e2scb.IsChecked Then
+            If argument = "" Then
+                argument = "e2s"
+            Else
+                argument = argument & "," & "e2s"
+            End If
+        End If
+        If e2pcb.IsChecked Then
+            If argument = "" Then
+                argument = "e2p"
+            Else
+                argument = argument & "," & "e2p"
+            End If
+        End If
+        If eescb.IsChecked Then
+            If argument = "" Then
+                argument = "ees"
+            Else
+                argument = argument & "," & "ees"
+            End If
+        End If
+        If memcb.IsChecked Then
+            If argument = "" Then
+                argument = "mem"
+            Else
+                argument = argument & "," & "mem"
+            End If
+        End If
+
+        Tool.StartRegSetter(argument)
+    End Sub
+
+    Private Sub CheckBox_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.CheckReg) = True
+    End Sub
+
+    Private Sub CheckBox_Unchecked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.CheckReg) = False
     End Sub
 
 

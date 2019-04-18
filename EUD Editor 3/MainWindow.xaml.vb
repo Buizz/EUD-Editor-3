@@ -94,7 +94,7 @@ Class MainWindow
             Tool.ErrorMsgBox(Tool.GetText("Error compiling"))
             e.Cancel = True
         Else
-            Tool.CloseWindows()
+            Tool.CloseOtherWindow()
             If Tool.IsProjectLoad Then
                 If pjData.CloseFile() Then
                     pjData = Nothing
@@ -172,7 +172,7 @@ Class MainWindow
     End Sub
 
     Private Sub BtnNewFile_Click(sender As Object, e As RoutedEventArgs)
-        Tool.CloseWindows()
+        Tool.CloseOtherWindow()
         ProjectData.Load(True, pjData)
         BtnRefresh()
     End Sub

@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Media
 Imports System.Windows.Threading
 Imports Dragablz
 Imports MaterialDesignThemes.Wpf
@@ -8,25 +9,21 @@ Namespace Tool
     Module Tool
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
 
-        Private MainWindow As MainWindow
+        'Private MainWindow As MainWindow
         Public Sub Init()
             SaveProjectDialog = New System.Windows.Forms.SaveFileDialog
             SaveProjectDialog.Filter = GetText("SaveFliter")
 
             OffsetDicInit()
 
-            For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(MainWindow) Then
-                    MainWindow = win
-                End If
-            Next
+
         End Sub
 
 
 
 
         Private TextBlockColorTable() As SolidColorBrush = {
-        Application.Current.Resources("MaterialDesignBackground"),
+        Nothing,
         New SolidColorBrush(Color.FromRgb(86, 156, 214)),
          New SolidColorBrush(Color.FromRgb(128, 193, 132)),
          New SolidColorBrush(Color.FromRgb(72, 180, 142)),
@@ -65,7 +62,12 @@ Namespace Tool
 
 
                 Dim Run As New Run(AddedText)
-                Run.Foreground = TextBlockColorTable(LastColor)
+                If LastColor = 0 Then
+                    Run.Foreground = Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Run.Foreground = TextBlockColorTable(LastColor)
+                End If
+
                 inlines.Add(Run)
                 Startindex = tMatch.Index + Value.Length + 3
                 LastCode = ColorCode
@@ -81,7 +83,11 @@ Namespace Tool
             If True Then
                 Dim AddedText As String = Mid(MainText, Startindex, MainText.Length - Startindex + 1)
                 Dim Run As New Run(AddedText)
-                Run.Foreground = TextBlockColorTable(LastColor)
+                If LastColor = 0 Then
+                    Run.Foreground = Application.Current.Resources("MaterialDesignPaper")
+                Else
+                    Run.Foreground = TextBlockColorTable(LastColor)
+                End If
                 inlines.Add(Run)
             End If
 
@@ -186,7 +192,7 @@ Namespace Tool
         Public ReadOnly ProhibitParam() As String = {"Unit Map String", "Unknown1", "Unknown2", "Health Bar", "Sel.Circle Image", "Sel.Circle Offset", "Unused", "Unknown 4", "Unknown6", "Unknown17"}
 
 
-        Public Sub CloseWindows()
+        Public Sub CloseOtherWindow()
             For Each win As Window In Application.Current.Windows
                 If win.GetType Is GetType(DataEditor) Or win.GetType Is GetType(TriggerEditor) Or win.GetType Is GetType(PluginWindow) Then
                     win.Close()
@@ -229,11 +235,17 @@ Namespace Tool
                 SFmpq.SFileCloseArchive(hmpq)
             Next
 
-
+            Tool.ErrorMsgBox("File Load Fail from MPQ. " & filename)
             Throw New System.Exception("File Load Fail from MPQ. " & filename)
             Return Nothing
         End Function
+        Public Sub PlaySoundFromMPQ(filename As String)
+            Dim bytes() As Byte = LoadDataFromMPQ(filename)
 
+            Dim sp As New SoundPlayer(New IO.MemoryStream(bytes))
+
+            sp.Play()
+        End Sub
 
 
         Public Function IsProjectLoad() As Boolean
@@ -335,6 +347,14 @@ Namespace Tool
         Public Function GetTitleName() As String
             If pjData IsNot Nothing Then
                 If pjData.IsLoad Then
+                    Return GetProjectName() & " - EUD Editor 3 v" & pgData.Version.ToString
+                End If
+            End If
+            Return "EUD Editor 3 v" & pgData.Version.ToString
+        End Function
+        Public Function GetProjectName() As String
+            If pjData IsNot Nothing Then
+                If pjData.IsLoad Then
                     Dim IsDirty As String = ""
                     Dim Filename As String = pjData.SafeFilename
                     If pjData.IsDirty Then
@@ -344,11 +364,12 @@ Namespace Tool
                         Filename = GetText("NoName")
                     End If
 
-                    Return Filename & IsDirty & " - EUD Editor 3 v" & pgData.Version.ToString
+                    Return Filename & IsDirty
                 End If
             End If
-            Return "EUD Editor 3 v" & pgData.Version.ToString
+            Return ""
         End Function
+
 
         Public ReadOnly Property GetLanguageFolder() As String
             Get
@@ -359,6 +380,12 @@ Namespace Tool
         Public ReadOnly Property GetTblFolder() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Tbls"
+            End Get
+        End Property
+
+        Public ReadOnly Property GetRegSettingFile() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\RegSetting.exe"
             End Get
         End Property
 
@@ -421,7 +448,7 @@ Namespace Tool
 
         Public Sub RefreshMainWindow()
             Try
-                MainWindow.BtnRefresh()
+                ProjectControlBinding.PropertyChangedPack()
             Catch ex As Exception
 
             End Try
@@ -441,6 +468,23 @@ Namespace Tool
             Next
 
         End Sub
+
+        Public Sub StartRegSetter(Argument As String)
+            Dim p As New Process()
+            p.StartInfo.FileName = GetRegSettingFile
+            p.StartInfo.UseShellExecute = True
+            p.StartInfo.Verb = "runas" 'Verb를 runas로 (관리자 권한으로 실행 명령)
+            p.StartInfo.Arguments = Argument
+
+            p.Start()
+        End Sub
+
+        Public Function CheckexeConnect(Extention As String) As Boolean
+            Dim RegistryKeys As String = My.Computer.Registry.GetValue("HKEY_CLASSES_ROOT\" & Extention & "\shell\open\command", Nothing, "")
+            Dim RegisPath As String = RegistryKeys.Replace(RegistryKeys.Split(".").Last, "") & "exe"
+
+            Return RegisPath <> System.Windows.Forms.Application.ExecutablePath
+        End Function
     End Module
 End Namespace
 

@@ -297,11 +297,44 @@ Public Class CodeSelecter
         Fliter.SetFliter(tfliter)
     End Sub
 
+    Private Sub RefreshTreeview(StartIndex As Integer, treeviewitem As TreeViewItem)
+        Dim index As Integer = treeviewitem.Tag
+
+        If index = StartIndex Then
+            'Treeview.SelectedItem = treeviewitem
+            treeviewitem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+            treeviewitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+            'Treeview.ScrollIntoView(treeviewitem)
+        Else
+            If BindingManager.CheckUIAble(CurrentPage) And index >= 0 Then
+                If SCCodeCount(CurrentPage) > index Then
+                    Dim BackBinding As Binding = New Binding("TreeviewBack")
+                    BackBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
+                    treeviewitem.SetBinding(TreeViewItem.BackgroundProperty, BackBinding)
+                End If
+            End If
+            treeviewitem.Background = Application.Current.Resources("MaterialDesignToolBackground")
+            treeviewitem.Foreground = Application.Current.Resources("MaterialDesignBody")
+        End If
+        For i = 0 To treeviewitem.Items.Count - 1
+            Dim ttreeviewitem As TreeViewItem = treeviewitem.Items(i)
+            RefreshTreeview(StartIndex, ttreeviewitem)
+        Next
+    End Sub
+
     Public Sub Refresh(tStartIndex As Integer, Optional tFlag As Integer = 0)
         Flag = tFlag
         StartIndex = tStartIndex
         Select Case Fliter.SortType
             Case ESortType.Tree
+                Dim Treeview As TreeView = CodeIndexerTree
+
+
+
+                For i = 0 To Treeview.Items.Count - 1
+                    Dim treeviewitem As TreeViewItem = Treeview.Items(i)
+                    RefreshTreeview(StartIndex, treeviewitem)
+                Next
             Case Else
                 Dim Listbox As ListBox
                 If Fliter.IsIcon Then
@@ -328,7 +361,7 @@ Public Class CodeSelecter
                                 Listboxitem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
                             End If
                         End If
-                        Listboxitem.Background = Application.Current.Resources("MaterialDesignBackground")
+                        Listboxitem.Background = Application.Current.Resources("MaterialDesignPaper")
                         Listboxitem.Foreground = Application.Current.Resources("MaterialDesignBody")
 
                     End If
@@ -380,6 +413,9 @@ Public Class CodeSelecter
                     End If
 
                     BtnsortTree.Visibility = Visibility.Collapsed
+                Case SCDatFiles.DatFiles.wireframe
+                    Fliter.IsEdit = False
+                    L_IsEditBtn.Visibility = Visibility.Collapsed
                 Case Else
                     If Fliter.IsIcon Then
                         L_IconBtn.IsSelected = False
@@ -447,7 +483,7 @@ Public Class CodeSelecter
         Return tborder
     End Function
     Private Function GetImage(grpIndex As Integer, isSizeBig As Boolean) As Border
-        Dim imgSource As ImageSource = scData.GetGRP(grpIndex, 12, False)
+        Dim imgSource As ImageSource = scData.GetGRPImage(grpIndex, 12, False)
         Dim bitmap As New Image
         bitmap.BeginInit()
         bitmap.Source = imgSource
@@ -852,7 +888,7 @@ Public Class CodeSelecter
                     Dim CodeGroup As String
                     Dim Imageborder As Border
 
-                    If SCDatFiles.CheckValidDat(CurrentPage) Or CurrentPage = SCDatFiles.DatFiles.wireframe Then
+                    If SCDatFiles.CheckValidDat(CurrentPage) Or CurrentPage = SCDatFiles.DatFiles.wireframe Or CurrentPage = SCDatFiles.DatFiles.ButtonData Then
                         Imageborder = ObjectImages(i)
                     Else
                         Imageborder = Nothing
@@ -973,6 +1009,7 @@ Public Class CodeSelecter
             Next
             If Not PassGroup Then
                 Dim ttreeitem As New TreeViewItem()
+                ttreeitem.Style = Application.Current.Resources("BackGroundTreeViewItem")
 
                 ttreeitem.Header = groups(gindex)
                 ItempColl.Add(ttreeitem)
@@ -1007,6 +1044,8 @@ Public Class CodeSelecter
             Next
             If Not PassGroup Then
                 Dim ttreeitem As New TreeViewItem()
+                ttreeitem.Style = Application.Current.Resources("BackGroundTreeViewItem")
+
 
                 ttreeitem.Header = groups(gindex)
                 ItempColl.Add(ttreeitem)
@@ -1017,6 +1056,7 @@ Public Class CodeSelecter
         Next
 
         Dim CodeItem As New TreeViewItem()
+        CodeItem.Style = Application.Current.Resources("BackGroundTreeViewItem")
         '만약 
         If Isbig Then
             If ItempColl.Count = 0 Then
@@ -1039,10 +1079,10 @@ Public Class CodeSelecter
             TreeviewItemDic.Add(index, CodeItem)
         Else
             Dim textblock As New TextBlock
-            textblock.TextWrapping = TextWrapping.WrapWithOverflow
-            textblock.Padding = New Thickness(15, 8, 0, 0)
+            'textblock.TextWrapping = TextWrapping.WrapWithOverflow
+            textblock.Padding = New Thickness(15, 0, 0, 0)
 
-            If CurrentPage <= SCDatFiles.DatFiles.orders Then
+            If BindingManager.CheckUIAble(CurrentPage) Then
                 Dim NameBinding As Binding = New Binding("Name")
                 NameBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
                 textblock.SetBinding(TextBlock.TextProperty, NameBinding)
@@ -1050,14 +1090,18 @@ Public Class CodeSelecter
                 textblock.Text = itemName
             End If
 
+            If BindingManager.CheckUIAble(CurrentPage) Then
+                Dim BackBinding As Binding = New Binding("TreeviewBack")
+                BackBinding.Source = pjData.BindingManager.UIManager(CurrentPage, index)
+                CodeItem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
+            End If
 
 
-
-            Dim stackpanel As New StackPanel
-            stackpanel.Margin = New Thickness(-8, -8, -12, -8)
-            stackpanel.Height = 32
-            stackpanel.Width = 500
-            stackpanel.Orientation = Orientation.Horizontal
+            Dim stackpanel As New DockPanel
+            stackpanel.Margin = New Thickness(-8, 0, 0, 0)
+            'stackpanel.Height = 32
+            'stackpanel.Width = 500
+            'stackpanel.Orientation = Orientation.Horizontal
             If timage IsNot Nothing Then
                 timage.Margin = New Thickness(timage.Margin.Left + 8, timage.Margin.Top, timage.Margin.Right, timage.Margin.Bottom)
                 stackpanel.Children.Add(timage)
@@ -1073,7 +1117,7 @@ Public Class CodeSelecter
 
             If isSelect And IsComboBox Then
                 CodeItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                stackpanel.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                'stackpanel.Background = Application.Current.Resources("PrimaryHueDarkBrush")
                 textblock.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
 
                 Dim _ParrentTreeview As Object = CodeItem.Parent
@@ -1099,7 +1143,7 @@ Public Class CodeSelecter
         Fliter.IsIcon = L_IconBtn.IsSelected
         Fliter.IsEdit = L_IsEditBtn.IsSelected
 
-        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex)
+        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
     End Sub
 
 

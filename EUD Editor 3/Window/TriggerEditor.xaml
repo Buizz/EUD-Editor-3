@@ -13,20 +13,29 @@
         mc:Ignorable="d"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Loaded="Window_Loaded"
+        Closed="MetroWindow_Closed"
         x:Name="metroWindow"
         Title="{StaticResource TriggerEditor}" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True">
 
     <controls:MetroWindow.RightWindowCommands>
+        <controls:WindowCommands>
+            <local:ProjectControl x:Name="ControlBar"/>
+
+        </controls:WindowCommands>
+    </controls:MetroWindow.RightWindowCommands>
+
+    <controls:MetroWindow.LeftWindowCommands>
         <controls:WindowCommands>
             <StackPanel Orientation="Horizontal" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Height="32" Text="{StaticResource TopMost}" Padding="7"/>
                     <ToggleButton x:Name="toggleBtn"
                               Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding Topmost, ElementName=metroWindow}"/>
+
                 </StackPanel>
             </StackPanel>
         </controls:WindowCommands>
-    </controls:MetroWindow.RightWindowCommands>
+    </controls:MetroWindow.LeftWindowCommands>
 
 
     <Window.Resources>
