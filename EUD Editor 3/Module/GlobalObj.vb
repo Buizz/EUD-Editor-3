@@ -1,4 +1,7 @@
-﻿Module GlobalObj
+﻿Imports System.Windows.Threading
+Imports System.Windows.Interop
+
+Module GlobalObj
     Public pgData As ProgramData
     Public pjData As ProjectData
     Public scData As StarCraftData
@@ -17,6 +20,7 @@
             Application.Current.Shutdown()
             Return False
         End Try
+
 
         If Environment.GetCommandLineArgs.Count > 1 Then
             Dim filename As String = Environment.GetCommandLineArgs(1)
@@ -135,21 +139,6 @@
         '세팅파일
         If pgData.Setting(ProgramData.TSetting.euddraft) = Nothing Then
             pgData.SaveSetting()
-        End If
-
-
-
-        If pgData.Setting(ProgramData.TSetting.CheckReg) Then
-            If Tool.CheckexeConnect("e3s") Then
-                Dim dialogResult As MsgBoxResult = MsgBox(Tool.GetText("RegistryConnect"), MsgBoxStyle.YesNoCancel)
-                If dialogResult = MsgBoxResult.Yes Then
-                    SettiingForm = New SettingWindows
-                    SettiingForm.ShowDialog()
-                    'Tool.StartRegSetter()
-                ElseIf dialogResult = MsgBoxResult.Cancel Then
-                    pgData.Setting(ProgramData.TSetting.CheckReg) = False
-                End If
-            End If
         End If
 
 

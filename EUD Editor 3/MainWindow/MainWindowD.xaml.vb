@@ -1,29 +1,31 @@
 ﻿Imports System.Windows.Threading
 Imports System.Windows.Interop
-
+Imports System.ComponentModel
 
 Public Class MainWindowD
-
+    Private BackGroundWorker As BackgroundWorker
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         InitProgram()
-        Thread = New Task(AddressOf ProgramLoad)
-        Thread.Start()
+        BackGroundWorker = New BackgroundWorker()
+        AddHandler BackGroundWorker.DoWork, AddressOf BackgroundWorker1_DoWork
+        AddHandler BackGroundWorker.RunWorkerCompleted, AddressOf BackgroundWorker1_RunWorkerCompleted
 
+        BackGroundWorker.RunWorkerAsync()
     End Sub
-
+    Private Sub BackgroundWorker1_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
+        ProgramLoad()
+    End Sub
+    Private Sub BackgroundWorker1_RunWorkerCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs)
+        ProgramLoadCmp()
+    End Sub
 
     Private Sub MetroWindow_Unloaded(sender As Object, e As RoutedEventArgs)
 
     End Sub
 
-
-
     Private IsProgramLoad As Boolean = False
     Private ControlBar As ProjectControl
-
-
-    Private Thread As Task
 
     Private Sub ProgramLoad()
         InitProgramDatas()
@@ -38,6 +40,20 @@ Public Class MainWindowD
 
                                                                     ProjectControlBinding.PropertyChangedPack()
                                                                 End Sub))
+    End Sub
+    Private Sub ProgramLoadCmp()
+        If pgData.Setting(ProgramData.TSetting.CheckReg) Then
+            If Tool.CheckexeConnect("e3s") Then
+                Dim dialogResult As MsgBoxResult = MsgBox(Tool.GetText("RegistryConnect"), MsgBoxStyle.YesNoCancel)
+                If dialogResult = MsgBoxResult.Yes Then
+                    SettiingForm = New SettingWindows
+                    SettiingForm.ShowDialog()
+                    'Tool.StartRegSetter()
+                ElseIf dialogResult = MsgBoxResult.Cancel Then
+                    pgData.Setting(ProgramData.TSetting.CheckReg) = False
+                End If
+            End If
+        End If
     End Sub
 
 
