@@ -246,7 +246,13 @@ Namespace Tool
 
             sp.Play()
         End Sub
+        Public Sub PlaySoundFromMPQIndex(soundindex As Integer)
+            Dim pureFilename As String = scData.SfxFileName(pjData.Dat.Data(SCDatFiles.DatFiles.sfxdata, "Sound File", soundindex) - 1)
+            pureFilename = Replace(pureFilename, pureFilename.Split(".").Last, "") & "wav"
 
+
+            PlaySoundFromMPQ("sound\" & pureFilename)
+        End Sub
 
         Public Function IsProjectLoad() As Boolean
             If pjData IsNot Nothing Then

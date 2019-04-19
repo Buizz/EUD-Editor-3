@@ -24,10 +24,17 @@
         DF.Init(DatFiles, ObjectID, DF.Tag)
         REMA.Init(DatFiles, ObjectID, REMA.Tag)
 
-        GRPPlayer.Init(ObjectID)
+        GRPPlayer.Init(ObjectID, 0)
+
+
+        Dim IscriptID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.images, "Iscript ID", ObjectID)
+        ImageScripts.Items.Clear()
+        For i = 0 To scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).EntryType - 1
+            ImageScripts.Items.Add(Format(scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).AnimHeader(i), "00000") & " " & IScript.HEADERNAME(i))
+        Next
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        ObjectID = ObjectID
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
+        ObjectID = tObjectID
 
         UsedCodeList.ReLoad(DatFiles, ObjectID)
 
@@ -41,6 +48,28 @@
         DF.ReLoad(DatFiles, ObjectID, DF.Tag)
         REMA.ReLoad(DatFiles, ObjectID, REMA.Tag)
 
-        GRPPlayer.Init(ObjectID)
+        GRPPlayer.Init(ObjectID, 0)
+
+        Dim IscriptID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.images, "Iscript ID", ObjectID)
+        ImageScripts.Items.Clear()
+        For i = 0 To scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).EntryType - 1
+            ImageScripts.Items.Add(Format(scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).AnimHeader(i), "00000") & " " & IScript.HEADERNAME(i))
+        Next
+    End Sub
+
+    Private Sub ImageScripts_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If ImageScripts.SelectedIndex <> -1 Then
+            GRPPlayer.Init(ObjectID, ImageScripts.SelectedIndex)
+        End If
+    End Sub
+
+    Private Sub II_ValueChange(sender As Object, e As RoutedEventArgs)
+        GRPPlayer.Init(ObjectID, 0)
+
+        Dim IscriptID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.images, "Iscript ID", ObjectID)
+        ImageScripts.Items.Clear()
+        For i = 0 To scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).EntryType - 1
+            ImageScripts.Items.Add(Format(scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).AnimHeader(i), "00000") & " " & IScript.HEADERNAME(i))
+        Next
     End Sub
 End Class

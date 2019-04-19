@@ -20,7 +20,7 @@
             <local:NameBar x:Name="NameBar"/>
             <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="274" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Height="290" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="25" />
@@ -30,13 +30,16 @@
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource SpriteInfor}" Padding="6"/>
-                            <StackPanel Grid.Row="1" Margin="10,2">
-
-                                <local:IconSelecter x:Name="IFI" Tag="Image File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="358"  />
-                                <local:BoolSelecter x:Name="IV" Tag="Is Visible" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                                <local:IconSelecter x:Name="SCI" IsEnabled="False" Tag="Sel.Circle Image" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                                <local:InputField x:Name="SCO" IsEnabled="False" Tag="Sel.Circle Offset" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                                <local:InputField x:Name="HB" IsEnabled="False" Tag="Health Bar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            <StackPanel Grid.Row="1" Margin="10,2" Orientation="Horizontal">
+                                <WrapPanel Orientation="Vertical">
+                                    <local:IconSelecter x:Name="IFI" Tag="Image File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="358"  ValueChange="IFI_ValueChange" />
+                                    <local:BoolSelecter x:Name="IV" Tag="Is Visible" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <local:IconSelecter x:Name="SCI" IsEnabled="False" Tag="Sel.Circle Image" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                                    <local:InputField x:Name="SCO" IsEnabled="False" Tag="Sel.Circle Offset" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                                    <local:InputField x:Name="HB" IsEnabled="False" Tag="Health Bar" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    
+                                </WrapPanel>
+                                <local:GRPImageBox x:Name="GRPImageBox" Width="256" Height="256"/>
                             </StackPanel>
                         </Grid>
                     </materialDesign:Card>

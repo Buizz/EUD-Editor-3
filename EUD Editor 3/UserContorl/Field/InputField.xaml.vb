@@ -7,6 +7,7 @@
 
     Private SpecialFlag As SFlag
 
+    Public Event ValueChange As RoutedEventHandler
 
     Public Enum SFlag
         None
@@ -447,4 +448,7 @@
         End If
     End Sub
 
+    Private Sub ValueText_TextChanged(sender As Object, e As TextChangedEventArgs)
+        RaiseEvent ValueChange(Me, e)
+    End Sub
 End Class

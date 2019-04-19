@@ -10,7 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"  MaxHeight="34" Height="34">
     <DockPanel LastChildFill="True">
-        <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left"/>
+        <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left" ValueChange="Field_ValueChange" />
         <DockPanel >
             <Border x:Name="IconBox" Width="32" Height="32" Background="Black" >
                 <Image x:Name="IconImage"   DockPanel.Dock="Left" />

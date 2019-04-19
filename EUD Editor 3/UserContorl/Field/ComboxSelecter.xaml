@@ -10,7 +10,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"  MaxHeight="34" Height="34">
     <DockPanel LastChildFill="True">
-        <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left"/>
+        <local:InputField x:Name="Field" Padding="4,4,0,4" DockPanel.Dock="Left" ValueChange="Field_ValueChange"/>
         <ComboBox x:Name="MainComboBox" Background ="{Binding BackColor}" SelectedIndex="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Margin="0,0,4,0" Padding="0,4" >
             <ComboBox.ContextMenu>
                 <ContextMenu >

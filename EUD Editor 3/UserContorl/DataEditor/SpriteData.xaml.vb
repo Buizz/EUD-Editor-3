@@ -22,9 +22,13 @@
         SCI.Init(DatFiles, ObjectID, SCI.Tag, 100)
         SCO.Init(DatFiles, ObjectID, SCO.Tag, InputField.SFlag.None, 100)
         HB.Init(DatFiles, ObjectID, HB.Tag, InputField.SFlag.None, 100)
+
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", ObjectID)
+
+        GRPImageBox.Init(ImageID, 0, GRPImageBox.BoxType.Sprite, ObjectID)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        ObjectID = ObjectID
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
+        ObjectID = tObjectID
 
         UsedCodeList.ReLoad(DatFiles, ObjectID)
 
@@ -35,5 +39,15 @@
         SCI.ReLoad(DatFiles, ObjectID, SCI.Tag)
         SCO.ReLoad(DatFiles, ObjectID, SCO.Tag)
         HB.ReLoad(DatFiles, ObjectID, HB.Tag)
+
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", ObjectID)
+
+        GRPImageBox.Init(ImageID, 0, GRPImageBox.BoxType.Sprite, ObjectID)
+    End Sub
+
+    Private Sub IFI_ValueChange(sender As Object, e As RoutedEventArgs)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", ObjectID)
+
+        GRPImageBox.Init(ImageID, 0, GRPImageBox.BoxType.Sprite, ObjectID)
     End Sub
 End Class

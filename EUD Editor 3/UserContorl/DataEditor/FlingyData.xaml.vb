@@ -23,9 +23,14 @@
         TR.Init(DatFiles, ObjectID, TR.Tag, InputField.SFlag.None, 100)
         MC.Init(DatFiles, ObjectID, MC.Tag, 100)
         UN.Init(DatFiles, ObjectID, UN.Tag, InputField.SFlag.None, 100)
+
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", ObjectID)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+
+        GRPImageBox.Init(ImageID, 0)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        ObjectID = ObjectID
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
+        ObjectID = tObjectID
 
         UsedCodeList.ReLoad(DatFiles, ObjectID)
 
@@ -38,5 +43,17 @@
         TR.ReLoad(DatFiles, ObjectID, TR.Tag)
         MC.ReLoad(DatFiles, ObjectID, MC.Tag)
         UN.ReLoad(DatFiles, ObjectID, UN.Tag)
+
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", ObjectID)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+
+        GRPImageBox.Init(ImageID, 0)
+    End Sub
+
+    Private Sub SP_ValueChange(sender As Object, e As RoutedEventArgs)
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", ObjectID)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+
+        GRPImageBox.Init(ImageID, 0)
     End Sub
 End Class

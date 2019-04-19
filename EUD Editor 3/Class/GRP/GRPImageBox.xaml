@@ -4,9 +4,21 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
+             xmlns:wpf="http://schemas.microsoft.com/netfx/2007/xaml/presentation"
+             xmlns:wf="clr-namespace:System.Windows.Forms;assembly=System.Windows.Forms"
+             xmlns:interop="clr-namespace:Microsoft.DwayneNeed.Interop;assembly=Microsoft.DwayneNeed"
+             mc:Ignorable="d"
+             Unloaded="UserControl_Unloaded"
              d:DesignHeight="256" d:DesignWidth="256" Background="Black">
     <Grid>
-        <Image x:Name="ImageBox"/>
+        <interop:AirspaceDecorator AirspaceMode="Redirect"
+                           Background="White"
+                           IsInputRedirectionEnabled="True"
+                           IsOutputRedirectionEnabled="True">
+            <wpf:WindowsFormsHost x:Name="WinHost" >
+                <wf:PictureBox x:Name="ImageBox" SizeMode="CenterImage" />
+            </wpf:WindowsFormsHost>
+        </interop:AirspaceDecorator>
+    
     </Grid>
 </UserControl>

@@ -7,6 +7,10 @@ Public Class IconSelecter
 
     Private DatCommand As DatCommand
 
+    Public Event ValueChange As RoutedEventHandler
+
+
+
     Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
@@ -482,5 +486,9 @@ Public Class IconSelecter
 
         End If
 
+    End Sub
+
+    Private Sub Field_ValueChange(sender As Object, e As RoutedEventArgs)
+        RaiseEvent ValueChange(Me, e)
     End Sub
 End Class

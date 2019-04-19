@@ -21,132 +21,203 @@ Public Enum PalettType
     ofire = 12
     SelCircle = 13
     Wireframe = 14
+
+    shadow = 15
+    Hallulation = 16
+    EMP = 17
 End Enum
 
 
-Public Class GRP
-    Public GRPfilename As String
+Namespace MGRP
+    Public Module GRPMoudle
+        Public tilesetname() As String = {"badlands", "platform", "install", "ashworld", "jungle", "desert", "ice", "twilight"}
 
-    Public Palett(255) As Color
+        Private pPalett() As CPalett
+        Public ReadOnly Property Palett(PType As PalettType) As CPalett
+            Get
+                Return pPalett(PType)
+            End Get
+        End Property
+
+        Private pRemappingPallet() As CPCX
+        Public ReadOnly Property RemappingPallet(PType As Remapping) As CPCX
+            Get
+                Return pRemappingPallet(PType)
+            End Get
+        End Property
+
+        Public Sub GRPMoudleInit()
+            ReDim pPalett(17)
+            For i = 0 To 17
+                pPalett(i) = New CPalett(i)
+            Next
+
+            ReDim pRemappingPallet(6)
+
+            Dim pcxstr() As String = {"ofire", "gfire", "bfire", "bexpl", "trans50", "dark", "shift"}
+            'RemappingPallet(0) = New CPCX
+            'RemappingPallet(0).LoadPCX(mpq.ReaddatFile("tileset\" & tilesetname(TileSetType) & "\" & pcxstr(0) & ".pcx"))
+
+            For i = 0 To 6
+                pRemappingPallet(i) = New CPCX
+                pRemappingPallet(i).LoadPCX(Tool.LoadDataFromMPQ("tileset\" & tilesetname(3) & "\" & pcxstr(i) & ".pcx"))
+            Next
+        End Sub
 
 
-    Public framecount As UInteger
-    Public grpWidth As UInteger
-    Public grpHeight As UInteger
-    Public GRPFrame As New List(Of GRPFrameData)
+    End Module
+    Public Class CPCX
+        Private ppheight As Integer
+        Private PCXdata(,) As Byte 'Byte(,)
+        Public Function GetPixel(OrigP As Byte, RemapP As Byte) As Byte
+            If RemapP < (PCXdata.Length \ 256) Then
+                If RemapP > 0 Then
+                    Return PCXdata(RemapP - 1, OrigP)
+                Else
+                    Return PCXdata(RemapP, OrigP)
+                End If
+            Else
+                Return PCXdata(10, OrigP)
+            End If
+        End Function
+
+        Public Sub LoadPCX(buffer() As Byte)
+            Dim memStream As New MemoryStream(buffer)
+            Dim binaReader As New BinaryReader(memStream)
+
+            memStream.Position = &H8
+            Dim pwidth As UInt16 = binaReader.ReadUInt16()
+            Dim pheight As UInt16 = binaReader.ReadUInt16()
+            ReDim PCXdata(pheight, pwidth)
+            ppheight = pheight
+            memStream.Position = &H80
+
+            Dim xpos As UInt16
+
+            Dim opcode As Byte
+            'MsgBox(pheight & " Start")
 
 
-    Private GRPCashing() As BitmapImage
+            For ypos = 0 To pheight
+                'If buffer.Length = 9455 Then
+                '    MsgBox(ypos & "," & pheight)
+                'End If
+                xpos = 0
+                While xpos <= pwidth
+                    opcode = binaReader.ReadByte()
+                    'If buffer.Length = 9455 Then
+                    '    MsgBox(xpos & "," & pwidth & "," & (opcode And 192) & "," & (opcode And 63))
+                    'End If
+                    If opcode >= &HC0 Then '만큼 다음 바이트 출력
+                        Dim newxtcode As Byte = binaReader.ReadByte()
 
-    Private isremapping As Boolean
-    Private paletttypenum As Integer
-    Private DrawFunction As Integer
-    Private RemappingNum As Integer
-
-    Structure GRPFrameData
-        Public frameXOffset As Byte
-        Public frameYOffset As Byte
-        Public frameWidth As Byte
-        Public frameHeight As Byte
-        Public Image() As Byte
-        Public IineTableOffset As UInteger
-
-
-        Public frameWidth4 As UShort
-    End Structure
+                        For i = 0 To opcode - &HC1
+                            If xpos <= pwidth Then
+                                PCXdata(ypos, xpos) = newxtcode
+                            End If
+                            xpos += 1
+                        Next
+                    Else
+                        PCXdata(ypos, xpos) = opcode
+                        xpos += 1
+                    End If
+                End While
+            Next
+            'MsgBox(pheight & " End")
 
 
+
+            'Dim str As String = ""
+            'For i = 0 To 0
+            '    If pheight = 0 Then
+            '        For j = 0 To pwidth
+            '            str = str & Hex(PCXdata(i, j)) & " "
+            '        Next
+            '        str = str & vbCrLf
+            '        MsgBox(str)
+            '    End If
+            'Next
+
+
+
+
+            binaReader.Close()
+            memStream.Close()
+        End Sub
+    End Class
+
+
+    Public Enum Remapping
+        ofire = 0
+        gfire = 1
+        bfire = 2
+        bexpl = 3
+        trans50 = 4
+
+        dark = 5
+        shift = 6
+
+        'DrawFunction = 5 trans50.pcx
+        'DrawFunction = 6 trans50.pcx
+        'DrawFunction = 7 trans50.pcx
+    End Enum
+End Namespace
+
+Public Class CPalett
     Private ReadOnly Property PalletPath As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Palletes\"
         End Get
     End Property
 
-    Public Sub New(filename As String, Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0, Optional _PalletType As PalettType = PalettType.platform)
-        LoadGRP(Tool.LoadDataFromMPQ("unit\" & filename))
-        LoadPalette(_PalletType, _DrawFunction, _RemappingNum)
-        ReDim GRPCashing(framecount)
-    End Sub
+    Private Palett(255) As Color
+    Public ReadOnly Property GetColor(index As Integer) As Color
+        Get
+            Return Palett(index)
+        End Get
+    End Property
 
-    Public Function LoadPalette(PalletNum As PalettType, Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0)
+    Public Sub New(PalletNum As PalettType)
         Dim Filename As String = ""
-        isremapping = False
-        paletttypenum = PalletNum
-        DrawFunction = _DrawFunction
-        RemappingNum = _RemappingNum
 
-
-        If DrawFunction = 0 Then
-            Select Case PalletNum
-                Case PalettType.ashworld
-                    Filename = PalletPath & "ashworld.wpe"
-                Case PalettType.badlands
-                    Filename = PalletPath & "badlands.wpe"
-                Case PalettType.desert
-                    Filename = PalletPath & "desert.wpe"
-                Case PalettType.ice
-                    Filename = PalletPath & "ice.wpe"
-                Case PalettType.install
-                    Filename = PalletPath & "install.wpe"
-                Case PalettType.jungle
-                    Filename = PalletPath & "jungle.wpe"
-                Case PalettType.platform
-                    Filename = PalletPath & "platform.wpe"
-                Case PalettType.twilight
-                    Filename = PalletPath & "twilight.wpe"
-                Case PalettType.Icons
-                    Filename = PalletPath & "Icons.act"
-                Case PalettType.bexpl
-                    Filename = PalletPath & "bexpl.act"
-                    isremapping = True
-                Case PalettType.bfire
-                    Filename = PalletPath & "bfire.act"
-                    isremapping = True
-                Case PalettType.gfire
-                    Filename = PalletPath & "gfire.act"
-                    isremapping = True
-                Case PalettType.ofire
-                    Filename = PalletPath & "ofire.act"
-                    isremapping = True
-                Case PalettType.SelCircle
-                    Filename = PalletPath & "SelCircle.act"
-                Case PalettType.Wireframe
-                    Filename = PalletPath & "Wireframe.act"
-            End Select
-        Else
-            Select Case DrawFunction
-                Case 0
-                    Filename = PalletPath & "install.wpe"
-                Case 8
-                    Filename = PalletPath & "EMP.act"
-                Case 9
-                    Select Case RemappingNum
-                        Case 0
-                            Filename = PalletPath & "install.wpe"
-                        Case 1
-                            Filename = PalletPath & "ofire.act"
-                            isremapping = True
-                        Case 2
-                            Filename = PalletPath & "gfire.act"
-                            isremapping = True
-                        Case 3
-                            Filename = PalletPath & "bfire.act"
-                            isremapping = True
-                        Case 4
-                            Filename = PalletPath & "bexpl.act"
-                            isremapping = True
-                        Case Else
-                            Filename = PalletPath & "install.wpe"
-                    End Select
-
-                Case 10
-                    Filename = PalletPath & "shadow.act"
-                Case 16
-                    Filename = PalletPath & "Hallulation.act"
-                Case Else
-                    Filename = PalletPath & "install.wpe"
-            End Select
-        End If
+        Select Case PalletNum
+            Case PalettType.ashworld
+                Filename = PalletPath & "ashworld.wpe"
+            Case PalettType.badlands
+                Filename = PalletPath & "badlands.wpe"
+            Case PalettType.desert
+                Filename = PalletPath & "desert.wpe"
+            Case PalettType.ice
+                Filename = PalletPath & "ice.wpe"
+            Case PalettType.install
+                Filename = PalletPath & "install.wpe"
+            Case PalettType.jungle
+                Filename = PalletPath & "jungle.wpe"
+            Case PalettType.platform
+                Filename = PalletPath & "platform.wpe"
+            Case PalettType.twilight
+                Filename = PalletPath & "twilight.wpe"
+            Case PalettType.Icons
+                Filename = PalletPath & "Icons.act"
+            Case PalettType.bexpl
+                Filename = PalletPath & "bexpl.act"
+            Case PalettType.bfire
+                Filename = PalletPath & "bfire.act"
+            Case PalettType.gfire
+                Filename = PalletPath & "gfire.act"
+            Case PalettType.ofire
+                Filename = PalletPath & "ofire.act"
+            Case PalettType.SelCircle
+                Filename = PalletPath & "SelCircle.act"
+            Case PalettType.Wireframe
+                Filename = PalletPath & "Wireframe.act"
+            Case PalettType.shadow
+                Filename = PalletPath & "shadow.act"
+            Case PalettType.Hallulation
+                Filename = PalletPath & "Hallulation.act"
+            Case PalettType.EMP
+                Filename = PalletPath & "EMP.act"
+        End Select
 
 
 
@@ -191,8 +262,152 @@ Public Class GRP
 
         binaryreader.Close()
         filestream.Close()
-        Return 0
+    End Sub
+End Class
+
+Public Class GRP
+    Public GRPfilename As String
+
+    Public Palett As CPalett
+    Public RemappingPalett As MGRP.CPCX
+
+
+    Public framecount As UInteger
+    Public grpWidth As UInteger
+    Public grpHeight As UInteger
+    Public GRPFrame As New List(Of GRPFrameData)
+
+
+    Private GRPCashing() As BitmapImage
+
+    Private isremapping As Boolean
+    Private paletttypenum As Integer
+    Private DrawFunction As Integer
+    Private RemappingNum As PalettType
+
+    Structure GRPFrameData
+        Public frameXOffset As Byte
+        Public frameYOffset As Byte
+        Public frameWidth As Byte
+        Public frameHeight As Byte
+        Public Image() As Byte
+        Public IineTableOffset As UInteger
+
+
+        Public frameWidth4 As UShort
+    End Structure
+
+
+
+    Public Shared Function Bitmap2BitmapImage(bitmap As Bitmap) As BitmapImage
+        Dim hBitmap As IntPtr = bitmap.GetHbitmap()
+        Dim retval As New BitmapImage
+
+
+        Dim bitmapSource As BitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())
+
+        Dim encoder = New BmpBitmapEncoder()
+        Dim memoryStream = New MemoryStream()
+
+        encoder.Frames.Add(BitmapFrame.Create(bitmapSource))
+        encoder.Save(memoryStream)
+
+        retval.BeginInit()
+        retval.CacheOption = BitmapCacheOption.OnLoad
+        retval.StreamSource = New MemoryStream(memoryStream.ToArray())
+        retval.EndInit()
+
+        memoryStream.Close()
+        retval.Freeze()
+
+
+        'Dim prgbaSource As BitmapSource = New FormatConvertedBitmap(retval, PixelFormats.Pbgra32, Nothing, 0)
+        'Dim bmp As WriteableBitmap = New WriteableBitmap(prgbaSource)
+        'Dim w As Integer = bmp.PixelWidth
+        'Dim h As Integer = bmp.PixelHeight
+        'Dim pixelData(w * h) As Integer
+
+        'Dim widthInBytes As Integer = bmp.PixelWidth * (bmp.Format.BitsPerPixel / 8)
+
+
+        'bmp.CopyPixels(pixelData, widthInBytes, 0)
+        'bmp.WritePixels(New Int32Rect(0, 0, w, h), pixelData, widthInBytes, 0)
+        'retval = Nothing
+
+
+        'Return bmp
+
+        Return retval
     End Function
+
+
+    Public Sub New(filename As String, Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0, Optional _PalletType As PalettType = PalettType.platform)
+        LoadGRP(Tool.LoadDataFromMPQ("unit\" & filename))
+
+        isremapping = False
+        DrawFunction = _DrawFunction
+        RemappingNum = _RemappingNum
+
+        If DrawFunction = 0 Then
+            Select Case _PalletType
+                Case PalettType.bexpl
+                    isremapping = True
+                Case PalettType.bfire
+                    isremapping = True
+                Case PalettType.gfire
+                    isremapping = True
+                Case PalettType.ofire
+                    isremapping = True
+            End Select
+        Else
+            Select Case DrawFunction
+                Case 8
+                    _PalletType = PalettType.EMP
+                Case 9
+                    Select Case RemappingNum
+                        Case 0
+                            _PalletType = PalettType.install
+                        Case 1
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.ofire)
+                            _PalletType = PalettType.ofire
+                            isremapping = True
+                        Case 2
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.gfire)
+                            _PalletType = PalettType.gfire
+                            isremapping = True
+                        Case 3
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bfire)
+                            _PalletType = PalettType.bfire
+                            isremapping = True
+                        Case 4
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bexpl)
+                            _PalletType = PalettType.bexpl
+                            isremapping = True
+                        Case Else
+                            _PalletType = PalettType.install
+                    End Select
+
+                Case 10
+                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.dark)
+                    _PalletType = PalettType.shadow
+                    isremapping = True
+                Case 16
+                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.shift)
+                    _PalletType = PalettType.Hallulation
+                Case Else
+                    _PalletType = PalettType.install
+            End Select
+        End If
+
+        Palett = MGRP.Palett(_PalletType)
+        'LoadPalette(_PalletType, _DrawFunction, _RemappingNum)
+        paletttypenum = _PalletType
+
+
+
+        ReDim GRPCashing(framecount)
+    End Sub
+
 
 
     Public Overloads Function LoadGRP(buffer As Byte())
@@ -304,27 +519,81 @@ Public Class GRP
     End Function
 
 
-    Private Function Bitmap2BitmapImage(bitmap As Bitmap) As BitmapImage
-        Dim hBitmap As IntPtr = bitmap.GetHbitmap()
-        Dim retval As New BitmapImage
+    Public Function DrawToBytes(Images As SCImage, ByRef Pixels() As Byte, Size As Size, Optional Unitcolor As Integer = 0) As Boolean
+        Dim Frame As Integer = Images.GetFrameGRP
+        Dim Pos As Windows.Point = Images.Location
+
+        If Frame >= framecount Then
+            For y = 0 To Size.Height - 1
+                For x = 0 To Size.Width - 1
+                    Pixels(x + y * Size.Width) = 125
+                Next
+            Next
+
+            Return False
+        End If
 
 
-        Dim bitmapSource = System.Windows.Interop.Imaging.CreateBitmapSourceFromHBitmap(hBitmap, IntPtr.Zero, Int32Rect.Empty, BitmapSizeOptions.FromEmptyOptions())
+        Dim gp() As Byte = GRPFrame(Frame).Image
 
-        Dim encoder = New BmpBitmapEncoder()
-        Dim memoryStream = New MemoryStream()
+        Dim grph As Integer = GRPFrame(Frame).frameHeight
+        Dim grpw As Integer = GRPFrame(Frame).frameWidth4
 
-        encoder.Frames.Add(BitmapFrame.Create(bitmapSource))
-        encoder.Save(memoryStream)
+        Dim grpox As Integer = GRPFrame(Frame).frameXOffset
+        Dim grpoy As Integer = GRPFrame(Frame).frameYOffset
+        If Images.direction > 16 And Images.IsTrunable And Images.ControlStatus = 0 Then
+            grpox = grpWidth - grpox - grpw
+        End If
 
-        retval.BeginInit()
-        retval.StreamSource = New MemoryStream(memoryStream.ToArray())
-        retval.EndInit()
 
-        memoryStream.Close()
 
-        Return retval
+        Dim cenx As Integer = Size.Width \ 2 - grpWidth \ 2
+        Dim ceny As Integer = Size.Height \ 2 - grpHeight \ 2
+
+        For y = 0 To grph - 1
+            For x = 0 To grpw - 1
+                Dim cvalue As Integer
+
+                If Images.direction > 16 And Images.IsTrunable And Images.ControlStatus = 0 Then
+                    cvalue = gp(grpw - 1 - x + y * grpw)
+                Else
+                    cvalue = gp(x + y * grpw)
+                End If
+                If Unitcolor > 127 And cvalue <> 0 Then
+                    cvalue = 135
+                End If
+
+                If cvalue <> 0 Then
+                    Dim px As Integer = Pos.X + x + grpox + cenx
+                    Dim py As Integer = Pos.Y + y + grpoy + ceny
+
+                    If (0 <= px And px < Size.Width) And (0 <= py And py < Size.Height) Then
+                        If isremapping Then
+                            Dim gvalue As Integer = Pixels(px + py * Size.Width)
+                            If paletttypenum = PalettType.shadow Then
+                                Pixels(px + py * Size.Width) = RemappingPalett.GetPixel(gvalue, 30)
+                            Else
+                                Pixels(px + py * Size.Width) = RemappingPalett.GetPixel(gvalue, cvalue)
+                            End If
+
+                        Else
+                            Pixels(px + py * Size.Width) = cvalue
+                        End If
+
+
+                    End If
+                End If
+            Next
+        Next
+
+
+
+        Return True
     End Function
+
+
+
+
     Public Function DrawGRP(frame As Integer, Optional Unitcolor As Integer = 0, Optional FileBackGround As Boolean = False) As BitmapImage
 
         frame = frame Mod framecount
@@ -348,9 +617,6 @@ Public Class GRP
 
         Try
             Dim bm As New Bitmap(GRPFrame(frame).frameWidth, GRPFrame(frame).frameHeight, Imaging.PixelFormat.Format8bppIndexed)
-
-            '8~15
-
             Dim bmd As New BitmapData
             bmd = bm.LockBits(New Rectangle(0, 0, bm.Width, bm.Height), ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
 
@@ -358,14 +624,9 @@ Public Class GRP
             Dim stride As Integer = bmd.Stride
 
             Dim pixels(GRPFrame(frame).Image.Length - 1) As Byte
-            Marshal.Copy(scan0, pixels, 0, pixels.Length)
+            'Marshal.Copy(scan0, pixels, 0, pixels.Length)
 
-            ' MsgBox(pixels.Length & " " & GRPFrame(frame).Image.Length)
-
-
-            '138이 남는다.
             pixels = GRPFrame(frame).Image
-
 
             Marshal.Copy(pixels, 0, scan0, pixels.Length)
 
@@ -376,13 +637,11 @@ Public Class GRP
             CPalette = bm.Palette
             For i = 0 To 255
                 If 15 >= i And i >= 8 And Unitcolor <> 0 And isremapping = False Then
-                    CPalette.Entries(i) = Palett(unitColors(i - 8))
+                    CPalette.Entries(i) = Palett.GetColor(unitColors(i - 8))
                 Else
-                    CPalette.Entries(i) = Palett(i)
+                    CPalette.Entries(i) = Palett.GetColor(i)
                 End If
 
-                'DrawFunction As Byte, RemappingNum As Byte
-                'DrawFunction = 9
                 If RemappingNum = 4 Or RemappingNum = 1 Then
                     If i > 64 Then
                         CPalette.Entries(i) = Color.DarkRed
@@ -396,20 +655,6 @@ Public Class GRP
                         CPalette.Entries(i) = Color.DarkRed
                     End If
                 End If
-
-
-
-
-                'bexel = 64
-                'bfire = 41
-                'gfire = 33
-                'ofire = 64
-
-
-                'bexpl = 9
-                'bfire = 10
-                'gfire = 11
-                'ofire = 12
             Next
             bm.Palette = CPalette
 
@@ -424,7 +669,6 @@ Public Class GRP
         Catch ex As Exception
             Return Nothing
         End Try
-
     End Function
 
 

@@ -31,7 +31,7 @@
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageInfor}" Padding="6"/>
                             <WrapPanel Grid.Row="1" Margin="10,2">
-                                <local:IconSelecter x:Name="II" Tag="Iscript ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="659" />
+                                <local:IconSelecter x:Name="II" Tag="Iscript ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="659" ValueChange="II_ValueChange"/>
                             </WrapPanel>
                         </Grid>
                     </materialDesign:Card>
@@ -74,7 +74,7 @@
 
                     <DockPanel>
                         <local:GRPImageBox x:Name="GRPPlayer" Width="256" Height="256"/>
-                        <materialDesign:Card Height="235" Width="188" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Height="312" Width="188" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25" />
@@ -83,9 +83,9 @@
                                 <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource ImageScreen}" Padding="6"/>
-                                <WrapPanel Grid.Row="1" Margin="10,2">
-                                  
+                                  Text="{StaticResource ImageScriptSelect}" Padding="6"/>
+                                <WrapPanel Grid.Row="1" >
+                                    <ListBox x:Name="ImageScripts" SelectionChanged="ImageScripts_SelectionChanged" Width="180"/>
                                 </WrapPanel>
                             </Grid>
                         </materialDesign:Card>

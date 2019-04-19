@@ -28,7 +28,6 @@
     Public Function InitProgram() As Boolean
         Tool.Init()
 
-
         Try
             pgData = New ProgramData
         Catch ex As Exception

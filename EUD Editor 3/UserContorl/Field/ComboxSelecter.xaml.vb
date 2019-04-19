@@ -5,6 +5,8 @@
 
     Private DatCommand As DatCommand
 
+    Public Event ValueChange As RoutedEventHandler
+
     Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
         DatFile = _DatFile
         ObjectID = _ObjectID
@@ -106,5 +108,9 @@
                     pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
             End Select
         End If
+    End Sub
+
+    Private Sub Field_ValueChange(sender As Object, e As RoutedEventArgs)
+        RaiseEvent ValueChange(Me, e)
     End Sub
 End Class

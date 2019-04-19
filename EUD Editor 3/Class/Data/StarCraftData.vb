@@ -127,13 +127,19 @@ Public Class StarCraftData
             Return pstatusFnVal2
         End Get
     End Property
-
-
+    Private piscriptData As IScript.CIScript
+    Public ReadOnly Property IscriptData As IScript.CIScript
+        Get
+            Return piscriptData
+        End Get
+    End Property
 
 
     Private GRPFiles(SCImageCount) As String
     Private ImageName(SCImageCount) As String
     Private pSfxName(SCSfxdataCount) As String
+    Private pSfxFileName As tblReader
+
     Private pPortdataName(SCPortdataCount) As String
     Private pIconName(SCIconCount) As String
     Private pIscriptName(SCIscriptCount) As String
@@ -154,9 +160,14 @@ Public Class StarCraftData
             Return ImageName(index)
         End Get
     End Property
-    Public ReadOnly Property SfxName(index As Integer) As String
+    Public ReadOnly Property SfxCodeName(index As Integer) As String
         Get
             Return pSfxName(index)
+        End Get
+    End Property
+    Public ReadOnly Property SfxFileName(index As Integer) As String
+        Get
+            Return pSfxFileName.Strings(index).val1
         End Get
     End Property
     Public ReadOnly Property PortdataName(index As Integer) As String
@@ -382,10 +393,19 @@ Public Class StarCraftData
         stat_txt_kor_eng = New tblReader(Tool.GetTblFolder & "\stat_txt_kor_eng.tbl")
         stat_txt_kor_kor = New tblReader(Tool.GetTblFolder & "\stat_txt_kor_kor.tbl")
 
+        pSfxFileName = New tblReader(Tool.GetTblFolder & "\sfxdata.tbl")
+
+
         LoadTexts()
 
         ReadActConCode()
+
+        MGRP.GRPMoudleInit()
         LoadMPQData()
+
+        piscriptData = New IScript.CIScript
+        piscriptData.LoadIscriptToBuff(Tool.LoadDataFromMPQ("scripts\iscript.bin"))
+        IScript.readOpcodes()
 
         pstatusFnVal1 = New List(Of UInteger)
         pstatusFnVal2 = New List(Of UInteger)
@@ -557,6 +577,7 @@ Public Class StarCraftData
             index += 1
         End While
         sr.Close()
+
     End Sub
     Public Sub LoadMPQData()
         IsLoadMPQ = False
@@ -582,7 +603,7 @@ Public Class StarCraftData
             SDGrpFrame = New GRP("wirefram\grpwire.grp", 0, 0, PalettType.Icons)
             SDTramFrame = New GRP("wirefram\tranwire.grp", 0, 0, PalettType.Icons)
         Catch ex As Exception
-            Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"))
+            Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"), ex.ToString)
             Return
         End Try
 

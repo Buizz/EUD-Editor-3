@@ -1,0 +1,69 @@
+0x00	playfram	u16 Frame#,	playfram frame#	Displays a particular frame, adjusted for direction.
+0x01	playframtile	u16 Frame#,	playframtile frame#	Displays a particular frame dependent on tileset.
+0x02	sethorpos	u8 X,	sethorpos x	Sets the current horizontal offset of the current image overlay.
+0x03	setvertpos	u8 Y,	setvertpos y	Sets the vertical position of an image overlay.
+0x04	setpos	u8 X, u8 Y,	setpos x y	Sets the current horizontal and vertical position of the current image overlay.
+0x05	wait	u8 gameTicks,	wait #ticks	Pauses script execution for a specific number of ticks.
+0x06	waitrand	u8 gameTicks#1, u8 gameTicks#2,	waitrand #ticks1 #ticks2	Pauses script execution for a random number of ticks given two possible wait times.
+0x07	goto	u16 fileOffset,	goto labelname	Unconditionally jumps to a specific code block.
+0x08	imgol	u16 imageID, u8 X, u8 Y,	imgol image# x y	Displays an active image overlay at an animation level higher than the current image overlay at a specified offset position.
+0x09	imgul	u16 imageID, u8 X, u8 Y,	imgul image# x y	Displays an active image overlay at an animation level lower than the current image overlay at a specified offset position.
+0x0a	imgolorig	u16 imageID,	imgolorig image#	Displays an active image overlay at an animation level higher than the current image overlay at the relative origin offset position.
+0x0b	switchul	u16 imageID,	switchul image#	Only for powerups. Hypothesised to replace the image overlay that was first created by the current image overlay.
+0x0c	__0c	None	__0c	Unused/invalid opcode; as in, does not exist.
+0x0d	imgoluselo	u16 imageID, u8 X, u8 Y,	imgoluselo image# x y	Displays an active image overlay at an animation level higher than the current image overlay, using a LO* file to determine the offset position.
+0x0e	imguluselo	u16 imageID, u8 X, u8 Y,	imguluselo image# x y	Displays an active image overlay at an animation level lower than the current image overlay, using a LO* file to determine the offset position.
+0x0f	sprol	u16 spriteID, u8 X, u8 Y,	sprol sprite# x y	Spawns a sprite one animation level above the current image overlay at a specific offset position.
+0x10	highsprol	u16 spriteID, u8 X, u8 Y,	highsprol sprite# x y	Spawns a sprite at the highest animation level at a specific offset position.
+0x11	lowsprul	u16 spriteID, u8 X, u8 Y,	lowsprul sprite# x y	Spawns a sprite at the lowest animation level at a specific offset position.
+0x12	uflunstable	u16 flingyID,	uflunstable flingy#	Creates an flingy with restrictions; supposedly crashes in most cases.
+0x13	spruluselo	u16 spriteID, u8 X, u8 Y,	spruluselo sprite# x y	Spawns a sprite one animation level below the current image overlay at a specific offset position. The new sprite inherits the direction of the current sprite. Requires LO* file for unknown reason.
+0x14	sprul	u16 spriteID, u8 X, u8 Y,	sprul sprite# x y	Spawns a sprite one animation level below the current image overlay at a specific offset position. The new sprite inherits the direction of the current sprite.
+0x15	sproluselo	u16 spriteID, u8 overlay#,	sproluselo sprite# overlay#	Spawns a sprite one animation level above the current image overlay, using a specified LO* file for the offset position information. The new sprite inherits the direction of the current sprite.
+0x16	end	None	end	Destroys the current active image overlay, also removing the current sprite if the image overlay is the last in one in the current sprite.
+0x17	setflipstate	u8 flipState,	setflipstate flipstate	Sets flip state of the current image overlay.
+0x18	playsnd	u16 soundID,	playsnd sound#	Plays a sound.
+0x19	playsndrand	u8 #ofSounds, u16 soundID, u16 soundID, ...	playsndrand #sounds sound# ...	Plays a random sound from a list.
+0x1a	playsndbtwn	u16 soundID, u16 soundID,	playsndbtwn firstsound# lastsound#	Plays a random sound between two inclusive sfxdata.dat entry IDs.
+0x1b	domissiledmg	None	domissiledmg	Causes the damage of a weapon flingy to be applied according to its weapons.dat entry.
+0x1c	attackmelee	u8 #ofSounds, u16 soundID, u16 soundID, ...	attackmelee #sounds sound# ...	Applies damage to target without creating a flingy and plays a sound.
+0x1d	followmaingraphic	None	followmaingraphic	Causes the current image overlay to display the same frame as the parent image overlay.
+0x1e	randcondjmp	u8 chance, u16 fileOffset,	randcondjmp randchance# labelname	Random jump, chance of performing jump depends on the parameter.
+0x1f	turnccwise	u8 amount,	turnccwise turnamount	Turns the flingy counterclockwise by a particular amount.
+0x20	turncwise	u8 amount,	turncwise turnamount	Turns the flingy clockwise by a particular amount.
+0x21	turn1cwise	None	turn1cwise	Turns the flingy clockwise by one direction unit.
+0x22	turnrand	u8 amount,	turnrand turnamount	Turns the flingy a specified amount in a random direction, with a heavy bias towards turning clockwise.
+0x23	setspawnframe	u8 direction,	setspawnframe direction	In specific situations, performs a natural rotation to the given direction.
+0x24	sigorder	u8 signal,	sigorder signal#	Allows the current unit's order to proceed if it has paused for an animation to be completed.
+0x25	attackwith	u8 weaponType,	attackwith [ground = 1, air = 2]	Attack with either the ground or air weapon depending on a parameter.
+0x26	attack	None	attack	Attack with either the ground or air weapon depending on target.
+0x27	castspell	None	castspell	Identifies when a spell should be cast in a spellcasting animation. The spell is determined by the unit's current order.
+0x28	useweapon	u8 weaponID,	useweapon weapon#	Makes the unit use a specific weapons.dat ID on its target.
+0x29	move	u8 pixels,	move movedistance	Sets the unit to move forward a certain number of pixels at the end of the current tick.
+0x2a	gotorepeatattk	None	gotorepeatattk	Signals to StarCraft that after this point, when the unit's cooldown time is over, the repeat attack animation can be called.
+0x2b	engframe	u8 frame#,	engframe frame#	Plays a particular frame, often used in engine glow animations.
+0x2c	engset	u8 frame#,	engset frameset#	Plays a particular frame set, often used in engine glow animations.
+0x2d	__2d	None	__2d	Hypothesised to hide the current image overlay until the next animation.
+0x2e	nobrkcodestart	None	nobrkcodestart	Holds the processing of player orders until a nobrkcodeend is encountered.
+0x2f	nobrkcodeend	None	nobrkcodeend	Allows the processing of player orders after a nobrkcodestart instruction.
+0x30	ignorerest	None	ignorerest	Conceptually, this causes the script to stop until the next animation is called.
+0x31	attkshiftproj	u8 distance,	attkshiftproj distance	Creates the weapon flingy at a particular distance in front of the unit.
+0x32	tmprmgraphicstart	None	tmprmgraphicstart	Sets the current image overlay state to hidden.
+0x33	tmprmgraphicend	None	tmprmgraphicend	Sets the current image overlay state to visible.
+0x34	setfldirect	u8 direction,	setfldirect direction	Sets the current direction of the flingy.
+0x35	call	u16 fileOffset,	call labelname	Calls a code block.
+0x36	return	None	return	Returns from call.
+0x37	setflspeed	u16 speed,	setflspeed speed	Sets the flingy.dat speed of the current flingy.
+0x38	creategasoverlays	u8 overlay#,	creategasoverlays gasoverlay#	Creates gas image overlays at offsets specified by LO* files.
+0x39	pwrupcondjmp	u16 fileOffset,	pwrupcondjmp labelname	Jumps to a code block if the current unit is a powerup and it is currently picked up.
+0x3a	trgtrangecondjmp	u16 distance, u16 fileOffset,	trgtrangecondjmp distance labelname	Jumps to a block depending on the distance to the target.
+0x3b	trgtarccondjmp	u16 angle#1, u16 angle#2, u16 fileOffset,	trgtarccondjmp angle1 angle2 labelname	Jumps to a block depending on the current angle of the target.
+0x3c	curdirectcondjmp	u16 angle#1, u16 angle#2, u16 fileOffset,	curdirectcondjmp angle1 angle2 labelname	Only for units. Jump to a code block if the current sprite is facing a particular direction.
+0x3d	imgulnextid	u8 X, u8 Y,	imgulnextid x y	Displays an active image overlay at the shadow animation level at a specified offset position. The image overlay that will be displayed is the one that is after the current image overlay in images.dat.
+0x3e	__3e	None	__3e	Unused/invalid opcode; as in, does not exist.
+0x3f	liftoffcondjmp	u16 fileOffset,	liftoffcondjmp labelname	Jumps to a code block when the current unit is lifted off.
+0x40	warpoverlay	u16 frame#?,	warpoverlay frame#	Hypothesised to display the current image overlay's frame clipped to the outline of the parent image overlay.
+0x41	orderdone	u8 signal,	orderdone signal#	Most likely used with orders that continually repeat, like the Medic's healing and the Valkyrie's afterburners (which no longer exist), to clear the sigorder flag to stop the order.
+0x42	grdsprol	u16 spriteID, u8 X, u8 Y,	grdsprol sprite# x y	Spawns a sprite one animation level above the current image overlay at a specific offset position, but only if the current sprite is over ground-passable terrain.
+0x43	__43	None	__43	Unused/invalid opcode; as in, does not exist.
+0x44	dogrddamage	None	dogrddamage	Applies damage like domissiledmg when on ground-unit-passable terrain.

@@ -495,7 +495,7 @@ Public Class ListSelecter
                 Next
             Case SCDatFiles.DatFiles.sfxdata
                 For i = 0 To SCSfxdataCount - 1
-                    Dim cname As String = scData.SfxName(i)
+                    Dim cname As String = scData.SfxCodeName(i)
 
                     ObjectNames.Add(cname)
                 Next

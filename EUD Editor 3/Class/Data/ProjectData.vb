@@ -416,7 +416,7 @@ Public Class ProjectData
                         ReturnStr = scData.PortdataName(index)
 
                     Case SCDatFiles.DatFiles.sfxdata
-                        ReturnStr = scData.SfxName(index)
+                        ReturnStr = scData.SfxCodeName(index)
                     Case SCDatFiles.DatFiles.Icon
                         ReturnStr = scData.IconName(index)
                     Case SCDatFiles.DatFiles.stattxt

@@ -33,10 +33,17 @@
         SPBH.Init(DatFiles, ObjectID, SPBH.Tag)
         AHXP.Init(DatFiles, ObjectID, AHXP.Tag)
         AVYP.Init(DatFiles, ObjectID, AVYP.Tag)
-        'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
+
+        Dim Flingy As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", ObjectID)
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", Flingy)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+
+        Dim CAnim As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Construction Animation", ObjectID)
+        GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Unit, ObjectID)
+        GRPImage2.Init(CAnim, 13)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
-        ObjectID = ObjectID
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
+        ObjectID = tObjectID
 
         NameBar.ReLoad(ObjectID, DatFiles, UnitDatPage)
 
@@ -57,5 +64,23 @@
         SPBH.ReLoad(DatFiles, ObjectID, SPBH.Tag)
         AHXP.ReLoad(DatFiles, ObjectID, AHXP.Tag)
         AVYP.ReLoad(DatFiles, ObjectID, AVYP.Tag)
+
+        Dim Flingy As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", ObjectID)
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", Flingy)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+
+        Dim CAnim As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Construction Animation", ObjectID)
+        GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Unit, ObjectID)
+        GRPImage2.Init(CAnim, 13)
+    End Sub
+
+    Private Sub TValueChange(sender As Object, e As RoutedEventArgs)
+        Dim Flingy As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Graphics", ObjectID)
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", Flingy)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+
+        Dim CAnim As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Construction Animation", ObjectID)
+        GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Unit, ObjectID)
+        GRPImage2.Init(CAnim, 13)
     End Sub
 End Class
