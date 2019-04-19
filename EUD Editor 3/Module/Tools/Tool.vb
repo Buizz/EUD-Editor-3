@@ -487,7 +487,12 @@ Namespace Tool
 
         Public Function CheckexeConnect(Extention As String) As Boolean
             Dim RegistryKeys As String = My.Computer.Registry.GetValue("HKEY_CLASSES_ROOT\" & Extention & "\shell\open\command", Nothing, "")
+            If RegistryKeys Is Nothing Then
+                Return True
+            End If
             Dim RegisPath As String = RegistryKeys.Replace(RegistryKeys.Split(".").Last, "") & "exe"
+
+
 
             Return RegisPath <> System.Windows.Forms.Application.ExecutablePath
         End Function

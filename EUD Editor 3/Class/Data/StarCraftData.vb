@@ -400,11 +400,9 @@ Public Class StarCraftData
 
         ReadActConCode()
 
-        MGRP.GRPMoudleInit()
+
         LoadMPQData()
 
-        piscriptData = New IScript.CIScript
-        piscriptData.LoadIscriptToBuff(Tool.LoadDataFromMPQ("scripts\iscript.bin"))
         IScript.readOpcodes()
 
         pstatusFnVal1 = New List(Of UInteger)
@@ -586,6 +584,10 @@ Public Class StarCraftData
             Return
         End If
         Try
+            MGRP.GRPMoudleInit()
+            piscriptData = New IScript.CIScript
+            piscriptData.LoadIscriptToBuff(Tool.LoadDataFromMPQ("scripts\iscript.bin"))
+
             'MPQ파일을 미리 다 읽어서 메모리에 올리자.
             'GRP먼저
             For i = 0 To SCImageCount - 1

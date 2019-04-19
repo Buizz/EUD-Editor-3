@@ -15,7 +15,7 @@ Imports System.Windows
 <Assembly: AssemblyDescription("")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("EUD Editor 3")>
-<Assembly: AssemblyCopyright("Copyright ©  2019 JPoker")>
+<Assembly: AssemblyCopyright("Copyright ©  2019 Buizz")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(false)>
 
@@ -55,5 +55,5 @@ Imports System.Windows
 ' 지정되도록 할 수 있습니다.
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.3.2.0")>
-<Assembly: AssemblyFileVersion("0.3.2.0")>
+<Assembly: AssemblyVersion("0.3.2.1")>
+<Assembly: AssemblyFileVersion("0.3.2.1")>
