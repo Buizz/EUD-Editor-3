@@ -58,7 +58,7 @@
     <sys:String x:Key="ToolTip Compile">빌드(Ctrl + B)</sys:String>
     
     <sys:String x:Key="ToolTip DE">데이터 에디터(Ctrl + D)</sys:String>
-    <sys:String x:Key="ToolTip TE">트리거 에디터(Ctrl + T)</sys:String>
+    <sys:String x:Key="ToolTip TE">트리거 에디터 #(Ctrl + T)</sys:String>
     <sys:String x:Key="ToolTip Plugin">플러그인 설정(Ctrl + P)</sys:String>
 
     
@@ -109,6 +109,7 @@
     <sys:String x:Key="PagePaste">페이지 붙여넣기</sys:String>
     <sys:String x:Key="PageReset">페이지 초기화</sys:String>
     <sys:String x:Key="CoverWrite">덮어쓰기</sys:String>
+    <sys:String x:Key="Rename">이름 바꾸기</sys:String>
 
     <sys:String x:Key="Save">저장</sys:String>
 
@@ -155,6 +156,11 @@
 
     <sys:String x:Key="Error compiling">빌드 중에는 종료 할 수 없습니다.</sys:String>
     <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중에는 종료 할 수 없습니다.</sys:String>
+
+
+    <sys:String x:Key="Error Dont Delete File">삭제 할 수 없는 파일입니다.</sys:String>
+
+
     <sys:String x:Key="Compile">빌드 중...</sys:String>
     
 
@@ -721,4 +727,22 @@
     <sys:String x:Key="BtnNewString">값</sys:String>
 
     <sys:String x:Key="BtnNewIndex">기본 커맨드|이동 가능한 건물 커맨드|버러우 커맨드|채취자 커맨드|운송수단 커맨드|빈 버튼|유닛 훈련|유닛 훈련 - 변태|업글 연구|기술 연구|기술 사용|건물 변태|건물 건설 - 변태|건물 건설 - 테란|건물 건설 - 프로토스|건물 건설 - 애드온</sys:String>
+
+
+    <!--트리거에디터-->
+    <sys:String x:Key="NewFolder">새 폴더</sys:String>
+    <sys:String x:Key="NewEpsScript">새 epScript 파일</sys:String>
+    <sys:String x:Key="NewPyScript">새 eudplib 파일</sys:String>
+    <sys:String x:Key="Folder">​폴더</sys:String>
+    <sys:String x:Key="EpsScriptFile">epScript 파일</sys:String>
+    <sys:String x:Key="PyScriptFile">eudplib 파일</sys:String>
+    <sys:String x:Key="FIleName">파일 이름</sys:String>
+    <sys:String x:Key="CreateDate">생성 날짜</sys:String>
+    <sys:String x:Key="LastDate">마지막으로 편집된 날짜</sys:String>
+
+    <!--Menu-->
+    <sys:String x:Key="MenuCNewEpsScript">[CUI] epScript 파일</sys:String>
+    <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib 파일</sys:String>
+    <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript 파일</sys:String>
+    <sys:String x:Key="MenuGNewPyScript">[GUI] eudplib 파일</sys:String>
 </ResourceDictionary>

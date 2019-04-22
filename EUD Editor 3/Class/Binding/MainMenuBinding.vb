@@ -16,6 +16,7 @@ Public Class MainMenuBinding
     'PluginSetting
 
     Public Sub PropertyChangedPack()
+        NotifyPropertyChanged("TriggerEditorName")
         NotifyPropertyChanged("DataEditorName")
         NotifyPropertyChanged("ProgramName")
         NotifyPropertyChanged("GridOpacity")
@@ -37,6 +38,15 @@ Public Class MainMenuBinding
         NotifyPropertyChanged("BackgroundPlugin")
     End Sub
 
+    Public ReadOnly Property TriggerEditorName As String
+        Get
+            If pgData.IsCompilng Then
+                Return Tool.GetText("Compile")
+            Else
+                Return Tool.GetProjectName & " - TRIGGER EDITOR # v" & pgData.Version.ToString
+            End If
+        End Get
+    End Property
     Public ReadOnly Property DataEditorName As String
         Get
             If pgData.IsCompilng Then

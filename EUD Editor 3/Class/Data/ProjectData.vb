@@ -105,6 +105,7 @@ Public Class SaveableData
 
     Public Dat As SCDatFiles
     Public ExtraDat As ExtraDatFiles
+    Public TEData As TriggerEditorData
 End Class
 
 
@@ -189,6 +190,11 @@ Public Class ProjectData
     Public ReadOnly Property Dat As SCDatFiles
         Get
             Return SaveData.Dat
+        End Get
+    End Property
+    Public ReadOnly Property TEData As TriggerEditorData
+        Get
+            Return SaveData.TEData
         End Get
     End Property
 
@@ -527,6 +533,7 @@ Public Class ProjectData
         SaveData.SaveMapName = ""
         SaveData.Dat = New SCDatFiles(False, False, True)
         SaveData.ExtraDat = New ExtraDatFiles
+        SaveData.TEData = New TriggerEditorData
 
         'MsgBox("프로젝트 초기화")
     End Sub

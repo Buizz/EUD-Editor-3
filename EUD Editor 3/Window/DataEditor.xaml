@@ -17,7 +17,7 @@
         Closed="MetroWindow_Closed"
         Topmost="True" 
         Title= "{Binding DataEditorName,UpdateSourceTrigger=PropertyChanged}"
-        Height="630" Width="780" WindowStartupLocation="Manual" >
+        Height="630" Width="780" WindowStartupLocation="Manual" MinWidth="678" >
 
     <Window.Resources>
         <system:String x:Key="Partition">QuickStart</system:String>
@@ -89,7 +89,7 @@
             </DockPanel>
         </Expander>
 
-        <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" >
+        <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" VerticalContentAlignment="Stretch" >
             <Expander.Header>
                 <TextBlock
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"

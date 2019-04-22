@@ -138,6 +138,11 @@ Public Class ProgramData
             Setting(ProgramData.TSetting.CheckReg) = True
         End Try
 
+        Try
+            Dim bool As Boolean = Setting(ProgramData.TSetting.TriggerEditrTopMost)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.TriggerEditrTopMost) = True
+        End Try
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
     End Sub
@@ -166,12 +171,13 @@ Public Class ProgramData
         CDLanuageChange = 17
         DataEditorTopMost = 18
         CheckReg = 19
+        TriggerEditrTopMost = 20
     End Enum
     Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
     "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush",
     "PrimaryHueDarkBrush", "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush",
     "DefaultData", "MapEditorData", "EditedData", "CheckedData",
-    "CDLanuageChange", "DataEditorTopMost", "CheckReg"}
+    "CDLanuageChange", "DataEditorTopMost", "CheckReg", "TriggerEditrTopMost"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))

@@ -490,7 +490,14 @@ Namespace Tool
             If RegistryKeys Is Nothing Then
                 Return True
             End If
-            Dim RegisPath As String = RegistryKeys.Replace(RegistryKeys.Split(".").Last, "") & "exe"
+
+            Dim RegisPath As String
+            Try
+                RegisPath = RegistryKeys.Replace(RegistryKeys.Split(".").Last, "") & "exe"
+            Catch ex As Exception
+                Return True
+            End Try
+
 
 
 

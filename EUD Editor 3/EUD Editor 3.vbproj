@@ -217,6 +217,8 @@
     <Compile Include="Class\tblWriter.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
+    <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
+    <Compile Include="Class\TriggerEditor\TEFile.vb" />
     <Compile Include="MainWindow\MainWindowD.xaml.vb">
       <DependentUpon>MainWindowD.xaml</DependentUpon>
     </Compile>
@@ -225,6 +227,14 @@
     <Compile Include="Module\StringTool.vb" />
     <Compile Include="Module\Tools\Tool.vb" />
     <Compile Include="Module\Tools\WindowControl.vb" />
+    <Compile Include="TEST\UIEditorPage\AddItem.vb" />
+    <Compile Include="TEST\UIEditorPage\Colors.vb" />
+    <Compile Include="TEST\UIEditorPage\DeleteItem.vb" />
+    <Compile Include="TEST\UIEditorPage\DragItem.vb" />
+    <Compile Include="TEST\UIEditorPage\TreeviewExample.xaml.vb">
+      <DependentUpon>TreeviewExample.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="TEST\UIEditorPage\System.vb" />
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
@@ -246,7 +256,7 @@
     <Compile Include="UserContorl\DataEditor\ListSelecter.xaml.vb">
       <DependentUpon>ListSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\CodeSelecter.xaml.vb">
+    <Compile Include="UserContorl\Field\CodeSelecter.xaml.vb">
       <DependentUpon>CodeSelecter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\DataEditor\DataPages\Unit_Graphic.xaml.vb">
@@ -348,9 +358,29 @@
     <Compile Include="UserContorl\ProjectControl.xaml.vb">
       <DependentUpon>ProjectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorPage.xaml.vb">
-      <DependentUpon>TriggerEditorPage.xaml</DependentUpon>
+    <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
+      <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\AddItem.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Colors.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\CTreeviewItem.xaml.vb">
+      <DependentUpon>CTreeviewItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\DeleteItem.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\DragItem.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
+      <DependentUpon>TEGUIPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\System.vb" />
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ItemControl.vb" />
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\Menu.vb" />
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml.vb">
+      <DependentUpon>ProjectExplorer.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\Colors.vb" />
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DeleteItem.vb" />
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DragItem.vb" />
+    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\System.vb" />
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
     </Compile>
@@ -395,6 +425,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="TEST\UIEditorPage\TreeviewExample.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserContorl\DataEditor\ButtonData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -423,7 +457,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\CodeSelecter.xaml">
+    <Page Include="UserContorl\Field\CodeSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -559,7 +593,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorPage.xaml">
+    <Page Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\CTreeviewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

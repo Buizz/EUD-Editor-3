@@ -14,8 +14,9 @@
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
+        Closing="MetroWindow_Closing"
         x:Name="metroWindow"
-        Title="{StaticResource TriggerEditor}" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True">
+        Title="{Binding TriggerEditorName,UpdateSourceTrigger=PropertyChanged}" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True" MinWidth="678">
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -181,7 +182,7 @@
         </ToolBarTray>
 
         <DockPanel>
-            <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left">
+            <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" VerticalContentAlignment="Stretch">
                 <Expander.Header>
                     <TextBlock
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
@@ -193,43 +194,18 @@
                         </TextBlock.LayoutTransform>
                     </TextBlock>
                 </Expander.Header>
-                <Grid Width="450">
-                    <Grid.ColumnDefinitions>
-                        <ColumnDefinition Width="80"/>
-                        <ColumnDefinition Width="100*"/>
-                    </Grid.ColumnDefinitions>
-
-                    <local:CodeSelecter x:Name="CodeList" Grid.Column="1" />
-                    <ListBox  Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" >
-                        <ListBoxItem>
-                            코드 탐색기
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            함수
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            조건
-                        </ListBoxItem>
-                        <ListBoxItem>
-                            액션
-                        </ListBoxItem>
-                        <ListBoxItem >
-                            변수
-                        </ListBoxItem>
-                    </ListBox>
-
-
+                <Grid Width="350">
+                    <local:ProjectExplorer x:Name="Explorer"/>
                 </Grid>
             </Expander>
             <dockablz:Layout x:Name="MainTab"  Partition="{StaticResource Partition}">
-                <dragablz:TabablzControl ShowDefaultCloseButton="True" ShowDefaultAddButton="True">
-                    <!--ShowDefaultAddButton="True"-->
+                <dragablz:TabablzControl x:Name="MainTabablzControl" ShowDefaultCloseButton="True" >
                     <dragablz:TabablzControl.InterTabController>
-                        <dragablz:InterTabController Partition="{StaticResource Partition}" />
+                        <dragablz:InterTabController Partition="{StaticResource Partition}" Height="0" />
                     </dragablz:TabablzControl.InterTabController>
-                    <TabItem Header="TEST">
-                        <local:TriggerEditorPage/>
-                    </TabItem>
+                    <dragablz:TabablzControl.HeaderPrefixContent>
+                        <Border Height="40"/>
+                    </dragablz:TabablzControl.HeaderPrefixContent>
                 </dragablz:TabablzControl>
             </dockablz:Layout>
         </DockPanel>

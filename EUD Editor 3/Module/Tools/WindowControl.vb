@@ -167,10 +167,20 @@ Namespace WindowMenu
             End If
 
 
-            'pjData.SetDirty(True)
-            Dim TriggerEditorForm As New TriggerEditor
-            TriggerEditorForm.Show()
-            OpenToolWindow()
+            Dim flag As Boolean = False
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(TriggerEditor) Then
+                    win.Activate()
+
+                    flag = True
+                    Exit For
+                End If
+            Next
+            If Not flag Then
+                Dim TriggerEditorForm As New TriggerEditor
+                TriggerEditorForm.Show()
+                OpenToolWindow()
+            End If
         End Sub
 
         Public Sub OpenPlugin()
@@ -199,11 +209,21 @@ Namespace WindowMenu
                 End If
             End If
 
+            Dim flag As Boolean = False
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(PluginWindow) Then
+                    win.Activate()
 
-            'pjData.SetDirty(True)
-            Dim PluginForm As New PluginWindow
-            PluginForm.Show()
-            OpenToolWindow()
+                    flag = True
+                    Exit For
+                End If
+            Next
+            If Not flag Then
+                'pjData.SetDirty(True)
+                Dim PluginForm As New PluginWindow
+                PluginForm.Show()
+                OpenToolWindow()
+            End If
         End Sub
 
         Public Sub CodeFold()
