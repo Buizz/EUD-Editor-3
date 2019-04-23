@@ -92,8 +92,8 @@ Partial Public Class BuildData
                     value += pos * 65536
                 End If
                 If k Mod 2 = 1 Then
-                    sb.AppendLine("       SetMemoryEPD(EPD(" & "0x" & pointer & " + " & (k * 2) - 2 & "), SetTo, " & value & "),")
-                    'returntext.AppendLine("       # " & value Mod 256 & " " & value \ 65536)
+                    sb.AppendLine("        SetMemory(0x" & pointer & " + " & (k * 2) - 2 & ", SetTo, " & value & "),")
+                    'returntext.AppendLine("        # " & value Mod 256 & " " & value \ 65536)
                 End If
 
             Next
