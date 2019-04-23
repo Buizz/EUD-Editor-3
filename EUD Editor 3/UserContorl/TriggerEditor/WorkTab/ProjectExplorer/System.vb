@@ -72,6 +72,9 @@
             End If
         End If
     End Sub
+    Private Sub MainTreeviewItme_PreviewMouseDoubleClick(sender As TreeViewItem, e As MouseButtonEventArgs)
+        OpenPage()
+    End Sub
     Private Sub MainTreeviewItme_PreviewMouseRightButtonDown(sender As TreeViewItem, e As MouseButtonEventArgs)
         AddSelectItem(sender)
     End Sub

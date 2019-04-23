@@ -100,8 +100,9 @@
     <Reference Include="Dragablz, Version=0.0.3.203, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.203\lib\net45\Dragablz.dll</HintPath>
     </Reference>
-    <Reference Include="HotKeyManagement.WPF.4">
-      <HintPath>C:\Users\LeeJungHun\Desktop\Dlls\WPF 4.0\HotKeyManagement.WPF.4.dll</HintPath>
+    <Reference Include="HotKeyManagement.WPF.4, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\HotKeyManagement.WPF.4.dll</HintPath>
     </Reference>
     <Reference Include="ICSharpCode.AvalonEdit, Version=5.0.3.0, Culture=neutral, PublicKeyToken=9cc39be672370310, processorArchitecture=MSIL">
       <HintPath>..\packages\AvalonEdit.5.0.4\lib\Net40\ICSharpCode.AvalonEdit.dll</HintPath>
@@ -124,11 +125,13 @@
     <Reference Include="MaterialDesignThemes.Wpf, Version=2.5.0.1205, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.2.5.0.1205\lib\net45\MaterialDesignThemes.Wpf.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DwayneNeed">
-      <HintPath>C:\Users\LeeJungHun\Desktop\DwayneNeed-master\DwayneNeed-master\Microsoft.DwayneNeed\bin\Release\Microsoft.DwayneNeed.dll</HintPath>
+    <Reference Include="Microsoft.DwayneNeed, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.DwayneNeed.dll</HintPath>
     </Reference>
-    <Reference Include="Microsoft.DwayneNeed.Win32">
-      <HintPath>C:\Users\LeeJungHun\Desktop\DwayneNeed-master\DwayneNeed-master\Microsoft.DwayneNeed\bin\Release\Microsoft.DwayneNeed.Win32.dll</HintPath>
+    <Reference Include="Microsoft.DwayneNeed.Win32, Version=1.0.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>.\Microsoft.DwayneNeed.Win32.dll</HintPath>
     </Reference>
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
@@ -177,6 +180,7 @@
     <Compile Include="Class\Binding\RequireCapacityBinding.vb" />
     <Compile Include="Class\Binding\RequireDataBinding.vb" />
     <Compile Include="Class\Binding\StatTxtBinding.vb" />
+    <Compile Include="Class\Binding\TETabItemUI.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
@@ -895,6 +899,9 @@
     <EmbeddedResource Include="Data\Texts\AnimOpcodes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <Content Include="HotKeyManagement.WPF.4.dll" />
+    <Content Include="Microsoft.DwayneNeed.dll" />
+    <Content Include="Microsoft.DwayneNeed.Win32.dll" />
     <Content Include="SFmpq.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

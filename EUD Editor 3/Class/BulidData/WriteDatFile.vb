@@ -8,7 +8,7 @@ Partial Public Class BuildData
         sb.AppendLine("from eudplib import *")
         sb.AppendLine("")
         sb.AppendLine("def onPluginStart():")
-        sb.AppendLine("    DoActions([]) # NULL에러 방지용")
+        sb.AppendLine("    pass # NULL에러 방지용")
         sb.AppendLine("    DoActions([ # 기본 Dat파일 액션")
 
         '기본 Dat파일 저장
@@ -93,7 +93,7 @@ Partial Public Class BuildData
         sb.AppendLine("from eudplib import *")
         sb.AppendLine("")
         sb.AppendLine("def onPluginStart():")
-        sb.AppendLine("    DoActions([]) # NULL에러 방지용")
+        sb.AppendLine("    pass # NULL에러 방지용")
 
         '와이어프레임, 버튼셋, 요구사항, 상태플래그
         WriteWireFrame(sb)

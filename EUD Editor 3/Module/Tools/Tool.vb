@@ -728,6 +728,16 @@ Namespace TabItemTool
 
             Return TabItem
         End Function
+
+        Public Sub RefreshExplorer(SelfObject As ProjectExplorer)
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(TriggerEditor) Then
+                    If SelfObject IsNot CType(win, TriggerEditor).Explorer Then
+                        CType(win, TriggerEditor).Explorer.ResetList()
+                    End If
+                End If
+            Next
+        End Sub
     End Module
 
 

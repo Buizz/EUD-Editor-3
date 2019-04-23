@@ -33,19 +33,29 @@ Partial Public Class ProjectExplorer
 
 
         '마지막으로 선택한 아이템이 폴더 일 경우
-        If IsFolder(LastSelectItem) Then
-            MenuAdd.Visibility = Visibility.Visible
+        If LastSelectItem IsNot Nothing Then
+            If IsFolder(LastSelectItem) Then
+                MenuAdd.Visibility = Visibility.Visible
+            Else
+                MenuAdd.Visibility = Visibility.Collapsed
+            End If
         Else
-            MenuAdd.Visibility = Visibility.Collapsed
+            MenuAdd.Visibility = Visibility.Visible
         End If
+
 
 
         '마지막으로 선택한 아이템이 폴더 일 경우
-        If IsFolder(LastSelectItem) And CopyItems.Count > 0 Then
-            MenuPaste.IsEnabled = True
+        If LastSelectItem IsNot Nothing Then
+            If IsFolder(LastSelectItem) And CopyItems.Count > 0 Then
+                MenuPaste.IsEnabled = True
+            Else
+                MenuPaste.IsEnabled = False
+            End If
         Else
             MenuPaste.IsEnabled = False
         End If
+
 
         If LastSelectItem IsNot Nothing Then
             If GetFile(LastSelectItem).IsTopFolder And SelectItems.Count = 1 Then
@@ -67,6 +77,13 @@ Partial Public Class ProjectExplorer
                 MenuExport.Visibility = Visibility.Visible
                 MenuDelete.Visibility = Visibility.Visible
             End If
+        Else
+            MenuOpen.Visibility = Visibility.Collapsed
+            MenuCut.Visibility = Visibility.Collapsed
+            MenuCopy.Visibility = Visibility.Collapsed
+            MenuRename.Visibility = Visibility.Collapsed
+            MenuExport.Visibility = Visibility.Collapsed
+            MenuDelete.Visibility = Visibility.Collapsed
         End If
     End Sub
 
@@ -121,6 +138,8 @@ Partial Public Class ProjectExplorer
     Private Sub DeleteSelectItem()
         SelectListDelete()
         pjData.SetDirty(True)
+        SaveExpandedStatusExec()
+        TabItemTool.RefreshExplorer(Me)
     End Sub
 
 
@@ -192,6 +211,8 @@ Partial Public Class ProjectExplorer
             End If
         End If
         pjData.SetDirty(True)
+        SaveExpandedStatusExec()
+        TabItemTool.RefreshExplorer(Me)
     End Sub
 
 
@@ -254,6 +275,8 @@ Partial Public Class ProjectExplorer
         End If
 
         pjData.SetDirty(True)
+        SaveExpandedStatusExec()
+        TabItemTool.RefreshExplorer(Me)
     End Sub
     Private Sub NAddFolder()
         AddFolder(New TEFile(Tool.GetText("NewFolder"), TEFile.EFileType.Folder))

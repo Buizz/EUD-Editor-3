@@ -104,6 +104,7 @@ Partial Public Class ProjectExplorer
         AddHandler items.PreviewMouseMove, AddressOf MainTreeviewItme_PreviewMouseMove
         AddHandler items.PreviewMouseLeftButtonUp, AddressOf MainTreeviewItme_PreviewMouseUp
         AddHandler items.PreviewMouseRightButtonUp, AddressOf MainTreeviewItme_PreviewMouseRightButtonDown
+        AddHandler items.PreviewMouseDoubleClick, AddressOf MainTreeviewItme_PreviewMouseDoubleClick
 
         Return items
     End Function
@@ -163,8 +164,13 @@ Partial Public Class ProjectExplorer
             Keyboard.Focus(tTextBox)
         Else
             tTextBlock.Text = tTextBox.Text
+
             GetFile(TreeNode).FileName = tTextBox.Text
+            GetFile(TreeNode).UIBinding.PropertyChangedPack()
+
             TreeNode.ToolTip = GetFile(TreeNode).GetTooltip
+            TabItemTool.RefreshExplorer(Me)
+            pjData.SetDirty(True)
             SortList(TreeNode.Parent)
 
             tTextBlock.Visibility = Visibility.Visible

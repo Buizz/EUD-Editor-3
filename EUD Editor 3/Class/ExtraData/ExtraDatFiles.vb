@@ -260,10 +260,20 @@ Public Class ExtraDatFiles
     End Property
     Public Property TranFrame(index As Integer) As Byte
         Get
-            Return _TranFrame(index)
+            If index < SCMenCount Then
+                Return _TranFrame(index)
+            Else
+                Return 0
+            End If
+
         End Get
         Set(value As Byte)
-            _TranFrame(index) = value
+            If index < SCMenCount Then
+                _TranFrame(index) = value
+            Else
+
+            End If
+
         End Set
     End Property
 

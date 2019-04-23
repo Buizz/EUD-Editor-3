@@ -32,7 +32,7 @@
                   PreviewMouseMove="MainTreeview_PreviewMouseMove" SelectedItemChanged="MainTreeview_SelectedItemChanged">
                 <TreeView.ContextMenu>
                     <ContextMenu Opened="ContextMenu_Opened">
-                        <MenuItem x:Name="MenuOpen" Header="열기" Icon="{materialDesign:PackIcon Kind=Share}" Click="MenuOpen_Click"/>
+                        <MenuItem x:Name="MenuOpen" Header="열기" InputGestureText="Enter" Icon="{materialDesign:PackIcon Kind=Share}" Click="MenuOpen_Click"/>
                         <MenuItem x:Name="MenuAdd" Header="추가" Icon="{materialDesign:PackIcon Kind=FileOutline}">
                             <MenuItem x:Name="MenuNewFolder" Header="새 폴더" InputGestureText="Ctrl+F" Icon="{materialDesign:PackIcon Kind=CreateNewFolderOutline}" Click="AddFolderBtn_Click"/>
                             <MenuItem x:Name="MenuImport" Header="가져오기" Icon="{materialDesign:PackIcon Kind=FileDownloadOutline}"/>

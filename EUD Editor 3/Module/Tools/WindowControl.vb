@@ -1,4 +1,6 @@
-﻿Module WindowControl
+﻿Imports Dragablz
+
+Module WindowControl
     Public Sub CloseToolWindow()
         '다른 윈도우들이 하나라도 남아 있는지 판단
 
@@ -28,7 +30,77 @@
 
 
 
+    Public Sub TECloseTabITem(tTEFile As TEFile)
+        '우선 모든 윈도우 돌면서 조사하자
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(TriggerEditor) Then
+                Dim MainContent As Object = CType(win, TriggerEditor).MainTab
 
+
+                If CheckBranch(tTEFile, MainContent) Then
+                    Exit Sub
+                End If
+
+
+
+                'If CheckTabablzControl(tTEFile, MainContent) Then
+                '    win.Activate()
+                '    Return True
+                'End If
+            End If
+        Next
+    End Sub
+    Private Function CheckBranch(tTEFile As TEFile, ParentBranch As Object) As Boolean
+        '우선 모든 윈도우 돌면서 조사하자
+        While TypeOf ParentBranch IsNot TabablzControl
+            Select Case ParentBranch.GetType
+                Case GetType(TabablzControl)
+                    Exit While
+                Case GetType(Dockablz.Branch)
+                    Dim tBranch As Dockablz.Branch = ParentBranch
+
+                    If CheckBranch(tTEFile, ParentBranch.FirstItem) Then
+                        Return True
+                    End If
+                    If CheckBranch(tTEFile, ParentBranch.SecondItem) Then
+                        Return True
+                    End If
+                    Return False
+                    Exit While
+                Case GetType(Dockablz.Layout)
+                    Dim tLayout As Dockablz.Layout = ParentBranch
+                    ParentBranch = tLayout.Content
+            End Select
+        End While
+        Return CheckTabablzControl(tTEFile, ParentBranch)
+
+        Return False
+    End Function
+    Private Function CheckTabablzControl(tTEFile As TEFile, Control As TabablzControl) As Boolean
+        For i = 0 To Control.Items.Count - 1
+            Dim TabContent As Object = CType(Control.Items(i), TabItem).Content
+
+            If TypeOf TabContent Is TECUIPage Then
+                Dim tPage As TECUIPage = TabContent
+
+                If tPage.CheckTEFile(tTEFile) Then
+                    Control.Items.RemoveAt(i)
+                    Return True
+                End If
+            ElseIf TypeOf TabContent Is TEGUIPage Then
+                Dim tPage As TEGUIPage = TabContent
+
+                If tPage.CheckTEFile(tTEFile) Then
+                    Control.Items.RemoveAt(i)
+                    Return True
+                End If
+            End If
+        Next
+
+
+
+        Return False
+    End Function
 End Module
 Namespace WindowMenu
     Public Module WindowMenus
@@ -176,9 +248,12 @@ Namespace WindowMenu
                     Exit For
                 End If
             Next
+
+            'flag가 True이면 윈도우 첫 실행이므로 TabItem을 불러와야됨.
             If Not flag Then
                 Dim TriggerEditorForm As New TriggerEditor
                 TriggerEditorForm.Show()
+                TriggerEditorForm.LoadLastTabItems()
                 OpenToolWindow()
             End If
         End Sub
@@ -225,6 +300,8 @@ Namespace WindowMenu
                 OpenToolWindow()
             End If
         End Sub
+
+
 
         Public Sub CodeFold()
             For Each win As Window In Application.Current.Windows

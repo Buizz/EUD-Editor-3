@@ -15,8 +15,9 @@ Public Class TEFile
 
 
     '형태가 폴더 이거나 파일 이거나 둘 중 하나
-
     '파일 안에는 파일이 들어 있을 수 있는 구조.
+
+
 
 
     '========================이전 데이터 저장용========================
@@ -38,6 +39,15 @@ Public Class TEFile
 
 
 
+    Private _UIBinding As TETabItemUI
+    Public ReadOnly Property UIBinding As TETabItemUI
+        Get
+            Return _UIBinding
+        End Get
+    End Property
+
+
+
     Private IsTopFile As Boolean = False
     Public ReadOnly Property IsTopFolder As Boolean
         Get
@@ -46,6 +56,8 @@ Public Class TEFile
     End Property
 
     Public Sub New(TFName As String, FileType As EFileType)
+        _UIBinding = New TETabItemUI(Me)
+
         _Folders = New List(Of TEFile)
         _Files = New List(Of TEFile)
 
@@ -144,7 +156,7 @@ Public Class TEFile
 
             Select Case _FileType
                 Case EFileType.Folder
-                    returnText = Tool.GetText("Folder")
+                    returnText = "​" & Tool.GetText("Folder")
                 Case EFileType.CUIEps, EFileType.GUIEps
                     returnText = Tool.GetText("EpsScriptFile")
                 Case EFileType.GUIPy, EFileType.GUIEps

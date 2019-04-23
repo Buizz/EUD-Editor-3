@@ -8,7 +8,7 @@
 
             Dim CTEFile As TEFile = Item.Tag
             Dim PTEFile As TEFile = CType(Item.Parent, TreeViewItem).Tag
-
+            TECloseTabITem(CTEFile)
             If CTEFile.FileType = TEFile.EFileType.Folder Then
                 PTEFile.FolderRemove(CTEFile)
             Else

@@ -1,5 +1,6 @@
 ﻿Imports System.Windows.Threading
 Imports BondTech.HotKeyManagement.WPF._4
+Imports BondTech.HotKeyManagement.WPF._4.KeyboardHookEventArgs
 
 Public Class ProjectControl
     Private Sub MyHotKeyManager_LocalHotKeyPressed(sender As Object, e As LocalHotKeyEventArgs)
@@ -28,11 +29,11 @@ Public Class ProjectControl
     End Sub
 
 
-    Dim MyHotKeyManager As HotKeyManager
+    Private MyHotKeyManager As HotKeyManager
     Public Sub HotkeyInit(twindow As Window)
         MyHotKeyManager = New HotKeyManager(twindow)
         Dim hSetting As New LocalHotKey("Setting", ModifierKeys.Control, Keys.E)
-        Dim hNewFile As New LocalHotKey("NewFile", ModifierKeys.Control, Keys.N)
+        Dim hNewFile As New LocalHotKey("NewFile", ModifierKeys.Control Xor ModifierKeys.Shift, Keys.N)
         Dim hLoad As New LocalHotKey("Load", ModifierKeys.Control, Keys.O)
         Dim hSave As New LocalHotKey("Save", ModifierKeys.Control, Keys.S)
         Dim hScmdOpen As New LocalHotKey("ScmdOpen", ModifierKeys.Control, Keys.W)

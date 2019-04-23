@@ -38,6 +38,7 @@
         Next
         SortList(FolderNode)
         pjData.SetDirty(True)
+        TabItemTool.RefreshExplorer(Me)
     End Sub
     Private Function MoveItem(FolderItem As TreeViewItem, Item As TreeViewItem, Optional IsTop As Boolean = False) As Boolean
         Dim itemC As ItemCollection = FolderItem.Items

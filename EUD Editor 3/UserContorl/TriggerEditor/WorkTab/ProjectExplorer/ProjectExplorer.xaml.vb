@@ -13,19 +13,28 @@ Public Class ProjectExplorer
         TEData = pjData.TEData
         MainTreeview.Tag = TEData.PFIles
 
+        ResetList()
+
+        AddHotKeys()
+    End Sub
+    Public Sub ResetList()
+        MainTreeview.BeginInit()
         MainTreeview.Items.Clear()
         LoadFromData(MainTreeview.Items, TEData.PFIles)
 
         For i = 0 To MainTreeview.Items.Count - 1
             CType(MainTreeview.Items(i), TreeViewItem).IsExpanded = True
         Next
-        AddHotKeys()
+        MainTreeview.EndInit()
     End Sub
 
-    Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
+    Private Sub SaveExpandedStatusExec()
         For i = 0 To MainTreeview.Items.Count - 1
             SaveExpandedStatus(MainTreeview.Items(i))
         Next
+    End Sub
+    Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
+        SaveExpandedStatusExec()
     End Sub
     Private Sub SaveExpandedStatus(parent As TreeViewItem)
         CType(parent.Tag, TEFile).IsExpanded = parent.IsExpanded
@@ -36,9 +45,7 @@ Public Class ProjectExplorer
 
     Private Sub FliterText_PreviewKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.Enter Then
-            For i = 0 To MainTreeview.Items.Count - 1
-                SaveExpandedStatus(MainTreeview.Items(i))
-            Next
+            SaveExpandedStatusExec()
 
             FliterText = FliterTextBox.Text
             MainTreeview.Items.Clear()
@@ -51,9 +58,7 @@ Public Class ProjectExplorer
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        For i = 0 To MainTreeview.Items.Count - 1
-            SaveExpandedStatus(MainTreeview.Items(i))
-        Next
+        SaveExpandedStatusExec()
 
         FliterTextBox.Text = ""
         FliterText = ""
