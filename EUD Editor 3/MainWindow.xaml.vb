@@ -256,10 +256,11 @@ Class MainWindow
             End If
         End If
 
-
-        'pjData.SetDirty(True)
-        Dim DataEditorForm As New DataEditor(DataEditor.OpenType.MainWindow)
-        DataEditorForm.Show()
+        If scData.LoadStarCraftData Then
+            'pjData.SetDirty(True)
+            Dim DataEditorForm As New DataEditor(DataEditor.OpenType.MainWindow)
+            DataEditorForm.Show()
+        End If
     End Sub
 
     Private Sub Btn_TriggerEdit_Click(sender As Object, e As RoutedEventArgs)
@@ -288,10 +289,12 @@ Class MainWindow
             End If
         End If
 
-
+        If scData.LoadStarCraftData Then
+            Dim TriggerEditorForm As New TriggerEditor
+            TriggerEditorForm.Show()
+        End If
         'pjData.SetDirty(True)
-        Dim TriggerEditorForm As New TriggerEditor
-        TriggerEditorForm.Show()
+
         'DataEditorForm.OpenbyMainWindow()
     End Sub
 
@@ -321,10 +324,12 @@ Class MainWindow
             End If
         End If
 
-
+        If scData.LoadStarCraftData Then
+            Dim PluginForm As New PluginWindow
+            PluginForm.Show()
+        End If
         'pjData.SetDirty(True)
-        Dim PluginForm As New PluginWindow
-        PluginForm.Show()
+
         'DataEditorForm.OpenbyMainWindow()
     End Sub
 

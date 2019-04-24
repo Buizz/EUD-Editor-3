@@ -138,7 +138,7 @@
     <sys:String x:Key="Error SettingSave Fail">프로그램 세팅 저장을 실패했습니다.</sys:String>
     <sys:String x:Key="Error ProgramInit Fail">프로그램 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
     <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
-    <sys:String x:Key="Error LoadMPQData Fail">MPQ파일을 읽는데 실패했습니다.</sys:String>
+    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve" >MPQ파일을 읽는데 실패했습니다.&#13;리마스터 버전의 MPQ파일이 아닐 수 있습니다.</sys:String>
     <sys:String x:Key="Error NotExistMPQ">MPQ파일이 지정되어 있지 않습니다.</sys:String>
     <sys:String x:Key="Error NotExistMPQ reset">MPQ파일이 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
 
@@ -154,14 +154,14 @@
     <sys:String x:Key="Error FailLoad TriggerEditor">트리거 에디터 로드에 실패했습니다.</sys:String>
     <sys:String x:Key="Error FailLoad PluginSet">플러그인 세팅 로드에 실패했습니다.</sys:String>
 
-    <sys:String x:Key="Error compiling">빌드 중에는 종료 할 수 없습니다.</sys:String>
+    <sys:String x:Key="Error compiling">컴파일 중에는 종료 할 수 없습니다.</sys:String>
     <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중에는 종료 할 수 없습니다.</sys:String>
 
 
     <sys:String x:Key="Error Dont Delete File">삭제 할 수 없는 파일입니다.</sys:String>
 
 
-    <sys:String x:Key="Compile">빌드 중...</sys:String>
+    <sys:String x:Key="Compile">컴파일 중...</sys:String>
     
 
 

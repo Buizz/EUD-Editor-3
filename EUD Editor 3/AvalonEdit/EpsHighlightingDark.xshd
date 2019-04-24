@@ -1,0 +1,80 @@
+﻿<?xml version="1.0"?>
+<SyntaxDefinition name="EPS HighlightingDark" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
+	<Color name="Comment" foreground="#47C83E" />
+	<Color name="String" foreground="#F29661" />
+	
+	<!-- This is the main ruleset. -->
+	<RuleSet>
+		<Span color="Comment" begin="//" />
+		<Span color="Comment" multiline="true" begin="/\*" end="\*/" />
+
+
+    <!-- 함수 호출 붉은계열-->
+    <Rule foreground="#FFA7A7">
+      [\w\d]+(?=\(.*\))
+    </Rule>
+
+    <Span color="String">
+			<Begin>"</Begin>
+			<End>"</End>
+			<RuleSet>
+				<!-- nested span for escape sequences -->
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
+		
+
+
+    <!-- 변수 초록 계열 -->
+    <Keywords foreground="#CEF279">
+      <Word>const</Word>
+      <Word>var</Word>
+    </Keywords>
+
+    <!-- 붉은 계열 -->
+    <Keywords foreground="#F15F5F">
+      <Word>import</Word>
+      <Word>as</Word>
+    </Keywords>
+    
+    <!-- 함수 파란계열(시스템 색, 문법등)-->
+    <Keywords foreground="#6799FF">
+      <Word>if</Word>
+      <Word>else</Word>
+      <Word>for</Word>
+      <Word>function</Word>
+      <Word>foreach</Word>
+      <Word>return</Word>
+    </Keywords>
+
+
+
+    <!-- 함수 정의 옅은 노랑-->
+    <Rule foreground="#D1B2FF">
+      (?&lt;=function)[\s]+[\w\d]+
+    </Rule>
+    
+
+
+
+    <!-- 배열 초록 계열-->
+    <Rule foreground="#CEF279">
+      [\w\d]+(?=\[.*\])
+    </Rule>
+
+
+    <!-- Digits 얉은 파랑-->
+    <Rule foreground="#3DB7CC">
+      \b0[xX][0-9a-fA-F]+  # hex number
+    </Rule>
+
+    <!-- Digits 옅은 노랑-->
+    <Rule foreground="#FFE08C">
+              \b
+      (    \d+(\.[0-9]+)?   #number with optional floating point
+      |    \.[0-9]+         #or just starting with floating point
+      )
+      ([eE][+-]?[0-9]+)? # optional exponent
+    </Rule>
+  </RuleSet>
+</SyntaxDefinition>

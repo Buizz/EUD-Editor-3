@@ -206,10 +206,12 @@ Namespace WindowMenu
             End If
 
 
-            'pjData.SetDirty(True)
-            Dim DataEditorForm As New DataEditor(DataEditor.OpenType.MainWindow)
-            DataEditorForm.Show()
-            OpenToolWindow()
+            If scData.LoadStarCraftData Then
+                'pjData.SetDirty(True)
+                Dim DataEditorForm As New DataEditor(DataEditor.OpenType.MainWindow)
+                DataEditorForm.Show()
+                OpenToolWindow()
+            End If
         End Sub
 
         Public Sub OpenTriggerEdit()
@@ -238,24 +240,26 @@ Namespace WindowMenu
                 End If
             End If
 
+            If scData.LoadStarCraftData Then
+                Dim flag As Boolean = False
+                For Each win As Window In Application.Current.Windows
+                    If win.GetType Is GetType(TriggerEditor) Then
+                        win.Activate()
 
-            Dim flag As Boolean = False
-            For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(TriggerEditor) Then
-                    win.Activate()
+                        flag = True
+                        Exit For
+                    End If
+                Next
 
-                    flag = True
-                    Exit For
+                'flag가 True이면 윈도우 첫 실행이므로 TabItem을 불러와야됨.
+                If Not flag Then
+                    Dim TriggerEditorForm As New TriggerEditor
+                    TriggerEditorForm.Show()
+                    TriggerEditorForm.LoadLastTabItems()
+                    OpenToolWindow()
                 End If
-            Next
-
-            'flag가 True이면 윈도우 첫 실행이므로 TabItem을 불러와야됨.
-            If Not flag Then
-                Dim TriggerEditorForm As New TriggerEditor
-                TriggerEditorForm.Show()
-                TriggerEditorForm.LoadLastTabItems()
-                OpenToolWindow()
             End If
+
         End Sub
 
         Public Sub OpenPlugin()
@@ -284,20 +288,23 @@ Namespace WindowMenu
                 End If
             End If
 
-            Dim flag As Boolean = False
-            For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(PluginWindow) Then
-                    win.Activate()
 
-                    flag = True
-                    Exit For
+            If scData.LoadStarCraftData Then
+                Dim flag As Boolean = False
+                For Each win As Window In Application.Current.Windows
+                    If win.GetType Is GetType(PluginWindow) Then
+                        win.Activate()
+
+                        flag = True
+                        Exit For
+                    End If
+                Next
+                If Not flag Then
+                    'pjData.SetDirty(True)
+                    Dim PluginForm As New PluginWindow
+                    PluginForm.Show()
+                    OpenToolWindow()
                 End If
-            Next
-            If Not flag Then
-                'pjData.SetDirty(True)
-                Dim PluginForm As New PluginWindow
-                PluginForm.Show()
-                OpenToolWindow()
             End If
         End Sub
 

@@ -221,6 +221,10 @@
     <Compile Include="Class\tblWriter.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
+    <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
+    <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor.vb" />
+    <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
     <Compile Include="Class\TriggerEditor\TEFile.vb" />
     <Compile Include="MainWindow\MainWindowD.xaml.vb">
@@ -239,6 +243,9 @@
       <DependentUpon>TreeviewExample.xaml</DependentUpon>
     </Compile>
     <Compile Include="TEST\UIEditorPage\System.vb" />
+    <Compile Include="UserContorl\CodeEditor\CodeEditor.xaml.vb">
+      <DependentUpon>CodeEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
@@ -365,6 +372,7 @@
     <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
       <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\CodeEditor\Init.vb" />
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\AddItem.vb" />
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Colors.vb" />
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\CTreeviewItem.xaml.vb">
@@ -432,6 +440,10 @@
     <Page Include="TEST\UIEditorPage\TreeviewExample.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\CodeEditor\CodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\DataEditor\ButtonData.xaml">
       <SubType>Designer</SubType>
@@ -676,6 +688,18 @@
     <None Include="app.manifest">
       <SubType>Designer</SubType>
     </None>
+    <EmbeddedResource Include="AvalonEdit\PythonHighlightingLight.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvalonEdit\EpsHighlightingDark.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvalonEdit\PythonHighlightingDark.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
+    <EmbeddedResource Include="AvalonEdit\EpsHighlightingLight.xshd">
+      <SubType>Designer</SubType>
+    </EmbeddedResource>
     <None Include="Data\DatFiles\btnset.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>

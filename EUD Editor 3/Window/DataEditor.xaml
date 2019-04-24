@@ -73,7 +73,7 @@
 
                 <avalonEdit:TextEditor  
                     PreviewKeyDown="ConsoleText_PreviewKeyDown"
-                    Foreground="{StaticResource MaterialDesignBody}"
+                    Foreground="{DynamicResource MaterialDesignBody}"
                     x:Name="ConsoleText"
                     DockPanel.Dock="Bottom" 
                     VerticalAlignment="Top" 

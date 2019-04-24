@@ -1,4 +1,5 @@
 ﻿Public Class TECUIPage
+
     Private PTEFile As TEFile
     Public ReadOnly Property TEFile As TEFile
         Get
@@ -7,8 +8,6 @@
     End Property
 
     Public Function CheckTEFile(tTEfile As TEFile) As Boolean
-
-
         Return (tTEfile Is PTEFile)
     End Function
 
@@ -32,3 +31,4 @@
 
     End Sub
 End Class
+

@@ -47,6 +47,12 @@ Public Class TEFile
     End Property
 
 
+    Private _Scripter As ScriptEditor
+    Public ReadOnly Property Scripter As ScriptEditor
+        Get
+            Return _Scripter
+        End Get
+    End Property
 
     Private IsTopFile As Boolean = False
     Public ReadOnly Property IsTopFolder As Boolean
@@ -65,6 +71,18 @@ Public Class TEFile
 
 
         _FileType = FileType
+
+        Select Case FileType
+            Case EFileType.CUIEps
+                _Scripter = New CUIScriptEditor(ScriptEditor.SType.Eps)
+            Case EFileType.CUIPy
+                _Scripter = New CUIScriptEditor(ScriptEditor.SType.Py)
+            Case EFileType.GUIEps
+                _Scripter = New GUIScriptEditor(ScriptEditor.SType.Eps)
+            Case EFileType.GUIPy
+                _Scripter = New GUIScriptEditor(ScriptEditor.SType.Py)
+        End Select
+
 
         CreateDate = Now
         LastDate = Now
