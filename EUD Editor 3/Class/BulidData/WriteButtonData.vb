@@ -28,8 +28,8 @@ Partial Public Class BuildData
                 Dim buttonCount As Integer = pjData.ExtraDat.ButtonData.GetButtonSet(newButtonIndex).ButtonS.Count
 
                 sb.AppendLine("    DoActions([")
-                sb.AppendLine("        SetMemoryEPD(EPD(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnAddress"))) + 12 * Index) & "), SetTo, " & Address(newButtonIndex) & "),")
-                sb.AppendLine("        SetMemoryEPD(EPD(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnNum"))) + 12 * Index) & "), SetTo, " & buttonCount & "),")
+                sb.AppendLine("        SetMemory(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnAddress"))) + 12 * Index) & ", SetTo, " & Address(newButtonIndex) & "),")
+                sb.AppendLine("        SetMemory(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnNum"))) + 12 * Index) & ", SetTo, " & buttonCount & "),")
                 sb.AppendLine("    ])")
             ElseIf Not IsNumeric(Address(Index)) Then
                 '원본인데 데이터가 변형되었다면?
@@ -37,8 +37,8 @@ Partial Public Class BuildData
                 Dim buttonCount As Integer = pjData.ExtraDat.ButtonData.GetButtonSet(Index).ButtonS.Count
 
                 sb.AppendLine("    DoActions([")
-                sb.AppendLine("        SetMemoryEPD(EPD(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnAddress"))) + 12 * Index) & "), SetTo, " & Address(newButtonIndex) & "),")
-                sb.AppendLine("        SetMemoryEPD(EPD(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnNum"))) + 12 * Index) & "), SetTo, " & buttonCount & "),")
+                sb.AppendLine("        SetMemory(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnAddress"))) + 12 * Index) & ", SetTo, " & Address(newButtonIndex) & "),")
+                sb.AppendLine("        SetMemory(0x" & Hex(Val("&H" & Hex(Tool.GetOffset("FG_BtnNum"))) + 12 * Index) & ", SetTo, " & buttonCount & "),")
                 sb.AppendLine("    ])")
             End If
         Next

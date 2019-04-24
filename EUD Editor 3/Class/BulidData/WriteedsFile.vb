@@ -16,9 +16,6 @@ Partial Public Class BuildData
             sb.AppendLine("")
         End If
 
-        '[TriggerEditor.eps]
-
-
         sb.AppendLine("[dataDumper]")
         If pjData.UseCustomtbl Then
             'tbl 파일 쓰기
@@ -32,6 +29,10 @@ Partial Public Class BuildData
         'D\:\source\repos\EUDEditor\EUD Editor\bin\x86\Release\Data\temp\stat_txt.tbl : 0x6D5A30, copy"
         '[dataDumper]
         'D\:\source\repos\EUDEditor\EUD Editor\bin\x86\Release\Data\temp\RequireData : 0x58D740, copy
+
+
+        '[TriggerEditor.eps]
+
 
         Dim filestreama As New FileStream(EdsFilePath, FileMode.Create)
         Dim strWriter As New StreamWriter(filestreama)

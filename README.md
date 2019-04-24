@@ -1,5 +1,5 @@
 # EUD-Editor-3
-StarCraft:Reamster UMS Make Tool
+StarCraft: Remastered UMS Make Tool
 
 
 
