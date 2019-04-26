@@ -16,12 +16,14 @@ Partial Public Class ProjectExplorer
             MenuDelete.IsEnabled = True
             MenuCut.IsEnabled = True
             MenuCopy.IsEnabled = True
+            MenuConnect.IsEnabled = True
         Else
             MenuOpen.IsEnabled = False
             MenuExport.IsEnabled = False
             MenuDelete.IsEnabled = False
             MenuCut.IsEnabled = False
             MenuCopy.IsEnabled = False
+            MenuConnect.IsEnabled = False
         End If
 
         '마지막으로 선택한 아이템이 있을 경우
@@ -36,11 +38,36 @@ Partial Public Class ProjectExplorer
         If LastSelectItem IsNot Nothing Then
             If IsFolder(LastSelectItem) Then
                 MenuAdd.Visibility = Visibility.Visible
+                MenuConnect.Visibility = Visibility.Collapsed
+                MenuDisConnect.Visibility = Visibility.Collapsed
             Else
                 MenuAdd.Visibility = Visibility.Collapsed
+
+                '커넥트확인
+                If SelectItems.Count = 1 And GetFile(LastSelectItem).FileType <> TEFile.EFileType.Setting Then
+
+                    If GetFile(LastSelectItem).Scripter.CheckConnect Then
+                        MenuConnect.Visibility = Visibility.Collapsed
+                        MenuDisConnect.Visibility = Visibility.Visible
+                    Else
+                        If GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIEps Or
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Then
+                            MenuConnect.Visibility = Visibility.Collapsed
+                            MenuDisConnect.Visibility = Visibility.Collapsed
+                        Else
+                            MenuConnect.Visibility = Visibility.Visible
+                            MenuDisConnect.Visibility = Visibility.Collapsed
+                        End If
+                    End If
+                Else
+                    MenuConnect.Visibility = Visibility.Collapsed
+                    MenuDisConnect.Visibility = Visibility.Collapsed
+                End If
             End If
         Else
             MenuAdd.Visibility = Visibility.Visible
+            MenuConnect.Visibility = Visibility.Collapsed
+            MenuDisConnect.Visibility = Visibility.Collapsed
         End If
 
 
@@ -58,13 +85,24 @@ Partial Public Class ProjectExplorer
 
 
         If LastSelectItem IsNot Nothing Then
-            If GetFile(LastSelectItem).IsTopFolder And SelectItems.Count = 1 Then
-                MenuOpen.Visibility = Visibility.Collapsed
+            If (GetFile(LastSelectItem).IsTopFolder Or GetFile(LastSelectItem).FileType = TEFile.EFileType.Setting) And SelectItems.Count = 1 Then
+
+                If GetFile(LastSelectItem).FileType = TEFile.EFileType.Setting Then
+                    MenuOpen.Visibility = Visibility.Visible
+                    MenuPaste.Visibility = Visibility.Collapsed
+                    Separator1.Visibility = Visibility.Collapsed
+                Else
+                    MenuOpen.Visibility = Visibility.Collapsed
+                    MenuPaste.Visibility = Visibility.Visible
+                    Separator1.Visibility = Visibility.Visible
+                End If
                 MenuCut.Visibility = Visibility.Collapsed
                 MenuCopy.Visibility = Visibility.Collapsed
                 MenuRename.Visibility = Visibility.Collapsed
                 MenuExport.Visibility = Visibility.Collapsed
                 MenuDelete.Visibility = Visibility.Collapsed
+                Separator2.Visibility = Visibility.Collapsed
+                MenuConnect.Visibility = Visibility.Collapsed
             Else
                 If IsFolder(LastSelectItem) And SelectItems.Count = 1 Then
                     MenuOpen.Visibility = Visibility.Collapsed
@@ -76,6 +114,8 @@ Partial Public Class ProjectExplorer
                 MenuRename.Visibility = Visibility.Visible
                 MenuExport.Visibility = Visibility.Visible
                 MenuDelete.Visibility = Visibility.Visible
+                Separator1.Visibility = Visibility.Visible
+                Separator2.Visibility = Visibility.Visible
             End If
         Else
             MenuOpen.Visibility = Visibility.Collapsed
@@ -84,9 +124,44 @@ Partial Public Class ProjectExplorer
             MenuRename.Visibility = Visibility.Collapsed
             MenuExport.Visibility = Visibility.Collapsed
             MenuDelete.Visibility = Visibility.Collapsed
+            Separator2.Visibility = Visibility.Collapsed
+            MenuConnect.Visibility = Visibility.Collapsed
         End If
     End Sub
 
+
+    Private Sub MenuConnect_Click(sender As Object, e As RoutedEventArgs)
+        If LastSelectItem IsNot Nothing Then
+            Dim openFileDialog As System.Windows.Forms.OpenFileDialog = Nothing
+
+            If GetFile(LastSelectItem).FileType = TEFile.EFileType.CUIEps Or
+                GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIEps Then
+                openFileDialog = New System.Windows.Forms.OpenFileDialog With {
+                   .Filter = Tool.GetText("OpenEpsFileFliter"),
+                   .Title = Tool.GetText("OpenEpsTitle")
+                }
+            ElseIf GetFile(LastSelectItem).FileType = TEFile.EFileType.CUIPy Or
+                GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Then
+                openFileDialog = New System.Windows.Forms.OpenFileDialog With {
+                   .Filter = Tool.GetText("OpenPyFileFliter"),
+                   .Title = Tool.GetText("OpenPyTitle")
+                }
+            End If
+
+
+            If openFileDialog.ShowDialog = Forms.DialogResult.OK Then
+                GetFile(LastSelectItem).Scripter.ConnectFile = openFileDialog.FileName
+            End If
+        End If
+    End Sub
+
+    Private Sub MenuDisConnect_Click(sender As Object, e As RoutedEventArgs)
+        If LastSelectItem IsNot Nothing Then
+            If GetFile(LastSelectItem).IsFile And SelectItems.Count = 1 Then
+                GetFile(LastSelectItem).Scripter.ConnectFile = ""
+            End If
+        End If
+    End Sub
 
 
     'HotKey Add
@@ -135,6 +210,9 @@ Partial Public Class ProjectExplorer
     End Sub
 
 
+    Private Sub MenuDelete_Click(sender As Object, e As RoutedEventArgs)
+        DeleteSelectItem()
+    End Sub
     Private Sub DeleteSelectItem()
         SelectListDelete()
         pjData.SetDirty(True)

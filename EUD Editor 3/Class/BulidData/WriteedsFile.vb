@@ -25,6 +25,13 @@ Partial Public Class BuildData
         sb.AppendLine(Tool.GetRelativePath(EdsFilePath, requireFilePath) & " : 0x" & Hex(Tool.GetOffset("Vanilla")) & ", copy")
 
 
+        If My.Computer.FileSystem.FileExists(TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) Then
+            sb.AppendLine("[" & Tool.GetRelativePath(EdsFilePath, TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) & "]")
+        End If
+
+
+
+
         '"[dataDumper]
         'D\:\source\repos\EUDEditor\EUD Editor\bin\x86\Release\Data\temp\stat_txt.tbl : 0x6D5A30, copy"
         '[dataDumper]

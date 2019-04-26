@@ -32,18 +32,20 @@
                   PreviewMouseMove="MainTreeview_PreviewMouseMove" SelectedItemChanged="MainTreeview_SelectedItemChanged">
                 <TreeView.ContextMenu>
                     <ContextMenu Opened="ContextMenu_Opened">
-                        <MenuItem x:Name="MenuOpen" Header="열기" InputGestureText="Enter" Icon="{materialDesign:PackIcon Kind=Share}" Click="MenuOpen_Click"/>
-                        <MenuItem x:Name="MenuAdd" Header="추가" Icon="{materialDesign:PackIcon Kind=FileOutline}">
-                            <MenuItem x:Name="MenuNewFolder" Header="새 폴더" InputGestureText="Ctrl+F" Icon="{materialDesign:PackIcon Kind=CreateNewFolderOutline}" Click="AddFolderBtn_Click"/>
-                            <MenuItem x:Name="MenuImport" Header="가져오기" Icon="{materialDesign:PackIcon Kind=FileDownloadOutline}"/>
+                        <MenuItem x:Name="MenuOpen" Header="{StaticResource MenuOpen}" InputGestureText="Enter" Icon="{materialDesign:PackIcon Kind=Share}" Click="MenuOpen_Click"/>
+                        <MenuItem x:Name="MenuConnect" Header="{StaticResource MenuConnect}" Icon="{materialDesign:PackIcon Kind=Sync}" Click="MenuConnect_Click"/>
+                        <MenuItem x:Name="MenuDisConnect" Header="{StaticResource MenuDisConnect}" Icon="{materialDesign:PackIcon Kind=SyncOff}" Click="MenuDisConnect_Click"/>
+                        <MenuItem x:Name="MenuAdd" Header="{StaticResource MenuAdd}" Icon="{materialDesign:PackIcon Kind=FileOutline}">
+                            <MenuItem x:Name="MenuNewFolder" Header="{StaticResource NewFolder}" InputGestureText="Ctrl+F" Icon="{materialDesign:PackIcon Kind=CreateNewFolderOutline}" Click="AddFolderBtn_Click"/>
+                            <MenuItem x:Name="MenuImport" Header="{StaticResource MenuImport}" Icon="{materialDesign:PackIcon Kind=FileDownloadOutline}"/>
                             <Separator/>
                             <MenuItem x:Name="MenuGUIPY" Header="{StaticResource MenuGNewPyScript}" InputGestureText="Ctrl+Q" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIPy_Click"/>
                             <MenuItem x:Name="MenuGUIEPS" Header="{StaticResource MenuGNewEpsScript}" InputGestureText="Ctrl+W" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIEps_Click"/>
                             <MenuItem x:Name="MenuCUIPY" Header="{StaticResource MenuCNewPyScript}" InputGestureText="Alt+Q" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIPy_Click"/>
                             <MenuItem x:Name="MenuCUIEPS" Header="{StaticResource MenuCNewEpsScript}" InputGestureText="Alt+W" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIEps_Click"/>
                         </MenuItem>
-                        <MenuItem x:Name="MenuExport" Header="내보내기" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}"/>
-                        <Separator/>
+                        <MenuItem x:Name="MenuExport" Header="{StaticResource MenuExport}" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}"/>
+                        <Separator x:Name="Separator1"/>
                         <MenuItem x:Name="MenuCut" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Icon="{materialDesign:PackIcon Kind=ContentCut}" Click="CutItem_Click"/>
                         <MenuItem x:Name="MenuCopy" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}" Click="CopyItem_Click"/>
                         <MenuItem x:Name="MenuPaste" Header="{StaticResource Paste}" InputGestureText="Ctrl+V" Icon="{materialDesign:PackIcon Kind=ContentPaste}" Click="PasteItem_Click"/>
@@ -51,8 +53,8 @@
 
                         <MenuItem x:Name="MenuRename" Header="{StaticResource Rename}" Icon="{materialDesign:PackIcon Kind=Textbox}" InputGestureText="Ctrl+R" Click="RenameBtn_Click"/>
                         <!--폴더에 있어야 함-->
-                        <Separator/>
-                        <MenuItem x:Name="MenuDelete" Header="{StaticResource CodeDelete}" InputGestureText="Delete" Icon="{materialDesign:PackIcon Kind=Eraser}"/>
+                        <Separator x:Name="Separator2"/>
+                        <MenuItem x:Name="MenuDelete" Header="{StaticResource CodeDelete}" InputGestureText="Delete" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="MenuDelete_Click"/>
 
                     </ContextMenu>
                 </TreeView.ContextMenu>

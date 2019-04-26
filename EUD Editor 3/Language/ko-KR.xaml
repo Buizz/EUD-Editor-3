@@ -79,6 +79,9 @@
     <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s</sys:String>
     <!--<sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>-->
 
+
+
+
     <sys:String x:Key="NoName">제목 없음</sys:String>
     <sys:String x:Key="None">없음</sys:String>
     <sys:String x:Key="NotUse">X</sys:String>
@@ -740,7 +743,30 @@
     <sys:String x:Key="CreateDate">생성 날짜</sys:String>
     <sys:String x:Key="LastDate">마지막으로 편집된 날짜</sys:String>
 
+    <!--트리거에디터 설정-->
+    <sys:String x:Key="TE_CompileSetting">컴파일 설정</sys:String>
+    <sys:String x:Key="TE_MainScriptSetting">시작 파일 설정</sys:String>
+    
+    
+    <sys:String x:Key="TE_CustomUserDataSetting">사용자 데이터</sys:String>
+    <sys:String x:Key="TE_MacroDatASetting">매크로 설정</sys:String>
+    <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
+
     <!--Menu-->
+    <sys:String x:Key="MenuOpen">열기</sys:String>
+    <sys:String x:Key="MenuAdd">추가</sys:String>
+    <sys:String x:Key="MenuImport">가져오기</sys:String>
+    <sys:String x:Key="MenuExport">내보내기</sys:String>
+    <sys:String x:Key="MenuConnect">연결</sys:String>
+    <sys:String x:Key="MenuDisConnect">연결 끊키</sys:String>
+
+    <sys:String x:Key="OpenEpsFileFliter">epScript 파일|*.eps</sys:String>
+    <sys:String x:Key="OpenPyFileFliter">eudplib 파일|*.py</sys:String>
+
+    <sys:String x:Key="OpenEpsTitle">epScript 파일 선택</sys:String>
+    <sys:String x:Key="OpenPyTitle">eudplib 파일 선택</sys:String>
+    
+
     <sys:String x:Key="MenuCNewEpsScript">[CUI] epScript 파일</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib 파일</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript 파일</sys:String>

@@ -19,7 +19,6 @@ Public Class MapData
     End Property
 
     Public Sub New(MapName As String)
-        Strings = New List(Of String)
         Try
             LoadData(MapName)
         Catch ex As Exception
@@ -51,8 +50,22 @@ Public Class MapData
             End If
         End While
     End Sub
+
+    Public Function ReLoad(MapName As String) As Boolean
+        Try
+            LoadData(MapName)
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error MapOpen"), ex.ToString)
+            Dat = Nothing
+            Return False
+        End Try
+        Return True
+    End Function
+
+
     Private Sub LoadData(MapName As String)
         Dat = New SCDatFiles(True)
+        Strings = New List(Of String)
 
 
         Dim hmpq As UInteger

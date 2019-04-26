@@ -2,7 +2,7 @@
     Private Function DeleteItem(Item As TreeViewItem) As Boolean
         Try
 
-            If GetFile(Item).IsTopFolder Then
+            If GetFile(Item).IsTopFolder Or GetFile(Item).FileType = TEFile.EFileType.Setting Then
                 Return False
             End If
 

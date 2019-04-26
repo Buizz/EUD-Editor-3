@@ -41,19 +41,84 @@ Partial Public Class CodeEditor
         End If
     End Sub
 
+
+    '현재 위치로 부터 뒤로 간다.
+    '만약 엔터가 나오면 얆짤없이 끝 End
+
+    '이름()
+
+    '괄호를 입력하는 순간 뒤에 )이거 추가됨!
+
+
+    'asdfg(adsf, 123, 344, 312, 33, 11
+
+
+
     Private LastStr As String
+    Private FuncName As String
+    Private ArgumentCount As Integer
     Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
-        LastStr = LastStr & e.Text
+        LastStr = ""
+        FuncName = ""
+        ArgumentCount = 0
 
-        If e.Text = " " Then
-            LastStr = ""
-        End If
-        Log.Text = e.Text & " " & LastStr & " " & TextEditor.SelectionStart
+        Dim index As Integer = 0
+        Dim bracketCount As Integer = 0
+        Dim GetFuncName As Boolean = False
+        While ((TextEditor.SelectionStart - index) > 0)
+            Dim MidStr As String = Mid(TextEditor.Text, TextEditor.SelectionStart - index, 1)
+
+            If GetFuncName Then
+                FuncName = MidStr & FuncName
+            End If
+            Select Case MidStr
+                Case vbLf
+                    Exit While
+                Case "("
+                    If GetFuncName Then
+                        Exit While
+                    Else
+                        If bracketCount > 0 Then
+                            bracketCount -= 1
+                        Else
+                            GetFuncName = True
+                        End If
+                    End If
+                Case ")"
+                    If GetFuncName Then
+                        Exit While
+                    Else
+                        bracketCount += 1
+                    End If
+                Case " "
+                    If GetFuncName Then
+                        Exit While
+                    End If
+                Case ","
+                    ArgumentCount += 1
+            End Select
+
+
+            LastStr = MidStr & LastStr
+
+            index += 1
+        End While
 
 
 
-        ShowCompletion(e.Text, False)
+
+        Log.Text = LastStr & " " & TextEditor.SelectionStart & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentCount
+
+
+
+
+
+        'ShowCompletion(e.Text, False)
     End Sub
+
+
+
+
 
     Private Sub textEditor_TextArea_TextEntering(sender As Object, e As TextCompositionEventArgs)
         If (e.Text.Length > 0 And completionWindow IsNot Nothing) Then

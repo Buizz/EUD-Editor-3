@@ -9,7 +9,7 @@
         '선택한 블럭들이 타입이 일치하는지 판단
         '선택한 블럭들 중에 삭제나 이동, 추가가 불가능한 블럭이 있는지 판단
         For i = 0 To SelectItems.Count - 1
-            If GetFile(SelectItems(i)).IsTopFolder Then
+            If GetFile(SelectItems(i)).IsTopFolder Or GetFile(SelectItems(i)).FileType = TEFile.EFileType.Setting Then
                 Return False
             End If
         Next
@@ -19,6 +19,10 @@
 
     Private Sub DragWork(FolderNode As TreeViewItem)
         For k = 0 To SelectItems.Count - 1
+            If GetFile(SelectItems(k)).FileType = TEFile.EFileType.Setting Then
+                Continue For
+            End If
+
             Dim CNode As TreeViewItem = SelectItems(k)
             Dim CFile As TEFile = SelectItems(k).Tag
 
@@ -34,6 +38,10 @@
 
 
         For k = 0 To SelectItems.Count - 1
+            If GetFile(SelectItems(k)).FileType = TEFile.EFileType.Setting Then
+                Continue For
+            End If
+
             MoveItem(FolderNode, SelectItems(k), IsTop)
         Next
         SortList(FolderNode)

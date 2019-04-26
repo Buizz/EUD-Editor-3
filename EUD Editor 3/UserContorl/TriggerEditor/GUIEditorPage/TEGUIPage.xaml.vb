@@ -30,7 +30,6 @@
         'Next
 
 
-
         For i = 0 To 10
             AddTreeviewItem(MainTreeview)
         Next
@@ -43,13 +42,11 @@
         Next
     End Sub
 
-
-
-
-
-
+    Public Sub SaveData()
+        '  MsgBox("세이브 : " & TEFile.FileName)
+    End Sub
     Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
-
+        '  MsgBox("세이브 : " & TEFile.FileName)
     End Sub
 
 

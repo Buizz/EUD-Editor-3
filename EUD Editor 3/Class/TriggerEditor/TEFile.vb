@@ -11,6 +11,7 @@ Public Class TEFile
         GUIEps
         GUIPy
 
+        Setting
     End Enum
 
 
@@ -39,6 +40,23 @@ Public Class TEFile
 
 
 
+
+    Private LastConnectTimer() As Date
+    Public Function RefreshData() As String
+        If Scripter.CheckConnect Then
+            If LastDate <> File.GetLastWriteTime(Scripter.ConnectFile) Then
+                LastDate = File.GetLastWriteTime(Scripter.ConnectFile)
+                Return Scripter.GetStringText()
+            End If
+            Return ""
+        Else
+            Return ""
+        End If
+    End Function
+
+
+
+
     Private _UIBinding As TETabItemUI
     Public ReadOnly Property UIBinding As TETabItemUI
         Get
@@ -58,6 +76,23 @@ Public Class TEFile
     Public ReadOnly Property IsTopFolder As Boolean
         Get
             Return IsTopFile
+        End Get
+    End Property
+
+    Public ReadOnly Property IsFile As Boolean
+        Get
+            Select Case FileType
+                Case EFileType.CUIEps
+                    Return True
+                Case EFileType.CUIPy
+                    Return True
+                Case EFileType.GUIEps
+                    Return True
+                Case EFileType.GUIPy
+                    Return True
+                Case Else
+                    Return False
+            End Select
         End Get
     End Property
 
@@ -168,21 +203,40 @@ Public Class TEFile
             _FileName = value
         End Set
     End Property
+    Public ReadOnly Property RealFileName As String
+        Get
+            Select Case FileType
+                Case EFileType.CUIEps
+                    Return _FileName & ".eps"
+                Case EFileType.CUIPy
+                    Return _FileName & ".py"
+                Case EFileType.GUIEps
+                    Return _FileName & ".eps"
+                Case EFileType.GUIPy
+                    Return _FileName & ".py"
+            End Select
+
+
+            Return _FileName
+        End Get
+    End Property
+
     Public ReadOnly Property GetTooltip() As String
         Get
             Dim returnText As String = ""
 
             Select Case _FileType
                 Case EFileType.Folder
-                    returnText = "​" & Tool.GetText("Folder")
+                    returnText = "​" & Tool.GetText("Folder") & vbCrLf
                 Case EFileType.CUIEps, EFileType.GUIEps
-                    returnText = Tool.GetText("EpsScriptFile")
+                    returnText = Tool.GetText("EpsScriptFile") & vbCrLf
                 Case EFileType.GUIPy, EFileType.GUIEps
-                    returnText = Tool.GetText("PyScriptFile")
-
+                    returnText = Tool.GetText("PyScriptFile") & vbCrLf
+                Case EFileType.Setting
+                    returnText = "​​"
             End Select
 
-            returnText = returnText & vbCrLf & Tool.GetText("FIleName") & " : " & FileName & vbCrLf &
+            returnText = returnText & Tool.GetText("FIleName") & " : " & FileName & vbCrLf &
                 Tool.GetText("CreateDate") & " : " & vbCrLf & CreateDate.ToString & vbCrLf &
                 Tool.GetText("LastDate") & " : " & vbCrLf & LastDate.ToString
 

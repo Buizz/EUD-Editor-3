@@ -35,6 +35,11 @@
             Return EudPlibFilePath & "\ExtraDataEditor.py"
         End Get
     End Property
+    Private ReadOnly Property TriggerEditorPath() As String
+        Get
+            Return EudPlibFilePath & "\TriggerEditor"
+        End Get
+    End Property
     Private ReadOnly Property EudPlibFilePath() As String
         Get
             Return Tool.GetDirectoy(TempFloder & "\", "eudplibData")

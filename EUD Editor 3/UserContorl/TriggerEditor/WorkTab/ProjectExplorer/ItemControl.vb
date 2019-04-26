@@ -68,7 +68,9 @@ Partial Public Class ProjectExplorer
         Dim InsertIndex As Integer = 0
 
         For i = 0 To tItemCollection.Count - 1
-            If CType(CType(tItemCollection(i), TreeViewItem).Tag, TEFile).FileType <> TEFile.EFileType.Folder Then
+            Dim FileType As TEFile.EFileType = CType(CType(tItemCollection(i), TreeViewItem).Tag, TEFile).FileType
+
+            If FileType <> TEFile.EFileType.Folder And FileType <> TEFile.EFileType.Setting Then
                 Exit For
             End If
             InsertIndex += 1
@@ -125,6 +127,8 @@ Partial Public Class ProjectExplorer
                 Icon.Kind = PackIconKind.FormatText
             Case TEFile.EFileType.GUIEps, TEFile.EFileType.GUIPy
                 Icon.Kind = PackIconKind.Application
+            Case TEFile.EFileType.Setting
+                Icon.Kind = PackIconKind.SettingsOutline
         End Select
 
 

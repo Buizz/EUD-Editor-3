@@ -12,7 +12,6 @@ Public Class TriggerEditor
         'Dim asdgfaqwea As Func(Of TabItem) = AddressOf Factory
         'MainTabablzControl.NewItemFactory = asdgfaqwea
 
-        'MainTabablzControl.ClosingItemCallback = AddressOf ClosingTabItemHandlerImpl
 
         Explorer.Init(Me)
     End Sub
@@ -25,6 +24,8 @@ Public Class TriggerEditor
         '만약 TabItems에 리스트가 있을 경우
         If TabItems.Items.Count <> 0 Then
             Dim tTabablzControl As New TabablzControl
+
+            tTabablzControl.ClosingItemCallback = AddressOf ClosingTabItemHandlerImpl
             tTabablzControl.ShowDefaultCloseButton = True
             tTabablzControl.InterTabController = New InterTabController
             tTabablzControl.InterTabController.Height = 0
@@ -58,6 +59,7 @@ Public Class TriggerEditor
             Return tBranch
         End If
         Dim ttTabablzControl As New TabablzControl
+        ttTabablzControl.ClosingItemCallback = AddressOf ClosingTabItemHandlerImpl
         ttTabablzControl.ShowDefaultCloseButton = True
         ttTabablzControl.InterTabController = New InterTabController
         ttTabablzControl.InterTabController.Height = 0
@@ -146,20 +148,24 @@ Public Class TriggerEditor
 
 
     Private NoTabItemClose As Boolean = False
-    'Private Sub ClosingTabItemHandlerImpl(ByVal args As ItemActionCallbackArgs(Of TabablzControl))
-    '    If MsgBox("아이템끌꺼야?", MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
-    '        NoTabItemClose = True
-    '    Else
-    '        args.Cancel()
-    '    End If
-
-
-    'End Sub
+    Private Sub ClosingTabItemHandlerImpl(ByVal args As ItemActionCallbackArgs(Of TabablzControl))
+        NoTabItemClose = True
+    End Sub
     Private Sub MetroWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
         If NoTabItemClose Then
             NoTabItemClose = False
-            e.Cancel = True
-            Exit Sub
+            Dim flag As Boolean = False
+            For Each win As Window In Application.Current.Windows
+                If win.GetType Is GetType(TriggerEditor) And win IsNot Me Then
+                    flag = True
+                    Exit For
+                End If
+            Next
+            If Not flag Then
+
+                e.Cancel = True
+                Exit Sub
+            End If
         End If
         SaveLastTabitems()
     End Sub
@@ -181,6 +187,8 @@ Public Class TriggerEditor
                 PlusTabItem(New TECUIPage(tTEFile), MainTab, tTEFile)
             Case TEFile.EFileType.GUIEps, TEFile.EFileType.GUIPy
                 PlusTabItem(New TEGUIPage(tTEFile), MainTab, tTEFile)
+            Case TEFile.EFileType.Setting
+                PlusTabItem(New TriggerEditorSetting(tTEFile), MainTab, tTEFile)
         End Select
     End Sub
 
@@ -255,6 +263,13 @@ Public Class TriggerEditor
                     Control.SelectedIndex = i
                     Return True
                 End If
+            ElseIf TypeOf TabContent Is TriggerEditorSetting Then
+                Dim tPage As TriggerEditorSetting = TabContent
+
+                If tPage.CheckTEFile(tTEFile) Then
+                    Control.SelectedIndex = i
+                    Return True
+                End If
             End If
         Next
 
@@ -269,7 +284,7 @@ Public Class TriggerEditor
 
 
     Private Sub PlusTabItem(tTEFileControl As UserControl, MainTab As Dockablz.Layout, tTEFile As TEFile)
-
+        'MsgBox(tTEFile.FileName)
         If CheckActvateTab(tTEFile) Then
             Exit Sub
         End If
@@ -306,8 +321,11 @@ Public Class TriggerEditor
 
         TabItem.Content = tTEFileControl
 
+
         Return TabItem
     End Function
+
+
 
     Private Sub MetroWindow_Closed(sender As Object, e As EventArgs)
         pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost) = Me.Topmost

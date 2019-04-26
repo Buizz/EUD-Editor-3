@@ -18,6 +18,12 @@ Partial Public Class BuildData
     '맵 두개가 다른 폴더면 기본 폴더에 저장
     Private MainThread As Threading.Thread
     Public Sub Build()
+        If pjData.Filename <> "" Then ' 새파일
+            pjData.Save()
+        End If
+
+
+
         'Tool.GetRelativePath(EudPlibFilePath & "\EUDEditor.eds", pjData.OpenMapName)
         'Tool.GetRelativePath("zzz\asd\c\ㅎㅎ.txt", "zzz\asd\bcx\aqw\zxv\하이.txt")
         'Tool.GetRelativePath("zzz\asd\bcx\aqw\zxv\하이.txt", "zzz\asd\c\ㅎㅎ.txt")
@@ -122,6 +128,8 @@ Partial Public Class BuildData
         'Req데이터 작성
         WriteRequireData()
 
+
+        WriteTEFile()
 
 
         'Dat설정 파일을 저장하는 py제작

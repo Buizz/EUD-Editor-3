@@ -1,112 +1,7 @@
 ﻿Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports System.Windows.Threading
 Imports Newtonsoft.Json
-
-<Serializable()>
-Public Class SaveableData
-#Region "Setting"
-    Private mOpenMapName As String
-    Private mSaveMapName As String
-    Private mRelativeOpenMapName As String
-    Private mRelativeSaveMapName As String
-    Public Property OpenMapName As String
-        Get
-            If Not My.Computer.FileSystem.FileExists(mOpenMapName) And mRelativeOpenMapName <> "" Then '오픈 맵이 존재하지 않을 경우
-                Dim tempOpenMapName As String = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(pjData.Filename), mRelativeOpenMapName))
-                If My.Computer.FileSystem.FileExists(tempOpenMapName) Then '상대경로로 존재할 경우
-                    mOpenMapName = tempOpenMapName
-                End If
-            End If
-            Return mOpenMapName
-        End Get
-        Set(value As String)
-            mOpenMapName = value
-            RelativeDataRefresh()
-        End Set
-    End Property
-
-    Public Property SaveMapName As String
-        Get
-            If mSaveMapName <> "" Then
-                If Not My.Computer.FileSystem.DirectoryExists(Path.GetDirectoryName(mSaveMapName)) And mRelativeSaveMapName <> "" Then '저장맵의 폴더가 존재하지 않을 경우
-                    Dim tempSaveMapName As String = Path.GetFullPath(Path.Combine(Path.GetDirectoryName(pjData.Filename), mRelativeSaveMapName))
-                    If My.Computer.FileSystem.DirectoryExists(Path.GetDirectoryName(tempSaveMapName)) Then '상대경로로 존재할 경우
-                        mSaveMapName = tempSaveMapName
-                    End If
-                End If
-            End If
-
-            Return mSaveMapName
-        End Get
-        Set(value As String)
-            mSaveMapName = value
-            RelativeDataRefresh()
-        End Set
-    End Property
-
-    Private mTempFileLoc As String
-    Public Property TempFileLoc As String
-        Get
-            Return mTempFileLoc
-        End Get
-        Set(value As String)
-            mTempFileLoc = value
-        End Set
-    End Property
-
-    Private mUseCustomTbl As Boolean
-    Public Property UseCustomTbl As Boolean
-        Get
-            Return mUseCustomTbl
-        End Get
-        Set(value As Boolean)
-            mUseCustomTbl = value
-        End Set
-    End Property
-
-    Private Sub SettingInit()
-        mOpenMapName = ""
-        mSaveMapName = ""
-
-        mTempFileLoc = 0
-        UseCustomTbl = True
-    End Sub
-#End Region
-
-    Public Sub New()
-        SettingInit()
-    End Sub
-
-    Private mLastVersion As System.Version
-    Public Property LastVersion As System.Version
-        Get
-            Return mLastVersion
-        End Get
-        Set(value As System.Version)
-            mLastVersion = value
-        End Set
-    End Property
-
-
-    Public Sub Close()
-        RelativeDataRefresh()
-    End Sub
-
-
-    Public Sub RelativeDataRefresh()
-        If My.Computer.FileSystem.FileExists(pjData.Filename) Then
-            mRelativeOpenMapName = Tool.GetRelativePath(pjData.Filename, OpenMapName)
-            mRelativeSaveMapName = Tool.GetRelativePath(pjData.Filename, SaveMapName)
-        End If
-
-        'MsgBox("RelativeDataRefresh")
-    End Sub
-
-
-    Public Dat As SCDatFiles
-    Public ExtraDat As ExtraDatFiles
-    Public TEData As TriggerEditorData
-End Class
 
 
 
@@ -198,6 +93,13 @@ Public Class ProjectData
         End Get
     End Property
 
+    Private TriggerEditorTempData As TriggerEditorTempData
+    Public ReadOnly Property TETempData As TriggerEditorTempData
+        Get
+            Return TriggerEditorTempData
+        End Get
+    End Property
+
     Public ReadOnly Property BuildStat_txtIsDefault(index As Integer) As Boolean
         Get
             Return SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString
@@ -270,8 +172,8 @@ Public Class ProjectData
                 tIsDirty = True
                 SaveData.OpenMapName = value
                 _MapData = New MapData(SaveData.OpenMapName)
-                MapLoading = _MapData.LoadComplete
-                If Not MapLoading Then
+                IsMapLoading = _MapData.LoadComplete
+                If Not IsMapLoading Then
                     SaveData.OpenMapName = ""
                 End If
             End If
@@ -335,16 +237,21 @@ Public Class ProjectData
     End Property
 
     Private MapLoading As Boolean
-    Public ReadOnly Property IsMapLoading As Boolean
+    Public Property IsMapLoading As Boolean
         Get
+
             Return MapLoading
         End Get
+        Set(value As Boolean)
+            If value Then
+                LastModifiyTimer = File.GetLastWriteTime(SaveData.OpenMapName)
+            End If
+
+            MapLoading = value
+        End Set
     End Property
 
 #End Region
-    Private SaveData As SaveableData
-
-
     Public Property CodeSelecters As List(Of CodeSelecter)
 
 
@@ -467,7 +374,7 @@ Public Class ProjectData
             Dim RealName As String = Stat_txt(index)
             Dim DefaultName As String = scData.GetStat_txt(index)
 
-            If MapLoading Then
+            If IsMapLoading Then
                 Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
                 Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
 
@@ -516,7 +423,17 @@ Public Class ProjectData
     Public Sub New()
         '초기화
         SaveData = New SaveableData
+        TriggerEditorTempData = New TriggerEditorTempData
+
+
+        Dim FileChangeCheckTimer As DispatcherTimer = New DispatcherTimer()
+        FileChangeCheckTimer.Interval = TimeSpan.FromSeconds(2)
+        AddHandler FileChangeCheckTimer.Tick, AddressOf FileCheck_Tick
+        FileChangeCheckTimer.Start()
     End Sub
+
+
+
     Public Sub InitData()
         Bd = New BindingManager
         Dm = New DataManager
@@ -545,8 +462,8 @@ Public Class ProjectData
         'MsgBox("로드 프로젝트 초기화")
         If My.Computer.FileSystem.FileExists(SaveData.OpenMapName) Then
             _MapData = New MapData(SaveData.OpenMapName)
-            MapLoading = _MapData.LoadComplete
-            If Not MapLoading Then
+            IsMapLoading = _MapData.LoadComplete
+            If Not IsMapLoading Then
                 SaveData.OpenMapName = ""
             End If
         Else
@@ -566,110 +483,10 @@ Public Class ProjectData
     End Sub
 
 
-    '여기에 모든게 들어간다
-    '스타 dat데이터를 클래스로 만들어 관리하자.
-    Public Shared Sub Load(isNewfile As Boolean, ByRef _pjdata As ProjectData)
-        If isNewfile Then
-            _pjdata = New ProjectData
-            _pjdata.NewFIle()
-            _pjdata.InitData()
-        Else
-            Dim tFilename As String
-            Dim LoadProjectDialog As New System.Windows.Forms.OpenFileDialog
-            LoadProjectDialog.Filter = Tool.GetText("LoadFliter")
-
-            If LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                tFilename = LoadProjectDialog.FileName '파일 이름 교체
-            Else
-                Exit Sub
-            End If
-
-            If Tool.IsProjectLoad() Then
-                '꺼야됨
-                If Not _pjdata.CloseFile Then
-                    Exit Sub
-                End If
-            End If
-
-            Load(tFilename, _pjdata)
-        End If
-    End Sub
-    Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
-        Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
-        Dim bf As BinaryFormatter = New BinaryFormatter()
-        _pjdata = New ProjectData
-        _pjdata.NewFIle()
-        _pjdata.InitData()
-        _pjdata.SaveData = bf.Deserialize(stm)
-        _pjdata.LoadInit(FileName)
-        stm.Close()
-
-        'Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        'Dim file As New System.IO.StreamReader(FileName)
-        '_pjdata = CType(reader.Deserialize(file), ProjectData)
-        '_pjdata.LoadInit(FileName)
-
-        'file.Close()
-    End Sub
-
-
-    Public Function Save(Optional IsSaveAs As Boolean = False) As Boolean
-        SaveData.LastVersion = pgData.Version
-
-        If IsSaveAs = True Then '다른이름으로 저장 일 경우 
-            Tool.SaveProjectDialog.FileName = SafeFilename
-
-            Dim exten As String() = Tool.SaveProjectDialog.Filter.Split("|")
-            For i = 1 To exten.Count - 1 Step 2
-                If Extension = exten(i).Split(".").Last Then
-                    Tool.SaveProjectDialog.FilterIndex = ((i - 1) \ 2) + 1
-                    Exit For
-                End If
-
-            Next
 
 
 
 
-            If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
-            Else
-                Return False
-            End If
-        End If
-        If Filename = "" Then ' 새파일
-            Tool.SaveProjectDialog.FileName = SafeFilename
-            If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
-                Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
-            Else
-                Return False
-            End If
-        End If
-
-        Dim stm As Stream = File.Open(Filename, FileMode.Create, FileAccess.ReadWrite)
-        Dim bf As BinaryFormatter = New BinaryFormatter()
-        bf.Serialize(stm, Me.SaveData)
-        stm.Close()
-
-        'Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        'Dim file As New System.IO.StreamWriter(tFilename)
-        'writer.Serialize(file, Me)
-        'file.Close()
-
-
-        'Dim fs As New FileStream(tFilename, FileMode.Create)
-        'Dim sw As New StreamWriter(fs)
-
-
-        'sw.Write(JsonConvert.SerializeObject(pjData))
-
-        'sw.Close()
-        'fs.Close()
-
-        tIsLoad = True
-        tIsDirty = False
-        Return True
-    End Function
 
 
     Public Function CloseFile() As Boolean

@@ -191,6 +191,7 @@
     <Compile Include="Class\BulidData\WriteedsFile.vb" />
     <Compile Include="Class\BulidData\WriteReqFile.vb" />
     <Compile Include="Class\BulidData\WriteTbl.vb" />
+    <Compile Include="Class\BulidData\WriteTriggerEditor.vb" />
     <Compile Include="Class\CodeConnecter.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
@@ -200,6 +201,10 @@
     <Compile Include="Class\Binding\ExtraDatBinding.vb" />
     <Compile Include="Class\Data\CButtonData.vb" />
     <Compile Include="Class\Data\CRequireData.vb" />
+    <Compile Include="Class\Data\ProjectData\Load.vb" />
+    <Compile Include="Class\Data\ProjectData\SavableData.vb" />
+    <Compile Include="Class\Data\ProjectData\Save.vb" />
+    <Compile Include="Class\Data\ProjectData\Timer.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
     <Compile Include="Class\GRP\GRP.vb" />
@@ -212,7 +217,7 @@
     <Compile Include="Class\Language.vb" />
     <Compile Include="Class\LuaManager.vb" />
     <Compile Include="Class\Data\MapData.vb" />
-    <Compile Include="Class\Data\ProjectData.vb" />
+    <Compile Include="Class\Data\ProjectData\ProjectData.vb" />
     <Compile Include="Class\Data\SCDatFiles.vb" />
     <Compile Include="Class\Data\StarCraftData.vb" />
     <Compile Include="Class\DataEditCompletionData.vb" />
@@ -384,6 +389,9 @@
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\System.vb" />
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml.vb">
+      <DependentUpon>TriggerEditorSetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ItemControl.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\Menu.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml.vb">
@@ -618,6 +626,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
