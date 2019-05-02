@@ -15,9 +15,17 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
         <TextBox x:Name="Log" DockPanel.Dock="Top" Height="75"/>
-        <avalonEdit:TextEditor  
+        <Grid>
+            <avalonEdit:TextEditor 
+                    PreviewMouseDown="TextEditor_PreviewMouseDown"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     SyntaxHighlighting="JavaScript"
-                    x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True"  />
+                    x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" >
+            </avalonEdit:TextEditor>
+            <Border x:Name="ToltipBorder" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignPaper}" Padding="3" Visibility="Hidden" >
+            </Border>
+        </Grid>
+     
+
     </DockPanel>
 </UserControl>

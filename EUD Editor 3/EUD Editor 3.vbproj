@@ -248,9 +248,11 @@
       <DependentUpon>TreeviewExample.xaml</DependentUpon>
     </Compile>
     <Compile Include="TEST\UIEditorPage\System.vb" />
+    <Compile Include="UserContorl\CodeEditor\CFunc.vb" />
     <Compile Include="UserContorl\CodeEditor\CodeEditor.xaml.vb">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\CodeEditor\funcLoader.vb" />
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
