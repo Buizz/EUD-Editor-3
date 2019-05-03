@@ -221,6 +221,10 @@ Partial Public Class CodeEditor
                 '    completionWindow.CompletionList.SelectItem(results.TriggerWord)
                 'End If
 
+
+                completionWindow.Width = 200
+
+
                 completionWindow.Show()
                 AddHandler completionWindow.Closed, Sub()
                                                         completionWindow = Nothing
@@ -228,8 +232,34 @@ Partial Public Class CodeEditor
                 completionWindow.CompletionList.SelectItem(enteredText)
 
                 If completionWindow.CompletionList.SelectedItem Is Nothing Then
-                    completionWindow.Close()
+                    completionWindow.Visibility = Visibility.Collapsed
                 End If
+            ElseIf enteredText = " " Then
+                completionWindow = New CompletionWindow(TextEditor.TextArea)
+                completionWindow.CloseWhenCaretAtBeginning = controlSpace
+
+
+                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount)
+
+
+                completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
+                completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
+
+                completionWindow.Width = 200
+
+
+                completionWindow.Show()
+                AddHandler completionWindow.Closed, Sub()
+                                                        completionWindow = Nothing
+                                                    End Sub
+            Else
+                Return
+            End If
+        Else
+            If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
+                completionWindow.Visibility = Visibility.Collapsed
+            Else
+                completionWindow.Visibility = Visibility.Visible
             End If
         End If
     End Sub
