@@ -511,7 +511,7 @@ Public Class MapData
 
                     mem.Position = BasePos + StartPos
 
-                    Strings.Add(System.Text.Encoding.GetEncoding(949).GetString(binary.ReadBytes(Bytecount)))
+                    Strings.Add(System.Text.Encoding.GetEncoding(949).GetString(binary.ReadBytes(Bytecount - 1)))
 
                     lastPos += 2
                 Next

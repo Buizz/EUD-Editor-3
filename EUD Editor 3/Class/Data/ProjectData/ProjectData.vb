@@ -413,6 +413,26 @@ Public Class ProjectData
             'Return index & "미상"
         End Get
     End Property
+    Public ReadOnly Property UnitInGameName(index As Byte) As String
+        Get
+            Dim RealName As String = Stat_txt(index)
+            Dim DefaultName As String = scData.GetStat_txt(index)
+
+            If IsMapLoading Then
+                Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
+
+                If strindex = 0 Then
+                    Return RealName
+                Else
+                    Return MapData.Str(strindex - 1)
+                End If
+            Else
+                Return RealName
+            End If
+            'Return index & "미상"
+        End Get
+    End Property
+
     Public ReadOnly Property UnitFullName(index As Byte) As String
         Get
             Return scData.GetStat_txt(index, True)

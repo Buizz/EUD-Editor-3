@@ -18,39 +18,63 @@ Partial Public Class CodeEditor
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
 
+
         'TrgAllyStatus
+
         'TrgComparison
+        '상수
         'TrgCount
+        '숫자
         'TrgModifier
+        '상수
         'TrgOrder
+        '상수
         'TrgPlayer
+
         'TrgProperty
+
         'TrgPropState
+
         'TrgResource
+
         'TrgScore
+
         'TrgSwitchAction
+        '상수
         'TrgSwitchState
+        '상수
         'TrgAIScript
+        '스트링
         'TrgLocation
+        '스트링
         'TrgLocationIndex
+
         'TrgString
+        '스트링
         'TrgSwitch
+        '스트링
         'TrgUnit
+        '스트링
         Dim Argument As String = LocalFunc.FindArgument(FuncNameas, ArgumentCount)
         Dim ArgumentType As String = Argument.Split(":").Last.Trim
 
         Select Case ArgumentType
             Case "TrgUnit"
                 For i = 0 To SCUnitCount
-                    data.Add(New TECompletionData(pjData.CodeLabel(SCDatFiles.DatFiles.units, i), New TextBlock(), TextEditor, DataEditCompletionData.EIconType.Funcname))
+                    Dim tb As TextBlock = Tool.TextColorBlock("<1>function <0>resetgroup(DatName, ObjectId)" & vbCrLf & "Group데이터를 초기화 합니다.")
+
+
+                    data.Add(New TECompletionData("[" & i & "] " & pjData.CodeLabel(SCDatFiles.DatFiles.units, i), pjData.UnitInGameName(i), tb, TextEditor, TECompletionData.EIconType.StarStringConst))
                 Next
                 Return data
+            Case "TrgLocation"
+
         End Select
 
 
 
         For i = 0 To LocalFunc.FuncCount - 1
-            data.Add(New DataEditCompletionData(LocalFunc.GetFuncName(i), New TextBlock(), TextEditor, DataEditCompletionData.EIconType.Funcname))
+            data.Add(New TECompletionData(LocalFunc.GetFuncName(i), LocalFunc.GetFuncName(i), New TextBlock(), TextEditor, TECompletionData.EIconType.localFunction))
         Next
 
 
@@ -66,14 +90,51 @@ Public Class TECompletionData
     Private TextEditor As TextEditor
     Private IconType As EIconType
     Public Enum EIconType
+        '키워드
         KeyWord
         SettingValue
         Funcname
+
+        '에디터 설정 값(AtLeast, AtMost, Enabled등등
+        StarConst
+
+        '스타 스트링 값
+        StarStringConst
+
+        '액션들
+        Action
+
+        '조건들
+        Condiction
+
+        'eps기본 함수
+        plibFunction
+
+        '로컬 함수
+        localFunction
+
+
+
+
+        '로컬 항목 및 매개 변수
+        '상수
+        '속성
+        '필드
+        '매서드
+        '인터페이스
+        '클래스
+        '모듈
+        '구조
+        '열거형
+        '네임스페이스
+        '키워드
     End Enum
 
 
-    Public Sub New(ByVal text As String, tToolTip As TextBlock, tTextEditor As TextEditor, tIconType As EIconType)
-        Me.Text = text
+    Private inputtext As String
+    Public Sub New(tlisttext As String, tinputtext As String, tToolTip As TextBlock, tTextEditor As TextEditor, tIconType As EIconType)
+        Me.Text = tlisttext
+        inputtext = tinputtext
         ToolTip = tToolTip
         TextEditor = tTextEditor
         IconType = tIconType
@@ -83,16 +144,23 @@ Public Class TECompletionData
         Get
             Select Case IconType
                 Case EIconType.KeyWord
-                    Return New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/KeyWord.png"))
+                    Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/KeyWord.png"))
+                    Imageicon.Freeze()
+                    Return Imageicon
                 Case EIconType.SettingValue
-                    Return New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Setting.png"))
+                    Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Setting.png"))
+                    Imageicon.Freeze()
+                    Return Imageicon
                 Case EIconType.Funcname
-                    Return New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Func.png"))
+                    Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Func.png"))
+                    Imageicon.Freeze()
+                    Return Imageicon
             End Select
             Return Nothing
         End Get
     End Property
 
+    '검색기준
     Public Property Text As String Implements ICompletionData.Text
 
     Public ReadOnly Property Content As Object Implements ICompletionData.Content
@@ -122,14 +190,16 @@ Public Class TECompletionData
 
         Select Case IconType
             Case EIconType.KeyWord
-                ResultStr = Me.Text
+                ResultStr = inputtext
                 If ResultStr = "for" Then
                     ResultStr = "for i = 0, 10 do" & vbCrLf & "end"
                 End If
-            Case EIconType.SettingValue
-                ResultStr = """" & Me.Text.Replace("_", " ") & """"
+            Case EIconType.StarStringConst
+                ResultStr = """" & inputtext.Replace("_", " ") & """"
             Case EIconType.Funcname
-                ResultStr = Me.Text
+                ResultStr = inputtext
+            Case Else
+                ResultStr = inputtext
         End Select
 
         'TextEditor.SelectedText = ResultStr
