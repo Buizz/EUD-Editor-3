@@ -110,7 +110,7 @@ Public Class CFunc
         FuncArgument.Clear()
 
 
-        Dim fregex As New Regex("function[\s]+([\w\d]+)\((.*)\)")
+        Dim fregex As New Regex("function[\s]+([\w\d]+)\(([^{}]*)\)\s*{")
 
         Dim matches As MatchCollection = fregex.Matches(str)
 

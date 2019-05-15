@@ -93,6 +93,12 @@ Public Class ProjectData
         End Get
     End Property
 
+    Public ReadOnly Property EdsBlock As BuildData.EdsBlock
+        Get
+            Return SaveData.EdsBlocks
+        End Get
+    End Property
+
     Private TriggerEditorTempData As TriggerEditorTempData
     Public ReadOnly Property TETempData As TriggerEditorTempData
         Get
@@ -415,6 +421,7 @@ Public Class ProjectData
     End Property
     Public ReadOnly Property UnitInGameName(index As Byte) As String
         Get
+            Dim returnStr As String
             Dim RealName As String = Stat_txt(index)
             Dim DefaultName As String = scData.GetStat_txt(index)
 
@@ -422,13 +429,19 @@ Public Class ProjectData
                 Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
 
                 If strindex = 0 Then
-                    Return RealName
+                    returnStr = RealName
                 Else
-                    Return MapData.Str(strindex - 1)
+                    returnStr = MapData.Str(strindex - 1)
                 End If
             Else
-                Return RealName
+                returnStr = RealName
             End If
+            returnStr = tblWriter.StrExecuter(returnStr, True)
+            For i = 0 To 31
+                returnStr = returnStr.Replace(Chr(i), "")
+            Next
+
+            Return returnStr
             'Return index & "미상"
         End Get
     End Property
@@ -463,17 +476,7 @@ Public Class ProjectData
 
 
 
-    Public Sub InitProject()
-        tIsDirty = False
-        tFilename = ""
-        SaveData.OpenMapName = ""
-        SaveData.SaveMapName = ""
-        SaveData.Dat = New SCDatFiles(False, False, True)
-        SaveData.ExtraDat = New ExtraDatFiles
-        SaveData.TEData = New TriggerEditorData
 
-        'MsgBox("프로젝트 초기화")
-    End Sub
 
     Public Sub LoadInit(_filename As String)
         tIsLoad = True

@@ -38,6 +38,7 @@ Partial Public Class ProjectData
         _pjdata.InitData()
         _pjdata.SaveData = bf.Deserialize(stm)
         _pjdata.LoadInit(FileName)
+        _pjdata.Legacy()
         stm.Close()
 
         'Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
@@ -47,4 +48,6 @@ Partial Public Class ProjectData
 
         'file.Close()
     End Sub
+
+
 End Class

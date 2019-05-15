@@ -23,11 +23,11 @@ Namespace Tool
 
 
         Private TextBlockColorTable() As SolidColorBrush = {
-        Nothing,
-        New SolidColorBrush(Color.FromRgb(86, 156, 214)),
-         New SolidColorBrush(Color.FromRgb(128, 193, 132)),
-         New SolidColorBrush(Color.FromRgb(72, 180, 142)),
-         New SolidColorBrush(Color.FromRgb(181, 206, 168)),
+        Nothing, '기본
+        New SolidColorBrush(Color.FromRgb(86, 156, 214)),'연파
+         New SolidColorBrush(Color.FromRgb(128, 193, 132)), '연초 enum색
+         New SolidColorBrush(Color.FromRgb(72, 180, 142)),'청록
+         New SolidColorBrush(Color.FromRgb(181, 206, 168)), '연초2
          New SolidColorBrush(Color.FromRgb(255, 167, 167))} '붉은색 (주의)
         Public Function TextColorBlock(textstr As String) As TextBlock
             Dim TextBlcck As New TextBlock

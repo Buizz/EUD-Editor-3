@@ -104,5 +104,11 @@ Public Class SaveableData
     Public Dat As SCDatFiles
     Public ExtraDat As ExtraDatFiles
     Public TEData As TriggerEditorData
+
+
+
+    Public EdsBlocks As BuildData.EdsBlock
+
+
 End Class
 

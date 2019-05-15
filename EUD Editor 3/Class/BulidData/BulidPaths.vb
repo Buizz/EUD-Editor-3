@@ -1,51 +1,51 @@
 ﻿Partial Public Class BuildData
 #Region "Paths"
-    Private ReadOnly Property OpenMapPath() As String
+    Public Shared ReadOnly Property OpenMapPath() As String
         Get
             Return Tool.GetRelativePath(EdsFilePath, pjData.OpenMapName)
         End Get
     End Property
-    Private ReadOnly Property SaveMapPath() As String
+    Public Shared ReadOnly Property SaveMapPath() As String
         Get
             Return Tool.GetRelativePath(EdsFilePath, pjData.SaveMapName)
         End Get
     End Property
-    Private ReadOnly Property tblFilePath() As String
+    Public Shared ReadOnly Property tblFilePath() As String
         Get
             Return TempFilePath & "\custom_txt.tbl"
         End Get
     End Property
-    Private ReadOnly Property requireFilePath() As String
+    Public Shared ReadOnly Property requireFilePath() As String
         Get
             Return TempFilePath & "\RequireData"
         End Get
     End Property
-    Private ReadOnly Property EdsFilePath() As String
+    Public Shared ReadOnly Property EdsFilePath() As String
         Get
             Return EudPlibFilePath & "\EUDEditor.eds"
         End Get
     End Property
-    Private ReadOnly Property DatpyFilePath() As String
+    Public Shared ReadOnly Property DatpyFilePath() As String
         Get
             Return EudPlibFilePath & "\DataEditor.py"
         End Get
     End Property
-    Private ReadOnly Property ExtraDatpyFilePath() As String
+    Public Shared ReadOnly Property ExtraDatpyFilePath() As String
         Get
             Return EudPlibFilePath & "\ExtraDataEditor.py"
         End Get
     End Property
-    Private ReadOnly Property TriggerEditorPath() As String
+    Public Shared ReadOnly Property TriggerEditorPath() As String
         Get
             Return EudPlibFilePath & "\TriggerEditor"
         End Get
     End Property
-    Private ReadOnly Property EudPlibFilePath() As String
+    Public Shared ReadOnly Property EudPlibFilePath() As String
         Get
             Return Tool.GetDirectoy(TempFloder & "\", "eudplibData")
         End Get
     End Property
-    Private ReadOnly Property TempFilePath() As String
+    Public Shared ReadOnly Property TempFilePath() As String
         Get
             Return Tool.GetDirectoy(TempFloder & "\", "temp")
         End Get

@@ -14,7 +14,7 @@ Partial Public Class CodeEditor
     '리스트를 아래에서 옮긴다
 
 
-    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
 
@@ -58,23 +58,26 @@ Partial Public Class CodeEditor
         Dim Argument As String = LocalFunc.FindArgument(FuncNameas, ArgumentCount)
         Dim ArgumentType As String = Argument.Split(":").Last.Trim
 
-        Select Case ArgumentType
-            Case "TrgUnit"
-                For i = 0 To SCUnitCount
-                    Dim tb As TextBlock = Tool.TextColorBlock("<1>function <0>resetgroup(DatName, ObjectId)" & vbCrLf & "Group데이터를 초기화 합니다.")
+        If IsFirstArgumnet Then
+            Select Case ArgumentType
+                Case "TrgUnit"
+                    For i = 0 To SCUnitCount
+                        Dim tb As New TextBox
+                        tb.Text = pjData.UnitInGameName(i)
 
+                        data.Add(New TECompletionData(0, "[" & i & "] " & pjData.CodeLabel(SCDatFiles.DatFiles.units, i), pjData.UnitInGameName(i), tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                    Next
+                    Return data
+                Case "TrgLocation"
 
-                    data.Add(New TECompletionData("[" & i & "] " & pjData.CodeLabel(SCDatFiles.DatFiles.units, i), pjData.UnitInGameName(i), tb, TextEditor, TECompletionData.EIconType.StarStringConst))
-                Next
-                Return data
-            Case "TrgLocation"
+            End Select
+        End If
 
-        End Select
 
 
 
         For i = 0 To LocalFunc.FuncCount - 1
-            data.Add(New TECompletionData(LocalFunc.GetFuncName(i), LocalFunc.GetFuncName(i), New TextBlock(), TextEditor, TECompletionData.EIconType.localFunction))
+            data.Add(New TECompletionData(10, LocalFunc.GetFuncName(i), LocalFunc.GetFuncName(i), New TextBlock(), TextEditor, TECompletionData.EIconType.localFunction))
         Next
 
 
@@ -86,7 +89,7 @@ End Class
 Public Class TECompletionData
     Implements ICompletionData
 
-    Private ToolTip As TextBlock
+    Private ToolTip As DependencyObject
     Private TextEditor As TextEditor
     Private IconType As EIconType
     Public Enum EIconType
@@ -132,12 +135,13 @@ Public Class TECompletionData
 
 
     Private inputtext As String
-    Public Sub New(tlisttext As String, tinputtext As String, tToolTip As TextBlock, tTextEditor As TextEditor, tIconType As EIconType)
+    Public Sub New(tPriority As Double, tlisttext As String, tinputtext As String, tToolTip As DependencyObject, tTextEditor As TextEditor, tIconType As EIconType)
         Me.Text = tlisttext
         inputtext = tinputtext
         ToolTip = tToolTip
         TextEditor = tTextEditor
         IconType = tIconType
+        _Priority = tPriority
     End Sub
 
     Public ReadOnly Property Image As ImageSource Implements ICompletionData.Image
@@ -175,9 +179,10 @@ Public Class TECompletionData
         End Get
     End Property
 
+    Private _Priority As Double
     Public ReadOnly Property Priority As Double Implements ICompletionData.Priority
         Get
-            Return 0
+            Return _Priority
         End Get
     End Property
 

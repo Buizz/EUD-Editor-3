@@ -74,17 +74,22 @@ Partial Public Class CodeEditor
 
         Dim LastStr As String = ""
         Dim FuncName As String = ""
+        Dim CheckFunctionName As String = ""
         Dim ArgumentIndex As Integer
+        Dim AnotherCharCount As Integer
+        Dim IsFirstArgumnet As Boolean = False
 
 
         Dim index As Integer = 0
         Dim bracketCount As Integer = 0
         Dim GetFuncName As Boolean = False
+        Dim CheckFunction As Boolean = False
+        Dim IsFunctionSpace As Boolean = False
         While ((SelectStart - index) > 0)
             Dim MidStr As String = Mid(MainStr, SelectStart - index, 1)
 
 
-            Select Case MidStr
+            Select Case MidStr'이게 뜰때 에러가 아니라 앞에 function이 있는지 확인까지 해야됨. 
                 Case vbLf
                     Exit While
                 Case "("
@@ -104,37 +109,61 @@ Partial Public Class CodeEditor
                         bracketCount += 1
                     End If
                 Case " "
-                    If GetFuncName Then
-                        Exit While
+                    If CheckFunction Then
+                        If GetFuncName Then
+                            Exit While
+                        End If
+                    Else
+                        If GetFuncName Then
+                            IsFunctionSpace = True
+                        End If
                     End If
                 Case ","
+                    If ArgumentIndex = 0 And AnotherCharCount = 0 Then
+                        IsFirstArgumnet = True
+                    End If
                     ArgumentIndex += 1
+                Case Else
+                    If GetFuncName Then
+                        If IsFunctionSpace Then
+                            CheckFunction = True
+                        End If
+                    End If
+
+                    If index <> 0 Then
+                        AnotherCharCount += 1
+                    End If
             End Select
-            If GetFuncName Then
+            If GetFuncName And Not IsFunctionSpace Then
                 If MidStr <> "(" Then
                     FuncName = MidStr & FuncName
                 End If
             End If
+            If CheckFunction Then
+                CheckFunctionName = MidStr & CheckFunctionName
+            End If
+
 
             LastStr = MidStr & LastStr
 
             index += 1
         End While
+        If CheckFunctionName = "function" Then
+            FuncName = ""
+            ArgumentIndex = 0
+        End If
 
 
 
-
-
-
-
-        Log.Text = LastStr & " " & SelectStart & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex
+        Log.Text = LastStr & " " & SelectStart & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex & vbCrLf & IsFirstArgumnet & vbCr & CheckFunctionName
 
         'Dim selectedValues As List(Of InvoiceSOA)
         'selectedValues = DisputeList.FindAll(Function(p) p.ColumnName = "Jewel")
 
         LocalFunc.LoadFunc(MainStr)
 
-        ShowCompletion(e.Text, False, FuncName, ArgumentIndex)
+        ShowCompletion(e.Text, False, FuncName, ArgumentIndex, IsFirstArgumnet)
+
         ShowFuncTooltip(FuncName, ArgumentIndex, index)
 
 
@@ -155,7 +184,11 @@ Partial Public Class CodeEditor
             If ToltipBorder.Visibility = Visibility.Hidden Then
                 Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
                 StartPostion.VisualColumn -= Startindex
-                StartPostion.Line -= 1
+
+                If StartPostion.Line > 1 Then
+                    StartPostion.Line -= 1
+                End If
+
 
                 Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
                 ToltipBorder.Margin = New Thickness(p.X + 36, p.Y - 5 - TextEditor.VerticalOffset, 0, 0)
@@ -191,7 +224,7 @@ Partial Public Class CodeEditor
         End If
     End Sub
 
-    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, FuncNameas As String, ArgumentCount As Integer)
+    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean)
         If Not controlSpace Then
             Debug.WriteLine("Code Completion: TextEntered: " & enteredText)
         Else
@@ -212,7 +245,7 @@ Partial Public Class CodeEditor
                 '리스트에 엔터텍스트가 포함되어있을 경우 넣으면서 -1한다. 아니면 건들지 않는다.
                 completionWindow.StartOffset -= 1
 
-                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount)
+                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
 
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
@@ -222,7 +255,7 @@ Partial Public Class CodeEditor
                 'End If
 
 
-                completionWindow.Width = 200
+                completionWindow.Width = 400
 
 
                 completionWindow.Show()
@@ -234,18 +267,18 @@ Partial Public Class CodeEditor
                 If completionWindow.CompletionList.SelectedItem Is Nothing Then
                     completionWindow.Visibility = Visibility.Collapsed
                 End If
-            ElseIf enteredText = " " Then
+            ElseIf enteredText = " " Or enteredText = "," Then
                 completionWindow = New CompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
 
-                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount)
+                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
 
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
 
-                completionWindow.Width = 200
+                completionWindow.Width = 400
 
 
                 completionWindow.Show()

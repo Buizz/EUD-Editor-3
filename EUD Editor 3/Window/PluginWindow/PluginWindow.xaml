@@ -1,4 +1,5 @@
 ﻿<controls:MetroWindow x:Class="PluginWindow"
+        x:Name="metroWindow"
         xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
         xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
@@ -34,5 +35,18 @@
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
+    <DockPanel>
+        <StackPanel DockPanel.Dock="Left" Width="100">
+            
+        </StackPanel>
+        <Grid>
+            <ListBox x:Name="EdsText" PreviewMouseLeftButtonDown="EdsText_PreviewMouseLeftButtonDown" PreviewMouseMove="EdsText_PreviewMouseMove" PreviewMouseLeftButtonUp="EdsText_PreviewMouseLeftButtonUp">
+            </ListBox>
+            <Border x:Name="DragImage"  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
+
+            </Border>
+        </Grid>
+
+    </DockPanel>
 
 </controls:MetroWindow>
