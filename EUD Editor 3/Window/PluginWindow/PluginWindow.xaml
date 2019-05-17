@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
-        Title="{StaticResource PluginSetting}" Height="620" Width="420" WindowStartupLocation="Manual" Topmost="True" MinWidth="678">
+        Title="{StaticResource PluginSetting}" Height="620" Width="800" WindowStartupLocation="Manual" Topmost="True" MinWidth="678">
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>

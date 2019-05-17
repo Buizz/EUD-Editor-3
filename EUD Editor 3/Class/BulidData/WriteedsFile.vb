@@ -8,7 +8,7 @@ Partial Public Class BuildData
         ExtraDataEditor
         TEMainPlugin
         DataDumper
-        Etc
+        UserPlugin
     End Enum
 
 
@@ -19,8 +19,8 @@ Partial Public Class BuildData
             pBlocks.Add(New EdsBlockItem(EdsBlockType.Main))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.DataEditor))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.ExtraDataEditor))
-            pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.DataDumper))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
         End Sub
 
 
@@ -57,6 +57,15 @@ Partial Public Class BuildData
                 End Set
             End Property
 
+
+            Public Function Clone() As EdsBlockItem
+                Dim CObject As New EdsBlockItem(BType)
+
+                CObject.Texts = Texts
+
+                Return CObject
+            End Function
+
             Public Sub New(tBType As BuildData.EdsBlockType)
                 BType = tBType
             End Sub
@@ -90,6 +99,9 @@ Partial Public Class BuildData
                         End If
                         'RequireData 쓰기
                         sb.Append(Tool.GetRelativePath(EdsFilePath, requireFilePath) & " : 0x" & Hex(Tool.GetOffset("Vanilla")) & ", copy")
+                    Case EdsBlockType.UserPlugin
+                        sb.Append(Texts)
+
                 End Select
 
 

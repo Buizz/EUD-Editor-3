@@ -59,7 +59,7 @@
             InsertIndex += 1
         End If
 
-        pjData.EdsBlock.Blocks.Insert(InsertIndex, New BuildData.EdsBlock.EdsBlockItem(BuildData.EdsBlockType.Etc))
+        pjData.EdsBlock.Blocks.Insert(InsertIndex, New BuildData.EdsBlock.EdsBlockItem(BuildData.EdsBlockType.UserPlugin))
 
 
         items.Content = New PluginItem(pjData.EdsBlock.Blocks.Count - 1) 'pjData.EdsBlock.BlocksName(i) & pjData.EdsBlock.BlocksStr(i)
@@ -81,7 +81,7 @@
     Private Sub ContextMenu_Opened(sender As Object, e As RoutedEventArgs)
         If EdsText.SelectedItem IsNot Nothing Then
             MenuSelectIndex = EdsText.SelectedIndex
-            If pjData.EdsBlock.Blocks(EdsText.SelectedIndex).BType = BuildData.EdsBlockType.Etc Then
+            If pjData.EdsBlock.Blocks(EdsText.SelectedIndex).BType = BuildData.EdsBlockType.UserPlugin Then
                 DeleteItem.IsEnabled = True
             Else
                 DeleteItem.IsEnabled = False

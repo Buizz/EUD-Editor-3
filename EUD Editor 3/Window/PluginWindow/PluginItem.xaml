@@ -8,7 +8,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              d:DesignHeight="145.869" d:DesignWidth="339.142" Background="#02FFFFFF"
-             MouseMove="DockPanel_MouseMove" MouseLeave="UserControl_MouseLeave">
+             >
     <DockPanel>
 
         <Border x:Name="TopBorder" DockPanel.Dock="Top" Visibility="Hidden"  Height="11"  Margin="2,0">
@@ -39,7 +39,7 @@
             <StackPanel>
                 <TextBlock x:Name="TextTitle" Text="하이"  Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                 <TextBlock x:Name="Textb" Text="하이" Padding="5"/>
-                <TextBox x:Name="Textbox" Padding="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" />
+                <TextBox x:Name="Textbox" Padding="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextChanged="Textbox_TextChanged"/>
             </StackPanel>
         </DockPanel>
         

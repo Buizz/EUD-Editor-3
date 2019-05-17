@@ -19,11 +19,13 @@
         Refresh()
     End Sub
     Public Sub Refresh()
-        If pjData.EdsBlock.Blocks(index).BType = BuildData.EdsBlockType.Etc Then
+        If pjData.EdsBlock.Blocks(index).BType = BuildData.EdsBlockType.UserPlugin Then
             Icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.Book
             TextTitle.Visibility = Visibility.Collapsed
             Textb.Visibility = Visibility.Collapsed
             Textbox.Visibility = Visibility.Visible
+
+            Textbox.Text = pjData.EdsBlock.Blocks(index).Texts
         Else
             Icon.Kind = MaterialDesignThemes.Wpf.PackIconKind.BookLock
             TextTitle.Visibility = Visibility.Visible
@@ -51,31 +53,10 @@
     End Sub
 
 
-    Private Sub DockPanel_MouseMove(sender As Object, e As MouseEventArgs)
-        'If e.GetPosition(Me).Y > Me.ActualHeight / 2 Then
-        '    TopBorder.Visibility = Visibility.Hidden
-        '    DownBorder.Visibility = Visibility.Visible
-        'Else
-        '    TopBorder.Visibility = Visibility.Visible
-        '    DownBorder.Visibility = Visibility.Hidden
-        'End If
 
-
-        'If e.GetPosition(Me).Y > Me.ActualHeight / 3 * 2 Then
-        '    TopBorder.Visibility = Visibility.Hidden
-        '    DownBorder.Visibility = Visibility.Visible
-        'ElseIf e.GetPosition(Me).Y < Me.ActualHeight / 3 Then
-        '    TopBorder.Visibility = Visibility.Visible
-        '    DownBorder.Visibility = Visibility.Hidden
-        'Else
-        '    TopBorder.Visibility = Visibility.Hidden
-        '    DownBorder.Visibility = Visibility.Hidden
-        'End If
-        'Textb.Text = e.GetPosition(Me).Y
-    End Sub
-
-    Private Sub UserControl_MouseLeave(sender As Object, e As MouseEventArgs)
-        'TopBorder.Visibility = Visibility.Hidden
-        'DownBorder.Visibility = Visibility.Hidden
+    Private Sub Textbox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If pjData.EdsBlock.Blocks(index).BType = BuildData.EdsBlockType.UserPlugin Then
+            pjData.EdsBlock.Blocks(index).Texts = Textbox.Text
+        End If
     End Sub
 End Class

@@ -103,7 +103,7 @@
 
         'listboxitem.Padding = New Thickness(-2)
 
-        Dim tItem As New BuildData.EdsBlock.EdsBlockItem(DragSelctData.BType)
+        Dim tItem As BuildData.EdsBlock.EdsBlockItem = DragSelctData.Clone
 
         'Dim ListItem As New RequireListBoxItem(tItem)
 
