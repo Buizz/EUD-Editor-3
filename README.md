@@ -2,7 +2,7 @@
 StarCraft: Remastered UMS Make Tool
 
 
-> The current project is a test version. We are not responsible for problems encountered during use.
+> The current project is a test version.
 > Save files may not be compatible with the full version.
 
 
