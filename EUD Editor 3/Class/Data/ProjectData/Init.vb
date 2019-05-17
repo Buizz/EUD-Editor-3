@@ -12,7 +12,7 @@
     End Sub
 
     Public Sub Legacy()
-        MsgBox("레거시작동 : " & SaveData.LastVersion.ToString)
+        'MsgBox("레거시작동 : " & SaveData.LastVersion.ToString)
         'If SaveData.Dat Is Nothing Then
         '    SaveData.Dat = New SCDatFiles(False, False, True)
         'End If
