@@ -164,29 +164,35 @@
                 <local:ThemeContorl/>
             </TabItem>
 
-            <TabItem Header="{StaticResource DatEdit Setting}" >
+            <TabItem Header="{StaticResource Editor Setting}" >
                 <StackPanel Margin="10">
-                    <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource Code Lan}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                    <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1"  Margin="5" SelectionChanged="CBCodeLan_SelectionChanged"
+                    <Label  Content="{StaticResource DatEdit Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <DockPanel>
+                        <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource Code Lan}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                        <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1"   SelectionChanged="CBCodeLan_SelectionChanged"
                     MinWidth="72"
                     VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
-                        <ComboBoxItem Content="{StaticResource Code CEng}"/>
-                        <ComboBoxItem Content="{StaticResource Code CKor-Eng}"/>
-                        <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
-                    </ComboBox>
+                            <ComboBoxItem Content="{StaticResource Code CEng}"/>
+                            <ComboBoxItem Content="{StaticResource Code CKor-Eng}"/>
+                            <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
+                        </ComboBox>
+
+                    </DockPanel>
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
                         <CheckBox x:Name="TopMostforce" Checked="TopMostforce_Checked"  Unchecked="TopMostforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
 
                     </StackPanel>
-                        
+
+                    <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
+                    <Label  Content="{StaticResource TE Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <CheckBox x:Name="TopMostTEforce" Checked="TopMostTEforce_Checked"  Unchecked="TopMostTEforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+
+                    <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
+                    <Label  Content="{StaticResource Plugin Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <CheckBox x:Name="TopMostPluginforce" Checked="TopMostPluginforce_Checked"  Unchecked="TopMostPluginforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+
                 </StackPanel>
-            </TabItem>
-            <TabItem Header="{StaticResource TE Setting}" >
-                <Grid />
-            </TabItem>
-            <TabItem Header="{StaticResource Plugin Setting}" >
-                <Grid />
             </TabItem>
 
         </dragablz:TabablzControl>

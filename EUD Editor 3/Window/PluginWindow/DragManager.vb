@@ -1,7 +1,7 @@
 ﻿Partial Class PluginWindow
     Private DragSelectindex As Integer
     Private DragSelectItem As ListBoxItem
-    Private DragSelctData As CRequireData.RequireBlock
+    Private DragSelctData As BuildData.EdsBlock.EdsBlockItem
     Private IsClick As Boolean
     Private DragPos As Point
     Private IsTopSelect As Boolean
@@ -39,7 +39,7 @@
                 If EdsText.SelectedItem IsNot Nothing Then '드래그 아이템이 지정되어 있지 않을 경우
                     DragSelectindex = EdsText.SelectedIndex
                     DragSelectItem = EdsText.SelectedItem
-                    'DragSelctData = RequireList(DragSelectindex)
+                    DragSelctData = pjData.EdsBlock.Blocks(DragSelectindex)
                     DragImage.Width = DragSelectItem.ActualWidth
                     DragImage.Height = DragSelectItem.ActualHeight
 
@@ -50,6 +50,8 @@
                     listboxitem.Padding = New Thickness(-2)
 
                     'Dim ListItem As New RequireListBoxItem(RequireList(DragSelectindex))
+
+                    listboxitem.Content = New PluginItem(DragSelectindex)
 
 
                     'listboxitem.Content = ListItem
@@ -64,6 +66,7 @@
                     Dim RealHeight As Integer = CType(EdsText.SelectedItem, ListBoxItem).ActualHeight
                     Dim InsertIndex As Integer = EdsText.SelectedIndex
                     Dim LastPos As Point = e.GetPosition(EdsText.SelectedItem)
+
 
                     If LastPos.Y < RealHeight / 2 Then
                         IsTopSelect = True
@@ -94,29 +97,31 @@
         End If
 
 
-        Dim listboxitem As New ListBoxItem
-        listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
-        listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
+        'Dim listboxitem As New ListBoxItem
+        'listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
+        'listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
 
-        listboxitem.Padding = New Thickness(-2)
+        'listboxitem.Padding = New Thickness(-2)
 
-        'Dim tItem As New CRequireData.RequireBlock(DragSelctData.opCode, DragSelctData.Value)
+        Dim tItem As New BuildData.EdsBlock.EdsBlockItem(DragSelctData.BType)
 
         'Dim ListItem As New RequireListBoxItem(tItem)
 
         'listboxitem.Content = ListItem
         ''만든 아이템에데가 오브젝트 연결해서 알아서 바뀌도록...
 
-        ''RequireList.Insert(InsertIndex, tItem)
+        pjData.EdsBlock.Blocks.Insert(InsertIndex, tItem)
         'EdsText.Items.Insert(InsertIndex, listboxitem)
 
 
-        ''RequireList.Remove(DragSelctData)
+        pjData.EdsBlock.Blocks.Remove(DragSelctData)
         'EdsText.Items.Remove(DragSelectItem)
 
-        listboxitem.IsSelected = True
 
-
+        ItemRefresh()
+        '    ListBoxItem.IsSelected = True
+        'CType(DragSelectItem.Content, PluginItem).Refresh()
+        'CType(CType(EdsText.Items(InsertIndex), ListBoxItem).Content, PluginItem).Refresh()
 
 
         DragSelectItem = Nothing
@@ -124,22 +129,29 @@
 
     End Sub
 
+    Private Sub ItemRefresh()
+        For i = 0 To EdsText.Items.Count - 1
+            CType(CType(EdsText.Items(i), ListBoxItem).Content, PluginItem).Refresh()
+        Next
+    End Sub
+
+
     Private Sub SelectTopBorder(index As Integer)
         If EdsText.Items.Count > index And index >= 0 Then
-            'Dim RListbox As RequireListBoxItem = CType(EdsText.Items(index), ListBoxItem).Content
-            'RListbox.SelectTopBorder()
+            Dim RListbox As PluginItem = CType(EdsText.Items(index), ListBoxItem).Content
+            RListbox.SelectTopBorder()
         End If
     End Sub
     Private Sub SelectDownBorder(index As Integer)
         If EdsText.Items.Count > index And index >= 0 Then
-            'Dim RListbox As RequireListBoxItem = CType(EdsText.Items(index), ListBoxItem).Content
-            'RListbox.SelectDownBorder()
+            Dim RListbox As PluginItem = CType(EdsText.Items(index), ListBoxItem).Content
+            RListbox.SelectDownBorder()
         End If
     End Sub
     Private Sub DSelectBorder(index As Integer)
         If EdsText.Items.Count > index And index >= 0 Then
-            'Dim RListbox As RequireListBoxItem = CType(EdsText.Items(index), ListBoxItem).Content
-            'RListbox.DSelectBorder()
+            Dim RListbox As PluginItem = CType(EdsText.Items(index), ListBoxItem).Content
+            RListbox.DSelectBorder()
         End If
     End Sub
 End Class

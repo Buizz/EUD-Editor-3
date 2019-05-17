@@ -1,0 +1,47 @@
+﻿<UserControl x:Class="PluginItem"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d" 
+             d:DesignHeight="145.869" d:DesignWidth="339.142" Background="#02FFFFFF"
+             MouseMove="DockPanel_MouseMove" MouseLeave="UserControl_MouseLeave">
+    <DockPanel>
+
+        <Border x:Name="TopBorder" DockPanel.Dock="Top" Visibility="Hidden"  Height="11"  Margin="2,0">
+            <DockPanel LastChildFill="False">
+                <Border DockPanel.Dock="Top" Visibility="Visible" Background="{DynamicResource PrimaryHueDarkBrush}" Height="3"/>
+                <Polygon Points="0,0 0,8, 8,0 0,0" DockPanel.Dock="Left" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                </Polygon>
+                <Polygon Points="8,0 8,8, 0,0 8,0" DockPanel.Dock="Right" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                </Polygon>
+            </DockPanel>
+           
+        </Border>
+
+        <Border x:Name="DownBorder" DockPanel.Dock="Bottom" Visibility="Hidden" Height="11" Margin="2,0">
+            <DockPanel  LastChildFill="False">
+                <Border DockPanel.Dock="Bottom" Visibility="Visible" Background="{DynamicResource PrimaryHueDarkBrush}" Height="3"/>
+                <Polygon Points="0,0 0,8, 8,8 0,0" DockPanel.Dock="Left" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                </Polygon>
+                <Polygon Points="8,0 8,8, 0,8 8,0" DockPanel.Dock="Right" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                </Polygon>
+            </DockPanel>
+        </Border>
+        <Separator Background="#4CA0A0A0" DockPanel.Dock="Bottom" Margin="10"/>
+
+        <DockPanel Margin="5,1">
+            <materialDesign:PackIcon x:Name="Icon" Kind="ArrowAll"/>
+
+            <StackPanel>
+                <TextBlock x:Name="TextTitle" Text="하이"  Foreground="{DynamicResource PrimaryHueMidBrush}"/>
+                <TextBlock x:Name="Textb" Text="하이" Padding="5"/>
+                <TextBox x:Name="Textbox" Padding="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" />
+            </StackPanel>
+        </DockPanel>
+        
+    </DockPanel>
+</UserControl>

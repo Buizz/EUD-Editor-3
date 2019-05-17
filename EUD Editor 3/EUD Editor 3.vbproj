@@ -411,6 +411,9 @@
     <Compile Include="Window\PluginWindow\PluginWindow.xaml.vb">
       <DependentUpon>PluginWindow.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\PluginWindow\PluginItem.xaml.vb">
+      <DependentUpon>PluginItem.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
     </Compile>
@@ -648,6 +651,10 @@
     <Page Include="Window\PluginWindow\PluginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\PluginWindow\PluginItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\SettingWindows.xaml">
       <SubType>Designer</SubType>

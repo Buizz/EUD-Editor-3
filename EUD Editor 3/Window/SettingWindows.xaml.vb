@@ -27,6 +27,8 @@ Public Class SettingWindows
         CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanuage)
         ChangeTblUse.IsChecked = pgData.Setting(ProgramData.TSetting.CDLanuageChange)
         TopMostforce.IsChecked = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
+        TopMostTEforce.IsChecked = pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost)
+        TopMostPluginforce.IsChecked = pgData.Setting(ProgramData.TSetting.PluginSettingTopMost)
 
 
         If Tool.IsProjectLoad Then
@@ -297,6 +299,14 @@ Public Class SettingWindows
 
     Private Sub CheckBox_Unchecked(sender As Object, e As RoutedEventArgs)
         pgData.Setting(ProgramData.TSetting.CheckReg) = False
+    End Sub
+
+    Private Sub TopMostTEforce_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost) = TopMostTEforce.IsChecked
+    End Sub
+
+    Private Sub TopMostPluginforce_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.PluginSettingTopMost) = TopMostPluginforce.IsChecked
     End Sub
 
 

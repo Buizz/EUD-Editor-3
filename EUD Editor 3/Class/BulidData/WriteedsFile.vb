@@ -15,20 +15,20 @@ Partial Public Class BuildData
     <Serializable()>
     Public Class EdsBlock
         Public Sub New()
-            Blocks = New List(Of EdsBlockItem)
-            Blocks.Add(New EdsBlockItem(EdsBlockType.Main))
-            Blocks.Add(New EdsBlockItem(EdsBlockType.DataEditor))
-            Blocks.Add(New EdsBlockItem(EdsBlockType.ExtraDataEditor))
-            Blocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
-            Blocks.Add(New EdsBlockItem(EdsBlockType.DataDumper))
+            pBlocks = New List(Of EdsBlockItem)
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.Main))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.DataEditor))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.ExtraDataEditor))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.DataDumper))
         End Sub
 
 
         Public Function GetedsString() As String
             Dim sb As New StringBuilder
 
-            For i = 0 To Blocks.Count - 1
-                sb.AppendLine(Blocks(i).GetEdsString())
+            For i = 0 To pBlocks.Count - 1
+                sb.AppendLine(pBlocks(i).GetEdsString())
             Next
 
             Return sb.ToString
@@ -36,28 +36,15 @@ Partial Public Class BuildData
 
 
 
-        Public ReadOnly Property BlocksLen As Integer
+        Private pBlocks As List(Of EdsBlockItem)
+        Public ReadOnly Property Blocks As List(Of EdsBlockItem)
             Get
-                Return Blocks.Count
+                Return pBlocks
             End Get
         End Property
 
-
-        Public ReadOnly Property BlocksStr(index As Integer) As String
-            Get
-                Return Blocks(index).GetEdsString
-            End Get
-        End Property
-        Public ReadOnly Property BlocksName(index As Integer) As String
-            Get
-                Return Blocks(index).GetEdsName
-            End Get
-        End Property
-
-
-        Private Blocks As List(Of EdsBlockItem)
         <Serializable()>
-        Private Class EdsBlockItem
+        Public Class EdsBlockItem
             Public BType As BuildData.EdsBlockType
 
             Private pTexts As String

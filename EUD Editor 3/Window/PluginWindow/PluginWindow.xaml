@@ -14,7 +14,7 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
-        Title="{StaticResource PluginSetting}" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True" MinWidth="678">
+        Title="{StaticResource PluginSetting}" Height="620" Width="420" WindowStartupLocation="Manual" Topmost="True" MinWidth="678">
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -35,18 +35,20 @@
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
-    <DockPanel>
-        <StackPanel DockPanel.Dock="Left" Width="100">
-            
-        </StackPanel>
-        <Grid>
-            <ListBox x:Name="EdsText" PreviewMouseLeftButtonDown="EdsText_PreviewMouseLeftButtonDown" PreviewMouseMove="EdsText_PreviewMouseMove" PreviewMouseLeftButtonUp="EdsText_PreviewMouseLeftButtonUp">
-            </ListBox>
+    <Grid>
+            <ListBox x:Name="EdsText" MouseUp="EdsText_MouseUp" PreviewMouseLeftButtonDown="EdsText_PreviewMouseLeftButtonDown" PreviewMouseMove="EdsText_PreviewMouseMove" PreviewMouseLeftButtonUp="EdsText_PreviewMouseLeftButtonUp">
+            <ListBox.ContextMenu>
+                <ContextMenu Opened="ContextMenu_Opened"  >
+                    <MenuItem x:Name="NewItem" Header="{StaticResource NewEdsPlugin}" Icon="{materialDesign:PackIcon Kind=FileOutline}" Click="NewItem_Click"/>
+                    <Separator/>
+                    <MenuItem x:Name="DeleteItem" Header="{StaticResource PluginDelete}" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="DeleteItem_Click"/>
+                </ContextMenu>
+            </ListBox.ContextMenu>
+        </ListBox>
             <Border x:Name="DragImage"  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
 
             </Border>
-        </Grid>
+    </Grid>
 
-    </DockPanel>
 
 </controls:MetroWindow>

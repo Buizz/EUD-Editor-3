@@ -36,6 +36,8 @@
     
     <sys:String x:Key="Project Setting">프로젝트 설정</sys:String>
     <sys:String x:Key="Default Setting">기본 설정</sys:String>
+
+    <sys:String x:Key="Editor Setting">에디터 설정</sys:String>
     <sys:String x:Key="DatEdit Setting">데이터 에디터</sys:String>
     <sys:String x:Key="TE Setting">트리거 에디터</sys:String>
     <sys:String x:Key="Plugin Setting">플러그인</sys:String>
@@ -68,6 +70,7 @@
     <sys:String x:Key="TriggerEditor">트리거 에디터</sys:String>
     <sys:String x:Key="PluginSetting">플러그인 설정</sys:String>
 
+    
 
     <sys:String x:Key="StarExeFile">스타크래프트 실행 파일</sys:String>
     <sys:String x:Key="euddraftExe">euddraft 실행 파일</sys:String>
@@ -771,4 +774,10 @@
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib 파일</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript 파일</sys:String>
     <sys:String x:Key="MenuGNewPyScript">[GUI] eudplib 파일</sys:String>
+
+
+
+    <sys:String x:Key="NewEdsPlugin">새 플러그인</sys:String>
+    <sys:String x:Key="PluginDelete">플러그인 제거</sys:String>
+
 </ResourceDictionary>
