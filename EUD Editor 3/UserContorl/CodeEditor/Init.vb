@@ -20,7 +20,6 @@ Partial Public Class CodeEditor
 
 
         LocalFunc = New CFunc
-        ExternFunc = New CFunc
 
 
         Dim foldingUpdateTimer As DispatcherTimer = New DispatcherTimer()
@@ -153,7 +152,7 @@ Partial Public Class CodeEditor
             ArgumentIndex = 0
         End If
 
-
+        FuncName = FuncName.Trim
 
         Log.Text = LastStr & " " & SelectStart & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex & vbCrLf & IsFirstArgumnet & vbCr & CheckFunctionName
 
@@ -183,7 +182,7 @@ Partial Public Class CodeEditor
             ' m_toolTip.Content = funArgument
             If ToltipBorder.Visibility = Visibility.Hidden Then
                 Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
-                StartPostion.VisualColumn -= Startindex
+                'StartPostion.Column = 10 '-= Startindex
 
                 If StartPostion.Line > 1 Then
                     StartPostion.Line -= 1
@@ -208,7 +207,6 @@ Partial Public Class CodeEditor
 
 
     Private LocalFunc As CFunc
-    Private ExternFunc As CFunc
 
     Private funcThread As Threading.Thread
 
@@ -267,7 +265,7 @@ Partial Public Class CodeEditor
                 If completionWindow.CompletionList.SelectedItem Is Nothing Then
                     completionWindow.Visibility = Visibility.Collapsed
                 End If
-            ElseIf enteredText = " " Or enteredText = "," Then
+            ElseIf enteredText = " " Or enteredText = "," Or enteredText = "(" Then
                 completionWindow = New CompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
@@ -285,6 +283,10 @@ Partial Public Class CodeEditor
                 AddHandler completionWindow.Closed, Sub()
                                                         completionWindow = Nothing
                                                     End Sub
+
+                If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
+                    completionWindow.Visibility = Visibility.Collapsed
+                End If
             Else
                 Return
             End If

@@ -8,6 +8,7 @@ Imports Newtonsoft.Json
 Namespace Tool
     Module Tool
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
+        Public TEEpsExternFunc As CFunc
 
         'Private MainWindow As MainWindow
         Public Sub Init()
@@ -16,6 +17,17 @@ Namespace Tool
 
             OffsetDicInit()
 
+
+            TEEpsExternFunc = New CFunc
+
+
+            Dim fs As New FileStream(TriggerEditorPath("epsFunctions.txt"), FileMode.Open)
+            Dim sr As New StreamReader(fs)
+
+            TEEpsExternFunc.LoadFunc(sr.ReadToEnd)
+
+            sr.Close()
+            fs.Close()
 
         End Sub
 
@@ -323,6 +335,12 @@ Namespace Tool
             Return False
         End Function
 
+
+        Public ReadOnly Property TriggerEditorPath(paths As String) As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\" & paths
+            End Get
+        End Property
 
         Public ReadOnly Property FiregraftActFunPath() As String
             Get

@@ -61,7 +61,7 @@ Partial Public Class CodeEditor
         If IsFirstArgumnet Then
             Select Case ArgumentType
                 Case "TrgUnit"
-                    For i = 0 To SCUnitCount
+                    For i = 0 To SCUnitCount - 1
                         Dim tb As New TextBox
                         tb.Text = pjData.UnitInGameName(i)
 
@@ -79,7 +79,9 @@ Partial Public Class CodeEditor
         For i = 0 To LocalFunc.FuncCount - 1
             data.Add(New TECompletionData(10, LocalFunc.GetFuncName(i), LocalFunc.GetFuncName(i), New TextBlock(), TextEditor, TECompletionData.EIconType.localFunction))
         Next
-
+        For i = 0 To Tool.TEEpsExternFunc.FuncCount - 1
+            data.Add(New TECompletionData(20, Tool.TEEpsExternFunc.GetFuncName(i), Tool.TEEpsExternFunc.GetFuncName(i), New TextBlock(), TextEditor, TECompletionData.EIconType.Auto))
+        Next
 
         Return data
     End Function
@@ -93,6 +95,8 @@ Public Class TECompletionData
     Private TextEditor As TextEditor
     Private IconType As EIconType
     Public Enum EIconType
+        Auto
+
         '키워드
         KeyWord
         SettingValue

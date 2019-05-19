@@ -1,4 +1,5 @@
-﻿Imports MaterialDesignThemes.Wpf
+﻿Imports System.IO
+Imports MaterialDesignThemes.Wpf
 
 Public Class ProgramData
     '<주 버전>.<부 버전>.<빌드 번호>.<수정>
@@ -111,6 +112,8 @@ Public Class ProgramData
 
 
 
+
+
     Private pgsetting As IniClass
     Public Sub New()
         pgsetting = New IniClass(Tool.GetSettingFile)
@@ -151,6 +154,7 @@ Public Class ProgramData
         End Try
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
+
     End Sub
 
 

@@ -946,6 +946,9 @@
     <EmbeddedResource Include="Data\Texts\AnimOpcodes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Data\TriggerEditor\epsFunctions.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />
     <Content Include="Microsoft.DwayneNeed.Win32.dll" />
