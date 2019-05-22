@@ -11,16 +11,27 @@ Imports System.Text.RegularExpressions
 Partial Public Class CodeEditor
     Private Sub InitTextEditor()
         Dim customHighlighting As IHighlightingDefinition
-        Dim s As Stream = GetType(TECUIPage).Assembly.GetManifestResourceStream("EUD_Editor_3.EpsHighlightingDark.xshd")
+        Dim highlightName As String = ""
+
+        If pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
+            highlightName = "EpsHighlightingDark"
+        Else
+            highlightName = "EpsHighlightingLight"
+        End If
+
+
+
+
+        Dim s As Stream = GetType(TECUIPage).Assembly.GetManifestResourceStream("EUD_Editor_3." & highlightName & ".xshd")
         Dim reader As New XmlTextReader(s)
         customHighlighting = Xshd.HighlightingLoader.Load(reader, HighlightingManager.Instance)
 
-        HighlightingManager.Instance.RegisterHighlighting("EpsHighlightingDark", {".eps"}, customHighlighting)
+        HighlightingManager.Instance.RegisterHighlighting(highlightName, {".eps"}, customHighlighting)
         TextEditor.SyntaxHighlighting = customHighlighting
 
 
         LocalFunc = New CFunc
-
+        ExternFunc = New CFunc
 
         Dim foldingUpdateTimer As DispatcherTimer = New DispatcherTimer()
         foldingUpdateTimer.Interval = TimeSpan.FromSeconds(2)
@@ -36,8 +47,13 @@ Partial Public Class CodeEditor
         FoldingStrategy = New EPSFoldingStrategy()
         FoldingStrategy.UpdateFoldings(FoldingManager, TextEditor.Document)
 
+        'TextEditor.Options.ShowSpaces = True
+        'TextEditor.Options.ShowTabs = True
+        'TextEditor.Options.HighlightCurrentLine = True
+        'TextEditor.Options.ShowColumnRuler = True
 
-
+        AddHandler TextEditor.TextArea.PreviewKeyDown, AddressOf TextEditorPreviewKey
+        AddHandler TextEditor.TextArea.PreviewKeyUp, AddressOf TextEditorPreviewKey
         AddHandler TextEditor.TextArea.TextEntering, AddressOf textEditor_TextArea_TextEntering
         AddHandler TextEditor.TextArea.TextEntered, AddressOf textEditor_TextArea_TextEntered
     End Sub
@@ -72,6 +88,9 @@ Partial Public Class CodeEditor
 
 
         Dim LastStr As String = ""
+        Dim TypingStr As String = ""
+        Dim TypingStrSave As String = ""
+        Dim CheckChar As Boolean = False
         Dim FuncName As String = ""
         Dim CheckFunctionName As String = ""
         Dim ArgumentIndex As Integer
@@ -80,10 +99,13 @@ Partial Public Class CodeEditor
 
 
         Dim index As Integer = 0
+        Dim FunctionStartOffset As Integer = 0
         Dim bracketCount As Integer = 0
         Dim GetFuncName As Boolean = False
         Dim CheckFunction As Boolean = False
         Dim IsFunctionSpace As Boolean = False
+        Dim IsQuotes As Boolean = False
+        Dim QuotesCount As Integer
         While ((SelectStart - index) > 0)
             Dim MidStr As String = Mid(MainStr, SelectStart - index, 1)
 
@@ -92,6 +114,9 @@ Partial Public Class CodeEditor
                 Case vbLf
                     Exit While
                 Case "("
+                    If ArgumentIndex = 0 And AnotherCharCount = 0 Then
+                        IsFirstArgumnet = True
+                    End If
                     If GetFuncName Then
                         Exit While
                     Else
@@ -107,7 +132,7 @@ Partial Public Class CodeEditor
                     Else
                         bracketCount += 1
                     End If
-                Case " "
+                Case " ", vbTab
                     If CheckFunction Then
                         If GetFuncName Then
                             Exit While
@@ -118,10 +143,12 @@ Partial Public Class CodeEditor
                         End If
                     End If
                 Case ","
-                    If ArgumentIndex = 0 And AnotherCharCount = 0 Then
-                        IsFirstArgumnet = True
+                    If Not CheckFunction And Not IsFunctionSpace Then
+                        If ArgumentIndex = 0 And AnotherCharCount = 0 Then
+                            IsFirstArgumnet = True
+                        End If
+                        ArgumentIndex += 1
                     End If
-                    ArgumentIndex += 1
                 Case Else
                     If GetFuncName Then
                         If IsFunctionSpace Then
@@ -141,9 +168,30 @@ Partial Public Class CodeEditor
             If CheckFunction Then
                 CheckFunctionName = MidStr & CheckFunctionName
             End If
+            If Not Char.IsLetterOrDigit(MidStr) Then
+                CheckChar = True
+            End If
+            If Not CheckChar Then
+                TypingStr = MidStr & LastStr
+            End If
+            If Not IsFunctionSpace Then
+                FunctionStartOffset += 1
+            End If
+
+            If MidStr = """" Or MidStr = "'" Then
+                QuotesCount += 1
+            End If
+
 
 
             LastStr = MidStr & LastStr
+
+            If Not IsQuotes And (MidStr = """" Or MidStr = "'") Then
+                TypingStrSave = TypingStr
+                TypingStr = LastStr
+                IsQuotes = True
+            End If
+
 
             index += 1
         End While
@@ -152,22 +200,30 @@ Partial Public Class CodeEditor
             ArgumentIndex = 0
         End If
 
+        If QuotesCount Mod 2 = 0 And IsQuotes Then
+            TypingStr = TypingStrSave
+        End If
+
+
+
+
+
         FuncName = FuncName.Trim
 
-        Log.Text = LastStr & " " & SelectStart & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex & vbCrLf & IsFirstArgumnet & vbCr & CheckFunctionName
+        Log.Text = FunctionStartOffset & "   마지막으로 입력한 글자 : " & TypingStr & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex & vbCrLf & IsFirstArgumnet & vbCr & CheckFunctionName
 
         'Dim selectedValues As List(Of InvoiceSOA)
         'selectedValues = DisputeList.FindAll(Function(p) p.ColumnName = "Jewel")
 
         LocalFunc.LoadFunc(MainStr)
-
-        ShowCompletion(e.Text, False, FuncName, ArgumentIndex, IsFirstArgumnet)
-
-        ShowFuncTooltip(FuncName, ArgumentIndex, index)
+        '외부함수 불러오는건 여기가아님
 
 
+        AutoInserter(e.Text)
 
+        ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True)
 
+        ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
         'Log.Text = Log.Text & vbCrLf & "입력된 함수 갯수 : " & LocalFunc.FuncCount
 
         'For i = 0 To LocalFunc.FuncCount - 1
@@ -175,38 +231,61 @@ Partial Public Class CodeEditor
         'Next
     End Sub
 
-    Private Sub ShowFuncTooltip(FuncName As String, ArgumentIndex As Integer, Startindex As Integer)
-        Dim funArgument As Border = LocalFunc.GetToolTip(FuncName, ArgumentIndex)
+
+
+
+
+    Private OrginYPos As Integer
+    Private Function ShowFuncTooltip(FuncName As String, ArgumentIndex As Integer, Startindex As Integer) As Boolean
+        Dim funArgument As Border
+
+        funArgument = LocalFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+        If funArgument Is Nothing Then
+            funArgument = ExternFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+        End If
+        If funArgument Is Nothing Then
+            funArgument = Tool.TEEpsDefaultFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+        End If
+
+
+
+
         If funArgument IsNot Nothing Then
             ToltipBorder.Child = funArgument
             ' m_toolTip.Content = funArgument
             If ToltipBorder.Visibility = Visibility.Hidden Then
                 Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
-                'StartPostion.Column = 10 '-= Startindex
+                'MsgBox(StartPostion.VisualColumn)
+                StartPostion.VisualColumn -= Startindex
+                'MsgBox(StartPostion.VisualColumn)
 
-                If StartPostion.Line > 1 Then
-                    StartPostion.Line -= 1
-                End If
+                'If StartPostion.Line > 1 Then
+                '    StartPostion.Line -= 1
+                'End If
 
 
                 Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
+                OrginYPos = p.Y - 5 - TextEditor.VerticalOffset
                 ToltipBorder.Margin = New Thickness(p.X + 36, p.Y - 5 - TextEditor.VerticalOffset, 0, 0)
                 ToltipBorder.Visibility = Visibility.Visible
             End If
 
-
+            MoveToolTipBox()
+            Return True
         Else
             If ToltipBorder.Visibility = Visibility.Visible Then
                 ToltipBorder.Visibility = Visibility.Hidden
             End If
 
         End If
-    End Sub
+        Return False
+    End Function
 
 
 
 
     Private LocalFunc As CFunc
+    Private ExternFunc As CFunc
 
     Private funcThread As Threading.Thread
 
@@ -214,15 +293,23 @@ Partial Public Class CodeEditor
 
     Private Sub textEditor_TextArea_TextEntering(sender As Object, e As TextCompositionEventArgs)
         If (e.Text.Length > 0 And completionWindow IsNot Nothing) Then
-            If e.Text = vbTab Then
-                completionWindow.CompletionList.RequestInsertion(e)
-            ElseIf Not Char.IsLetterOrDigit(e.Text(0)) Then
-                completionWindow.Close()
+            If e.Text(0) = vbCrLf Then
+
+            End If
+            'completionWindow.CompletionList.RequestInsertion(e)
+
+
+            If e.Text(0) = " " Then
+                    If completionWindow.CompletionList.SelectedItem Is Nothing Then
+                        completionWindow.Close()
+                    End If
+                ElseIf Not Char.IsLetterOrDigit(e.Text(0)) Then
+                    completionWindow.Close()
             End If
         End If
     End Sub
 
-    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean)
+    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean)
         If Not controlSpace Then
             Debug.WriteLine("Code Completion: TextEntered: " & enteredText)
         Else
@@ -241,7 +328,11 @@ Partial Public Class CodeEditor
                 '아니면 -1을 하지 않고 SelectItem을 하지 않는다.
 
                 '리스트에 엔터텍스트가 포함되어있을 경우 넣으면서 -1한다. 아니면 건들지 않는다.
-                completionWindow.StartOffset -= 1
+                If LastStr.Length = 0 Then
+                    completionWindow.StartOffset -= 1
+                Else
+                    completionWindow.StartOffset -= LastStr.Length
+                End If
 
                 LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
 
@@ -253,22 +344,34 @@ Partial Public Class CodeEditor
                 'End If
 
 
-                completionWindow.Width = 400
-
+                completionWindow.SizeToContent = SizeToContent.WidthAndHeight
+                completionWindow.MinWidth = 120
 
                 completionWindow.Show()
+
+                AddHandler completionWindow.LocationChanged, AddressOf OnSizeChange
                 AddHandler completionWindow.Closed, Sub()
                                                         completionWindow = Nothing
                                                     End Sub
-                completionWindow.CompletionList.SelectItem(enteredText)
+
+                If LastStr.Length = 0 Then
+                    completionWindow.CompletionList.SelectItem(enteredText)
+                Else
+                    completionWindow.CompletionList.SelectItem(LastStr)
+                End If
 
                 If completionWindow.CompletionList.SelectedItem Is Nothing Then
-                    completionWindow.Visibility = Visibility.Collapsed
+                    completionWindow.Close()
+                    'completionWindow.Visibility = Visibility.Collapsed
                 End If
-            ElseIf enteredText = " " Or enteredText = "," Or enteredText = "(" Then
+            ElseIf IsFirstArgumnet And FuncNameas.trim <> "" Then 'enteredText = " " Or enteredText = "," Or enteredText = "(" Then
                 completionWindow = New CompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
+
+                If LastStr.Length > 0 Then
+                    completionWindow.StartOffset -= LastStr.Length
+                End If
 
                 LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
 
@@ -276,25 +379,31 @@ Partial Public Class CodeEditor
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
 
-                completionWindow.Width = 400
+
+                completionWindow.SizeToContent = SizeToContent.WidthAndHeight
+                completionWindow.MinWidth = 120
 
 
                 completionWindow.Show()
+
+
+
+                AddHandler completionWindow.LocationChanged, AddressOf OnSizeChange
+                'AddHandler completionWindow.PreviewKeyDown, AddressOf completionWindowKeyDown
                 AddHandler completionWindow.Closed, Sub()
                                                         completionWindow = Nothing
                                                     End Sub
 
-                If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
-                    completionWindow.Visibility = Visibility.Collapsed
+
+                If LastStr.Length > 0 Then
+                    completionWindow.CompletionList.SelectItem(LastStr.Replace("""", "").Replace("'", ""))
                 End If
+
+                'If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
+                '    completionWindow.Close()
+                'End If
             Else
                 Return
-            End If
-        Else
-            If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
-                completionWindow.Visibility = Visibility.Collapsed
-            Else
-                completionWindow.Visibility = Visibility.Visible
             End If
         End If
     End Sub
@@ -303,9 +412,172 @@ Partial Public Class CodeEditor
     Private completionWindow As ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow
     Private permissionChar() As String = {" ", "(", ")", "[", "]", "{", "}", vbTab}
 
+
+
+
+    Private Sub OnSizeChange(sender As Object, e As EventArgs)
+        MoveToolTipBox()
+
+
+    End Sub
+
+
+    Private Sub MoveToolTipBox()
+        If ToltipBorder.Visibility = Visibility.Visible Then
+            If completionWindow IsNot Nothing Then
+                Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
+                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
+
+                Dim CaretPos As Integer = p.Y - TextEditor.VerticalOffset
+                Dim copPos As Integer = completionWindow.Top - TextEditor.PointToScreen(New Point(0, 0)).Y
+
+                If CaretPos > copPos Then
+                    ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos + 23, 0, 0)
+                Else
+                    ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
+                End If
+            Else
+                ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
+            End If
+        End If
+    End Sub
+
+
     Private Sub completionWindowKeyDown(sender As Object, e As KeyEventArgs)
-        If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
-            completionWindow.Close()
+        If e.Key = Key.Enter Then
+            If completionWindow IsNot Nothing Then
+                If completionWindow.CompletionList.SelectedItem Is Nothing Then
+                    completionWindow.Close()
+
+                    TextEditor.SelectedText = vbCrLf
+                    TextEditor.SelectionLength -= 1
+                    TextEditor.SelectionStart += 2
+                End If
+            End If
+
+        End If
+        'If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
+        '    completionWindow.Close()
+        'End If
+    End Sub
+
+
+    Private Sub TextEditorPreviewKey(sender As Object, e As KeyEventArgs)
+        If completionWindow IsNot Nothing Then
+            If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
+                completionWindow.Close()
+                '    completionWindow.Visibility = Visibility.Collapsed
+                '    completionWindow.CompletionList.ListBox.SelectedIndex = -1
+                '    completionWindow.CompletionList.ListBox.Visibility = Visibility.Collapsed
+                'Else
+                '    completionWindow.Visibility = Visibility.Visible
+                '    completionWindow.CompletionList.ListBox.Visibility = Visibility.Visible
+            End If
+        End If
+        If e.Key = Key.Up Or e.Key = Key.Down Then
+            If completionWindow Is Nothing Then
+                If ToltipBorder.Visibility = Visibility.Visible Then
+                    ToltipBorder.Visibility = Visibility.Hidden
+                End If
+            End If
+        End If
+
+        If e.IsDown And e.Key = Key.Back Then
+            AutoRemover()
+        End If
+        'If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
+        '    completionWindow.Close()
+        'End If
+    End Sub
+
+    Private Sub AutoInserter(keys As String)
+        '/* 쓰면 */ 뒤에 써주는거
+        '{ 쓰면 다음 줄에 }
+        '( -> )
+        '[ -> ]
+        '' 쓰면 뒤에 ' 넣어주는거
+        '" -> "
+
+
+        '"의 경우 뒤에 문자가 "일 경우 뒤에 문자를 지운다.
+        '앞의 문자가 "일 경우 추가로 저장하지 않는다.
+
+
+
+
+        Select Case keys
+            Case """", "'"
+                Dim headchar As String
+                Dim tailchar As String
+
+                Try
+                    headchar = TextEditor.Text.Chars(TextEditor.SelectionStart - 2)
+                Catch ex As IndexOutOfRangeException
+                    headchar = ""
+                End Try
+                Try
+                    tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
+                Catch ex As IndexOutOfRangeException
+                    tailchar = ""
+                End Try
+
+
+                If headchar <> keys And tailchar <> keys Then
+                    TextEditor.SelectedText = keys
+                    TextEditor.SelectionLength -= 1
+                    If headchar = "" Then
+                        TextEditor.SelectionStart += 1
+                    End If
+                Else
+                    If tailchar = keys Then
+                        TextEditor.SelectionLength += 1
+                        TextEditor.SelectedText = ""
+                    End If
+                End If
+            Case "("
+                TextEditor.SelectedText = ")"
+                TextEditor.SelectionLength = 0
+            Case "{"
+                TextEditor.SelectedText = "}"
+                TextEditor.SelectionLength = 0
+            Case "["
+                TextEditor.SelectedText = "]"
+                TextEditor.SelectionLength = 0
+            Case ")", "}", "]"
+                Dim tailchar As String
+
+                Try
+                    tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
+                Catch ex As IndexOutOfRangeException
+                    tailchar = ""
+                End Try
+
+                If keys = tailchar Then
+                    TextEditor.SelectionLength += 1
+                    TextEditor.SelectedText = ""
+                End If
+        End Select
+    End Sub
+
+    Private Sub AutoRemover()
+        Dim headchar As String
+        Dim tailchar As String
+
+        Try
+            headchar = TextEditor.Text.Chars(TextEditor.SelectionStart - 1)
+        Catch ex As IndexOutOfRangeException
+            headchar = ""
+        End Try
+        Try
+            tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
+        Catch ex As IndexOutOfRangeException
+            tailchar = ""
+        End Try
+
+        If (headchar = """" And tailchar = """") Or (headchar = "'" And tailchar = "'") Or
+            (headchar = "(" And tailchar = ")") Or (headchar = "[" And tailchar = "]") Or (headchar = "{" And tailchar = "}") Then
+            TextEditor.SelectionLength += 1
+            TextEditor.SelectedText = ""
         End If
     End Sub
 End Class

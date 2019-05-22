@@ -30,8 +30,6 @@ Module GlobalObj
         Return True
     End Function
     Public Function InitProgram() As Boolean
-        Tool.Init()
-
         Try
             pgData = New ProgramData
         Catch ex As Exception
@@ -40,9 +38,6 @@ Module GlobalObj
             Return False
         End Try
 
-
-        ProjectControlBinding = New MainMenuBinding
-
         '언어 설정
         If pgData.Setting(ProgramData.TSetting.Language) = Nothing Then
             pgData.Setting(ProgramData.TSetting.Language) = System.Threading.Thread.CurrentThread.CurrentUICulture.ToString()
@@ -50,6 +45,11 @@ Module GlobalObj
         pgData.SetLanguage(pgData.Setting(ProgramData.TSetting.Language))
         'MsgBox(System.Threading.Thread.CurrentThread.CurrentUICulture.ToString())
 
+        Tool.Init()
+
+
+
+        ProjectControlBinding = New MainMenuBinding
 
 
         '색 설정

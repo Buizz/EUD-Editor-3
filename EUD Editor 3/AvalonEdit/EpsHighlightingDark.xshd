@@ -9,26 +9,107 @@
 		<Span color="Comment" multiline="true" begin="/\*" end="\*/" />
 
 
+    <!-- 함수 파란계열(시스템 색, 문법등)-->
+    <Keywords foreground="#6799FF">
+      <Word>object</Word>
+      <Word>static</Word>
+      <Word>once</Word>
+      <Word>if</Word>
+      <Word>else</Word>
+      <Word>for</Word>
+      <Word>function</Word>
+      <Word>foreach</Word>
+      <Word>return</Word>
+
+      <Word>true</Word>
+      <Word>True</Word>
+      <Word>false</Word>
+      <Word>False</Word>
+    </Keywords>
+
+
     <!-- 함수 호출 붉은계열-->
     <Rule foreground="#FFA7A7">
-      [\w\d]+(?=\(.*\))
+      [\w\d]+(?=\()
     </Rule>
 
-    <Span color="String">
-			<Begin>"</Begin>
-			<End>"</End>
-			<RuleSet>
-				<!-- nested span for escape sequences -->
-				<Span begin="\\" end="." />
-			</RuleSet>
-		</Span>
-		
 
+    <Span color="String" multiline="true">
+      <Begin>"</Begin>
+      <End>"</End>
+      <RuleSet>
+        <!-- nested span for escape sequences -->
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+    
+    <Span color="String" multiline="true">
+      <Begin>'</Begin>
+      <End>'</End>
+      <RuleSet>
+        <!-- nested span for escape sequences -->
+        <Span begin="\\" end="." />
+      </RuleSet>
+    </Span>
+    
 
-    <!-- 변수 초록 계열 -->
+    <!-- 변수 + KeyWord 초록 계열 -->
     <Keywords foreground="#CEF279">
       <Word>const</Word>
       <Word>var</Word>
+
+      <Word>Enemy</Word>
+      <Word>Ally</Word>
+      <Word>AlliedVictory</Word>
+
+      <Word>AtLeast</Word>
+      <Word>AtMost</Word>
+      <Word>Exactly</Word>
+
+      <Word>SetTo</Word>
+      <Word>Add</Word>
+      <Word>Subtract</Word>
+
+      <Word>Move</Word>
+      <Word>Patrol</Word>
+      <Word>Attack</Word>
+
+      <Word>Enable</Word>
+      <Word>Disable</Word>
+      <Word>Toggle</Word>
+
+      <Word>Ore</Word>
+      <Word>Gas</Word>
+      <Word>OreAndGas</Word>
+
+      <Word>P1</Word>
+      <Word>P2</Word>
+      <Word>P3</Word>
+      <Word>P4</Word>
+      <Word>P5</Word>
+      <Word>P6</Word>
+      <Word>P7</Word>
+      <Word>P8</Word>
+      <Word>P9</Word>
+      <Word>P10</Word>
+      <Word>P11</Word>
+      <Word>P12</Word>
+      <Word>CurrentPlayer</Word>
+      <Word>Foes</Word>
+      <Word>Allies</Word>
+      <Word>NeutralPlayers</Word>
+      <Word>AllPlayers</Word>
+      <Word>Force1</Word>
+      <Word>Force2</Word>
+      <Word>Force3</Word>
+      <Word>Force4</Word>
+      <Word>NonAlliedVictoryPlayers</Word>
+
+      <Word>Set</Word>
+      <Word>Clear</Word>
+      <Word>Cleared</Word>
+      <Word>Toggle</Word>
+      <Word>Random</Word>
     </Keywords>
 
     <!-- 붉은 계열 -->
@@ -37,23 +118,19 @@
       <Word>as</Word>
     </Keywords>
     
-    <!-- 함수 파란계열(시스템 색, 문법등)-->
-    <Keywords foreground="#6799FF">
-      <Word>if</Word>
-      <Word>else</Word>
-      <Word>for</Word>
-      <Word>function</Word>
-      <Word>foreach</Word>
-      <Word>return</Word>
-    </Keywords>
 
 
 
-    <!-- 함수 정의 옅은 노랑-->
+
+    <!-- 오브젝트 정의 옅은 보라-->
+    <Rule foreground="#D1B2FF">
+      (?&lt;=object)[\s]+[\w\d]+
+    </Rule>
+    <!-- 함수 정의 옅은 보라-->
     <Rule foreground="#D1B2FF">
       (?&lt;=function)[\s]+[\w\d]+
     </Rule>
-    
+
 
 
 
@@ -63,8 +140,8 @@
     </Rule>
 
 
-    <!-- Digits 얉은 파랑-->
-    <Rule foreground="#3DB7CC">
+    <!-- Digits 얉은 연녹-->
+    <Rule foreground="#2DF8B8">
       \b0[xX][0-9a-fA-F]+  # hex number
     </Rule>
 

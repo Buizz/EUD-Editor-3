@@ -14,10 +14,44 @@ Public Class MapData
     Private Strings As List(Of String)
     Public ReadOnly Property Str(index As Integer) As String
         Get
-            Return Strings(index)
+            If Strings.Count > index Then
+                Return Strings(index)
+            Else
+                Return "Error"
+            End If
         End Get
     End Property
 
+    Private pLocationName(255) As Integer
+    Public ReadOnly Property LocationName(index As Integer) As String
+        Get
+            If 255 > index Then
+                If pLocationName(index) = 0 Then
+                    Return index
+                Else
+                    Return Strings(pLocationName(index) - 1)
+                End If
+            Else
+                Return "Error"
+            End If
+        End Get
+    End Property
+
+
+    Private pSwitchName(255) As Integer
+    Public ReadOnly Property SwitchName(index As Integer) As String
+        Get
+            If 255 > index Then
+                If pSwitchName(index) = 0 Then
+                    Return index
+                Else
+                    Return Strings(pSwitchName(index) - 1)
+                End If
+            Else
+                Return "Error"
+            End If
+        End Get
+    End Property
     Public Sub New(MapName As String)
         Try
             LoadData(MapName)
@@ -190,26 +224,32 @@ Public Class MapData
             'Next
 
 
-            'mem.Position = SearchCHK("MRGN", buffer)
+            If True Then
+                SearchCHK("MRGN", binary)
 
-            'size = binary.ReadUInt32
+                size = binary.ReadUInt32
 
-            'For i = 0 To 255
-            '    binary.ReadUInt32()
-            '    binary.ReadUInt32()
-            '    binary.ReadUInt32()
-            '    binary.ReadUInt32()
+                For i = 0 To 255
+                    binary.ReadUInt32()
+                    binary.ReadUInt32()
+                    binary.ReadUInt32()
+                    binary.ReadUInt32()
 
-            '    CHKLOCATIONNAME.Add(binary.ReadUInt16())
-            '    binary.ReadUInt16()
-            'Next
+                    pLocationName(i) = binary.ReadUInt16()
+                    binary.ReadUInt16()
+                Next
+            End If
 
-            'mem.Position = SearchCHK("SWNM", buffer)
+            If True Then
+                'mem.Position = SearchCHK("SWNM", buffer)
+                SearchCHK("SWNM", binary)
+                size = binary.ReadUInt32
+                For i = 0 To 255
+                    pSwitchName(i) = binary.ReadUInt32
+                Next
+            End If
 
-            'size = binary.ReadUInt32
-            'For i = 0 To 255
-            '    CHKSWITCHNAME.Add(binary.ReadUInt32)
-            'Next
+
 
             If True Then
                 SearchCHK("UPGx", binary)

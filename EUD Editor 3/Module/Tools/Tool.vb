@@ -8,7 +8,7 @@ Imports Newtonsoft.Json
 Namespace Tool
     Module Tool
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
-        Public TEEpsExternFunc As CFunc
+        Public TEEpsDefaultFunc As CFunc
 
         'Private MainWindow As MainWindow
         Public Sub Init()
@@ -18,14 +18,16 @@ Namespace Tool
             OffsetDicInit()
 
 
-            TEEpsExternFunc = New CFunc
+            TEEpsDefaultFunc = New CFunc
 
 
             Dim fs As New FileStream(TriggerEditorPath("epsFunctions.txt"), FileMode.Open)
             Dim sr As New StreamReader(fs)
-
-            TEEpsExternFunc.LoadFunc(sr.ReadToEnd)
-
+            Try
+                TEEpsDefaultFunc.LoadFunc(sr.ReadToEnd)
+            Catch ex As Exception
+                MsgBox("함수 초기화 실패")
+            End Try
             sr.Close()
             fs.Close()
 
