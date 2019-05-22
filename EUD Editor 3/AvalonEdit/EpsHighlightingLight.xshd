@@ -24,6 +24,9 @@
       <Word>True</Word>
       <Word>false</Word>
       <Word>False</Word>
+
+      <Word>switch</Word>
+      <Word>case</Word>
     </Keywords>
 
 

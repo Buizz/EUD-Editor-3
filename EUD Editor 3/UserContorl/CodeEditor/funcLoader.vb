@@ -20,43 +20,41 @@ Partial Public Class CodeEditor
 
 
         'TrgAllyStatus
-
         'TrgComparison
-        '상수
         'TrgCount
-        '숫자
         'TrgModifier
-        '상수
         'TrgOrder
-        '상수
         'TrgPlayer
-
         'TrgProperty
-
         'TrgPropState
-
         'TrgResource
-
         'TrgScore
-
         'TrgSwitchAction
-        '상수
         'TrgSwitchState
-        '상수
         'TrgAIScript
-        '스트링
         'TrgLocation
-        '스트링
         'TrgLocationIndex
-
         'TrgString
-        '스트링
         'TrgSwitch
-        '스트링
         'TrgUnit
-        '스트링
+
+
         Dim Argument As String = GetArgument(FuncNameas, ArgumentCount)
         Dim ArgumentType As String = Argument.Split(":").Last.Trim
+
+
+        Select Case FuncNameas
+            Case "$S"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgSwitch"
+            Case "$U"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgUnit"
+            Case "$L"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgLocation"
+        End Select
+
         If IsFirstArgumnet Then
             Select Case ArgumentType
                 Case "TrgAllyStatus"
@@ -273,6 +271,15 @@ Partial Public Class CodeEditor
         End If
 
 
+        For i = 0 To LocalFunc.VariableCount - 1
+            data.Add(New TECompletionData(5, LocalFunc, i, TextEditor, TECompletionData.EIconType.Variable))
+        Next
+        For i = 0 To ExternFunc.VariableCount - 1
+            data.Add(New TECompletionData(6, ExternFunc, i, TextEditor, TECompletionData.EIconType.Variable))
+        Next
+        For i = 0 To Tool.TEEpsDefaultFunc.VariableCount - 1
+            data.Add(New TECompletionData(7, Tool.TEEpsDefaultFunc, i, TextEditor, TECompletionData.EIconType.Variable))
+        Next
 
 
         For i = 0 To LocalFunc.FuncCount - 1
@@ -287,26 +294,56 @@ Partial Public Class CodeEditor
 
         'KeyWord추가
         For i = 0 To KeyWords.Count - 1
-            data.Add(New TECompletionData(25, KeyWords(i), KeyWords(i), Nothing, TextEditor, TECompletionData.EIconType.KeyWord))
+            data.Add(New TECompletionData(30, KeyWords(i), KeyWords(i), Nothing, TextEditor, TECompletionData.EIconType.KeyWord))
+        Next
+
+        'StarKeyWord추가
+        For i = 0 To StarKeyWords.Count - 1
+            data.Add(New TECompletionData(25, StarKeyWords(i), StarKeyWords(i), Nothing, TextEditor, TECompletionData.EIconType.StarKeyWord))
         Next
         Return data
     End Function
+
+    Public Function LoadFuncNameData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
+
+
+        Dim strs() As String = {"onPluginStart", "beforeTriggerExec", "afterTriggerExec"}
+
+        For i = 0 To strs.Length - 1
+            Dim tb As New TextBox
+            tb.Text = Tool.GetText(strs(i))
+
+            data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+        Next
+
+        Return data
+    End Function
+    Public Function LoadFuncWriteData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
+
+
+        Dim strs() As String = {"TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder", "TrgPlayer", "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction",
+"TrgSwitchState", "TrgAIScript", "TrgLocation", "TrgLocationIndex", "TrgString", "TrgSwitch", "TrgUnit"}
+        For i = 0 To strs.Length - 1
+            Dim tb As New TextBox
+            tb.Text = strs(i)
+
+            data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+        Next
+
+        Return data
+    End Function
+
+
+
+
     Private KeyWords() As String = {"object", "static", "once", "if", "else", "for", "function", "foreach",
-        "return", "true", "True", "false", "False", "switch", "case", "break", "var", "const"}
-    '<Word>object</Word>
-    '<Word>static</Word>
-    '<Word>once</Word>
-    '<Word>if</Word>
-    ' <Word>else</Word>
-    '  <Word>for</Word>
-    '   <Word>function</Word>
-    '    <Word>foreach</Word>
-    '     <Word>return</Word>
-    '
-    '<Word>true</Word>
-    '<Word>True</Word>
-    '<Word>false</Word>
-    '<Word>False</Word>
+        "return", "true", "True", "false", "False", "switch", "case", "break", "var", "const", "import", "as"}
+
+
+    Private StarKeyWords() As String = {"hitpoint", "shield", "energy", "resource", "hanger", "cloaked", "burrowed", "intransit", "hallucinated", "invincible"}
+
 
 
     Private Function GetArgument(name As String, Argindex As Integer) As String
@@ -345,6 +382,7 @@ Public Class TECompletionData
         KeyWord
         SettingValue
         Funcname
+        StarKeyWord
 
         '에디터 설정 값(AtLeast, AtMost, Enabled등등
         StarConst
@@ -363,6 +401,9 @@ Public Class TECompletionData
 
         '로컬 함수
         localFunction
+
+        '로컬 변수들
+        Variable
 
 
 
@@ -402,9 +443,7 @@ Public Class TECompletionData
 
         'LocalFunc.GetFuncName(i), LocalFunc.GetFuncName(i), LocalFunc.GetFuncTooltip(i)
 
-        Me.Text = tfunc.GetFuncName(FuncIndex)
-        inputtext = tfunc.GetFuncName(FuncIndex)
-        TextEditor = tTextEditor
+
 
         IconType = tIconType
         If tIconType = EIconType.Auto Then
@@ -418,18 +457,30 @@ Public Class TECompletionData
             End Select
         End If
 
-
         _Priority = tPriority
 
-        Dim textblock As New TextBlock
-        textblock.Text = tfunc.GetFuncTooltip(FuncIndex).Summary
-        ToolTip = textblock
+        If IconType = EIconType.Variable Then
+            Text = tfunc.GetVariableNames(FuncIndex)
+            inputtext = tfunc.GetVariableNames(FuncIndex)
+            TextEditor = tTextEditor
+            Dim textblock As New TextBlock
+            textblock.Text = tfunc.GetVariableType(FuncIndex)
+            ToolTip = textblock
+        Else
+            Text = tfunc.GetFuncName(FuncIndex)
+            inputtext = tfunc.GetFuncName(FuncIndex)
+            TextEditor = tTextEditor
+            Dim textblock As New TextBlock
+            textblock.Text = tfunc.GetFuncTooltip(FuncIndex).Summary
+            ToolTip = textblock
+        End If
+
     End Sub
 
     Public ReadOnly Property Image As ImageSource Implements ICompletionData.Image
         Get
             Select Case IconType
-                Case EIconType.StarConst
+                Case EIconType.StarConst, EIconType.StarKeyWord
                     Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Const.png"))
                     Imageicon.Freeze()
                     Return Imageicon
@@ -451,6 +502,10 @@ Public Class TECompletionData
                     Return Imageicon
                 Case EIconType.SettingValue
                     Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Setting.png"))
+                    Imageicon.Freeze()
+                    Return Imageicon
+                Case EIconType.Variable
+                    Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Variable.png"))
                     Imageicon.Freeze()
                     Return Imageicon
                 Case EIconType.Funcname, EIconType.localFunction

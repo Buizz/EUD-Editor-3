@@ -36,6 +36,7 @@ Public Class MainMenuBinding
         NotifyPropertyChanged("BackgroundDatEdit")
         NotifyPropertyChanged("BackgroundTriggerEdit")
         NotifyPropertyChanged("BackgroundPlugin")
+        NotifyPropertyChanged("InsertIcon")
     End Sub
 
     Public ReadOnly Property TriggerEditorName As String
@@ -68,6 +69,19 @@ Public Class MainMenuBinding
 
 
 
+    Public ReadOnly Property InsertIcon As MaterialDesignThemes.Wpf.PackIcon
+        Get
+            Dim InsertCion As New MaterialDesignThemes.Wpf.PackIcon
+            If pgData.IsCompilng Then
+                InsertCion.Kind = MaterialDesignThemes.Wpf.PackIconKind.Stop
+            Else
+                InsertCion.Kind = MaterialDesignThemes.Wpf.PackIconKind.Play
+            End If
+            InsertCion.Width = Double.NaN
+            InsertCion.Height = Double.NaN
+            Return InsertCion
+        End Get
+    End Property
     Public ReadOnly Property GridOpacity As Double
         Get
             If pgData.IsCompilng Then

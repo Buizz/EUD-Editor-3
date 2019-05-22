@@ -42,6 +42,8 @@ Public Class ExtraDatFiles
                 Else
                     GroupDic(key)(index) = Tool.GetText("buttonSetEtcGroup")
                 End If
+            Case SCDatFiles.DatFiles.stattxt
+                GroupDic(key)(index) = Tool.CodeGrouping.StrGroup(index)
             Case Else
                 GroupDic(key)(index) = Math.Floor(index / 100) * 100 & " ~ " & Math.Floor(index / 100) * 100 + 100
         End Select

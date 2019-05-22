@@ -84,7 +84,6 @@
 
 
 
-
     <sys:String x:Key="NoName">제목 없음</sys:String>
     <sys:String x:Key="None">없음</sys:String>
     <sys:String x:Key="NotUse">X</sys:String>
@@ -780,4 +779,9 @@
     <sys:String x:Key="NewEdsPlugin">새 플러그인</sys:String>
     <sys:String x:Key="PluginDelete">플러그인 제거</sys:String>
 
+
+
+    <sys:String x:Key="onPluginStart">플러그인 실행 시 최초 1회 실행 되는 함수</sys:String>
+    <sys:String x:Key="beforeTriggerExec">매 프레임마다 트리거 실행 전에 호출 되는 함수</sys:String>
+    <sys:String x:Key="afterTriggerExec">매 프레임마다 트리거 실행 후에 호출 되는 함수</sys:String>
 </ResourceDictionary>

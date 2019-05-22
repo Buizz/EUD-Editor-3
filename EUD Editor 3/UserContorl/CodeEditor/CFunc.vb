@@ -78,6 +78,7 @@ Public Class FunctionToolTip
 
         Dim ReadStatus As ReadStatus
         Dim WriteParmIndex As Integer
+        Dim FristParam As Boolean = False
         '만약 @지령이 Summary라면
         For i = 0 To Lines.Count - 1
             Dim LineStr As String = Lines(i).Replace("*", "").Trim
@@ -102,6 +103,7 @@ Public Class FunctionToolTip
                                 If FuncArgTooltip.IndexOf(ParamSplitter(1)) >= 0 Then
                                     WriteParmIndex = FuncArgTooltip.IndexOf(ParamSplitter(1))
                                     ReadStatus = ReadStatus.Param
+                                    FristParam = True
                                     Continue For
                                 End If
                             End If
@@ -113,7 +115,12 @@ Public Class FunctionToolTip
                 Case ReadStatus.Summary
                     pSummary = pSummary & LineStr & vbCrLf
                 Case ReadStatus.Param
-                    FuncArgTooltip(WriteParmIndex) = FuncArgTooltip(WriteParmIndex) & LineStr & vbCrLf
+                    If FristParam Then
+                        FristParam = False
+                        FuncArgTooltip(WriteParmIndex) = LineStr & vbCrLf
+                    Else
+                        FuncArgTooltip(WriteParmIndex) = FuncArgTooltip(WriteParmIndex) & " : " & LineStr & vbCrLf
+                    End If
                 Case ReadStatus.Type
                     Select Case LineStr
                         Case "A"
@@ -128,8 +135,9 @@ Public Class FunctionToolTip
 
             'MsgBox(LineStr)
         Next
-
-        pSummary = pSummary.Trim
+        If pSummary IsNot Nothing Then
+            pSummary = pSummary.Trim
+        End If
 
     End Sub
     Public Sub New()
@@ -143,9 +151,18 @@ Public Class CFunc
     Private FuncNames As List(Of String)
     Private FuncArgument As List(Of String)
 
+    Private VariableNames As List(Of String)
+    Private VariableType As List(Of String)
+
     Public ReadOnly Property FuncCount As Integer
         Get
             Return FuncNames.Count
+        End Get
+    End Property
+
+    Public ReadOnly Property VariableCount As Integer
+        Get
+            Return VariableNames.Count
         End Get
     End Property
     Public ReadOnly Property GetFuncName(index As Integer) As String
@@ -158,6 +175,20 @@ Public Class CFunc
             Return FuncArgument(index)
         End Get
     End Property
+
+
+    Public ReadOnly Property GetVariableNames(index As Integer) As String
+        Get
+            Return VariableNames(index)
+        End Get
+    End Property
+    Public ReadOnly Property GetVariableType(index As Integer) As String
+        Get
+            Return VariableType(index)
+        End Get
+    End Property
+
+
     Public ReadOnly Property GetFuncTooltip(index As Integer) As FunctionToolTip
         Get
             Return FuncTooltip(index)
@@ -195,7 +226,7 @@ Public Class CFunc
 
             Dim textbox1 As New TextBlock
             textbox1.Text = FuncNames(index)
-            textbox1.Foreground = Brushes.Red
+            textbox1.Foreground = Brushes.DodgerBlue
             sp.Children.Add(textbox1)
 
 
@@ -209,13 +240,13 @@ Public Class CFunc
                 Dim textbox2 As New TextBlock
 
                 If Argindex = i Then
-                    textbox2.Foreground = Brushes.Blue
+                    textbox2.Foreground = Brushes.OrangeRed
                     textbox2.FontWeight = FontWeights.UltraBold
                 End If
                 If i = 0 Then
-                    textbox2.Text = Arguments(i).Trim
+                    textbox2.Text = Arguments(i).Split(":").First.Trim
                 Else
-                    textbox2.Text = "," & Arguments(i).Trim
+                    textbox2.Text = "," & Arguments(i).Split(":").First.Trim
                 End If
 
 
@@ -227,14 +258,25 @@ Public Class CFunc
             sp.Children.Add(textbox4)
 
 
+
+
+
             BigPanel.Children.Add(sp)
 
 
+            Dim textbox6 As New TextBlock
+            textbox6.Text = GetFuncTooltip(index).Summary
+            textbox6.Foreground = New SolidColorBrush(Color.FromArgb(200, 150, 150, 150))
+            If textbox6.Text <> "" Then
+                BigPanel.Children.Add(textbox6)
+            End If
 
 
             Dim textbox5 As New TextBlock
             textbox5.Text = GetFuncTooltip(index).GetTooltip(Argindex)
-            BigPanel.Children.Add(textbox5)
+            If textbox5.Text <> "" Then
+                BigPanel.Children.Add(textbox5)
+            End If
 
 
 
@@ -260,15 +302,54 @@ Public Class CFunc
         FuncNames = New List(Of String)
         FuncArgument = New List(Of String)
         FuncTooltip = New List(Of FunctionToolTip)
+
+        VariableNames = New List(Of String)
+        VariableType = New List(Of String)
     End Sub
 
     'Private arguments As List(Of FunArgument)
 
-    Public Sub LoadFunc(str As String)
+    Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1)
         FuncTooltip.Clear()
         FuncNames.Clear()
         FuncArgument.Clear()
 
+        VariableNames.Clear()
+        VariableType.Clear()
+        If StartPos <> -1 Then
+            str = Mid(str, 1, StartPos)
+        End If
+
+        'const\s+[\w\d_]+\s+=\s+(.*);
+
+
+        If True Then
+            Dim fregex As New Regex("const\s+([\w\d_]+)(.*);")
+
+            Dim matches As MatchCollection = fregex.Matches(str)
+
+            For i = 0 To matches.Count - 1
+                If VariableNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
+                    FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
+                    VariableNames.Add(matches(i).Groups(1).Value)
+                    VariableType.Add(matches(i).Groups(2).Value.Split("=").Last.Trim)
+                End If
+
+            Next
+        End If
+        If True Then
+            Dim fregex As New Regex("var\s+([\w\d_]+)(.*);")
+
+            Dim matches As MatchCollection = fregex.Matches(str)
+
+            For i = 0 To matches.Count - 1
+                If VariableNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
+                    FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
+                    VariableNames.Add(matches(i).Groups(1).Value)
+                    VariableType.Add(" ")
+                End If
+            Next
+        End If
 
 
 

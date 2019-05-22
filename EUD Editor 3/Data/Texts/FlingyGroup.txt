@@ -1,0 +1,64 @@
+Terran\Ground Units\
+{71,73,74,75,76,77,78,81,82,83,84,85,88,189}
+Terran\Air Units\
+{70,72,80,86,87,190}
+Terran\Birth\
+{112,113}
+Terran\Special\
+{89,109,123}
+Terran\Buildings\
+{90,91,92,94,95,97,101,104,105,106,107,110,111}
+Terran\Addons\
+{93,96,98,100,103,108}
+Terran\Special Buildings\
+{99,102,194,196}
+Zerg\Ground Units\
+{1,2,4,5,6,8,9,10,14,15,184,186}
+Zerg\Air Units\
+{0,3,7,11,12,13,185}
+Zerg\Special\
+{122}
+Zerg\Buildings\
+{17,18,20,21,22,23,23,24,25,26,27,28,29,32,33,34,35,36}
+Zerg\Special Buildings\
+{16,19,30,31,193}
+Protoss\Ground Units\
+{38,40,42,45,46,47,48,49,187,188}
+Protoss\Air Units\
+{37,39,41,43,44,50,191}
+Protoss\Special\
+{124}
+Protoss\Buildings\
+{51,52,53,54,55,56,57,59,60,61,62,63,64,65,67,69}
+Protoss\Special Buildings\
+{58,66,68,195,197}
+Neutral\Critters\
+{114,115,116,198,199,200}
+Neutral\Special\
+{126,139}
+Neutral\Powerups\
+{127,128,129,130,207,208}
+Neutral\Resources\
+{117,118,119,120,131,132,133,134,135,136,137,138}
+Neutral\Doodads\
+{173,174,175,176,177,178,179,180,181,182,183}
+Neutral\Start Location\
+{140}
+Undefined\
+{121}
+Effects\Weapons\Terran\Missile\
+{141,142,143,144,145,146,148,149,150,202}
+Effects\Weapons\Terran\Spell\
+{79,151,158,201}
+Effects\Weapons\Zerg\Missile\
+{161,162,163,165,166,171,203,204,205}
+Effects\Weapons\Zerg\Spell\
+{125,167,168,169,170}
+Effects\Weapons\Protoss\Missile\
+{152,153,154,155,156,159,160,206}
+Effects\Weapons\Protoss\Spell\
+{157,192}
+Effects\Special\
+{172}
+Effects\Unknown\
+{147,164}

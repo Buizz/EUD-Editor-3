@@ -1,22 +1,4 @@
 ﻿/***
- * @Summary.ko-KR
- * 플러그인 실행 시 최초 1회 실행 되는 함수
-***/
-function onPluginStart(){}
-/***
- * @Summary.ko-KR
- * 매 프레임마다 트리거 실행 전에 호출 되는 함수
-***/
-function beforeTriggerExec(){}
-/***
- * @Summary.ko-KR
- * 매 프레임마다 트리거 실행 후에 호출 되는 함수
-***/
-function afterTriggerExec(){}
-
-
-
-/***
  * @Type
  * A
  * @Summary.ko-KR
@@ -103,7 +85,7 @@ function UnpauseGame(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Transmission(Unit : TrgUnit, Where : TrgLocation : TrgLocation, WAVName : TrgString, TimeModifier : TrgModifier, Time, Text : TrgString, AlwaysDisplay){}
+function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, TimeModifier : TrgModifier, Time, Text : TrgString, AlwaysDisplay){}
 
 
 
@@ -553,16 +535,16 @@ function SetInvincibility(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlaye
  * @Type
  * A
  * @Summary.ko-KR
- * 유닛을 생성하는 트리거
+ * [Where]에 [Number]만큼 [Unit]을 [ForPlayer]의 소유로 생성합니다.
  *
  * @param.Number.ko-KR
- * 생성 될 유닛의 수
+ * 유닛의 수량을 설정합니다.
  * @param.Unit.ko-KR
- * 생성될 유닛의 종류
+ * 유닛의 종류를 결정합니다.
  * @param.Where.ko-KR
- * 생성될 로케이션
+ * 생성될 위치를 설정합니다.
  * @param.ForPlayer.ko-KR
- * 대상 플레이어
+ * 플레이어를 설정합니다.
 ***/
 function CreateUnit(Number, Unit : TrgUnit, Where : TrgLocation, ForPlayer : TrgPlayer){}
 
@@ -1046,3 +1028,18 @@ function Always(){}
  * 인자 설명
 ***/
 function Never(){}
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 퍼센트 조절
+ * hitpoint, shield, energy
+ * 수량 조절
+ * resource, hanger
+ * 논리형
+ * cloaked, burrowed, intransit, hallucinated, invincible
+***/
+function UnitProperty(){}

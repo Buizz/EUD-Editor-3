@@ -67,7 +67,13 @@ Partial Public Class CodeEditor
         End If
     End Sub
 
+    Private ToolTipUpdateTimer As DispatcherTimer
 
+    Private Sub ToolTipPosUpdateTimer_Tick(sender As Object, e As EventArgs)
+        MoveToolTipBox()
+        ToolTipUpdateTimer.Stop()
+        ToolTipUpdateTimer = Nothing
+    End Sub
 
 
     '현재 위치로 부터 뒤로 간다.
@@ -83,6 +89,8 @@ Partial Public Class CodeEditor
 
 
     Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
+        pjData.SetDirty(True)
+
         Dim MainStr As String = TextEditor.Document.Text
         Dim SelectStart As Integer = TextEditor.SelectionStart
 
@@ -168,7 +176,7 @@ Partial Public Class CodeEditor
             If CheckFunction Then
                 CheckFunctionName = MidStr & CheckFunctionName
             End If
-            If Not Char.IsLetterOrDigit(MidStr) Then
+            If Not Char.IsLetterOrDigit(MidStr) And MidStr <> "_" Then
                 CheckChar = True
             End If
             If Not CheckChar Then
@@ -195,9 +203,14 @@ Partial Public Class CodeEditor
 
             index += 1
         End While
+
+        Dim IsFuncDefWrite As Boolean = False
+        Dim IsFuncNameWrite As Boolean = False
+        '이 경우 자동완성을 조금 다르게 해야됨
         If CheckFunctionName = "function" Then
             FuncName = ""
             ArgumentIndex = 0
+            IsFuncDefWrite = True
         End If
 
         If QuotesCount Mod 2 = 0 And IsQuotes Then
@@ -210,20 +223,42 @@ Partial Public Class CodeEditor
 
         FuncName = FuncName.Trim
 
-        Log.Text = FunctionStartOffset & "   마지막으로 입력한 글자 : " & TypingStr & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex & vbCrLf & IsFirstArgumnet & vbCr & CheckFunctionName
+        Log.Text = FunctionStartOffset & "   마지막으로 입력한 글자 : " & TypingStr & vbCrLf & "함수이름 : " & FuncName & "     함수 인자 번호 : " & ArgumentIndex
+
+        Dim strStacks() As String = LastStr.Split(" ")
+        If strStacks.Count >= 2 Then
+            Dim temp As String = strStacks(strStacks.Count - 2)
+            If temp = "function" Then
+                IsFuncNameWrite = True
+            End If
+        End If
+
+        Log.Text = Log.Text & vbCrLf & "IsFuncNameWrite : " & IsFuncNameWrite
+        Log.Text = Log.Text & vbCrLf & "IsFuncDefWrite : " & IsFuncDefWrite
+
+
+
+
+
 
         'Dim selectedValues As List(Of InvoiceSOA)
         'selectedValues = DisputeList.FindAll(Function(p) p.ColumnName = "Jewel")
+        If Not IsFuncDefWrite And Not IsFuncNameWrite Then
+            LocalFunc.LoadFunc(MainStr, SelectStart)
+            '외부함수 불러오는건 여기가아님
 
-        LocalFunc.LoadFunc(MainStr)
-        '외부함수 불러오는건 여기가아님
 
+            AutoInserter(e.Text)
 
-        AutoInserter(e.Text)
+            ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True)
 
-        ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True)
+            ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
+        ElseIf IsFuncDefWrite Then
+            ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsFuncDefWrite)
+        ElseIf IsFuncNameWrite Then
+            ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsFuncNameWrite)
+        End If
 
-        ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
         'Log.Text = Log.Text & vbCrLf & "입력된 함수 갯수 : " & LocalFunc.FuncCount
 
         'For i = 0 To LocalFunc.FuncCount - 1
@@ -232,7 +267,11 @@ Partial Public Class CodeEditor
     End Sub
 
 
-
+    Private Enum SpecialFlag
+        None
+        IsFuncNameWrite
+        IsFuncDefWrite
+    End Enum
 
 
     Private OrginYPos As Integer
@@ -268,6 +307,14 @@ Partial Public Class CodeEditor
                 OrginYPos = p.Y - 5 - TextEditor.VerticalOffset
                 ToltipBorder.Margin = New Thickness(p.X + 36, p.Y - 5 - TextEditor.VerticalOffset, 0, 0)
                 ToltipBorder.Visibility = Visibility.Visible
+
+                If ToolTipUpdateTimer Is Nothing Then
+                    ToolTipUpdateTimer = New DispatcherTimer()
+                    ToolTipUpdateTimer.Interval = TimeSpan.FromMilliseconds(1)
+                    AddHandler ToolTipUpdateTimer.Tick, AddressOf ToolTipPosUpdateTimer_Tick
+                    ToolTipUpdateTimer.Start()
+                End If
+
             End If
 
             MoveToolTipBox()
@@ -309,7 +356,7 @@ Partial Public Class CodeEditor
         End If
     End Sub
 
-    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean)
+    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, Optional Flag As SpecialFlag = SpecialFlag.None)
         If Not controlSpace Then
             Debug.WriteLine("Code Completion: TextEntered: " & enteredText)
         Else
@@ -334,7 +381,14 @@ Partial Public Class CodeEditor
                     completionWindow.StartOffset -= LastStr.Length
                 End If
 
-                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
+                Select Case Flag
+                    Case SpecialFlag.None
+                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
+                    Case SpecialFlag.IsFuncNameWrite
+                        LoadFuncNameData(TextEditor, completionWindow.CompletionList.CompletionData)
+                    Case SpecialFlag.IsFuncDefWrite
+                        LoadFuncWriteData(TextEditor, completionWindow.CompletionList.CompletionData)
+                End Select
 
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
@@ -364,7 +418,7 @@ Partial Public Class CodeEditor
                     completionWindow.Close()
                     'completionWindow.Visibility = Visibility.Collapsed
                 End If
-            ElseIf IsFirstArgumnet And FuncNameas.trim <> "" Then 'enteredText = " " Or enteredText = "," Or enteredText = "(" Then
+            ElseIf enteredText = " " Or enteredText = "," Or enteredText = "(" Then 'IsFirstArgumnet And FuncNameas.Trim <> "" Then '
                 completionWindow = New CompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
@@ -373,8 +427,14 @@ Partial Public Class CodeEditor
                     completionWindow.StartOffset -= LastStr.Length
                 End If
 
-                LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
-
+                Select Case Flag
+                    Case SpecialFlag.None
+                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
+                    Case SpecialFlag.IsFuncNameWrite
+                        LoadFuncNameData(TextEditor, completionWindow.CompletionList.CompletionData)
+                    Case SpecialFlag.IsFuncDefWrite
+                        LoadFuncWriteData(TextEditor, completionWindow.CompletionList.CompletionData)
+                End Select
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")

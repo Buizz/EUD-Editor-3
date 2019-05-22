@@ -17,22 +17,36 @@ Partial Public Class BuildData
     '맵폴더로 지정되어 있으면 맵두개의 폴더가 같으면 상대 경로로 저장
     '맵 두개가 다른 폴더면 기본 폴더에 저장
     Private MainThread As Threading.Thread
+
+    Private eudplibShutDown As Boolean
     Public Sub Build()
-        If pjData.Filename <> "" Then ' 새파일
-            pjData.Save()
+        If pgData.IsCompilng = True Then
+            If eudplibprocess IsNot Nothing Then
+                If Not eudplibprocess.HasExited Then
+                    eudplibShutDown = True
+                    eudplibprocess.Kill()
+                End If
+            End If
+        Else
+            eudplibShutDown = False
+            If pjData.Filename <> "" Then ' 새파일
+                pjData.Save()
+            End If
+
+
+
+            'Tool.GetRelativePath(EudPlibFilePath & "\EUDEditor.eds", pjData.OpenMapName)
+            'Tool.GetRelativePath("zzz\asd\c\ㅎㅎ.txt", "zzz\asd\bcx\aqw\zxv\하이.txt")
+            'Tool.GetRelativePath("zzz\asd\bcx\aqw\zxv\하이.txt", "zzz\asd\c\ㅎㅎ.txt")
+
+            If CheckBuildable() Then
+                MainThread = New System.Threading.Thread(AddressOf BuildProgress)
+                MainThread.Start()
+            End If
+            'MsgBox("최종 폴더 :" & TempFloder)
         End If
 
 
-
-        'Tool.GetRelativePath(EudPlibFilePath & "\EUDEditor.eds", pjData.OpenMapName)
-        'Tool.GetRelativePath("zzz\asd\c\ㅎㅎ.txt", "zzz\asd\bcx\aqw\zxv\하이.txt")
-        'Tool.GetRelativePath("zzz\asd\bcx\aqw\zxv\하이.txt", "zzz\asd\c\ㅎㅎ.txt")
-
-        If CheckBuildable() Then
-            MainThread = New System.Threading.Thread(AddressOf BuildProgress)
-            MainThread.Start()
-        End If
-        'MsgBox("최종 폴더 :" & TempFloder)
     End Sub
 
 
@@ -149,7 +163,7 @@ Partial Public Class BuildData
 
         'eds파일을 만들고 해당 파일 실행
         WriteedsFile()
-        Starteds()
+        Dim isSucces As Boolean = Starteds()
 
 
         'Threading.Thread.Sleep(3000)
@@ -159,26 +173,29 @@ Partial Public Class BuildData
         pgData.IsCompilng = False
         Tool.RefreshMainWindow()
 
-        Dim notificationSound As New SoundPlayer(My.Resources.success)
-        notificationSound.PlaySync()
+        If isSucces Then
+            Dim notificationSound As New SoundPlayer(My.Resources.success)
+            notificationSound.PlaySync()
+        End If
     End Sub
 
 
 
 
 
-    Private Sub Starteds()
+    Private eudplibprocess As Process
+    Private Function Starteds() As Boolean
         Dim StandardOutput As String = ""
         Dim StandardError As String = ""
 
         Dim RestartCount As Integer
         While True
-            Dim process As Process = ProcessStart()
+            eudplibprocess = ProcessStart()
 
-            While Not process.HasExited
-                process.StandardInput.Write(vbCrLf)
-                StandardOutput = process.StandardOutput.ReadToEnd
-                StandardError = process.StandardError.ReadToEnd
+            While Not eudplibprocess.HasExited
+                eudplibprocess.StandardInput.Write(vbCrLf)
+                StandardOutput = eudplibprocess.StandardOutput.ReadToEnd
+                StandardError = eudplibprocess.StandardError.ReadToEnd
                 Threading.Thread.Sleep(100)
             End While
             If InStr(StandardError, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
@@ -192,11 +209,18 @@ Partial Public Class BuildData
             'MsgBox(tempstr(tempstr.Count - 2))
             '임시 판단
             If StandardOutput.IndexOf("Output scenario.chk") < 0 Then
-                MsgBox(StandardOutput & vbCrLf & StandardError, MsgBoxStyle.Critical)
+                If eudplibShutDown Then
+                    MsgBox("컴파일을 중단했습니다.", MsgBoxStyle.Critical)
+                Else
+                    MsgBox(StandardOutput & vbCrLf & StandardError, MsgBoxStyle.Critical)
+                End If
+
+                Return False
             End If
             Exit While
         End While
-    End Sub
+        Return True
+    End Function
     Private Function ProcessStart() As Process
         Dim process As New Process
         Dim startInfo As New ProcessStartInfo

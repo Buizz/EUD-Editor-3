@@ -37,14 +37,14 @@
                         <MenuItem x:Name="MenuDisConnect" Header="{StaticResource MenuDisConnect}" Icon="{materialDesign:PackIcon Kind=SyncOff}" Click="MenuDisConnect_Click"/>
                         <MenuItem x:Name="MenuAdd" Header="{StaticResource MenuAdd}" Icon="{materialDesign:PackIcon Kind=FileOutline}">
                             <MenuItem x:Name="MenuNewFolder" Header="{StaticResource NewFolder}" InputGestureText="Ctrl+F" Icon="{materialDesign:PackIcon Kind=CreateNewFolderOutline}" Click="AddFolderBtn_Click"/>
-                            <MenuItem x:Name="MenuImport" Header="{StaticResource MenuImport}" Icon="{materialDesign:PackIcon Kind=FileDownloadOutline}"/>
+                            <MenuItem x:Name="MenuImport" Header="{StaticResource MenuImport}" Icon="{materialDesign:PackIcon Kind=FileDownloadOutline}" Click="MenuImport_Click"/>
                             <Separator/>
                             <MenuItem x:Name="MenuGUIPY" Header="{StaticResource MenuGNewPyScript}" Visibility="Collapsed" InputGestureText="Ctrl+Q" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIPy_Click"/>
                             <MenuItem x:Name="MenuGUIEPS" Header="{StaticResource MenuGNewEpsScript}" Visibility="Collapsed" InputGestureText="Ctrl+W" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIEps_Click"/>
                             <MenuItem x:Name="MenuCUIPY" Header="{StaticResource MenuCNewPyScript}" Visibility="Collapsed" InputGestureText="Alt+Q" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIPy_Click"/>
                             <MenuItem x:Name="MenuCUIEPS" Header="{StaticResource MenuCNewEpsScript}" InputGestureText="Alt+W" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIEps_Click"/>
                         </MenuItem>
-                        <MenuItem x:Name="MenuExport" Header="{StaticResource MenuExport}" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}"/>
+                        <MenuItem x:Name="MenuExport" Header="{StaticResource MenuExport}" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}" Click="MenuExport_Click"/>
                         <Separator x:Name="Separator1"/>
                         <MenuItem x:Name="MenuCut" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Icon="{materialDesign:PackIcon Kind=ContentCut}" Click="CutItem_Click"/>
                         <MenuItem x:Name="MenuCopy" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}" Click="CopyItem_Click"/>

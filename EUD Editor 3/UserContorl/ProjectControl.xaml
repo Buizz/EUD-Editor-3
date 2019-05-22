@@ -54,8 +54,8 @@
             <Button Grid.Column="6" x:Name="Btn_scmd" IsEnabled="{Binding IsEnableOpenMap, UpdateSourceTrigger=PropertyChanged}" Background="{Binding BackgroundOpenMap}"  ToolTip="{DynamicResource ToolTip OpenMapEditor}"  Click="Btn_scmd_Click" Height="Auto">
                 <materialDesign:PackIcon Kind="Earth" Width="Auto" Height="Auto" />
             </Button>
-            <Button Grid.Column="7" x:Name="Btn_insert" IsEnabled="{Binding IsEnableInsert, UpdateSourceTrigger=PropertyChanged}" Background="{Binding BackgroundInsert}" ToolTip="{DynamicResource ToolTip Compile}"  Click="Btn_insert_Click" Height="Auto">
-                <materialDesign:PackIcon Kind="PlayCircle" Width="Auto" Height="Auto" />
+            <Button Grid.Column="7" x:Name="Btn_insert" Content="{Binding InsertIcon, UpdateSourceTrigger=PropertyChanged}" IsEnabled="{Binding IsEnableInsert, UpdateSourceTrigger=PropertyChanged}" Background="{Binding BackgroundInsert}" ToolTip="{DynamicResource ToolTip Compile}"  Click="Btn_insert_Click" Height="Auto">
+
             </Button>
 
 

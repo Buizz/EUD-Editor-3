@@ -31,9 +31,9 @@ Namespace Tool
             sr.Close()
             fs.Close()
 
+            CodeGrouping = New CodeGrouping
         End Sub
-
-
+        Public CodeGrouping As CodeGrouping
 
 
         Private TextBlockColorTable() As SolidColorBrush = {
@@ -344,6 +344,11 @@ Namespace Tool
             End Get
         End Property
 
+        Public ReadOnly Property DataPath(Filename As String) As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\" & Filename
+            End Get
+        End Property
         Public ReadOnly Property FiregraftActFunPath() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Texts\FireGraftActFun.txt"

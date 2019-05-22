@@ -381,4 +381,52 @@ Partial Public Class ProjectExplorer
     Private Sub AddFolderBtn_Click(sender As Object, e As RoutedEventArgs)
         AddFolder(New TEFile(Tool.GetText("NewFolder"), TEFile.EFileType.Folder))
     End Sub
+
+
+    Private Sub MenuImport_Click(sender As Object, e As RoutedEventArgs)
+        Dim openDialog As New Forms.OpenFileDialog()
+        openDialog.Title = Tool.GetText("OpenEpsTitle")
+        openDialog.Filter = Tool.GetText("OpenEpsFileFliter")
+
+
+        If openDialog.ShowDialog = Forms.DialogResult.OK Then
+            Dim tTEFile As New TEFile(openDialog.SafeFileName, TEFile.EFileType.CUIEps)
+
+            Dim fs As New System.IO.FileStream(openDialog.FileName, IO.FileMode.Open)
+            Dim sr As New System.IO.StreamReader(fs)
+
+            CType(tTEFile.Scripter, CUIScriptEditor).StringText = sr.ReadToEnd
+
+            sr.Close()
+            fs.Close()
+
+            FileCreate(tTEFile)
+        End If
+    End Sub
+
+    Private Sub MenuExport_Click(sender As Object, e As RoutedEventArgs)
+        Dim SaveDialog As New Forms.FolderBrowserDialog()
+        'SaveDialog.Title = Tool.GetText("OpenEpsTitle")
+        'SaveDialog.Filter = Tool.GetText("OpenEpsFileFliter")
+        'SaveDialog.FileName = GetFile(SelectItems(0)).FileName
+
+        If SaveDialog.ShowDialog = Forms.DialogResult.OK Then
+            For i = 0 To SelectItems.Count - 1
+                If GetFile(SelectItems(i)).FileType = TEFile.EFileType.CUIEps Or GetFile(SelectItems(i)).FileType = TEFile.EFileType.GUIEps Then
+                    Dim fs As New System.IO.FileStream(SaveDialog.SelectedPath & "\" & GetFile(SelectItems(i)).FileName & ".eps", IO.FileMode.Create)
+                    Dim sw As New System.IO.StreamWriter(fs)
+
+                    sw.Write(GetFile(SelectItems(i)).Scripter.GetStringText())
+
+                    sw.Close()
+                    fs.Close()
+
+
+                End If
+            Next
+
+
+
+        End If
+    End Sub
 End Class

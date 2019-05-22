@@ -8,7 +8,6 @@
 		<Span color="Comment" begin="//" />
 		<Span color="Comment" multiline="true" begin="/\*" end="\*/" />
 
-
     <!-- 함수 파란계열(시스템 색, 문법등)-->
     <Keywords foreground="#6799FF">
       <Word>object</Word>
@@ -25,6 +24,9 @@
       <Word>True</Word>
       <Word>false</Word>
       <Word>False</Word>
+
+      <Word>switch</Word>
+      <Word>case</Word>
     </Keywords>
 
 

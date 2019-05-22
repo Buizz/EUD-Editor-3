@@ -1,4 +1,82 @@
-﻿Public Class CodeGrouping
+﻿Imports System.IO
+
+Public Class CodeGrouping
+    Public Sub New()
+        ReDim tFlingyGroup(SCFlingyCount)
+        ReDim tImageGroup(SCImageCount)
+        ReDim tSpriteGroup(SCSpriteCount)
+        ReDim tStrGroup(SCtbltxtCount)
+
+
+        ReadGroup("Texts\FlingyGroup.txt", tFlingyGroup)
+        ReadGroup("Texts\ImageGroup.txt", tImageGroup)
+        ReadGroup("Texts\SpriteGroup.txt", tSpriteGroup)
+        ReadGroup("Texts\StrGroup.txt", tStrGroup)
+    End Sub
+    Private Sub ReadGroup(tFileName As String, ByRef Arrays() As String)
+        For i = 0 To Arrays.Count - 1
+            Arrays(i) = ""
+        Next
+
+
+        Dim fliename As String = Tool.DataPath(tFileName)
+
+        Dim fs As New FileStream(fliename, FileMode.Open)
+        Dim sr As New StreamReader(fs)
+
+
+        While (Not sr.EndOfStream)
+            Dim GroupText As String = sr.ReadLine
+            Dim Objs As String = sr.ReadLine
+            Dim obj() As String = Objs.Replace("{", "").Replace("}", "").Split(",")
+
+            'MsgBox(GroupText)
+            For i = 0 To obj.Count - 1
+                Dim number As Integer
+                Try
+                    number = obj(i).Trim
+                Catch ex As Exception
+                    Continue For
+                End Try
+                Arrays(number) = GroupText
+            Next
+        End While
+
+        sr.Close()
+        fs.Close()
+    End Sub
+
+
+    Private tFlingyGroup() As String
+    Private tImageGroup() As String
+    Private tSpriteGroup() As String
+    Private tStrGroup() As String
+
+
+
+    Public ReadOnly Property FlingyGroup(index As Integer) As String
+        Get
+            Return tFlingyGroup(index)
+        End Get
+    End Property
+    Public ReadOnly Property ImageGroup(index As Integer) As String
+        Get
+            Return tImageGroup(index)
+        End Get
+    End Property
+    Public ReadOnly Property SpriteGroup(index As Integer) As String
+        Get
+            Return tSpriteGroup(index)
+        End Get
+    End Property
+    Public ReadOnly Property StrGroup(index As Integer) As String
+        Get
+            Return tStrGroup(index)
+        End Get
+    End Property
+
+
+
     Public Shared Sub CodeGrouping(DatfileName As String, ByRef GroupCode As String(), ByRef ToolTip As String())
         Dim DatType As SCDatFiles.DatFiles = Datfilesname.ToList.IndexOf(DatfileName)
         Dim tempDat As SCDatFiles
@@ -48,7 +126,7 @@
                 ReDim ToolTip(SCImageCount)
 
                 For i = 0 To SCImageCount - 1
-                    GroupCode(i) = ""
+                    GroupCode(i) = Tool.CodeGrouping.ImageGroup(i)
                     ToolTip(i) = ""
                 Next
             Case SCDatFiles.DatFiles.sprites
@@ -56,7 +134,7 @@
                 ReDim ToolTip(SCSpriteCount)
 
                 For i = 0 To SCSpriteCount - 1
-                    GroupCode(i) = ""
+                    GroupCode(i) = Tool.CodeGrouping.SpriteGroup(i)
                     ToolTip(i) = ""
                 Next
             Case SCDatFiles.DatFiles.flingy
@@ -64,7 +142,7 @@
                 ReDim ToolTip(SCFlingyCount)
 
                 For i = 0 To SCFlingyCount - 1
-                    GroupCode(i) = ""
+                    GroupCode(i) = Tool.CodeGrouping.FlingyGroup(i)
                     ToolTip(i) = ""
                 Next
 
