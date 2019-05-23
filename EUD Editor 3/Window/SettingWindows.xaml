@@ -138,14 +138,14 @@
                                 <CheckBox x:Name="e2scb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                                       Style="{StaticResource MaterialDesignCheckBox}" Content="e2s"/>
 
-                                <CheckBox x:Name="e2pcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                      Style="{StaticResource MaterialDesignCheckBox}" Content="e2p"/>
+                                <!--<CheckBox x:Name="e2pcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="e2p"/>-->
 
-                                <CheckBox x:Name="eescb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                      Style="{StaticResource MaterialDesignCheckBox}" Content="ees"/>
+                                <!--<CheckBox x:Name="eescb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="ees"/>-->
 
-                                <CheckBox x:Name="memcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                                      Style="{StaticResource MaterialDesignCheckBox}" Content="mem"/>
+                                <!--<CheckBox x:Name="memcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                      Style="{StaticResource MaterialDesignCheckBox}" Content="mem"/>-->
                             </WrapPanel>
                         </Border>
                        

@@ -260,8 +260,63 @@ Public Class CRequireData
             Next
 
             'MsgBox("코드끝")
-
         End Sub
+
+        Public Sub ReLoad(tCodeNum As Integer, tDatfile As SCDatFiles.DatFiles, Codes As List(Of UShort), tStartPos As UShort)
+            Datfile = tDatfile
+            CodeNum = tCodeNum
+            _StartPos = tStartPos
+
+            _UseStatus = RequireUse.DefaultUse
+            ReauireBlocks = New List(Of RequireBlock)
+            'MsgBox("코드시작  인덱스 : " & CodeNum)
+
+            For i = 0 To Codes.Count - 1
+                Dim Code As UShort = Codes(i)
+                If Code > &HFF Then 'OPCode
+                    Dim Opcode As UShort = Code - &HFF00
+
+                    Select Case Opcode
+                        Case 2, 3, 4, 37
+                            i += 1
+                            ReauireBlocks.Add(New RequireBlock(Opcode, Codes(i)))
+                            'MsgBox(Opcode & " : " & Codes(i))
+                        Case Else
+                            ReauireBlocks.Add(New RequireBlock(Opcode))
+                            'MsgBox(Opcode)
+                    End Select
+
+                Else '값
+                    ReauireBlocks.Add(New RequireBlock(EOpCode._Must_have_, Codes(i)))
+                    'MsgBox("MustHave  " & Code)
+                End If
+
+
+            Next
+
+            'MsgBox("코드끝")
+        End Sub
+
+        Public Function LagacyGetCodes() As List(Of UShort)
+            Dim ReturnCodes As New List(Of UShort)
+
+
+            For i = 0 To ReauireBlocks.Count - 1
+                If ReauireBlocks(i).HasValue Then '값을 가지고 있을 경우
+                    If ReauireBlocks(i).opCode = EOpCode._Must_have_ Then
+                        ReturnCodes.Add(ReauireBlocks(i).Value)
+                    Else
+                        ReturnCodes.Add(ReauireBlocks(i).opCode + &HFF00)
+                        ReturnCodes.Add(ReauireBlocks(i).Value)
+                    End If
+                Else
+                    ReturnCodes.Add(ReauireBlocks(i).Value)
+                End If
+            Next
+
+
+            Return ReturnCodes
+        End Function
     End Class
     <Serializable>
     Public Class RequireBlock

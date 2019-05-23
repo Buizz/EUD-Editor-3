@@ -7,6 +7,9 @@ Module GlobalObj
     Public scData As StarCraftData
 
 
+    Public Lagacy As LagacyClass
+
+
     Public ProjectControlBinding As MainMenuBinding
 
     Public SettiingForm As SettingWindows
@@ -32,6 +35,7 @@ Module GlobalObj
     Public Function InitProgram() As Boolean
         Try
             pgData = New ProgramData
+            Lagacy = New LagacyClass
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
             Application.Current.Shutdown()

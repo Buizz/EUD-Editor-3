@@ -233,6 +233,8 @@
     <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
     <Compile Include="Class\TriggerEditor\TEFile.vb" />
+    <Compile Include="EUDEditor2\LagacyClass.vb" />
+    <Compile Include="EUDEditor2\SaveLoadClass\LagacySaveLoad.vb" />
     <Compile Include="MainWindow\MainWindowD.xaml.vb">
       <DependentUpon>MainWindowD.xaml</DependentUpon>
     </Compile>

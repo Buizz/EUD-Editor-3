@@ -8,6 +8,9 @@ Partial Public Class ProjectData
         SaveData.LastVersion = pgData.Version
         TETempData.SaveTabitems()
 
+
+
+
         If IsSaveAs = True Then '다른이름으로 저장 일 경우 
             Tool.SaveProjectDialog.FileName = SafeFilename
 
@@ -20,15 +23,17 @@ Partial Public Class ProjectData
 
             Next
 
-
-
-
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
                 Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
             Else
                 Return False
             End If
         End If
+
+        If Not Extension = "e3s" And Not Extension = "e2s" Then
+            Filename = ""
+        End If
+
         If Filename = "" Then ' 새파일
             Tool.SaveProjectDialog.FileName = SafeFilename
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
@@ -39,25 +44,19 @@ Partial Public Class ProjectData
         End If
 
 
-        Dim stm As Stream = File.Open(Filename, FileMode.Create, FileAccess.ReadWrite)
-        Dim bf As BinaryFormatter = New BinaryFormatter()
-        bf.Serialize(stm, Me.SaveData)
-        stm.Close()
-
-        'Dim writer As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        'Dim file As New System.IO.StreamWriter(tFilename)
-        'writer.Serialize(file, Me)
-        'file.Close()
-
-
-        'Dim fs As New FileStream(tFilename, FileMode.Create)
-        'Dim sw As New StreamWriter(fs)
+        If extension = "e3s" Then
+            Dim stm As Stream = File.Open(Filename, FileMode.Create, FileAccess.ReadWrite)
+            Dim bf As BinaryFormatter = New BinaryFormatter()
+            bf.Serialize(stm, Me.SaveData)
+            stm.Close()
+        Else
+            Lagacy.LagacySaveLoad.Save(Filename)
+        End If
 
 
-        'sw.Write(JsonConvert.SerializeObject(pjData))
 
-        'sw.Close()
-        'fs.Close()
+
+
 
         tIsLoad = True
         tIsDirty = False

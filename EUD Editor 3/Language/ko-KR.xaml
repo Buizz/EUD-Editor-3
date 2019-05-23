@@ -77,10 +77,10 @@
     <sys:String x:Key="euddraftVersion1">현재 버전 : </sys:String>
     <sys:String x:Key="euddraftVersion2">권장버전 : </sys:String>
 
-    <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s</sys:String>
-    <!--<sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>-->
-    <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s</sys:String>
-    <!--<sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>-->
+    <!--<sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s</sys:String>-->
+    <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 2 저장 파일|*.e2s</sys:String>
+    <!--<sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s</sys:String>-->
+    <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e2s;|EUD Editor 3 저장 파일|*.e3s|EUD Editor 2 저장 파일|*.e2s</sys:String>
 
 
 
@@ -796,4 +796,9 @@
     <sys:String x:Key="NoMatchesFoundText">일치하는 결과가 없습니다!</sys:String>
 
 
+
+
+
+    <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
+    <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
 </ResourceDictionary>

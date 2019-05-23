@@ -31,30 +31,28 @@ Partial Public Class ProjectData
         End If
     End Sub
     Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
-        Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
-        Dim bf As BinaryFormatter = New BinaryFormatter()
-        _pjdata = New ProjectData
-        _pjdata.NewFIle()
-        _pjdata.InitData()
-        _pjdata.SaveData = bf.Deserialize(stm)
-        _pjdata.LoadInit(FileName)
-        _pjdata.Legacy()
-        stm.Close()
+        If FileName.Split(".").Last = "e3s" Then
+            Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
+            Dim bf As BinaryFormatter = New BinaryFormatter()
+            _pjdata = New ProjectData
+            _pjdata.NewFIle()
+            _pjdata.InitData()
+            _pjdata.SaveData = bf.Deserialize(stm)
+            _pjdata.LoadInit(FileName)
+            _pjdata.Legacy()
+            stm.Close()
 
-        If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
-            Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
-            pjData.CloseFile()
+            If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
+                Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
+                pjData.CloseFile()
+            End If
+        Else
+            _pjdata = New ProjectData
+            _pjdata.NewFIle()
+            _pjdata.InitData()
+            _pjdata.LoadInit(FileName)
+
+            Lagacy.LagacySaveLoad.Load(FileName)
         End If
-        'MsgBox("세이브파일 버전 : " & _pjdata.SaveData.LastVersion.ToString) Then
-        '    MsgBox("프로그램 버전 : " & pgData.Version.ToString)
-
-        'Dim reader As New System.Xml.Serialization.XmlSerializer(GetType(ProjectData))
-        'Dim file As New System.IO.StreamReader(FileName)
-        '_pjdata = CType(reader.Deserialize(file), ProjectData)
-        '_pjdata.LoadInit(FileName)
-
-        'file.Close()
     End Sub
-
-
 End Class

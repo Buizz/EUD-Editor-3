@@ -55,9 +55,9 @@ Public Class SettingWindows
 
         e3scb.IsChecked = Not Tool.CheckexeConnect("e3s")
         e2scb.IsChecked = Not Tool.CheckexeConnect("e2s")
-        e2pcb.IsChecked = Not Tool.CheckexeConnect("e2p")
-        eescb.IsChecked = Not Tool.CheckexeConnect("ees")
-        memcb.IsChecked = Not Tool.CheckexeConnect("mem")
+        'e2pcb.IsChecked = Not Tool.CheckexeConnect("e2p")
+        'eescb.IsChecked = Not Tool.CheckexeConnect("ees")
+        'memcb.IsChecked = Not Tool.CheckexeConnect("mem")
 
 
 
@@ -268,27 +268,27 @@ Public Class SettingWindows
                 argument = argument & "," & "e2s"
             End If
         End If
-        If e2pcb.IsChecked Then
-            If argument = "" Then
-                argument = "e2p"
-            Else
-                argument = argument & "," & "e2p"
-            End If
-        End If
-        If eescb.IsChecked Then
-            If argument = "" Then
-                argument = "ees"
-            Else
-                argument = argument & "," & "ees"
-            End If
-        End If
-        If memcb.IsChecked Then
-            If argument = "" Then
-                argument = "mem"
-            Else
-                argument = argument & "," & "mem"
-            End If
-        End If
+        'If e2pcb.IsChecked Then
+        '    If argument = "" Then
+        '        argument = "e2p"
+        '    Else
+        '        argument = argument & "," & "e2p"
+        '    End If
+        'End If
+        'If eescb.IsChecked Then
+        '    If argument = "" Then
+        '        argument = "ees"
+        '    Else
+        '        argument = argument & "," & "ees"
+        '    End If
+        'End If
+        'If memcb.IsChecked Then
+        '    If argument = "" Then
+        '        argument = "mem"
+        '    Else
+        '        argument = argument & "," & "mem"
+        '    End If
+        'End If
 
         Tool.StartRegSetter(argument)
     End Sub
