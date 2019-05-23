@@ -1,21 +1,9 @@
-## Beta
-### 0.3.2.2
+# 0.3.2.2
 
 - Requirement is now complete.
 - ButtonSet Work Start.
 
-### 0.4.0.2
-
-- PluginSetting almost complete
-- TriggerEditor start
-
-## Alpha
-### 0.3.2.2
-
-- Requirement is now complete.
-- ButtonSet Work Start.
-
-### 0.4.0.2
+# 0.4.0.2
 
 - PluginSetting almost complete
 - TriggerEditor start
