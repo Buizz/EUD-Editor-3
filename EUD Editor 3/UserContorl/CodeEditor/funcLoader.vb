@@ -13,10 +13,10 @@ Partial Public Class CodeEditor
     '리스트를 아래에서 옮긴다
 
 
-    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
-
+        'Log.Text = FuncNameas
 
         'TrgAllyStatus
         'TrgComparison
@@ -38,7 +38,9 @@ Partial Public Class CodeEditor
         'TrgUnit
 
 
-        Dim Argument As String = GetArgument(FuncNameas, ArgumentCount)
+
+
+        Dim Argument As String = GetArgument(FuncNameas, ArgumentCount, LastStr)
         Dim ArgumentType As String = Argument.Split(":").Last.Trim
 
 
@@ -111,6 +113,10 @@ Partial Public Class CodeEditor
                         data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
                 Case "TrgProperty"
+                    Dim tb As New TextBox
+                    tb.Text = "UnitProperty"
+
+                    data.Add(New TECompletionData(0, "UnitProperty", "UnitProperty", tb, TextEditor, TECompletionData.EIconType.StarConst))
 
                 Case "TrgPropState"
                     Dim strs() As String = {"Enable", "Disable", "Toggle"}
@@ -420,18 +426,38 @@ Partial Public Class CodeEditor
 
 
 
-    Private Function GetArgument(name As String, Argindex As Integer) As String
+    Private Function GetArgument(name As String, Argindex As Integer, LastStr As String) As String
+        'Log.Text = LastStr
         Dim str As String
 
-        str = LocalFunc.FindArgument(name, Argindex)
-        If str <> "" Then
-            Return str
+        Dim NameSpace_ As String = name.Split(".").First
+        Dim FuncName As String = name.Split(".").Last
+        If name.IndexOf(".") >= 0 Then
+            For i = 0 To ExternFiles.Count - 1
+                If ExternFiles(i).nameSpaceName = NameSpace_ Then
+                    str = ExternFiles(i).Funcs.FindArgument(FuncName, Argindex)
+                    If str <> "" Then
+                        Return str
+                    End If
+                End If
+            Next
+
+        Else
+            str = LocalFunc.FindArgument(name, Argindex)
+            If str <> "" Then
+                Return str
+            End If
+
+            str = Tool.TEEpsDefaultFunc.FindArgument(name, Argindex)
+            If str <> "" Then
+                Return str
+            End If
         End If
 
-        str = Tool.TEEpsDefaultFunc.FindArgument(name, Argindex)
-        If str <> "" Then
-            Return str
-        End If
+
+
+
+
 
         'str = ExternFunc.FindArgument(name, Argindex)
         'If str <> "" Then

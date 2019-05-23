@@ -330,13 +330,31 @@ Partial Public Class CodeEditor
     Private Function ShowFuncTooltip(FuncName As String, ArgumentIndex As Integer, Startindex As Integer) As Boolean
         Dim funArgument As Border
 
-        funArgument = LocalFunc.GetPopupToolTip(FuncName, ArgumentIndex)
-        'If funArgument Is Nothing Then
-        '    funArgument = ExternFunc.GetPopupToolTip(FuncName, ArgumentIndex)
-        'End If
-        If funArgument Is Nothing Then
-            funArgument = Tool.TEEpsDefaultFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+
+        Dim NameSpace_ As String = FuncName.Split(".").First
+        Dim FuncrName As String = FuncName.Split(".").Last
+        If FuncName.IndexOf(".") >= 0 Then
+            For i = 0 To ExternFiles.Count - 1
+                If ExternFiles(i).nameSpaceName = NameSpace_ Then
+                    funArgument = ExternFiles(i).Funcs.GetPopupToolTip(FuncrName, ArgumentIndex)
+                    'If funArgument Is Nothing Then
+                    '    funArgument = ExternFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+                    'End If
+                    Exit For
+                End If
+            Next
+
+        Else
+            funArgument = LocalFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+            'If funArgument Is Nothing Then
+            '    funArgument = ExternFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+            'End If
+            If funArgument Is Nothing Then
+                funArgument = Tool.TEEpsDefaultFunc.GetPopupToolTip(FuncName, ArgumentIndex)
+            End If
         End If
+
+
 
 
 
@@ -477,7 +495,7 @@ Partial Public Class CodeEditor
 
                 Select Case Flag
                     Case SpecialFlag.None
-                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
+                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
                     Case SpecialFlag.IsFuncNameWrite
                         LoadFuncNameData(TextEditor, completionWindow.CompletionList.CompletionData)
                     Case SpecialFlag.IsFuncDefWrite
@@ -532,7 +550,7 @@ Partial Public Class CodeEditor
 
                 Select Case Flag
                     Case SpecialFlag.None
-                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet)
+                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
                     Case SpecialFlag.IsFuncNameWrite
                         LoadFuncNameData(TextEditor, completionWindow.CompletionList.CompletionData)
                     Case SpecialFlag.IsFuncDefWrite
