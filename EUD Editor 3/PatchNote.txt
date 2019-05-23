@@ -1,9 +1,11 @@
 # 0.3.2.2
-
-- Requirement is now complete.
-- ButtonSet Work Start.
-
+  버그 개선
+  - Requirement is now complete.
+  추가된 점
+  - ButtonSet Work Start.
+  
 # 0.4.0.2
-
-- PluginSetting almost complete
-- TriggerEditor start
+  버그 개선
+  - Requirement is now complete.
+  추가된 점
+  - ButtonSet Work Start.
