@@ -1,12 +1,13 @@
-# EUD-Editor-3
-StarCraft: Remastered UMS Make Tool
+## Beta
+### 0.3.2.2
 
+- Requirement is now complete.
+- ButtonSet Work Start.
 
-> The current project is a test version.
-> Save files may not be compatible with the full version.
+### 0.4.0.2
 
-
-
+- PluginSetting almost complete
+- TriggerEditor start
 
 ## Alpha
 ### 0.3.2.2
