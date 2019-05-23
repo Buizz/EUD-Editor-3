@@ -387,20 +387,22 @@ Partial Public Class ProjectExplorer
         Dim openDialog As New Forms.OpenFileDialog()
         openDialog.Title = Tool.GetText("OpenEpsTitle")
         openDialog.Filter = Tool.GetText("OpenEpsFileFliter")
-
+        openDialog.Multiselect = True
 
         If openDialog.ShowDialog = Forms.DialogResult.OK Then
-            Dim tTEFile As New TEFile(openDialog.SafeFileName, TEFile.EFileType.CUIEps)
+            For i = 0 To openDialog.FileNames.Count - 1
+                Dim tTEFile As New TEFile(openDialog.SafeFileNames(i).Split(".").First, TEFile.EFileType.CUIEps)
 
-            Dim fs As New System.IO.FileStream(openDialog.FileName, IO.FileMode.Open)
-            Dim sr As New System.IO.StreamReader(fs)
+                Dim fs As New System.IO.FileStream(openDialog.FileNames(i), IO.FileMode.Open)
+                Dim sr As New System.IO.StreamReader(fs)
 
-            CType(tTEFile.Scripter, CUIScriptEditor).StringText = sr.ReadToEnd
+                CType(tTEFile.Scripter, CUIScriptEditor).StringText = sr.ReadToEnd
 
-            sr.Close()
-            fs.Close()
+                sr.Close()
+                fs.Close()
 
-            FileCreate(tTEFile)
+                FileCreate(tTEFile)
+            Next
         End If
     End Sub
 

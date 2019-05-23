@@ -34,6 +34,7 @@ Public Class TriggerEditorData
     End Function
 
 
+
     Private ProjectFile As TEFile
     Public ReadOnly Property PFIles As TEFile
         Get

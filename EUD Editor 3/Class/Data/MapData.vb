@@ -27,7 +27,7 @@ Public Class MapData
         Get
             If 255 > index Then
                 If pLocationName(index) = 0 Then
-                    Return index
+                    Return ""
                 Else
                     Return Strings(pLocationName(index) - 1)
                 End If
@@ -43,7 +43,7 @@ Public Class MapData
         Get
             If 255 > index Then
                 If pSwitchName(index) = 0 Then
-                    Return index
+                    Return "Switch " & index
                 Else
                     Return Strings(pSwitchName(index) - 1)
                 End If

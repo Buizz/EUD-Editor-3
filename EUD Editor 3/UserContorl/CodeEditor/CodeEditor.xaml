@@ -12,19 +12,19 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             Unloaded="UserControl_Unloaded"
+             LostFocus="UserControl_LostFocus"
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <TextBox x:Name="Log" DockPanel.Dock="Top" Height="75" Visibility="Collapsed" />
-        <Grid>
-            <avalonEdit:TextEditor 
+        <TextBox x:Name="Log" DockPanel.Dock="Top" Height="100" Visibility="Collapsed" />
+
+        <avalonEdit:TextEditor 
                     PreviewMouseDown="TextEditor_PreviewMouseDown"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" FontFamily="D2Coding"  >
-            </avalonEdit:TextEditor>
-            <Border x:Name="ToltipBorder" HorizontalAlignment="Left" VerticalAlignment="Top" Background="{DynamicResource MaterialDesignPaper}" Padding="3" Visibility="Hidden" >
-            </Border>
-        </Grid>
-     
+        </avalonEdit:TextEditor>
+
 
     </DockPanel>
 </UserControl>

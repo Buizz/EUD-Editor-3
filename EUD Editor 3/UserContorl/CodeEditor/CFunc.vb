@@ -309,13 +309,18 @@ Public Class CFunc
 
     'Private arguments As List(Of FunArgument)
 
-    Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1)
+    Public Sub Init()
         FuncTooltip.Clear()
         FuncNames.Clear()
         FuncArgument.Clear()
 
         VariableNames.Clear()
         VariableType.Clear()
+    End Sub
+
+
+    Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1, Optional NameSpace_ As String = "")
+
         If StartPos <> -1 Then
             str = Mid(str, 1, StartPos)
         End If
@@ -324,13 +329,13 @@ Public Class CFunc
 
 
         If True Then
-            Dim fregex As New Regex("const\s+([\w\d_]+)(.*);")
+            Dim fregex As New Regex("const\s+([\w\d_]+)([^;]*);")
 
             Dim matches As MatchCollection = fregex.Matches(str)
 
             For i = 0 To matches.Count - 1
                 If VariableNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
-                    FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
+                    'FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
                     VariableNames.Add(matches(i).Groups(1).Value)
                     VariableType.Add(matches(i).Groups(2).Value.Split("=").Last.Trim)
                 End If
@@ -338,13 +343,13 @@ Public Class CFunc
             Next
         End If
         If True Then
-            Dim fregex As New Regex("var\s+([\w\d_]+)(.*);")
+            Dim fregex As New Regex("var\s+([\w\d_]+)([^;]*);")
 
             Dim matches As MatchCollection = fregex.Matches(str)
 
             For i = 0 To matches.Count - 1
                 If VariableNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
-                    FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
+                    'FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
                     VariableNames.Add(matches(i).Groups(1).Value)
                     VariableType.Add(" ")
                 End If

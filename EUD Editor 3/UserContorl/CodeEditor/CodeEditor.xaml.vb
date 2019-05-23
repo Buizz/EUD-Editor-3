@@ -18,6 +18,22 @@
     End Sub
 
     Private Sub TextEditor_PreviewMouseDown(sender As Object, e As MouseButtonEventArgs)
-        ToltipBorder.Visibility = Visibility.Hidden
+        TooltipHide()
+    End Sub
+
+    Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
+        foldingUpdateTimer.Stop()
+        PopupToolTip.Close()
+    End Sub
+
+    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+        PopupToolTip = New PopupToolTip
+        PopupToolTip.Show()
+
+        PopupToolTip.Visibility = Visibility.Hidden
+    End Sub
+
+    Private Sub UserControl_LostFocus(sender As Object, e As RoutedEventArgs)
+        'TooltipHide()
     End Sub
 End Class

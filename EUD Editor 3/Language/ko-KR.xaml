@@ -784,4 +784,16 @@
     <sys:String x:Key="onPluginStart">플러그인 실행 시 최초 1회 실행 되는 함수</sys:String>
     <sys:String x:Key="beforeTriggerExec">매 프레임마다 트리거 실행 전에 호출 되는 함수</sys:String>
     <sys:String x:Key="afterTriggerExec">매 프레임마다 트리거 실행 후에 호출 되는 함수</sys:String>
+
+
+
+    <sys:String x:Key="MatchCaseText">대/소문자 구분</sys:String>
+    <sys:String x:Key="MatchWholeWordsText">모든 단어와 일치</sys:String>
+    <sys:String x:Key="UseRegexText">정규 표현식 사용</sys:String>
+    <sys:String x:Key="FindNextText">다음 찾기 (F3)</sys:String>
+    <sys:String x:Key="FindPreviousText">이전 찾기(Shift+F3)</sys:String>
+    <sys:String x:Key="ErrorText">오류!</sys:String>
+    <sys:String x:Key="NoMatchesFoundText">일치하는 결과가 없습니다!</sys:String>
+
+
 </ResourceDictionary>

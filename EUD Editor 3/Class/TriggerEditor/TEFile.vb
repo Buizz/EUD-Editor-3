@@ -36,16 +36,24 @@ Public Class TEFile
     '==================================================================
 
     Private CreateDate As Date
-    Private LastDate As Date
+    Private pLastDate As Date
+    Public Sub LastDataRefresh()
+        pLastDate = Now
+    End Sub
 
+    Public ReadOnly Property LastDate As Date
+        Get
+            Return pLastDate
+        End Get
+    End Property
 
 
 
     Private LastConnectTimer() As Date
     Public Function RefreshData() As String
         If Scripter.CheckConnect Then
-            If LastDate <> File.GetLastWriteTime(Scripter.ConnectFile) Then
-                LastDate = File.GetLastWriteTime(Scripter.ConnectFile)
+            If pLastDate <> File.GetLastWriteTime(Scripter.ConnectFile) Then
+                pLastDate = File.GetLastWriteTime(Scripter.ConnectFile)
                 Return Scripter.GetStringText()
             End If
             Return ""
@@ -120,7 +128,7 @@ Public Class TEFile
 
 
         CreateDate = Now
-        LastDate = Now
+        pLastDate = Now
         If _FileName = TriggerEditorData.TopFileName Then
             IsTopFile = True
         End If
@@ -140,6 +148,7 @@ Public Class TEFile
     End Property
     Public Sub FolderAdd(tTEFile As TEFile)
         _Folders.Add(tTEFile)
+        tTEFile.ParentFolder = Me
         FolderSort()
     End Sub
     Public Sub FolderRemove(tTEFile As TEFile)
@@ -150,6 +159,12 @@ Public Class TEFile
     End Sub
 
 
+    Private ParentFolder As TEFile
+    Public ReadOnly Property Parent As TEFile
+        Get
+            Return ParentFolder
+        End Get
+    End Property
 
 
     Private _Files As List(Of TEFile)
@@ -165,6 +180,7 @@ Public Class TEFile
     End Property
     Public Sub FileAdd(tTEFile As TEFile)
         _Files.Add(tTEFile)
+        tTEFile.ParentFolder = Me
         FileSort()
     End Sub
     Public Sub FileRemove(tTEFile As TEFile)
@@ -238,7 +254,7 @@ Public Class TEFile
 
             returnText = returnText & Tool.GetText("FIleName") & " : " & FileName & vbCrLf &
                 Tool.GetText("CreateDate") & " : " & vbCrLf & CreateDate.ToString & vbCrLf &
-                Tool.GetText("LastDate") & " : " & vbCrLf & LastDate.ToString
+                Tool.GetText("LastDate") & " : " & vbCrLf & pLastDate.ToString
 
             Return returnText
         End Get

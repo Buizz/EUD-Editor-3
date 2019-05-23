@@ -3,7 +3,6 @@ Imports ICSharpCode.AvalonEdit.CodeCompletion
 Imports ICSharpCode.AvalonEdit.Document
 Imports ICSharpCode.AvalonEdit.Editing
 
-
 Partial Public Class CodeEditor
 
 
@@ -238,17 +237,36 @@ Partial Public Class CodeEditor
                     Next
                 Case "TrgLocation", "TrgLocationIndex"
                     For i = 0 To 254
-                        Dim tb As New TextBox
-                        tb.Text = "[" & i & "] " & pjData.MapData.LocationName(i)
+                        Dim tstr As String
+                        If pjData.IsMapLoading Then
+                            tstr = pjData.MapData.LocationName(i)
+                        Else
+                            tstr = "Location " & i
+                        End If
 
-                        data.Add(New TECompletionData(0, """" & pjData.MapData.LocationName(i) & """", """" & pjData.MapData.LocationName(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+
+
+                        If tstr <> "" Then
+                            Dim tb As New TextBox
+                            tb.Text = "[" & i & "] " & tstr
+
+                            data.Add(New TECompletionData(0, """" & tstr & """", """" & tstr & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                        End If
                     Next
                 Case "TrgSwitch"
                     For i = 0 To 255
-                        Dim tb As New TextBox
-                        tb.Text = "[" & i & "] " & pjData.MapData.SwitchName(i)
+                        Dim tstr As String
+                        If pjData.IsMapLoading Then
+                            tstr = pjData.MapData.SwitchName(i)
+                        Else
+                            tstr = "Location " & i
+                        End If
 
-                        data.Add(New TECompletionData(0, """" & pjData.MapData.SwitchName(i) & """", """" & pjData.MapData.SwitchName(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+
+                        Dim tb As New TextBox
+                        tb.Text = "[" & i & "] " & tstr
+
+                        data.Add(New TECompletionData(0, """" & tstr & """", """" & tstr & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
                     Next
                 Case "TrgUnit"
                     '스트링
@@ -271,12 +289,18 @@ Partial Public Class CodeEditor
         End If
 
 
+        For i = 0 To ExternFiles.Count - 1
+            data.Add(New TECompletionData(6, ExternFiles(i).nameSpaceName, ExternFiles(i).nameSpaceName, Nothing, TextEditor, TECompletionData.EIconType.NameSpace_))
+        Next
+
+
+
         For i = 0 To LocalFunc.VariableCount - 1
             data.Add(New TECompletionData(5, LocalFunc, i, TextEditor, TECompletionData.EIconType.Variable))
         Next
-        For i = 0 To ExternFunc.VariableCount - 1
-            data.Add(New TECompletionData(6, ExternFunc, i, TextEditor, TECompletionData.EIconType.Variable))
-        Next
+        'For i = 0 To ExternFunc.VariableCount - 1
+        '    data.Add(New TECompletionData(6, ExternFunc, i, TextEditor, TECompletionData.EIconType.Variable))
+        'Next
         For i = 0 To Tool.TEEpsDefaultFunc.VariableCount - 1
             data.Add(New TECompletionData(7, Tool.TEEpsDefaultFunc, i, TextEditor, TECompletionData.EIconType.Variable))
         Next
@@ -285,9 +309,9 @@ Partial Public Class CodeEditor
         For i = 0 To LocalFunc.FuncCount - 1
             data.Add(New TECompletionData(10, LocalFunc, i, TextEditor, TECompletionData.EIconType.localFunction))
         Next
-        For i = 0 To ExternFunc.FuncCount - 1
-            data.Add(New TECompletionData(15, ExternFunc, i, TextEditor, TECompletionData.EIconType.Auto))
-        Next
+        'For i = 0 To ExternFunc.FuncCount - 1
+        '    data.Add(New TECompletionData(15, ExternFunc, i, TextEditor, TECompletionData.EIconType.Auto))
+        'Next
         For i = 0 To Tool.TEEpsDefaultFunc.FuncCount - 1
             data.Add(New TECompletionData(20, Tool.TEEpsDefaultFunc, i, TextEditor, TECompletionData.EIconType.Auto))
         Next
@@ -303,6 +327,30 @@ Partial Public Class CodeEditor
         Next
         Return data
     End Function
+
+
+    Public Function LoadExternData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
+
+
+        Dim NameSpace_ As String = LastStr.Split(".").First
+
+
+        For i = 0 To ExternFiles.Count - 1
+            If ExternFiles(i).nameSpaceName = NameSpace_ Then
+                For k = 0 To ExternFiles(i).Funcs.VariableCount - 1
+                    data.Add(New TECompletionData(5, ExternFiles(i).Funcs, k, TextEditor, TECompletionData.EIconType.Variable))
+                Next
+                For k = 0 To ExternFiles(i).Funcs.FuncCount - 1
+                    data.Add(New TECompletionData(10, ExternFiles(i).Funcs, k, TextEditor, TECompletionData.EIconType.localFunction))
+                Next
+            End If
+        Next
+
+
+        Return data
+    End Function
+
 
     Public Function LoadFuncNameData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
@@ -335,6 +383,32 @@ Partial Public Class CodeEditor
         Return data
     End Function
 
+    Public Function LoadImportWriteData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
+
+        If TEFile IsNot Nothing Then
+            For i = 0 To TEFile.Parent.FolderCount - 1
+                If TEFile.Parent.Folders(i).FileType <> TEFile.EFileType.Setting Then
+                    Dim str As String = TEFile.Parent.Folders(i).FileName
+
+                    Dim tb As New TextBox
+                    tb.Text = str
+
+                    data.Add(New TECompletionData(0, str, str, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
+                End If
+            Next
+            For i = 0 To TEFile.Parent.FileCount - 1
+                Dim str As String = TEFile.Parent.Files(i).FileName
+
+                Dim tb As New TextBox
+                tb.Text = str
+
+                data.Add(New TECompletionData(0, str, str, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
+            Next
+
+        End If
+        Return data
+    End Function
 
 
 
@@ -359,10 +433,10 @@ Partial Public Class CodeEditor
             Return str
         End If
 
-        str = ExternFunc.FindArgument(name, Argindex)
-        If str <> "" Then
-            Return str
-        End If
+        'str = ExternFunc.FindArgument(name, Argindex)
+        'If str <> "" Then
+        '    Return str
+        'End If
 
         Return ""
     End Function
@@ -405,7 +479,7 @@ Public Class TECompletionData
         '로컬 변수들
         Variable
 
-
+        NameSpace_
 
 
         '로컬 항목 및 매개 변수
@@ -480,6 +554,10 @@ Public Class TECompletionData
     Public ReadOnly Property Image As ImageSource Implements ICompletionData.Image
         Get
             Select Case IconType
+                Case EIconType.NameSpace_
+                    Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/nameSpace.png"))
+                    Imageicon.Freeze()
+                    Return Imageicon
                 Case EIconType.StarConst, EIconType.StarKeyWord
                     Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Const.png"))
                     Imageicon.Freeze()

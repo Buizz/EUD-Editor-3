@@ -253,7 +253,12 @@
     <Compile Include="UserContorl\CodeEditor\CodeEditor.xaml.vb">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\CodeEditor\CodeSearchLocalization.vb" />
+    <Compile Include="UserContorl\CodeEditor\ExternerManager.vb" />
     <Compile Include="UserContorl\CodeEditor\funcLoader.vb" />
+    <Compile Include="UserContorl\CodeEditor\PopupToolTip.xaml.vb">
+      <DependentUpon>PopupToolTip.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
@@ -457,6 +462,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="UserContorl\CodeEditor\CodeEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\CodeEditor\PopupToolTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -976,6 +985,9 @@
     <EmbeddedResource Include="Data\Texts\StrGroup.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
+    <None Include="Data\Resources\nameSpace.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />
     <Content Include="Microsoft.DwayneNeed.Win32.dll" />

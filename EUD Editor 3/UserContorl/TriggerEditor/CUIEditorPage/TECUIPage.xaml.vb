@@ -28,12 +28,14 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         PTEFile = tTEFile
+        TextEditor.Init(tTEFile)
         TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
     End Sub
 
 
     Public Sub SaveData()
         CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+        TEFile.LastDataRefresh()
     End Sub
 
 
