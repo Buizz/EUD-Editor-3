@@ -1,5 +1,7 @@
 ﻿Imports System.Windows.Threading
 Imports System.Windows.Interop
+Imports System.Net
+Imports System.IO
 
 Module GlobalObj
     Public pgData As ProgramData
@@ -13,6 +15,40 @@ Module GlobalObj
     Public ProjectControlBinding As MainMenuBinding
 
     Public SettiingForm As SettingWindows
+
+
+
+
+    Public Sub UpdateCheck()
+        Dim Client As New WebClient
+        Dim StrDownUrl As String = filename
+        Dim StrDownFolder As String = "C:\Users\LeeJungHun\Desktop\새 폴더\새로운파일.txt"
+
+        ServicePointManager.Expect100Continue = True
+        ServicePointManager.SecurityProtocol = SecurityProtocolType.Tls12
+
+
+        'downok 이라는 이름으로 이벤트 생성
+        AddHandler Client.DownloadFileCompleted, AddressOf downok
+
+        '파일다운로드
+        '다른 다운로드 명령이 있으나 진행율을 표시하려면 DownloadFileAsync 을 사용해야 함
+        Client.DownloadFile(New Uri(StrDownUrl), StrDownFolder)
+    End Sub
+
+
+    Private Sub downok(sender As System.Object, e As System.ComponentModel.AsyncCompletedEventArgs)
+        LabelTxt("다운로드 완료....")
+        status += 1
+        Progress()
+    End Sub
+
+
+
+
+
+
+
 
 
     Public Function InitProgramDatas() As Boolean
@@ -30,6 +66,7 @@ Module GlobalObj
             ProjectData.Load(filename, pjData)
             'MsgBox(filename & " 다른파일로 열림")
         End If
+        UpdateCheck()
         Return True
     End Function
     Public Function InitProgram() As Boolean

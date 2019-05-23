@@ -902,6 +902,7 @@
     <Content Include="Data\DatFiles\weapons.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
+    <Resource Include="Version.txt" />
     <EmbeddedResource Include="Data\Texts\GRPfile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </EmbeddedResource>
