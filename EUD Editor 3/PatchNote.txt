@@ -1,11 +1,6 @@
-# 0.3.2.2
+# Beta 0.5.1.1
 +추가사항
--ButtonSet Work Start.
+-자동 업데이트가 추가되었습니다.
 +버그 개선
--Requirement is now complete.
+-없음
   
-# 0.4.0.2
-+추가사항
--Requirement is now complete.
-+추가된 점
--ButtonSet Work Start.
