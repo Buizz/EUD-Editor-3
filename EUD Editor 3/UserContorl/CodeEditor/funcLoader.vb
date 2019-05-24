@@ -378,7 +378,7 @@ Partial Public Class CodeEditor
 
 
         Dim strs() As String = {"TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder", "TrgPlayer", "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction",
-"TrgSwitchState", "TrgAIScript", "TrgLocation", "TrgLocationIndex", "TrgString", "TrgSwitch", "TrgUnit"}
+"TrgSwitchState", "TrgAIScript", "TrgLocation", "TrgLocationIndex", "TrgString", "TrgSwitch", "TrgUnit", "selftype"}
         For i = 0 To strs.Length - 1
             Dim tb As New TextBox
             tb.Text = strs(i)

@@ -2,9 +2,9 @@
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
+ * 플레이어가 게임에서 승리합니다.
 ***/
-function Victory() { }
+function Victory(){}
 
 
 
@@ -12,9 +12,9 @@ function Victory() { }
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
+ * 플레이어가 게임에서 패배합니다.
 ***/
-function Defeat() { }
+function Defeat(){}
 
 
 
@@ -22,9 +22,68 @@ function Defeat() { }
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
+ * 트리거를 무한 반복 합니다.
 ***/
-function PreserveTrigger() { }
+function PreserveTrigger(){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Time]만큼 기다립니다.(사용하지 마세요)
+ *
+ * @param.Time.ko-KR
+ * 기다리는 시간입니다.
+***/
+function Wait(Time){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 게임을 멈춥니다.(싱글 전용)
+***/
+function PauseGame(){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 게임을 재개합니다.(싱글 전용)
+***/
+function UnpauseGame(){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 위치하는 [Unit]의 말하는 애니메이션을 [WAVName]을 재생하면서 보여줍니다. 트랜스 미션 시간을 [Time] 만큼 [TimeModifier]합니다.
+ * [Text]를 보여줍니다. [AlwaysDisplay]
+ *
+ * @param.Unit.ko-KR
+ * 말할 유닛의 종류를 설정합니다.
+ * @param.Where.ko-KR
+ * 유닛의 위치를 설정합니다.
+ * @param.WAVName.ko-KR
+ * 재생될 사운드를 설정합니다.
+ * @param.TimeModifier.ko-KR
+ * 시간의 계산 방법을 설정합니다.
+ * @param.Time.ko-KR
+ * 얼마만큼 재생 할 것인지 설정합니다.
+ * @param.Text.ko-KR
+ * 보여줄 텍스트입니다.
+ * @param.AlwaysDisplay.ko-KR
+ * 4 : 항상 보여줌
+***/
+function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, TimeModifier : TrgModifier, Time, Text : TrgString, AlwaysDisplay){}
 
 
 
@@ -37,27 +96,7 @@ function PreserveTrigger() { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Wait(Time) { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function PauseGame() { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function UnpauseGame() { }
+function PlayWAV(WAVName : TrgString){}
 
 
 
@@ -70,7 +109,7 @@ function UnpauseGame() { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Transmission(Unit: TrgUnit, Where: TrgLocation, WAVName: TrgString, TimeModifier: TrgModifier, Time, Text: TrgString, AlwaysDisplay) { }
+function DisplayText(Text : TrgString, AlwaysDisplay){}
 
 
 
@@ -83,7 +122,7 @@ function Transmission(Unit: TrgUnit, Where: TrgLocation, WAVName: TrgString, Tim
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function PlayWAV(WAVName: TrgString) { }
+function CenterView(Where : TrgLocation){}
 
 
 
@@ -96,7 +135,7 @@ function PlayWAV(WAVName: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function DisplayText(Text: TrgString) { }
+function SetMissionObjectives(Text : TrgString){}
 
 
 
@@ -109,7 +148,7 @@ function DisplayText(Text: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CenterView(Where: TrgLocation) { }
+function SetSwitch(Switch : TrgSwitch, State : TrgSwitchAction){}
 
 
 
@@ -122,7 +161,7 @@ function CenterView(Where: TrgLocation) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetMissionObjectives(Text: TrgString) { }
+function RunAIScript(Script : TrgAIScript){}
 
 
 
@@ -135,7 +174,7 @@ function SetMissionObjectives(Text: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetSwitch(Switch: TrgSwitch, State: TrgSwitchAction) { }
+function RunAIScriptAt(Script : TrgAIScript, Where : TrgLocation){}
 
 
 
@@ -148,7 +187,7 @@ function SetSwitch(Switch: TrgSwitch, State: TrgSwitchAction) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RunAIScript(Script: TrgAIScript) { }
+function LeaderBoardControl(Unit : TrgUnit, Label : TrgString){}
 
 
 
@@ -161,7 +200,7 @@ function RunAIScript(Script: TrgAIScript) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RunAIScriptAt(Script: TrgAIScript, Where: TrgLocation) { }
+function LeaderBoardControlAt(Unit : TrgUnit, Location : TrgLocation, Label : TrgString){}
 
 
 
@@ -174,7 +213,7 @@ function RunAIScriptAt(Script: TrgAIScript, Where: TrgLocation) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardControl(Unit: TrgUnit, Label: TrgString) { }
+function LeaderBoardResources(ResourceType : TrgResource, Label : TrgString){}
 
 
 
@@ -187,7 +226,7 @@ function LeaderBoardControl(Unit: TrgUnit, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardControlAt(Unit: TrgUnit, Location: TrgLocation, Label: TrgString) { }
+function LeaderBoardKills(Unit : TrgUnit, Label : TrgString){}
 
 
 
@@ -200,7 +239,7 @@ function LeaderBoardControlAt(Unit: TrgUnit, Location: TrgLocation, Label: TrgSt
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardResources(ResourceType: TrgResource, Label: TrgString) { }
+function LeaderBoardScore(ScoreType : TrgScore, Label : TrgString){}
 
 
 
@@ -213,7 +252,7 @@ function LeaderBoardResources(ResourceType: TrgResource, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardKills(Unit: TrgUnit, Label: TrgString) { }
+function KillUnit(Unit : TrgUnit, Player : TrgPlayer){}
 
 
 
@@ -226,7 +265,7 @@ function LeaderBoardKills(Unit: TrgUnit, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardScore(ScoreType: TrgScore, Label: TrgString) { }
+function KillUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgLocation, ForPlayer : TrgPlayer){}
 
 
 
@@ -239,7 +278,7 @@ function LeaderBoardScore(ScoreType: TrgScore, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function KillUnit(Unit: TrgUnit, Player: TrgPlayer) { }
+function RemoveUnit(Unit : TrgUnit, Player : TrgPlayer){}
 
 
 
@@ -252,7 +291,7 @@ function KillUnit(Unit: TrgUnit, Player: TrgPlayer) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function KillUnitAt(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLocation, ForPlayer: TrgPlayer) { }
+function RemoveUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgLocation, ForPlayer : TrgPlayer){}
 
 
 
@@ -265,7 +304,7 @@ function KillUnitAt(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLoca
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RemoveUnit(Unit: TrgUnit, Player: TrgPlayer) { }
+function SetResources(Player : TrgPlayer, Modifier : TrgModifier, Amount, ResourceType : TrgResource){}
 
 
 
@@ -278,7 +317,7 @@ function RemoveUnit(Unit: TrgUnit, Player: TrgPlayer) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RemoveUnitAt(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLocation, ForPlayer: TrgPlayer) { }
+function SetScore(Player : TrgPlayer, Modifier : TrgModifier, Amount, ScoreType : TrgScore){}
 
 
 
@@ -291,7 +330,7 @@ function RemoveUnitAt(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLo
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetResources(Player: TrgPlayer, Modifier: TrgModifier, Amount, ResourceType: TrgResource) { }
+function MinimapPing(Where : TrgLocation){}
 
 
 
@@ -304,7 +343,7 @@ function SetResources(Player: TrgPlayer, Modifier: TrgModifier, Amount, Resource
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetScore(Player: TrgPlayer, Modifier: TrgModifier, Amount, ScoreType: TrgScore) { }
+function TalkingPortrait(Unit : TrgUnit, Time){}
 
 
 
@@ -317,7 +356,18 @@ function SetScore(Player: TrgPlayer, Modifier: TrgModifier, Amount, ScoreType: T
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MinimapPing(Where: TrgLocation) { }
+function MuteUnitSpeech(){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+ *
+ ***/
+function UnMuteUnitSpeech(){}
 
 
 
@@ -330,27 +380,7 @@ function MinimapPing(Where: TrgLocation) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function TalkingPortrait(Unit: TrgUnit, Time) { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function MuteUnitSpeech() { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function UnMuteUnitSpeech() { }
+function LeaderBoardComputerPlayers(State : TrgPropState){}
 
 
 
@@ -363,7 +393,7 @@ function UnMuteUnitSpeech() { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardComputerPlayers(State: TrgPropState) { }
+function LeaderBoardGoalControl(Goal, Unit : TrgUnit, Label : TrgString){}
 
 
 
@@ -376,7 +406,7 @@ function LeaderBoardComputerPlayers(State: TrgPropState) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalControl(Goal, Unit: TrgUnit, Label: TrgString) { }
+function LeaderBoardGoalControlAt(Goal, Unit : TrgUnit, Location : TrgLocation, Label : TrgString){}
 
 
 
@@ -389,7 +419,7 @@ function LeaderBoardGoalControl(Goal, Unit: TrgUnit, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalControlAt(Goal, Unit: TrgUnit, Location: TrgLocation, Label: TrgString) { }
+function LeaderBoardGoalResources(Goal, ResourceType : TrgResource, Label : TrgString){}
 
 
 
@@ -402,7 +432,7 @@ function LeaderBoardGoalControlAt(Goal, Unit: TrgUnit, Location: TrgLocation, La
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalResources(Goal, ResourceType: TrgResource, Label: TrgString) { }
+function LeaderBoardGoalKills(Goal, Unit : TrgUnit, Label : TrgString){}
 
 
 
@@ -415,7 +445,47 @@ function LeaderBoardGoalResources(Goal, ResourceType: TrgResource, Label: TrgStr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalKills(Goal, Unit: TrgUnit, Label: TrgString) { }
+function LeaderBoardGoalScore(Goal, ScoreType : TrgScore, Label : TrgString){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [DestLocation]에 있는 [Owner]의 [OnUnit] 위로 [Location](을)를 옮깁니다 
+ *
+ * @param.Location.ko-KR
+ * 옮길 로케이션을 정합니다
+ * @param.OnUnit.ko-KR
+ * 로케이션의 중심이 될 유닛을 정합니다
+ * @param.Owner.ko-KR
+ * 중심이 될 유닛의 소유자를 정합니다
+ * @param.DestLocaion.ko-KR
+ * 로케이션이 옮겨질 구역을 정합니다
+***/
+function MoveLocation(Location : TrgLocation, OnUnit : TrgUnit, Owner : TrgPlayer, DestLocation : TrgLocation){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [StartLocation]에 있는 [Owner]의 [UnitType] [Count]기를 [DestLocation](으)로 옮깁니다
+ *
+ * @param.Count.ko-KR
+ * 옮길 유닛의 수를 정합니다
+ * @param.UnitType.ko-KR
+ * 옮길 유닛의 종류를 정합니다
+ * @param.Owner.ko-KR
+ * 옮길 유닛의 소유자를 정합니다
+ * @param.StartLocation.ko-KR
+ * 유닛을 옮길 출발지를 정합니다
+ * @param.DestLocation.ko-KR
+ * 유닛을 옮길 도착지를 정합니다
+***/
+function MoveUnit(Count : TrgCount, UnitType : TrgUnit, Owner : TrgPlayer, StartLocation : TrgLocation, DestLocation : TrgLocation){}
 
 
 
@@ -428,7 +498,7 @@ function LeaderBoardGoalKills(Goal, Unit: TrgUnit, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalScore(Goal, ScoreType: TrgScore, Label: TrgString) { }
+function LeaderBoardGreed(Goal){}
 
 
 
@@ -441,7 +511,26 @@ function LeaderBoardGoalScore(Goal, ScoreType: TrgScore, Label: TrgString) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MoveLocation(Location: TrgLocation, OnUnit: TrgUnit, Owner: TrgPlayer, DestLocation: TrgLocation) { }
+function SetNextScenario(ScenarioName : TrgString){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 있는 [Owner]의 [Unit](을)를 [State]상태로 설정합니다
+ *
+ * @param.State.ko-KR
+ * 설정할 상태를 정합니다
+ * @param.Unit.ko-KR
+ * 상태가 적용될 유닛을 정합니다
+ * @param.Owner.ko-KR
+ * 상태를 적용할 유닛의 소유자를 정합니다
+ * @param.Where.ko-KR
+ * 상태를 적용시킬 위치를 정합니다
+***/
+function SetDoodadState(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation){}
 
 
 
@@ -454,59 +543,7 @@ function MoveLocation(Location: TrgLocation, OnUnit: TrgUnit, Owner: TrgPlayer, 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MoveUnit(Count: TrgCount, UnitType: TrgUnit, Owner: TrgPlayer, StartLocation: TrgLocation, DestLocation: TrgLocation) { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function LeaderBoardGreed(Goal) { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetNextScenario(ScenarioName: TrgString) { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetDoodadState(State: TrgPropState, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation) { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetInvincibility(State: TrgPropState, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation) { }
+function SetInvincibility(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation){}
 
 
 
@@ -525,7 +562,184 @@ function SetInvincibility(State: TrgPropState, Unit: TrgUnit, Owner: TrgPlayer, 
  * @param.ForPlayer.ko-KR
  * 플레이어를 설정합니다.
 ***/
-function CreateUnit(Number, Unit: TrgUnit, Where: TrgLocation, ForPlayer: TrgPlayer) { }
+function CreateUnit(Number, Unit : TrgUnit, Where : TrgLocation, ForPlayer : TrgPlayer){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 [Player]의 [Unit](을)를 [Count]만큼 [Properties](으)로 생성합니다
+ *
+ * @param.Count.ko-KR
+ * 생성할 유닛의 수를 정합니다
+ * @param.Unit.ko-KR
+ * 생성할 유닛을 정합니다
+ * @param.Where.ko-KR
+ * 유닛을 생성할 위치를 정합니다
+ * @param.Player.ko-KR
+ * 생성될 유닛의 소유자를 정합니다
+ * @param.Properties.ko-KR
+ * 생성될 유닛의 상태를 정합니다
+***/
+function CreateUnitWithProperties(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgLocation, Player : TrgPlayer, Properties : TrgProperty){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Player]소유의  [Unit](이)가 죽은 수를 [Number]만큼 [Modifier]합니다
+ *
+ * @param.Player.ko-KR
+ * 죽은 유닛의 수가 조정될 플레이어를 정합니다
+ * @param.Modifier.ko-KR
+ * 조정할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 조정할 수를 정합니다
+ * @param.Unit.ko-KR
+ * 죽은 수가 조정될 유닛을 정합니다
+***/
+function SetDeaths(Player : TrgPlayer, Modifier : TrgModifier, Number, Unit : TrgUnit){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [StartLocation]에 있는 [Owner]소유의 [Unit]에게 [DestLocation]로 [OrderType]명령을 내립니다
+ *
+ * @param.StarLocation.ko-KR
+ * 명령의 시작 위치를 정합니다
+ * @param.Owner.ko-KR
+ * 대상이 될 유닛의 소유자를 정합니다
+ * @param.Unite.ko-KR
+ * 명령을 받을 유닛을 정합니다
+ * @param.DestLocation.ko-KR
+ * 목적지를 정합니다
+ * @param.OrderType.ko-KR
+ * 명령 방식을 정합니다
+***/
+function Order(Unit : TrgUnit, Owner : TrgPlayer, StartLocation : TrgLocation, OrderType : TrgOrder, DestLocation : TrgLocation){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거의 이름을 [Text]로 정합니다
+ *
+ * @param.Text.ko-KR
+ * 트리거 목록에 표시될 텍스트를 정합니다
+***/
+function Comment(Text : TrgString){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 있는 [Owner]의 [Unit](을)를 [Count]만큼 [NewOwner]에게 넘겨줍니다
+ *
+ * @param.Count.ko-KR
+ * 넘겨줄 유닛의 수를 정합니다
+ * @param.Unit.ko-KR
+ * 넘겨줄 유닛을 정합니다
+ * @param.Owner.ko-KR
+ * 유닛을 넘겨주는 플레이어를 정합니다
+ * @param.Where.ko-KR
+ * 유닛을 넘겨줄 위치를 정합니다
+ * @param.NewOwner.ko-KR
+ * 유닛을 넘겨받을 플레이어를 정합니다
+***/
+function GiveUnits(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, NewOwner : TrgPlayer){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 있는 [Owner]의 [Unit] [Count]기의 체력을 [Percent]%로 조정합니다
+ *
+ * @param.Count.ko-KR
+ * 체력이 조정될 유닛의 수를 정합니다
+ * @param.Unit.ko-KR
+ * 체력이 조정될 유닛을 정합니다
+ * @param.Owner.ko-KR
+ * 체력이 조정될 유닛의 소유자를 정합니다
+ * @param.Where.ko-KR
+ * 유닛의 체력을 조정할 위치를 정합니다
+ * @param.Percent.ko-KR
+ * 체력이 조정될 비율을 정합니다
+***/
+function ModifyUnitHitPoints(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, Percent){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에  있는 [Owner]의 [Unit] [Count]기의 에너지(마나)를 [Percent]%로 조정합니다
+ *
+ * @param.Count.ko-KR
+ * 에너지가 조정될 유닛의 수를 정합니다
+ * @param.Unit.ko-KR
+ * 에너지가 조정될 유닛을 정합니다
+ * @param.Owner.ko-KR
+ * 에너지가 조정될 유닛의 소유자를 정합니다
+ * @param.Where.ko-KR
+ * 유닛의 에너지를 조정할 위치를 정합니다
+ * @param.Percent.ko-KR
+ * 에너지가 조정될 비율을 정합니다
+***/
+function ModifyUnitEnergy(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, Percent){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 있는 [Player]의 [Unit] [Count]기의 쉴드를 [Percent]%로 조정합니다
+ *
+ * @param.Count.ko-KR
+ * 쉴드가 조정될 유닛의 수를 정합니다
+ * @param.Unit.ko-KR
+ * 쉴드가 조정될 유닛을 정합니다
+ * @param.Owner.ko-KR
+ * 쉴드가 조정될 유닛의 소유자를 정합니다
+ * @param.Where.ko-KR
+ * 유닛의 쉴드를 조정할 위치를 정합니다
+ * @param.Percent.ko-KR
+ * 쉴드가 조정될 비율을 정합니다
+***/
+function ModifyUnitShields(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, Percent){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Where]에 있는 [Owner]의 자원[Count]개의 자원량을 [NewValue]로 설정합니다
+ *
+ * @param.Count.ko-KR
+ * 자원량을 수정할 자원의 갯수를 정합니다
+ * @param.Owner.ko-KR
+ * 자원의 소유자를 정합니다
+ * @param.Where.ko-KR
+ * 자원량을 수정할 위치를 정합니다
+ * @param.NewValue.ko-KR
+ * 자원량을 수정할 값을 정합니다
+***/
+function ModifyUnitResourceAmount(Count : TrgCount, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, NewValue){}
 
 
 
@@ -538,7 +752,7 @@ function CreateUnit(Number, Unit: TrgUnit, Where: TrgLocation, ForPlayer: TrgPla
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CreateUnitWithProperties(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLocation, Player: TrgPlayer, Properties: TrgProperty) { }
+function ModifyUnitHangarCount(Add, Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation){}
 
 
 
@@ -546,12 +760,9 @@ function CreateUnitWithProperties(Count: TrgCount, Unit: TrgUnit, Where: TrgLoca
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * 타이머를 멈춥니다
 ***/
-function SetDeaths(Player: TrgPlayer, Modifier: TrgModifier, Number, Unit: TrgUnit) { }
+function PauseTimer(){}
 
 
 
@@ -559,12 +770,9 @@ function SetDeaths(Player: TrgPlayer, Modifier: TrgModifier, Number, Unit: TrgUn
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * 타이머를 재개합니다
 ***/
-function Order(Unit: TrgUnit, Owner: TrgPlayer, StartLocation: TrgLocation, OrderType: TrgOrder, DestLocation: TrgLocation) { }
+function UnpauseTimer(){}
 
 
 
@@ -572,12 +780,9 @@ function Order(Unit: TrgUnit, Owner: TrgPlayer, StartLocation: TrgLocation, Orde
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * 해당 플레이어의 게임 결과를 무승부로 처리합니다
 ***/
-function Comment(Text: TrgString) { }
+function Draw(){}
 
 
 
@@ -585,120 +790,204 @@ function Comment(Text: TrgString) { }
  * @Type
  * A
  * @Summary.ko-KR
- * 트리거 설명
+ * [Player](와)과의 동맹관계를 [Status](으)로 설정합니다
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 동맹관계를 수정할 플레이어를 정합니다
+ * @param.Status.ko-KR
+ * 동맹상태를 정합니다
 ***/
-function GiveUnits(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, NewOwner: TrgPlayer) { }
+function SetAllianceStatus(Player : TrgPlayer, Status : TrgAllyStatus){}
 
 
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
- * 트리거 설명
+ * 카운트 다운 타이머의 시간이 [Time]초 [Comparison]인 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Time.ko-KR
+ * 비교할 시간을 정합니다
 ***/
-function ModifyUnitHitPoints(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, Percent) { }
+function CountdownTimer(Comparison : TrgComparison, Time){}
 
 
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Player](이)가 [Unit]을 [Number]기 [Comparison]보유한 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 비교할 플레이어를 정합니다
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 비교할 수를 정합니다
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function ModifyUnitEnergy(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, Percent) { }
+function Command(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit){}
 
 
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Location]에 [Player]의 [Unit])(이)가 [Number][Comparison] 있을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 비교할 플레이어를 정합니다
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 비교할 유닛 수를 정합니다
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
+ * @param.Location.ko-KR
+ * 비교할 위치를 정합니다
 ***/
-function ModifyUnitShields(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, Percent) { }
+function Bring(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit, Location : TrgLocation){}
 
 
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Player](이)가 [ResourceType](을)를 [Number][Comparison] 가지고 있을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 비교할 플레이어를 정합니다
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 비교할 수를 정합니다
+ * @param.ResourceType.ko-KR
+ * 비교할 자원의 종류를 정합니다
 ***/
-function ModifyUnitResourceAmount(Count: TrgCount, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, NewValue) { }
+function Accumulate(Player : TrgPlayer, Comparison : TrgComparison, Number, ResourceType : TrgResource){}
 
 
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Player](이)가 [Unit](을)를 [Number][Comparison] 죽였을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 비교할 플레이어를 정합니다
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 비교할 수를 정합니다
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function ModifyUnitHangarCount(Add, Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation) { }
+function Kills(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit){}
 
 
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
- * 트리거 설명
-***/
-function PauseTimer() { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function UnpauseTimer() { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function Draw() { }
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
+ * [Unit](을)를 가장 많이 보유한 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function SetAllianceStatus(Player: TrgPlayer, Status: TrgAllyStatus) { }
+function CommandMost(Unit : TrgUnit){}
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [Location]에 [Unit](을)를 가장 많이 보유한 경우
+ *
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
+ * @param.Location.ko-KR
+ * 비교할 위치를 정합니다
+***/
+function CommandMostAt(Unit : TrgUnit, Location : TrgLocation){}
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [Unit](을)를 가장 많이 죽인 경우
+ *
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
+***/
+function MostKills(Unit : TrgUnit){}
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [ScoreType](이)가 가장 높을 경우
+ *
+ * @param.ScoreType.ko-KR
+ * 점수의 종류를 정합니다
+***/
+function HighestScore(ScoreType : TrgScore){}
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [ResourceType](을)를 가장 많이 보유한 경우
+ *
+ * @param.ResourceType.ko-KR
+ * 비교할 자원의 종류를 정합니다
+***/
+function MostResources(ResourceType : TrgResource){}
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [Switch](이)가 [State]상태인 경우
+ *
+ * @param.Switch.ko-KR
+ * 사용할 스위치를 정합니다
+ * @param.State.ko-KR
+ * 어떤 상태이어야 하는지 정합니다
+***/
+function Switch(Switch : TrgSwitch, State : TrgSwitchState){}
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ *게임이 시작된지  [Time]초 [Comparison] 지난경우
+ *
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Time.ko-KR
+ * 특징점이 될 시점을 정합니다
+***/
+function ElapsedTime(Comparison : TrgComparison, Time){}
 
 
 
@@ -711,7 +1000,7 @@ function SetAllianceStatus(Player: TrgPlayer, Status: TrgAllyStatus) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CountdownTimer(Comparison: TrgComparison, Time) { }
+function Briefing(){}
 
 
 
@@ -724,7 +1013,7 @@ function CountdownTimer(Comparison: TrgComparison, Time) { }
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Command(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit) { }
+function Opponents(Player : TrgPlayer, Comparison : TrgComparison, Number){}
 
 
 
@@ -732,12 +1021,18 @@ function Command(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: Trg
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Player]의 [Unit](이)가 [Number][Comparison]죽었을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 비교할 플레이어를 정합니다
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 비교할 수를 정합니다
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function Bring(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit, Location: TrgLocation) { }
+function Deaths(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit){}
 
 
 
@@ -745,12 +1040,12 @@ function Bring(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUn
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Unit](을)를 가장 적게 보유한 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function Accumulate(Player: TrgPlayer, Comparison: TrgComparison, Number, ResourceType: TrgResource) { }
+function CommandLeast(Unit : TrgUnit){}
 
 
 
@@ -758,12 +1053,14 @@ function Accumulate(Player: TrgPlayer, Comparison: TrgComparison, Number, Resour
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Location]에 [Unit](을)를 가장 적게 보유한 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Location.ko-KR
+ * 비교할 위치를 정합니다
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function Kills(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit) { }
+function CommandLeastAt(Unit : TrgUnit, Location : TrgLocation){}
 
 
 
@@ -771,12 +1068,12 @@ function Kills(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUn
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Unit](을)를 가장 적게 죽였을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Unit.ko-KR
+ * 비교할 유닛을 정합니다
 ***/
-function CommandMost(Unit: TrgUnit) { }
+function LeastKills(Unit : TrgUnit){}
 
 
 
@@ -784,12 +1081,12 @@ function CommandMost(Unit: TrgUnit) { }
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [ScoreType](이)가 가장 낮을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.ScoreType.ko-KR
+ * 비교할 점수의 종류를  정합니다
 ***/
-function CommandMostAt(Unit: TrgUnit, Location: TrgLocation) { }
+function LowestScore(ScoreType : TrgScore){}
 
 
 
@@ -797,12 +1094,12 @@ function CommandMostAt(Unit: TrgUnit, Location: TrgLocation) { }
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * 보유한 [ResourceType](이)가 가장 적을 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.ResourceType.ko-KR
+ * 비교할 자원의 종류를 정합니다
 ***/
-function MostKills(Unit: TrgUnit) { }
+function LeastResources(ResourceType : TrgResource){}
 
 
 
@@ -810,12 +1107,18 @@ function MostKills(Unit: TrgUnit) { }
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
+ * [Player]의 [ScoreType](이)가 [Number] [Comparison]인 경우
  *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.Player.ko-KR
+ * 비교할 플레이어를 정합니다
+ * @param.ScoreType.ko-KR
+ * 비교할 점수의 종류를 정합니다
+ * @param.Comparison.ko-KR
+ * 비교할 방법을 정합니다
+ * @param.Number.ko-KR
+ * 비교할 수를 정합니다
 ***/
-function HighestScore(ScoreType: TrgScore) { }
+function Score(Player : TrgPlayer, ScoreType : TrgScore, Comparison : TrgComparison, Number){}
 
 
 
@@ -823,12 +1126,9 @@ function HighestScore(ScoreType: TrgScore) { }
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * 조건없이 트리거를 실행합니다
 ***/
-function MostResources(ResourceType: TrgResource) { }
+function Always(){}
 
 
 
@@ -836,159 +1136,10 @@ function MostResources(ResourceType: TrgResource) { }
  * @Type
  * C
  * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
+ * 트리거를 절대 실행하지 않습니다
 ***/
-function Switch(Switch: TrgSwitch, State: TrgSwitchState) { }
+function Never(){}
 
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function ElapsedTime(Comparison: TrgComparison, Time) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function Briefing() { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function Opponents(Player: TrgPlayer, Comparison: TrgComparison, Number) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function Deaths(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function CommandLeast(Unit: TrgUnit) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function CommandLeastAt(Unit: TrgUnit, Location: TrgLocation) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function LeastKills(Unit: TrgUnit) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function LowestScore(ScoreType: TrgScore) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function LeastResources(ResourceType: TrgResource) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function Score(Player: TrgPlayer, ScoreType: TrgScore, Comparison: TrgComparison, Number) { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function Always() { }
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
-***/
-function Never() { }
 
 
 
@@ -1035,7 +1186,7 @@ function DoActions(actions, preserved) { }
  *      ));
  * 
  * * 다른 모듈의 변수에 대입할 때 module.v = value; 하면 버그납니다.
- * 이럴 때는 SetVariables를 써야합니다. (phu54321/epScript#3 참고) 
+ * 이럴 때는 SetVariables를 써야합니다. (phu54321／epScript#3 참고) 
  *
  * @param.인자이름.ko-KR
  * 인자 설명
@@ -1047,7 +1198,7 @@ function SetVariables(srclist, dstlist, mdtlist) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue/onfalse가 변수여도 됩니다.
+ * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue／onfalse가 변수여도 됩니다.
  *
  * @param.인자이름.ko-KR
  * 인자 설명
@@ -1059,7 +1210,7 @@ function EUDJumpIf(conditions, ontrue) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue/onfalse가 변수여도 됩니다.
+ * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue／onfalse가 변수여도 됩니다.
  *
  * @param.인자이름.ko-KR
  * 인자 설명
@@ -1149,7 +1300,7 @@ function EPD(p) { }
  * @Type
  * F
  * @Summary.ko-KR
- * EPD 플레이어에게서 dword/epd값을 읽는 함수입니다. 위 함수들은 언제나
+ * EPD 플레이어에게서 dword／epd값을 읽는 함수입니다. 위 함수들은 언제나
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
  *
@@ -1163,7 +1314,7 @@ function dwepdread_epd(epd) { }
  * @Type
  * F
  * @Summary.ko-KR
- * EPD 플레이어에게서 dword/epd값을 읽는 함수입니다. 위 함수들은 언제나
+ * EPD 플레이어에게서 dword／epd값을 읽는 함수입니다. 위 함수들은 언제나
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
  *
@@ -1177,7 +1328,7 @@ function dwread_epd(epd) { }
  * @Type
  * F
  * @Summary.ko-KR
- * EPD 플레이어에게서 dword/epd값을 읽는 함수입니다. 위 함수들은 언제나
+ * EPD 플레이어에게서 dword／epd값을 읽는 함수입니다. 위 함수들은 언제나
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
  *
@@ -1191,7 +1342,7 @@ function epdread_epd(epd) { }
  * @Type
  * F
  * @Summary.ko-KR
- * dword를 word/byte 단위로 나누는 함수입니다. dwbreak2는 word/byte에 곱해졌던
+ * dword를 word／byte 단위로 나누는 함수입니다. dwbreak2는 word／byte에 곱해졌던
  * 값을 유지합니다. 예를 들어 dwbreak(0x12345678)\[\[2\]\]는 0x12이지만,
  * dwbreak2(0x10000000)\[\[2\]\]는 0x12000000입니다. dword의 특정 byte나 word만
  * 바꿔야 할 때 dwbreak한 결과에 다시 0x100000같은 값을 곱할 필요가 없습니다.
@@ -1299,7 +1450,7 @@ function EUDByteWriter() { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate (a//b, a%b)
+ * Calculate (a／／b, a%b)
  *
  * @param.인자이름.ko-KR
  * 인자 설명
@@ -1563,7 +1714,7 @@ function QueueGameCommand_RightClick(xy) { }
  * @Type
  * C
  * @Summary.ko-KR
- * UDP/배틀넷 등에서만 작동합니다. 플레이어가 있는지 체크합니다.
+ * UDP／배틀넷 등에서만 작동합니다. 플레이어가 있는지 체크합니다.
  *
  * @param.인자이름.ko-KR
  * 인자 설명
@@ -1725,7 +1876,7 @@ function EUDArray(initval) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 조건/액션 갯수 제한이 있는 트리거입니다. Trigger는 RawTrigger 여러개를
+ * 조건／액션 갯수 제한이 있는 트리거입니다. Trigger는 RawTrigger 여러개를
  * 조합해서 만든 것입니다. RawTrigger는 주소값을 가지고 있어서 이런 식으로
  * 주소값을 얻을 수 있습니다. ::
  *  a = RawTrigger(~)
@@ -3150,14 +3301,14 @@ function cpstr_print(args, EOS, encoding) { }
  * @Type
  * F
  * @Summary.ko-KR
- * dword를 word/byte 단위로 나누는 함수입니다. dwbreak2는 word/byte에 곱해졌던
+ * dword를 word／byte 단위로 나누는 함수입니다. dwbreak2는 word／byte에 곱해졌던
  * 값을 유지합니다. 예를 들어 dwbreak(0x12345678)[[2]]는 0x12이지만,
  * dwbreak2(0x10000000)[[2]]는 0x12000000입니다. dword의 특정 byte나 word만
  * 바꿔야 할 때 f_dwbreak한 결과에 다시 0x100000같은 값을 곱할 필요가 없습니다.
  *
  * @param.인자이름.ko-KR
  * 인자 설명
- ***/
+***/
 function dwbreak2(number) { }
 
 

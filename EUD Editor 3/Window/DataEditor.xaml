@@ -101,14 +101,14 @@
                     </TextBlock.LayoutTransform>
                 </TextBlock>
             </Expander.Header>
-            <Grid Width="450">
+            <Grid Width="350">
                 <Grid.ColumnDefinitions>
-                    <ColumnDefinition Width="80"/>
                     <ColumnDefinition Width="100*"/>
+                    <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
 
-                <local:CodeSelecter x:Name="CodeList" Grid.Column="1" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
-                <ListBox  Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
+                <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
+                <ListBox  Grid.Column="1" Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
                     <ListBoxItem Content="{StaticResource units}" Tag="0"/>
                     <ListBoxItem Content="{StaticResource weapons}" Tag="1"/>
                     <ListBoxItem Content="{StaticResource flingy}" Tag="2"/>
