@@ -8,7 +8,7 @@ StarCraft: Remastered UMS Make Tool
 
 
 
-## Alpha
+## CheckPatch
 ### 0.3.2.2
 
 - Requirement is now complete.
