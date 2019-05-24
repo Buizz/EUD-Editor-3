@@ -82,6 +82,15 @@ Module GlobalObj
     End Function
     Public Function InitProgram() As Boolean
         Try
+            My.Computer.FileSystem.DeleteFile(System.AppDomain.CurrentDomain.BaseDirectory & "EUDEditorDownloader.exe")
+        Catch ex As Exception
+
+        End Try
+
+
+
+
+        Try
             pgData = New ProgramData
             Lagacy = New LagacyClass
         Catch ex As Exception
