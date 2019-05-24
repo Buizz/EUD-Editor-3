@@ -3,11 +3,28 @@
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
-function Victory(){}
+function Victory() { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function Defeat() { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function PreserveTrigger() { }
 
 
 
@@ -20,7 +37,27 @@ function Victory(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Defeat(){}
+function Wait(Time) { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function PauseGame() { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function UnpauseGame() { }
 
 
 
@@ -33,7 +70,7 @@ function Defeat(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function PreserveTrigger(){}
+function Transmission(Unit: TrgUnit, Where: TrgLocation, WAVName: TrgString, TimeModifier: TrgModifier, Time, Text: TrgString, AlwaysDisplay) { }
 
 
 
@@ -46,7 +83,7 @@ function PreserveTrigger(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Wait(Time){}
+function PlayWAV(WAVName: TrgString) { }
 
 
 
@@ -59,7 +96,7 @@ function Wait(Time){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function PauseGame(){}
+function DisplayText(Text: TrgString) { }
 
 
 
@@ -72,7 +109,7 @@ function PauseGame(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function UnpauseGame(){}
+function CenterView(Where: TrgLocation) { }
 
 
 
@@ -85,7 +122,7 @@ function UnpauseGame(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, TimeModifier : TrgModifier, Time, Text : TrgString, AlwaysDisplay){}
+function SetMissionObjectives(Text: TrgString) { }
 
 
 
@@ -98,7 +135,7 @@ function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function PlayWAV(WAVName : TrgString){}
+function SetSwitch(Switch: TrgSwitch, State: TrgSwitchAction) { }
 
 
 
@@ -111,7 +148,7 @@ function PlayWAV(WAVName : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function DisplayText(Text : TrgString, AlwaysDisplay){}
+function RunAIScript(Script: TrgAIScript) { }
 
 
 
@@ -124,7 +161,7 @@ function DisplayText(Text : TrgString, AlwaysDisplay){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CenterView(Where : TrgLocation){}
+function RunAIScriptAt(Script: TrgAIScript, Where: TrgLocation) { }
 
 
 
@@ -137,7 +174,7 @@ function CenterView(Where : TrgLocation){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetMissionObjectives(Text : TrgString){}
+function LeaderBoardControl(Unit: TrgUnit, Label: TrgString) { }
 
 
 
@@ -150,7 +187,7 @@ function SetMissionObjectives(Text : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetSwitch(Switch : TrgSwitch, State : TrgSwitchAction){}
+function LeaderBoardControlAt(Unit: TrgUnit, Location: TrgLocation, Label: TrgString) { }
 
 
 
@@ -163,7 +200,7 @@ function SetSwitch(Switch : TrgSwitch, State : TrgSwitchAction){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RunAIScript(Script : TrgAIScript){}
+function LeaderBoardResources(ResourceType: TrgResource, Label: TrgString) { }
 
 
 
@@ -176,7 +213,7 @@ function RunAIScript(Script : TrgAIScript){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RunAIScriptAt(Script : TrgAIScript, Where : TrgLocation){}
+function LeaderBoardKills(Unit: TrgUnit, Label: TrgString) { }
 
 
 
@@ -189,7 +226,7 @@ function RunAIScriptAt(Script : TrgAIScript, Where : TrgLocation){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardControl(Unit : TrgUnit, Label : TrgString){}
+function LeaderBoardScore(ScoreType: TrgScore, Label: TrgString) { }
 
 
 
@@ -202,7 +239,7 @@ function LeaderBoardControl(Unit : TrgUnit, Label : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardControlAt(Unit : TrgUnit, Location : TrgLocation, Label : TrgString){}
+function KillUnit(Unit: TrgUnit, Player: TrgPlayer) { }
 
 
 
@@ -215,7 +252,7 @@ function LeaderBoardControlAt(Unit : TrgUnit, Location : TrgLocation, Label : Tr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardResources(ResourceType : TrgResource, Label : TrgString){}
+function KillUnitAt(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLocation, ForPlayer: TrgPlayer) { }
 
 
 
@@ -228,7 +265,7 @@ function LeaderBoardResources(ResourceType : TrgResource, Label : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardKills(Unit : TrgUnit, Label : TrgString){}
+function RemoveUnit(Unit: TrgUnit, Player: TrgPlayer) { }
 
 
 
@@ -241,7 +278,7 @@ function LeaderBoardKills(Unit : TrgUnit, Label : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardScore(ScoreType : TrgScore, Label : TrgString){}
+function RemoveUnitAt(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLocation, ForPlayer: TrgPlayer) { }
 
 
 
@@ -254,7 +291,7 @@ function LeaderBoardScore(ScoreType : TrgScore, Label : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function KillUnit(Unit : TrgUnit, Player : TrgPlayer){}
+function SetResources(Player: TrgPlayer, Modifier: TrgModifier, Amount, ResourceType: TrgResource) { }
 
 
 
@@ -267,7 +304,7 @@ function KillUnit(Unit : TrgUnit, Player : TrgPlayer){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function KillUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgLocation, ForPlayer : TrgPlayer){}
+function SetScore(Player: TrgPlayer, Modifier: TrgModifier, Amount, ScoreType: TrgScore) { }
 
 
 
@@ -280,7 +317,7 @@ function KillUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgL
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RemoveUnit(Unit : TrgUnit, Player : TrgPlayer){}
+function MinimapPing(Where: TrgLocation) { }
 
 
 
@@ -293,7 +330,27 @@ function RemoveUnit(Unit : TrgUnit, Player : TrgPlayer){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function RemoveUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgLocation, ForPlayer : TrgPlayer){}
+function TalkingPortrait(Unit: TrgUnit, Time) { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function MuteUnitSpeech() { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function UnMuteUnitSpeech() { }
 
 
 
@@ -306,7 +363,7 @@ function RemoveUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : Tr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetResources(Player : TrgPlayer, Modifier : TrgModifier, Amount, ResourceType : TrgResource){}
+function LeaderBoardComputerPlayers(State: TrgPropState) { }
 
 
 
@@ -319,7 +376,7 @@ function SetResources(Player : TrgPlayer, Modifier : TrgModifier, Amount, Resour
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetScore(Player : TrgPlayer, Modifier : TrgModifier, Amount, ScoreType : TrgScore){}
+function LeaderBoardGoalControl(Goal, Unit: TrgUnit, Label: TrgString) { }
 
 
 
@@ -332,7 +389,7 @@ function SetScore(Player : TrgPlayer, Modifier : TrgModifier, Amount, ScoreType 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MinimapPing(Where : TrgLocation){}
+function LeaderBoardGoalControlAt(Goal, Unit: TrgUnit, Location: TrgLocation, Label: TrgString) { }
 
 
 
@@ -345,7 +402,7 @@ function MinimapPing(Where : TrgLocation){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function TalkingPortrait(Unit : TrgUnit, Time){}
+function LeaderBoardGoalResources(Goal, ResourceType: TrgResource, Label: TrgString) { }
 
 
 
@@ -358,7 +415,7 @@ function TalkingPortrait(Unit : TrgUnit, Time){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MuteUnitSpeech(){}
+function LeaderBoardGoalKills(Goal, Unit: TrgUnit, Label: TrgString) { }
 
 
 
@@ -371,7 +428,7 @@ function MuteUnitSpeech(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function UnMuteUnitSpeech(){}
+function LeaderBoardGoalScore(Goal, ScoreType: TrgScore, Label: TrgString) { }
 
 
 
@@ -384,7 +441,7 @@ function UnMuteUnitSpeech(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardComputerPlayers(State : TrgPropState){}
+function MoveLocation(Location: TrgLocation, OnUnit: TrgUnit, Owner: TrgPlayer, DestLocation: TrgLocation) { }
 
 
 
@@ -397,7 +454,7 @@ function LeaderBoardComputerPlayers(State : TrgPropState){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalControl(Goal, Unit : TrgUnit, Label : TrgString){}
+function MoveUnit(Count: TrgCount, UnitType: TrgUnit, Owner: TrgPlayer, StartLocation: TrgLocation, DestLocation: TrgLocation) { }
 
 
 
@@ -410,7 +467,7 @@ function LeaderBoardGoalControl(Goal, Unit : TrgUnit, Label : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalControlAt(Goal, Unit : TrgUnit, Location : TrgLocation, Label : TrgString){}
+function LeaderBoardGreed(Goal) { }
 
 
 
@@ -423,7 +480,7 @@ function LeaderBoardGoalControlAt(Goal, Unit : TrgUnit, Location : TrgLocation, 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalResources(Goal, ResourceType : TrgResource, Label : TrgString){}
+function SetNextScenario(ScenarioName: TrgString) { }
 
 
 
@@ -436,7 +493,7 @@ function LeaderBoardGoalResources(Goal, ResourceType : TrgResource, Label : TrgS
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalKills(Goal, Unit : TrgUnit, Label : TrgString){}
+function SetDoodadState(State: TrgPropState, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation) { }
 
 
 
@@ -449,85 +506,7 @@ function LeaderBoardGoalKills(Goal, Unit : TrgUnit, Label : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeaderBoardGoalScore(Goal, ScoreType : TrgScore, Label : TrgString){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function MoveLocation(Location : TrgLocation, OnUnit : TrgUnit, Owner : TrgPlayer, DestLocation : TrgLocation){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function MoveUnit(Count : TrgCount, UnitType : TrgUnit, Owner : TrgPlayer, StartLocation : TrgLocation, DestLocation : TrgLocation){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function LeaderBoardGreed(Goal){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetNextScenario(ScenarioName : TrgString){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetDoodadState(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetInvincibility(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation){}
+function SetInvincibility(State: TrgPropState, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation) { }
 
 
 
@@ -546,7 +525,7 @@ function SetInvincibility(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlaye
  * @param.ForPlayer.ko-KR
  * 플레이어를 설정합니다.
 ***/
-function CreateUnit(Number, Unit : TrgUnit, Where : TrgLocation, ForPlayer : TrgPlayer){}
+function CreateUnit(Number, Unit: TrgUnit, Where: TrgLocation, ForPlayer: TrgPlayer) { }
 
 
 
@@ -559,7 +538,7 @@ function CreateUnit(Number, Unit : TrgUnit, Where : TrgLocation, ForPlayer : Trg
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CreateUnitWithProperties(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgLocation, Player : TrgPlayer, Properties : TrgProperty){}
+function CreateUnitWithProperties(Count: TrgCount, Unit: TrgUnit, Where: TrgLocation : TrgLocation, Player: TrgPlayer, Properties: TrgProperty) { }
 
 
 
@@ -572,7 +551,7 @@ function CreateUnitWithProperties(Count : TrgCount, Unit : TrgUnit, Where : TrgL
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function SetDeaths(Player : TrgPlayer, Modifier : TrgModifier, Number, Unit : TrgUnit){}
+function SetDeaths(Player: TrgPlayer, Modifier: TrgModifier, Number, Unit: TrgUnit) { }
 
 
 
@@ -585,7 +564,7 @@ function SetDeaths(Player : TrgPlayer, Modifier : TrgModifier, Number, Unit : Tr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Order(Unit : TrgUnit, Owner : TrgPlayer, StartLocation : TrgLocation, OrderType : TrgOrder, DestLocation : TrgLocation){}
+function Order(Unit: TrgUnit, Owner: TrgPlayer, StartLocation: TrgLocation, OrderType: TrgOrder, DestLocation: TrgLocation) { }
 
 
 
@@ -598,7 +577,7 @@ function Order(Unit : TrgUnit, Owner : TrgPlayer, StartLocation : TrgLocation, O
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Comment(Text : TrgString){}
+function Comment(Text: TrgString) { }
 
 
 
@@ -611,7 +590,7 @@ function Comment(Text : TrgString){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function GiveUnits(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, NewOwner : TrgPlayer){}
+function GiveUnits(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, NewOwner: TrgPlayer) { }
 
 
 
@@ -624,7 +603,7 @@ function GiveUnits(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function ModifyUnitHitPoints(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, Percent){}
+function ModifyUnitHitPoints(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, Percent) { }
 
 
 
@@ -637,7 +616,7 @@ function ModifyUnitHitPoints(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function ModifyUnitEnergy(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, Percent){}
+function ModifyUnitEnergy(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, Percent) { }
 
 
 
@@ -650,7 +629,7 @@ function ModifyUnitEnergy(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, W
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function ModifyUnitShields(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, Percent){}
+function ModifyUnitShields(Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, Percent) { }
 
 
 
@@ -663,7 +642,7 @@ function ModifyUnitShields(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function ModifyUnitResourceAmount(Count : TrgCount, Owner : TrgPlayer, Where : TrgLocation : TrgLocation, NewValue){}
+function ModifyUnitResourceAmount(Count: TrgCount, Owner: TrgPlayer, Where: TrgLocation : TrgLocation, NewValue) { }
 
 
 
@@ -676,7 +655,37 @@ function ModifyUnitResourceAmount(Count : TrgCount, Owner : TrgPlayer, Where : T
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function ModifyUnitHangarCount(Add, Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : TrgLocation){}
+function ModifyUnitHangarCount(Add, Count: TrgCount, Unit: TrgUnit, Owner: TrgPlayer, Where: TrgLocation) { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function PauseTimer() { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function UnpauseTimer() { }
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function Draw() { }
 
 
 
@@ -689,46 +698,7 @@ function ModifyUnitHangarCount(Add, Count : TrgCount, Unit : TrgUnit, Owner : Tr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function PauseTimer(){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function UnpauseTimer(){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function Draw(){}
-
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function SetAllianceStatus(Player : TrgPlayer, Status : TrgAllyStatus){}
+function SetAllianceStatus(Player: TrgPlayer, Status: TrgAllyStatus) { }
 
 
 
@@ -741,7 +711,7 @@ function SetAllianceStatus(Player : TrgPlayer, Status : TrgAllyStatus){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CountdownTimer(Comparison : TrgComparison, Time){}
+function CountdownTimer(Comparison: TrgComparison, Time) { }
 
 
 
@@ -754,7 +724,7 @@ function CountdownTimer(Comparison : TrgComparison, Time){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Command(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit){}
+function Command(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit) { }
 
 
 
@@ -767,7 +737,7 @@ function Command(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Bring(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit, Location : TrgLocation){}
+function Bring(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit, Location: TrgLocation) { }
 
 
 
@@ -780,7 +750,7 @@ function Bring(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : Tr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Accumulate(Player : TrgPlayer, Comparison : TrgComparison, Number, ResourceType : TrgResource){}
+function Accumulate(Player: TrgPlayer, Comparison: TrgComparison, Number, ResourceType: TrgResource) { }
 
 
 
@@ -793,7 +763,7 @@ function Accumulate(Player : TrgPlayer, Comparison : TrgComparison, Number, Reso
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Kills(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit){}
+function Kills(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit) { }
 
 
 
@@ -806,7 +776,7 @@ function Kills(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : Tr
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CommandMost(Unit : TrgUnit){}
+function CommandMost(Unit: TrgUnit) { }
 
 
 
@@ -819,7 +789,7 @@ function CommandMost(Unit : TrgUnit){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CommandMostAt(Unit : TrgUnit, Location : TrgLocation){}
+function CommandMostAt(Unit: TrgUnit, Location: TrgLocation) { }
 
 
 
@@ -832,7 +802,7 @@ function CommandMostAt(Unit : TrgUnit, Location : TrgLocation){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MostKills(Unit : TrgUnit){}
+function MostKills(Unit: TrgUnit) { }
 
 
 
@@ -845,7 +815,7 @@ function MostKills(Unit : TrgUnit){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function HighestScore(ScoreType : TrgScore){}
+function HighestScore(ScoreType: TrgScore) { }
 
 
 
@@ -858,7 +828,7 @@ function HighestScore(ScoreType : TrgScore){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function MostResources(ResourceType : TrgResource){}
+function MostResources(ResourceType: TrgResource) { }
 
 
 
@@ -871,7 +841,7 @@ function MostResources(ResourceType : TrgResource){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Switch(Switch : TrgSwitch, State : TrgSwitchState){}
+function Switch(Switch: TrgSwitch, State: TrgSwitchState) { }
 
 
 
@@ -884,7 +854,17 @@ function Switch(Switch : TrgSwitch, State : TrgSwitchState){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function ElapsedTime(Comparison : TrgComparison, Time){}
+function ElapsedTime(Comparison: TrgComparison, Time) { }
+
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * 트리거 설명
+***/
+function Briefing() { }
 
 
 
@@ -897,7 +877,7 @@ function ElapsedTime(Comparison : TrgComparison, Time){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Briefing(){}
+function Opponents(Player: TrgPlayer, Comparison: TrgComparison, Number) { }
 
 
 
@@ -910,7 +890,7 @@ function Briefing(){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Opponents(Player : TrgPlayer, Comparison : TrgComparison, Number){}
+function Deaths(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit) { }
 
 
 
@@ -923,7 +903,7 @@ function Opponents(Player : TrgPlayer, Comparison : TrgComparison, Number){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function Deaths(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : TrgUnit){}
+function CommandLeast(Unit: TrgUnit) { }
 
 
 
@@ -936,7 +916,7 @@ function Deaths(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : T
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CommandLeast(Unit : TrgUnit){}
+function CommandLeastAt(Unit: TrgUnit, Location: TrgLocation) { }
 
 
 
@@ -949,7 +929,7 @@ function CommandLeast(Unit : TrgUnit){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function CommandLeastAt(Unit : TrgUnit, Location : TrgLocation){}
+function LeastKills(Unit: TrgUnit) { }
 
 
 
@@ -962,7 +942,7 @@ function CommandLeastAt(Unit : TrgUnit, Location : TrgLocation){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeastKills(Unit : TrgUnit){}
+function LowestScore(ScoreType: TrgScore) { }
 
 
 
@@ -975,7 +955,7 @@ function LeastKills(Unit : TrgUnit){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LowestScore(ScoreType : TrgScore){}
+function LeastResources(ResourceType: TrgResource) { }
 
 
 
@@ -988,7 +968,7 @@ function LowestScore(ScoreType : TrgScore){}
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
-function LeastResources(ResourceType : TrgResource){}
+function Score(Player: TrgPlayer, ScoreType: TrgScore, Comparison: TrgComparison, Number) { }
 
 
 
@@ -997,11 +977,8 @@ function LeastResources(ResourceType : TrgResource){}
  * C
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
-function Score(Player : TrgPlayer, ScoreType : TrgScore, Comparison : TrgComparison, Number){}
+function Always() { }
 
 
 
@@ -1010,24 +987,8 @@ function Score(Player : TrgPlayer, ScoreType : TrgScore, Comparison : TrgCompari
  * C
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
-function Always(){}
-
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
-***/
-function Never(){}
+function Never() { }
 
 
 
@@ -1042,4 +1003,2168 @@ function Never(){}
  * 논리형
  * cloaked, burrowed, intransit, hallucinated, invincible
 ***/
-function UnitProperty(){}
+function UnitProperty() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * conditions가 Always인 트리거입니다. 기본적으로 preserved 되있고요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function DoActions(actions, preserved) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * SeqCompute를 쉽게 하는 방법. mdtlist는 SetTo같은 연산의 list이며, 생략하면
+ * mdtlist는 모두 SetTo한걸로 가정 ::
+ * 
+ *      # 이것과
+ *      SetVariables(list(a, b), list(1, 2));
+ * 
+ *      # 이건 같은 뜻이다.
+ *      SeqCompute(list(
+ *          (a, SetTo, 1),
+ *          (b, SetTo, 2)
+ *      ));
+ * 
+ * * 다른 모듈의 변수에 대입할 때 module.v = value; 하면 버그납니다.
+ * 이럴 때는 SetVariables를 써야합니다. (phu54321/epScript#3 참고) 
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetVariables(srclist, dstlist, mdtlist) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue/onfalse가 변수여도 됩니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDJumpIf(conditions, ontrue) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue/onfalse가 변수여도 됩니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDJumpIfNot(conditions, onfalse)) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 현재 게임에 참여중인 모든 플레이어를 한번씩 Current Player로 하면서 반복
+ * (Human, Computer 모두 포함)
+ ***/
+function EUDPlayerLoop() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 현재 게임에 참여중인 모든 플레이어를 한번씩 Current Player로 하면서 반복
+ ***/
+function EUDEndPlayerLoop() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 반복문에서 continue를 했을 때 갈 곳을 설정하는데 씁니다. EUDWhile를 for문처럼
+ * 쓰면서 continue 이후 무조건 실행되야하는 코드를 만들 때 이걸 쓸 수 있습니다.
+ * Continue point는 하나만 지정할 수 있습니다.
+ ***/
+function EUDSetContinuePoint() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * nextptr로 점프합니다. nextptr는 RawTrigger가 될 수 있고 RawTrigger를 가르키는
+ * Forward나 EUDVariable이 될 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDJump(nextptr) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 뒤에 선언할 EUDObject의 주솟값을 앞에서 필요로 할 때가 있습니다. 이 때 쓰는 전방
+ * 선언 클래스입니다. ::
+ * 
+ *     a = Forward()
+ *     b = RawTrigger(nextptr=a)  # a의 주솟값을 여기서 쓸 수 있다.
+ *     a << RawTrigger()  # 실제 a의 정의는 여기서
+ ***/
+function Forward() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * '바로 다음 트리거'를 나타냅니다.
+ ***/
+function NextTrigger() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 오프셋을 EPD 플레이어값으로 바꿉니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EPD(p) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EPD 플레이어에게서 dword/epd값을 읽는 함수입니다. 위 함수들은 언제나
+ * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
+ * dword랑 epd값을 동시에 읽는게 효율적입니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwepdread_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EPD 플레이어에게서 dword/epd값을 읽는 함수입니다. 위 함수들은 언제나
+ * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
+ * dword랑 epd값을 동시에 읽는게 효율적입니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwread_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EPD 플레이어에게서 dword/epd값을 읽는 함수입니다. 위 함수들은 언제나
+ * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
+ * dword랑 epd값을 동시에 읽는게 효율적입니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function epdread_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * dword를 word/byte 단위로 나누는 함수입니다. dwbreak2는 word/byte에 곱해졌던
+ * 값을 유지합니다. 예를 들어 dwbreak(0x12345678)\[\[2\]\]는 0x12이지만,
+ * dwbreak2(0x10000000)\[\[2\]\]는 0x12000000입니다. dword의 특정 byte나 word만
+ * 바꿔야 할 때 dwbreak한 결과에 다시 0x100000같은 값을 곱할 필요가 없습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwbreak(number) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
+ * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwwrite_epd(targetplayer, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
+ * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwadd_epd(targetplayer, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
+ * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwsubtract_epd(targetplayer, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 블록 단위로 메모리를 복사할 때 씁니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function repmovsd_epd(dstepdp, srcepdp, copydwn) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 블록 단위로 메모리를 복사할 때 씁니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function memcpy(dst, src, copylen) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 스트링 복사
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function strcpy(dst, src) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 바이트 단위로 읽고 씁니다. bread 함수를 참고하세요.
+ ***/
+function EUDByteReader() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 바이트 단위로 읽고 씁니다. bread 함수를 참고하세요.
+ ***/
+function EUDByteWriter() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate (a//b, a%b)
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function div(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate a & b
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitand(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate a | b
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitor(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate ~a
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitnot(a) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate a ^ b
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitxor(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate ~(a & b)
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitnand(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate ~(a | b)
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitnor(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Calculate ~(a ^ b)
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitnxor(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * return a << b
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitlshift(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * return a >> b
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bitrshift(a, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * dst에 여러가지를 한꺼번에 출력합니다.
+ * .. note::
+ *     dbstr_print에 변수를 넣으면 10진법으로 출력됩니다. dbstr_addptr처럼
+ *     16진법으로 출력되게 하려면 hptr(숫자)를 넣으세요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dbstr_print(dst, arguments) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 랜덤 관련
+ ***/
+function rand() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 랜덤 관련
+ ***/
+function dwrand() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 랜덤 관련
+ ***/
+function randomize() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 랜덤 관련
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function srand(seed) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 랜덤 관련
+ ***/
+function getseed() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 자기 자신의 플레이어 번호를 얻습니다.
+ ***/
+function getuserplayerid() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Current Player의 값을 읽고 쓰는 함수입니다. Current Player는 eudplib에서 항상
+ * 관리하므로 0x6509B0의 값을 직접 읽는것보다 getcurpl 함수를 쓰는게 32배정도
+ * 빠릅니다. _cp류 함수들과 조합해서 사용하면 좋습니다.
+ ***/
+function getcurpl() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Current Player의 값을 읽고 쓰는 함수입니다. Current Player는 eudplib에서 항상
+ * 관리하므로 0x6509B0의 값을 직접 읽는것보다 getcurpl 함수를 쓰는게 32배정도
+ * 빠릅니다. _cp류 함수들과 조합해서 사용하면 좋습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function setcurpl(cp) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 트리거 설명
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function lengthdir(length, angle) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Queue game command to packet queue.
+ * 
+ * Starcraft periodically broadcasts game packets to other player. Game
+ * packets are stored to queue, and this function add data to that queue, so
+ * that SC can broadcast it.
+ *
+ * .. note::
+ *     If packet queue is full, this function fails. This behavior is silent
+ *     without any warning or error, since this behavior shouldn't happen in
+ *     common situations. So **Don't use this function too much in a frame.**
+ * 
+ * @param.data.ko-KR
+ * Data to put in queue
+ * @param.size.ko-KR
+ * Size of data
+ ***/
+function QueueGameCommand(data, size) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Queue right click action to [xy].
+ *
+ * @param.xy.ko-KR
+ * (y * 65536) + x, where (x, y) is coordinate for right click.
+ ***/
+function QueueGameCommand_RightClick(xy) { }
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * UDP/배틀넷 등에서만 작동합니다. 플레이어가 있는지 체크합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function playerexist(player: TrgPlayer) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 파이썬3의 bytes와 str 간에 상호변환
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function b2u(b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 파이썬3의 bytes와 str 간에 상호변환
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function u2b(s) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
+ * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function b2i1(b, index) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
+ * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function b2i2(b, index) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
+ * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function b2i4(b, index) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
+ * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function i2b1(i) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
+ * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function i2b2(i) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
+ * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function i2b4(i) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * scmdraft2 형식 텍스트를 해석합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SCMD2Text(s) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * STR단락이나 .tbl파일을 해석할때 쓰면 좋아요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function TBL(content) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 바이너리 데이터를 메모리에 올릴때 씁니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function Db(b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 단순 EUD 배열에 씁니다\.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDArray(initval) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 조건/액션 갯수 제한이 있는 트리거입니다. Trigger는 RawTrigger 여러개를
+ * 조합해서 만든 것입니다. RawTrigger는 주소값을 가지고 있어서 이런 식으로
+ * 주소값을 얻을 수 있습니다. ::
+ *  a = RawTrigger(~)
+ *  # SetNextPtr(a, ~) 로 nextptr 수정 등을 할 수 있습니다.
+ *  b = Trigger(~)  # Trigger는 주소값이 없기 때문에 이런 활용은 불가능합니다
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function RawTrigger(prevptr, nextptr, conditions, actions) { }
+
+
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * 오프셋의 값을 확인합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function Memory(dest, cmptype: TrgComparison, value) { }
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 메모리 값을 수정합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetMemory(dest, modtype: TrgModifier, value) { }
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 트리거의 nextptr값을 수정합니다. 자세한건 뻘강좌를 참고하세요.
+ * http://blog.naver.com/whyask37
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetNextPtr(trg, dest) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * u2b의 utf-8버전
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function u2utf8(s) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Memory랑 똑같은데 dest가 오프셋의 EPD값입니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function MemoryEPD(dest, cmptype: TrgComparison, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUDX 조건
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function DeathsX(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: TrgUnit, Mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function MemoryX(dest, cmptype: TrgComparison, value, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function MemoryXEPD(dest, cmptype: TrgComparison, value, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetMemoryEPD(dest, modtype: TrgModifier, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 아스나바보
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetDeathsX(Player: TrgPlayer, Modifier: TrgModifier, Number, Unit: TrgUnit, Mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 아스나바보
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetMemoryX(dest, modtype: TrgModifier, value, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 아스나바보
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetMemoryXEPD(dest, modtype: TrgModifier, value, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetKills(Player: TrgPlayer, Modifier: TrgModifier, Number, Unit: TrgUnit) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ ***/
+function GetChkTokenized() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function GetPlayerInfo(player: TrgPlayer) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function VProc(v, actions) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDLightVariable(initval) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDXVariable(initval, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUDVArray(size)(initvals)
+ * 
+ * * 예시
+ * const for_artanis = EUDVArray(4)(list(1, 2, 3, 4));
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDVArray(size, initvals) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUDFunc에 대한 함수 포인터입니다. [argn], [retn]은 인자 갯수와 리턴값 갯수입니다 ::
+ * 
+ *  # 위의 f_add를 그대로 사용
+ *  a = EUDFuncPtr(2, 1)(f_add)
+ * 
+ *  a(1, 2)  # 3을 리턴
+ * 
+ *  a.setFunc(f_mul)  # 다른 곱셈함수(있다고 하죠)로 포인터를 설정
+ *  a(1, 2)  # 2를 리턴
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDFuncPtr(argn, retn) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function setloc(locID, x, y) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function addloc(locID, x, y) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dilateloc(locID, x, y) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function getlocTL(locID) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function setloc_epd(locID, epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function wwrite_epd(epd, subp, w) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bwrite_epd(epd, subp, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function wread_epd(epd, subp) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bread_epd(epd, subp) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 비트 단위로 dword를 읽고싶거나 dword를 나눌 때 쓰면 됩니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function flagread_epd(targetplayer) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Current Player를 기준으로 하는 함수입니다. _epd가 붙은 함수들보다 2배 빠릅니다.
+ * cpo는 Current Player를 기준으로 읽을 메모리가 얼마나 떨어져있는지를 나타냅니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwepdread_cp(cpo) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Current Player를 기준으로 하는 함수입니다. _epd가 붙은 함수들보다 2배 빠릅니다.
+ * cpo는 Current Player를 기준으로 읽을 메모리가 얼마나 떨어져있는지를 나타냅니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwread_cp(cpo) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Current Player를 기준으로 하는 함수입니다. _epd가 붙은 함수들보다 2배 빠릅니다.
+ * cpo는 Current Player를 기준으로 읽을 메모리가 얼마나 떨어져있는지를 나타냅니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function epdread_cp(cpo) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function wread_cp(cpo, subp) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bread_cp(cpo, subp) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
+ * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwwrite_cp(cpo, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
+ * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwadd_cp(cpo, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
+ * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwsubtract_cp(cpo, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function wwrite_cp(cpoffset, subp, w) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bwrite_cp(cpoffset, subp, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwwrite(ptr, dw) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function wwrite(ptr, w) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ^^;
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bwrite(ptr, b) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ptr 읽기함수
+ * EPD 계산하느라 나눗셈해야되서 느리니까 dwread_epd쓰삼 ㅡㅡ
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwread(ptr) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ptr 읽기함수
+ * EPD 계산하느라 나눗셈해야되서 느리니까 wread_epd쓰삼 ㅡㅡ
+ * 근데 필요할 때도 있긴함 그래도 연속된 주소를 읽을 땐 EUDByteStream이 낫다
+ * 힘들어
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function wread(ptr) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * ptr 읽기함수
+ * EPD 계산하느라 나눗셈해야되서 느리니까 bread_epd쓰삼 ㅡㅡ
+ * 근데 필요할 때도 있긴함 그래도 연속된 주소를 읽을 땐 EUDByteStream이 낫다
+ * 빵 아님 ㅎ
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function bread(ptr) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [buf1] 이 가리키는 처음 [count] 바이트의 데이터와,
+ * [buf2] 가 가리키는 처음 [count] 바이트의 데이터를 비교하여
+ * 이들이 같다면 0 을 리턴하고
+ * 다르다면 0 이 아닌 값을 리턴한다. 이 때 리턴되는 값은 아래를 참고.
+ *
+ * 두 개의 메모리 블록의 관계에 따라 아래와 같이 정수 값을 리턴한다.
+ * 만일 두 메모리 블록이 정확히 같다면 0 을 리턴한다.
+ * 만일 두 메모리 블록이 다를 경우, [buf1] 과 [buf2] 가 가리키는 메모리 블록에서
+ * 앞에서 부터 처음으로 다른 바이트를 살펴 보는데,
+ * 그 값이 [buf1] 이 더 크면 0 보다 큰 값을, 아니면 0 보다 작은 값을 리턴한다.
+ * 
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function memcmp(buf1, buf2, count) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 사용자 정의 읽기 함수를 만드는 함수
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function readgen_epd(mask, args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 사용자 정의 읽기 함수를 만드는 함수
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function readgen_cp(mask, args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [epd] 주소에서 CUnit값을 읽어서 ptr로 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function cunitread_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * CurrentPlayer+[cpoffset] 주소에서 CUnit값을 읽어서 ptr로 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function cunitread_cp(cpoffset) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [epd] 주소에서 CUnit값을 읽어서 ptr, epd로 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function cunitepdread_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * CurrentPlayer+[cpoffset] 주소에서 CUnit값을 읽어서 ptr, epd로 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function cunitepdread_cp(cpoffset) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [targetplayer] 주소에서 bit[mask]에 있는 비트만 읽어서 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function maskread_epd(targetplayer, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * CurrentPlayer+[cpoffset] 주소에서 bit[mask]에 있는 비트만 읽어서 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function maskread_cp(cpoffset, mask) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [epd] 주소의 Position 형태 값을 읽어 x, y로 반환합니다.
+ * * Position: 맵 좌표값 (65536 * y) + x
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function posread_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * CurrentPlayer+[cpoffset] 주소의 Position 형태 값을 읽어 x, y로 반환합니다.
+ * * Position: 맵 좌표값 (65536 * y) + x
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function posread_cp(cpoffset) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUDVArray를 읽는 함수. 순차탐색에 적합함.
+ *
+ * Methods: seek, read
+ ***/
+function EUDVArrayReader() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 스트링 [strId]의 주소를 반환합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function GetMapStringAddr(strId: TrgString) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 텍스트 포인터의 값을 반환합니다.
+ ***/
+function gettextptr() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 문자열 비교 함수. 길이 제한이 필요하면 memcmp를 쓰자.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function strcmp(s1, s2) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [ptr] 주소의 스트링 길이를 가져온다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function strlen(ptr) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [epd] 주소의 스트링 길이를 가져온다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function strlen_epd(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 문자열 안에서 문자열 검색하기
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function strnstr(string, substring, count) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [ptr] 주소의 스트링을 연결합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function ptr2s(ptr) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [epd] 주소의 스트링을 연결합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function epd2s(epd) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 16진수 출력
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function hptr(value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [player] 번호의 기본 플레이어 색상을 가져옵니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function PColor(player: TrgPlayer) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [player]의 이름을 가져옵니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function PName(player: TrgPlayer) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 에러 줄에 [args] 내용대로 텍스트를 출력합니다.
+ *
+ * @param.args.ko-KR
+ * str, ptr2s, epd2s, PName, PColor
+ ***/
+function eprintln(args, encoding) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [player]의 이름을 [args]의 내용들로 설정합니다.
+ *
+ * @param.args.ko-KR
+ * str, ptr2s, epd2s, PName, PColor
+ ***/
+function SetPName(player: TrgPlayer, args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * stat_txt.tbl 주소를 가져옵니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function GetTBLAddr(tblId) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * stat_txt.tbl 내용 작성
+ *
+ * @param.offset.ko-KR
+ * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
+ ***/
+function settbl(tblID, offset, args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 해당 [tag]의 텍스트 효과 타이머를 [value]로 설정합니다.
+ *
+ * @param.tag.ko-KR
+ * 텍스트 효과 태그
+ ***/
+function TextFX_SetTimer(tag, modtype: TrgModifier, value) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 해당 [tag]를 사용하는 모든 텍스트 효과를 화면에서 지웁니다.
+ * 화면에 있었으면 해당하는 줄의 텍스트 포인터를 반환합니다. 없었으면 -1을 반환합니다.
+ *
+ * @param.tag.ko-KR
+ * 텍스트 효과 태그
+ ***/
+function TextFX_Remove(tag) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 조건에 맞는 플레이어들을 순환합니다.
+ * None을 넣으면 모두 허용합니다.
+ *
+ * @param.ptype.ko-KR
+ * 순환할 플레이어 타입 ("Human", "Computer", ...)
+ * @param.force.ko-KR
+ * 속한 Force (Force1, Force2, Force3, Force4)
+ * @param.race.ko-KR
+ * 종족 ("Zerg", "Terran", "Protoss")
+ ***/
+function EUDLoopPlayer(ptype, force, race) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 이중 연결 리스트를 순회합니다. header_offset은 첫 리스트 항목을 가르키는
+ * 포인터고, next를 따라가다 ptr이 break_offset이 되면 LoopList가 종료됩니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDLoopList(header_offset, break_offset) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 모든 CUnit(구조오프셋)을 돕니다.
+ ***/
+function EUDLoopUnit() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 새로 생성된 CUnit(구조오프셋)을 1회 돕니다. ptr, epd를 yield합니다.
+ *
+ * @param.allowance.ko-KR
+ * 한 트리거 주기에 사라지는 최대 유닛 수 (가스 캐는 일꾼, 벙커/수송선 탑승, etc)
+ ***/
+function EUDLoopNewUnit(allowance) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 플레이어가 소유한 모든 CUnit(구조오프셋)을 돕니다. ptr, epd를 yield합니다.
+ *
+ * @param.player.ko-KR
+ * 유닛 순환할 플레이어
+ ***/
+function EUDLoopPlayerUnit(player: TrgPlayer) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 모든 CSprite를 돕니다.
+ ***/
+function EUDLoopSprite() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 모든 CBullet를 돕니다.
+ ***/
+function EUDLoopBullet() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 유닛들을 선택합니다.
+ *
+ * @param.n.ko-KR
+ * 선택할 유닛 수
+ * @param.ptrList.ko-KR
+ * 선택할 유닛 ptr의 EUDArray
+ ***/
+function QueueGameCommand_Select(n, ptrList: EUDArray) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 게임을 일시정지합니다.
+ ***/
+function QueueGameCommand_PauseGame() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 게임의 일시정지를 해제합니다.
+ ***/
+function QueueGameCommand_ResumeGame() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * (싱글플레이 전용) 게임을 재시작합니다.
+ ***/
+function QueueGameCommand_RestartGame() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 방에 나갑니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function QueueGameCommand_LeaveGame(type_) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 치트키 발동
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function QueueGameCommand_UseCheat(flags) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 선택한 유닛들에게 유닛 생산 명령을 내립니다. 
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function QueueGameCommand_TrainUnit(unit: TrgUnit) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 선택한 유닛들에게 다크아칸 합체 명령을 내립니다. 
+ ***/
+function QueueGameCommand_MergeDarkArchon() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 선택한 유닛들에게 아칸 합체 명령을 내립니다. 
+ ***/
+function QueueGameCommand_MergeArchon() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 아크탄젠트 계산 (360도)
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function atan2(y, x) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 제곱근을 계산합니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function sqrt(x) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUD로 구현한 스택입니다.
+ * 
+ * Methods: push, pop, empty
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDStack(size, basetype) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 크기 8인 EUDVArray
+ * 
+ * const pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
+ *
+ * @param.initval.ko-KR
+ * 초기값 8개
+ * const pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
+ ***/
+function PVariable(initval) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Write byte by byte
+ *
+ * Methods: writebyte, flushdword
+ ***/
+function CPByteWriter() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * store String in SetDeaths Actions, easy to concatenate.
+ * 
+ * Methods: Display, GetVTable, GetNextPtrMemory
+ *
+ * @param.content.ko-KR
+ * Constructor for CPString
+ * :param content: Initial CPString content / capacity. Capacity of CPString
+ * is determined by size of this. If content is integer, then initial capacity
+ * and content of CPString will be set to content(int) and empty string.
+ * 
+ * :type content: str, bytes, int
+ ***/
+function CPString(content) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 엄밀히 말하면 얘는 EUD함수는 아닌데 그냥 여기 둬봤어요. 각각 cond(x)가 만족하는
+ * [minv, maxv]에서 최대 x와 최소 x를 구하는거에요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDBinaryMax(cond, minv, maxv) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 엄밀히 말하면 얘는 EUD함수는 아닌데 그냥 여기 둬봤어요. 각각 cond(x)가 만족하는
+ * [minv, maxv]에서 최대 x와 최소 x를 구하는거에요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function EUDBinaryMin(cond, minv, maxv) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Read and Write byte by byte.
+ * 
+ * Methods: seekepd, seekoffset, readbyte, writebyte
+ ***/
+function EUDByteStream() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUDLoopUnit보다 약간? 빠릅니다.
+ * 유닛 리스트를 따라가지 않고 1700개 유닛을 도는 방식으로 작동합니다.
+ ***/
+function EUDLoopUnit2() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * inline_eudplib에서 함수나 클래스, 변수 등을 쓸 수 있도록 합니다.
+ *
+ * @param.funcname.ko-KR
+ * 전역으로 등록할 이름
+ * @param.obj.ko-KR
+ * 등록할 오브젝트 (클래스, 함수, 변수, 배열 등)
+ ***/
+function EUDRegisterObjectToNamespace(funcname, obj) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * inline_eudplib에서 함수나 클래스, 변수 등을 쓸 수 있도록 합니다.
+ *
+ * @param.func.ko-KR
+ * 함수
+ ***/
+function EUDRegistered(func) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * EUDRegistered로 등록된 함수들을 얻어옵니다.
+ ***/
+function GetEUDNamespace() { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 파일을 맵 MPQ에 넣습니다. OGG 파일도 이걸로 넣을 수 있습니다.
+ *
+ * @param.fname.ko-KR
+ * 어떤 이름으로 삽입할지, PlayWAV할 때 쓰는 이름도 이거임.
+ * @param.content.ko-KR
+ * content는 파이썬 bytes 오프젝트입니다.
+ ***/
+function MPQAddFile(fname, content) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * WAV 파일을 맵 MPQ에 넣습니다.
+ *
+ * @param.fname.ko-KR
+ * 어떤 이름으로 삽입할지, PlayWAV할 때 쓰는 이름도 이거임.
+ * @param.content.ko-KR
+ * content는 파이썬 bytes 오프젝트입니다.
+ ***/
+function MPQAddWave(fname, content) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 미니맵 핑을 찍습니다.
+ *
+ * @param.xy.ko-KR
+ * (y * 65536) + x, where (x, y) is coordinate for right click.
+ ***/
+function QueueGameCommand_MinimapPing(xy) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 선택한 유닛들에게 우클릭 예약 명령을 내립니다.
+ *
+ * @param.xy.ko-KR
+ * (y * 65536) + x, where (x, y) is coordinate for right click.
+ ***/
+function QueueGameCommand_QueuedRightClick(xy) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * For optimization purpose, one may call this function directly
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function SetNextTrigger(trg) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Object for storing single modifiable string.
+ * Java의 StringBuilder랑 비슷합니다.
+ * 
+ * Method: print, insert, delete, append, Display, DisplayAt, Play,
+ *         fadeIn, fadeOut, length
+ * 
+ * @param.content.ko-KR
+ * Initial StringBuffer content / capacity.
+ * 
+ * Capacity of StringBuffer is determined by size of this.
+ * If content is integer, then initial capacity and content of StringBuffer
+ * will be set to content(int) and empty string.
+ * :type content: str, bytes, int
+ ***/
+function StringBuffer(content) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 스트링 말고 stat_txt.tbl같은 곳에 텍스트 효과 넣을 때 씁니다. 설명 넣기 귀찮네요
+ * 맛바빙보
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function TextFX_FadeIn(args, color, wait, reset, tag, encoding) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 스트링 말고 stat_txt.tbl같은 곳에 텍스트 효과 넣을 때 씁니다. 설명 넣기 귀찮네요
+ * 맛바빙보
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function TextFX_FadeOut(args, color, wait, reset, tag, encoding) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Current Player의 값을 읽고 쓰는 함수입니다. Current Player는 eudplib에서 항상
+ * 관리하므로 0x6509B0의 값을 직접 읽는것보다 f_getcurpl 함수를 쓰는게 32배정도
+ * 빠릅니다. _cp류 함수들과 조합해서 사용하면 좋습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function addcurpl(cp) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Print multiple string / number to CurrentPlayer.
+ *
+ * @param.args.ko-KR
+ * Things to print
+ ***/
+function cpstr_print(args, EOS, encoding) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * dword를 word/byte 단위로 나누는 함수입니다. dwbreak2는 word/byte에 곱해졌던
+ * 값을 유지합니다. 예를 들어 dwbreak(0x12345678)[[2]]는 0x12이지만,
+ * dwbreak2(0x10000000)[[2]]는 0x12000000입니다. dword의 특정 byte나 word만
+ * 바꿔야 할 때 f_dwbreak한 결과에 다시 0x100000같은 값을 곱할 필요가 없습니다.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function dwbreak2(number) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 현재 게임 틱을 읽어옵니다.
+ ***/
+function getgametick() { }
