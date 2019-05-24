@@ -3,9 +3,6 @@
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function Victory() { }
 
@@ -16,9 +13,6 @@ function Victory() { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function Defeat() { }
 
@@ -29,9 +23,6 @@ function Defeat() { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function PreserveTrigger() { }
 
@@ -55,9 +46,6 @@ function Wait(Time) { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function PauseGame() { }
 
@@ -68,9 +56,6 @@ function PauseGame() { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function UnpauseGame() { }
 
@@ -354,9 +339,6 @@ function TalkingPortrait(Unit: TrgUnit, Time) { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function MuteUnitSpeech() { }
 
@@ -367,9 +349,6 @@ function MuteUnitSpeech() { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function UnMuteUnitSpeech() { }
 
@@ -685,9 +664,6 @@ function ModifyUnitHangarCount(Add, Count: TrgCount, Unit: TrgUnit, Owner: TrgPl
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function PauseTimer() { }
 
@@ -698,9 +674,6 @@ function PauseTimer() { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function UnpauseTimer() { }
 
@@ -711,9 +684,6 @@ function UnpauseTimer() { }
  * A
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function Draw() { }
 
@@ -893,9 +863,6 @@ function ElapsedTime(Comparison: TrgComparison, Time) { }
  * C
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function Briefing() { }
 
@@ -1010,9 +977,6 @@ function Score(Player: TrgPlayer, ScoreType: TrgScore, Comparison: TrgComparison
  * C
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function Always() { }
 
@@ -1023,9 +987,6 @@ function Always() { }
  * C
  * @Summary.ko-KR
  * 트리거 설명
- *
- * @param.인자이름.ko-KR
- * 인자 설명
 ***/
 function Never() { }
 
@@ -1112,9 +1073,6 @@ function EUDJumpIfNot(conditions, onfalse)) { }
  * @Summary.ko-KR
  * 현재 게임에 참여중인 모든 플레이어를 한번씩 Current Player로 하면서 반복
  * (Human, Computer 모두 포함)
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function EUDPlayerLoop() { }
 
@@ -1124,9 +1082,6 @@ function EUDPlayerLoop() { }
  * F
  * @Summary.ko-KR
  * 현재 게임에 참여중인 모든 플레이어를 한번씩 Current Player로 하면서 반복
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function EUDEndPlayerLoop() { }
 
@@ -1138,9 +1093,6 @@ function EUDEndPlayerLoop() { }
  * 반복문에서 continue를 했을 때 갈 곳을 설정하는데 씁니다. EUDWhile를 for문처럼
  * 쓰면서 continue 이후 무조건 실행되야하는 코드를 만들 때 이걸 쓸 수 있습니다.
  * Continue point는 하나만 지정할 수 있습니다.
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function EUDSetContinuePoint() { }
 
@@ -1168,9 +1120,6 @@ function EUDJump(nextptr) { }
  *     a = Forward()
  *     b = RawTrigger(nextptr=a)  # a의 주솟값을 여기서 쓸 수 있다.
  *     a << RawTrigger()  # 실제 a의 정의는 여기서
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function Forward() { }
 
@@ -1180,9 +1129,6 @@ function Forward() { }
  * F
  * @Summary.ko-KR
  * '바로 다음 트리거'를 나타냅니다.
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function NextTrigger() { }
 
@@ -1336,9 +1282,6 @@ function strcpy(dst, src) { }
  * F
  * @Summary.ko-KR
  * 바이트 단위로 읽고 씁니다. bread 함수를 참고하세요.
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function EUDByteReader() { }
 
@@ -1348,9 +1291,6 @@ function EUDByteReader() { }
  * F
  * @Summary.ko-KR
  * 바이트 단위로 읽고 씁니다. bread 함수를 참고하세요.
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function EUDByteWriter() { }
 
@@ -1412,7 +1352,7 @@ function bitnot(a) { }
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
-function bitxor() { }
+function bitxor(a, b) { }
 
 
 /***
@@ -1495,9 +1435,6 @@ function dbstr_print(dst, arguments) { }
  * F
  * @Summary.ko-KR
  * 랜덤 관련
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function rand() { }
 
@@ -1507,9 +1444,6 @@ function rand() { }
  * F
  * @Summary.ko-KR
  * 랜덤 관련
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function dwrand() { }
 
@@ -1519,9 +1453,6 @@ function dwrand() { }
  * F
  * @Summary.ko-KR
  * 랜덤 관련
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function randomize() { }
 
@@ -1543,9 +1474,6 @@ function srand(seed) { }
  * F
  * @Summary.ko-KR
  * 랜덤 관련
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function getseed() { }
 
@@ -1555,9 +1483,6 @@ function getseed() { }
  * F
  * @Summary.ko-KR
  * 자기 자신의 플레이어 번호를 얻습니다.
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function getuserplayerid() { }
 
@@ -1569,9 +1494,6 @@ function getuserplayerid() { }
  * Current Player의 값을 읽고 쓰는 함수입니다. Current Player는 eudplib에서 항상
  * 관리하므로 0x6509B0의 값을 직접 읽는것보다 getcurpl 함수를 쓰는게 32배정도
  * 빠릅니다. _cp류 함수들과 조합해서 사용하면 좋습니다.
- *
- * @param.인자이름.ko-KR
- * 인자 설명
  ***/
 function getcurpl() { }
 
