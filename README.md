@@ -9,12 +9,4 @@ StarCraft: Remastered UMS Make Tool
 
 
 ## CheckPatch
-### 0.3.2.2
-
-- Requirement is now complete.
-- ButtonSet Work Start.
-
-### 0.4.0.2
-
-- PluginSetting almost complete
-- TriggerEditor start
+https://github.com/Buizz/EUD-Editor-3/blob/master/EUD%20Editor%203/PatchNote.txt
