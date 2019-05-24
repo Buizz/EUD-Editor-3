@@ -83,7 +83,7 @@
 
                 </StackPanel>
             </TabItem>
-            <TabItem Header="{StaticResource Default Setting}">
+            <TabItem x:Name="DefaultPage" Header="{StaticResource Default Setting}">
                 <StackPanel Margin="10">
                     
                     <Label Content="{StaticResource StarExeFile}" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -154,17 +154,13 @@
 
                     </StackPanel>
 
-                    <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
-                    <Label Content="{StaticResource UpdataSetting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-
                 </StackPanel>
             </TabItem>
-            <TabItem Header="{StaticResource Theme}">
+            <TabItem x:Name="ThemePage" Header="{StaticResource Theme}">
                 <local:ThemeContorl/>
             </TabItem>
 
-            <TabItem Header="{StaticResource Editor Setting}" >
+            <TabItem x:Name="EditorPage" Header="{StaticResource Editor Setting}" >
                 <StackPanel Margin="10">
                     <Label  Content="{StaticResource DatEdit Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                     <DockPanel>
@@ -195,6 +191,22 @@
                 </StackPanel>
             </TabItem>
 
+            <TabItem x:Name="UpdatePage" Header="{StaticResource UpdataSetting}">
+                <DockPanel Margin="10">
+                    <Button x:Name="UpDateBtn" Content="{StaticResource Update}" Click="UpDateBtn_Click" Margin="10,1,1,1" DockPanel.Dock="Bottom"/>
+
+
+                    <DockPanel Margin="10,0,0,0">
+                        <DockPanel Width="220" DockPanel.Dock="Top" HorizontalAlignment="Left" >
+                            <CheckBox DockPanel.Dock="Top" x:Name="upDataCheck" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource CheckUpdate}"  Unchecked="UpDataCheck_Unchecked" Checked="UpDataCheck_Checked" />
+                
+                        </DockPanel>
+
+                        <RichTextBox x:Name="PatchNote" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Stretch" IsReadOnly="True" Margin="0,10"  FontFamily="Malgun Gothic" Padding="14,1,1,1" BorderBrush="{x:Null}"/>
+                    </DockPanel>
+
+                </DockPanel>
+            </TabItem>
         </dragablz:TabablzControl>
 
     </Grid>

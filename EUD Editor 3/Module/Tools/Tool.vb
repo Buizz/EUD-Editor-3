@@ -420,6 +420,12 @@ Namespace Tool
             End Get
         End Property
 
+        Public ReadOnly Property GetDownloaderFile() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Downloader\EUDEditorDownloader.exe"
+            End Get
+        End Property
+
         Public Function GetDirectoy(Path As String) As String
             Dim BaseDirectPath As String = System.AppDomain.CurrentDomain.BaseDirectory
             Dim PathBlock() As String = Path.Split("\")
@@ -505,6 +511,20 @@ Namespace Tool
             p.StartInfo.FileName = GetRegSettingFile
             p.StartInfo.UseShellExecute = True
             p.StartInfo.Verb = "runas" 'Verb를 runas로 (관리자 권한으로 실행 명령)
+            p.StartInfo.Arguments = Argument
+
+            p.Start()
+        End Sub
+
+        Public Sub StartUpdaterSetter()
+            Dim Argument As String
+            Argument = pgData.Setting(ProgramData.TSetting.PrimaryHueMidBrush)
+            Argument = Argument & "," & pgData.Setting(ProgramData.TSetting.PrimaryHueMidForegroundBrush)
+            Argument = Argument & "," & pgData.Setting(ProgramData.TSetting.PrimaryHueDarkBrush)
+
+
+            Dim p As New Process()
+            p.StartInfo.FileName = GetDownloaderFile
             p.StartInfo.Arguments = Argument
 
             p.Start()

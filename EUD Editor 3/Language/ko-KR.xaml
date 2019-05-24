@@ -20,6 +20,11 @@
 
     <sys:String x:Key="UpdataSetting">업데이트</sys:String>
 
+    <sys:String x:Key="CheckUpdate">실행 시 확인</sys:String>
+    <sys:String x:Key="Update">업데이트</sys:String>
+    <sys:String x:Key="LastVersion">현재 최신 버전입니다.</sys:String>
+    <sys:String x:Key="NotFoundServer">서버가 응답이 없습니다.</sys:String>
+
     <sys:String x:Key="TempFileLoc">임시 파일 위치</sys:String>
     <sys:String x:Key="TempFileLoc0">Data폴더</sys:String>
     <sys:String x:Key="TempFileLoc1">맵 파일 폴더</sys:String>

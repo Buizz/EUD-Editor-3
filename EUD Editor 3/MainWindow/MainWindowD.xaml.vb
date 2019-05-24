@@ -42,12 +42,30 @@ Public Class MainWindowD
                                                                 End Sub))
     End Sub
     Private Sub ProgramLoadCmp()
+        If UpdateCheck() Then
+            Me.Visibility = Visibility.Hidden
+            SettiingForm = New SettingWindows
+            'SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
+            SettiingForm.ShowDialog()
+            Me.Visibility = Visibility.Visible
+        End If
         If pgData.Setting(ProgramData.TSetting.CheckReg) Then
+
             If Tool.CheckexeConnect("e3s") Then
                 Dim dialogResult As MsgBoxResult = MsgBox(Tool.GetText("RegistryConnect"), MsgBoxStyle.YesNoCancel)
                 If dialogResult = MsgBoxResult.Yes Then
+                    Me.Visibility = Visibility.Hidden
                     SettiingForm = New SettingWindows
+                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
+                    'SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
+                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
+                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
                     SettiingForm.ShowDialog()
+
+                    Me.Visibility = Visibility.Visible
                     'Tool.StartRegSetter()
                 ElseIf dialogResult = MsgBoxResult.Cancel Then
                     pgData.Setting(ProgramData.TSetting.CheckReg) = False

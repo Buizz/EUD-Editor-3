@@ -63,10 +63,119 @@ Public Class SettingWindows
 
         regCheck.IsChecked = pgData.Setting(ProgramData.TSetting.CheckReg)
 
+        upDataCheck.IsChecked = pgData.Setting(ProgramData.TSetting.CheckUpdate)
+
+
+
+
+
+        Dim data As String = ""
+        Try
+            With CreateObject("WinHttp.WinHttpRequest.5.1")
+                .Open("GET", "https://raw.githubusercontent.com/Buizz/EUD-Editor-3/master/EUD%20Editor%203/Version.txt")
+                .Send
+                .WaitForResponse
+
+                data = .ResponseText
+
+            End With
+        Catch ex As Exception
+            data = "Error"
+        End Try
+
+        Dim version As String
+
+        Dim lines() As String = data.Trim.Split(vbLf)
+
+        If lines.Count > 1 Then
+            version = lines(0).Trim
+
+            If pgData.Version.ToString = version Then
+                UpDateBtn.Content = Tool.GetText("LastVersion")
+                UpDateBtn.IsEnabled = False
+            Else
+                UpDateBtn.Content = version & " " & Tool.GetText("Update")
+                UpDateBtn.IsEnabled = True
+            End If
+        Else
+            UpDateBtn.Content = Tool.GetText("NotFoundServer")
+            UpDateBtn.IsEnabled = False
+        End If
+
+        PatchNoteLoader()
+
+
+
+        'UpDateBtn
+
 
         DatLoad = True
     End Sub
 
+
+    Private Sub PatchNoteLoader()
+        Dim data As String = ""
+        Try
+            With CreateObject("WinHttp.WinHttpRequest.5.1")
+                .Open("GET", "https://raw.githubusercontent.com/Buizz/EUD-Editor-3/master/EUD%20Editor%203/PatchNote.txt")
+                .Send
+                .WaitForResponse
+
+                Data = .ResponseText
+
+            End With
+        Catch ex As Exception
+            Data = "Error"
+        End Try
+
+        Dim myFlowDoc As FlowDocument = New FlowDocument()
+
+
+        Dim lines() As String = data.Trim.Split(vbLf)
+
+
+        For i = 0 To lines.Count - 1
+            Dim line As String = lines(i).Trim
+
+            If i = lines.Count - 1 Then
+                line = line.Replace("-", "    └ ")
+            Else
+                If lines(i + 1).Trim.IndexOf("-") <> -1 Then
+                    line = line.Replace("-", "    ├ ")
+                Else
+                    line = line.Replace("-", "    └ ")
+                End If
+            End If
+
+            Dim SizeUp As Integer = 0
+            If line.Count > 0 Then
+                If line.Chars(0) = "#" Then
+                    SizeUp = 10
+                    line = line.Remove(0, 1).Trim
+                End If
+                If line.Chars(0) = "+" Then
+                    SizeUp = 5
+                    line = line.Remove(0, 1).Trim
+                    line = "  " & line
+                End If
+            End If
+
+
+            Dim myRun As Run = New Run(line)
+            Dim myParagraph As Paragraph = New Paragraph()
+            myParagraph.FontSize += SizeUp
+            myParagraph.LineHeight = 1
+            myParagraph.Inlines.Add(myRun)
+            myFlowDoc.Blocks.Add(myParagraph)
+        Next
+
+
+
+        PatchNote.Document = myFlowDoc
+
+
+
+    End Sub
 
 
 
@@ -310,6 +419,22 @@ Public Class SettingWindows
     End Sub
 
 
+    Private Sub UpDataCheck_Unchecked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.CheckUpdate) = False
+    End Sub
+
+    Private Sub UpDataCheck_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.CheckUpdate) = True
+    End Sub
+
+
+    Private Sub UpDateBtn_Click(sender As Object, e As RoutedEventArgs)
+        WindowMenu.Close()
+        If Not Tool.IsProjectLoad Then
+            Tool.StartUpdaterSetter()
+            Application.Current.Shutdown()
+        End If
+    End Sub
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged
     '    pgData.Lan.SetLanguage(e.AddedItems(0))
     'End Sub
