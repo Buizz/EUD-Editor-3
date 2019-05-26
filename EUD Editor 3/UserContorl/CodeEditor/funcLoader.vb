@@ -362,8 +362,15 @@ Partial Public Class CodeEditor
                     '다른거 다 조사하기
                     For k = 0 To LocalFunc.ObjectCount - 1
                         If ObjectName = LocalFunc.GetObject(k).ObjName Then
-                            For l = 0 To LocalFunc.GetObject(k).Functions.FuncCount - 1
-                                data.Add(New TECompletionData(30, LocalFunc.GetObject(k).Functions, l, TextEditor, TECompletionData.EIconType.localFunction))
+                            Dim tempfunc As CFunc = LocalFunc.GetObject(k).Functions
+
+
+                            For l = 0 To tempfunc.VariableCount - 1
+                                data.Add(New TECompletionData(30, tempfunc, l, TextEditor, TECompletionData.EIconType.Variable))
+                            Next
+
+                            For l = 0 To tempfunc.FuncCount - 1
+                                data.Add(New TECompletionData(30, tempfunc, l, TextEditor, TECompletionData.EIconType.localFunction))
                             Next
 
                         End If
@@ -372,10 +379,14 @@ Partial Public Class CodeEditor
 
                     For k = 0 To Tool.TEEpsDefaultFunc.ObjectCount - 1
                         If ObjectName = Tool.TEEpsDefaultFunc.GetObject(k).ObjName Then
-                            For l = 0 To Tool.TEEpsDefaultFunc.GetObject(k).Functions.FuncCount - 1
-                                data.Add(New TECompletionData(30, Tool.TEEpsDefaultFunc.GetObject(k).Functions, l, TextEditor, TECompletionData.EIconType.localFunction))
-                            Next
+                            Dim tempfunc As CFunc = Tool.TEEpsDefaultFunc.GetObject(k).Functions
 
+                            For l = 0 To tempfunc.VariableCount - 1
+                                data.Add(New TECompletionData(30, tempfunc, l, TextEditor, TECompletionData.EIconType.Variable))
+                            Next
+                            For l = 0 To tempfunc.FuncCount - 1
+                                data.Add(New TECompletionData(30, tempfunc, l, TextEditor, TECompletionData.EIconType.localFunction))
+                            Next
                         End If
                     Next
                 End If
