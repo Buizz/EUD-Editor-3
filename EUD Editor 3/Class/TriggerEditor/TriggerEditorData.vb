@@ -2,6 +2,17 @@
 
 <Serializable>
 Public Class TriggerEditorData
+    Private _SCArchive As StarCraftArchive
+    Public ReadOnly Property SCArchive As StarCraftArchive
+        Get
+            Return _SCArchive
+        End Get
+    End Property
+
+
+
+
+
     Public Const TopFileName As String = "​ProjectMain"
 
 
@@ -67,6 +78,7 @@ Public Class TriggerEditorData
         ProjectFile.FolderAdd(New TEFile("​​" & Tool.GetText("Setting"), TEFile.EFileType.Setting))
 
         _LastOpenTabs = New LastTab
+        _SCArchive = New StarCraftArchive
     End Sub
 End Class
 

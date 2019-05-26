@@ -156,7 +156,6 @@ Partial Public Class BuildData
         End If
 
 
-
         'TE관련 삽입
         'MSQC, 채팅인식, 언리미터, AI스크립트교체
         'CT(Tbl옵션에 따라)
@@ -167,6 +166,9 @@ Partial Public Class BuildData
 
 
         'Threading.Thread.Sleep(3000)
+
+
+
 
 
 

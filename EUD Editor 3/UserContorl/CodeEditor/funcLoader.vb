@@ -16,8 +16,6 @@ Partial Public Class CodeEditor
     Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
-        'Log.Text = FuncNameas
-
         'TrgAllyStatus
         'TrgComparison
         'TrgCount
@@ -335,11 +333,56 @@ Partial Public Class CodeEditor
     End Function
 
 
-    Public Function LoadExternData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+    Public Function LoaddotData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
+        Dim pieceStr() As String = LastStr.Split(".")
 
-        Dim NameSpace_ As String = LastStr.Split(".").First
+
+        Dim NameSpace_ As String = pieceStr.First
+
+        Dim VarName As String = pieceStr.First
+
+        If pieceStr.Length > 2 Then
+            VarName = pieceStr(pieceStr.Length - 2)
+        End If
+
+
+        For i = 0 To LocalFunc.VariableCount - 1
+            If VarName = LocalFunc.GetVariableNames(i) Then
+                Dim VarType As String = LocalFunc.GetVariableType(i)
+                If VarType.IndexOf("(") >= 0 Then
+                    'Object나 함수인 경우
+                    Dim ObjectName As String = VarType.Split("(").First
+
+
+
+
+
+                    '다른거 다 조사하기
+                    For k = 0 To LocalFunc.ObjectCount - 1
+                        If ObjectName = LocalFunc.GetObject(k).ObjName Then
+                            For l = 0 To LocalFunc.GetObject(k).Functions.FuncCount - 1
+                                data.Add(New TECompletionData(30, LocalFunc.GetObject(k).Functions, l, TextEditor, TECompletionData.EIconType.localFunction))
+                            Next
+
+                        End If
+                    Next
+
+
+                    For k = 0 To Tool.TEEpsDefaultFunc.ObjectCount - 1
+                        If ObjectName = Tool.TEEpsDefaultFunc.GetObject(k).ObjName Then
+                            For l = 0 To Tool.TEEpsDefaultFunc.GetObject(k).Functions.FuncCount - 1
+                                data.Add(New TECompletionData(30, Tool.TEEpsDefaultFunc.GetObject(k).Functions, l, TextEditor, TECompletionData.EIconType.localFunction))
+                            Next
+
+                        End If
+                    Next
+                End If
+            End If
+        Next
+
+
 
 
         For i = 0 To ExternFiles.Count - 1
@@ -352,6 +395,7 @@ Partial Public Class CodeEditor
                 Next
             End If
         Next
+
 
 
         Return data

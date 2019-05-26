@@ -58,7 +58,7 @@ Public Class FunctionToolTip
         Summary
         Param
     End Enum
-    Public Sub New(InitStr As String, tFuncArgument As String)
+    Public Sub New(InitStr As String, tFuncArgument As String, FName As String)
         Dim Lanstr As String = pgData.Setting(ProgramData.TSetting.Language)
         FuncArgTooltip = New List(Of String)
 
@@ -137,6 +137,8 @@ Public Class FunctionToolTip
         Next
         If pSummary IsNot Nothing Then
             pSummary = pSummary.Trim
+
+            pSummary = FName & "(" & tFuncArgument & ")" & vbCrLf & pSummary
         End If
 
     End Sub
@@ -153,6 +155,23 @@ Public Class CFunc
 
     Private VariableNames As List(Of String)
     Private VariableType As List(Of String)
+
+    Private Objects As List(Of CObject)
+
+
+
+    Public ReadOnly Property ObjectCount As Integer
+        Get
+            Return Objects.Count
+        End Get
+    End Property
+    Public ReadOnly Property GetObject(index As Integer) As CObject
+        Get
+            Return Objects(index)
+        End Get
+    End Property
+
+
 
     Public ReadOnly Property FuncCount As Integer
         Get
@@ -187,6 +206,7 @@ Public Class CFunc
             Return VariableType(index)
         End Get
     End Property
+
 
 
     Public ReadOnly Property GetFuncTooltip(index As Integer) As FunctionToolTip
@@ -305,6 +325,8 @@ Public Class CFunc
 
         VariableNames = New List(Of String)
         VariableType = New List(Of String)
+
+        Objects = New List(Of CObject)
     End Sub
 
     'Private arguments As List(Of FunArgument)
@@ -316,6 +338,7 @@ Public Class CFunc
 
         VariableNames.Clear()
         VariableType.Clear()
+        Objects.Clear()
     End Sub
 
 
@@ -364,7 +387,7 @@ Public Class CFunc
             Dim matches As MatchCollection = fregex.Matches(str)
 
             For i = 0 To matches.Count - 1
-                FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value))
+                FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value, matches(i).Groups(2).Value))
                 FuncNames.Add(matches(i).Groups(2).Value)
                 FuncArgument.Add(matches(i).Groups(3).Value)
             Next
@@ -384,6 +407,59 @@ Public Class CFunc
                     FuncNames.Add(matches(i).Groups(1).Value)
                     FuncArgument.Add(matches(i).Groups(2).Value)
                 End If
+            Next
+        End If
+
+
+        If True Then
+            Dim fregex As New Regex("object[\s]+([\w\d]+)\s*({)")
+
+            Dim matches As MatchCollection = fregex.Matches(str)
+
+
+            'MsgBox(matches.Count)
+            For i = 0 To matches.Count - 1
+                Dim ObjName As String = matches(i).Groups(1).Value
+                Dim ObjContents As String
+
+
+                Dim StartIndex As Integer = matches(i).Groups(2).Index
+
+
+                Dim bc1 As Integer = 0 '(
+                Dim bc2 As Integer = 1 '{
+                Dim bc3 As Integer = 0 '[
+
+                Dim index As Integer = StartIndex + 2
+                While Not (bc1 = 0 And bc2 = 0 And bc3 = 0) And index < str.Length
+                    Dim Chr As String = Mid(str, index, 1)
+
+                    Select Case Chr
+                        Case "("
+                            bc1 += 1
+                        Case "{"
+                            bc2 += 1
+                        Case "["
+                            bc3 += 1
+                        Case ")"
+                            bc1 -= 1
+                        Case "}"
+                            bc2 -= 1
+                        Case "]"
+                            bc3 -= 1
+                    End Select
+                    index += 1
+                End While
+
+
+                ObjContents = Mid(str, StartIndex, index - StartIndex)
+
+
+
+
+                'MsgBox(ObjName) '오브젝트 이름
+                'MsgBox(ObjContents)
+                Objects.Add(New CObject(ObjName, ObjContents))
             Next
         End If
     End Sub

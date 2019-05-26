@@ -117,7 +117,6 @@ Partial Public Class CodeEditor
 
     Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
         pjData.SetDirty(True)
-
         Dim MainStr As String = TextEditor.Document.Text
         Dim SelectStart As Integer = TextEditor.SelectionStart
 
@@ -167,7 +166,7 @@ Partial Public Class CodeEditor
                     Else
                         bracketCount += 1
                     End If
-                Case " ", vbTab
+                Case " "
                     If CheckFunction Then
                         If GetFuncName Then
                             Exit While
@@ -278,11 +277,16 @@ Partial Public Class CodeEditor
 
 
 
+        AutoInserter(e.Text)
 
         'Dim selectedValues As List(Of InvoiceSOA)
         'selectedValues = DisputeList.FindAll(Function(p) p.ColumnName = "Jewel")
         If Not CompletionPath Then
             If TypingStr.IndexOf(".") >= 0 Then
+                LocalFunc.Init()
+                LocalFunc.LoadFunc(MainStr, SelectStart)
+                '외부함수 불러오는건 여기가아님
+
                 ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.Extern)
             Else
                 If Not IsFuncDefWrite And Not IsFuncNameWrite And Not IsImportWrite Then
@@ -291,7 +295,6 @@ Partial Public Class CodeEditor
                     '외부함수 불러오는건 여기가아님
 
 
-                    AutoInserter(e.Text)
 
                     ShowCompletion(e.Text, False, TypingStr, FuncName, ArgumentIndex, True)
 
@@ -328,12 +331,50 @@ Partial Public Class CodeEditor
     Private OrginXPos As Integer
     Private OrginYPos As Integer
     Private Function ShowFuncTooltip(FuncName As String, ArgumentIndex As Integer, Startindex As Integer) As Boolean
-        Dim funArgument As Border
+        Dim funArgument As Border = Nothing
 
 
-        Dim NameSpace_ As String = FuncName.Split(".").First
-        Dim FuncrName As String = FuncName.Split(".").Last
+        Dim pieceStr() As String = FuncName.Split(".")
+
+
+        Dim NameSpace_ As String = pieceStr.First
+        Dim FuncrName As String = pieceStr.Last
         If FuncName.IndexOf(".") >= 0 Then
+            Dim VarName As String = pieceStr.First
+
+            If pieceStr.Length > 2 Then
+                VarName = pieceStr(pieceStr.Length - 2)
+            End If
+            For i = 0 To LocalFunc.VariableCount - 1
+                If VarName = LocalFunc.GetVariableNames(i) Then
+                    Dim VarType As String = LocalFunc.GetVariableType(i)
+                    If VarType.IndexOf("(") >= 0 Then
+                        'Object나 함수인 경우
+                        Dim ObjectName As String = VarType.Split("(").First
+
+
+                        '다른거 다 조사하기
+                        For k = 0 To LocalFunc.ObjectCount - 1
+                            If ObjectName = LocalFunc.GetObject(k).ObjName Then
+                                funArgument = LocalFunc.GetObject(k).Functions.GetPopupToolTip(FuncrName, ArgumentIndex)
+                                Exit For
+                            End If
+                        Next
+
+                        For k = 0 To Tool.TEEpsDefaultFunc.ObjectCount - 1
+                            If ObjectName = Tool.TEEpsDefaultFunc.GetObject(k).ObjName Then
+                                funArgument = Tool.TEEpsDefaultFunc.GetObject(k).Functions.GetPopupToolTip(FuncrName, ArgumentIndex)
+                                Exit For
+                            End If
+                        Next
+                    End If
+                End If
+            Next
+
+
+
+
+
             For i = 0 To ExternFiles.Count - 1
                 If ExternFiles(i).nameSpaceName = NameSpace_ Then
                     funArgument = ExternFiles(i).Funcs.GetPopupToolTip(FuncrName, ArgumentIndex)
@@ -487,7 +528,11 @@ Partial Public Class CodeEditor
                     completionWindow.StartOffset -= 1
                 Else
                     If Flag = SpecialFlag.Extern Then
-                        completionWindow.StartOffset -= LastStr.Split(".").Last.Length
+                        If LastStr.Split(".").Last.Length = 0 Then
+                            completionWindow.StartOffset -= 1
+                        Else
+                            completionWindow.StartOffset -= LastStr.Split(".").Last.Length
+                        End If
                     Else
                         completionWindow.StartOffset -= LastStr.Length
                     End If
@@ -503,7 +548,7 @@ Partial Public Class CodeEditor
                     Case SpecialFlag.IsImportWrite
                         LoadImportWriteData(TextEditor, completionWindow.CompletionList.CompletionData)
                     Case SpecialFlag.Extern
-                        LoadExternData(TextEditor, completionWindow.CompletionList.CompletionData, LastStr)
+                        LoaddotData(TextEditor, completionWindow.CompletionList.CompletionData, LastStr)
                 End Select
 
 
@@ -558,7 +603,7 @@ Partial Public Class CodeEditor
                     Case SpecialFlag.IsImportWrite
                         LoadImportWriteData(TextEditor, completionWindow.CompletionList.CompletionData)
                     Case SpecialFlag.Extern
-                        LoadExternData(TextEditor, completionWindow.CompletionList.CompletionData, LastStr)
+                        LoaddotData(TextEditor, completionWindow.CompletionList.CompletionData, LastStr)
                 End Select
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")

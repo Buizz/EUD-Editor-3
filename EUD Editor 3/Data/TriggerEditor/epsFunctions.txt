@@ -3319,3 +3319,18 @@ function dwbreak2(number) { }
  * 현재 게임 틱을 읽어옵니다.
  ***/
 function getgametick() { }
+
+
+
+object StringBuffer {
+   function append(self, *args) {}
+   function insert(self, index, *args) {}
+   function delete(self, start, length=1) {}
+   function Display(self) {}
+   function DisplayAt(self, line) {}
+   function print(self, *args) {}
+   function Play(self) {}
+   function fadeIn(self, *args, color=None, wait=1, reset=True, tag=None) {}
+   function fadeOut(self, *args, color=None, wait=1, reset=True, tag=None) {}
+   function length(self) {}
+};

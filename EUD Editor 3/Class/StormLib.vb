@@ -14,12 +14,12 @@ Module MPQMoudle
         Const MPQ_ERROR_COMPACT_ERROR As UInteger = 2234515457
 
         ' MpqOpenArchiveForUpdate flags
-        Const MOAU_CREATE_NEW As UInteger = 0
-        Const MOAU_CREATE_ALWAYS As UInteger = 8
+        Public Const MOAU_CREATE_NEW As UInteger = 0
+        Public Const MOAU_CREATE_ALWAYS As UInteger = 8
         'Was wrongly named MOAU_CREATE_NEW
-        Const MOAU_OPEN_EXISTING As UInteger = 4
-        Const MOAU_OPEN_ALWAYS As UInteger = 32
-        Const MOAU_READ_ONLY As UInteger = 16
+        Public Const MOAU_OPEN_EXISTING As UInteger = 4
+        Public Const MOAU_OPEN_ALWAYS As UInteger = 32
+        Public Const MOAU_READ_ONLY As UInteger = 16
         'Must be used with MOAU_OPEN_EXISTING
         Const MOAU_MAINTAIN_LISTFILE As UInteger = 1
 

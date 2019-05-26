@@ -22,6 +22,7 @@
 
     Private Sub StartFileCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If LoadCmp Then
+            pjData.SetDirty(True)
             If StartFileCombobox.SelectedItem IsNot Nothing Then
                 If StartFileCombobox.SelectedIndex = 0 Then
                     pjData.TEData.MainFile = Nothing
@@ -39,6 +40,12 @@
         StartFileCombobox.SelectedIndex = 0
         InitStartFileCombox("", pjData.TEData.PFIles)
         LoadCmp = True
+
+
+        UseSCA.IsChecked = pjData.TEData.SCArchive.IsUsed
+        MakerBattleTag.Text = pjData.TEData.SCArchive.MakerBattleTag
+        MakerID.Text = pjData.TEData.SCArchive.MakerServerName
+        UseMapName.Text = pjData.TEData.SCArchive.MapName
     End Sub
     Private Sub InitStartFileCombox(Path As String, tTEfile As TEFile)
         For i = 0 To tTEfile.FileCount - 1
@@ -62,4 +69,31 @@
         Next
     End Sub
 
+    Private Sub UseSCA_Checked(sender As Object, e As RoutedEventArgs)
+        If LoadCmp Then
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.IsUsed = UseSCA.IsChecked
+        End If
+    End Sub
+
+    Private Sub MakerBattleTag_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If LoadCmp Then
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MakerBattleTag = MakerBattleTag.Text
+        End If
+    End Sub
+
+    Private Sub MakerID_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If LoadCmp Then
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MakerServerName = MakerID.Text
+        End If
+    End Sub
+
+    Private Sub UseMapName_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If LoadCmp Then
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MapName = UseMapName.Text
+        End If
+    End Sub
 End Class
