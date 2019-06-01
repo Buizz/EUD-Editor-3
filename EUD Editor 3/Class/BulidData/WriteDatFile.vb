@@ -254,9 +254,9 @@ Partial Public Class BuildData
             For i = 0 To grpframecount - 1
                 If Not pjData.ExtraDat.DefaultGrpFrame(i) Then
                     memStream.Position = 4 + 8 * i
-                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 1 + 2 * i & "), SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 2 + 2 * i & "), SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 3 + 2 * i & "), SetTo, " & binaryReader.ReadUInt32 & "),")
+                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 1 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 2 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 3 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
                 End If
             Next
             sb.AppendLine("    ])")
