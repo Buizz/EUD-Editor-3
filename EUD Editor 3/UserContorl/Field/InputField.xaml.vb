@@ -27,7 +27,12 @@
 
                 If pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
                     ValueText.IsEnabled = True
-                    DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+
+                    If DatCommand IsNot Nothing Then
+                        DatCommand.ReLoad(DatFile, Parameter, ObjectID)
+                    Else
+                        DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
+                    End If
 
 
                     Me.DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)

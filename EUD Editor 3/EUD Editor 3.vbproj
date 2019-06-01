@@ -261,6 +261,7 @@
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\CodeEditor\CodeSearchLocalization.vb" />
+    <Compile Include="UserContorl\CodeEditor\EnteredText.vb" />
     <Compile Include="UserContorl\CodeEditor\ExternerManager.vb" />
     <Compile Include="UserContorl\CodeEditor\funcLoader.vb" />
     <Compile Include="UserContorl\CodeEditor\PopupToolTip.xaml.vb">

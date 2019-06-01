@@ -18,6 +18,7 @@ Public Module SCConst
     Public SCButtonCount As Byte = 250
 
     Public SCMenCount As Byte = 106
+    Public SCGrpWireCount As Byte = 131
     Public ASCIICount As UShort = 127
 
 

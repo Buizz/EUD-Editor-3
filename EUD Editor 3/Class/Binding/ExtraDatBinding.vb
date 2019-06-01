@@ -103,7 +103,7 @@ Public Class ExtraDatBinding
                         End If
                     ElseIf Parameter = "grp" Then
                         Value = pjData.ExtraDat.GrpFrame(ObjectID)
-                        If Value >= SCUnitCount Then
+                        If Value >= SCGrpWireCount Then
                             Return Tool.GetText("None")
                         End If
                     ElseIf Parameter = "tran" Then
@@ -142,7 +142,7 @@ Public Class ExtraDatBinding
                         Return scData.GetWireFrame(Value, False)
                     ElseIf Parameter = "grp" Then
                         Value = pjData.ExtraDat.GrpFrame(ObjectID)
-                        If Value >= SCUnitCount Then
+                        If Value >= SCGrpWireCount Then
                             Return scData.GetWireFrame(0, False)
                         End If
                         Return scData.GetGrpFrame(Value, False)

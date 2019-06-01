@@ -228,18 +228,30 @@ Public Class ExtraDatFiles
     End Property
     Public Property DefaultGrpFrame(index As Integer) As Boolean
         Get
-            Return _DefaultGrpFrame(index)
+            If index < SCGrpWireCount Then
+                Return _DefaultGrpFrame(index)
+            Else
+                Return True
+            End If
         End Get
         Set(value As Boolean)
-            _DefaultGrpFrame(index) = value
+            If index < SCGrpWireCount Then
+                _DefaultGrpFrame(index) = value
+            End If
         End Set
     End Property
     Public Property DefaultTranFrame(index As Integer) As Boolean
         Get
-            Return _DefaultTranFrame(index)
+            If index < SCMenCount Then
+                Return _DefaultTranFrame(index)
+            Else
+                Return True
+            End If
         End Get
         Set(value As Boolean)
-            _DefaultTranFrame(index) = value
+            If index < SCMenCount Then
+                _DefaultTranFrame(index) = value
+            End If
         End Set
     End Property
 
@@ -254,10 +266,18 @@ Public Class ExtraDatFiles
     End Property
     Public Property GrpFrame(index As Integer) As Byte
         Get
-            Return _GrpFrame(index)
+            If index < SCGrpWireCount Then
+                Return _GrpFrame(index)
+            Else
+                Return 0
+            End If
         End Get
         Set(value As Byte)
-            _GrpFrame(index) = value
+            If index < SCGrpWireCount Then
+                _GrpFrame(index) = value
+            Else
+
+            End If
         End Set
     End Property
     Public Property TranFrame(index As Integer) As Byte
@@ -281,20 +301,22 @@ Public Class ExtraDatFiles
 
     Private Sub LoadWireFrame()
         ReDim _WireFrame(SCUnitCount - 1)
-        ReDim _GrpFrame(SCUnitCount - 1)
+        ReDim _GrpFrame(SCGrpWireCount - 1)
         ReDim _TranFrame(SCMenCount - 1)
 
         ReDim _DefaultWireFrame(SCUnitCount - 1)
-        ReDim _DefaultGrpFrame(SCUnitCount - 1)
+        ReDim _DefaultGrpFrame(SCGrpWireCount - 1)
         ReDim _DefaultTranFrame(SCMenCount - 1)
 
         For i = 0 To SCUnitCount - 1
             _DefaultWireFrame(i) = True
-            _DefaultGrpFrame(i) = True
 
             _WireFrame(i) = i
-            _GrpFrame(i) = i
 
+            If i < SCGrpWireCount Then
+                _DefaultGrpFrame(i) = True
+                _GrpFrame(i) = i
+            End If
             If i < SCMenCount Then
                 _DefaultTranFrame(i) = True
                 _TranFrame(i) = i

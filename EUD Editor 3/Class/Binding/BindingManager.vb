@@ -268,7 +268,10 @@
     Public ReadOnly Property NomalBinding(key As SCDatFiles.DatFiles, name As String) As DatBinding
         Get
             Dim RealIndex As Integer = 0
-            Return DataBindings(key)(DataParamKeys(key)(name))(RealIndex)
+            If SCDatFiles.CheckValidDat(key) Then
+                Return DataBindings(key)(DataParamKeys(key)(name))(RealIndex)
+            End If
+            Return Nothing
         End Get
     End Property
 
@@ -348,7 +351,11 @@
                     If name = "wire" Then
                         Return WireFrameDatBinding(index)
                     ElseIf name = "grp" Then
-                        Return GrpFrameDatBinding(index)
+                        If index < SCGrpWireCount Then
+                            Return GrpFrameDatBinding(index)
+                        Else
+                            Return Nothing
+                        End If
                     ElseIf name = "tran" Then
                         If index < SCMenCount Then
                             Return TranFrameDatBinding(index)

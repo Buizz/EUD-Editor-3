@@ -42,10 +42,10 @@ Partial Public Class ProjectData
             _pjdata.Legacy()
             stm.Close()
 
-            If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
-                Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
-                pjData.CloseFile()
-            End If
+            'If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
+            '    Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
+            '    pjData.CloseFile()
+            'End If
         Else
             _pjdata = New ProjectData
             _pjdata.NewFIle()

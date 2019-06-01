@@ -664,17 +664,24 @@ Public Class CodeSelecter
                 Next
 
             Case SCDatFiles.DatFiles.wireframe
-                If Flag <> 3 Then
-                    For i = 0 To SCUnitCount - 1
-                        ObjectNames.Add(pjData.CodeLabel(pagetype, i))
-                        ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
-                    Next
-                Else
-                    For i = 0 To SCMenCount - 1
-                        ObjectNames.Add(pjData.CodeLabel(pagetype, i))
-                        ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
-                    Next
-                End If
+                Select Case Flag
+                    Case 1
+                        For i = 0 To SCUnitCount - 1
+                            ObjectNames.Add(pjData.CodeLabel(pagetype, i))
+                            ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
+                        Next
+                    Case 2
+                        For i = 0 To SCGrpWireCount - 1
+                            ObjectNames.Add(pjData.CodeLabel(pagetype, i))
+                            ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
+                        Next
+                    Case 3
+                        For i = 0 To SCMenCount - 1
+                            ObjectNames.Add(pjData.CodeLabel(pagetype, i))
+                            ObjectImages.Add(GetWireFrame(i, Fliter.IsIcon))
+                        Next
+
+                End Select
 
             Case SCDatFiles.DatFiles.ButtonData
                 '어캐작성하노 ㅋㅋ 
