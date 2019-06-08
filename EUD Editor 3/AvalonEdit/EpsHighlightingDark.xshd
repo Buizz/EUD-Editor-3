@@ -27,6 +27,8 @@
 
       <Word>switch</Word>
       <Word>case</Word>
+      <Word>break</Word>
+      
     </Keywords>
 
 
@@ -118,6 +120,14 @@
     <Keywords foreground="#F15F5F">
       <Word>import</Word>
       <Word>as</Word>
+      <Word>+</Word>
+      <Word>-</Word>
+      <Word>=</Word>
+      <Word>*</Word>
+      <Word>/</Word>
+      <Word>&lt;</Word>
+      <Word>&gt;</Word>
+      <Word>!=</Word>
     </Keywords>
     
 

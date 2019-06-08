@@ -31,28 +31,34 @@ Partial Public Class ProjectData
         End If
     End Sub
     Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
-        If FileName.Split(".").Last = "e3s" Then
-            Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
-            Dim bf As BinaryFormatter = New BinaryFormatter()
-            _pjdata = New ProjectData
-            _pjdata.NewFIle()
-            _pjdata.InitData()
-            _pjdata.SaveData = bf.Deserialize(stm)
-            _pjdata.LoadInit(FileName)
-            _pjdata.Legacy()
-            stm.Close()
+        Try
+            If FileName.Split(".").Last = "e3s" Then
+                Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
+                Dim bf As BinaryFormatter = New BinaryFormatter()
+                _pjdata = New ProjectData
+                _pjdata.NewFIle()
+                _pjdata.InitData()
+                _pjdata.SaveData = bf.Deserialize(stm)
+                _pjdata.LoadInit(FileName)
+                _pjdata.Legacy()
+                stm.Close()
 
-            'If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
-            '    Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
-            '    pjData.CloseFile()
-            'End If
-        Else
-            _pjdata = New ProjectData
-            _pjdata.NewFIle()
-            _pjdata.InitData()
-            _pjdata.LoadInit(FileName)
+                'If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
+                '    Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
+                '    pjData.CloseFile()
+                'End If
+            Else
+                _pjdata = New ProjectData
+                _pjdata.NewFIle()
+                _pjdata.InitData()
+                _pjdata.LoadInit(FileName)
 
-            Lagacy.LagacySaveLoad.Load(FileName)
-        End If
+                Lagacy.LagacySaveLoad.Load(FileName)
+            End If
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error SaveFileOpen"), ex.ToString)
+            pjData.CloseFile()
+        End Try
+
     End Sub
 End Class

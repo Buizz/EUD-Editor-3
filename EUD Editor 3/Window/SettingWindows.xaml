@@ -74,7 +74,9 @@
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox x:Name="UseCustomTbl" Checked="UseCustomTbl_Checked" Unchecked="UseCustomTbl_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
 
-                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}"/>
+                        <CheckBox x:Name="AutoBuild" Checked="AutoBuild_Checked" Unchecked="AutoBuild_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}" Margin="0,0,20,0"/>
+
+                        <CheckBox x:Name="LogView" Checked="LogView_Checked" Unchecked="LogView_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource BuildLog}"/>
                     </StackPanel>
                     
                     

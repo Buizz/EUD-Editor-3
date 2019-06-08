@@ -12,7 +12,19 @@ Public Class MainWindowD
         AddHandler BackGroundWorker.RunWorkerCompleted, AddressOf BackgroundWorker1_RunWorkerCompleted
 
         BackGroundWorker.RunWorkerAsync()
+
+        GetMainWindow()
     End Sub
+
+
+
+    Public Sub LogTextBoxView(tLogText As String, IsErrorLogBox As Boolean)
+        Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
+                                                                    Dim BuildLog As New BuildLogWindow(tLogText, IsErrorLogBox)
+                                                                    BuildLog.ShowDialog()
+                                                                End Sub))
+    End Sub
+
     Private Sub BackgroundWorker1_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
         ProgramLoad()
     End Sub

@@ -62,6 +62,30 @@ Public Class SaveableData
         End Set
     End Property
 
+
+    Private mAutoBuild As Boolean
+    Public Property AutoBuild As Boolean
+        Get
+            Return mAutoBuild
+        End Get
+        Set(value As Boolean)
+            mAutoBuild = value
+        End Set
+    End Property
+
+
+
+    Private mViewLog As Boolean
+    Public Property ViewLog As Boolean
+        Get
+            Return mViewLog
+        End Get
+        Set(value As Boolean)
+            mViewLog = value
+        End Set
+    End Property
+
+
     Private Sub SettingInit()
         mOpenMapName = ""
         mSaveMapName = ""

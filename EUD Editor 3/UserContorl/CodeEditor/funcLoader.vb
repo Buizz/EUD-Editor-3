@@ -447,6 +447,15 @@ Partial Public Class CodeEditor
     Public Function LoadImportWriteData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
+        If pjData.TEData.SCArchive.IsUsed Then
+            Dim str As String = "SCArchive"
+
+            Dim tb As New TextBox
+            tb.Text = str
+            data.Add(New TECompletionData(0, Str, Str, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
+        End If
+
+
         If TEFile IsNot Nothing Then
             For i = 0 To TEFile.Parent.FolderCount - 1
                 If TEFile.Parent.Folders(i).FileType <> TEFile.EFileType.Setting Then

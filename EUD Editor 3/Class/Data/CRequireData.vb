@@ -44,6 +44,9 @@ Public Class CRequireData
         For i = 0 To RequireDatas.Count - 1
             If (RequireDatas(i).StartPos > 0 And RequireDatas(i).UseStatus <> RequireUse.DontUse) Or RequireDatas(i).UseStatus = RequireUse.CustomUse Then
                 TotalSize += 2 '시작 부호2개와 끝 부호2개
+                If Datfile = SCDatFiles.DatFiles.orders Then
+                    TotalSize += 2
+                End If
                 For j = 0 To RequireDatas(i).ReauireBlock.Count - 1
                     TotalSize += RequireDatas(i).ReauireBlock(j).GetSize()
                 Next

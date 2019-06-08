@@ -36,6 +36,9 @@ Public Class SettingWindows
             TBSaveMap.Text = pjData.SaveMapName
 
             UseCustomTbl.IsChecked = pjData.UseCustomtbl
+            AutoBuild.IsChecked = pjData.AutoBuild
+            LogView.IsChecked = pjData.ViewLog
+
 
 
             Select Case pjData.TempFileLoc
@@ -433,6 +436,18 @@ Public Class SettingWindows
         If Not Tool.IsProjectLoad Then
             Tool.StartUpdaterSetter()
             Application.Current.Shutdown()
+        End If
+    End Sub
+
+    Private Sub AutoBuild_Checked(sender As Object, e As RoutedEventArgs)
+        If DatLoad Then
+            pjData.AutoBuild = AutoBuild.IsChecked
+        End If
+    End Sub
+
+    Private Sub LogView_Checked(sender As Object, e As RoutedEventArgs)
+        If DatLoad Then
+            pjData.ViewLog = LogView.IsChecked
         End If
     End Sub
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged

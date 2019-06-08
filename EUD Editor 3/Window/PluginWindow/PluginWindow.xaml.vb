@@ -42,6 +42,7 @@
     End Sub
 
     Private Sub NewItem_Click(sender As Object, e As RoutedEventArgs)
+        pjData.SetDirty(True)
         Dim items As New ListBoxItem
         items.HorizontalContentAlignment = HorizontalAlignment.Stretch
         items.VerticalContentAlignment = VerticalAlignment.Stretch
@@ -71,6 +72,7 @@
     End Sub
 
     Private Sub DeleteItem_Click(sender As Object, e As RoutedEventArgs)
+        pjData.SetDirty(True)
         EdsText.Items.RemoveAt(EdsText.Items.Count - 1)
         pjData.EdsBlock.Blocks.RemoveAt(MenuSelectIndex)
 

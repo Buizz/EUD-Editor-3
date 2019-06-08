@@ -54,12 +54,16 @@ Partial Public Class ProjectData
         End If
 
 
-
-
-
-
         tIsLoad = True
         tIsDirty = False
+
+        If Not pgData.IsCompilng Then
+            If AutoBuild Then
+                pjData.EudplibData.Build()
+            End If
+        End If
+
+
         Return True
     End Function
 End Class

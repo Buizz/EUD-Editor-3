@@ -148,7 +148,7 @@ Partial Public Class CodeEditor
                 Try
                     If FileName = "SCArchive" Then
                         Dim SCATEFile As New TEFile("SCAFile", TEFile.EFileType.CUIEps)
-                        CType(SCATEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetSCAEps
+                        CType(SCATEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetSCAMainEps
 
 
                         tTEfile = SCATEFile

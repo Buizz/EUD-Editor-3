@@ -55,6 +55,7 @@
 
 
     Private Sub Textbox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        pjData.SetDirty(True)
         If pjData.EdsBlock.Blocks(index).BType = BuildData.EdsBlockType.UserPlugin Then
             pjData.EdsBlock.Blocks(index).Texts = Textbox.Text
         End If

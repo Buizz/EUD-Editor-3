@@ -1,5 +1,22 @@
 ﻿Partial Public Class BuildData
 #Region "Paths"
+    Public ReadOnly Property GetConnectPath() As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\SCArchiveConnecter\SCArchiveConnecter.exe"
+        End Get
+    End Property
+    Public ReadOnly Property GetSCArchiveeps() As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\SCArchive.eps"
+        End Get
+    End Property
+    Public ReadOnly Property GetSCATooleps() As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\SCATool.eps"
+        End Get
+    End Property
+
+
     Public Shared ReadOnly Property OpenMapPath() As String
         Get
             Return Tool.GetRelativePath(EdsFilePath, pjData.OpenMapName)
@@ -23,6 +40,11 @@
     Public Shared ReadOnly Property EdsFilePath() As String
         Get
             Return EudPlibFilePath & "\EUDEditor.eds"
+        End Get
+    End Property
+    Public Shared ReadOnly Property EddFilePath() As String
+        Get
+            Return EudPlibFilePath & "\EUDEditor.edd"
         End Get
     End Property
     Public Shared ReadOnly Property DatpyFilePath() As String

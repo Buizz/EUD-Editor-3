@@ -480,7 +480,7 @@ Partial Public Class CodeEditor
         'End If
     End Sub
 
-
+    Private IsOpencompletionWindow As Boolean
     Private Sub TextEditorPreviewKey(sender As Object, e As KeyEventArgs)
         If completionWindow IsNot Nothing Then
             If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
@@ -499,10 +499,18 @@ Partial Public Class CodeEditor
             End If
         End If
 
-        If e.Key = Key.Tab Then
-            textEditor_KeyboardInput(vbTab)
+
+        If e.Key = Key.Tab And e.IsUp And Not IsOpencompletionWindow Then
+            If TextEditor.SelectedText = "" Then
+                textEditor_KeyboardInput(vbTab)
+            End If
         End If
 
+        If e.IsDown Then
+            IsOpencompletionWindow = completionWindow IsNot Nothing
+        ElseIf e.IsUp Then
+            IsOpencompletionWindow = completionWindow IsNot Nothing
+        End If
 
         'If PopupToolTip.Visibility = Visibility.Visible Then
         '    If e.Key = Key.Right Or e.Key = Key.Left Then
@@ -513,7 +521,9 @@ Partial Public Class CodeEditor
 
 
 
-
+        If e.Key = Key.Back Then
+            pjData.SetDirty(True)
+        End If
 
 
         If e.IsDown And e.Key = Key.Back Then
@@ -569,24 +579,57 @@ Partial Public Class CodeEditor
                     End If
                 End If
             Case "("
-                TextEditor.SelectedText = ")"
-                TextEditor.SelectionLength = 0
-            Case "{"
-                TextEditor.SelectedText = "}"
-                TextEditor.SelectionLength = 0
-            Case "["
-                TextEditor.SelectedText = "]"
-                TextEditor.SelectionLength = 0
-            Case ")", "}", "]"
                 Dim tailchar As String
 
                 Try
                     tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
                 Catch ex As IndexOutOfRangeException
-                    tailchar = ""
+                    tailchar = " "
                 End Try
 
-                If keys = tailchar Then
+                If tailchar.Trim = "" Then
+                    TextEditor.SelectedText = ")"
+                    TextEditor.SelectionLength = 0
+                End If
+            Case "{"
+                Dim tailchar As String
+
+                Try
+                    tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
+                Catch ex As IndexOutOfRangeException
+                    tailchar = " "
+                End Try
+
+                If tailchar.Trim = "" Then
+                    TextEditor.SelectedText = "}"
+                    TextEditor.SelectionLength = 0
+                End If
+            Case "["
+                Dim tailchar As String
+
+                Try
+                    tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
+                Catch ex As IndexOutOfRangeException
+                    tailchar = " "
+                End Try
+
+                If tailchar.Trim = "" Then
+                    TextEditor.SelectedText = "]"
+                    TextEditor.SelectionLength = 0
+                End If
+            Case ")", "}", "]"
+                Dim tailchar As String
+                Dim ttailchar As String
+
+                Try
+                    tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
+                    ttailchar = TextEditor.Text.Chars(TextEditor.SelectionStart + 1)
+                Catch ex As IndexOutOfRangeException
+                    tailchar = ""
+                    ttailchar = ""
+                End Try
+
+                If keys = tailchar And ttailchar.Trim = "" Then
                     TextEditor.SelectionLength += 1
                     TextEditor.SelectedText = ""
                 End If

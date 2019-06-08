@@ -188,7 +188,7 @@
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\BulidData\BulidPaths.vb" />
-    <Compile Include="Class\BulidData\SCAScript.vb" />
+    <Compile Include="Class\BulidData\WriteSCAData.vb" />
     <Compile Include="Class\BulidData\WriteButtonData.vb" />
     <Compile Include="Class\BulidData\WriteDatFile.vb" />
     <Compile Include="Class\BulidData\WriteedsFile.vb" />
@@ -218,6 +218,9 @@
     </Compile>
     <Compile Include="Class\GRP\SCIScriptMoudle.vb" />
     <Compile Include="Class\GRP\SCImage.vb" />
+    <Compile Include="Class\Hash\AESModule.vb" />
+    <Compile Include="Class\Hash\CRC32.vb" />
+    <Compile Include="Class\Hash\mod_fn_HASH.vb" />
     <Compile Include="Class\Language.vb" />
     <Compile Include="Class\LuaManager.vb" />
     <Compile Include="Class\Data\MapData.vb" />
@@ -405,6 +408,9 @@
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\System.vb" />
+    <Compile Include="UserContorl\TriggerEditor\SCADataList.xaml.vb">
+      <DependentUpon>SCADataList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml.vb">
       <DependentUpon>TriggerEditorSetting.xaml</DependentUpon>
     </Compile>
@@ -417,6 +423,9 @@
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DeleteItem.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DragItem.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\System.vb" />
+    <Compile Include="Window\BuildLogWindow.xaml.vb">
+      <DependentUpon>BuildLogWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
     </Compile>
@@ -653,11 +662,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\SCADataList.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\BuildLogWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -851,6 +868,12 @@
     <None Include="Data\Tbls\stat_txt_kor_kor.tbl">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <None Include="Data\TriggerEditor\SCArchive.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\SCATool.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -1021,17 +1044,23 @@
     <Content Include="Data\Downloader\System.Windows.Interactivity.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
+    <None Include="Data\SCArchiveConnecter\SCArchive.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\SCArchiveConnecter\SCArchiveConnecter.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />
     <Content Include="Microsoft.DwayneNeed.Win32.dll" />
     <Content Include="SFmpq.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="Storm.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <Content Include="StormLib.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
     <None Include="Data\Icons\e2p.ico">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

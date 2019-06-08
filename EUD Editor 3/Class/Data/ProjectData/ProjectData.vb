@@ -72,6 +72,26 @@ Public Class ProjectData
             SaveData.UseCustomTbl = value
         End Set
     End Property
+
+    Public Property AutoBuild As Boolean
+        Get
+            Return SaveData.AutoBuild
+        End Get
+        Set(value As Boolean)
+            tIsDirty = True
+            SaveData.AutoBuild = value
+        End Set
+    End Property
+
+    Public Property ViewLog As Boolean
+        Get
+            Return SaveData.ViewLog
+        End Get
+        Set(value As Boolean)
+            tIsDirty = True
+            SaveData.ViewLog = value
+        End Set
+    End Property
 #End Region
 
 

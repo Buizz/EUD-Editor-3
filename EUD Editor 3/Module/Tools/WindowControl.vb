@@ -1,6 +1,21 @@
 ﻿Imports Dragablz
 
 Module WindowControl
+    Private MainWindowW As MainWindowD
+    Public Function GetMainWindow() As MainWindowD
+        If MainWindowW IsNot Nothing Then
+            Return MainWindowW
+        End If
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(MainWindowD) Then
+                MainWindowW = win
+                Return win
+            End If
+        Next
+        Return Nothing
+    End Function
+
+
     Public Sub CloseToolWindow()
         '다른 윈도우들이 하나라도 남아 있는지 판단
 
@@ -186,11 +201,11 @@ Namespace WindowMenu
             End If
         End Sub
 
-        Public Sub insert()
+        Public Sub insert(Optional IsEdd As Boolean = False)
             If Tool.IsProjectLoad Then
                 ProjectControlBinding.PropertyChangedPack()
 
-                pjData.EudplibData.Build()
+                pjData.EudplibData.Build(IsEdd)
             End If
         End Sub
 

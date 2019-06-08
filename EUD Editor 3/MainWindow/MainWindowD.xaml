@@ -17,7 +17,7 @@
         Closing="Window_Closing"
         WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
         Background="{DynamicResource PrimaryHueMidForegroundBrush}"
-        Title="{Binding ProgramName, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="850"  ResizeMode="NoResize">
+        Title="{Binding ProgramName, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="850"  ResizeMode="CanMinimize">
     <Grid x:Name="MainGrid">
         <DockPanel x:Name="LoadPanel" Background="{DynamicResource PrimaryHueMidBrush}">
             <ProgressBar DockPanel.Dock="Bottom" IsIndeterminate="True" />

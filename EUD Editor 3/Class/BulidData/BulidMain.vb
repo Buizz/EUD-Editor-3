@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Media
 Imports System.Text
+Imports System.Windows.Threading
 
 Partial Public Class BuildData
 
@@ -19,7 +20,7 @@ Partial Public Class BuildData
     Private MainThread As Threading.Thread
 
     Private eudplibShutDown As Boolean
-    Public Sub Build()
+    Public Sub Build(Optional isEdd As Boolean = False)
         If pgData.IsCompilng = True Then
             If eudplibprocess IsNot Nothing Then
                 If Not eudplibprocess.HasExited Then
@@ -29,7 +30,7 @@ Partial Public Class BuildData
             End If
         Else
             eudplibShutDown = False
-            If pjData.Filename <> "" Then ' 새파일
+            If pjData.IsDirty And pjData.Filename <> "" Then ' 새파일
                 pjData.Save()
             End If
 
@@ -41,7 +42,7 @@ Partial Public Class BuildData
 
             If CheckBuildable() Then
                 MainThread = New System.Threading.Thread(AddressOf BuildProgress)
-                MainThread.Start()
+                MainThread.Start(isEdd)
             End If
             'MsgBox("최종 폴더 :" & TempFloder)
         End If
@@ -55,24 +56,24 @@ Partial Public Class BuildData
         If Not My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
             If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 If Not Tool.OpenMapSet Then
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail OpenMap is not exist!"))
+                    Tool.ErrorMsgBox(Tool.GetText("Error CompileFail OpenMap is not exist!"))
                     Return False
                 End If
                 Tool.RefreshMainWindow()
             Else
-                Tool.ErrorMsgBox(Tool.GetText("Error complieFail OpenMap is not exist!"))
+                Tool.ErrorMsgBox(Tool.GetText("Error CompileFail OpenMap is not exist!"))
                 Return False
             End If
         End If
         If Not My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) Then
             If MsgBox(Tool.GetText("Error SaveMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                 If Not Tool.SaveMapSet Then
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
+                    Tool.ErrorMsgBox(Tool.GetText("Error CompileFail SaveMap is not exist!"))
                     Return False
                 End If
                 Tool.RefreshMainWindow()
             Else
-                Tool.ErrorMsgBox(Tool.GetText("Error complieFail SaveMap is not exist!"))
+                Tool.ErrorMsgBox(Tool.GetText("Error CompileFail SaveMap is not exist!"))
                 Return False
             End If
         End If
@@ -89,18 +90,18 @@ Partial Public Class BuildData
                     pgData.Setting(ProgramData.TSetting.euddraft) = opendialog.FileName
                     Tool.RefreshMainWindow()
                 Else
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
+                    Tool.ErrorMsgBox(Tool.GetText("Error CompileFail euddraft is not exist!"))
                     Return False
                 End If
             Else
-                Tool.ErrorMsgBox(Tool.GetText("Error complieFail euddraft is not exist!"))
+                Tool.ErrorMsgBox(Tool.GetText("Error CompileFail euddraft is not exist!"))
                 Return False
             End If
         End If
         If pjData.TempFileLoc <> "0" And pjData.TempFileLoc <> "1" Then
             If pjData.TempFileLoc = "2" Then
                 If Not My.Computer.FileSystem.FileExists(pjData.Filename) Then
-                    Tool.ErrorMsgBox(Tool.GetText("Error complieFail NotSaved Project"))
+                    Tool.ErrorMsgBox(Tool.GetText("Error CompileFail NotSaved Project"))
                     Return False
                 End If
             Else
@@ -111,39 +112,80 @@ Partial Public Class BuildData
                         If folderSelect.ShowDialog = Forms.DialogResult.OK Then
                             pjData.TempFileLoc = folderSelect.SelectedPath
                         Else
-                            Tool.ErrorMsgBox(Tool.GetText("Error complieFail TempFolder is not exist!"))
+                            Tool.ErrorMsgBox(Tool.GetText("Error CompileFail TempFolder is not exist!"))
                             Return False
                         End If
 
                         If Not My.Computer.FileSystem.DirectoryExists(pjData.TempFileLoc) Then
-                            Tool.ErrorMsgBox(Tool.GetText("Error complieFail TempFolder is not exist!"))
+                            Tool.ErrorMsgBox(Tool.GetText("Error CompileFail TempFolder is not exist!"))
                             Return False
                         End If
                     Else
-                        Tool.ErrorMsgBox(Tool.GetText("Error complieFail TempFolder is not exist!"))
+                        Tool.ErrorMsgBox(Tool.GetText("Error CompileFail TempFolder is not exist!"))
                         Return False
                     End If
                 End If
             End If
         End If
+
+        If My.Computer.FileSystem.FileExists(pjData.SaveMapName) Then
+            If IsFileLocked(New FileInfo(pjData.SaveMapName)) Then
+                Tool.ErrorMsgBox(Tool.GetText("Error WriteMapFile"))
+                Return False
+            End If
+        End If
+
+
         Return True
+    End Function
+    Private Function IsFileLocked(ByVal file As FileInfo) As Boolean
+        Dim stream As FileStream = Nothing
+
+        Try
+            stream = file.Open(FileMode.Open, FileAccess.Read, FileShare.None)
+        Catch __unusedIOException1__ As IOException
+            Return True
+        Finally
+            If stream IsNot Nothing Then stream.Close()
+        End Try
+
+        Return False
     End Function
 
 
+
+
+
     '########################### 빌드 작업 메인 함수 ############################
-    Private Sub BuildProgress()
+    Private Sub BuildProgress(isEdd As Boolean)
+        If pjData.TEData.SCArchive.IsUsed Then
+            If Not ConnecterStart() Then
+                Return
+            End If
+        End If
+
+
+
+
         '일단 프로그램 못끄게 막고 빌드중이라는 문구와 함께 진행 바 넣어야됨
         pgData.IsCompilng = True
+        pjData.RefreshOutputWriteTime()
+        pgData.isEddCompile = isEdd
         Tool.RefreshMainWindow()
 
         '각각의 임시파일들을 만들어야함
-
+        If pjData.TEData.SCArchive.IsUsed Then
+            GetEntryPoint()
+        End If
 
         'Req데이터 작성
         WriteRequireData()
 
 
         WriteTEFile()
+        If pjData.TEData.SCArchive.IsUsed Then
+            WriteSCAScript()
+        End If
 
 
         'Dat설정 파일을 저장하는 py제작
@@ -161,8 +203,8 @@ Partial Public Class BuildData
         'CT(Tbl옵션에 따라)
 
         'eds파일을 만들고 해당 파일 실행
-        WriteedsFile()
-        Dim isSucces As Boolean = Starteds()
+        WriteedsFile(isEdd)
+        Dim isSucces As Boolean = Starteds(isEdd)
 
 
         'Threading.Thread.Sleep(3000)
@@ -173,9 +215,16 @@ Partial Public Class BuildData
 
 
         pgData.IsCompilng = False
+        pgData.isEddCompile = False
         Tool.RefreshMainWindow()
 
         If isSucces Then
+            If pjData.TEData.SCArchive.IsUsed Then
+                If Not WriteSCADataFile() Then
+                    Tool.ErrorMsgBox(Tool.GetText("Error WriteMapFile"))
+                    Return
+                End If
+            End If
             Dim notificationSound As New SoundPlayer(My.Resources.success)
             notificationSound.PlaySync()
         End If
@@ -186,62 +235,85 @@ Partial Public Class BuildData
 
 
     Private eudplibprocess As Process
-    Private Function Starteds() As Boolean
+    Private Function Starteds(isEdd As Boolean) As Boolean
         Dim StandardOutput As String = ""
         Dim StandardError As String = ""
 
         Dim RestartCount As Integer
         While True
-            eudplibprocess = ProcessStart()
+            eudplibprocess = ProcessStart(isEdd)
 
-            While Not eudplibprocess.HasExited
-                eudplibprocess.StandardInput.Write(vbCrLf)
-                StandardOutput = eudplibprocess.StandardOutput.ReadToEnd
-                StandardError = eudplibprocess.StandardError.ReadToEnd
-                Threading.Thread.Sleep(100)
-            End While
-            If InStr(StandardError, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
-                'MsgBox("빌드 실패. 재시도 합니다  재시도 횟수: " & RestartCount & vbCrLf & StandardOutput & StandardError)
-                StandardError = ""
-                RestartCount += 1
-                Continue While
-            End If
-            'Dim tempstr() As String = StandardOutput.Split(vbCrLf)
-
-            'MsgBox(tempstr(tempstr.Count - 2))
-            '임시 판단
-            If StandardOutput.IndexOf("Output scenario.chk") < 0 Then
-                If eudplibShutDown Then
-                    MsgBox("컴파일을 중단했습니다.", MsgBoxStyle.Critical)
-                Else
-                    MsgBox(StandardOutput & vbCrLf & StandardError, MsgBoxStyle.Critical)
+            If Not isEdd Then
+                While Not eudplibprocess.HasExited
+                    eudplibprocess.StandardInput.Write(vbCrLf)
+                    StandardOutput = StandardOutput & eudplibprocess.StandardOutput.ReadToEnd
+                    StandardError = StandardError & eudplibprocess.StandardError.ReadToEnd
+                    Threading.Thread.Sleep(100)
+                End While
+                If InStr(StandardError, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
+                    'MsgBox("빌드 실패. 재시도 합니다  재시도 횟수: " & RestartCount & vbCrLf & StandardOutput & StandardError)
+                    StandardError = ""
+                    RestartCount += 1
+                    Continue While
                 End If
+                'Dim tempstr() As String = StandardOutput.Split(vbCrLf)
 
-                Return False
+                'MsgBox(tempstr(tempstr.Count - 2))
+                '임시 판단
+                If StandardOutput.IndexOf("Output scenario.chk") < 0 Then
+                    If eudplibShutDown Then
+                        MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
+                    Else
+                        GetMainWindow.LogTextBoxView(StandardOutput & vbCrLf & StandardError, True)
+
+                    End If
+
+                    Return False
+                Else
+                    '빌드 성공했을 경우
+                    If pjData.ViewLog Then
+                        GetMainWindow.LogTextBoxView(StandardOutput, False)
+                    End If
+
+                End If
+            Else
+                While Not eudplibprocess.HasExited
+                    Threading.Thread.Sleep(100)
+                End While
             End If
+
             Exit While
         End While
         Return True
     End Function
-    Private Function ProcessStart() As Process
+
+
+
+
+    Private Function ProcessStart(isEdd As Boolean) As Process
         Dim process As New Process
         Dim startInfo As New ProcessStartInfo
 
-        Dim filename As String = EdsFilePath
+        Dim filename As String
+        If isEdd Then
+            filename = EddFilePath
+        Else
+            filename = EdsFilePath
+        End If
 
         startInfo.FileName = pgData.Setting(ProgramData.TSetting.euddraft)
         startInfo.Arguments = """" & filename & """"
 
+        If Not isEdd Then
+            startInfo.RedirectStandardOutput = True
+            startInfo.RedirectStandardInput = True
+            startInfo.RedirectStandardError = True
+            startInfo.WindowStyle = ProcessWindowStyle.Hidden
+            startInfo.CreateNoWindow = True
+            startInfo.UseShellExecute = False
+        End If
 
-        'startInfo.StandardOutputEncoding = Text.Encoding.UTF32
-        'startInfo.StandardErrorEncoding = Text.Encoding.UTF32
-        startInfo.RedirectStandardOutput = True
-        startInfo.RedirectStandardInput = True
-        startInfo.RedirectStandardError = True
-        startInfo.WindowStyle = ProcessWindowStyle.Hidden
-        startInfo.CreateNoWindow = True
 
-        startInfo.UseShellExecute = False
 
 
         process.StartInfo = startInfo

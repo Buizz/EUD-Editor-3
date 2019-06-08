@@ -20,7 +20,6 @@ Partial Public Class BuildData
 
             filebinaryw.Write(CUShort(0))
 
-
             For ObjID = 0 To SCCodeCount(Datfiles(i)) - 1
                 Dim pos As Integer = pjData.ExtraDat.RequireData(Datfiles(i)).GetRequireObject(ObjID).StartPos
 
@@ -29,8 +28,10 @@ Partial Public Class BuildData
                     Case CRequireData.RequireUse.DefaultUse
                         If pos <> 0 Then
 
+                            If i = 4 Then
+                                filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                            End If
 
-                            'filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
 
                             pjData.ExtraDat.RequireData(Datfiles(i)).GetRequireObject(ObjID).StartPos = fileCreator.Position \ 2 - StartOffset
                             pjData.ExtraDat.RequireData(Datfiles(i)).WriteBinaryData(ObjID, filebinaryw)
@@ -41,11 +42,15 @@ Partial Public Class BuildData
                     Case CRequireData.RequireUse.DontUse
                         pjData.ExtraDat.RequireData(Datfiles(i)).GetRequireObject(ObjID).StartPos = 0
                     Case CRequireData.RequireUse.AlwaysUse
-                        'filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                        If i = 4 Then
+                            filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                        End If
                         pjData.ExtraDat.RequireData(Datfiles(i)).GetRequireObject(ObjID).StartPos = fileCreator.Position \ 2 - StartOffset
                         filebinaryw.Write(CUShort(&HFFFF))
                     Case CRequireData.RequireUse.AlwaysCurrentUse
-                        'filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                        If i = 4 Then
+                            filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                        End If
 
                         pjData.ExtraDat.RequireData(Datfiles(i)).GetRequireObject(ObjID).StartPos = fileCreator.Position \ 2 - StartOffset
                         pjData.ExtraDat.RequireData(Datfiles(i)).WriteBinaryData(ObjID, filebinaryw)
@@ -53,7 +58,9 @@ Partial Public Class BuildData
 
                         filebinaryw.Write(CUShort(&HFFFF))
                     Case CRequireData.RequireUse.CustomUse
-                        'filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                        If i = 4 Then
+                            filebinaryw.Write(CUShort(ObjID)) '시작 부호 입력
+                        End If
 
                         pjData.ExtraDat.RequireData(Datfiles(i)).GetRequireObject(ObjID).StartPos = fileCreator.Position \ 2 - StartOffset
                         pjData.ExtraDat.RequireData(Datfiles(i)).WriteBinaryData(ObjID, filebinaryw)
@@ -61,6 +68,7 @@ Partial Public Class BuildData
                         filebinaryw.Write(CUShort(&HFFFF))
                 End Select
             Next
+
 
 
 
@@ -97,6 +105,7 @@ Partial Public Class BuildData
                 End If
 
             Next
+
         Next
 
         sb.AppendLine("    ])")

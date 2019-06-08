@@ -52,24 +52,34 @@
             </TabItem>
 
             <TabItem Header="{StaticResource TE_SCASetting}">
-                <StackPanel Margin="10">
-                    <CheckBox x:Name="UseSCA" Checked="UseSCA_Checked" Unchecked="UseSCA_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}"
+                <DockPanel>
+                    <StackPanel Margin="10" DockPanel.Dock="Top">
+                        <CheckBox x:Name="UseSCA" Checked="UseSCA_Checked" Unchecked="UseSCA_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}"
                               Content="사용"  />
-                    <Separator Background="#4CA0A0A0"/>
-                    <Label  Content="맵 제작자" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                        <Separator Background="#4CA0A0A0"/>
+                        <Label  Content="맵 제작자" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBox x:Name="MakerBattleTag" TextChanged="MakerBattleTag_TextChanged" MinWidth="80" Grid.Column="0" materialDesign:HintAssist.Hint="배틀코드" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" />
-                        <TextBox x:Name="MakerID" TextChanged="MakerID_TextChanged" MinWidth="100" Grid.Column="1" materialDesign:HintAssist.Hint="서버 아이디" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,0,0" />
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBox x:Name="MakerBattleTag" TextChanged="MakerBattleTag_TextChanged" MinWidth="80" Grid.Column="0" materialDesign:HintAssist.Hint="배틀코드" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" />
+                            <TextBox x:Name="MakerID" TextChanged="MakerID_TextChanged" MinWidth="100" Grid.Column="1" materialDesign:HintAssist.Hint="서버 아이디" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,0,0" />
+                        </StackPanel>
+
+
+                        <Separator Background="#4CA0A0A0"/>
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBox x:Name="UseMapName" TextChanged="UseMapName_TextChanged" MinWidth="200" Grid.Column="0" materialDesign:HintAssist.Hint="데이터베이스 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" />
+                            <TextBox x:Name="UMSPassWord" TextChanged="UMSPassWord_TextChanged" MinWidth="100" Grid.Column="1" materialDesign:HintAssist.Hint="데이터베이스 비밀번호" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,0,0" />
+                        </StackPanel>
+                        <Separator Background="#4CA0A0A0"/>
+                        <Label  Content="데이터 설정" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Top" x:Name="DataBufferSize" TextChanged="DataBufferSize_TextChanged" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="버퍼 사이즈" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" />
+
+                        </DockPanel>
                     </StackPanel>
-                    
-                  
-                    <Separator Background="#4CA0A0A0"/>
-                    <Label  Content="유즈맵 이름" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <TextBox x:Name="UseMapName" TextChanged="UseMapName_TextChanged" Margin="5" Foreground="{DynamicResource MaterialDesignBody}" />
-                    <Separator Background="#4CA0A0A0"/>
-
-                </StackPanel>
+                    <local:SCADataList  />
+                </DockPanel>
+                
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>

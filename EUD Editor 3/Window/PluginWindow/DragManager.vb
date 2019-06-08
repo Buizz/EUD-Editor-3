@@ -10,6 +10,10 @@
         DragImage.Margin = New Thickness(e.GetPosition(EdsText).X, e.GetPosition(EdsText).Y, 0, 0)
 
         IsClick = True
+
+
+
+
     End Sub
 
     Private Sub EdsText_PreviewMouseMove(sender As Object, e As MouseEventArgs)
@@ -37,26 +41,30 @@
             '아이템이 선택 중일 경우. 그 아이템을 드래그 아이템으로 지정.
             If DragSelectItem Is Nothing Then
                 If EdsText.SelectedItem IsNot Nothing Then '드래그 아이템이 지정되어 있지 않을 경우
-                    DragSelectindex = EdsText.SelectedIndex
-                    DragSelectItem = EdsText.SelectedItem
-                    DragSelctData = pjData.EdsBlock.Blocks(DragSelectindex)
-                    DragImage.Width = DragSelectItem.ActualWidth
-                    DragImage.Height = DragSelectItem.ActualHeight
+                    If e.GetPosition(EdsText.SelectedItem).Y < 25 Then
+                        DragSelectindex = EdsText.SelectedIndex
+                        DragSelectItem = EdsText.SelectedItem
+                        DragSelctData = pjData.EdsBlock.Blocks(DragSelectindex)
+                        DragImage.Width = DragSelectItem.ActualWidth
+                        DragImage.Height = DragSelectItem.ActualHeight
 
-                    Dim listboxitem As New ListBoxItem
-                    listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
-                    listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
+                        Dim listboxitem As New ListBoxItem
+                        listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
+                        listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
 
-                    listboxitem.Padding = New Thickness(-2)
+                        listboxitem.Padding = New Thickness(-2)
 
-                    'Dim ListItem As New RequireListBoxItem(RequireList(DragSelectindex))
+                        'Dim ListItem As New RequireListBoxItem(RequireList(DragSelectindex))
 
-                    listboxitem.Content = New PluginItem(DragSelectindex)
+                        listboxitem.Content = New PluginItem(DragSelectindex)
 
 
-                    'listboxitem.Content = ListItem
+                        'listboxitem.Content = ListItem
 
-                    DragImage.Child = listboxitem
+                        DragImage.Child = listboxitem
+                    Else
+                        IsClick = False
+                    End If
                 End If
             Else '드래그 중
                 DragImage.Visibility = Visibility.Visible

@@ -36,6 +36,7 @@
     <sys:String x:Key="TBLChange">사용자 정의 tbl사용</sys:String>
     <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
     <sys:String x:Key="AutoCompile">자동 빌드</sys:String>
+    <sys:String x:Key="BuildLog">빌드 로그 표시</sys:String>
     
     
     
@@ -122,6 +123,7 @@
     <sys:String x:Key="Rename">이름 바꾸기</sys:String>
 
     <sys:String x:Key="Save">저장</sys:String>
+    <sys:String x:Key="InsertEdd">Edd로 실행</sys:String>
 
     <sys:String x:Key="SaveAs">다른 이름으로 저장</sys:String>
     <!--RequireMenu-->
@@ -136,11 +138,14 @@
     <sys:String x:Key="ToolTip">툴팁</sys:String>
 
     <sys:String x:Key="ColseSaveMsg">변경 내용을 %S1에 저장하시겠습니까?</sys:String>
-    
+
 
 
     <sys:String x:Key="ErrorMsgbox">오류</sys:String>
     <sys:String x:Key="Error MapOpen">맵 열기 오류</sys:String>
+
+
+    <sys:String x:Key="Error SaveFileOpen">세이브 파일이 잘못되었습니다.</sys:String>
 
     <sys:String x:Key="Error OpenMap is not SaveMap">연결된 맵과 저장맵의 이름은 같을 수 없습니다.</sys:String>
     <sys:String x:Key="Error OpenMap is not exist reset">연결된 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
@@ -153,10 +158,16 @@
     <sys:String x:Key="Error NotExistMPQ reset">MPQ파일이 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail NotSaved Project">빌드에 실패했습니다. 세이브 파일 폴더 지정 형식은 세이브 파일이 존재해야 합니다.</sys:String>
-    <sys:String x:Key="Error complieFail OpenMap is not exist!">빌드에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail SaveMap is not exist!">빌드에 실패했습니다. 저장 맵을 생성 할 수 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail euddraft is not exist!">빌드에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
+    <sys:String x:Key="Error WriteMapFile">맵 파일을 쓸 수 없습니다.</sys:String>
+
+
+    <sys:String x:Key="CompileFail">컴파일에 실패했습니다.</sys:String>
+    <sys:String x:Key="CompileSucesse">컴파일에 성공했습니다.</sys:String>
+
+    <sys:String x:Key="Error CompileFail NotSaved Project">빌드에 실패했습니다. 세이브 파일 폴더 지정 형식은 세이브 파일이 존재해야 합니다.</sys:String>
+    <sys:String x:Key="Error CompileFail OpenMap is not exist!">빌드에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error CompileFail SaveMap is not exist!">빌드에 실패했습니다. 저장 맵을 생성 할 수 없습니다.</sys:String>
+    <sys:String x:Key="Error CompileFail euddraft is not exist!">빌드에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
     <sys:String x:Key="Error TempFolder is not exist reset">임시 파일 폴더가 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error complieFail TempFolder is not exist!">빌드에 실패했습니다. 임시 파일 폴더가 지정되어 있지 않습니다.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
@@ -169,6 +180,11 @@
 
 
     <sys:String x:Key="Error Dont Delete File">삭제 할 수 없는 파일입니다.</sys:String>
+    <sys:String x:Key="Error CompileStop">컴파일을 중단했습니다.</sys:String>
+    <sys:String x:Key="Error SCAPassWord">패스워드가 일치하지 않습니다!</sys:String>
+    <sys:String x:Key="Error SCANresponDB">DB가 응답하지 않습니다.</sys:String>
+    <sys:String x:Key="Error SCAUnKnow">알 수 없는 에러입니다.</sys:String>
+    <sys:String x:Key="Error SCA">SCArchive Error : 컴파일에 실패했습니다.</sys:String>
 
 
     <sys:String x:Key="Compile">컴파일 중...</sys:String>

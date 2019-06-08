@@ -8,6 +8,7 @@ Partial Public Class BuildData
         ExtraDataEditor
         TEMainPlugin
         DataDumper
+        SCAPlugin
         UserPlugin
     End Enum
 
@@ -21,6 +22,7 @@ Partial Public Class BuildData
             pBlocks.Add(New EdsBlockItem(EdsBlockType.ExtraDataEditor))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.DataDumper))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.SCAPlugin))
         End Sub
 
 
@@ -89,8 +91,9 @@ Partial Public Class BuildData
                     Case EdsBlockType.TEMainPlugin
                         'TriggerEditor
                         If My.Computer.FileSystem.FileExists(TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) Then
-                            sb.Append("[" & Tool.GetRelativePath(EdsFilePath, TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) & "]")
+                            sb.AppendLine("[" & Tool.GetRelativePath(EdsFilePath, TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) & "]")
                         End If
+
                     Case EdsBlockType.DataDumper
                         sb.AppendLine("[dataDumper]")
                         If pjData.UseCustomtbl Then
@@ -98,10 +101,18 @@ Partial Public Class BuildData
                             sb.AppendLine(Tool.GetRelativePath(EdsFilePath, tblFilePath) & " : 0x6D5A30, copy")
                         End If
                         'RequireData 쓰기
-                        sb.Append(Tool.GetRelativePath(EdsFilePath, requireFilePath) & " : 0x" & Hex(Tool.GetOffset("Vanilla")) & ", copy")
+                        'sb.Append(Tool.GetRelativePath(EdsFilePath, requireFilePath) & " : 0x" & Hex(Tool.GetOffset("Vanilla") + 500) & ", copy")
+                    Case EdsBlockType.SCAPlugin
+                        If pjData.TEData.SCArchive.IsUsed Then
+                            sb.Append("[MSQC]
+MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
+MSQCSpecial.Exactly(2) : MSQCSpecialBuffer, 200
+MSQCSpecial.Exactly(3) : MSQCSpecialBuffer, 300
+MSQCSpecial.Exactly(4) : MSQCSpecialBuffer, 400
+MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer")
+                        End If
                     Case EdsBlockType.UserPlugin
                         sb.Append(Texts)
-
                 End Select
 
 
@@ -122,6 +133,8 @@ Partial Public Class BuildData
                         sb.AppendLine("TEMainPlugin")
                     Case EdsBlockType.DataDumper
                         sb.AppendLine("DataDumper")
+                    Case EdsBlockType.SCAPlugin
+                        sb.AppendLine("SCAPlugin")
                 End Select
 
 
@@ -132,7 +145,7 @@ Partial Public Class BuildData
     End Class
 
 
-    Private Sub WriteedsFile()
+    Private Sub WriteedsFile(IsEDD As Boolean)
         Dim sb As New StringBuilder
 
         sb.AppendLine(pjData.EdsBlock.GetedsString())
@@ -142,7 +155,15 @@ Partial Public Class BuildData
 
         '=====================================================================================================
 
-        Dim filestreama As New FileStream(EdsFilePath, FileMode.Create)
+        Dim filestreama As FileStream
+        If IsEDD Then
+            filestreama = New FileStream(EddFilePath, FileMode.Create)
+        Else
+            filestreama = New FileStream(EdsFilePath, FileMode.Create)
+        End If
+
+
+
         Dim strWriter As New StreamWriter(filestreama)
 
         strWriter.Write(sb.ToString)

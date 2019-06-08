@@ -117,4 +117,8 @@ Public Class ProjectControl
     Private Sub Btn_Plugin_Click(sender As Object, e As RoutedEventArgs)
         WindowMenu.OpenPlugin()
     End Sub
+
+    Private Sub MenuItemEdd_Click(sender As Object, e As RoutedEventArgs)
+        WindowMenu.insert(True)
+    End Sub
 End Class

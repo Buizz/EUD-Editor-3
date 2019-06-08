@@ -1,0 +1,72 @@
+import SCAFlexible as scf;
+import SCATool as sct;
+
+
+var Year;
+var Month;
+var Day;
+var Hour;
+var Min;
+var Week;
+const GlobalData = EUDArray(20);
+function Init(){
+	scf.Init();
+	sct.Init();
+}
+
+function Exec(){
+	scf.Exec();
+	sct.Exec();
+	
+	//오더를 판단해서 오더가 1이면 비공유 데이터에서
+	//이름과 배틀태그를 받아온다.
+	//
+
+}
+
+function SetUseDefaultMessage(value){
+	//value가 1이면 기본값쓰기
+	sct.SCAUseUserMessage = value;
+}
+
+function GetLastMessage(){
+	return sct.SCALastMessage;
+}
+function ResetLastMessage(){
+	sct.SCALastMessage = 0;
+}
+
+function LoadTime(){
+	sct.GetDate();
+}
+function GetTimeLoadMessage(){
+	return sct.DateLoadStatus;
+}
+function ResetDateTimeMessage(){
+	sct.DateLoadStatus = 0;
+}
+
+
+function GetGlobalDataLoadMessage(){
+	return sct.GlobalDataLoadStatus;
+}
+function ResetGlobalDataLoadMessage(){
+	sct.GlobalDataLoadStatus = 0;
+}
+function LoadGlobalData(){
+	sct.LoadGlobalData();
+}
+
+
+
+
+function LoadData(Slot){
+	sct.DataLoad(Slot);
+}
+function SaveData(Slot){
+	sct.DataSave(Slot);
+}
+
+function ConnectStatus(){
+	return sct.ConnectStatus[getcurpl()];
+}

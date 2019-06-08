@@ -38,12 +38,16 @@ Partial Public Class BuildData
                     Dim RealValue As Long
                     Dim RealOffset As UInteger = CalOffset - CalOffset Mod 4
 
-
-                    If pjData.MapData.DatFile.GetDatFile(DatFile).GetParamValue(Parameter, ObjectID).IsDefault Then '맵 데이터가 없을 경우
+                    Try
+                        If pjData.MapData.DatFile.GetDatFile(DatFile).GetParamValue(Parameter, ObjectID).IsDefault Then '맵 데이터가 없을 경우
+                            OldValue = scData.DefaultDat.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
+                        Else
+                            OldValue = pjData.MapData.DatFile.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
+                        End If
+                    Catch ex As Exception
                         OldValue = scData.DefaultDat.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
-                    Else
-                        OldValue = pjData.MapData.DatFile.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
-                    End If
+                    End Try
+
 
                     CurrentValue = NewValue - OldValue
                     RealValue = CurrentValue * Math.Pow(256, ByteShift)
@@ -101,9 +105,16 @@ Partial Public Class BuildData
         WriteWireFrame(sb)
         WriteStatusInfor(sb)
         WriteButtonSet(sb)
-        sb.AppendLine("    DoActions([ # RequreData 포인터 작성")
-        sb.AppendLine("        SetMemory(0x" & Hex(Tool.GetOffset("Vanilla")) & ", SetTo, 0x" & Hex(Tool.GetOffset("FG_ReqUnit")) & ")")
-        sb.AppendLine("    ])")
+        sb.AppendLine("    inputData = open('" & Tool.GetRelativePath(EdsFilePath, requireFilePath).Replace("\", "/") & "', 'rb').read()")
+        sb.AppendLine("    inputData_db = Db(inputData)")
+        sb.AppendLine("    inputDwordN = (len(inputData) + 3) // 4")
+        sb.AppendLine("")
+        sb.AppendLine("    addrEPD = EPD(0x" & Hex(Tool.GetOffset("FG_ReqUnit")) & ")")
+        sb.AppendLine("    f_repmovsd_epd(addrEPD, EPD(inputData_db), inputDwordN)")
+
+        'sb.AppendLine("    DoActions([ # RequreData 포인터 작성")
+        'sb.AppendLine("        SetMemory(0x" & Hex(Tool.GetOffset("Vanilla") + 500) & ", SetTo, 0x" & Hex(Tool.GetOffset("FG_ReqUnit")) & ")")
+        'sb.AppendLine("    ])")
 
         sb.AppendLine("")
         sb.AppendLine("")

@@ -46,6 +46,8 @@
         MakerBattleTag.Text = pjData.TEData.SCArchive.MakerBattleTag
         MakerID.Text = pjData.TEData.SCArchive.MakerServerName
         UseMapName.Text = pjData.TEData.SCArchive.MapName
+        UMSPassWord.Text = pjData.TEData.SCArchive.PassWord
+        DataBufferSize.Text = pjData.TEData.SCArchive.DataSpace
     End Sub
     Private Sub InitStartFileCombox(Path As String, tTEfile As TEFile)
         For i = 0 To tTEfile.FileCount - 1
@@ -94,6 +96,24 @@
         If LoadCmp Then
             pjData.SetDirty(True)
             pjData.TEData.SCArchive.MapName = UseMapName.Text
+        End If
+    End Sub
+
+    Private Sub UMSPassWord_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If LoadCmp Then
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.PassWord = UMSPassWord.Text
+        End If
+    End Sub
+
+    Private Sub DataBufferSize_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If LoadCmp Then
+            pjData.SetDirty(True)
+            Try
+                pjData.TEData.SCArchive.DataSpace = DataBufferSize.Text
+            Catch ex As Exception
+
+            End Try
         End If
     End Sub
 End Class

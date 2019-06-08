@@ -3,30 +3,55 @@ Imports Dragablz
 
 Partial Public Class ProjectData
     Private LastModifiyTimer As Date
-
+    Private LastOupputModifiyTimer As Date
+    Private LastCompile As Boolean
+    Public Sub RefreshOutputWriteTime()
+        LastOupputModifiyTimer = File.GetLastWriteTime(SaveMapName)
+    End Sub
     Private Sub FileCheck_Tick(sender As Object, e As EventArgs)
         If IsMapLoading Then
-            If My.Computer.FileSystem.FileExists(OpenMapName) Then
-                If LastModifiyTimer <> File.GetLastWriteTime(OpenMapName) Then
-                    IsMapLoading = MapData.ReLoad(OpenMapName)
-                    _MapData = New MapData(OpenMapName)
-                    IsMapLoading = _MapData.LoadComplete
-                    If Not IsMapLoading Then
-                        _MapData = Nothing
-                        OpenMapName = ""
+            If Not pgData.IsCompilng Then
+                If My.Computer.FileSystem.FileExists(OpenMapName) Then
+                    If LastModifiyTimer <> File.GetLastWriteTime(OpenMapName) Then
+                        IsMapLoading = MapData.ReLoad(OpenMapName)
+                        _MapData = New MapData(OpenMapName)
+                        IsMapLoading = _MapData.LoadComplete
+                        If Not IsMapLoading Then
+                            _MapData = Nothing
+                            OpenMapName = ""
+                        End If
+
+                        If Not MapData.ReLoad(OpenMapName) Then
+                            MsgBox("맵을 불러 올 수 없었습니다.")
+                        End If
+                        If AutoBuild Then
+                            If LastCompile Then
+                                LastCompile = False
+                            Else
+                                pjData.EudplibData.Build()
+                            End If
+                        End If
                     End If
-
-                    If Not MapData.ReLoad(OpenMapName) Then
-
+                Else
+                    _MapData = Nothing
+                    IsMapLoading = False
+                    OpenMapName = ""
+                End If
+            ElseIf pgData.isEddCompile Then
+                If My.Computer.FileSystem.FileExists(SaveMapName) Then
+                    If LastOupputModifiyTimer <> File.GetLastWriteTime(SaveMapName) Then
+                        LastOupputModifiyTimer = File.GetLastWriteTime(SaveMapName)
+                        If pjData.TEData.SCArchive.IsUsed Then
+                            pjData.EudplibData.WriteSCADataFile()
+                        End If
+                        LastCompile = True
                     End If
                 End If
-            Else
-                _MapData = Nothing
-                IsMapLoading = False
-                OpenMapName = ""
+
+                '만약 edd로 실행중인 경우
             End If
+            TERefreshTabITem()
         End If
-        TERefreshTabITem()
     End Sub
     Private Sub TERefreshTabITem()
         '우선 모든 윈도우 돌면서 조사하자

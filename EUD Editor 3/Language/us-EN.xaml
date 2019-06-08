@@ -52,8 +52,8 @@
     <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail OpenMap is not exist!">컴파일에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail SaveMap is not exist!">컴파일에 실패했습니다. 저장 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error complieFail euddraft is not exist!">컴파일에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
+    <sys:String x:Key="Error CompileFail OpenMap is not exist!">컴파일에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error CompileFail SaveMap is not exist!">컴파일에 실패했습니다. 저장 맵이 없습니다.</sys:String>
+    <sys:String x:Key="Error CompileFail euddraft is not exist!">컴파일에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
 </ResourceDictionary>

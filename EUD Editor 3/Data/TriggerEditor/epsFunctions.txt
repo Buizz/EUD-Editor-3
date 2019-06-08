@@ -3404,16 +3404,25 @@ function dwbreak2(number) { }
 function getgametick() { }
 
 
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 에러줄에 메세지를 출력합니다.
+ ***/
+function f_eprintln(*args) { }
+
+
 
 object StringBuffer {
-   function append(self, *args) {}
-   function insert(self, index, *args) {}
-   function delete(self, start, length=1) {}
-   function Display(self) {}
-   function DisplayAt(self, line) {}
-   function print(self, *args) {}
-   function Play(self) {}
-   function fadeIn(self, *args, color=None, wait=1, reset=True, tag=None) {}
-   function fadeOut(self, *args, color=None, wait=1, reset=True, tag=None) {}
-   function length(self) {}
+   function append(*args) {}
+   function insert(index, *args) {}
+   function delete(start, length=1) {}
+   function Display() {}
+   function DisplayAt(line) {}
+   function print(*args) {}
+   function Play() {}
+   function fadeIn(*args, color=None, wait=1, reset=True, tag=None) {}
+   function fadeOut(*args, color=None, wait=1, reset=True, tag=None) {}
+   function length() {}
 };
