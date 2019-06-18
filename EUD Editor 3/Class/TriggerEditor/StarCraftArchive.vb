@@ -4,6 +4,11 @@
 Public Class StarCraftArchive
     Public Sub New()
         DataSpace = 100
+        _CodeDatas = New List(Of CodeData)
+        _MakerBattleTag = ""
+        _MakerServerName = ""
+        _MapName = ""
+        _PassWord = ""
     End Sub
 
     Private _IsUsed As Boolean
@@ -88,8 +93,8 @@ Public Class StarCraftArchive
     Public Class CodeData
         Public Property TagName As String
 
-        Private TypeNames() As String = {"변수", "데스값"}
-        Public Property CodeType As String
+        Private TypeNames() As String = {"변수", "데스값", "배열"}
+        Public Property ECodeType As String
             Get
                 Return TypeNames(TypeIndex)
             End Get
@@ -98,33 +103,49 @@ Public Class StarCraftArchive
             End Set
         End Property
 
-        Public TypeIndex As Integer
+        Public TypeIndex As CodeType
+        Public Enum CodeType
+            Variable
+            Deaths
+            Array
+        End Enum
 
         Public Property Value As String
             Get
-                If TypeIndex = 0 Then
-                    '변수
-                    Return NameSpaceName & " " & ValueName
-                Else
-                    '데스값
-                    Return pjData.CodeLabel(SCDatFiles.DatFiles.units, ValueIndex)
-                End If
+                Select Case TypeIndex
+                    Case CodeType.Variable
+                        '변수
+                        Return NameSpaceName & " " & ValueName
+                    Case CodeType.Deaths
+                        '데스값
+                        Return pjData.CodeLabel(SCDatFiles.DatFiles.units, ValueIndex)
+                    Case CodeType.Array
+                        '변수
+                        Return NameSpaceName & " " & ValueName
+                End Select
+                Return ""
             End Get
             Set(value As String)
-                If TypeIndex = 0 Then
-                    '변수
-                    NameSpaceName = value.Split(",").First
-                    ValueName = value.Split(",").Last
-                Else
-                    '데스값
-                    ValueIndex = value
-                End If
+                Select Case TypeIndex
+                    Case CodeType.Variable
+                        '변수
+                        NameSpaceName = value.Split(",").First
+                        ValueName = value.Split(",").Last
+                    Case CodeType.Deaths
+                        '데스값
+                        ValueIndex = value
+                    Case CodeType.Array
+                        '변수
+                        NameSpaceName = value.Split(",").First
+                        ValueName = value.Split(",").Last
+                End Select
             End Set
         End Property
         Public ValueName As String
         Public NameSpaceName As String
 
         Public ValueIndex As Integer
+
 
         Public Sub New(tTag As String, tType As Integer, tValue As String)
             TagName = tTag

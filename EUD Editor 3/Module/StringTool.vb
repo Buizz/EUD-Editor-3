@@ -153,15 +153,16 @@
                 'str = str.Replace("ᚎ", "\")
                 'str = str.Replace("ᚍ", "<")
                 'str = str.Replace("ᚌ", ">")
-
-                If str(index) = TempChar Then
-                    For i = 0 To SpecialKeyPos.Count - 1
-                        If SpecialKeyPos(i) = index Then
-                            Return SpecialKeys(i)
-                        End If
-                    Next
-                Else
-                    Return str(index)
+                If str.Count > index Then
+                    If str(index) = TempChar Then
+                        For i = 0 To SpecialKeyPos.Count - 1
+                            If SpecialKeyPos(i) = index Then
+                                Return SpecialKeys(i)
+                            End If
+                        Next
+                    Else
+                        Return str(index)
+                    End If
                 End If
             End If
 

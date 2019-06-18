@@ -3426,3 +3426,9 @@ object StringBuffer {
    function fadeOut(*args, color=None, wait=1, reset=True, tag=None) {}
    function length() {}
 };
+
+
+
+object EUDArray {
+   function length() {}
+};

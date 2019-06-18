@@ -181,12 +181,15 @@
     <Compile Include="Class\Binding\MainMenuBinding.vb" />
     <Compile Include="Class\Binding\RequireCapacityBinding.vb" />
     <Compile Include="Class\Binding\RequireDataBinding.vb" />
+    <Compile Include="Class\Binding\SCABinding.vb" />
     <Compile Include="Class\Binding\StatTxtBinding.vb" />
     <Compile Include="Class\Binding\TETabItemUI.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
+    <Compile Include="Class\Binding\ValidationRule\AlphaValidationRule.vb" />
+    <Compile Include="Class\Binding\ValidationRule\TextValidationRule.vb" />
     <Compile Include="Class\BulidData\BulidPaths.vb" />
     <Compile Include="Class\BulidData\WriteSCAData.vb" />
     <Compile Include="Class\BulidData\WriteButtonData.vb" />
@@ -1048,6 +1051,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\SCArchiveConnecter\SCArchiveConnecter.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\SCArchiveConnecter\libmysql.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />

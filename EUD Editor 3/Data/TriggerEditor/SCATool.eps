@@ -6,7 +6,8 @@ const CommandLength = 12;
 
 
 
-const MapDim = 0x7FE;
+const ackMax = 0x20;
+const MapDim = 0x600;
 var DisConnectCode = 0xFFFF;
 
 
@@ -29,7 +30,7 @@ function Init(){
 
 
 var SCAUseUserMessage = 1;
-var SCALastMessage = 0;
+const SCALastMessage = PVariable();
 /*
 1 = 연결됨
 2 = 연결 끊킴
@@ -39,7 +40,7 @@ var SCALastMessage = 0;
 6 = 세이브 완료
 7 = 런처와 먼저 연결하세요
 8 = 다른 작업 중입니다.
-
+9 = 작업 실패
 */
 
 
@@ -71,7 +72,7 @@ function SendValue(seq){
 	const rseq = seq - 1;
 	var value = wread_epd(BaseAddrEPD[CP] + rseq / 2, (rseq % 2) * 2);
 
-	seq = seq % 60 + 1;
+	seq = seq % ackMax + 1;
 	value += seq * 0x10000;
 	
 	if (Memory(0x57F1B0,Exactly,CP)){
@@ -83,10 +84,11 @@ function SendValue(seq){
 
 
 
-var DateLoadStatus;
-var GlobalDataLoadStatus;
+const DateLoadStatus = PVariable();
+const GlobalDataLoadStatus = PVariable();
 
 
+//const st = StringBuffer(100);
 
 function LoadDataRead(dataLen){
 	const CP = getcurpl();
@@ -94,31 +96,38 @@ function LoadDataRead(dataLen){
 	switch(SCACommand[CP]){
 		case 1:
 			for(var i = 0 ; i < scf.ObjectCount; i++){
-				scf.SaveValue(i, 0);
+				scf.ResetValue(i, 0);
 			}
 			
 			for(var i = 0 ; i < dataLen; i++){
+				i = scf.LoadDataReadValue(LoadAddrEPD[CP], i);
+
+				/*
 				const indicator = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
 				
-				const spec = indicator / 0x1000;
-				const ObjNum = indicator % 0x1000;
+				if (indicator != 0){
+					const spec = indicator / 0x1000;
+					const ObjNum = indicator % 0x1000;
 				
-				var value = 0;
-				if (spec == 0){
-					//4바이트 지정
-					i++;
-					const value1 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-					i++;
-					const value2 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+					var value = 0;
+					if (spec == 1){
+						//4바이트 지정
+						i++;
+						const value1 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+						i++;
+						const value2 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
 					
-					value = value1 * 0x10000 + value2;
-				}else{
-					//2바이트 지정
-					i++;
-					value = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+						value = value1 * 0x10000 + value2;
+					}else if (spec == 2){
+						//2바이트 지정
+						i++;
+						value = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
 					
-				}
-				scf.SaveValue(ObjNum, value);
+					}
+					
+					//st.print("값 받음 : ", value);
+					scf.SaveValue(ObjNum, value, 0);
+				}*/
 			}
 			break;
 		case 2:
@@ -134,22 +143,40 @@ function LoadDataRead(dataLen){
 			sca.Min = bread_epd(BaseAddres + 1, 1);
 			sca.Week = bread_epd(BaseAddres + 1 , 0);
 			
-			DateLoadStatus = 1;
+			DateLoadStatus[CP] = 1;
 			break;
 		case 3:
 			//맵 변수
-			var index = 0;
 			var value = 0;
-			for(var i = 0 ; i < dataLen; i++){
-				i++;
-				const value1 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-				i++;
-				const value2 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-				value = value1 * 0x10000 + value2;
-				sca.GlobalData[index] = value;
-				index++;
+			
+			for(var i = 0 ; i < 20; i++){
+				sca.GlobalData[i] = 0;
 			}
-			GlobalDataLoadStatus = 1;
+
+			for(var i = 0 ; i < dataLen; i++){
+				const insepector = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+				if (insepector != 0){
+					const vsize = insepector / 0x100;
+					const index = insepector % 0x100;
+
+
+					if (vsize == 1){
+						i++;
+						const value1 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+						i++;
+						const value2 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+						value = value1 * 0x10000 + value2;
+					}else if(vsize == 2){
+						i++;
+						value = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+					}
+
+					sca.GlobalData[index] = value;
+				}
+				
+
+			}
+			GlobalDataLoadStatus[CP] = 1;
 			break;
 	}
 }
@@ -160,23 +187,27 @@ function SaveDataWrite(){
 	var index = 0;
 	
 	for(var i = 0 ; i < scf.ObjectCount; i++){
-		const objValue = scf.LoadValue(i);
+		index = scf.SaveDataWriteValue(i,BaseAddrEPD[CP],index);
+
+		/*
+		const objValue = scf.LoadValue(i, 0);
 		if(objValue != 0){
 			if (objValue > 0xFFFF){
-				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, i);
+				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, 0x1000 + i);
 				index++;
 				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, objValue / 0x10000);
 				index++;
 				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, objValue % 0x10000);
 				index++;
 			}else{
-				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, 0x1000 + i);
+				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, 0x2000 + i);
 				index++;
 				wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, objValue);
 				index++;
 			}
 		}
-	
+		*/
+		//st.print("값 저장 : ", objValue);
 		
 	}
 	wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, 0);
@@ -190,28 +221,25 @@ function SaveDataWrite(){
 const CheckIntegrityFlag = PVariable();
 function CheckIntegrity(){
 	const CP = getcurpl();
-	const BaseEPD = BaseAddrEPD[CP];
-	const LoadEPD = LoadAddrEPD[CP];
+	if (Memory(0x57F1B0,Exactly,CP)){
+		const BaseEPD = BaseAddrEPD[CP];
+		const LoadEPD = LoadAddrEPD[CP];
 	
-	for(var i = 0 ; i < scf.SpaceLength / 4; i++){
-		const value1 = dwread_epd(BaseEPD + i);
-		const value2 = dwread_epd(LoadEPD + i);
+		for(var i = 0 ; i < scf.SpaceLength / 4; i++){
+			const value1 = dwread_epd(BaseEPD + i);
+			const value2 = dwread_epd(LoadEPD + i);
 		
-		//둘다 0일경우 루프 탈출
-		if(MSQCSpecial == 0 && (value1 == 0 && value2 == 0)){
-			if (Memory(0x57F1B0,Exactly,CP)){
+			//둘다 0일경우 루프 탈출
+			if(MSQCSpecial == 0 && (value1 == 0 && value2 == 0)){
 				MSQCSpecial = 3;
 			}
-		}
 		
-		if(MSQCSpecial == 0 && value1 != value2){
-			if (Memory(0x57F1B0,Exactly,CP)){
+			if(MSQCSpecial == 0 && value1 != value2){
 				MSQCSpecial = 4;
 			}
 		}
 	}
 }
-
 
 
 function DataLoad();
@@ -259,7 +287,7 @@ function PlayerExec(){
 			ConnectStatus[CP] = 0;
 			MSQCSpecialBuffer[CP] = 0;
 			SCACommand[CP] = 0;
-			SCALastMessage = 2;
+			SCALastMessage[CP] = 2;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\Bullet\\tscFir00.wav");
 	            f_eprintln("\x03SCArchive\x04와 \x07연결\x04이 \x08끊어졌습니다.");
@@ -281,16 +309,19 @@ function PlayerExec(){
 		    case 2:
 		    case 3:
 		    	const orderAddrEPD = EPD(scf.ws) + scf.EntryPointLength;
-		    	//런처에게 요청한다.
-		    	bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
-		    	
-		    	//데이터 슬롯 번호를 기록한다.
-		    	bwrite_epd(orderAddrEPD + 1, 0, DataSlot[CP]);
+				if (Memory(0x57F1B0,Exactly,CP)){
+		    		//데이터 슬롯 번호를 기록한다.
+		    		bwrite_epd(orderAddrEPD + 1, 0, DataSlot[CP]);
+		    		//런처에게 요청한다.
+		    		bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
+				}
+
+
 		    	
 		    	//런처가 데이터를 올렸는지 판단한다.
 		    	const LauncherStatus = bread_epd(orderAddrEPD, 3);
 				if (SCAUseUserMessage == 1){
-					if(LauncherStatus == 0){
+					if(rn[CP] == 1){
 						f_eprintln("\x07불러오기 : \x03SCArchive\x04의 \x1F응답\x04을 \x07기다리는 중...");
 					}else if(CheckIntegrityFlag[CP] == 0){
 						f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", rn[CP]);
@@ -308,7 +339,7 @@ function PlayerExec(){
 					//Receiver
 					{const RecevieValue = ReceiveValue(MSQCBuffer[CP]);
 			
-					if(ack[CP] == (rn[CP] % 60 + 1)){
+					if(ack[CP] == (rn[CP] % ackMax + 1)){
 						//st.print("값 전달 받음      rn : ",rn[CP] , " ack : " , ack[CP] , " Value : " ,RecevieValue);
 						const rseq = rn[CP] - 1;
 						wwrite_epd(LoadAddrEPD[CP] + rseq / 2, (rseq % 2) * 2, RecevieValue);
@@ -317,7 +348,7 @@ function PlayerExec(){
 						MaxBuffer[CP] = rn[CP] - 1;
 					}else{
 						const CurrentTimeer = (TimeOut - CurrentTime);
-						if (TimeOut > 500){
+						if (CurrentTimeer > 500){
 							TimeOut = CurrentTime;
 							index = rn[CP];
 						}
@@ -354,7 +385,9 @@ function PlayerExec(){
 					
 					switch(CheckIntegrityFlag[CP]){
 						case 0:
-							MSQCCondiction = 0;
+							if (Memory(0x57F1B0,Exactly,CP)){
+								MSQCCondiction = 0;
+							}
 							CheckIntegrity();
 							CheckIntegrityFlag[CP] = 1;
 							break;
@@ -378,7 +411,6 @@ function PlayerExec(){
 									index = 1;
 								}
 							}
-						
 							break;
 						case 2:
 							if (Memory(0x57F1B0,Exactly,CP)){
@@ -390,9 +422,9 @@ function PlayerExec(){
 							LoadDataRead(rn[CP] - 1);
 							SCACommand[CP] = 0;
 							
-							SCALastMessage = 4;
+							SCALastMessage[CP] = 4;
 							if (SCAUseUserMessage == 1){
-								PlayWAV("sound\\Misc\\PRescue.wav");
+								PlayWAV("sound\\Misc\\TDrTra01.wav");
 								f_eprintln("\x07성공적으로 \x03데이터\x04를 불러왔습니다.");
 							}
 							break;
@@ -400,11 +432,16 @@ function PlayerExec(){
 				}}
 		        break;
 			case 4:
-				//런처에게 알려준다.
-				bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
+				if (Memory(0x57F1B0,Exactly,CP)){
+					//데이터 슬롯 번호를 기록한다.
+					bwrite_epd(orderAddrEPD + 1, 0, DataSlot[CP]);
+
+					//런처에게 알려준다.
+					bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
 				
-		    	//데이터 슬롯 번호를 기록한다.
-		    	bwrite_epd(orderAddrEPD + 1, 0, DataSlot[CP]);
+				}
+
+
 		    	
 		    	//런처가 데이터를 받았는지 판단한다.
 		    	const LauncherStatus2 = bread_epd(orderAddrEPD, 3);
@@ -424,9 +461,9 @@ function PlayerExec(){
 						}
 						SCACommand[CP] = 0;
 						
-						SCALastMessage = 6;
+						SCALastMessage[CP] = 6;
 						if (SCAUseUserMessage == 1){
-							PlayWAV("sound\\Misc\\PRescue.wav");
+							PlayWAV("sound\\Misc\\TDrTra01.wav");
 							f_eprintln("\x07성공적으로 \x03데이터\x04를 저장했습니다.");
 						}
 		    	}
@@ -436,7 +473,7 @@ function PlayerExec(){
 		if(MSQCSpecialBuffer[CP] == 100){
 			ConnectStatus[CP] = 1;
 			MSQCSpecialBuffer[CP] = 0;
-			SCALastMessage = 1;
+			SCALastMessage[CP] = 1;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\Misc\\ZRescue.wav");
 	            f_eprintln("\x03SCArchive\x04와 \x07연결\x04되었습니다.");
@@ -471,7 +508,7 @@ function DataLoad(Slot){
 					
 			LastTick = dwread_epd(EPD(0x51CE8C));
 			
-			SCALastMessage = 3;
+			SCALastMessage[CP] = 3;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\glue\\swishin.wav");
 			}
@@ -486,14 +523,14 @@ function DataLoad(Slot){
 			SCACommand[CP] = 1;
 			MSQCBuffer[CP] = 0;
 		}else{
-			SCALastMessage = 8;
+			SCALastMessage[CP] = 8;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\Misc\\PError.WAV");
 	            f_eprintln("\x08현재 다른 작업중입니다.");
 	        }
 	    }
 	}else{
-		SCALastMessage = 7;
+		SCALastMessage[CP] = 7;
 		if (SCAUseUserMessage == 1){
 			PlayWAV("sound\\Misc\\PError.WAV");
             f_eprintln("\x08데이터를 불러오기 위해선 SCArchive와 연결되어야 합니다.");
@@ -509,23 +546,27 @@ function DataSave(Slot){
 		if (SCACommand[CP] == 0){
 			DataSlot[CP] = Slot;
 			BaseAddrEPD[CP] = EPD(scf.ws) + scf.EntryPointLength + CommandLength / 4;
-			SaveDataWrite();
+
+			if (Memory(0x57F1B0,Exactly,CP)){
+				SaveDataWrite();
+			}
+
 			MSQCBuffer[CP] = 0;
-			SCALastMessage = 5;
+			SCALastMessage[CP] = 5;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\glue\\swishin.wav");
 			}
 			
 			SCACommand[CP] = 4;
 		}else{
-			SCALastMessage = 8;
+			SCALastMessage[CP] = 8;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\Misc\\PError.WAV");
 	            f_eprintln("\x08현재 다른 작업중입니다.");
 	        }
 	    }
 	}else{
-		SCALastMessage = 7;
+		SCALastMessage[CP] = 7;
 		if (SCAUseUserMessage == 1){
 			PlayWAV("sound\\Misc\\PError.WAV");
             f_eprintln("\x08데이터를 저장하기 위해선 SCArchive와 연결되어야 합니다.");
@@ -545,7 +586,7 @@ function GetDate(){
 					
 			LastTick = dwread_epd(EPD(0x51CE8C));
 			
-			SCALastMessage = 3;
+			SCALastMessage[CP] = 3;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\glue\\swishin.wav");
 			}
@@ -560,14 +601,14 @@ function GetDate(){
 			SCACommand[CP] = 2;
 			MSQCBuffer[CP] = 0;
 		}else{
-			SCALastMessage = 8;
+			SCALastMessage[CP] = 8;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\Misc\\PError.WAV");
 	            f_eprintln("\x08현재 다른 작업중입니다.");
 	        }
 	    }
 	}else{
-		SCALastMessage = 7;
+		SCALastMessage[CP] = 7;
 		if (SCAUseUserMessage == 1){
 			PlayWAV("sound\\Misc\\PError.WAV");
             f_eprintln("\x08데이터를 불러오기 위해선 SCArchive와 연결되어야 합니다.");
@@ -586,7 +627,7 @@ function LoadGlobalData(){
 					
 			LastTick = dwread_epd(EPD(0x51CE8C));
 			
-			SCALastMessage = 3;
+			SCALastMessage[CP] = 3;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\glue\\swishin.wav");
 			}
@@ -601,14 +642,14 @@ function LoadGlobalData(){
 			SCACommand[CP] = 3;
 			MSQCBuffer[CP] = 0;
 		}else{
-			SCALastMessage = 8;
+			SCALastMessage[CP] = 8;
 			if (SCAUseUserMessage == 1){
 				PlayWAV("sound\\Misc\\PError.WAV");
 	            f_eprintln("\x08현재 다른 작업중입니다.");
 	        }
 	    }
 	}else{
-		SCALastMessage = 7;
+		SCALastMessage[CP] = 7;
 		if (SCAUseUserMessage == 1){
 			PlayWAV("sound\\Misc\\PError.WAV");
             f_eprintln("\x08데이터를 불러오기 위해선 SCArchive와 연결되어야 합니다.");

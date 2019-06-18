@@ -68,6 +68,7 @@ Public Class SCADataList
         IsEditWindowopen = False
         OpenStroyBoard.Begin(Me)
         DataName.Text = ""
+        Checekname()
         TypeCB.SelectedIndex = 1
         ValueSelecter.Init(SCDatFiles.DatFiles.units, "유닛", 0)
 
@@ -82,67 +83,113 @@ Public Class SCADataList
         Dim SelCodeData As StarCraftArchive.CodeData = CType(List.SelectedItem, StarCraftArchive.CodeData)
 
         DataName.Text = SelCodeData.TagName
+        Checekname()
         TypeCB.SelectedIndex = SelCodeData.TypeIndex
-        If TypeCB.SelectedIndex = 0 Then
-            ValueSelecter.Visibility = Visibility.Collapsed
-            VariableField.Visibility = Visibility.Visible
+        Select Case TypeCB.SelectedIndex
+            Case 0
+                ValueSelecter.Visibility = Visibility.Collapsed
+                VariableField.Visibility = Visibility.Visible
 
-            For i = 0 To NameCombobox.Items.Count - 1
-                If SelCodeData.NameSpaceName = CType(NameCombobox.Items(i), ComboBoxItem).Content Then
-                    NameCombobox.SelectedIndex = i
-                    Exit For
-                End If
-            Next
-
-            VarSelecter.Items.Clear()
-            If NameCombobox.SelectedItem IsNot Nothing Then
-                Dim tCfun As New CFunc()
-                tCfun.LoadFunc(CType(CType(NameCombobox.SelectedItem, ComboBoxItem).Tag, TEFile).Scripter.GetStringText)
-                For i = 0 To tCfun.VariableCount - 1
-                    VarSelecter.Items.Add(tCfun.GetVariableNames(i))
-                    If SelCodeData.ValueName = tCfun.GetVariableNames(i) Then
-                        VarSelecter.SelectedIndex = i
+                For i = 0 To NameCombobox.Items.Count - 1
+                    If SelCodeData.NameSpaceName = CType(NameCombobox.Items(i), ComboBoxItem).Content Then
+                        NameCombobox.SelectedIndex = i
+                        Exit For
                     End If
                 Next
-            End If
+
+                VarSelecter.Items.Clear()
+                If NameCombobox.SelectedItem IsNot Nothing Then
+                    Dim tCfun As New CFunc()
+                    tCfun.LoadFunc(CType(CType(NameCombobox.SelectedItem, ComboBoxItem).Tag, TEFile).Scripter.GetStringText)
+                    For i = 0 To tCfun.VariableCount - 1
+                        Dim variableType As String = tCfun.GetVariableType(i)
+                        Dim flag As Boolean = variableType.IndexOf("PVariable") <> -1
 
 
+                        If flag Then
+                            VarSelecter.Items.Add(tCfun.GetVariableNames(i))
+                            If SelCodeData.ValueName = tCfun.GetVariableNames(i) Then
+                                VarSelecter.SelectedIndex = VarSelecter.Items.Count - 1
+                            End If
+                        End If
+                    Next
+                End If
+            Case 1
+                ValueSelecter.Init(SCDatFiles.DatFiles.units, "데스값", SelCodeData.ValueIndex)
+            Case 2
+                ValueSelecter.Visibility = Visibility.Collapsed
+                VariableField.Visibility = Visibility.Visible
 
-        Else
-            ValueSelecter.Init(SCDatFiles.DatFiles.units, "데스값", SelCodeData.ValueIndex)
-        End If
+                For i = 0 To NameCombobox.Items.Count - 1
+                    If SelCodeData.NameSpaceName = CType(NameCombobox.Items(i), ComboBoxItem).Content Then
+                        NameCombobox.SelectedIndex = i
+                        Exit For
+                    End If
+                Next
 
+                VarSelecter.Items.Clear()
+                If NameCombobox.SelectedItem IsNot Nothing Then
+                    Dim tCfun As New CFunc()
+                    tCfun.LoadFunc(CType(CType(NameCombobox.SelectedItem, ComboBoxItem).Tag, TEFile).Scripter.GetStringText)
+                    For i = 0 To tCfun.VariableCount - 1
+                        Dim variableType As String = tCfun.GetVariableType(i)
+                        Dim flag As Boolean = variableType.IndexOf("EUDArray") <> -1
+
+
+                        If flag Then
+                            VarSelecter.Items.Add(tCfun.GetVariableNames(i))
+                            If SelCodeData.ValueName = tCfun.GetVariableNames(i) Then
+                                VarSelecter.SelectedIndex = VarSelecter.Items.Count - 1
+                            End If
+                        End If
+                    Next
+                End If
+        End Select
+        InitTypeCB()
         CreateEditWindow.Visibility = Visibility.Visible
     End Sub
     Private Sub TypeCB_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If CreateEditWindow.Visibility = Visibility.Visible Then
-            If TypeCB.SelectedIndex = 0 Then
+            InitTypeCB()
+        End If
+    End Sub
+    Private Sub InitTypeCB()
+        Select Case TypeCB.SelectedIndex
+            Case 0
                 ValueSelecter.Visibility = Visibility.Collapsed
                 VariableField.Visibility = Visibility.Visible
-            Else
+            Case 1
                 ValueSelecter.Init(SCDatFiles.DatFiles.units, "데스값", 0)
                 ValueSelecter.Visibility = Visibility.Visible
                 VariableField.Visibility = Visibility.Collapsed
-            End If
-        End If
+            Case 2
+                ValueSelecter.Visibility = Visibility.Collapsed
+                VariableField.Visibility = Visibility.Visible
+        End Select
     End Sub
+
 
     Private Sub OkKey_Click(sender As Object, e As RoutedEventArgs)
         pjData.SetDirty(True)
         If IsEditWindowopen Then
-            If TypeCB.SelectedIndex = 0 Then
-                CType(List.SelectedItem, StarCraftArchive.CodeData).Refresh(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem)
-            Else
-                CType(List.SelectedItem, StarCraftArchive.CodeData).Refresh(DataName.Text, TypeCB.SelectedIndex, ValueSelecter.Value)
-            End If
-
-
+            Select Case TypeCB.SelectedIndex
+                Case 0
+                    CType(List.SelectedItem, StarCraftArchive.CodeData).Refresh(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem)
+                Case 1
+                    CType(List.SelectedItem, StarCraftArchive.CodeData).Refresh(DataName.Text, TypeCB.SelectedIndex, ValueSelecter.Value)
+                Case 2
+                    CType(List.SelectedItem, StarCraftArchive.CodeData).Refresh(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem)
+            End Select
         Else
-            If TypeCB.SelectedIndex = 0 Then
-                pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
-            Else
-                pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, ValueSelecter.Value))
-            End If
+
+            Select Case TypeCB.SelectedIndex
+                Case 0
+                    pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
+                Case 1
+                    pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, ValueSelecter.Value))
+                Case 2
+                    pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
+            End Select
         End If
         List.Items.Refresh()
         CloseStroyBoard.Begin(Me)
@@ -231,6 +278,7 @@ Public Class SCADataList
         'InputDialog
     End Sub
 
+
     Private Sub NameCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If CreateEditWindow.Visibility = Visibility.Visible Then
             If NameCombobox.SelectedItem IsNot Nothing Then
@@ -243,7 +291,16 @@ Public Class SCADataList
                     Dim tCfun As New CFunc()
                     tCfun.LoadFunc(CType(CType(NameCombobox.SelectedItem, ComboBoxItem).Tag, TEFile).Scripter.GetStringText)
                     For i = 0 To tCfun.VariableCount - 1
-                        If tCfun.GetVariableType(i).IndexOf("PVariable") <> -1 Then
+                        Dim flag As Boolean = False
+                        Dim variableType As String = tCfun.GetVariableType(i)
+
+                        If TypeCB.SelectedIndex = 0 Then
+                            flag = variableType.IndexOf("PVariable") <> -1
+                        ElseIf TypeCB.SelectedIndex = 2 Then
+                            flag = variableType.IndexOf("EUDArray") <> -1
+                        End If
+
+                        If flag Then
                             VarSelecter.Items.Add(tCfun.GetVariableNames(i))
                             If SelCodeData.ValueName = tCfun.GetVariableNames(i) Then
                                 VarSelecter.SelectedIndex = i
@@ -255,7 +312,16 @@ Public Class SCADataList
                     Dim tCfun As New CFunc()
                     tCfun.LoadFunc(CType(CType(NameCombobox.SelectedItem, ComboBoxItem).Tag, TEFile).Scripter.GetStringText)
                     For i = 0 To tCfun.VariableCount - 1
-                        If tCfun.GetVariableType(i).IndexOf("PVariable") <> -1 Then
+                        Dim flag As Boolean = False
+                        Dim variableType As String = tCfun.GetVariableType(i)
+
+                        If TypeCB.SelectedIndex = 0 Then
+                            flag = variableType.IndexOf("PVariable") <> -1
+                        ElseIf TypeCB.SelectedIndex = 2 Then
+                            flag = variableType.IndexOf("EUDArray") <> -1
+                        End If
+
+                        If flag Then
                             VarSelecter.Items.Add(tCfun.GetVariableNames(i))
                         End If
                     Next
@@ -267,6 +333,28 @@ Public Class SCADataList
             End If
         End If
     End Sub
+    Private Function CheckAlphaNumeric(str As String) As Boolean
+        If str.Trim = "" Then
+            Return False
+        End If
 
+        Return Text.RegularExpressions.Regex.Match(str.Trim, "^[a-zA-Z0-9]*$").Success
+    End Function
+
+    Private Sub Checekname()
+        If CheckAlphaNumeric(DataName.Text) Then
+            NameCondpanel.Visibility = Visibility.Collapsed
+            OkKey.IsEnabled = True
+            DataName.Foreground = Application.Current.Resources("MaterialDesignBody")
+        Else
+            NameCondpanel.Visibility = Visibility.Visible
+            NameCond.Content = "숫자나 알파벳 문자만 가능합니다."
+            OkKey.IsEnabled = False
+            DataName.Foreground = Brushes.Red
+        End If
+    End Sub
+    Private Sub DataName_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Checekname()
+    End Sub
 End Class
 

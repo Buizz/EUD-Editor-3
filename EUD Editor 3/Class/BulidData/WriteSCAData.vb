@@ -64,7 +64,7 @@ Partial Public Class BuildData
         Dim startInfo As New ProcessStartInfo
 
         startInfo.FileName = GetConnectPath
-        startInfo.Arguments = GetMapCode() & " " & pjData.TEData.SCArchive.PassWord
+        startInfo.Arguments = GetMapCode() & " " & pjData.TEData.SCArchive.MakerBattleTag & " " & pjData.TEData.SCArchive.PassWord
 
 
         'startInfo.StandardOutputEncoding = Text.Encoding.UTF32
@@ -80,20 +80,39 @@ Partial Public Class BuildData
 
         process.StartInfo = startInfo
         process.Start()
-        process.WaitForExit()
+        Dim OutputString As String = ""
+        While (Not process.HasExited)
+            OutputString = process.StandardOutput.ReadLine
+            If OutputString <> "" Then
+                ConnectKey = OutputString.Trim
+                Threading.Thread.Sleep(100)
+                If Not process.HasExited Then
+                    process.Kill()
+                End If
 
-        Dim OutputString As String = process.StandardOutput.ReadToEnd
+            End If
+        End While
 
-        ConnectKey = OutputString.Trim
+        'process.WaitForExit()
+        'OutputString = process.StandardOutput.ReadToEnd
+
+        'ConnectKey = OutputString.Trim
+
         Select Case ConnectKey
+            Case "BTERROR"
+                MsgBox(Tool.GetText("Error SCA") & vbCrLf & "존재하지 않는 배틀태그 입니다.", MsgBoxStyle.Critical)
+                Return False
             Case "ERROR"
                 MsgBox(Tool.GetText("Error SCA") & vbCrLf & Tool.GetText("Error SCAUnKnow"), MsgBoxStyle.Critical)
                 Return False
-            Case "Invalid password"
+            Case "PWERROR"
                 MsgBox(Tool.GetText("Error SCA") & vbCrLf & Tool.GetText("Error SCAPassWord"), MsgBoxStyle.Critical)
                 Return False
             Case "DBERROR"
                 MsgBox(Tool.GetText("Error SCA") & vbCrLf & Tool.GetText("Error SCANresponDB"), MsgBoxStyle.Critical)
+                Return False
+            Case "FALGERROR"
+                MsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCA사용이 금지된 아이디입니다.", MsgBoxStyle.Critical)
                 Return False
         End Select
 
@@ -110,7 +129,7 @@ Partial Public Class BuildData
 
     Public Function GetSCAEps() As String
         Const CommandLength As Integer = 12
-        Const SpaceLength As Integer = 52
+        Dim SpaceLength As Integer = pjData.TEData.SCArchive.DataSpace
 
 
         Dim sb As New StringBuilder
@@ -155,46 +174,240 @@ Partial Public Class BuildData
         sb.AppendLine("}")
         sb.AppendLine("")
         sb.AppendLine("")
-        sb.AppendLine("function LoadValue(tagNum){")
+
+        sb.AppendLine("function ResetValue(tagNum, index){")
         sb.AppendLine("    switch(tagNum){")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
-            If pjData.TEData.SCArchive.CodeDatas(i).TypeIndex = 0 Then
-                '변수
-                Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
-                names = names.Split(".").First
-                names = names.Replace("\", ".")
+            Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
+                Case StarCraftArchive.CodeData.CodeType.Variable
+                    '변수
+                    Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+                    names = names.Split(".").First
+                    names = names.Replace("\", ".")
+                    sb.AppendLine("        n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()] = 0;")
+                    sb.AppendLine("        break;")
+                Case StarCraftArchive.CodeData.CodeType.Deaths
+                    '데스값 p, Setto, 0, Unit
+                    sb.AppendLine("        SetDeaths(CurrentPlayer, SetTo, 0, " & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & ");")
+                    sb.AppendLine("        break;")
+                Case StarCraftArchive.CodeData.CodeType.Array
+                    '배열
+                    Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+                    names = names.Split(".").First
+                    names = names.Replace("\", ".")
 
-                sb.AppendLine("        return n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()];")
-            Else
-                '데스값
-                sb.AppendLine("        return dwread_epd(" & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & " * 12 + getcurpl());")
-            End If
+                    Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
+
+                    sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
+                    sb.AppendLine("        for(var i = 0 ; i < alen; i++){")
+                    sb.AppendLine("            " & arrayname & "[alen * getcurpl() + i] = 0;")
+                    sb.AppendLine("        }")
+
+                    sb.AppendLine("        break;")
+            End Select
+
+        Next
+
+        sb.AppendLine("    }")
+        sb.AppendLine("}")
+
+        'sb.AppendLine("")
+        'sb.AppendLine("")
+        'sb.AppendLine("function LoadValue(tagNum, index){")
+        'sb.AppendLine("    switch(tagNum){")
+
+        'For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
+        '    sb.AppendLine("    case " & i & ":")
+
+
+        '    Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
+        '        Case StarCraftArchive.CodeData.CodeType.Variable
+        '            '변수
+        '            Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+        '            names = names.Split(".").First
+        '            names = names.Replace("\", ".")
+
+        '            sb.AppendLine("        return n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()];")
+        '        Case StarCraftArchive.CodeData.CodeType.Deaths
+        '            '데스값
+        '            sb.AppendLine("        return dwread_epd(" & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & " * 12 + getcurpl());")
+        '        Case StarCraftArchive.CodeData.CodeType.Array
+        '            '배열
+        '            Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+        '            names = names.Split(".").First
+        '            names = names.Replace("\", ".")
+
+        '            Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
+
+        '            sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
+        '            sb.AppendLine("        return " & arrayname & "[alen * getcurpl() + index];")
+        '    End Select
+        'Next
+
+        'sb.AppendLine("    }")
+        'sb.AppendLine("}")
+        sb.AppendLine("")
+        sb.AppendLine("")
+        sb.AppendLine("function SaveValue(tagNum, Value, index){")
+        sb.AppendLine("    switch(tagNum){")
+
+        For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
+            sb.AppendLine("    case " & i & ":")
+
+
+
+            Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
+                Case StarCraftArchive.CodeData.CodeType.Variable
+                    '변수
+                    Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+                    names = names.Split(".").First
+                    names = names.Replace("\", ".")
+                    sb.AppendLine("        n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()] = Value;")
+                    sb.AppendLine("        break;")
+                Case StarCraftArchive.CodeData.CodeType.Deaths
+                    '데스값 p, Setto, 0, Unit
+                    sb.AppendLine("        SetDeaths(CurrentPlayer, SetTo, Value, " & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & ");")
+                    sb.AppendLine("        break;")
+                Case StarCraftArchive.CodeData.CodeType.Array
+                    '배열
+                    Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+                    names = names.Split(".").First
+                    names = names.Replace("\", ".")
+
+                    Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
+
+                    sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
+                    sb.AppendLine("        " & arrayname & "[alen * getcurpl() + index] = Value;")
+                    sb.AppendLine("        break;")
+            End Select
+
         Next
 
         sb.AppendLine("    }")
         sb.AppendLine("}")
         sb.AppendLine("")
         sb.AppendLine("")
-        sb.AppendLine("function SaveValue(tagNum, Value){")
+        '저장시 메모리에 tagNum을 적는다. 리턴값으로는 전진한 만큼을 기록한다.
+        sb.AppendLine("function SaveDataWriteValue(tagNum, BaseAddress, index){")
         sb.AppendLine("    switch(tagNum){")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
-            If pjData.TEData.SCArchive.CodeDatas(i).TypeIndex = 0 Then
-                '변수
-                Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
-                names = names.Split(".").First
-                names = names.Replace("\", ".")
-                sb.AppendLine("        n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()] = Value;")
-            Else
-                '데스값 p, Setto, 0, Unit
-                sb.AppendLine("        SetDeaths(CurrentPlayer, SetTo, Value, " & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & ");")
-            End If
-        Next
+            sb.AppendLine("        {")
 
+
+            Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
+                Case StarCraftArchive.CodeData.CodeType.Variable
+                    '변수
+                    Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+                    names = names.Split(".").First
+                    names = names.Replace("\", ".")
+
+                    sb.AppendLine("        const objValue = n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()];")
+                Case StarCraftArchive.CodeData.CodeType.Deaths
+                    '데스값
+                    sb.AppendLine("        const objValue = dwread_epd(" & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & " * 12 + getcurpl());")
+                Case StarCraftArchive.CodeData.CodeType.Array
+                    '배열
+                    Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
+                    names = names.Split(".").First
+                    names = names.Replace("\", ".")
+
+                    Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
+
+                    sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
+                    sb.AppendLine("        for(var i = 0 ; i < alen ; i ++){")
+                    sb.AppendLine("            const objValue = " & arrayname & "[alen * getcurpl() + i];")
+                    sb.AppendLine("            if(objValue != 0){")
+                    sb.AppendLine("                if (objValue > 0xFFFF){")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x3000 + tagNum);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, i);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue / 0x10000);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue % 0x10000);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                 }else{")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x4000 + tagNum);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, i);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue);")
+                    sb.AppendLine("                    index++;")
+                    sb.AppendLine("                 }")
+                    sb.AppendLine("            }")
+                    sb.AppendLine("        }")
+            End Select
+
+            Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
+                Case StarCraftArchive.CodeData.CodeType.Variable, StarCraftArchive.CodeData.CodeType.Deaths
+                    sb.AppendLine("        if(objValue != 0){")
+                    sb.AppendLine("            if (objValue > 0xFFFF){")
+                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x1000 + tagNum);")
+                    sb.AppendLine("                index++;")
+                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue / 0x10000);")
+                    sb.AppendLine("                index++;")
+                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue % 0x10000);")
+                    sb.AppendLine("                index++;")
+                    sb.AppendLine("             }else{")
+                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x2000 + tagNum);")
+                    sb.AppendLine("                index++;")
+                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue);")
+                    sb.AppendLine("                index++;")
+                    sb.AppendLine("             }")
+                    sb.AppendLine("         }")
+            End Select
+            sb.AppendLine("        }")
+            sb.AppendLine("        break;")
+        Next
         sb.AppendLine("    }")
+        sb.AppendLine("    ")
+        sb.AppendLine("    return index;")
+        sb.AppendLine("}")
+        sb.AppendLine("")
+        sb.AppendLine("")
+        '
+        sb.AppendLine("function LoadDataReadValue(BaseAddress, i){")
+        sb.AppendLine("   	const indicator = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   	")
+        sb.AppendLine("   	if (indicator != 0){")
+        sb.AppendLine("   		const spec = indicator / 0x1000;")
+        sb.AppendLine("   		const ObjNum = indicator % 0x1000;")
+        sb.AppendLine("   		var vindex = 0;")
+        sb.AppendLine("   		var value = 0;")
+        sb.AppendLine("   		if (spec == 1){")
+        sb.AppendLine("   			//4바이트 지정")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			const value1 = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			const value2 = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   			value = value1 * 0x10000 + value2;")
+        sb.AppendLine("   		}else if (spec == 2){")
+        sb.AppendLine("   			//2바이트 지정")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			value = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   		}else if (spec == 3){")
+        sb.AppendLine("   			//4바이트 지정")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			vindex = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			const value1 = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			const value2 = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   			value = value1 * 0x10000 + value2;")
+        sb.AppendLine("   		}else if (spec == 4){")
+        sb.AppendLine("   			//2바이트 지정")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			vindex = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   			i++;")
+        sb.AppendLine("   			value = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
+        sb.AppendLine("   		}")
+        sb.AppendLine("   		SaveValue(ObjNum, value, vindex);")
+        sb.AppendLine("   	}")
+        sb.AppendLine("   	return i;")
         sb.AppendLine("}")
 
 

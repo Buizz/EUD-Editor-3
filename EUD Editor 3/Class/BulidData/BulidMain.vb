@@ -158,20 +158,22 @@ Partial Public Class BuildData
 
     '########################### 빌드 작업 메인 함수 ############################
     Private Sub BuildProgress(isEdd As Boolean)
-        If pjData.TEData.SCArchive.IsUsed Then
-            If Not ConnecterStart() Then
-                Return
-            End If
-        End If
-
-
-
-
         '일단 프로그램 못끄게 막고 빌드중이라는 문구와 함께 진행 바 넣어야됨
         pgData.IsCompilng = True
         pjData.RefreshOutputWriteTime()
         pgData.isEddCompile = isEdd
         Tool.RefreshMainWindow()
+
+        If pjData.TEData.SCArchive.IsUsed Then
+            If Not ConnecterStart() Then
+                pgData.IsCompilng = False
+                pgData.isEddCompile = False
+                Tool.RefreshMainWindow()
+                Return
+            End If
+        End If
+
+
 
         '각각의 임시파일들을 만들어야함
         If pjData.TEData.SCArchive.IsUsed Then
