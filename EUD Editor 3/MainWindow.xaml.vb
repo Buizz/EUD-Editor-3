@@ -244,7 +244,7 @@ Class MainWindow
 
                 If opendialog.ShowDialog() = Forms.DialogResult.OK Then
                     pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
-                    scData.LoadMPQData()
+                    scData.LoadGRPData()
                     BtnRefresh()
                 Else
                     Tool.ErrorMsgBox(Tool.GetText("Error FailLoad DataEditor"))
@@ -277,7 +277,7 @@ Class MainWindow
 
                 If opendialog.ShowDialog() = Forms.DialogResult.OK Then
                     pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
-                    scData.LoadMPQData()
+                    scData.LoadGRPData()
                     BtnRefresh()
                 Else
                     Tool.ErrorMsgBox(Tool.GetText("Error FailLoad TriggerEditor"))
@@ -312,7 +312,7 @@ Class MainWindow
 
                 If opendialog.ShowDialog() = Forms.DialogResult.OK Then
                     pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
-                    scData.LoadMPQData()
+                    scData.LoadGRPData()
                     BtnRefresh()
                 Else
                     Tool.ErrorMsgBox(Tool.GetText("Error FailLoad PluginSet"))

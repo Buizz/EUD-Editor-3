@@ -122,6 +122,17 @@
                         <ComboBoxItem Content="한국어" Tag="ko-KR"/>
                         <ComboBoxItem Content="English" Tag="us-EN"/>
                     </ComboBox>
+                    <Separator Grid.Row="6" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
+
+                    <Label Grid.Row="7" Grid.Column="1" Content="{StaticResource Graphic}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                    <ComboBox x:Name="CBGraphic" Grid.Row="8" Grid.Column="1" Margin="5" SelectionChanged="CBGraphic_SelectionChanged" 
+                    MinWidth="72"
+                    VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
+                        <ComboBoxItem Content="{StaticResource NoGraphic}"/>
+                        <ComboBoxItem Content="{StaticResource SDGraphic}"/>
+                        <ComboBoxItem Content="{StaticResource HDGraphic}"/>
+                        <ComboBoxItem Content="{StaticResource CarbotGraphic}"/>
+                    </ComboBox>
 
                     <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
 

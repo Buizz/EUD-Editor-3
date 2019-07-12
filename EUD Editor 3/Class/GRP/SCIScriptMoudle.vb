@@ -298,6 +298,16 @@ Namespace IScript
 
             LoadIscript()
         End Sub
+        Public Sub LoadIscriptToFile(filename As String)
+            Reset()
+            Dim fs As New FileStream(filename, FileMode.Open)
+            Dim br As New BinaryReader(fs)
+            buffer = br.ReadBytes(fs.Length)
+            br.Close()
+            fs.Close()
+
+            LoadIscript()
+        End Sub
 
         Public Sub LoadIscript() '모든 스크립트를 읽는다.
             Dim memsteram As New MemoryStream(buffer)

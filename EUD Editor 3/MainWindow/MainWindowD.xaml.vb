@@ -108,8 +108,9 @@ Public Class MainWindowD
                 'e.Cancel = ShutDownProgram()
             End If
         Else
-            Tool.ErrorMsgBox(Tool.GetText("Error ProgramLoading"))
-            e.Cancel = True
+            If MsgBox(Tool.GetText("Error ProgramLoading"), MsgBoxStyle.YesNo) = MsgBoxResult.No Then
+                e.Cancel = True
+            End If
         End If
     End Sub
 

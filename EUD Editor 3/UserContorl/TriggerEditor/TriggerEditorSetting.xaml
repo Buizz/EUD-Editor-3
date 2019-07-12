@@ -54,8 +54,27 @@
             <TabItem Header="{StaticResource TE_SCASetting}">
                 <DockPanel>
                     <StackPanel Margin="10" DockPanel.Dock="Top">
-                        <CheckBox x:Name="UseSCA" Checked="UseSCA_Checked" Unchecked="UseSCA_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}"
-                              Content="사용"  />
+                        <CheckBox x:Name="UseSCA" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}"
+                              Content="사용">
+                            <CheckBox.IsChecked>
+                                <Binding
+                                          Path="SCAUse"
+                                          ValidatesOnDataErrors="True"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </CheckBox.IsChecked>
+                        </CheckBox>
+                        <CheckBox TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}"
+                              Content="테스트 모드">
+                            <CheckBox.IsChecked>
+                                <Binding
+                                          Path="SCATestMode"
+                                          ValidatesOnDataErrors="True"
+                                          UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </CheckBox.IsChecked>
+                        </CheckBox>
+
                         <Separator Background="#4CA0A0A0"/>
                         <Label  Content="맵 제작자" HorizontalAlignment="Left" VerticalAlignment="Top"  />
 
@@ -121,12 +140,17 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-                            <TextBox x:Name="MapCode" IsReadOnly="True"  Grid.Column="0" materialDesign:HintAssist.Hint="DB Code" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
+                            <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="신고 기능 이용 시 내용을 수신 받을 수 있습니다." materialDesign:HintAssist.Hint="제작자 이메일" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
                                 <TextBox.Text>
                                     <Binding
-                                          Path="MapCode"
+                                          Path="MakerEmail"
+                                          ValidatesOnDataErrors="True"
                                           UpdateSourceTrigger="PropertyChanged">
-
+                                        
+                                        <Binding.ValidationRules>
+                                            <local:EMailValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
@@ -135,7 +159,20 @@
                         <Separator Background="#4CA0A0A0"/>
                         <Label  Content="데이터 설정" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Top" x:Name="DataBufferSize" TextChanged="DataBufferSize_TextChanged" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="버퍼 사이즈" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" />
+                            <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="버퍼 사이즈" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
+                                <TextBox.Text>
+                                    <Binding
+                                          Path="DataSize"
+                                          ValidatesOnDataErrors="True"
+                                          UpdateSourceTrigger="PropertyChanged">
+
+                                        <Binding.ValidationRules>
+                                            <local:NotTextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
 
                         </DockPanel>
                     </StackPanel>

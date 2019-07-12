@@ -159,6 +159,11 @@ Public Class ProgramData
         Catch ex As Exception
             Setting(ProgramData.TSetting.CheckUpdate) = True
         End Try
+
+        If Not IsNumeric(Setting(ProgramData.TSetting.Graphic)) Then
+            Setting(ProgramData.TSetting.Graphic) = 1
+        End If
+
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
 
@@ -178,25 +183,29 @@ Public Class ProgramData
         PrimaryHueMidBrush = 7
         PrimaryHueMidForegroundBrush = 8
         PrimaryHueDarkBrush = 9
+
         PrimaryHueDarkForegroundBrush = 10
         SecondaryAccentBrush = 11
         SecondaryAccentForegroundBrush = 12
         DefaultData = 13
         MapEditorData = 14
+
         EditedData = 15
         CheckedData = 16
         CDLanuageChange = 17
         DataEditorTopMost = 18
         CheckReg = 19
+
         TriggerEditrTopMost = 20
         PluginSettingTopMost = 21
-        CheckUpdate = 21
+        CheckUpdate = 22
+        Graphic = 23
     End Enum
     Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
-    "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush",
-    "PrimaryHueDarkBrush", "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush",
-    "DefaultData", "MapEditorData", "EditedData", "CheckedData",
-    "CDLanuageChange", "DataEditorTopMost", "CheckReg", "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate"}
+    "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush", "PrimaryHueDarkBrush",
+    "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush", "DefaultData", "MapEditorData",
+    "EditedData", "CheckedData", "CDLanuageChange", "DataEditorTopMost", "CheckReg",
+    "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))

@@ -458,7 +458,7 @@ Public Class CodeSelecter
         ListResetData(pagetype, StartIndex)
     End Sub
     Private Function GetIcon(iconIndex As Integer, isSizeBig As Boolean) As Border
-        Dim imgSource As ImageSource = scData.GetIcon(iconIndex, False)
+        Dim imgSource As ImageSource = scData.GetIcon(iconIndex)
         Dim bitmap As New Image
         bitmap.BeginInit()
         bitmap.Source = imgSource
@@ -483,7 +483,7 @@ Public Class CodeSelecter
         Return tborder
     End Function
     Private Function GetImage(grpIndex As Integer, isSizeBig As Boolean) As Border
-        Dim imgSource As ImageSource = scData.GetGRPImage(grpIndex, 12, False)
+        Dim imgSource As ImageSource = scData.GetGRPImage(grpIndex, 12)
         Dim bitmap As New Image
         bitmap.BeginInit()
         bitmap.Source = imgSource
@@ -513,11 +513,11 @@ Public Class CodeSelecter
 
         Select Case Flag
             Case 1
-                imgSource = scData.GetWireFrame(grpIndex, False)
+                imgSource = scData.GetWireFrame(grpIndex)
             Case 2
-                imgSource = scData.GetGrpFrame(grpIndex, False)
+                imgSource = scData.GetGrpFrame(grpIndex)
             Case Else
-                imgSource = scData.GetTranFrame(grpIndex, False)
+                imgSource = scData.GetTranFrame(grpIndex)
         End Select
 
 

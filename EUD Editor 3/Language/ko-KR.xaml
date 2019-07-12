@@ -3,6 +3,11 @@
     xmlns:local="clr-namespace:EUD_Editor_3"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Language">언어</sys:String>
+    <sys:String x:Key="Graphic">그래픽</sys:String>
+    <sys:String x:Key="NoGraphic">로드 없음</sys:String>
+    <sys:String x:Key="SDGraphic">오리지날</sys:String>
+    <sys:String x:Key="HDGraphic">리마스터</sys:String>
+    <sys:String x:Key="CarbotGraphic">카봇그래픽</sys:String>
 
 
     <sys:String x:Key="DataLoading">실행을 위해 데이터를 불러오는 중...</sys:String>
@@ -152,10 +157,11 @@
     <sys:String x:Key="Error SaveMap is not exist reset">저장 맵을 생성 할 수 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error SettingSave Fail">프로그램 세팅 저장을 실패했습니다.</sys:String>
     <sys:String x:Key="Error ProgramInit Fail">프로그램 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
+    <sys:String x:Key="Error TriggerScript Init Fail">TriggerScript Editor를 초기화 하는데에 문제가 발생했습니다.</sys:String>
     <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
-    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve" >MPQ파일을 읽는데 실패했습니다.&#13;리마스터 버전의 MPQ파일이 아닐 수 있습니다.</sys:String>
-    <sys:String x:Key="Error NotExistMPQ">MPQ파일이 지정되어 있지 않습니다.</sys:String>
-    <sys:String x:Key="Error NotExistMPQ reset">MPQ파일이 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
+    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve" >Casc 데이터를 읽는데 실패했습니다.&#13;스타크래프트 버전이 최신이 아닐 수 있습니다.</sys:String>
+    <sys:String x:Key="Error NotExistMPQ">Casc파일이 지정되어 있지 않습니다. 그래픽 파일을 로드하지 않습니다.</sys:String>
+    <sys:String x:Key="Error NotExistMPQ reset">Casc파일이 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
     <sys:String x:Key="Error WriteMapFile">맵 파일을 쓸 수 없습니다.</sys:String>
@@ -176,7 +182,7 @@
     <sys:String x:Key="Error FailLoad PluginSet">플러그인 세팅 로드에 실패했습니다.</sys:String>
 
     <sys:String x:Key="Error compiling">컴파일 중에는 종료 할 수 없습니다.</sys:String>
-    <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중에는 종료 할 수 없습니다.</sys:String>
+    <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중입니다. 그래도 종료하시겠습니까?</sys:String>
 
 
     <sys:String x:Key="Error Dont Delete File">삭제 할 수 없는 파일입니다.</sys:String>
@@ -817,9 +823,19 @@
     <sys:String x:Key="NoMatchesFoundText">일치하는 결과가 없습니다!</sys:String>
 
 
-
-
-
     <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
     <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
+
+    <sys:String x:Key="Control">제어|&amp;HFF,&amp;HC5,&amp;H00</sys:String>
+    <sys:String x:Key="Func">함수|&amp;HCF,&amp;H2A,&amp;HFF</sys:String>
+    <sys:String x:Key="Condition">조건|&amp;H45,&amp;HEC,&amp;H5B</sys:String>
+    <sys:String x:Key="Action">액션|&amp;H2C,&amp;HC0,&amp;HEC</sys:String>
+    <sys:String x:Key="Variable">변수|&amp;HFF,&amp;H68,&amp;H50</sys:String>
+
+
+    <!--<ListBoxItem Content="제어" Background="#FFFFC500" Tag="0"/>
+            <ListBoxItem Content="함수" Background="#FFCF2AFF" Tag="1"/>
+            <ListBoxItem Content="조건" Background="#FF45EC5B" Tag="2"/>
+            <ListBoxItem Content="액션" Background="#FF2CC0EC" Tag="3"/>
+            <ListBoxItem Content="변수" Background="#FFFF6850" Tag="4"/>-->
 </ResourceDictionary>

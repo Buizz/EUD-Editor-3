@@ -7,11 +7,29 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public ReadOnly Property CascData As CascData
+            Get
+                If tCascData Is Nothing Then
+                    If My.Computer.FileSystem.DirectoryExists(Tool.StarCraftPath) Then
+                        tCascData = New CascData
+                    Else
+                        Return Nothing
+                    End If
+                End If
+                Return tCascData
+            End Get
+        End Property
+
+
+
+        Private tCascData As CascData
+
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
         Public TEEpsDefaultFunc As CFunc
 
         'Private MainWindow As MainWindow
         Public Sub Init()
+
             SaveProjectDialog = New System.Windows.Forms.SaveFileDialog
             SaveProjectDialog.Filter = GetText("SaveFliter")
 
@@ -216,7 +234,7 @@ Namespace Tool
 
         Public ReadOnly Property StarCraftPath() As String
             Get
-                Return pgData.Setting(ProgramData.TSetting.starcraft).Replace("StarCraft.exe", "")
+                Return pgData.Setting(ProgramData.TSetting.starcraft).Replace("StarCraft Launcher.exe", "")
             End Get
         End Property
 

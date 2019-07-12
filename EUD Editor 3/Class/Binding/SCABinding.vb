@@ -12,26 +12,70 @@ Public Class SCABinding
 
 
 
+    Public Property SCAUse() As Boolean
+        Get
+            Return pjData.TEData.SCArchive.IsUsed
+        End Get
+        Set(value As Boolean)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.IsUsed = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
+    Public Property SCATestMode() As Boolean
+        Get
+            Return pjData.TEData.SCArchive.TestMode
+        End Get
+        Set(value As Boolean)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.TestMode = value
+            PropertyChangedPack()
+        End Set
+    End Property
     Public Property BattleTag() As String
         Get
             Return pjData.TEData.SCArchive.MakerBattleTag
         End Get
         Set(value As String)
+            pjData.SetDirty(True)
             pjData.TEData.SCArchive.MakerBattleTag = value
             PropertyChangedPack()
         End Set
     End Property
 
+    Public Property DataSize() As String
+        Get
+            Return pjData.TEData.SCArchive.DataSpace
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.DataSpace = value
+            PropertyChangedPack()
+        End Set
+    End Property
     Public Property UserName() As String
         Get
             Return pjData.TEData.SCArchive.MakerServerName
         End Get
         Set(value As String)
+            pjData.SetDirty(True)
             pjData.TEData.SCArchive.MakerServerName = value
             PropertyChangedPack()
         End Set
     End Property
 
+
+    Public Property MakerEmail() As String
+        Get
+            Return pjData.TEData.SCArchive.MakerEmail
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MakerEmail = value
+            PropertyChangedPack()
+        End Set
+    End Property
 
 
     Public Property MapName() As String
@@ -39,6 +83,7 @@ Public Class SCABinding
             Return pjData.TEData.SCArchive.MapName
         End Get
         Set(value As String)
+            pjData.SetDirty(True)
             pjData.TEData.SCArchive.MapName = value
             PropertyChangedPack()
         End Set
@@ -48,6 +93,7 @@ Public Class SCABinding
             Return pjData.TEData.SCArchive.PassWord
         End Get
         Set(value As String)
+            pjData.SetDirty(True)
             pjData.TEData.SCArchive.PassWord = value
         End Set
     End Property

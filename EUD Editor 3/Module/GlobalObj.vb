@@ -17,6 +17,7 @@ Module GlobalObj
     Public SettiingForm As SettingWindows
 
 
+    Public tescm As ScriptManager
 
 
     Public Function UpdateCheck() As Boolean
@@ -88,8 +89,13 @@ Module GlobalObj
         End Try
 
 
-
-
+        Try
+            tescm = New ScriptManager
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error TriggerScript Init Fail"), ex.ToString)
+            Application.Current.Shutdown()
+            Return False
+        End Try
         Try
             pgData = New ProgramData
             Lagacy = New LagacyClass

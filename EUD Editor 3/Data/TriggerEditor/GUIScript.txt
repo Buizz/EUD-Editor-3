@@ -1,0 +1,127 @@
+[
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      "Condition",
+      "Then",
+      "Else"
+    ],
+    "InitBlock": [
+      "Condition",
+      "Then"
+    ],
+    "SName": "If"
+  },
+  {
+    "IsFolder": true,
+    "IsLock": true,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 99,
+    "shortheader": true,
+    "FolderType": 1,
+    "Uniqueness": true,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Condition"
+  },
+  {
+    "IsFolder": true,
+    "IsLock": true,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 99,
+    "shortheader": true,
+    "FolderType": 0,
+    "Uniqueness": true,
+    "FolderRull": [
+	  ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Then"
+  },
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 3,
+    "shortheader": true,
+    "FolderType": 0,
+    "Uniqueness": true,
+    "FolderRull": [
+	  ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Else"
+  },
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      "Condition",
+      "Then",
+      "Else"
+    ],
+    "InitBlock": [
+      "Condition",
+      "Then"
+    ],
+    "SName": "Elseif"
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Func",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "SetMemory"
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Action",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "CreateUnit"
+  }
+]

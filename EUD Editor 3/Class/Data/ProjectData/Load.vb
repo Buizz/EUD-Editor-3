@@ -31,9 +31,9 @@ Partial Public Class ProjectData
         End If
     End Sub
     Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
+        Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
         Try
             If FileName.Split(".").Last = "e3s" Then
-                Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
                 Dim bf As BinaryFormatter = New BinaryFormatter()
                 _pjdata = New ProjectData
                 _pjdata.NewFIle()
@@ -57,6 +57,7 @@ Partial Public Class ProjectData
             End If
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error SaveFileOpen"), ex.ToString)
+            stm.Close()
             pjData.CloseFile()
         End Try
 

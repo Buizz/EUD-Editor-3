@@ -64,7 +64,7 @@ Partial Public Class BuildData
         Dim startInfo As New ProcessStartInfo
 
         startInfo.FileName = GetConnectPath
-        startInfo.Arguments = GetMapCode() & " " & pjData.TEData.SCArchive.MakerBattleTag & " " & pjData.TEData.SCArchive.PassWord
+        startInfo.Arguments = pjData.TEData.SCArchive.MakerEmail & " " & GetMapCode() & " " & pjData.TEData.SCArchive.MakerBattleTag & " " & pjData.TEData.SCArchive.PassWord
 
 
         'startInfo.StandardOutputEncoding = Text.Encoding.UTF32
@@ -489,6 +489,7 @@ Partial Public Class BuildData
 
         Sb.AppendLine(KeyHeaderStr)
 
+        Sb.AppendLine(pjData.TEData.SCArchive.TestMode)
 
 
 

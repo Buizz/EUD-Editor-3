@@ -356,7 +356,7 @@ Public Class ListSelecter
 
     End Sub
     Private Function GetIcon(iconIndex As Integer, isSizeBig As Boolean) As Border
-        Dim imgSource As ImageSource = scData.GetIcon(iconIndex, False)
+        Dim imgSource As ImageSource = scData.GetIcon(iconIndex)
         Dim bitmap As New Image
         bitmap.BeginInit()
         bitmap.Source = imgSource
@@ -381,7 +381,7 @@ Public Class ListSelecter
         Return tborder
     End Function
     Private Function GetImage(grpIndex As Integer, isSizeBig As Boolean) As Border
-        Dim imgSource As ImageSource = scData.GetGRPImage(grpIndex, 12, False)
+        Dim imgSource As ImageSource = scData.GetGRPImage(grpIndex, 12)
         Dim bitmap As New Image
         bitmap.BeginInit()
         bitmap.Source = imgSource

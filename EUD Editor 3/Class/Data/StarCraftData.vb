@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports Pfim
 Public Module SCConst
     Public SCUnitCount As Byte = 228
     Public SCWeaponCount As Byte = 130
@@ -273,76 +274,84 @@ Public Class StarCraftData
     Private ReadOnly stat_txt_kor_eng As tblReader
     Private ReadOnly stat_txt_kor_kor As tblReader
 
-    Private SDGRP(SCImageCount) As GRP
-    Private HDGRP(SCImageCount) As GRP
-    Public ReadOnly Property GetGRPImage(index As Integer, frame As Integer, IsRemaster As Boolean) As BitmapImage
-        Get
-            If IsRemaster Then
-                Return Nothing
-            Else
-                Return SDGRP(index).DrawGRP(frame)
-            End If
-        End Get
-    End Property
-    Public ReadOnly Property GetGrp(index As Integer) As GRP
-        Get
-            Return SDGRP(index)
-        End Get
-    End Property
+
+    Private SDGRP(SCImageCount) As SDGRP
+    Private HDGRP(SCImageCount) As HDGRP
+    Private CTGRP(SCImageCount) As HDGRP
 
 
 
-
+    'Private SDGRP(SCImageCount) As GRP
+    'Private HDGRP(SCImageCount) As GRP
     Private SDICON As GRP
     Private HDICON As GRP
-    Public ReadOnly Property GetIcon(index As Integer, IsRemaster As Boolean) As BitmapImage
-        Get
-            If IsRemaster Then
-                Return Nothing
-            Else
-                Return SDICON.DrawGRP(index)
-            End If
-        End Get
-    End Property
-
-
     Private SDWireFrame As GRP
     Private HDWireFrame As GRP
     Private SDGrpFrame As GRP
     Private HDGrpFrame As GRP
     Private SDTramFrame As GRP
     Private HDTramFrame As GRP
-    Public ReadOnly Property GetWireFrame(index As Integer, IsRemaster As Boolean) As BitmapImage
+    Public ReadOnly Property GetGRPImage(index As Integer, frame As Integer) As BitmapSource
         Get
-            If IsRemaster Then
-                Return Nothing
-            Else
-                Return SDWireFrame.DrawGRP(index)
-            End If
+            Select Case pgData.Setting(ProgramData.TSetting.Graphic)
+                Case 1
+                    Try
+                        Return SDGRP(index).DrawGRP(frame)
+                    Catch ex As Exception
+                        'MsgBox(ex.ToString & vbCrLf & index)
+                    End Try
+
+                Case 2
+                    Try
+                        Return HDGRP(index).DrawGRP(frame)
+                    Catch ex As Exception
+                        'MsgBox(ex.ToString & vbCrLf & index)
+                    End Try
+                Case 3
+                    Try
+                        Return CTGRP(index).DrawGRP(frame)
+                    Catch ex As Exception
+                        'MsgBox(ex.ToString & vbCrLf & index)
+                    End Try
+            End Select
+
+
+            Return New BitmapImage()
+            'Return SDGRP(index).DrawGRP(frame)
+        End Get
+    End Property
+    Public ReadOnly Property GetGrp(index As Integer) As GRP
+        Get
+            Return Nothing
+            'Return SDGRP(index)
+        End Get
+    End Property
+    Public ReadOnly Property GetIcon(index As Integer) As BitmapImage
+        Get
+            Return New BitmapImage()
+            Return SDICON.DrawGRP(index)
+        End Get
+    End Property
+    Public ReadOnly Property GetWireFrame(index As Integer) As BitmapImage
+        Get
+            Return New BitmapImage()
+            Return SDWireFrame.DrawGRP(index)
+        End Get
+    End Property
+    Public ReadOnly Property GetGrpFrame(index As Integer) As BitmapImage
+        Get
+            Return New BitmapImage()
+            Return SDGrpFrame.DrawGRP(index)
+        End Get
+    End Property
+    Public ReadOnly Property GetTranFrame(index As Integer) As BitmapImage
+        Get
+            Return New BitmapImage()
+            Return SDTramFrame.DrawGRP(index)
         End Get
     End Property
 
 
-    Public ReadOnly Property GetGrpFrame(index As Integer, IsRemaster As Boolean) As BitmapImage
-        Get
-            If IsRemaster Then
-                Return Nothing
-            Else
-                Return SDGrpFrame.DrawGRP(index)
-            End If
-        End Get
-    End Property
-
-
-    Public ReadOnly Property GetTranFrame(index As Integer, IsRemaster As Boolean) As BitmapImage
-        Get
-            If IsRemaster Then
-                Return Nothing
-            Else
-                Return SDTramFrame.DrawGRP(index)
-            End If
-        End Get
-    End Property
 
 
     Private IsLoadMPQ As Boolean
@@ -390,6 +399,9 @@ Public Class StarCraftData
         Offsets = New Dictionary(Of String, String)
         '오프셋 읽기
 
+        piscriptData = New IScript.CIScript
+        piscriptData.LoadIscriptToFile(Tool.DataPath("iscript.bin"))
+
         stat_txt = New tblReader(Tool.GetTblFolder & "\stat_txt.tbl")
         stat_txt_kor_eng = New tblReader(Tool.GetTblFolder & "\stat_txt_kor_eng.tbl")
         stat_txt_kor_kor = New tblReader(Tool.GetTblFolder & "\stat_txt_kor_kor.tbl")
@@ -402,7 +414,7 @@ Public Class StarCraftData
         ReadActConCode()
 
 
-        LoadMPQData()
+        LoadGRPData()
 
         IScript.readOpcodes()
 
@@ -578,51 +590,429 @@ Public Class StarCraftData
         sr.Close()
 
     End Sub
-    Public Sub LoadMPQData()
-        IsLoadMPQ = False
-        If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.starcraft)) Then
-            Tool.ErrorMsgBox(Tool.GetText("Error NotExistMPQ"))
+
+    Private isSDGLoad As Boolean
+    Private isHDGLoad As Boolean
+    Private isCarbotGLoad As Boolean
+
+
+    Public Sub LoadGRPData()
+        Dim grptype As Integer = pgData.Setting(ProgramData.TSetting.Graphic)
+
+
+        If grptype = 0 Then
+            IsLoadMPQ = True
             Return
         End If
+
+        'MsgBox(pgData.Setting(ProgramData.TSetting.Graphic))
+
+
+        IsLoadMPQ = False
+        If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.starcraft)) Then
+            pgData.Setting(ProgramData.TSetting.Graphic) = 0
+            Tool.ErrorMsgBox(Tool.GetText("Error NotExistMPQ"))
+            IsLoadMPQ = True
+            Return
+        End If
+        Tool.CascData.OpenCascStorage()
         Try
-            MGRP.GRPMoudleInit()
-            piscriptData = New IScript.CIScript
-            piscriptData.LoadIscriptToBuff(Tool.LoadDataFromMPQ("scripts\iscript.bin"))
-
-            'MPQ파일을 미리 다 읽어서 메모리에 올리자.
-            'GRP먼저
-            For i = 0 To SCImageCount - 1
-                Dim grpindex As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", i)
-                Dim DrawFunc As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Draw Function", i)
-                Dim Remapping As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Remapping", i)
-                Dim filename As String = GRPFiles(grpindex)
-                SDGRP(i) = New GRP(filename, DrawFunc, Remapping)
-            Next
-
-            SDICON = New GRP("cmdbtns\cmdicons.grp", 0, 0, PalettType.Icons)
+            Select Case grptype
+                Case 1
+                    LoadSDGRP()
+                Case 2
+                    LoadHDGRP()
+                Case 3
+                    LoadCarbotGRP()
+            End Select
 
 
-            SDWireFrame = New GRP("wirefram\wirefram.grp", 0, 0, PalettType.Icons)
-            SDGrpFrame = New GRP("wirefram\grpwire.grp", 0, 0, PalettType.Icons)
-            SDTramFrame = New GRP("wirefram\tranwire.grp", 0, 0, PalettType.Icons)
+
+
+            'MsgBox("시작")
+            'MGRP.GRPMoudleInit()
+            'MsgBox("GRP로드끝")
+
+            'piscriptData.LoadIscriptToBuff(Tool.CascData.ReadFile("scripts/iscript.bin"))
+
+            'Tool.CascData.OpenCascStorage()
+            'For i = 0 To SCImageCount - 1
+            '    Dim grpindex As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", i)
+            '    Dim DrawFunc As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Draw Function", i)
+            '    Dim Remapping As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Remapping", i)
+            '    Dim filename As String = "unit\" & GRPFiles(grpindex)
+            '    SDGRP(i) = New GRP(Tool.CascData.ReadFileCascStorage(filename), DrawFunc, Remapping)
+            'Next
+            'Tool.CascData.CloseCascStorage()
+
+            'SDICON = New GRP("cmdbtns/cmdicons.grp", 0, 0, PalettType.Icons)
+
+
+            'SDWireFrame = New GRP("wirefram/wirefram.grp", 0, 0, PalettType.Icons)
+            'SDGrpFrame = New GRP("wirefram/grpwire.grp", 0, 0, PalettType.Icons)
+            'SDTramFrame = New GRP("wirefram/tranwire.grp", 0, 0, PalettType.Icons)
         Catch ex As Exception
+            pgData.Setting(ProgramData.TSetting.Graphic) = 0
             Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"), ex.ToString)
+            IsLoadMPQ = True
             Return
         End Try
-
+        Tool.CascData.CloseCascStorage()
 
 
         IsLoadMPQ = True
     End Sub
 
+    Private Sub LoadSDGRP()
+        If isSDGLoad Then
+            Return
+        End If
+        Dim pos As UInteger = 0
+        Dim bytes As Byte() = Tool.CascData.ReadFileCascStorage("SD/mainSD.anim")
+
+
+        BReader.ReadUint32(pos, bytes) 'unsigned Int magic; // "ANIM"
+        BReader.ReadUint16(pos, bytes) 'unsigned Short version; // Version? 0x0101, 0x0202, 0x0204
+        BReader.ReadUint16(pos, bytes) 'unsigned Short unk2; // 0 -- more bytes for version?
+        Dim layercount As UInt16 = BReader.ReadUint16(pos, bytes) 'unsigned Short layers; 레이어의 갯수
+        Dim entrycount As UInt16 = BReader.ReadUint16(pos, bytes) 'unsigned Short entries;
+
+
+        Dim layerstrs As New List(Of String)
+        For i = 0 To 9
+            Dim tstr As String = ""
+            For j = 0 To 31
+                Dim tb As Byte = BReader.ReadByte(pos, bytes)
+
+                tstr = tstr & Chr(tb)
+
+            Next
+            tstr = tstr.Split(Chr(0)).First
+
+            layerstrs.Add(tstr)
+        Next
+
+        Dim entrypoints(entrycount) As UInteger
+        For i = 0 To entrycount - 1
+            entrypoints(i) = BReader.ReadUint32(pos, bytes)
+        Next
 
 
 
+        For i = 0 To entrycount - 1
+            Dim grpfile As String = GRPFiles(DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", i)).ToLower
+
+            pos = entrypoints(i)
+
+            Dim framescount As UInt16 = BReader.ReadUint16(pos, bytes)
+            BReader.ReadUint16(pos, bytes) 'always 0xFFFF?
+
+            BReader.ReadUint16(pos, bytes) 'width and height are 0 in SD images, and should be retrieved from the appropriate GRP file.
+            BReader.ReadUint16(pos, bytes)
+
+            Dim frameinfoptr As UInteger = BReader.ReadUint32(pos, bytes)
+            '프레임들 쫙 있음
 
 
-    Private Sub ReadOffetFile(filename As String)
 
+            Dim mainbitsource As ByteBitmap = Nothing
+            For j = 0 To layercount - 1
+                'If i = 27 Then
+                '    MsgBox("ID : " & i & " offset : " & pos)
+                'End If
+
+
+                Dim ddsptr As UInt32 = BReader.ReadUint32(pos, bytes)
+                Dim ddssize As UInt32 = BReader.ReadUint32(pos, bytes)
+
+                Dim width As UInt16 = BReader.ReadUint16(pos, bytes)
+                Dim height As UInt16 = BReader.ReadUint16(pos, bytes)
+                If ddssize = 0 Then
+                    Continue For
+                End If
+
+                If layerstrs(j) = "diffuse" Then
+                    Dim tpos As UInteger = ddsptr
+                    Dim ms As New MemoryStream(BReader.ReadBytes(tpos, ddssize, bytes))
+                    ms.Position = 0
+
+                    mainbitsource = BitmapManager.LoadImage(ms)
+                    'If i = 10 Or i = 0 Then
+                    '    'Dim testwindow As New TestWindow(bitsource, i)
+                    '    Dim testwindow As New TestWindow(Cutoff(mainbitsource, New Int32Rect(0, 0, mainbitsource.Width, mainbitsource.Height)), i)
+
+                    '    testwindow.ShowDialog()
+                    'End If
+                    '                 Try
+                    '                 Catch ex As Exception
+                    '                     MsgBox(i & vbCrLf & "ddsptr : " & ddsptr & vbCrLf &
+                    '"ddssize : " & ddssize & vbCrLf &
+                    '"width : " & width & vbCrLf &
+                    '"height : " & height)
+                    '                 End Try
+                    ms.Close()
+                ElseIf layerstrs(j) = "teamcolor" Then
+                    'MsgBox("ddsptr : " & ddsptr & vbCrLf &
+                    '       "ddssize : " & ddssize & vbCrLf &
+                    '       "width : " & width & vbCrLf &
+                    '       "height : " & height)
+
+                    Dim tpos As UInteger = ddsptr
+                    BReader.ReadBytes(tpos, ddssize, bytes)
+                End If
+            Next
+
+            Dim framedata As New List(Of FrameData)
+            pos = frameinfoptr
+            For j = 0 To framescount - 1
+                framedata.Add(New FrameData(pos, bytes))
+            Next
+
+            SDGRP(i) = New SDGRP()
+            If mainbitsource Is Nothing Then
+                If i = 651 Then
+                    SDGRP(i) = SDGRP(643)
+                Else
+                    For k = 0 To SDGRP.Count - 1
+                        If SDGRP(k) IsNot Nothing Then
+                            If SDGRP(k).grpfile = grpfile Then
+                                SDGRP(i) = SDGRP(k)
+                                Exit For
+                            End If
+                        End If
+                    Next
+                End If
+
+            Else
+                SDGRP(i).LoadGRP(mainbitsource, framedata, grpfile)
+            End If
+
+        Next
+        isSDGLoad = True
     End Sub
+
+
+
+    Private Sub LoadHDGRP()
+        Dim bytetotal As Integer
+        If isHDGLoad Then
+            Return
+        End If
+        For imagecode = 0 To 998
+            Try
+                Dim pos As UInteger = 0
+                Dim bytes As Byte() = Tool.CascData.ReadFileCascStorage("HD2/anim/main_" & String.Format("{0:D3}", imagecode) & ".anim")
+
+                Dim framedata As New List(Of FrameData)
+                Dim grpfile As String = GRPFiles(DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", imagecode)).ToLower
+                Dim mainbitsource As ByteBitmap = Nothing
+                If bytes.Count <> 0 Then
+                    BReader.ReadUint32(pos, bytes) 'unsigned Int magic; // "ANIM"
+                    BReader.ReadUint16(pos, bytes) 'unsigned Short version; // Version? 0x0101, 0x0202, 0x0204
+                    BReader.ReadUint16(pos, bytes) 'unsigned Short unk2; // 0 -- more bytes for version?
+                    Dim layercount As UInt16 = BReader.ReadUint16(pos, bytes) 'unsigned Short layers; 레이어의 갯수
+                    Dim entrycount As UInt16 = BReader.ReadUint16(pos, bytes) 'unsigned Short entries;
+
+                    Dim layerstrs As New List(Of String)
+                    For i = 0 To 9
+                        Dim tstr As String = ""
+                        For j = 0 To 31
+                            Dim tb As Byte = BReader.ReadByte(pos, bytes)
+
+                            tstr = tstr & Chr(tb)
+
+                        Next
+                        tstr = tstr.Split(Chr(0)).First
+
+                        layerstrs.Add(tstr)
+                    Next
+
+                    Dim framescount As UInt16 = BReader.ReadUint16(pos, bytes)
+                    BReader.ReadUint16(pos, bytes) 'always 0xFFFF?
+
+                    BReader.ReadUint16(pos, bytes) 'width and height are 0 in SD images, and should be retrieved from the appropriate GRP file.
+                    BReader.ReadUint16(pos, bytes)
+
+                    Dim frameinfoptr As UInteger = BReader.ReadUint32(pos, bytes)
+                    For j = 0 To layercount - 1
+                        'If i = 27 Then
+                        '    MsgBox("ID : " & i & " offset : " & pos)
+                        'End If
+
+
+                        Dim ddsptr As UInt32 = BReader.ReadUint32(pos, bytes)
+                        Dim ddssize As UInt32 = BReader.ReadUint32(pos, bytes)
+
+                        Dim width As UInt16 = BReader.ReadUint16(pos, bytes)
+                        Dim height As UInt16 = BReader.ReadUint16(pos, bytes)
+                        If ddssize = 0 Then
+                            Continue For
+                        End If
+
+                        If layerstrs(j) = "diffuse" Then
+                            Dim tpos As UInteger = ddsptr
+                            Dim ms As New MemoryStream(BReader.ReadBytes(tpos, ddssize, bytes))
+                            ms.Position = 0
+
+                            mainbitsource = BitmapManager.LoadImage(ms)
+                            ms.Close()
+                            ms.Dispose()
+
+                        ElseIf layerstrs(j) = "teamcolor" Then
+                            Dim tpos As UInteger = ddsptr
+                            BReader.ReadBytes(tpos, ddssize, bytes)
+                        End If
+                    Next
+
+                    pos = frameinfoptr
+                    For j = 0 To framescount - 1
+                        framedata.Add(New FrameData(pos, bytes))
+                    Next
+                End If
+
+
+                HDGRP(imagecode) = New HDGRP()
+                If mainbitsource Is Nothing Then
+                    If imagecode = 651 Then
+                        HDGRP(imagecode) = HDGRP(643)
+                    Else
+                        For k = 0 To HDGRP.Count - 1
+                            If HDGRP(k) IsNot Nothing Then
+                                If HDGRP(k).grpfile = grpfile Then
+                                    HDGRP(imagecode) = HDGRP(k)
+                                    Exit For
+                                End If
+                            End If
+                        Next
+                    End If
+
+                Else
+                    HDGRP(imagecode).LoadGRP(mainbitsource, framedata, grpfile)
+
+                    bytetotal += mainbitsource.Bytes.Count
+                End If
+            Catch ex As Exception
+                MsgBox(imagecode & vbCrLf & ex.ToString)
+            End Try
+
+        Next
+
+
+        'MsgBox(bytetotal)
+        '프레임들 쫙 있음
+
+        isHDGLoad = True
+    End Sub
+
+
+    Private Sub LoadCarbotGRP()
+        If isCarbotGLoad Then
+            Return
+        End If
+        For imagecode = 0 To 998
+            Try
+                Dim pos As UInteger = 0
+                Dim bytes As Byte() = Tool.CascData.ReadFileCascStorage("HD2/anim/Carbot/main_" & String.Format("{0:D3}", imagecode) & ".anim")
+
+                Dim framedata As New List(Of FrameData)
+                Dim grpfile As String = GRPFiles(DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", imagecode)).ToLower
+                Dim mainbitsource As ByteBitmap = Nothing
+                If bytes.Count <> 0 Then
+                    BReader.ReadUint32(pos, bytes) 'unsigned Int magic; // "ANIM"
+                    BReader.ReadUint16(pos, bytes) 'unsigned Short version; // Version? 0x0101, 0x0202, 0x0204
+                    BReader.ReadUint16(pos, bytes) 'unsigned Short unk2; // 0 -- more bytes for version?
+                    Dim layercount As UInt16 = BReader.ReadUint16(pos, bytes) 'unsigned Short layers; 레이어의 갯수
+                    Dim entrycount As UInt16 = BReader.ReadUint16(pos, bytes) 'unsigned Short entries;
+
+                    Dim layerstrs As New List(Of String)
+                    For i = 0 To 9
+                        Dim tstr As String = ""
+                        For j = 0 To 31
+                            Dim tb As Byte = BReader.ReadByte(pos, bytes)
+
+                            tstr = tstr & Chr(tb)
+
+                        Next
+                        tstr = tstr.Split(Chr(0)).First
+
+                        layerstrs.Add(tstr)
+                    Next
+
+                    Dim framescount As UInt16 = BReader.ReadUint16(pos, bytes)
+                    BReader.ReadUint16(pos, bytes) 'always 0xFFFF?
+
+                    BReader.ReadUint16(pos, bytes) 'width and height are 0 in SD images, and should be retrieved from the appropriate GRP file.
+                    BReader.ReadUint16(pos, bytes)
+
+                    Dim frameinfoptr As UInteger = BReader.ReadUint32(pos, bytes)
+                    For j = 0 To layercount - 1
+                        'If i = 27 Then
+                        '    MsgBox("ID : " & i & " offset : " & pos)
+                        'End If
+
+
+                        Dim ddsptr As UInt32 = BReader.ReadUint32(pos, bytes)
+                        Dim ddssize As UInt32 = BReader.ReadUint32(pos, bytes)
+
+                        Dim width As UInt16 = BReader.ReadUint16(pos, bytes)
+                        Dim height As UInt16 = BReader.ReadUint16(pos, bytes)
+                        If ddssize = 0 Then
+                            Continue For
+                        End If
+
+                        If layerstrs(j) = "diffuse" Then
+                            Dim tpos As UInteger = ddsptr
+                            Dim ms As New MemoryStream(BReader.ReadBytes(tpos, ddssize, bytes))
+                            ms.Position = 0
+
+                            mainbitsource = BitmapManager.LoadImage(ms)
+                            ms.Close()
+                            ms.Dispose()
+
+                        ElseIf layerstrs(j) = "teamcolor" Then
+                            Dim tpos As UInteger = ddsptr
+                            BReader.ReadBytes(tpos, ddssize, bytes)
+                        End If
+                    Next
+
+                    pos = frameinfoptr
+                    For j = 0 To framescount - 1
+                        framedata.Add(New FrameData(pos, bytes))
+                    Next
+                End If
+
+
+                CTGRP(imagecode) = New HDGRP()
+                If mainbitsource Is Nothing Then
+                    If imagecode = 651 Then
+                        CTGRP(imagecode) = CTGRP(643)
+                    Else
+                        For k = 0 To CTGRP.Count - 1
+                            If CTGRP(k) IsNot Nothing Then
+                                If CTGRP(k).grpfile = grpfile Then
+                                    CTGRP(imagecode) = CTGRP(k)
+                                    Exit For
+                                End If
+                            End If
+                        Next
+                    End If
+
+                Else
+                    CTGRP(imagecode).LoadGRP(mainbitsource, framedata, grpfile)
+                End If
+            Catch ex As Exception
+                MsgBox(imagecode & vbCrLf & ex.ToString)
+            End Try
+
+        Next
+
+
+
+        '프레임들 쫙 있음
+
+        isCarbotGLoad = True
+    End Sub
+
 
 
 

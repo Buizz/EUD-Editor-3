@@ -12,13 +12,13 @@
 
 
     Public Sub New(tTEFile As TEFile)
-
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         PTEFile = tTEFile
     End Sub
+
 
     Private Sub StartFileCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If LoadCmp Then
@@ -49,12 +49,12 @@
 
 
 
-        UseSCA.IsChecked = pjData.TEData.SCArchive.IsUsed
+        'UseSCA.IsChecked = pjData.TEData.SCArchive.IsUsed
         'MakerBattleTag.Text = pjData.TEData.SCArchive.MakerBattleTag
         'MakerID.Text = pjData.TEData.SCArchive.MakerServerName
         'UseMapName.Text = pjData.TEData.SCArchive.MapName
         'UMSPassWord.Text = pjData.TEData.SCArchive.PassWord
-        DataBufferSize.Text = pjData.TEData.SCArchive.DataSpace
+        'DataBufferSize.Text = pjData.TEData.SCArchive.DataSpace
     End Sub
     Private Sub InitStartFileCombox(Path As String, tTEfile As TEFile)
         For i = 0 To tTEfile.FileCount - 1
@@ -78,12 +78,6 @@
         Next
     End Sub
 
-    Private Sub UseSCA_Checked(sender As Object, e As RoutedEventArgs)
-        If LoadCmp Then
-            pjData.SetDirty(True)
-            pjData.TEData.SCArchive.IsUsed = UseSCA.IsChecked
-        End If
-    End Sub
 
     'Private Sub MakerBattleTag_TextChanged(sender As Object, e As TextChangedEventArgs)
     '    If LoadCmp Then
@@ -113,14 +107,14 @@
     '    End If
     'End Sub
 
-    Private Sub DataBufferSize_TextChanged(sender As Object, e As TextChangedEventArgs)
-        If LoadCmp Then
-            pjData.SetDirty(True)
-            Try
-                pjData.TEData.SCArchive.DataSpace = DataBufferSize.Text
-            Catch ex As Exception
+    'Private Sub DataBufferSize_TextChanged(sender As Object, e As TextChangedEventArgs)
+    '    If LoadCmp Then
+    '        pjData.SetDirty(True)
+    '        Try
+    '            pjData.TEData.SCArchive.DataSpace = DataBufferSize.Text
+    '        Catch ex As Exception
 
-            End Try
-        End If
-    End Sub
+    '        End Try
+    '    End If
+    'End Sub
 End Class

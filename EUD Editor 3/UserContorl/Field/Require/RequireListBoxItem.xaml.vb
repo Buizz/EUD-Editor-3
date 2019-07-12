@@ -49,9 +49,9 @@
                     ImageIndex = tIcon
             End Select
             If isIcon Then
-                Icon.Source = scData.GetIcon(ImageIndex, False)
+                Icon.Source = scData.GetIcon(ImageIndex)
             Else
-                Icon.Source = scData.GetGRPImage(ImageIndex, 12, False)
+                Icon.Source = scData.GetGRPImage(ImageIndex, 12)
             End If
         Else
             TextV.Visibility = Visibility.Collapsed

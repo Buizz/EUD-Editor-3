@@ -22,7 +22,7 @@ Public Class SettingWindows
             End If
         Next
 
-
+        CBGraphic.SelectedIndex = pgData.Setting(ProgramData.TSetting.Graphic)
 
         CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanuage)
         ChangeTblUse.IsChecked = pgData.Setting(ProgramData.TSetting.CDLanuageChange)
@@ -185,8 +185,8 @@ Public Class SettingWindows
 
     Private Sub BtnStarCraftexe(sender As Object, e As RoutedEventArgs)
         Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
-            .Filter = "StarCraft.exe|StarCraft.exe",
-            .FileName = "StarCraft.exe",
+            .Filter = "StarCraft Launcher.exe|StarCraft Launcher.exe",
+            .FileName = "StarCraft Launcher.exe",
             .Title = Tool.GetText("StarExeFile Select")
         }
 
@@ -195,7 +195,7 @@ Public Class SettingWindows
             pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
 
             TBStarCraftexe.Text = opendialog.FileName
-            scData.LoadMPQData()
+            scData.LoadGRPData()
         End If
     End Sub
 
@@ -448,6 +448,16 @@ Public Class SettingWindows
     Private Sub LogView_Checked(sender As Object, e As RoutedEventArgs)
         If DatLoad Then
             pjData.ViewLog = LogView.IsChecked
+        End If
+    End Sub
+
+    Private Sub CBGraphic_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If CBGraphic.SelectedIndex <> -1 Then
+            pgData.Setting(ProgramData.TSetting.Graphic) = CBGraphic.SelectedIndex
+            scData.LoadGRPData()
+
+
+            CBGraphic.SelectedIndex = pgData.Setting(ProgramData.TSetting.Graphic)
         End If
     End Sub
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged

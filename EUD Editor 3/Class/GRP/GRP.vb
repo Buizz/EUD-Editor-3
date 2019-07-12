@@ -60,7 +60,7 @@ Namespace MGRP
 
             For i = 0 To 6
                 pRemappingPallet(i) = New CPCX
-                pRemappingPallet(i).LoadPCX(Tool.LoadDataFromMPQ("tileset\" & tilesetname(3) & "\" & pcxstr(i) & ".pcx"))
+                pRemappingPallet(i).LoadPCX(Tool.CascData.ReadFile("tileset\" & tilesetname(3) & "\" & pcxstr(i) & ".pcx"))
             Next
         End Sub
 
@@ -342,7 +342,8 @@ Public Class GRP
 
 
     Public Sub New(filename As String, Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0, Optional _PalletType As PalettType = PalettType.platform)
-        LoadGRP(Tool.LoadDataFromMPQ("unit\" & filename))
+        'LoadGRP(Tool.LoadDataFromMPQ("unit\" & filename))
+        LoadGRP(Tool.CascData.ReadFile("unit\" & filename))
 
         isremapping = False
         DrawFunction = _DrawFunction
@@ -403,10 +404,76 @@ Public Class GRP
         'LoadPalette(_PalletType, _DrawFunction, _RemappingNum)
         paletttypenum = _PalletType
 
+        ReDim GRPCashing(framecount)
+    End Sub
 
+
+    Public Sub New(filebytes As Byte(), Optional _DrawFunction As Byte = 0, Optional _RemappingNum As Byte = 0, Optional _PalletType As PalettType = PalettType.platform)
+        'LoadGRP(Tool.LoadDataFromMPQ("unit\" & filename))
+        LoadGRP(filebytes)
+
+        isremapping = False
+        DrawFunction = _DrawFunction
+        RemappingNum = _RemappingNum
+
+        If DrawFunction = 0 Then
+            Select Case _PalletType
+                Case PalettType.bexpl
+                    isremapping = True
+                Case PalettType.bfire
+                    isremapping = True
+                Case PalettType.gfire
+                    isremapping = True
+                Case PalettType.ofire
+                    isremapping = True
+            End Select
+        Else
+            Select Case DrawFunction
+                Case 8
+                    _PalletType = PalettType.EMP
+                Case 9
+                    Select Case RemappingNum
+                        Case 0
+                            _PalletType = PalettType.install
+                        Case 1
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.ofire)
+                            _PalletType = PalettType.ofire
+                            isremapping = True
+                        Case 2
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.gfire)
+                            _PalletType = PalettType.gfire
+                            isremapping = True
+                        Case 3
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bfire)
+                            _PalletType = PalettType.bfire
+                            isremapping = True
+                        Case 4
+                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bexpl)
+                            _PalletType = PalettType.bexpl
+                            isremapping = True
+                        Case Else
+                            _PalletType = PalettType.install
+                    End Select
+
+                Case 10
+                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.dark)
+                    _PalletType = PalettType.shadow
+                    isremapping = True
+                Case 16
+                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.shift)
+                    _PalletType = PalettType.Hallulation
+                Case Else
+                    _PalletType = PalettType.install
+            End Select
+        End If
+
+        Palett = MGRP.Palett(_PalletType)
+        'LoadPalette(_PalletType, _DrawFunction, _RemappingNum)
+        paletttypenum = _PalletType
 
         ReDim GRPCashing(framecount)
     End Sub
+
 
 
 
@@ -671,157 +738,6 @@ Public Class GRP
         End Try
     End Function
 
-
-
-    'Public Sub DrawToPictureBox(ByRef pictureBox As PictureBox, frame As Integer, Optional Unitcolor As Integer = 0, Optional istran As Boolean = False, Optional isflip As Boolean = False, Optional x As Integer = 0, Optional y As Integer = 0)
-    '    frame = frame Mod framecount
-
-    '    Dim bitmap As New Bitmap(grpWidth, grpHeight, System.Drawing.Imaging.PixelFormat.Format32bppPArgb)
-    '    Dim grp As Graphics
-    '    grp = Graphics.FromImage(bitmap)
-
-    '    Dim tempbmp As Bitmap = DrawGRP(frame, Unitcolor, istran)
-
-    '    Dim temppoint As Point
-
-
-    '    temppoint = New Point(GRPFrame(frame).frameXOffset + x, GRPFrame(frame).frameYOffset + y)
-
-    '    Select Case DrawFunction
-    '        Case 2
-    '            grp.DrawImage(tempbmp, temppoint)
-    '            grp.FillRectangle(New SolidBrush(Color.FromArgb(&HDD, 0, 0, 0)), New RectangleF(0, 0, grpWidth, grpHeight))
-
-    '        Case 3
-    '            grp.DrawImage(tempbmp, temppoint)
-    '            grp.FillRectangle(New SolidBrush(Color.FromArgb(&H77, 0, 0, 0)), New RectangleF(0, 0, grpWidth, grpHeight))
-    '        Case 4
-    '            grp.DrawImage(tempbmp, temppoint)
-    '            grp.FillRectangle(New SolidBrush(Color.FromArgb(&H77, 0, 0, 0)), New RectangleF(0, 0, grpWidth, grpHeight))
-    '        Case 5
-    '            grp.DrawImage(tempbmp, temppoint)
-    '            grp.FillRectangle(New SolidBrush(Color.FromArgb(&H77, 0, 0, 0)), New RectangleF(0, 0, grpWidth, grpHeight))
-    '        Case 6
-    '            grp.DrawImage(tempbmp, temppoint)
-    '            grp.FillRectangle(New SolidBrush(Color.FromArgb(&H77, 0, 0, 0)), New RectangleF(0, 0, grpWidth, grpHeight))
-    '        Case 15
-    '            grp.DrawRectangle(Pens.Lime, GRPFrame(frame).frameXOffset + x, GRPFrame(frame).frameYOffset + y,
-    '                         GRPFrame(frame).frameWidth, GRPFrame(frame).frameHeight)
-
-
-    '        Case Else
-    '            grp.DrawImage(tempbmp, temppoint)
-    '    End Select
-
-
-
-    '    If isflip = True Then
-    '        bitmap.RotateFlip(RotateFlipType.Rotate180FlipY)
-    '    End If
-
-
-    '    pictureBox.Image = bitmap
-    'End Sub
-    'Public Sub DrawToPictureBoxBackG(ByRef pictureBox As PictureBox, frame As Integer, Optional Unitcolor As Integer = 0, Optional point As Integer = 0)
-    '    frame = frame Mod framecount
-
-    '    Dim bitmap As New Bitmap(grpWidth, 256, System.Drawing.Imaging.PixelFormat.Format32bppRgb)
-    '    Dim grp As Graphics
-    '    grp = Graphics.FromImage(bitmap)
-
-    '    Dim tempbmp As Bitmap = DrawGRP(frame, Unitcolor)
-
-
-    '    'grpHeight - GRPFrame(frame).frameYOffset +
-
-    '    Dim temppoint As New Point(GRPFrame(frame).frameXOffset, GRPFrame(frame).frameYOffset + (256 - grpHeight) / 2 + point) '(grpWidth - tempbmp.Width) \ 2 + 
-    '    grp.DrawImage(tempbmp, temppoint)
-    '    'grp.DrawRectangle(Pens.Red, New Rectangle(GRPFrame(frame).frameXOffset, GRPFrame(frame).frameYOffset + (256 - grpHeight) / 2 + point, grpWidth, grpHeight))
-
-    '    pictureBox.BackgroundImage = bitmap
-    'End Sub
-    'Public Function GetFrameSize(frame As Integer) As Size
-    '    frame = frame Mod framecount
-
-    '    Return New Size(GRPFrame(frame).frameWidth, GRPFrame(frame).frameHeight)
-    'End Function
-
-
-    'Public Sub DrawToPictureBoxUnitGRP(ByRef pictureBox As PictureBox, frame As Integer, left As Integer, right As Integer, up As Integer, down As Integer, addX As Integer, addY As Integer, conx As Integer, cony As Integer, Optional Unitcolor As Integer = 0)
-    '    frame = frame Mod framecount
-
-
-    '    Dim bitmap As New Bitmap(256, 256, Imaging.PixelFormat.Format32bppRgb)
-    '    Dim grp As Graphics
-    '    grp = Graphics.FromImage(bitmap)
-
-    '    Dim tempbmp As Bitmap = DrawGRP(frame, Unitcolor, True)
-
-    '    If addX <> 0 Or addY <> 0 Then
-    '        grp.DrawRectangle(New Pen(Color.Red, 1), New Rectangle(New Point(bitmap.Width \ 2 - 32 - addX,
-    '                                                       bitmap.Height \ 2 - 32 - addY), New Size(128, 96)))
-    '    End If
-
-
-
-
-    '    '+ 128 - bitmap.Height \ 2
-    '    Dim temppoint As New Point(GRPFrame(frame).frameXOffset + 128 - grpWidth \ 2,
-    '                                       GRPFrame(frame).frameYOffset + 128 - grpHeight \ 2) '(grpWidth - tempbmp.Width) \ 2 + 
-    '    grp.DrawImage(tempbmp, temppoint)
-
-    '    Dim point As New Point(bitmap.Width \ 2 - left, bitmap.Height \ 2 - up)
-    '    Dim size As New Size(right + left, down + up)
-    '    grp.DrawRectangle(New Pen(Color.PaleGreen, 1), New Rectangle(point, size))
-    '    grp.FillRectangle(New SolidBrush(Color.FromArgb(&H55ABF200)), New Rectangle(New Point(bitmap.Width \ 2 - conx \ 2,
-    '                                             bitmap.Height \ 2 - cony \ 2), New Size(conx, cony)))
-
-    '    pictureBox.Image = bitmap
-
-    'End Sub
-
-    'Public Function DrawGRP(frame As Integer, Optional Unitcolor As Integer = 0) As Bitmap
-    '    'GRPFrame(frame).frameWidth
-    '    'GRPFrame(frame).frameHeight
-
-    '    Dim bm As New Bitmap(GRPFrame(frame).frameWidth, GRPFrame(frame).frameHeight, Imaging.PixelFormat.Format8bppIndexed)
-
-
-
-    '    Dim bmd As New BitmapData
-    '    bmd = bm.LockBits(New Rectangle(0, 0, bm.Width, bm.Height), System.Drawing.Imaging.ImageLockMode.ReadWrite, Imaging.PixelFormat.Format8bppIndexed)
-
-    '    Dim scan0 As IntPtr = bmd.Scan0
-    '    Dim stride As Integer = bmd.Stride
-
-    '    Dim pixels(GRPFrame(frame).Image.Length - 1) As Byte
-    '    Marshal.Copy(scan0, pixels, 0, pixels.Length)
-
-    '    ' MsgBox(pixels.Length & " " & GRPFrame(frame).Image.Length)
-
-
-    '    '138이 남는다.
-
-    '    pixels = GRPFrame(frame).Image
-
-
-    '    Marshal.Copy(pixels, 0, scan0, pixels.Length)
-
-    '    bm.UnlockBits(bmd)
-
-
-    '    Dim CPalette As Imaging.ColorPalette
-    '    CPalette = bm.Palette
-    '    For i = 0 To 255
-    '        CPalette.Entries(i) = Palett(i)
-
-    '    Next
-    '    bm.Palette = CPalette
-
-
-
-    '    Return bm
-    'End Function
 
 
 

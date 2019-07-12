@@ -137,29 +137,29 @@ Public Class ExtraDatBinding
                     If Parameter = "wire" Then
                         Value = pjData.ExtraDat.WireFrame(ObjectID)
                         If Value >= SCUnitCount Then
-                            Return scData.GetWireFrame(0, False)
+                            Return scData.GetWireFrame(0)
                         End If
-                        Return scData.GetWireFrame(Value, False)
+                        Return scData.GetWireFrame(Value)
                     ElseIf Parameter = "grp" Then
                         Value = pjData.ExtraDat.GrpFrame(ObjectID)
                         If Value >= SCGrpWireCount Then
-                            Return scData.GetWireFrame(0, False)
+                            Return scData.GetWireFrame(0)
                         End If
-                        Return scData.GetGrpFrame(Value, False)
+                        Return scData.GetGrpFrame(Value)
                     ElseIf Parameter = "tran" Then
                         Value = pjData.ExtraDat.TranFrame(ObjectID)
                         If Value >= SCMenCount Then
-                            Return scData.GetWireFrame(0, False)
+                            Return scData.GetWireFrame(0)
                         End If
-                        Return scData.GetTranFrame(Value, False)
+                        Return scData.GetTranFrame(Value)
                     End If
-                    Return scData.GetWireFrame(0, False)
+                    Return scData.GetWireFrame(0)
                 Case SCDatFiles.DatFiles.ButtonSet
                     Value = pjData.ExtraDat.ButtonSet(ObjectID)
                     If Value < SCUnitCount Then
-                        Return scData.GetIcon(Value, False)
+                        Return scData.GetIcon(Value)
                     Else
-                        Return scData.GetIcon(0, False)
+                        Return scData.GetIcon(0)
                     End If
             End Select
             Return Nothing

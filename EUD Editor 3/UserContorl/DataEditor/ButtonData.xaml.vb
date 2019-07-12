@@ -126,51 +126,51 @@ Public Class ButtonData
 
         Select Case BType
             Case CButtonSet.BType.DefaultCommand
-                ImageBrush(0).ImageSource = scData.GetIcon(228, False)
-                ImageBrush(1).ImageSource = scData.GetIcon(229, False)
-                ImageBrush(2).ImageSource = scData.GetIcon(230, False)
-                ImageBrush(3).ImageSource = scData.GetIcon(254, False)
-                ImageBrush(4).ImageSource = scData.GetIcon(255, False)
+                ImageBrush(0).ImageSource = scData.GetIcon(228)
+                ImageBrush(1).ImageSource = scData.GetIcon(229)
+                ImageBrush(2).ImageSource = scData.GetIcon(230)
+                ImageBrush(3).ImageSource = scData.GetIcon(254)
+                ImageBrush(4).ImageSource = scData.GetIcon(255)
             Case CButtonSet.BType.MovingablebuildingCommand
-                ImageBrush(0).ImageSource = scData.GetIcon(228, False)
-                ImageBrush(1).ImageSource = scData.GetIcon(229, False)
-                ImageBrush(8).ImageSource = scData.GetIcon(283, False)
+                ImageBrush(0).ImageSource = scData.GetIcon(228)
+                ImageBrush(1).ImageSource = scData.GetIcon(229)
+                ImageBrush(8).ImageSource = scData.GetIcon(283)
             Case CButtonSet.BType.BurrowCommand
-                ImageBrush(8).ImageSource = scData.GetIcon(259, False)
+                ImageBrush(8).ImageSource = scData.GetIcon(259)
             Case CButtonSet.BType.GatherCommand
-                ImageBrush(4).ImageSource = scData.GetIcon(231, False)
-                ImageBrush(5).ImageSource = scData.GetIcon(233, False)
+                ImageBrush(4).ImageSource = scData.GetIcon(231)
+                ImageBrush(5).ImageSource = scData.GetIcon(233)
             Case CButtonSet.BType.TransportCommand
-                ImageBrush(7).ImageSource = scData.GetIcon(309, False)
-                ImageBrush(8).ImageSource = scData.GetIcon(312, False)
+                ImageBrush(7).ImageSource = scData.GetIcon(309)
+                ImageBrush(8).ImageSource = scData.GetIcon(312)
             Case CButtonSet.BType.EmptyButton
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(0, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(0)
             Case CButtonSet.BType.UnitTraning
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
             Case CButtonSet.BType.UnitMorph
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
             Case CButtonSet.BType.UpgradeResearch
                 Dim IconIndex As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", ValueSelecter.Value)
 
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex)
             Case CButtonSet.BType.TechResearch
                 Dim IconIndex As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", ValueSelecter.Value)
 
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex)
             Case CButtonSet.BType.TechUse
                 Dim IconIndex As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", ValueSelecter.Value)
 
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(IconIndex)
             Case CButtonSet.BType.BuildingMorph
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
             Case CButtonSet.BType.BuildingBuild_Morph
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
             Case CButtonSet.BType.BuildingBuild_Terran
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
             Case CButtonSet.BType.BuildingBuild_Protoss
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
             Case CButtonSet.BType.BuildingBuild_Addon
-                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value, False)
+                ImageBrush(SelectPos).ImageSource = scData.GetIcon(ValueSelecter.Value)
         End Select
     End Sub
 

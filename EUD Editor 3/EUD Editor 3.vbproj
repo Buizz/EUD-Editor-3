@@ -93,6 +93,29 @@
   <PropertyGroup>
     <ApplicationIcon>MainIcon.ico</ApplicationIcon>
   </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Debug|x64'">
+    <DebugSymbols>true</DebugSymbols>
+    <DefineDebug>true</DefineDebug>
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Debug\</OutputPath>
+    <DocumentationFile>EUD Editor 3.xml</DocumentationFile>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>full</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
+  <PropertyGroup Condition="'$(Configuration)|$(Platform)' == 'Release|x64'">
+    <DefineTrace>true</DefineTrace>
+    <OutputPath>bin\x64\Release\</OutputPath>
+    <DocumentationFile>EUD Editor 3.xml</DocumentationFile>
+    <Optimize>true</Optimize>
+    <NoWarn>41999,42016,42017,42018,42019,42020,42021,42022,42032,42036,42314</NoWarn>
+    <DebugType>pdbonly</DebugType>
+    <PlatformTarget>x64</PlatformTarget>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
+    <Prefer32Bit>true</Prefer32Bit>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="ControlzEx, Version=3.0.2.4, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\ControlzEx.dll</HintPath>
@@ -137,9 +160,18 @@
     <Reference Include="Newtonsoft.Json, Version=11.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.11.0.2\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="Pfim, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Pfim.0.7.0\lib\netstandard1.0\Pfim.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
+    <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.3.0.2.4\lib\net45\System.Windows.Interactivity.dll</HintPath>
@@ -185,11 +217,13 @@
     <Compile Include="Class\Binding\StatTxtBinding.vb" />
     <Compile Include="Class\Binding\TETabItemUI.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
+    <Compile Include="Class\Binding\ValidationRule\EMailValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\AlphaValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\TextValidationRule.vb" />
+    <Compile Include="Class\Bitmap\BitmapManager.vb" />
     <Compile Include="Class\BulidData\BulidPaths.vb" />
     <Compile Include="Class\BulidData\WriteSCAData.vb" />
     <Compile Include="Class\BulidData\WriteButtonData.vb" />
@@ -198,6 +232,9 @@
     <Compile Include="Class\BulidData\WriteReqFile.vb" />
     <Compile Include="Class\BulidData\WriteTbl.vb" />
     <Compile Include="Class\BulidData\WriteTriggerEditor.vb" />
+    <Compile Include="Class\BytesReader.vb" />
+    <Compile Include="Class\CascData.vb" />
+    <Compile Include="Class\CascLib.vb" />
     <Compile Include="Class\CodeConnecter.vb" />
     <Compile Include="Class\CodeGrouping.vb" />
     <Compile Include="Class\Command\DateEditor\TabCloseCommand.vb" />
@@ -214,11 +251,15 @@
     <Compile Include="Class\Data\ProjectData\Timer.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
+    <Compile Include="Class\GRP\GPRs\CTGRP.vb" />
+    <Compile Include="Class\GRP\GPRs\HDGRP.vb" />
+    <Compile Include="Class\GRP\GPRs\SDGRP.vb" />
     <Compile Include="Class\GRP\GRP.vb" />
     <Compile Include="Class\GRP\GRPBox.vb" />
     <Compile Include="Class\GRP\GRPImageBox.xaml.vb">
       <DependentUpon>GRPImageBox.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\GRP\GPRs\RGRP.vb" />
     <Compile Include="Class\GRP\SCIScriptMoudle.vb" />
     <Compile Include="Class\GRP\SCImage.vb" />
     <Compile Include="Class\Hash\AESModule.vb" />
@@ -238,7 +279,9 @@
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
-    <Compile Include="Class\TriggerEditor\GUIScriptEditor.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptManager.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\TriggerScript.vb" />
     <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\StarCraftArchive.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
@@ -400,17 +443,21 @@
       <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\CodeEditor\Init.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\AddItem.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Colors.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\CTreeviewItem.xaml.vb">
-      <DependentUpon>CTreeviewItem.xaml</DependentUpon>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptEditorUI.xaml.vb">
+      <DependentUpon>GUIScriptEditorUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\DeleteItem.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\DragItem.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptBlockItem.xaml.vb">
+      <DependentUpon>ScriptBlockItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptTreeviewItem.xaml.vb">
+      <DependentUpon>ScriptTreeviewItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml.vb">
+      <DependentUpon>TEGUIObjectSelecter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\System.vb" />
     <Compile Include="UserContorl\TriggerEditor\SCADataList.xaml.vb">
       <DependentUpon>SCADataList.xaml</DependentUpon>
     </Compile>
@@ -441,6 +488,9 @@
     </Compile>
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\TestWindow.xaml.vb">
+      <DependentUpon>TestWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\TriggerEditor.xaml.vb">
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
@@ -657,7 +707,19 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\CTreeviewItem.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptEditorUI.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptBlockItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptTreeviewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -694,6 +756,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\SettingWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -798,6 +864,9 @@
     </None>
     <None Include="Data\DatFiles\weapons.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\iscript.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Palletes\ashworld.wpe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -904,6 +973,9 @@
     <Resource Include="Icon\folder-open.png" />
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CascLib.dll">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="Data\DatFiles\flingy.def">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1055,6 +1127,12 @@
     </None>
     <None Include="Data\SCArchiveConnecter\libmysql.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\GUIScript.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\ROOT.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />

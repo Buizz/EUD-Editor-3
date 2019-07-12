@@ -225,7 +225,7 @@ Namespace WindowMenu
 
                         If opendialog.ShowDialog() = Forms.DialogResult.OK Then
                             pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
-                            scData.LoadMPQData()
+                            scData.LoadGRPData()
                             ProjectControlBinding.PropertyChangedPack()
                         Else
                             Tool.ErrorMsgBox(Tool.GetText("Error FailLoad DataEditor"))
@@ -262,7 +262,7 @@ Namespace WindowMenu
 
                         If opendialog.ShowDialog() = Forms.DialogResult.OK Then
                             pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
-                            scData.LoadMPQData()
+                            scData.LoadGRPData()
                             ProjectControlBinding.PropertyChangedPack()
                         Else
                             Tool.ErrorMsgBox(Tool.GetText("Error FailLoad TriggerEditor"))
@@ -312,7 +312,7 @@ Namespace WindowMenu
 
                         If opendialog.ShowDialog() = Forms.DialogResult.OK Then
                             pgData.Setting(ProgramData.TSetting.starcraft) = opendialog.FileName
-                            scData.LoadMPQData()
+                            scData.LoadGRPData()
                             ProjectControlBinding.PropertyChangedPack()
                         Else
                             Tool.ErrorMsgBox(Tool.GetText("Error FailLoad PluginSet"))

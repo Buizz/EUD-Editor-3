@@ -397,7 +397,7 @@ Public Class CButtonData
         Return returnPoint
     End Function
     Public Function GetIcon() As BitmapImage
-        Return scData.GetIcon(icon, False)
+        Return scData.GetIcon(icon)
     End Function
     Public Function GetListBoxItem() As ListBoxItem
         Dim returnItem As New ListBoxItem
@@ -417,7 +417,7 @@ Public Class CButtonData
         Dim textblock As New TextBlock
 
         textblock.Text = pjData.CodeLabel(SCDatFiles.DatFiles.Icon, icon)
-        tImage.Source = scData.GetIcon(icon, False)
+        tImage.Source = scData.GetIcon(icon)
 
         tborder.Background = Brushes.Black
         tborder.Width = 20

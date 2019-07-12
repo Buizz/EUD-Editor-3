@@ -184,9 +184,9 @@ Public Class IconSelecterP
                 ImageIndex = pValue
         End Select
         If isIcon Then
-            IconImage.Source = scData.GetIcon(ImageIndex, False)
+            IconImage.Source = scData.GetIcon(ImageIndex)
         Else
-            IconImage.Source = scData.GetGRPImage(ImageIndex, 12, False)
+            IconImage.Source = scData.GetGRPImage(ImageIndex, 12)
         End If
     End Sub
 End Class

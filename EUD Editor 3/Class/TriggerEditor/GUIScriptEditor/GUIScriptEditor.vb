@@ -6,7 +6,12 @@ Public Class GUIScriptEditor
 
     Public Sub New(SType As SType)
         ScriptType = SType
+        items = New List(Of ScriptBlock)
     End Sub
+
+
+    Public items As List(Of ScriptBlock)
+
 
     Public Overrides Function GetFileText() As String
         Return ""

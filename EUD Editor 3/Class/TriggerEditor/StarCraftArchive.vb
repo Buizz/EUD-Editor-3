@@ -9,6 +9,7 @@ Public Class StarCraftArchive
         _MakerServerName = ""
         _MapName = ""
         _PassWord = ""
+        _TestMode = True
     End Sub
 
     Private _IsUsed As Boolean
@@ -22,6 +23,15 @@ Public Class StarCraftArchive
     End Property
 
 
+    Private _TestMode As Boolean
+    Public Property TestMode As Boolean
+        Get
+            Return _TestMode
+        End Get
+        Set(value As Boolean)
+            _TestMode = value
+        End Set
+    End Property
 
     Private _DataSpace As Integer
     Public Property DataSpace As Integer
@@ -40,6 +50,17 @@ Public Class StarCraftArchive
         End Get
         Set(value As String)
             _MakerBattleTag = value
+        End Set
+    End Property
+
+
+    Private _MakerEmail As String
+    Public Property MakerEmail As String
+        Get
+            Return _MakerEmail
+        End Get
+        Set(value As String)
+            _MakerEmail = value
         End Set
     End Property
 

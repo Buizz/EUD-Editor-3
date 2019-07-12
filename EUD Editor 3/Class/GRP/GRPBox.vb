@@ -87,6 +87,10 @@ Public Class GRPBox
     End Sub
 
     Private Sub Exec()
+        If pgData.Setting(ProgramData.TSetting.Graphic) = 0 Then
+            Return
+        End If
+
         '픽셀 초기화
         For y = 0 To 255
             For x = 0 To 255
