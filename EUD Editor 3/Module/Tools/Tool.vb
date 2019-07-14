@@ -7,6 +7,11 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public BlackOverlaybitmap As BitmapSource
+
+
+
+
         Public ReadOnly Property CascData As CascData
             Get
                 If tCascData Is Nothing Then
@@ -48,6 +53,10 @@ Namespace Tool
             End Try
             sr.Close()
             fs.Close()
+
+            BlackOverlaybitmap = New BitmapImage(New Uri(ResourcesPath("BlackOverlay.png")))
+
+
 
             CodeGrouping = New CodeGrouping
         End Sub
@@ -240,38 +249,44 @@ Namespace Tool
 
         Private ReadOnly MPQFiles() As String = {"patch_rt.mpq", "patch_ed.mpq", "BrooDat.mpq", "BroodWar.mpq", "StarDat.mpq"}
         Public Function LoadDataFromMPQ(filename As String) As Byte()
-            Dim hmpq As UInteger
-            Dim hfile As UInteger
-            Dim buffer() As Byte
-            Dim filesize As UInteger
+            Return CascData.ReadFile(filename)
 
-            Dim pdwread As IntPtr
+            'Dim hmpq As UInteger
+            'Dim hfile As UInteger
+            'Dim buffer() As Byte
+            'Dim filesize As UInteger
 
-            For i = 0 To MPQFiles.Count - 1
-                Dim mpqname As String = StarCraftPath & MPQFiles(i)
-                SFmpq.SFileOpenArchive(mpqname, 0, 0, hmpq)
+            'Dim pdwread As IntPtr
+
+            'For i = 0 To MPQFiles.Count - 1
+            '    Dim mpqname As String = StarCraftPath & MPQFiles(i)
+            '    SFmpq.SFileOpenArchive(mpqname, 0, 0, hmpq)
 
 
-                SFmpq.SFileOpenFileEx(hmpq, filename, 0, hfile)
+            '    SFmpq.SFileOpenFileEx(hmpq, filename, 0, hfile)
 
-                If hfile <> 0 Then
-                    filesize = SFmpq.SFileGetFileSize(hfile, filesize)
-                    ReDim buffer(filesize)
+            '    If hfile <> 0 Then
+            '        filesize = SFmpq.SFileGetFileSize(hfile, filesize)
+            '        ReDim buffer(filesize)
 
-                    SFmpq.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
+            '        SFmpq.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
 
-                    SFmpq.SFileCloseFile(hfile)
-                    SFmpq.SFileCloseArchive(hmpq)
-                    Return buffer
-                End If
-                SFmpq.SFileCloseArchive(hmpq)
-            Next
+            '        SFmpq.SFileCloseFile(hfile)
+            '        SFmpq.SFileCloseArchive(hmpq)
+            '        Return buffer
+            '    End If
+            '    SFmpq.SFileCloseArchive(hmpq)
+            'Next
 
             Tool.ErrorMsgBox("File Load Fail from MPQ. " & filename)
             Throw New System.Exception("File Load Fail from MPQ. " & filename)
             Return Nothing
         End Function
+
+
+
         Public Sub PlaySoundFromMPQ(filename As String)
+
             Dim bytes() As Byte = LoadDataFromMPQ(filename)
 
             Dim sp As New SoundPlayer(New IO.MemoryStream(bytes))
@@ -283,7 +298,7 @@ Namespace Tool
             pureFilename = Replace(pureFilename, pureFilename.Split(".").Last, "") & "wav"
 
 
-            PlaySoundFromMPQ("sound\" & pureFilename)
+            PlaySoundFromMPQ("sound/" & pureFilename)
         End Sub
 
         Public Function IsProjectLoad() As Boolean
@@ -362,6 +377,11 @@ Namespace Tool
             End Get
         End Property
 
+        Public ReadOnly Property ResourcesPath(Filename As String) As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Resources\" & Filename
+            End Get
+        End Property
         Public ReadOnly Property DataPath(Filename As String) As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\" & Filename

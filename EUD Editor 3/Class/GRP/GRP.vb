@@ -416,58 +416,58 @@ Public Class GRP
         DrawFunction = _DrawFunction
         RemappingNum = _RemappingNum
 
-        If DrawFunction = 0 Then
-            Select Case _PalletType
-                Case PalettType.bexpl
-                    isremapping = True
-                Case PalettType.bfire
-                    isremapping = True
-                Case PalettType.gfire
-                    isremapping = True
-                Case PalettType.ofire
-                    isremapping = True
-            End Select
-        Else
-            Select Case DrawFunction
-                Case 8
-                    _PalletType = PalettType.EMP
-                Case 9
-                    Select Case RemappingNum
-                        Case 0
-                            _PalletType = PalettType.install
-                        Case 1
-                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.ofire)
-                            _PalletType = PalettType.ofire
-                            isremapping = True
-                        Case 2
-                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.gfire)
-                            _PalletType = PalettType.gfire
-                            isremapping = True
-                        Case 3
-                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bfire)
-                            _PalletType = PalettType.bfire
-                            isremapping = True
-                        Case 4
-                            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bexpl)
-                            _PalletType = PalettType.bexpl
-                            isremapping = True
-                        Case Else
-                            _PalletType = PalettType.install
-                    End Select
+        'If DrawFunction = 0 Then
+        '    Select Case _PalletType
+        '        Case PalettType.bexpl
+        '            isremapping = True
+        '        Case PalettType.bfire
+        '            isremapping = True
+        '        Case PalettType.gfire
+        '            isremapping = True
+        '        Case PalettType.ofire
+        '            isremapping = True
+        '    End Select
+        'Else
+        '    Select Case DrawFunction
+        '        Case 8
+        '            _PalletType = PalettType.EMP
+        '        Case 9
+        '            Select Case RemappingNum
+        '                Case 0
+        '                    _PalletType = PalettType.install
+        '                Case 1
+        '                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.ofire)
+        '                    _PalletType = PalettType.ofire
+        '                    isremapping = True
+        '                Case 2
+        '                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.gfire)
+        '                    _PalletType = PalettType.gfire
+        '                    isremapping = True
+        '                Case 3
+        '                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bfire)
+        '                    _PalletType = PalettType.bfire
+        '                    isremapping = True
+        '                Case 4
+        '                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.bexpl)
+        '                    _PalletType = PalettType.bexpl
+        '                    isremapping = True
+        '                Case Else
+        '                    _PalletType = PalettType.install
+        '            End Select
 
-                Case 10
-                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.dark)
-                    _PalletType = PalettType.shadow
-                    isremapping = True
-                Case 16
-                    RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.shift)
-                    _PalletType = PalettType.Hallulation
-                Case Else
-                    _PalletType = PalettType.install
-            End Select
-        End If
+        '        Case 10
+        '            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.dark)
+        '            _PalletType = PalettType.shadow
+        '            isremapping = True
+        '        Case 16
+        '            RemappingPalett = MGRP.RemappingPallet(MGRP.Remapping.shift)
+        '            _PalletType = PalettType.Hallulation
+        '        Case Else
+        '            _PalletType = PalettType.install
+        '    End Select
+        'End If
 
-        Palett = MGRP.Palett(_PalletType)
+        'Palett = MGRP.Palett(_PalletType)
         'LoadPalette(_PalletType, _DrawFunction, _RemappingNum)
         paletttypenum = _PalletType
 

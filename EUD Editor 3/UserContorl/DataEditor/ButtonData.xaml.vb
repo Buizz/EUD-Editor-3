@@ -231,7 +231,7 @@ Public Class ButtonData
                 Dim imageIcon As BitmapSource = ButtonSet.ButtonS(i).GetIcon
 
                 Dim IconIMage As ImageDrawing = New ImageDrawing()
-                IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, imageIcon.Width, imageIcon.Height)
+                IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)
                 IconIMage.ImageSource = imageIcon
                 imageDrawings.Children.Add(IconIMage)
             End If
@@ -242,13 +242,14 @@ Public Class ButtonData
 
             Dim imageIcon As BitmapSource = ButtonSet.ButtonS(SelectBtnIndex).GetIcon
 
+
             Dim IconIMage As ImageDrawing = New ImageDrawing()
-            IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, imageIcon.Width, imageIcon.Height)
+            IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)
             IconIMage.ImageSource = imageIcon
             imageDrawings.Children.Add(IconIMage)
 
             Dim rectDrawing As New GeometryDrawing(New SolidColorBrush(Color.FromArgb(102, 181, 243, 20)),
-                       Nothing, New RectangleGeometry(New Rect(loc.X, loc.Y, 32, 32)))
+                       Nothing, New RectangleGeometry(New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)))
             imageDrawings.Children.Add(rectDrawing)
 
             TopText.TextColred(SelectButton.GetEnaStr)

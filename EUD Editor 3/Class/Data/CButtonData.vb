@@ -396,7 +396,7 @@ Public Class CButtonData
 
         Return returnPoint
     End Function
-    Public Function GetIcon() As BitmapImage
+    Public Function GetIcon() As BitmapSource
         Return scData.GetIcon(icon)
     End Function
     Public Function GetListBoxItem() As ListBoxItem

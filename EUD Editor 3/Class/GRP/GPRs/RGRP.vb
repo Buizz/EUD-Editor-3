@@ -1,6 +1,33 @@
 ﻿Public MustInherit Class RGRP
-    Public MustOverride Function LoadGRP(bitmap As ByteBitmap, framedata As List(Of FrameData), grpfile As String) As Boolean
+    Public Enum PalettType
+        normal
+        doesnt_draw_hallucination
+        non_vision_cloaking
+        non_vision_cloaked
+        non_vision_uncloaking
+        vision_cloaking
+        vision_cloaked
+        vision_uncloaking
+        EMP
+        uses_remapping
+        shadow
+        HP_bar
+        warp_texture
+        selection_circle_remapping
+        draw_original_player_color
+        draw_update_rect
+        hallucination
+        warp_flash
+    End Enum
+
+
+    Protected GRPWidth As Integer
+    Protected GRPHeight As Integer
+
+
+    Public MustOverride Function LoadGRP(bitmap As ByteBitmap, framedata As List(Of FrameData), grpfile As String, GRPSize As Size) As Boolean
     Public MustOverride Function DrawGRP(frame As Integer) As BitmapSource
+    Public MustOverride Function DrawImage(SCImage As SCImage) As Image
     Public MustOverride Sub Reset()
 End Class
 Public Structure FrameData

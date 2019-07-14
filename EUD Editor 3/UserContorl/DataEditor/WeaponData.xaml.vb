@@ -49,6 +49,11 @@
         UO.Init(DatFiles, ObjectID, UO.Tag)
 
         TF.Init(DatFiles, ObjectID, TF.Tag, 90)
+
+        Dim Flingy As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Graphics", ObjectID)
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", Flingy)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+        GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Weapon, ObjectID)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID
@@ -90,5 +95,10 @@
         UO.ReLoad(DatFiles, ObjectID, UO.Tag)
 
         TF.ReLoad(DatFiles, ObjectID, TF.Tag)
+
+        Dim Flingy As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Graphics", ObjectID)
+        Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", Flingy)
+        Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
+        GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Weapon, ObjectID)
     End Sub
 End Class

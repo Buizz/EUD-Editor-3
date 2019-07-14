@@ -24,7 +24,7 @@
     Public Property ControlStatus As Integer
 
 
-    Private Grp As GRP
+    Private Grp As RGRP
 
     Private pos As Point
     Public Property Location As Point
@@ -79,7 +79,10 @@
     Public Sub Exec()
         If Not DeleteFlag Then
             If WaitTimer = 0 Then
+
                 DeleteFlag = Not scData.IscriptData.playScript(currentFrame, currentAnimHeaderID, currentScriptID, currentHeader, pos, WaitTimer, direction, GRPBOX, ControlStatus)
+
+
             Else
                 WaitTimer -= 1
             End If
@@ -90,7 +93,7 @@
     End Sub
 
 
-    Public ReadOnly Property GetGRP() As GRP
+    Public ReadOnly Property GetGRP() As RGRP
         Get
             Return Grp
         End Get

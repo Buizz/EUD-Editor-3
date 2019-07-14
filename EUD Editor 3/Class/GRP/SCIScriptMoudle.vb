@@ -298,7 +298,7 @@ Namespace IScript
 
             LoadIscript()
         End Sub
-        Public Sub LoadIscriptToFile(filename As String)
+        Public Sub LoadIscriptToFile(filename As String, Optional xscript As Boolean = False)
             Reset()
             Dim fs As New FileStream(filename, FileMode.Open)
             Dim br As New BinaryReader(fs)
@@ -306,10 +306,10 @@ Namespace IScript
             br.Close()
             fs.Close()
 
-            LoadIscript()
+            LoadIscript(xscript)
         End Sub
 
-        Public Sub LoadIscript() '모든 스크립트를 읽는다.
+        Public Sub LoadIscript(Optional xscript As Boolean = False) '모든 스크립트를 읽는다.
             Dim memsteram As New MemoryStream(buffer)
             Dim bytereader As New BinaryReader(memsteram)
 
@@ -317,12 +317,13 @@ Namespace IScript
 
             key.Clear()
             iscriptEntry.Clear()
+            If Not xscript Then
+                temp = bytereader.ReadUInt16() '헤더s 오프셋
+                memsteram.Position = temp
+            End If
 
-            temp = bytereader.ReadUInt16() '헤더s 오프셋
-            memsteram.Position = temp
 
             While True
-
                 Dim id, headeroffset As UInt16
                 id = bytereader.ReadUInt16() '스크립트아이디
                 headeroffset = bytereader.ReadUInt16() '헤더 오프셋

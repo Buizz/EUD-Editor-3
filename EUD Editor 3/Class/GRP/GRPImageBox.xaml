@@ -9,16 +9,17 @@
              xmlns:interop="clr-namespace:Microsoft.DwayneNeed.Interop;assembly=Microsoft.DwayneNeed"
              mc:Ignorable="d"
              Unloaded="UserControl_Unloaded"
-             d:DesignHeight="256" d:DesignWidth="256" Background="Black">
-    <Grid>
-        <interop:AirspaceDecorator AirspaceMode="Redirect"
+             d:DesignHeight="256" d:DesignWidth="256">
+    <Grid x:Name="ImageBox">
+
+        <!--<interop:AirspaceDecorator AirspaceMode="Redirect"
                            Background="White"
                            IsInputRedirectionEnabled="True"
                            IsOutputRedirectionEnabled="True">
             <wpf:WindowsFormsHost x:Name="WinHost" >
                 <wf:PictureBox x:Name="ImageBox" SizeMode="CenterImage" />
             </wpf:WindowsFormsHost>
-        </interop:AirspaceDecorator>
-    
+        </interop:AirspaceDecorator>-->
+
     </Grid>
 </UserControl>

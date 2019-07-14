@@ -113,8 +113,7 @@
                     </materialDesign:Card>
                     <materialDesign:Card Height="183" Width="287" Background="{DynamicResource MaterialDesignPaper}" Margin="10,-6,10,10" >
                         <Grid>
-                            <WrapPanel Grid.Row="1" Margin="10">
-                            </WrapPanel>
+                            <local:GRPImageBox x:Name="GRPImages" Width="180" Height="180"/>
                         </Grid>
                     </materialDesign:Card>
 

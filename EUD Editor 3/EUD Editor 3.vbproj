@@ -136,6 +136,9 @@
     <Reference Include="LuaInterface, Version=2.0.0.16708, Culture=neutral, processorArchitecture=x86">
       <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\LuaInterface.dll</HintPath>
     </Reference>
+    <Reference Include="Lz4Net, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\Lz4.Net.1.0.98\lib\net45\Lz4Net.dll</HintPath>
+    </Reference>
     <Reference Include="MahApps.Metro, Version=1.6.5.1, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\MahApps.Metro.1.6.5\lib\net45\MahApps.Metro.dll</HintPath>
     </Reference>
@@ -251,9 +254,10 @@
     <Compile Include="Class\Data\ProjectData\Timer.vb" />
     <Compile Include="Class\ExtraData\ExtraDatFiles.vb" />
     <Compile Include="Class\dump.vb" />
-    <Compile Include="Class\GRP\GPRs\CTGRP.vb" />
     <Compile Include="Class\GRP\GPRs\HDGRP.vb" />
+    <Compile Include="Class\GRP\GPRs\ICONGRP.vb" />
     <Compile Include="Class\GRP\GPRs\SDGRP.vb" />
+    <Compile Include="Class\GRP\GPRs\WIREFRAMEGRP.vb" />
     <Compile Include="Class\GRP\GRP.vb" />
     <Compile Include="Class\GRP\GRPBox.vb" />
     <Compile Include="Class\GRP\GRPImageBox.xaml.vb">
@@ -868,6 +872,9 @@
     <None Include="Data\iscript.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\iscriptx.bin">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\Palletes\ashworld.wpe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1004,6 +1011,15 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Content Include="Data\DatFiles\weapons.def">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <None Include="Data\Resources\BlackOverlay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Content Include="x64\lz4X64.dll">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+    <Content Include="x86\lz4X86.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <Resource Include="Version.txt" />
