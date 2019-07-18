@@ -1144,7 +1144,7 @@
     <None Include="Data\SCArchiveConnecter\libmysql.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\GUIScript.txt">
+    <None Include="Data\TriggerEditor\GUIScript.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\ROOT.txt">

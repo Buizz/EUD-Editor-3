@@ -35,7 +35,7 @@ Public Class ScriptManager
         '    FuncScript.Add(tts)
         'End If
 
-        Dim fs As New FileStream(Tool.TriggerEditorPath("GUIScript.txt"), FileMode.Open)
+        Dim fs As New FileStream(Tool.TriggerEditorPath("GUIScript.json"), FileMode.Open)
         Dim sw As New StreamReader(fs)
 
         TriggerScript = JsonConvert.DeserializeObject(Of List(Of TriggerScript))(sw.ReadToEnd)

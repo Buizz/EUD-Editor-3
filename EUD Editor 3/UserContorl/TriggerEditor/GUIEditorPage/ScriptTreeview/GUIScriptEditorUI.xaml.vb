@@ -20,6 +20,8 @@
         Dim header As ScriptTreeviewItem = titem.Header
         returnBlock = header.Script
 
+        returnBlock.Child.Clear()
+
         For i = 0 To titem.Items.Count - 1
             returnBlock.Child.Add(SaveItems(titem.Items(i)))
         Next

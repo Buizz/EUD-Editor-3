@@ -1,10 +1,13 @@
-﻿<Serializable>
+﻿Imports System.Text
+
+<Serializable>
 Public Class ScriptBlock
     Public ReadOnly Property TriggerScript As TriggerScript
 
     Public Sub New(keyname As String)
         TriggerScript = tescm.GetTriggerScript(keyname)
 
+        ArgumentName = New List(Of String)
         Argument = New List(Of ScriptBlock)
         Child = New List(Of ScriptBlock)
     End Sub
@@ -26,11 +29,51 @@ Public Class ScriptBlock
 
 
 
+    '선언시 TriggerScript으로 부터 초기화해야함. 
+    Public ReadOnly Property ArgumentName As List(Of String)
     Public ReadOnly Property Argument As List(Of ScriptBlock)
 
 
 
     Public ReadOnly Property Child As List(Of ScriptBlock)
+
+    Private Function GetIntend(count As Integer) As String
+        Dim indend As String = ""
+        For i = 0 To count - 1
+            indend = indend & vbTab
+        Next
+        Return indend
+    End Function
+    Public Function ToCode(Optional intend As Integer = 0) As String
+        Dim tindend As String = GetIntend(intend)
+
+
+        Dim returnstr As New StringBuilder
+
+        returnstr.Append(TriggerScript.CodeText.Replace(vbTab, tindend))
+        returnstr.Append(TriggerScript.CodeStart.Replace(vbTab, tindend))
+
+        intend += TriggerScript.Intend
+        tindend = GetIntend(intend)
+        For i = 0 To Child.Count - 1
+            If i <> 0 Then
+                returnstr.Append(TriggerScript.CodeSeparator.Replace(vbTab, tindend))
+            End If
+            returnstr.Append(TriggerScript.Codehead.Replace(vbTab, tindend))
+            returnstr.Append(Child(i).ToCode(intend))
+
+            If Child(i).TriggerScript.IsFolder = False Then
+                returnstr.Append(TriggerScript.Codetail.Replace(vbTab, tindend))
+            End If
+        Next
+        intend -= TriggerScript.Intend
+        tindend = GetIntend(intend)
+
+        returnstr.Append(TriggerScript.CodeEnd.Replace(vbTab, tindend))
+
+
+        Return returnstr.ToString
+    End Function
 End Class
 
 <Serializable>
@@ -75,27 +118,34 @@ Public Class TriggerScript
 
     Public InitBlock As List(Of String) '첫 생성시 자식으로 들어가는 블럭 정의
 
+    Public CodeText As String
+
+    Public ValuesDef As List(Of String) '인자들
+    Public Texts As List(Of String) '소개글
+
+    Public Intend As Integer
+    Public CodeStart As String
+    Public CodeEnd As String
+    Public Codehead As String
+    Public Codetail As String
+    Public CodeSeparator As String
+
+    Public Function GetTexts() As String
+        If Texts.Count <= 1 Then
+            Return ""
+        End If
+
+        Dim lan As String = pgData.Setting(ProgramData.TSetting.Language)
+
+        Return Texts(Texts.IndexOf(lan) + 1)
+    End Function
+
+
     Public Sub New()
 
     End Sub
 
-    Public Sub New(tSName As String, tIsFolder As Boolean, tIsLock As Boolean, tGroup As String, tSType As ScriptType, tFolderType As ScriptType, tFolderRull As String, tInitBlock As String)
-        SName = tSName
-        IsFolder = tIsFolder
-        IsLock = tIsLock
-        Group = tGroup
 
-        SType = tSType
-        FolderType = tFolderType
-
-        FolderRull = New List(Of String)
-        InitBlock = New List(Of String)
-
-
-
-        FolderRull.AddRange(tFolderRull.Split(","))
-        InitBlock.AddRange(tInitBlock.Split(","))
-    End Sub
 
 
     '조건들 정의

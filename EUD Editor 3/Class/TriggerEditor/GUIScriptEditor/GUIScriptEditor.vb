@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 
 <Serializable>
 Public Class GUIScriptEditor
@@ -14,11 +15,22 @@ Public Class GUIScriptEditor
 
 
     Public Overrides Function GetFileText() As String
-        Return ""
+        Return GetepsText()
     End Function
     Public Overrides Function GetStringText() As String
-        Return ""
+        Return GetepsText()
     End Function
+
+
+    Private Function GetepsText() As String
+        Dim returnstr As New StringBuilder
+
+        For i = 0 To items.Count - 1
+            returnstr.Append(items(i).ToCode())
+        Next
+        Return returnstr.ToString
+    End Function
+
 
 
     Private _ConnectFile As String
@@ -34,7 +46,6 @@ Public Class GUIScriptEditor
     End Function
     Public Overrides Property ConnectFile() As String
         Get
-
             Return False
         End Get
         Set(value As String)

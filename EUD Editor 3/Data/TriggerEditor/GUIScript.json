@@ -1,0 +1,264 @@
+﻿[
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      "Condition",
+      "Then",
+      "Else"
+    ],
+    "InitBlock": [
+      "Condition",
+      "Then"
+    ],
+    "SName": "If",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": true,
+    "IsLock": true,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 99,
+    "shortheader": true,
+    "FolderType": 1,
+    "Uniqueness": true,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Condition",
+    "CodeStart": "(\n",
+    "CodeEnd": "\n\t)",
+    "Codehead": "\t",
+    "Codetail": "",
+    "CodeSeparator": " && \n",
+    "Intend": 1,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": true,
+    "IsLock": true,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 99,
+    "shortheader": true,
+    "FolderType": 0,
+    "Uniqueness": true,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Then",
+    "CodeStart": "\t{\n",
+    "CodeEnd": "\n\t}",
+    "Codehead": "\t",
+    "Codetail": ";",
+    "CodeSeparator": "\n",
+    "Intend": 1,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 3,
+    "shortheader": true,
+    "FolderType": 0,
+    "Uniqueness": true,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Else",
+    "CodeStart": "{\n",
+    "CodeEnd": "\n\t}",
+    "Codehead": "\t",
+    "Codetail": ";",
+    "CodeSeparator": "\n",
+    "Intend": 1,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "\telse",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      "Condition",
+      "Then",
+      "Else"
+    ],
+    "InitBlock": [
+      "Condition",
+      "Then"
+    ],
+    "SName": "Elseif",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "\t",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "else if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
+
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Func",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "SetMemory",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Action",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "CreateUnit",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      "ko-KR",
+      "$ForPlayer$의 $Unit$을 $Number$만큼 $Where$에 생성합니다.",
+      "us-EN",
+      "Create $Number$ $Unit$ at '$Where$' for $ForPlayer$."
+    ],
+    "CodeText": "CreateUnit($Number$, $Unit$, $Where$, $ForPlayer$)",
+    "ValuesDef": [
+      "Number",
+      "Unit",
+      "Where",
+      "ForPlayer"
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Condition",
+    "SType": 1,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Accumulate",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      "ko-KR",
+      "$Player$이 $ResourceType$를 $Number$ $Comparison$ 보유 했을 경우",
+      "us-EN",
+      "$Player$ accumulates $Comparison$ $Number$ $ResourceType$"
+    ],
+    "CodeText": "Accumulate($Player$, $Comparison$, $Number$, $ResourceType$)",
+    "ToolTip": "None",
+    "ValuesDef": [
+      "Player",
+      "Comparison",
+      "Number",
+      "ResourceType"
+    ]
+  }
+]

@@ -11,7 +11,7 @@
         Script = tScript
         parrent = tparrent
 
-        ContentPanel.Init(Script)
+        ContentPanel.Init(parrent, Script)
     End Sub
 
     Private level As Byte
