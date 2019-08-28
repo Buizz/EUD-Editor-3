@@ -31,12 +31,41 @@ Public Class ButtonData
         SDeleteItem()
     End Sub
 
+    Private borders As List(Of Border)
+    Private images As List(Of Image)
 
     Public Sub New(tObjectID As Integer)
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        borders = New List(Of Border)
+        images = New List(Of Image)
+
+
+        For i = 0 To 8
+            Dim tb As New Border
+            Dim ti As New Image
+
+            tb.Background = Brushes.Black
+            tb.Width = 32
+            tb.Height = 32
+            tb.Child = ti
+
+
+
+            borders.Add(tb)
+            images.Add(ti)
+
+            xpanel.Children.Add(tb)
+        Next
+
+
+
+
+
+
+
         AnimationInit()
 
         DataContext = pjData
@@ -214,43 +243,73 @@ Public Class ButtonData
     End Sub
     Private Sub PreviewDraw()
         Dim SelectBtnIndex As Integer = -1
-        Dim imageDrawings As DrawingGroup = New DrawingGroup()
+        'Dim imageDrawings As DrawingGroup = New DrawingGroup()
 
         Dim btnCount As Integer = ButtonSet.ButtonS.Count
+
+        For i = 0 To 8
+            borders(i).Opacity = 1
+            images(i).Source = Nothing
+        Next
+
+
         For i = 0 To btnCount - 1
             If SelectButton Is ButtonSet.ButtonS(i) Then
                 SelectBtnIndex = i
             Else
-                Dim loc As Point = ButtonSet.ButtonS(i).GetPos
+                If pgData.Setting(ProgramData.TSetting.Graphic) > 0 Then
+                    Dim loc As Integer = ButtonSet.ButtonS(i).GetPosindex - 1
 
-                Dim rectDrawing As New GeometryDrawing(Brushes.Black,
-                       Nothing, New RectangleGeometry(New Rect(loc.X, loc.Y, 32, 32)))
-                imageDrawings.Children.Add(rectDrawing)
+                    images(loc).Source = ButtonSet.ButtonS(i).GetIcon
 
 
-                Dim imageIcon As BitmapSource = ButtonSet.ButtonS(i).GetIcon
+                    'PreviewImage.Source = ButtonSet.ButtonS(i).GetIcon
 
-                Dim IconIMage As ImageDrawing = New ImageDrawing()
-                IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)
-                IconIMage.ImageSource = imageIcon
-                imageDrawings.Children.Add(IconIMage)
+                    'Dim rectDrawing As New GeometryDrawing(Brushes.Black,
+                    '       Nothing, New RectangleGeometry(New Rect(loc.X, loc.Y, 32, 32)))
+                    'imageDrawings.Children.Add(rectDrawing)
+
+
+                    '    Dim imageIcon As BitmapSource = ButtonSet.ButtonS(i).GetIcon
+
+                    '    Dim IconIMage As New ImageDrawing()
+
+                    '    IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)
+
+
+                    '    IconIMage.ImageSource = imageIcon
+
+                    '    imageDrawings.Children.Add(IconIMage)
+                End If
             End If
         Next
 
         If SelectBtnIndex <> -1 Then
-            Dim loc As Point = ButtonSet.ButtonS(SelectBtnIndex).GetPos
+            Dim loc As Integer = ButtonSet.ButtonS(SelectBtnIndex).GetPosindex - 1
 
-            Dim imageIcon As BitmapSource = ButtonSet.ButtonS(SelectBtnIndex).GetIcon
+            images(loc).Source = ButtonSet.ButtonS(SelectBtnIndex).GetIcon
+            borders(loc).Opacity = 0.5
 
 
-            Dim IconIMage As ImageDrawing = New ImageDrawing()
-            IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)
-            IconIMage.ImageSource = imageIcon
-            imageDrawings.Children.Add(IconIMage)
 
-            Dim rectDrawing As New GeometryDrawing(New SolidColorBrush(Color.FromArgb(102, 181, 243, 20)),
-                       Nothing, New RectangleGeometry(New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)))
-            imageDrawings.Children.Add(rectDrawing)
+            'If pgData.Setting(ProgramData.TSetting.Graphic) > 0 Then
+            '    Dim imageIcon As BitmapSource = ButtonSet.ButtonS(SelectBtnIndex).GetIcon
+            '    Dim IconIMage As ImageDrawing = New ImageDrawing()
+            '    IconIMage.Rect = New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)
+            '    IconIMage.ImageSource = imageIcon
+            '    imageDrawings.Children.Add(IconIMage)
+
+            '    Dim rectDrawing As New GeometryDrawing(New SolidColorBrush(Color.FromArgb(102, 181, 243, 20)),
+            '   Nothing, New RectangleGeometry(New Rect(loc.X + (32 - imageIcon.Width) / 2, loc.Y + (32 - imageIcon.Height) / 2, 32, 32)))
+            '    imageDrawings.Children.Add(rectDrawing)
+            'Else
+            '    Dim rectDrawing As New GeometryDrawing(New SolidColorBrush(Color.FromArgb(102, 181, 243, 20)),
+            '   Nothing, New RectangleGeometry(New Rect(loc.X + (32 - 32) / 2, loc.Y + (32 - 32) / 2, 32, 32)))
+            '    imageDrawings.Children.Add(rectDrawing)
+            'End If
+
+
+
 
             TopText.TextColred(SelectButton.GetEnaStr)
             BottomText.TextColred(SelectButton.GetDisStr)
@@ -260,10 +319,10 @@ Public Class ButtonData
         End If
 
 
-        Dim drawingImageSource As DrawingImage = New DrawingImage(imageDrawings)
-        drawingImageSource.Freeze()
+        'Dim drawingImageSource As DrawingImage = New DrawingImage(imageDrawings)
+        'drawingImageSource.Freeze()
 
-        PreviewImage.Source = drawingImageSource
+        'PreviewImage.Source = drawingImageSource
     End Sub
 
 

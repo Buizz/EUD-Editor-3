@@ -134,6 +134,13 @@
     <!--RequireMenu-->
     <sys:String x:Key="NewCode">새로 만들기</sys:String>
     <sys:String x:Key="CodeDelete">삭제</sys:String>
+
+    <sys:String x:Key="TECodeCut">코드 잘라내기</sys:String>
+    <sys:String x:Key="TECodeCopy">코드 복사</sys:String>
+    <sys:String x:Key="TECodePaste">코드 붙여넣기</sys:String>
+    <sys:String x:Key="TECodeDelete">코드 삭제</sys:String>
+    <sys:String x:Key="TECodeUndo">실챙 취소</sys:String>
+    <sys:String x:Key="TECodeRedo">다시 실행</sys:String>
     
     
     
@@ -184,6 +191,10 @@
     <sys:String x:Key="Error compiling">컴파일 중에는 종료 할 수 없습니다.</sys:String>
     <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중입니다. 그래도 종료하시겠습니까?</sys:String>
 
+    <sys:String x:Key="Error WriteStatusInfor">컴파일 중 오류가 발생했습니다. 스테이터스 정보가 잘못되었습니다.</sys:String>
+    
+    
+    
 
     <sys:String x:Key="Error Dont Delete File">삭제 할 수 없는 파일입니다.</sys:String>
     <sys:String x:Key="Error CompileStop">컴파일을 중단했습니다.</sys:String>
@@ -831,11 +842,11 @@
     <sys:String x:Key="Condition">조건|&amp;H45,&amp;HEC,&amp;H5B</sys:String>
     <sys:String x:Key="Action">액션|&amp;H2C,&amp;HC0,&amp;HEC</sys:String>
     <sys:String x:Key="Variable">변수|&amp;HFF,&amp;H68,&amp;H50</sys:String>
+    <sys:String x:Key="Value">값|&amp;HFF,&amp;H80,&amp;H40</sys:String>
 
 
-    <!--<ListBoxItem Content="제어" Background="#FFFFC500" Tag="0"/>
-            <ListBoxItem Content="함수" Background="#FFCF2AFF" Tag="1"/>
-            <ListBoxItem Content="조건" Background="#FF45EC5B" Tag="2"/>
-            <ListBoxItem Content="액션" Background="#FF2CC0EC" Tag="3"/>
-            <ListBoxItem Content="변수" Background="#FFFF6850" Tag="4"/>-->
+    <sys:String x:Key="FunctionDefinition">함수 정의하기</sys:String>
+    
+    
+    
 </ResourceDictionary>

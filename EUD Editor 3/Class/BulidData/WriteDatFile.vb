@@ -103,7 +103,11 @@ Partial Public Class BuildData
 
         '와이어프레임, 버튼셋, 요구사항, 상태플래그
         WriteWireFrame(sb)
-        WriteStatusInfor(sb)
+        Try
+            WriteStatusInfor(sb)
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error WriteStatusInfor"), ex.ToString)
+        End Try
         WriteButtonSet(sb)
         sb.AppendLine("    inputData = open('" & Tool.GetRelativePath(EdsFilePath, requireFilePath).Replace("\", "/") & "', 'rb').read()")
         sb.AppendLine("    inputData_db = Db(inputData)")
@@ -189,7 +193,7 @@ Partial Public Class BuildData
 
 
         If checkflag Then
-            Dim memStream As MemoryStream
+            Dim memStream As FileStream
             Dim binaryReader As BinaryReader
             Dim binaryWriter As BinaryWriter
 
@@ -199,7 +203,9 @@ Partial Public Class BuildData
 
             '#########################################################################################
 
-            memStream = New MemoryStream(Tool.LoadDataFromMPQ("unit\wirefram\wirefram.grp"))
+
+
+            memStream = New FileStream(Tool.DataPath("wirefram.grp"), FileMode.Open)
             binaryReader = New BinaryReader(memStream)
             binaryWriter = New BinaryWriter(memStream)
 
@@ -238,7 +244,7 @@ Partial Public Class BuildData
 
             '#########################################################################################
 
-            memStream = New MemoryStream(Tool.LoadDataFromMPQ("unit\wirefram\grpwire.grp"))
+            memStream = New FileStream(Tool.DataPath("grpwire.grp"), FileMode.Open)
             binaryReader = New BinaryReader(memStream)
             binaryWriter = New BinaryWriter(memStream)
 
@@ -278,7 +284,7 @@ Partial Public Class BuildData
 
             '#########################################################################################
 
-            memStream = New MemoryStream(Tool.LoadDataFromMPQ("unit\wirefram\tranwire.grp"))
+            memStream = New FileStream(Tool.DataPath("tranwire.grp"), FileMode.Open)
             binaryReader = New BinaryReader(memStream)
             binaryWriter = New BinaryWriter(memStream)
 

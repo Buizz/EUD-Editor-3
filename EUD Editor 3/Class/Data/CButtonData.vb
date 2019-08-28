@@ -391,6 +391,9 @@ Public Class CButtonData
     End Function
 
 
+    Public Function GetPosindex() As Integer
+        Return pos
+    End Function
     Public Function GetPos() As Point
         Dim returnPoint As New Point(((pos - 1) Mod 3) * 32, ((pos - 1) \ 3) * 32)
 

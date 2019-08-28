@@ -16,6 +16,13 @@ Public Class TriggerEditor
         Explorer.Init(Me)
     End Sub
 
+    Public Sub Undo()
+        'MsgBox("다시실행")
+
+    End Sub
+    Public Sub Redo()
+
+    End Sub
 
     Public Sub LoadLastTabItems()
         MainTab.Content = TLoadLastItem(pjData.TEData.LastOpenTabs)

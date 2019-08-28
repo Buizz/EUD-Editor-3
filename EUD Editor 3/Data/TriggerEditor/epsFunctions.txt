@@ -2192,8 +2192,8 @@ function EUDXVariable(initval, mask) { }
  * @Summary.ko-KR
  * EUDVArray(size)(initvals)
  * 
- * * 예시
- * const for_artanis = EUDVArray(4)(list(1, 2, 3, 4));
+ * 예시
+ * const_for_artanis = EUDVArray(4)(list(1, 2, 3, 4));
  *
  * @param.인자이름.ko-KR
  * 인자 설명
@@ -3122,11 +3122,11 @@ function EUDStack(size, basetype) { }
  * @Summary.ko-KR
  * 크기 8인 EUDVArray
  * 
- * const pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
+ * const_pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
  *
  * @param.initval.ko-KR
  * 초기값 8개
- * const pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
+ * const_pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
  ***/
 function PVariable(initval) { }
 

@@ -3,6 +3,8 @@ Imports BondTech.HotKeyManagement.WPF._4
 Imports BondTech.HotKeyManagement.WPF._4.KeyboardHookEventArgs
 
 Public Class ProjectControl
+    Private TE As TriggerEditor
+
     Private Sub MyHotKeyManager_LocalHotKeyPressed(sender As Object, e As LocalHotKeyEventArgs)
         Select Case e.HotKey.Name
             Case "Setting"
@@ -25,6 +27,15 @@ Public Class ProjectControl
                 WindowMenu.OpenPlugin()
             Case "CodeFold"
                 WindowMenu.CodeFold()
+            Case "Undo"
+                If TE IsNot Nothing Then
+                    TE.Undo()
+                End If
+            Case "Redo"
+                If TE IsNot Nothing Then
+                    TE.Redo()
+                End If
+
         End Select
     End Sub
 
@@ -42,6 +53,8 @@ Public Class ProjectControl
         Dim hOpenTriggerEdit As New LocalHotKey("OpenTriggerEdit", ModifierKeys.Control, Keys.T)
         Dim hOpenPlugin As New LocalHotKey("OpenPlugin", ModifierKeys.Control, Keys.P)
         Dim hCodeFold As New LocalHotKey("CodeFold", ModifierKeys.Control, Keys.F)
+        Dim hUndo As New LocalHotKey("Undo", ModifierKeys.Control, Keys.Z)
+        Dim hRedo As New LocalHotKey("Redo", ModifierKeys.Control, Keys.R)
 
 
         MyHotKeyManager.AddLocalHotKey(hSetting)
@@ -54,6 +67,12 @@ Public Class ProjectControl
         MyHotKeyManager.AddLocalHotKey(hOpenTriggerEdit)
         MyHotKeyManager.AddLocalHotKey(hOpenPlugin)
         MyHotKeyManager.AddLocalHotKey(hCodeFold)
+        MyHotKeyManager.AddLocalHotKey(hUndo)
+        MyHotKeyManager.AddLocalHotKey(hRedo)
+
+        If twindow.GetType Is GetType(TriggerEditor) Then
+            TE = twindow
+        End If
 
         AddHandler MyHotKeyManager.LocalHotKeyPressed, AddressOf MyHotKeyManager_LocalHotKeyPressed
     End Sub

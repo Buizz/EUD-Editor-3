@@ -4,15 +4,12 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" >
-    <WrapPanel x:Name="ContentPanel">
-        <!--<Label x:Name="TestLabel" Padding="0" VerticalAlignment="Center"/>-->
-        <!--<Button Content="P1" Padding="0" Margin="2" Height="Auto" VerticalAlignment="Center" />
-        <Label Content="의 " Padding="0" VerticalAlignment="Center"/>
-        <Button Content="저글링" Padding="0" Margin="2" Height="Auto" VerticalAlignment="Center"/>
-        <Button Content="5마리" Padding="0" Margin="2" Height="Auto" VerticalAlignment="Center"/>
-        <Label Content="를 " Padding="0" VerticalAlignment="Center"/>
-        <Button Content="로케이션1" Padding="0" Margin="2" Height="Auto" VerticalAlignment="Center"/>
-        <Label Content="에 생성합니다." Padding="0" VerticalAlignment="Center"/>-->
-    </WrapPanel>
+             mc:Ignorable="d" d:DesignWidth="200" d:DesignHeight="40" >
+    <Grid>
+        <Border x:Name="ColorZone" />
+        <WrapPanel x:Name="ContentPanel">
+
+        </WrapPanel>
+    </Grid>
+  
 </UserControl>

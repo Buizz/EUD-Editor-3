@@ -623,9 +623,12 @@ Partial Public Class CodeEditor
 
                 Try
                     tailchar = TextEditor.Text.Chars(TextEditor.SelectionStart)
-                    ttailchar = TextEditor.Text.Chars(TextEditor.SelectionStart + 1)
                 Catch ex As IndexOutOfRangeException
                     tailchar = ""
+                End Try
+                Try
+                    ttailchar = TextEditor.Text.Chars(TextEditor.SelectionStart + 1)
+                Catch ex As IndexOutOfRangeException
                     ttailchar = ""
                 End Try
 

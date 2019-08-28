@@ -16,8 +16,10 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         PTEFile = tTEFile
+
         Script.LoadScript(tTEFile)
     End Sub
+
 
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
@@ -59,5 +61,31 @@
 
     Private Sub ObjectSelector_ItemSelect(sender As Object, e As RoutedEventArgs)
         Script.AddItemClick(sender.ToString)
+    End Sub
+
+    Private Sub UserControl_GotFocus(sender As Object, e As RoutedEventArgs)
+    End Sub
+
+    Private leftctrldown As Boolean = False
+    Private Sub UserControl_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+        Select Case e.Key
+            Case Key.LeftCtrl
+                leftctrldown = True
+        End Select
+        If leftctrldown Then
+            Select Case e.Key
+                Case Key.Z
+                    Script.Undo()
+                Case Key.R
+                    Script.Redo()
+            End Select
+        End If
+    End Sub
+
+    Private Sub UserControl_PreviewKeyUp(sender As Object, e As KeyEventArgs)
+        Select Case e.Key
+            Case Key.LeftCtrl
+                leftctrldown = False
+        End Select
     End Sub
 End Class

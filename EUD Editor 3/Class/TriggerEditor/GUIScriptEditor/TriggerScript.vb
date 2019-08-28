@@ -10,7 +10,32 @@ Public Class ScriptBlock
         ArgumentName = New List(Of String)
         Argument = New List(Of ScriptBlock)
         Child = New List(Of ScriptBlock)
+
+        If TriggerScript.IsHaveValues Then
+            For i = 0 To TriggerScript.ValuesDef.Count - 1
+                Argument.Add(New ScriptBlock("Then"))
+            Next
+        End If
     End Sub
+
+    Public Sub New(copySb As ScriptBlock)
+        TriggerScript = tescm.GetTriggerScript(copySb.TriggerScript.SName)
+
+        ArgumentName = New List(Of String)
+        Argument = New List(Of ScriptBlock)
+        Child = New List(Of ScriptBlock)
+
+        If TriggerScript.IsHaveValues Then
+            For i = 0 To TriggerScript.ValuesDef.Count - 1
+                'MsgBox(copySb.Argument(i).TriggerScript.SName)
+
+                Argument.Add(New ScriptBlock(copySb.Argument(i)))
+            Next
+        End If
+
+        Value = copySb.Value
+    End Sub
+
 
     '벨류도 이거로 만듬
 
@@ -32,6 +57,10 @@ Public Class ScriptBlock
     '선언시 TriggerScript으로 부터 초기화해야함. 
     Public ReadOnly Property ArgumentName As List(Of String)
     Public ReadOnly Property Argument As List(Of ScriptBlock)
+
+
+    Public Property Value As String
+
 
 
 
@@ -78,12 +107,16 @@ End Class
 
 <Serializable>
 Public Class TriggerScript
-    Public Shared Function GetColor(key As String)
+    Public Shared Function GetColor(key As String, Optional A As Byte = 255)
         Dim header As String = Tool.GetText(key)
 
         Dim colors() As String = header.Split("|").Last.Split(",")
 
-        Return Color.FromRgb(colors(0), colors(1), colors(2))
+        If A = 255 Then
+            Return Color.FromRgb(colors(0), colors(1), colors(2))
+        Else
+            Return Color.FromArgb(A, colors(0), colors(1), colors(2))
+        End If
     End Function
 
     '스크립트 하나하나를 정의
@@ -93,6 +126,11 @@ Public Class TriggerScript
         Both = 2
         Special = 3
         '룰로 정해진 곳에만 들어올 수 있음
+
+
+        OutSide = 4
+        Free = 5
+        Value = 6
 
         Null = 99
     End Enum
@@ -120,6 +158,15 @@ Public Class TriggerScript
 
     Public CodeText As String
 
+    Public ReadOnly Property IsHaveValues As Boolean
+        Get
+            If ValuesDef.Count = 1 And ValuesDef(0).Trim = "" Then
+                Return False
+            Else
+                Return True
+            End If
+        End Get
+    End Property
     Public ValuesDef As List(Of String) '인자들
     Public Texts As List(Of String) '소개글
 

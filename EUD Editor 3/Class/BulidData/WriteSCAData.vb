@@ -152,23 +152,28 @@ Partial Public Class BuildData
             sb.AppendLine("import " & NameSapces(i) & " as n" & i & ";")
         Next
         sb.AppendLine("")
-        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");//workspace")
+        sb.AppendLine("const ws = 0x58F44A;") 'Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");//workspace")
         sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";//EntryPointLength")
         sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";//DataBufferSize")
         sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";//ObjectCount")
 
         sb.AppendLine("")
         sb.AppendLine("function Init(){")
-        sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
+        'sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
+        'sb.AppendLine("f_eprintln(""시발 오류"", dwread_epd(EPD(ws)), ""  "",  dwread_epd(EPD(ws) + 1));")
         sb.AppendLine("    //EntryPoint")
         For i = 0 To EntryPoint.Count - 1
+            'sb.AppendLine("    dwwrite_epd(EPD(ws) + " & i & ", " & 98761234 & ");")
             sb.AppendLine("    dwwrite_epd(EPD(ws) + " & i & ", " & EntryPoint(i) & ");")
         Next
+
         sb.AppendLine("    ")
         sb.AppendLine("}")
         sb.AppendLine("")
         sb.AppendLine("")
         sb.AppendLine("function Exec(){")
+        sb.AppendLine("    Init();")
+
         'sb.AppendLine("    const s = StringBuffer();")
         'sb.AppendLine("    s.print(""asf"", dwread_epd(EPD(ws) + EntryPointLength));")
         sb.AppendLine("}")
@@ -518,6 +523,10 @@ Partial Public Class BuildData
 
 
         StormLib.SFileAddFile(hmpq, TempFilePath & "\scadatafile", "SCARCHIVEDATA", StormLib.MPQ_FILE_COMPRESS)
+
+        StormLib.SFileAddFile(hmpq, EudPlibFilePath & "\scakeyfile", "SCARCHIVEMAPCODE", StormLib.MPQ_FILE_COMPRESS)
+
+
 
         StormLib.SFileCloseFile(hfile)
         StormLib.SFileCloseArchive(hmpq)

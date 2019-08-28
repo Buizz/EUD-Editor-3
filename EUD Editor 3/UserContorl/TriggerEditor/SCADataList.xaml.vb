@@ -23,6 +23,7 @@ Public Class SCADataList
         Next
 
 
+
         For i = 0 To tTEfile.FolderCount - 1
             If tTEfile.Folders(i).FileType <> TEFile.EFileType.Setting Then
                 Dim Filename As String = Path & tTEfile.Folders(i).FileName & "\"
@@ -158,13 +159,18 @@ Public Class SCADataList
             Case 0
                 ValueSelecter.Visibility = Visibility.Collapsed
                 VariableField.Visibility = Visibility.Visible
+                OkKey.IsEnabled = False
+                VariableReset()
             Case 1
                 ValueSelecter.Init(SCDatFiles.DatFiles.units, "데스값", 0)
                 ValueSelecter.Visibility = Visibility.Visible
                 VariableField.Visibility = Visibility.Collapsed
+                Checekname()
             Case 2
                 ValueSelecter.Visibility = Visibility.Collapsed
                 VariableField.Visibility = Visibility.Visible
+                OkKey.IsEnabled = False
+                VariableReset()
         End Select
     End Sub
 
@@ -280,6 +286,9 @@ Public Class SCADataList
 
 
     Private Sub NameCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        VariableReset()
+    End Sub
+    Private Sub VariableReset()
         If CreateEditWindow.Visibility = Visibility.Visible Then
             If NameCombobox.SelectedItem IsNot Nothing Then
                 If List.SelectedItem IsNot Nothing Then
@@ -330,9 +339,16 @@ Public Class SCADataList
                     End If
 
                 End If
+                Checekname()
+            Else
+                OkKey.IsEnabled = False
             End If
+
+
         End If
     End Sub
+
+
     Private Function CheckAlphaNumeric(str As String) As Boolean
         If str.Trim = "" Then
             Return False
@@ -344,7 +360,22 @@ Public Class SCADataList
     Private Sub Checekname()
         If CheckAlphaNumeric(DataName.Text) Then
             NameCondpanel.Visibility = Visibility.Collapsed
-            OkKey.IsEnabled = True
+
+            If TypeCB.SelectedIndex <> 1 Then
+                If VarSelecter.SelectedItem IsNot Nothing Then
+                    If NameCombobox.SelectedItem IsNot Nothing Then
+                        OkKey.IsEnabled = True
+                    Else
+                        OkKey.IsEnabled = False
+                    End If
+                Else
+                    OkKey.IsEnabled = False
+                End If
+            Else
+                OkKey.IsEnabled = True
+            End If
+
+
             DataName.Foreground = Application.Current.Resources("MaterialDesignBody")
         Else
             NameCondpanel.Visibility = Visibility.Visible
@@ -355,6 +386,16 @@ Public Class SCADataList
     End Sub
     Private Sub DataName_TextChanged(sender As Object, e As TextChangedEventArgs)
         Checekname()
+    End Sub
+
+    Private Sub VarSelecter_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If CreateEditWindow.Visibility = Visibility.Visible Then
+            If VarSelecter.SelectedItem IsNot Nothing Then
+                Checekname()
+            Else
+                OkKey.IsEnabled = False
+            End If
+        End If
     End Sub
 End Class
 

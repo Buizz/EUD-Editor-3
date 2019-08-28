@@ -155,6 +155,36 @@
       ""
     ]
   },
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Func",
+    "SType": 4,
+    "shortheader": false,
+    "FolderType": 0,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "FunctionDefinition",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
 
 
 
@@ -188,6 +218,43 @@
       ""
     ]
   },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Func",
+    "SType": 2,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "TestFunction",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      "ko-KR",
+      "$ForPlayer$의 $Unit$을 $Number$만큼 $Where$에 생성합니다.",
+      "us-EN",
+      "Create $Number$ $Unit$ at '$Where$' for $ForPlayer$."
+    ],
+    "CodeText": "CreateUnit($Number$, $Unit$, $Where$, $ForPlayer$)",
+    "ValuesDef": [
+      "Number",
+      "Unit",
+      "Where",
+      "ForPlayer"
+    ]
+  },
+
   {
     "IsFolder": false,
     "IsLock": false,
@@ -259,6 +326,126 @@
       "Comparison",
       "Number",
       "ResourceType"
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Value",
+    "SType": 6,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Location",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Value",
+    "SType": 6,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Unit",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Value",
+    "SType": 6,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Player",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Value",
+    "SType": 6,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Number",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
     ]
   }
 ]

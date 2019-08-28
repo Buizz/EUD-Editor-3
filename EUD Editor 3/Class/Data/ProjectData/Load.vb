@@ -48,6 +48,8 @@ Partial Public Class ProjectData
                 '    pjData.CloseFile()
                 'End If
             Else
+                stm.Close()
+
                 _pjdata = New ProjectData
                 _pjdata.NewFIle()
                 _pjdata.InitData()

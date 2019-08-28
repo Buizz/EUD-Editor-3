@@ -159,7 +159,7 @@
                         <Separator Background="#4CA0A0A0"/>
                         <Label  Content="데이터 설정" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                         <DockPanel>
-                            <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="버퍼 사이즈" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
+                            <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="버퍼 사이즈" ToolTip="유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다." Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
                                 <TextBox.Text>
                                     <Binding
                                           Path="DataSize"

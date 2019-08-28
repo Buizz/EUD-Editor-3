@@ -82,8 +82,11 @@
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource BtnPreview}" Padding="6"/>
                                 <DockPanel Grid.Row="1" Margin="10,2" Background="Black" >
-                                    <Border Width="96" Height="96" DockPanel.Dock="Left">
-                                        <Image x:Name="PreviewImage" Stretch="None" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <Border Width="96" Height="96" DockPanel.Dock="Left" Background="#FF5DF13B">
+                                        <WrapPanel Name="xpanel">
+ 
+
+                                        </WrapPanel>
                                     </Border>
                                     <Grid>
                                         <Grid.RowDefinitions>

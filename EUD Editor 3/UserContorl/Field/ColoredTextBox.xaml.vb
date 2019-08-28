@@ -133,9 +133,13 @@ Public Class ColoredTextBox
                 tParagraph.TextAlignment = TextAlignment.Center
             End If
             If LastCode = &HA Then
-                tParagraph = New Paragraph
-                TextDocument.Blocks.Add(tParagraph)
-                inlines = tParagraph.Inlines
+
+                Dim tRun As New Run(vbCrLf)
+                inlines.Add(tRun)
+
+                'tParagraph = New Paragraph
+                'TextDocument.Blocks.Add(tParagraph)
+                'inlines = tParagraph.Inlines
                 LastColor = 1
             End If
         Next

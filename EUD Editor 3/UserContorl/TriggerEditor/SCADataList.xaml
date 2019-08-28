@@ -23,7 +23,7 @@
                         DisplayMemberBinding="{Binding TagName}"
                         Header="이름" />
                     <GridViewColumn Width="70"
-                        DisplayMemberBinding="{Binding CodeType}"
+                        DisplayMemberBinding="{Binding ECodeType}"
                         Header="종류" />
                     <GridViewColumn Width="200"
                         DisplayMemberBinding="{Binding Value}"
@@ -95,6 +95,7 @@
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             </ComboBox>
                             <ComboBox x:Name="VarSelecter" materialDesign:HintAssist.Hint="변수 명" 
+                                      SelectionChanged="VarSelecter_SelectionChanged"
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             </ComboBox>
                         </DockPanel>

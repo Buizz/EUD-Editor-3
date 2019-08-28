@@ -24,7 +24,7 @@ Public Class DataManager
                 TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.techdata).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.Stechdata).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
             Case SCDatFiles.DatFiles.orders
                 TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID) And (pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.orders).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
-            Case SCDatFiles.DatFiles.ButtonData
+            Case SCDatFiles.DatFiles.ButtonData, SCDatFiles.DatFiles.stattxt
                 TrueFlag = pjData.ExtraDat.CheckDirty(Datfile, ObjectID)
             Case Else
                 TrueFlag = pjData.Dat.GetDatFile(Datfile).CheckDirty(ObjectID)

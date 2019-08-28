@@ -12,10 +12,10 @@ Imports System.Windows
 ' 어셈블리 특성 값을 검토합니다.
 
 <Assembly: AssemblyTitle("EUD Editor 3")>
-<Assembly: AssemblyDescription("")>
+<Assembly: AssemblyDescription("EUD Edit Program")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("EUD Editor 3")>
-<Assembly: AssemblyCopyright("Copyright ©  2019 Buizz")>
+<Assembly: AssemblyCopyright("Copyright © 2019 Buizz")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(false)>
 
@@ -55,5 +55,5 @@ Imports System.Windows
 ' 지정되도록 할 수 있습니다.
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.6.0.0")>
-<Assembly: AssemblyFileVersion("0.6.0.0")>
+<Assembly: AssemblyVersion("0.7.0.0")>
+<Assembly: AssemblyFileVersion("0.7.0.0")>

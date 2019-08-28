@@ -37,7 +37,16 @@
                 For i = 0 To tescm.dicTriggerScript(LastSelectGroup).Count - 1
                     If Not tescm.dicTriggerScript(LastSelectGroup)(i).IsLock Then
                         Dim tlistboxitem As New ListBoxItem
-                        tlistboxitem.Content = tescm.dicTriggerScript(LastSelectGroup)(i).SName
+                        Dim keyname As String = tescm.dicTriggerScript(LastSelectGroup)(i).SName
+                        tlistboxitem.Tag = keyname
+
+                        Dim headername As String = Tool.GetText(keyname)
+                        If headername = "" Then
+                            tlistboxitem.Content = keyname
+                        Else
+                            tlistboxitem.Content = headername
+                        End If
+
 
                         ToolBox.Items.Add(tlistboxitem)
                     End If
@@ -61,7 +70,7 @@
         Dim Selectitem As ListBoxItem = ToolBox.SelectedItem
         If Selectitem IsNot Nothing Then
             ToolBox.SelectedIndex = -1
-            RaiseEvent ItemSelect(Selectitem.Content, e)
+            RaiseEvent ItemSelect(Selectitem.Tag, e)
         End If
     End Sub
 

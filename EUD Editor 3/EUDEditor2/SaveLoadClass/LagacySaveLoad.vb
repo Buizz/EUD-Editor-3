@@ -105,8 +105,8 @@ Public Class LagacySaveLoad
 
                     For i = 0 To 227
                         If FindSetting(Section_FireGraftSET, "FireGraft" & i) <> "0" Then
-                            pjData.ExtraDat.StatusFunction1(i) = FindSetting(Section_FireGraftSET, "FireGraft" & i).Split(",")(0)
-                            pjData.ExtraDat.StatusFunction2(i) = FindSetting(Section_FireGraftSET, "FireGraft" & i).Split(",")(1)
+                            pjData.ExtraDat.StatusFunction1(i) = scData.DefaultExtraDat.StatusFunction1(i) + FindSetting(Section_FireGraftSET, "FireGraft" & i).Split(",")(0)
+                            pjData.ExtraDat.StatusFunction2(i) = scData.DefaultExtraDat.StatusFunction2(i) + FindSetting(Section_FireGraftSET, "FireGraft" & i).Split(",")(1)
 
                             pjData.ExtraDat.DefaultStatusFunction1(i) = False
                             pjData.ExtraDat.DefaultStatusFunction2(i) = False
@@ -119,7 +119,9 @@ Public Class LagacySaveLoad
 
                     For i = 0 To 249
                         If FindSetting(Section_BtnSET, "BtnUse" & i) = True Then
-                            pjData.ExtraDat.DefaultButtonSet(i) = FindSetting(Section_BtnSET, "BtnUse" & i)
+                            'MsgBox("버튼번호 : " & i & "   기본 설정 : " & pjData.ExtraDat.DefaultButtonSet(i))
+                            'pjData.ExtraDat.DefaultButtonSet(i) = False 'FindSetting(Section_BtnSET, "BtnUse" & i)
+                            pjData.ExtraDat.ButtonData.GetButtonSet(i).IsDefault = False
 
                             Dim Setdata() As String = FindSetting(Section_BtnSET, "BtnData" & i).Split(",")
 
@@ -159,14 +161,16 @@ Public Class LagacySaveLoad
                                 For p As Integer = 0 To FindSetting(Section_ReqSET, "ReqCount" & i & "," & j) - 1
                                     codes.Add(FindSetting(Section_ReqSET, "ReqData" & i & "," & j & "," & p))
                                 Next
-
                                 pjData.ExtraDat.RequireData(DatTyps(i)).GetRequireObject(j).ReLoad(j, DatTyps(i), codes, FindSetting(Section_ReqSET, "ReqPos" & i & "," & j))
+
+                                pjData.ExtraDat.RequireData(DatTyps(i)).GetRequireObject(j).UseStatus = CRequireData.RequireUse.CustomUse
                             End If
+
 
                         Next
                     Next
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "FireGraft"))
+                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "FireGraft"), ex.ToString)
                     Exit Sub
                 End Try
 
@@ -177,7 +181,7 @@ Public Class LagacySaveLoad
 
 
                     For i = 0 To FindSetting(Section_FileManagerSET, "stattextdicCount") - 1
-                        pjData.ExtraDat.Stat_txt(FindSetting(Section_FileManagerSET, "stattextdickey" & i)) = FindSetting(Section_FileManagerSET, "stattextdicvalue" & i)
+                        pjData.ExtraDat.Stat_txt(FindSetting(Section_FileManagerSET, "stattextdickey" & i)) = LagacyClass.STRdecToHec(FindSetting(Section_FileManagerSET, "stattextdicvalue" & i))
                     Next
 
                     If FindSetting(Section_FileManagerSET, "wireuse") Then
@@ -203,7 +207,7 @@ Public Class LagacySaveLoad
 
 
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "FileManager"))
+                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "FileManager"), ex.ToString)
                     Exit Sub
                 End Try
 

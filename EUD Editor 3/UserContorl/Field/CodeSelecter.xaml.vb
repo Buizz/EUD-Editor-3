@@ -684,7 +684,6 @@ Public Class CodeSelecter
                 End Select
 
             Case SCDatFiles.DatFiles.ButtonData
-                '어캐작성하노 ㅋㅋ 
                 For i = 0 To SCUnitCount - 1
                     ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i))
                     ObjectImages.Add(GetIcon(i, Fliter.IsIcon))
