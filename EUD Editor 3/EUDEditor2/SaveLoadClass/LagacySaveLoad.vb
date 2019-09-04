@@ -54,6 +54,7 @@ Public Class LagacySaveLoad
                 stream.Close()
                 file.Close()
 
+                Dim isUseCHKData As Boolean
                 Try
                     Dim Section_ProjectSET As String = FindSection(text, "ProjectSET")
 
@@ -69,10 +70,15 @@ Public Class LagacySaveLoad
 
                     pjData.OpenMapName = FindSetting(Section_ProjectSET, "InputMap")
                     pjData.SaveMapName = FindSetting(Section_ProjectSET, "OutputMap")
+
+                    isUseCHKData = FindSetting(Section_ProjectSET, "loadfromCHK")
                 Catch ex As Exception
                     Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "Setting"))
                     Exit Sub
                 End Try
+
+
+
 
 
                 Try
@@ -88,13 +94,23 @@ Public Class LagacySaveLoad
                             j = temp(1)
                             k = temp(2)
                             If temp(3) <> 0 Then
-                                pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).Data = temp(3) + scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                Dim mapdata As Long = 0
+                                If Not pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault Then
+                                    mapdata = pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                Else
+                                    mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                End If
+
+
+
+                                'mapdata += scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).Data = temp(3) + mapdata
                                 pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault = False
                             End If
                         End If
                     Next
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "DatEdit"))
+                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "DatEdit"), ex.ToString)
                     Exit Sub
                 End Try
 
@@ -420,7 +436,16 @@ Public Class LagacySaveLoad
             For j = 0 To pjData.Dat.DatFileList(i).ParamaterList.Count - 1
                 For k = 0 To pjData.Dat.DatFileList(i).ParamaterList(j).GetInfo(SCDatFiles.EParamInfo.VarCount) - 1
                     If Not pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).IsDefault Then
-                        _stringbdl.Append(i & "," & j & "," & k & "," & pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).Data & vbCrLf)
+                        Dim value As Long = pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).Data
+
+                        If Not pjData.MapData.DatFile.DatFileList(i).ParamaterList(j).PureData(k).IsDefault Then
+                            value -= pjData.MapData.DatFile.DatFileList(i).ParamaterList(j).PureData(k).Data
+                        Else
+                            value -= scData.DefaultDat.DatFileList(i).ParamaterList(j).PureData(k).Data
+                        End If
+
+
+                        _stringbdl.Append(i & "," & j & "," & k & "," & value & vbCrLf)
                     End If
                 Next
             Next
@@ -445,7 +470,11 @@ Public Class LagacySaveLoad
                 Else
                     StatusFunction2 = scData.DefaultExtraDat.StatusFunction2(i)
                 End If
+                StatusFunction1 -= scData.DefaultExtraDat.StatusFunction1(i)
+                StatusFunction2 -= scData.DefaultExtraDat.StatusFunction2(i)
 
+                'pjData.ExtraDat.StatusFunction1(i) = scData.DefaultExtraDat.StatusFunction1(i) + FindSetting(Section_FireGraftSET, "FireGraft" & i).Split(",")(0)
+                'pjData.ExtraDat.StatusFunction2(i) = scData.DefaultExtraDat.StatusFunction2(i) + FindSetting(Section_FireGraftSET, "FireGraft" & i).Split(",")(1)
 
 
                 If (pjData.ExtraDat.StatusFunction1(i) <> 0) Or (pjData.ExtraDat.StatusFunction2(i) <> 0) Then
@@ -456,14 +485,16 @@ Public Class LagacySaveLoad
         _stringbdl.Append("E_FireGraftSET" & vbCrLf)
         _stringbdl.Append("S_BtnSET" & vbCrLf) 'DatEditSET Start
         For i = 0 To 249
-            If Not pjData.ExtraDat.DefaultButtonSet(i) Then
+            If Not pjData.ExtraDat.ButtonData.GetButtonSet(i).IsDefault Then
                 Dim tstr As String = ""
 
-                _stringbdl.Append("BtnUse" & i & " : " & Not pjData.ExtraDat.DefaultButtonSet(i) & vbCrLf)
+                _stringbdl.Append("BtnUse" & i & " : " & (Not pjData.ExtraDat.ButtonData.GetButtonSet(i).IsDefault) & vbCrLf)
 
 
+                Dim btnstr As String = pjData.ExtraDat.ButtonData.GetButtonSet(i).GetCopyString
+                btnstr = btnstr.Replace(".", ",")
 
-                tstr = "BtnData" & i & " : " & pjData.ExtraDat.ButtonData.GetButtonSet(i).GetCopyString
+                tstr = "BtnData" & i & " : " & btnstr & ","
 
                 _stringbdl.Append(tstr & vbCrLf)
             End If
@@ -514,13 +545,14 @@ Public Class LagacySaveLoad
 
         Dim strcount As Integer = 0
         For i = 0 To SCtbltxtCount - 1
-            If pjData.ExtraDat.Stat_txt(i) = ExtraDatFiles.StatNullString Then
-                _stringbdl.Append("stattextdickey" & i & " : " & i & vbCrLf)
-                _stringbdl.Append("stattextdicvalue" & i & " : " & pjData.ExtraDat.Stat_txt(i) & vbCrLf)
+            If pjData.ExtraDat.Stat_txt(i) <> ExtraDatFiles.StatNullString Then
+                _stringbdl.Append("stattextdickey" & strcount & " : " & i & vbCrLf)
+                _stringbdl.Append("stattextdicvalue" & strcount & " : " & LagacyClass.STRhecTodec(pjData.ExtraDat.Stat_txt(i)) & vbCrLf)
                 strcount += 1
             End If
         Next
         _stringbdl.Append("stattextdicCount : " & strcount & vbCrLf)
+
 
         _stringbdl.Append("wireuse : True" & vbCrLf)
         For i = 0 To 227
@@ -597,6 +629,18 @@ Public Class LagacySaveLoad
         '    _stringbdl.Append("extraedssetting : " & extraedssetting & vbCrLf)
 
         '    _stringbdl.Append("E_PluginSET" & vbCrLf)
+        _stringbdl.Append("S_TileSET" & vbCrLf)
+
+        _stringbdl.Append("ProjectTileUseFile : False
+ProjectTileSetFileName : 
+ProjectTIleMSetCount : 24209
+ProjectTIleMSetArray : 
+ProjectTileSetDataCount : 0
+ProjectMTXMDATACount : 16384
+ProjectMTXMDATAArray : " & vbCrLf)
+
+
+        _stringbdl.Append("E_TileSET" & vbCrLf)
 
 
 

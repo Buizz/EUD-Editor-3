@@ -1,6 +1,30 @@
 ﻿Imports BondTech.HotKeyManagement.WPF._4
 
 Public Class GUIScriptEditorUI
+    Private popupScript As ScriptBlock
+    Private popupbutton As Button
+    Public Sub OpenCodeSelecter(script As ScriptBlock, btn As Button)
+        popupScript = script
+        popupbutton = btn
+
+
+        Popupbox.Width = 360
+        Popupbox.IsOpen = True
+
+        Dim value As Integer = 0
+        If IsNumeric(popupScript.Value) Then
+            value = popupScript.Value
+        End If
+        CodeList.ListReset(script.ValueType, True, value)
+    End Sub
+
+    Private Sub CodeList_Select(sender As Object, e As RoutedEventArgs)
+        Popupbox.IsOpen = False
+        popupScript.Value = sender(1)
+        popupbutton.Content = pjData.CodeLabel(popupScript.ValueType, popupScript.Value)
+        'ValueText.Text = sender(1)
+    End Sub
+
     'Private Sub MyHotKeyManager_LocalHotKeyPressed(sender As Object, e As LocalHotKeyEventArgs)
     '    Select Case e.HotKey.Name
     '        Case "Undo"
@@ -894,7 +918,8 @@ Public Class GUIScriptEditorUI
 
                     While stvi.IsValue
                         Dim twp As WrapPanel = stvi.Parent
-                        Dim sbi As ScriptBlockItem = twp.Parent
+                        Dim tgrid As Grid = twp.Parent
+                        Dim sbi As ScriptBlockItem = tgrid.Parent
                         Dim gd As Grid = sbi.Parent
                         stvi = gd.Parent
 
@@ -1212,6 +1237,7 @@ Public Class GUIScriptEditorUI
 
         Return ttreeitem
     End Function
+
 End Class
 
 Public Class RecentWork

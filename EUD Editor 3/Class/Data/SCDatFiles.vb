@@ -41,8 +41,11 @@ Public Class SCDatFiles
         ButtonData = 20
         ButtonSet = 21
 
-
         Stechdata = 22
+
+
+        Location = 23
+
         None = 255
     End Enum
     Public Enum EParamInfo

@@ -4,8 +4,15 @@
 Public Class ScriptBlock
     Public ReadOnly Property TriggerScript As TriggerScript
 
-    Public Sub New(keyname As String)
-        TriggerScript = tescm.GetTriggerScript(keyname)
+    Public Sub New(keyname As String, Optional IsValue As Boolean = False)
+        If IsValue Then
+            TriggerScript = tescm.GetValue(keyname)
+        Else
+            TriggerScript = tescm.GetTriggerScript(keyname)
+        End If
+
+
+
 
         ArgumentName = New List(Of String)
         Argument = New List(Of ScriptBlock)
@@ -13,7 +20,9 @@ Public Class ScriptBlock
 
         If TriggerScript.IsHaveValues Then
             For i = 0 To TriggerScript.ValuesDef.Count - 1
-                Argument.Add(New ScriptBlock("Then"))
+
+
+                Argument.Add(New ScriptBlock(TriggerScript.ValuesDef(i), True))
             Next
         End If
     End Sub
@@ -60,6 +69,7 @@ Public Class ScriptBlock
 
 
     Public Property Value As String
+    Public Property ValueType As SCDatFiles.DatFiles
 
 
 

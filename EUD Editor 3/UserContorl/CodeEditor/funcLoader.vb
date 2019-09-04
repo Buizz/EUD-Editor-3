@@ -241,12 +241,7 @@ Partial Public Class CodeEditor
                     Next
                 Case "TrgLocation", "TrgLocationIndex"
                     For i = 0 To 254
-                        Dim tstr As String
-                        If pjData.IsMapLoading Then
-                            tstr = pjData.MapData.LocationName(i)
-                        Else
-                            tstr = "Location " & i
-                        End If
+                        Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
 
 
 

@@ -205,7 +205,15 @@ Partial Public Class BuildData
         'CT(Tbl옵션에 따라)
 
         'eds파일을 만들고 해당 파일 실행
-        WriteedsFile(isEdd)
+        Try
+            WriteedsFile(isEdd)
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error SCA Freeze"))
+            pgData.IsCompilng = False
+            pgData.isEddCompile = False
+            Tool.RefreshMainWindow()
+            Return
+        End Try
         Dim isSucces As Boolean = Starteds(isEdd)
 
 
@@ -232,6 +240,7 @@ Partial Public Class BuildData
         End If
     End Sub
 
+    Private OutputString As String
 
 
 
@@ -241,17 +250,41 @@ Partial Public Class BuildData
         Dim StandardOutput As String = ""
         Dim StandardError As String = ""
 
+        OutputString = ""
+
         Dim RestartCount As Integer
         While True
             eudplibprocess = ProcessStart(isEdd)
+            'Dim StandardOutputStream As StreamReader = eudplibprocess.StandardOutput
+
+
 
             If Not isEdd Then
                 While Not eudplibprocess.HasExited
-                    eudplibprocess.StandardInput.Write(vbCrLf)
-                    StandardOutput = StandardOutput & eudplibprocess.StandardOutput.ReadToEnd
-                    StandardError = StandardError & eudplibprocess.StandardError.ReadToEnd
-                    Threading.Thread.Sleep(100)
+
+                    'eudplibprocess.StandardInput.Write(vbCrLf)
+
+                    'StandardOutput = StandardOutput & StandardOutputStream.ReadToEnd
+                    'MsgBox(StandardOutput)
+                    'MsgBox(OutputString)
+                    Threading.Thread.Sleep(200)
+
+                    'Threading.Thread.Sleep(1000)
+
+                    StandardOutput = OutputString
+                    If StandardOutput.IndexOf("계속하려면 아무 키나 누르십시오") >= 0 Then
+                        MsgBox("일시정지 해재")
+                        eudplibprocess.StandardInput.Write(vbCrLf)
+                    End If
+                    If eudplibShutDown Then
+                        MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
+                        Return False
+                    End If
                 End While
+                StandardOutput = OutputString
+
+                StandardError = eudplibprocess.StandardError.ReadToEnd
+
                 If InStr(StandardError, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
                     'MsgBox("빌드 실패. 재시도 합니다  재시도 횟수: " & RestartCount & vbCrLf & StandardOutput & StandardError)
                     StandardError = ""
@@ -267,7 +300,6 @@ Partial Public Class BuildData
                         MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
                     Else
                         GetMainWindow.LogTextBoxView(StandardOutput & vbCrLf & StandardError, True)
-
                     End If
 
                     Return False
@@ -288,7 +320,6 @@ Partial Public Class BuildData
         End While
         Return True
     End Function
-
 
 
 
@@ -316,13 +347,23 @@ Partial Public Class BuildData
         End If
 
 
-
-
         process.StartInfo = startInfo
-        process.Start()
 
+
+
+        process.Start()
+        AddHandler process.OutputDataReceived, AddressOf OutputReader
+        If Not isEdd Then
+            process.BeginOutputReadLine()
+        End If
+
+        'process.WaitForExit()
         Return process
     End Function
+    Public Sub OutputReader(sender As Object, e As DataReceivedEventArgs)
+        'MsgBox(e.Data)
+        OutputString = OutputString & e.Data & vbCrLf
+    End Sub
 
 
 End Class

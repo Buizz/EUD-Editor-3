@@ -2,6 +2,18 @@
 Imports System.IO
 
 Public Class ScriptManager
+    Public Function GetValue(key As String) As TriggerScript
+        Dim ts As List(Of TriggerScript) = dicTriggerScript("Value")
+        For i = 0 To ts.Count - 1
+            If ts(i).FolderRull.IndexOf(key) >= 0 Then
+                Return ts(i)
+            End If
+        Next
+
+        '기본 숫자
+        Return GetTriggerScript("RawCode")
+    End Function
+
 
 
     Private TriggerScript As List(Of TriggerScript)

@@ -79,7 +79,12 @@ Partial Public Class BuildData
 
 
         process.StartInfo = startInfo
-        process.Start()
+        Try
+            process.Start()
+        Catch ex As Exception
+            MsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCArchiveConnecter.exe파일을 찾을 수 없습니다.", MsgBoxStyle.Critical)
+            Return False
+        End Try
         Dim OutputString As String = ""
         While (Not process.HasExited)
             OutputString = process.StandardOutput.ReadLine

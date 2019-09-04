@@ -251,6 +251,9 @@ Namespace WindowMenu
             If Tool.IsProjectLoad Then
                 ProjectControlBinding.PropertyChangedPack()
 
+                'Dim TriggerEditorForm As New FastTreeview
+                'TriggerEditorForm.Show()
+
                 If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
                     If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                         Dim opendialog As New System.Windows.Forms.OpenFileDialog With {

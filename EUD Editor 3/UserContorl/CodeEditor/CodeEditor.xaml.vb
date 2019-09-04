@@ -8,6 +8,9 @@
         End Set
     End Property
 
+    Public Event TextChange As RoutedEventHandler
+
+
     Public Sub New()
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -35,5 +38,9 @@
 
     Private Sub UserControl_LostFocus(sender As Object, e As RoutedEventArgs)
         'TooltipHide()
+    End Sub
+
+    Private Sub TextEditor_TextChanged(sender As Object, e As EventArgs)
+        RaiseEvent TextChange(Me, Nothing)
     End Sub
 End Class

@@ -413,6 +413,20 @@ Public Class CodeSelecter
                     End If
 
                     BtnsortTree.Visibility = Visibility.Collapsed
+                Case SCDatFiles.DatFiles.Location
+                    If Fliter.SortType = ESortType.Tree Then
+                        Fliter.SetFliter(ESortType.n123)
+                    End If
+
+                    BtnsortTree.Visibility = Visibility.Collapsed
+
+                    If Fliter.IsIcon Then
+                        L_IconBtn.IsSelected = False
+                        Fliter.IsIcon = False
+                    End If
+                    Fliter.IsEdit = False
+                    L_IsEditBtn.Visibility = Visibility.Collapsed
+                    L_IconBtn.Visibility = Visibility.Collapsed
                 Case SCDatFiles.DatFiles.wireframe
                     Fliter.IsEdit = False
                     L_IsEditBtn.Visibility = Visibility.Collapsed
@@ -691,6 +705,14 @@ Public Class CodeSelecter
                 For i = 0 To SCButtonCount - SCUnitCount - 1
                     ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i + SCUnitCount))
                     ObjectImages.Add(GetIcon(0, Fliter.IsIcon))
+                Next
+            Case SCDatFiles.DatFiles.Location
+                For i = 0 To 254
+                    Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
+
+                    If tstr <> "" Then
+                        ObjectNames.Add(tstr)
+                    End If
                 Next
         End Select
         Select Case Fliter.SortType

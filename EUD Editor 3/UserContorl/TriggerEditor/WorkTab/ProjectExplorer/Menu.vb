@@ -332,7 +332,7 @@ Partial Public Class ProjectExplorer
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.CUIPy))
     End Sub
     Private Sub AddGUIEps()
-        FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.GUIEps))
+        'FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.GUIEps))
     End Sub
     Private Sub AddGUIPy()
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.GUIPy))

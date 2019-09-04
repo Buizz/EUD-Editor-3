@@ -43,11 +43,18 @@
 
             </ListBox>
         </Border>
+        <Border x:Name="CodeSelect" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Popup x:Name="Popupbox" Focusable="False" StaysOpen="False">
+                <local:CodeSelecter  x:Name="CodeList" ListSelect="CodeList_Select" MaxHeight="300"  />
+            </Popup>
+            
+          </Border>
         <materialDesign:Snackbar
   IsActive="False"
   x:Name="ErrorSnackbar">
             <materialDesign:SnackbarMessage x:Name="SnackbarContent"
     Content="Hello 2"/>
         </materialDesign:Snackbar>
+
     </Grid>
 </UserControl>

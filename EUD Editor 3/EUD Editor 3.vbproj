@@ -300,6 +300,9 @@
     <Compile Include="Module\StringTool.vb" />
     <Compile Include="Module\Tools\Tool.vb" />
     <Compile Include="Module\Tools\WindowControl.vb" />
+    <Compile Include="TEST\FastTreeview.xaml.vb">
+      <DependentUpon>FastTreeview.xaml</DependentUpon>
+    </Compile>
     <Compile Include="TEST\UIEditorPage\AddItem.vb" />
     <Compile Include="TEST\UIEditorPage\Colors.vb" />
     <Compile Include="TEST\UIEditorPage\DeleteItem.vb" />
@@ -528,6 +531,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="ResourceDictionary\MaterialListbox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TEST\FastTreeview.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1025,6 +1032,9 @@
     <None Include="Data\Resources\BlackOverlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\SCArchiveConnecter\SCArchiveConnecter.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <Content Include="x64\lz4X64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1147,9 +1157,6 @@
     <None Include="Data\SCArchiveConnecter\SCArchive.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\SCArchiveConnecter\SCArchiveConnecter.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Data\SCArchiveConnecter\libmysql.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1157,7 +1164,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\ROOT.txt">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />

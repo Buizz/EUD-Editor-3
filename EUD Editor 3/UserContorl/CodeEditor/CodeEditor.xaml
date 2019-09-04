@@ -20,6 +20,7 @@
         <TextBox x:Name="Log" DockPanel.Dock="Top" Height="100" Visibility="Collapsed" />
 
         <avalonEdit:TextEditor 
+                    TextChanged="TextEditor_TextChanged"
                     PreviewMouseDown="TextEditor_PreviewMouseDown"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" FontFamily="D2Coding"  >

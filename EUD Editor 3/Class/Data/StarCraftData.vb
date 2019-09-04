@@ -754,30 +754,6 @@ Public Class StarCraftData
             End Select
 
 
-
-
-            'MsgBox("시작")
-            'MGRP.GRPMoudleInit()
-            'MsgBox("GRP로드끝")
-
-            'piscriptData.LoadIscriptToBuff(Tool.CascData.ReadFile("scripts/iscript.bin"))
-
-            'Tool.CascData.OpenCascStorage()
-            'For i = 0 To SCImageCount - 1
-            '    Dim grpindex As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "GRP File", i)
-            '    Dim DrawFunc As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Draw Function", i)
-            '    Dim Remapping As Integer = DefaultDat.Data(SCDatFiles.DatFiles.images, "Remapping", i)
-            '    Dim filename As String = "unit\" & GRPFiles(grpindex)
-            '    SDGRP(i) = New GRP(Tool.CascData.ReadFileCascStorage(filename), DrawFunc, Remapping)
-            'Next
-            'Tool.CascData.CloseCascStorage()
-
-            'SDICON = New GRP("cmdbtns/cmdicons.grp", 0, 0, PalettType.Icons)
-
-
-            'SDWireFrame = New GRP("wirefram/wirefram.grp", 0, 0, PalettType.Icons)
-            'SDGrpFrame = New GRP("wirefram/grpwire.grp", 0, 0, PalettType.Icons)
-            'SDTramFrame = New GRP("wirefram/tranwire.grp", 0, 0, PalettType.Icons)
         Catch ex As Exception
             pgData.Setting(ProgramData.TSetting.Graphic) = 0
             Tool.ErrorMsgBox(Tool.GetText("Error LoadMPQData Fail"), ex.ToString)
@@ -798,7 +774,9 @@ Public Class StarCraftData
 
         Dim pos As UInteger = 0
         Dim bytes As Byte() = Tool.CascData.ReadFileCascStorage("SD/mainSD.anim")
-
+        If bytes.Count = 0 Then
+            Throw New Exception("CascOpenError")
+        End If
 
         BReader.ReadUint32(pos, bytes) 'unsigned Int magic; // "ANIM"
         BReader.ReadUint16(pos, bytes) 'unsigned Short version; // Version? 0x0101, 0x0202, 0x0204
@@ -915,11 +893,11 @@ Public Class StarCraftData
 
 
 
-
-        Loadddsgrp("SD/unit/cmdbtns/cmdicons.dds.grp", SDICON, True)
+        Loadddsgrp("SD/unit/cmdicons/cmdicons.dds.grp", SDICON, True)
         Loadddsgrp("SD/unit/wirefram/wirefram.dds.grp", SDWireFrame, False)
         Loadddsgrp("SD/unit/wirefram/grpwire.dds.grp", SDGrpFrame, False)
         Loadddsgrp("SD/unit/wirefram/tranwire.dds.grp", SDTranFrame, False)
+
 
 
         isSDGLoad = True
@@ -1033,7 +1011,7 @@ Public Class StarCraftData
             End If
         Next
 
-        Loadddsgrp("HD2/unit/cmdbtns/cmdicons.dds.grp", HDICON, True)
+        Loadddsgrp("HD2/unit/cmdicons/cmdicons.dds.grp", HDICON, True)
         Loadddsgrp("HD2/unit/wirefram/wirefram.dds.grp", HDWireFrame, False)
         Loadddsgrp("HD2/unit/wirefram/grpwire.dds.grp", HDGrpFrame, False)
         Loadddsgrp("HD2/unit/wirefram/tranwire.dds.grp", HDTranFrame, False)
@@ -1145,7 +1123,7 @@ Public Class StarCraftData
             End If
         Next
 
-        Loadddsgrp("HD2/Carbot/unit/cmdbtns/cmdicons.dds.grp", CTICON, True)
+        Loadddsgrp("HD2/Carbot/unit/cmdicons/cmdicons.dds.grp", CTICON, True)
         Loadddsgrp("HD2/Carbot/unit/wirefram/wirefram.dds.grp", CTWireFrame, False)
         Loadddsgrp("HD2/Carbot/unit/wirefram/grpwire.dds.grp", CTGrpFrame, False)
         Loadddsgrp("HD2/Carbot/unit/wirefram/tranwire.dds.grp", CTTranFrame, False)

@@ -30,7 +30,22 @@ Partial Public Class BuildData
             Dim sb As New StringBuilder
 
             For i = 0 To pBlocks.Count - 1
-                sb.AppendLine(pBlocks(i).GetEdsString())
+                Dim texts As String = pBlocks(i).GetEdsString()
+
+                If pjData.TEData.SCArchive.IsUsed Then
+                    Dim startoffreeze As Integer = texts.IndexOf("[freeze]")
+                    If startoffreeze >= 0 Then
+                        If texts.IndexOf("[freeze]" & vbCrLf & "prompt: 1") = -1 Then
+                            If MsgBox(Tool.GetText("Error SCA Freeze"), MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+                                Throw New Exception()
+                            End If
+                            texts = texts.Insert(startoffreeze + 8, vbCrLf & "prompt: 1")
+                        End If
+                        'prompt: 1
+                    End If
+                End If
+
+                sb.AppendLine(texts)
             Next
 
             Return sb.ToString
@@ -74,7 +89,6 @@ Partial Public Class BuildData
 
             Public Function GetEdsString() As String
                 Dim sb As New StringBuilder
-
                 Select Case BType
                     Case EdsBlockType.Main
                         sb.AppendLine("[main]")
@@ -93,7 +107,6 @@ Partial Public Class BuildData
                         If My.Computer.FileSystem.FileExists(TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) Then
                             sb.AppendLine("[" & Tool.GetRelativePath(EdsFilePath, TriggerEditorPath & "\" & pjData.TEData.GetMainFilePath) & "]")
                         End If
-
                     Case EdsBlockType.DataDumper
                         sb.AppendLine("[dataDumper]")
                         If pjData.UseCustomtbl Then

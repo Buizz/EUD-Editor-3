@@ -32,4 +32,30 @@ Public Class LagacyClass
 
         Return inputstr
     End Function
+
+
+    Public Shared Function STRhecTodec(inputstr As String) As String
+        '<십진수>를 <16진수>로 바꾸자
+        Dim tRegex As New Regex("<[\dA-Fa-f]+>")
+
+        Dim matches As Match = tRegex.Match(inputstr)
+
+        While (matches.Success)
+            Dim hexnum As String = Mid(matches.Value, 2, matches.Value.Length - 2)
+
+            Dim number As Integer = "&H" & hexnum
+
+
+
+            inputstr = Replace(inputstr, matches.Value, "<ꊛꊛ" & number & "ꊛꊛ>", 1, 1)
+
+
+            matches = tRegex.Match(inputstr)
+        End While
+
+
+        inputstr = inputstr.Replace("ꊛ", "")
+
+        Return inputstr
+    End Function
 End Class

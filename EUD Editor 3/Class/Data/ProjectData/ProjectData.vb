@@ -371,6 +371,12 @@ Public Class ProjectData
                         Else
                             ReturnStr = scData.BtnStr(index - SCUnitCount)
                         End If
+                    Case SCDatFiles.DatFiles.Location
+                        If pjData.IsMapLoading Then
+                            ReturnStr = pjData.MapData.LocationName(index)
+                        Else
+                            ReturnStr = "Location " & index
+                        End If
                 End Select
                 Dim ToolTipText As String = ""
                 If SCDatFiles.CheckValidDat(Datfile) Then

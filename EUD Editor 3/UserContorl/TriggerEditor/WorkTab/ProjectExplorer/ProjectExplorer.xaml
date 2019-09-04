@@ -40,7 +40,7 @@
                             <MenuItem x:Name="MenuImport" Header="{StaticResource MenuImport}" Icon="{materialDesign:PackIcon Kind=FileDownloadOutline}" Click="MenuImport_Click"/>
                             <Separator/>
                             <MenuItem x:Name="MenuGUIPY" Header="{StaticResource MenuGNewPyScript}" Visibility="Collapsed" InputGestureText="Ctrl+Q" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIPy_Click"/>
-                            <MenuItem x:Name="MenuGUIEPS" Header="{StaticResource MenuGNewEpsScript}" InputGestureText="Ctrl+W" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIEps_Click"/>
+                            <MenuItem x:Name="MenuGUIEPS" Header="{StaticResource MenuGNewEpsScript}" Visibility="Collapsed" InputGestureText="Ctrl+W" Icon="{materialDesign:PackIcon Kind=Application}" Click="GUIEps_Click"/>
                             <MenuItem x:Name="MenuCUIPY" Header="{StaticResource MenuCNewPyScript}" Visibility="Collapsed" InputGestureText="Alt+Q" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIPy_Click"/>
                             <MenuItem x:Name="MenuCUIEPS" Header="{StaticResource MenuCNewEpsScript}" InputGestureText="Alt+W" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIEps_Click"/>
                         </MenuItem>

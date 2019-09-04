@@ -343,6 +343,37 @@
     "InitBlock": [
       ""
     ],
+    "SName": "RawCode",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Value",
+    "SType": 6,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      "Location",
+      "Where"
+    ],
+    "InitBlock": [
+      ""
+    ],
     "SName": "Location",
     "CodeStart": "",
     "CodeEnd": "",
@@ -368,7 +399,7 @@
     "FolderType": 3,
     "Uniqueness": false,
     "FolderRull": [
-      ""
+      "Unit"
     ],
     "InitBlock": [
       ""
@@ -381,7 +412,7 @@
     "CodeSeparator": "",
     "Intend": 0,
     "Texts": [
-      ""
+      "Unit"
     ],
     "CodeText": "",
     "ValuesDef": [
@@ -398,7 +429,8 @@
     "FolderType": 3,
     "Uniqueness": false,
     "FolderRull": [
-      ""
+      "Player",
+      "ForPlayer"
     ],
     "InitBlock": [
       ""
@@ -428,7 +460,7 @@
     "FolderType": 3,
     "Uniqueness": false,
     "FolderRull": [
-      ""
+      "Number"
     ],
     "InitBlock": [
       ""
