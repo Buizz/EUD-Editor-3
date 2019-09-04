@@ -51,6 +51,7 @@ Partial Public Class BuildData
 
         'sw.Close()
         'fs.Close()
+        WriteSCADataFile()
     End Sub
 
 
@@ -162,9 +163,11 @@ Partial Public Class BuildData
         sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";//DataBufferSize")
         sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";//ObjectCount")
 
+
         sb.AppendLine("")
         sb.AppendLine("function Init(){")
-        'sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
+        sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
+        sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', py_open('scadatafile', 'rb').read());")
         'sb.AppendLine("f_eprintln(""시발 오류"", dwread_epd(EPD(ws)), ""  "",  dwread_epd(EPD(ws) + 1));")
         sb.AppendLine("    //EntryPoint")
         For i = 0 To EntryPoint.Count - 1
@@ -438,40 +441,38 @@ Partial Public Class BuildData
 
 
     Public Function WriteSCADataFile() As Boolean
-        Dim hmpq As UInteger
-        Dim hfile As UInteger
-        Dim buffer() As Byte
-        Dim filesize As UInteger
-        Dim pdwread As IntPtr
+        'Dim hmpq As UInteger
+        'Dim hfile As UInteger
+        'Dim buffer() As Byte
+        'Dim filesize As UInteger
+        'Dim pdwread As IntPtr
 
 
 
-        Dim openFilename As String = "staredit\scenario.chk"
+        'Dim openFilename As String = "staredit\scenario.chk"
 
 
-        System.Threading.Thread.Sleep(1000)
+        'System.Threading.Thread.Sleep(1000)
 
 
-        StormLib.SFileOpenArchive(pjData.SaveMapName, 0, 0, hmpq)
-        If hmpq = 0 Then
-            Return False
-        End If
-        StormLib.SFileOpenFileEx(hmpq, openFilename, 0, hfile)
-        filesize = StormLib.SFileGetFileSize(hfile, filesize)
-        ReDim buffer(filesize)
+        'StormLib.SFileOpenArchive(pjData.SaveMapName, 0, 0, hmpq)
+        'If hmpq = 0 Then
+        'Return False
+        'End If
+        'StormLib.SFileOpenFileEx(hmpq, openFilename, 0, hfile)
+        'filesize = StormLib.SFileGetFileSize(hfile, filesize)
+        'ReDim buffer(filesize)
         'MsgBox("파일 크기 : " & filesize)
-        StormLib.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
+        'StormLib.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
 
-        Dim crc32 As New CRC32
-        Dim checksumv As UInteger = crc32.GetCRC32(buffer)
+        'Dim crc32 As New CRC32
+        'Dim checksumv As UInteger = crc32.GetCRC32(buffer)
         'MsgBox("체크섬 값 : " & checksumv)
 
 
 
-
-
         Dim Sb As New StringBuilder
-        Sb.AppendLine(checksumv)
+        Sb.AppendLine("SCArchive by BingSu")
         Sb.AppendLine(pjData.TEData.SCArchive.DataSpace)
 
         Dim EntryStr As String = ""
@@ -505,17 +506,10 @@ Partial Public Class BuildData
 
 
 
-
-
-
-
-        Dim fs As New FileStream(TempFilePath & "\scadatafile", FileMode.Create)
+        Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)
         Dim sw As New StreamWriter(fs)
 
         sw.Write(AESModule.EncryptString128Bit(Sb.ToString, ConnectKey))
-
-
-
 
         '2데이터태그 실제데이터위치 배열
         '엔트리포인트(현재 시간과 제작코드 등을 이용해 만들기, 빌드 시 마다 달라짐)
@@ -527,14 +521,14 @@ Partial Public Class BuildData
         fs.Close()
 
 
-        StormLib.SFileAddFile(hmpq, TempFilePath & "\scadatafile", "SCARCHIVEDATA", StormLib.MPQ_FILE_COMPRESS)
+        'StormLib.SFileAddFile(hmpq, TempFilePath & "\scadatafile", "SCARCHIVEDATA", StormLib.MPQ_FILE_COMPRESS)
 
-        StormLib.SFileAddFile(hmpq, EudPlibFilePath & "\scakeyfile", "SCARCHIVEMAPCODE", StormLib.MPQ_FILE_COMPRESS)
+        'StormLib.SFileAddFile(hmpq, EudPlibFilePath & "\scakeyfile", "SCARCHIVEMAPCODE", StormLib.MPQ_FILE_COMPRESS)
 
 
 
-        StormLib.SFileCloseFile(hfile)
-        StormLib.SFileCloseArchive(hmpq)
+        'StormLib.SFileCloseFile(hfile)
+        'StormLib.SFileCloseArchive(hmpq)
 
 
 

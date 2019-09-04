@@ -42,7 +42,7 @@ Partial Public Class ProjectData
                     If LastOupputModifiyTimer <> File.GetLastWriteTime(SaveMapName) Then
                         LastOupputModifiyTimer = File.GetLastWriteTime(SaveMapName)
                         If pjData.TEData.SCArchive.IsUsed Then
-                            pjData.EudplibData.WriteSCADataFile()
+                            pjData.EudplibData.WriteChecksum()
                         End If
                         LastCompile = True
                     End If

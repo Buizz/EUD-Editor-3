@@ -159,6 +159,8 @@ Partial Public Class BuildData
     '########################### 빌드 작업 메인 함수 ############################
     Private Sub BuildProgress(isEdd As Boolean)
         '일단 프로그램 못끄게 막고 빌드중이라는 문구와 함께 진행 바 넣어야됨
+        isFreezeUse = False
+
         pgData.IsCompilng = True
         pjData.RefreshOutputWriteTime()
         pgData.isEddCompile = isEdd
@@ -229,12 +231,24 @@ Partial Public Class BuildData
         Tool.RefreshMainWindow()
 
         If isSucces Then
+
             If pjData.TEData.SCArchive.IsUsed Then
-                If Not WriteSCADataFile() Then
+                'If Not isFreezeUse Then
+                '    If Not WriteSCADataFile() Then
+                '        Tool.ErrorMsgBox(Tool.GetText("Error WriteMapFile"))
+                '        Return
+                '    End If
+                'End If
+
+                If Not WriteChecksum() Then
                     Tool.ErrorMsgBox(Tool.GetText("Error WriteMapFile"))
                     Return
                 End If
             End If
+
+
+
+
             Dim notificationSound As New SoundPlayer(My.Resources.success)
             notificationSound.PlaySync()
         End If
@@ -244,7 +258,7 @@ Partial Public Class BuildData
 
 
 
-
+    Private isFreezeUse As Boolean
     Private eudplibprocess As Process
     Private Function Starteds(isEdd As Boolean) As Boolean
         Dim StandardOutput As String = ""
@@ -271,9 +285,19 @@ Partial Public Class BuildData
 
                     'Threading.Thread.Sleep(1000)
 
+
                     StandardOutput = OutputString
-                    If StandardOutput.IndexOf("계속하려면 아무 키나 누르십시오") >= 0 Then
-                        MsgBox("일시정지 해재")
+                    eudplibprocess.StandardInput.Write(vbCrLf)
+                    If StandardOutput.IndexOf("Freeze - prompt enabled") >= 0 Then
+                        'If pjData.TEData.SCArchive.IsUsed Then
+                        '    If Not WriteSCADataFile() Then
+                        '        Tool.ErrorMsgBox(Tool.GetText("Error WriteMapFile"))
+                        '        Return False
+                        '    Else
+                        '        isFreezeUse = True
+                        '    End If
+                        'End If
+                        'eudplibprocess.Kill()
                         eudplibprocess.StandardInput.Write(vbCrLf)
                     End If
                     If eudplibShutDown Then
@@ -361,7 +385,6 @@ Partial Public Class BuildData
         Return process
     End Function
     Public Sub OutputReader(sender As Object, e As DataReceivedEventArgs)
-        'MsgBox(e.Data)
         OutputString = OutputString & e.Data & vbCrLf
     End Sub
 
