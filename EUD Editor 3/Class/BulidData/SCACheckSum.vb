@@ -26,7 +26,6 @@ Partial Public Class BuildData
 
         'MsgBox(mapstream.Position & "," & mapstream.Length)
         Dim checkstring As String = AESModule.EncryptString128Bit(checksumv, ConnectKey)
-        MsgBox(checkstring & "," & ConnectKey)
 
         bw.Write(checkstring)
 
