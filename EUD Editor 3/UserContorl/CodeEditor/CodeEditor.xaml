@@ -16,18 +16,27 @@
              Unloaded="UserControl_Unloaded"
              LostFocus="UserControl_LostFocus"
              
-                    PreviewMouseWheel="TextEditor_MouseWheel"
+             PreviewKeyDown="UserControl_PreviewKeyDown"
+             PreviewKeyUp="UserControl_PreviewKeyUp"
+             PreviewMouseWheel="TextEditor_MouseWheel"
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
-        <TextBox x:Name="Log" DockPanel.Dock="Top" Height="100" Visibility="Collapsed" />
-
-        <avalonEdit:TextEditor 
+    <Grid>
+        <DockPanel>
+            <TextBox x:Name="Log" DockPanel.Dock="Top" Height="100" Visibility="Collapsed" />
+            <avalonEdit:TextEditor 
                     TextChanged="TextEditor_TextChanged"
                     PreviewMouseDown="TextEditor_PreviewMouseDown"
                     Foreground="{DynamicResource MaterialDesignBody}"
                     x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" FontFamily="D2Coding" FontSize="16"  >
-        </avalonEdit:TextEditor>
+            </avalonEdit:TextEditor>
+        </DockPanel>
 
-
-    </DockPanel>
+        <materialDesign:Snackbar
+            IsActive="False" 
+            x:Name="ErrorSnackbar">
+                    <materialDesign:SnackbarMessage x:Name="SnackbarContent" 
+            Content="Hello 2"/>
+        </materialDesign:Snackbar>
+    </Grid>
+    
 </UserControl>
