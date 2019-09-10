@@ -43,4 +43,12 @@
     Private Sub TextEditor_TextChanged(sender As Object, e As EventArgs)
         RaiseEvent TextChange(Me, Nothing)
     End Sub
+
+    Private Sub TextEditor_MouseWheel(sender As Object, e As MouseWheelEventArgs)
+        If e.Delta > 0 Then
+            TextEditor.FontSize += 1
+        ElseIf e.Delta < 0 Then
+            TextEditor.FontSize -= 1
+        End If
+    End Sub
 End Class

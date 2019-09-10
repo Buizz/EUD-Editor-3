@@ -153,6 +153,9 @@ Public Class ButtonData
             ImageBrush(i).ImageSource = Nothing
         Next
 
+        If pgData.Setting(ProgramData.TSetting.Graphic) = 0 Then
+            Exit Sub
+        End If
         Select Case BType
             Case CButtonSet.BType.DefaultCommand
                 ImageBrush(0).ImageSource = scData.GetIcon(228)

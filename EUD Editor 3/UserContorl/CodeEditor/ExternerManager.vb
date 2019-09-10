@@ -48,13 +48,21 @@ Partial Public Class CodeEditor
             'Catch ex As Exception
             'End Try
 
-            LastDate = TEFile.LastDate '생성시 마지막 날짜를 기록
+
+            If TEFile IsNot Nothing Then
+                LastDate = TEFile.LastDate '생성시 마지막 날짜를 기록
+            End If
         End Sub
 
 
 
         Public Function CheckFIleChange() As Boolean
-            Return LastDate.ToString = TEFile.LastDate.ToString
+
+            If TEFile IsNot Nothing Then
+                Return LastDate.ToString = TEFile.LastDate.ToString
+            Else
+                Return False
+            End If
         End Function
     End Class
 

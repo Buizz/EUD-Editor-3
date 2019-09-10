@@ -26,7 +26,7 @@ Module mod_fn_HASH
 
     Public Function GetMd5HashBase64(ByVal source As String) As String
 
-        Dim data = _md5.ComputeHash(Encoding.UTF8.GetBytes(source))
+        Dim data  = _md5.ComputeHash(Encoding.UTF8.GetBytes(source))
         Return Convert.ToBase64String(data)
     End Function
 #End Region
