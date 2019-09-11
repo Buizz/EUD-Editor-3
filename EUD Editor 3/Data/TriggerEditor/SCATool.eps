@@ -245,6 +245,8 @@ var TimeOut;
 
 var LastPing;
 var DisConnectTimer;
+var ConnectingTimer;
+var ConnectingPoint;
 function PlayerExec(){
 	const CP = getcurpl();
 	const CurrentTime = dwread_epd(EPD(0x51CE8C));
@@ -258,28 +260,41 @@ function PlayerExec(){
 	const Ping = wread_epd(EPD(scf.ws) + scf.EntryPointLength, 0);
 	
 	if (LastPing != Ping){
-		if (LastPing == 0){
-			MSQCSpecial = 1;
+		if (ConnectStatus[CP] == 0){
+			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
+
+			if (CurrentConnectingTimer > 500){
+				if (ConnectingPoint == 0){
+					ConnectingTimer = CurrentTime;
+					ConnectingPoint++;
+				}else{
+					ConnectingTimer = 0;
+					MSQCSpecial = 1;
+				}
+			}
 		}
 		LastPing = Ping;
 		DisConnectTimer = CurrentTime;
+	}else{
+		if (ConnectStatus[CP] == 0){
+			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
+			if (CurrentConnectingTimer > 1000){
+				ConnectingTimer = CurrentTime;
+				ConnectingPoint = 0;
+			}
+		}
 	}
-	if (LastPing != 0){
+
+	
+	if (ConnectStatus[CP] == 1){
 		const CurrentDisConnectTimer = (DisConnectTimer - CurrentTime);
 		if (CurrentDisConnectTimer > 500){
 			wwrite_epd(EPD(scf.ws) + scf.EntryPointLength, 0, 0);
 			LastPing = 0;
 			MSQCSpecial = 2;
 		}
-	}
-	
-	
-	
-	
-	
-	
-	
-	if (ConnectStatus[CP] == 1){
+
+
 		if(MSQCSpecialBuffer[CP] == 200){
 		    const orderAddrEPD = EPD(scf.ws) + scf.EntryPointLength;
 			ConnectStatus[CP] = 0;
@@ -293,6 +308,8 @@ function PlayerExec(){
 
 			if (Memory(0x57F1B0,Exactly,CP)){
 				MSQCSpecial = 0;
+				wwrite_epd(EPD(scf.ws) + scf.EntryPointLength, 0, 0);
+				LastPing = 0;
 				bwrite_epd(orderAddrEPD, 2, 0);
     			bwrite_epd(orderAddrEPD, 3, 0);
 				MSQCCondiction = 0;

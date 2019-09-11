@@ -32,6 +32,10 @@ Public Class DatBinding
         For i = 0 To ValueSize * 8 - 1
             FlagBindingManager.Add(New FlagBinding(Me, Datfile, Parameter, ObjectID, i))
         Next
+
+        If Parameter = "Rank/Sublabel" Then
+            temprsv = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+        End If
     End Sub
 
     Public Sub BackColorRefresh()
@@ -100,9 +104,19 @@ Public Class DatBinding
     End Property
 
 
-
+    Private temprsv As UInteger
     Public Property Value() As String
         Get
+            If Parameter = "Rank/Sublabel" Then
+                If Parameter = "Rank/Sublabel" Then
+                    If Not (1301 <= temprsv And temprsv <= 1556) Then
+                        Dim tv As UInteger = temprsv
+                        temprsv = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+                        Return tv
+                    End If
+                    'MsgBox("예외")
+                End If
+            End If
             'MsgBox("데이터 파인딩 겟")
             '만약 맵데이터에 있는 항목이라면? 
             If pjData.IsMapLoading Then
@@ -121,6 +135,7 @@ Public Class DatBinding
             If Not (tvalue = pjData.Dat.Data(Datfile, Parameter, ObjectID)) Then
                 pjData.SetDirty(True)
                 'MsgBox("데이터 파인딩 셋")
+
                 Dim tData As Long = pjData.Dat.Data(Datfile, Parameter, ObjectID)
 
                 pjData.Dat.Data(Datfile, Parameter, ObjectID) = tvalue
@@ -131,6 +146,13 @@ Public Class DatBinding
                 Catch ex As Exception
 
                 End Try
+
+
+                If Parameter = "Rank/Sublabel" Then
+                    temprsv = tvalue
+                End If
+
+
 
 
                 '만약 요주의 데이터들일 경우. Ex라벨에 관련된것.

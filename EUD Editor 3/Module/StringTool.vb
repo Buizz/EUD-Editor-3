@@ -14,6 +14,10 @@
         End Function
 
         Public Function ChangeCharAt(index As Integer, str As String, tostr As String) As String
+            If str.Length <= index Then
+                Return ""
+            End If
+
             'ᚎ ᚍ ᚌ
             str = str.Replace("\\", "ᚎ")
             str = str.Replace("\<", "ᚍ")

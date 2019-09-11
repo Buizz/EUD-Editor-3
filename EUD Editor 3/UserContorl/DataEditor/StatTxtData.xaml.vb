@@ -90,6 +90,9 @@
     Private Sub TextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
         If MainTextBox.Text.Count > 1 Then
             LimitShortCut(MainTextBox.Text)
+        Else
+            LimitCombobx.SelectedIndex = 0
+            ShortCombobox.SelectedIndex = 0
         End If
 
 
@@ -104,6 +107,10 @@
     Private DonotChangeCombobox As Boolean = True
     Private Sub LimitShortCut(texts As String)
         DonotChangeCombobox = False
+
+        If texts = "" Then
+            Return
+        End If
 
         'MsgBox(GetCharAt(0, texts) & "_" & GetCharAt(1, texts))
         Dim FristKey As String = StringTool.GetCharAt(0, texts)
@@ -207,6 +214,7 @@
                 If LimitCombobx.SelectedIndex = 0 Then '둘다 0으로 선택되었을 경우
                     CurrentText = StringTool.ChangeCharAt(1, CurrentText, "")
                     CurrentText = StringTool.ChangeCharAt(0, CurrentText, "")
+                    ShortCombobox.SelectedIndex = 0
                 Else
                     CurrentText = StringTool.ChangeCharAt(1, CurrentText, "<" & Hex(LimitCombobx.SelectedIndex - 1).PadLeft(2, "0") & ">")
                 End If
@@ -233,6 +241,7 @@
                 If ShortCombobox.SelectedIndex = 0 Then '둘다 0으로 선택되었을 경우
                     CurrentText = StringTool.ChangeCharAt(1, CurrentText, "")
                     CurrentText = StringTool.ChangeCharAt(0, CurrentText, "")
+                    LimitCombobx.SelectedIndex = 0
                 Else
                     CurrentText = StringTool.ChangeCharAt(0, CurrentText, "<" & SelectText & ">")
                 End If
