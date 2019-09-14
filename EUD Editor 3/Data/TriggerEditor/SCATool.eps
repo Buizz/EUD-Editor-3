@@ -219,6 +219,7 @@ function SaveDataWrite(){
 const CheckIntegrityFlag = PVariable();
 function CheckIntegrity(){
 	const CP = getcurpl();
+
 	if (Memory(0x57F1B0,Exactly,CP)){
 		const BaseEPD = BaseAddrEPD[CP];
 		const LoadEPD = LoadAddrEPD[CP];
@@ -227,6 +228,7 @@ function CheckIntegrity(){
 			const value1 = dwread_epd(BaseEPD + i);
 			const value2 = dwread_epd(LoadEPD + i);
 		
+
 			//둘다 0일경우 루프 탈출
 			if(MSQCSpecial == 0 && (value1 == 0 && value2 == 0)){
 				MSQCSpecial = 3;
@@ -269,7 +271,9 @@ function PlayerExec(){
 					ConnectingPoint++;
 				}else{
 					ConnectingTimer = 0;
-					MSQCSpecial = 1;
+					if (Memory(0x57F1B0,Exactly,CP)){
+						MSQCSpecial = 1;
+					}
 				}
 			}
 		}
@@ -408,6 +412,7 @@ function PlayerExec(){
 							break;
 						case 1:
 							CheckIntegrity();
+	
 							if(MSQCSpecialBuffer[CP] == 300){
 								//통과
 								CheckIntegrityFlag[CP] = 2;
