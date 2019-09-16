@@ -434,8 +434,7 @@ Partial Public Class BuildData
         Dim MakerBattleTag As String = pjData.TEData.SCArchive.MakerBattleTag
         Dim MakerServerName As String = pjData.TEData.SCArchive.MakerServerName
         Dim MapName As String = pjData.TEData.SCArchive.MapName
-
-
+        'MsgBox(MakerBattleTag & MakerServerName & MapName)
         Return GetMd5HashBase64(MakerBattleTag & MakerServerName & MapName)
     End Function
 

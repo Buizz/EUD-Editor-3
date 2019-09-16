@@ -255,6 +255,7 @@ Partial Public Class BuildData
     End Sub
 
     Private OutputString As String
+    Private ErrorString As String
 
 
 
@@ -265,6 +266,7 @@ Partial Public Class BuildData
         Dim StandardError As String = ""
 
         OutputString = ""
+        ErrorString = ""
 
         Dim RestartCount As Integer
         While True
@@ -275,7 +277,6 @@ Partial Public Class BuildData
 
             If Not isEdd Then
                 While Not eudplibprocess.HasExited
-
                     'eudplibprocess.StandardInput.Write(vbCrLf)
 
                     'StandardOutput = StandardOutput & StandardOutputStream.ReadToEnd
@@ -287,6 +288,7 @@ Partial Public Class BuildData
 
 
                     StandardOutput = OutputString
+                    StandardError = ErrorString
                     eudplibprocess.StandardInput.Write(vbCrLf)
                     If StandardOutput.IndexOf("Freeze - prompt enabled") >= 0 Then
                         'If pjData.TEData.SCArchive.IsUsed Then
@@ -306,8 +308,7 @@ Partial Public Class BuildData
                     End If
                 End While
                 StandardOutput = OutputString
-
-                StandardError = eudplibprocess.StandardError.ReadToEnd
+                StandardError = ErrorString
 
                 If InStr(StandardError, "zipimport.ZipImportError: can't decompress data; zlib not available") <> 0 Then
                     'MsgBox("빌드 실패. 재시도 합니다  재시도 횟수: " & RestartCount & vbCrLf & StandardOutput & StandardError)
@@ -377,8 +378,10 @@ Partial Public Class BuildData
 
         process.Start()
         AddHandler process.OutputDataReceived, AddressOf OutputReader
+        AddHandler process.ErrorDataReceived, AddressOf ErrorReader
         If Not isEdd Then
             process.BeginOutputReadLine()
+            process.BeginErrorReadLine()
         End If
 
         'process.WaitForExit()
@@ -386,6 +389,9 @@ Partial Public Class BuildData
     End Function
     Public Sub OutputReader(sender As Object, e As DataReceivedEventArgs)
         OutputString = OutputString & e.Data & vbCrLf
+    End Sub
+    Public Sub ErrorReader(sender As Object, e As DataReceivedEventArgs)
+        ErrorString = ErrorString & e.Data & vbCrLf
     End Sub
 
 
