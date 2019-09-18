@@ -261,24 +261,27 @@ function PlayerExec(){
 	//커넥트 상태를 판단.
 	const Ping = wread_epd(EPD(scf.ws) + scf.EntryPointLength, 0);
 	
+	const st = StringBuffer();
+	st.print(Ping, " " ,LastPing);
 	if (LastPing != Ping){
 		if (ConnectStatus[CP] == 0){
 			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
-
-			if (CurrentConnectingTimer > 500){
-				if (ConnectingPoint == 0){
-					ConnectingTimer = CurrentTime;
-					ConnectingPoint++;
-				}else{
-					ConnectingTimer = 0;
-					if (Memory(0x57F1B0,Exactly,CP)){
-						MSQCSpecial = 1;
+			if (Memory(0x57F1B0,Exactly,CP)){
+				if (CurrentConnectingTimer > 500){
+					if (ConnectingPoint == 0){
+						ConnectingTimer = CurrentTime;
+						ConnectingPoint++;
+					}else{
+						ConnectingTimer = 0;
+							MSQCSpecial = 1;
+						}
 					}
-				}
 			}
 		}
-		LastPing = Ping;
-		DisConnectTimer = CurrentTime;
+		if (Memory(0x57F1B0,Exactly,CP)){
+			LastPing = Ping;
+			DisConnectTimer = CurrentTime;
+		}
 	}else{
 		if (ConnectStatus[CP] == 0){
 			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
