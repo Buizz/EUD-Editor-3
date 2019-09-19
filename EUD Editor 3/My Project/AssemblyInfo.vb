@@ -55,5 +55,5 @@ Imports System.Windows
 ' 지정되도록 할 수 있습니다.
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.7.0.9")>
-<Assembly: AssemblyFileVersion("0.7.0.9")>
+<Assembly: AssemblyVersion("0.7.0.10")>
+<Assembly: AssemblyFileVersion("0.7.0.10")>

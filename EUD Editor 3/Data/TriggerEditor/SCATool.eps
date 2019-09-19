@@ -260,9 +260,7 @@ function PlayerExec(){
 	
 	//커넥트 상태를 판단.
 	const Ping = wread_epd(EPD(scf.ws) + scf.EntryPointLength, 0);
-	
-	const st = StringBuffer();
-	st.print(Ping, " " ,LastPing);
+
 	if (LastPing != Ping){
 		if (ConnectStatus[CP] == 0){
 			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
