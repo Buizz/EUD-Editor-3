@@ -70,7 +70,7 @@ Namespace Tool
          New SolidColorBrush(Color.FromRgb(72, 180, 142)),'청록
          New SolidColorBrush(Color.FromRgb(181, 206, 168)), '연초2
          New SolidColorBrush(Color.FromRgb(255, 167, 167))} '붉은색 (주의)
-        Public Function TextColorBlock(textstr As String) As TextBlock
+        Public Function TextColorBlock(textstr As String, Optional colorinvert As Boolean = True) As TextBlock
             Dim TextBlcck As New TextBlock
 
             Dim inlines As InlineCollection = TextBlcck.Inlines
@@ -104,7 +104,11 @@ Namespace Tool
 
                 Dim Run As New Run(AddedText)
                 If LastColor = 0 Then
-                    Run.Foreground = Application.Current.Resources("MaterialDesignPaper")
+                    If colorinvert Then
+                        Run.Foreground = Application.Current.Resources("MaterialDesignPaper")
+                    Else
+                        Run.Foreground = Application.Current.Resources("MaterialDesignBody")
+                    End If
                 Else
                     Run.Foreground = TextBlockColorTable(LastColor)
                 End If
@@ -125,7 +129,11 @@ Namespace Tool
                 Dim AddedText As String = Mid(MainText, Startindex, MainText.Length - Startindex + 1)
                 Dim Run As New Run(AddedText)
                 If LastColor = 0 Then
-                    Run.Foreground = Application.Current.Resources("MaterialDesignPaper")
+                    If colorinvert Then
+                        Run.Foreground = Application.Current.Resources("MaterialDesignPaper")
+                    Else
+                        Run.Foreground = Application.Current.Resources("MaterialDesignBody")
+                    End If
                 Else
                     Run.Foreground = TextBlockColorTable(LastColor)
                 End If

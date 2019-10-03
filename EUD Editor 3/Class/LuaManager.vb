@@ -23,6 +23,32 @@ Public Class LuaManager
     Public ReadOnly ToolTips As List(Of TextBlock)
     Public ReadOnly Propertys As List(Of String)
     Public ReadOnly PropertyToolTips As List(Of TextBlock)
+    Public ReadOnly ArgumentDefine As List(Of String())
+    Public ReadOnly ToolTipTexts As List(Of String)
+
+    Public Function GetTooltipf(funcname As String) As TextBlock
+        If Functions.IndexOf(funcname) >= 0 Then
+            Return Tool.TextColorBlock(ToolTipTexts(Functions.IndexOf(funcname)), False)
+        Else
+            Return Nothing
+        End If
+    End Function
+
+    Public Function GetArgumentDefine(funcname As String, argumentindex As Integer) As String
+        Dim funcindex As Integer = Functions.IndexOf(funcname)
+
+        If funcindex >= 0 Then
+            If ArgumentDefine(funcindex).Count > argumentindex Then
+                Return ArgumentDefine(funcindex)(argumentindex)
+            Else
+                Return Nothing
+            End If
+
+        Else
+            Return Nothing
+        End If
+    End Function
+
 
     Private LuaSc As Lua
     Public Sub DoString(str As String)
@@ -38,7 +64,8 @@ Public Class LuaManager
         ToolTips = New List(Of TextBlock)
         Propertys = New List(Of String)
         PropertyToolTips = New List(Of TextBlock)
-
+        ArgumentDefine = New List(Of String())
+        ToolTipTexts = New List(Of String)
 
         For Each files As String In My.Computer.FileSystem.GetFiles(LuaFloderPath)
             Try
@@ -50,13 +77,11 @@ Public Class LuaManager
 
 
 
-        RegFunction("ClearLog", "clear", Tool.TextColorBlock("<1>function <0>clear()" & vbCrLf & "로그 창을 지웁니다."))
+        RegFunction("ClearLog", "clear", "<1>function <0>clear()" & vbCrLf & "로그 창을 지웁니다.")
 
         For DatFiles = 0 To Datfilesname.Count - 1
-
             Propertys.Add(Datfilesname(DatFiles))
             PropertyToolTips.Add(Tool.TextColorBlock(Datfilesname(DatFiles)))
-
         Next
 
         Dim DatIndex As String = ""
@@ -71,24 +96,46 @@ Public Class LuaManager
                 PropertyToolTips.Add(Tool.TextColorBlock(Datfilesname(DatFiles) & " " & Paramname))
             Next
         Next
-        RegFunction("SetDat", "setdat", Tool.TextColorBlock("<1>function <0>setdat(DatName =<2>" & DatIndex & "<0>, ParamaterName , ObjectId, Value)" & vbCrLf & "Dat데이터를 수정합니다."))
-        RegFunction("GetDat", "getdat", Tool.TextColorBlock("<1>function <0>getdat(DatName =<2>" & DatIndex & "<0>, ParamaterName , ObjectId)" & vbCrLf & "Dat데이터를 읽어옵니다."))
-        RegFunction("ResetDat", "resetdat", Tool.TextColorBlock("<1>function <0>resetdat(DatName =<2>" & DatIndex & "<0>, ParamaterName , ObjectId)" & vbCrLf & "Dat데이터를 초기화 합니다."))
+
+        RegFunction("Log", "log", "<1>function <0>log(str)" & vbCrLf & "로그를 입력합니다.")
+
+        'RegFunction("SetDat", "setdat", "<1>function <0>setdat(datfile =<2>" & DatIndex & "<0>, param , objectid, value)" & vbCrLf & "Dat데이터를 수정합니다.",
+        '            {"datfile", "param", "objectid", "value"})
+
+        RegFunction("SetDat", "setdat", "<1>function <0>setdat(datfile, param , objectid, value)" & vbCrLf & "Dat데이터를 수정합니다.",
+                    {"datfile", "param", "objectid", "value"})
+
+        RegFunction("GetDat", "getdat", "<1>function <0>getdat(datfile, param , objectid)" & vbCrLf & "Dat데이터를 읽어옵니다.",
+                    {"datfile", "param", "objectid"})
+
+        RegFunction("ResetDat", "resetdat", "<1>function <0>resetdat(datfile, param , objectid)" & vbCrLf & "Dat데이터를 초기화 합니다.",
+                    {"datfile", "param", "objectid"})
 
 
-        RegFunction("GetCodeLabel", "getcodelabel", Tool.TextColorBlock("<1>function <0>getcodelabel(DatName, ObjectId)" & vbCrLf & "오브젝트의 이름을 읽어옵니다."))
-        RegFunction("GetCodeCount", "getcodecount", Tool.TextColorBlock("<1>function <0>getcodecount(DatName)" & vbCrLf & "각 코드의 총 갯수를 반환합니다."))
-        RegFunction("GetDatName", "getdatname", Tool.TextColorBlock("<1>function <0>getdatname(Index)" & vbCrLf & "해당 DatFile의 이름을 가져옵니다."))
 
 
-        RegFunction("SetToolTip", "settooltip", Tool.TextColorBlock("<1>function <0>settooltip(DatName, ObjectId, Value)" & vbCrLf & "ToolTip테이터를 수정합니다."))
-        RegFunction("GetToolTip", "gettooltip", Tool.TextColorBlock("<1>function <0>gettooltip(DatName, ObjectId)" & vbCrLf & "ToolTip테이터를 읽어옵니다."))
-        RegFunction("ResetToolTip", "resettooltip", Tool.TextColorBlock("<1>function <0>resettooltip(DatName, ObjectId)" & vbCrLf & "ToolTip테이터를 초기화 합니다"))
+        RegFunction("GetCodeLabel", "getcodelabel", "<1>function <0>getcodelabel(datfile, objectid)" & vbCrLf & "오브젝트의 이름을 읽어옵니다.",
+                    {"datfile", "objectid"})
+        RegFunction("GetCodeCount", "getcodecount", "<1>function <0>getcodecount(datfile)" & vbCrLf & "각 코드의 총 갯수를 반환합니다.",
+                    {"datfile"})
+        RegFunction("GetDatName", "getdatname", "<1>function <0>getdatname(index)" & vbCrLf & "해당 index의 DatFile의 이름을 가져옵니다.",
+                    {"index"})
 
 
-        RegFunction("SetGroup", "setgroup", Tool.TextColorBlock("<1>function <0>setgroup(DatName, ObjectId, Value)" & vbCrLf & "Group데이터를 수정합니다."))
-        RegFunction("GetGroup", "getgroup", Tool.TextColorBlock("<1>function <0>getgroup(DatName, ObjectId)" & vbCrLf & "Group데이터를 읽어옵니다."))
-        RegFunction("ResetGroup", "resetgroup", Tool.TextColorBlock("<1>function <0>resetgroup(DatName, ObjectId)" & vbCrLf & "Group데이터를 초기화 합니다."))
+        RegFunction("SetToolTip", "settooltip", "<1>function <0>settooltip(datfile, objectid, value)" & vbCrLf & "ToolTip테이터를 수정합니다.",
+                    {"datfile", "objectid", "value"})
+        RegFunction("GetToolTip", "gettooltip", "<1>function <0>gettooltip(datfile, objectid)" & vbCrLf & "ToolTip테이터를 읽어옵니다.",
+                    {"datfile", "objectid"})
+        RegFunction("ResetToolTip", "resettooltip", "<1>function <0>resettooltip(datfile, objectid)" & vbCrLf & "ToolTip테이터를 초기화 합니다",
+                    {"datfile", "objectid"})
+
+
+        RegFunction("SetGroup", "setgroup", "<1>function <0>setgroup(datfile, objectid, value)" & vbCrLf & "Group데이터를 수정합니다.",
+                    {"datfile", "objectid", "value"})
+        RegFunction("GetGroup", "getgroup", "<1>function <0>getgroup(datfile, objectid)" & vbCrLf & "Group데이터를 읽어옵니다.",
+                    {"datfile", "objectid"})
+        RegFunction("ResetGroup", "resetgroup", "<1>function <0>resetgroup(datfile, objectid)" & vbCrLf & "Group데이터를 초기화 합니다.",
+                    {"datfile", "objectid"})
     End Sub
 
 
@@ -116,12 +163,22 @@ Public Class LuaManager
         Return False
     End Function
 
-    Private Sub RegFunction(MethodName As String, LuaFucnName As String, ToolTip As TextBlock)
+    Private Sub RegFunction(MethodName As String, LuaFucnName As String, ToolTip As String, Optional Arguments() As String = Nothing)
         LuaSc.RegisterFunction(LuaFucnName, Me, Me.GetType().GetMethod(MethodName))
         Functions.Add(LuaFucnName)
-        ToolTips.Add(ToolTip)
+        ToolTips.Add(Tool.TextColorBlock(ToolTip))
+        ToolTipTexts.Add(ToolTip)
+
+        If Arguments Is Nothing Then
+            ArgumentDefine.Add({""})
+        Else
+            ArgumentDefine.Add(Arguments)
+        End If
     End Sub
 
+    Public Sub Log(textstr As String)
+        LogBox.AppendText(vbCrLf & textstr)
+    End Sub
     Private Sub ErrorLog(textstr As String)
         LogBox.AppendText(vbCrLf & textstr)
     End Sub
@@ -166,7 +223,12 @@ Public Class LuaManager
         DatName = Datfilesname(Datfile)
         ParamaterName = Tool.ParamaterParser(ParamaterName, DatName)
 
-        pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).Value = Value
+        If SCDatFiles.CheckValidDat(Datfile) Then
+            pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).Value = Value
+        Else
+            pjData.BindingManager.ExtraDatBinding(Datfile, ParamaterName, ObjectId).Value = Value
+        End If
+
     End Sub
     Public Function GetDat(DatName As String, ParamaterName As String, ObjectId As Integer) As Long
         Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
@@ -176,7 +238,12 @@ Public Class LuaManager
         DatName = Datfilesname(Datfile)
         ParamaterName = Tool.ParamaterParser(ParamaterName, DatName)
 
-        Return pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).Value
+
+        If SCDatFiles.CheckValidDat(Datfile) Then
+            Return pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).Value
+        Else
+            Return pjData.BindingManager.ExtraDatBinding(Datfile, ParamaterName, ObjectId).Value
+        End If
     End Function
     Public Sub ResetDat(DatName As String, ParamaterName As String, ObjectId As Integer)
         Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
@@ -186,7 +253,12 @@ Public Class LuaManager
         DatName = Datfilesname(Datfile)
         ParamaterName = Tool.ParamaterParser(ParamaterName, DatName)
 
-        pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).DataReset()
+
+        If SCDatFiles.CheckValidDat(Datfile) Then
+            pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).DataReset()
+        Else
+            pjData.BindingManager.ExtraDatBinding(Datfile, ParamaterName, ObjectId).DataReset()
+        End If
     End Sub
 
 

@@ -324,6 +324,10 @@
     <Compile Include="UserContorl\CodeEditor\PopupToolTip.xaml.vb">
       <DependentUpon>PopupToolTip.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\CommandConsole\ConsoleTextbox.xaml.vb">
+      <DependentUpon>ConsoleTextbox.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\CommandConsole\AutoComplete.vb" />
     <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
@@ -487,6 +491,9 @@
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\GrpLoader.xaml.vb">
+      <DependentUpon>GrpLoader.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\PluginWindow\DragManager.vb" />
     <Compile Include="Window\PluginWindow\PluginWindow.xaml.vb">
       <DependentUpon>PluginWindow.xaml</DependentUpon>
@@ -548,6 +555,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\CodeEditor\PopupToolTip.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\CommandConsole\ConsoleTextbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -756,6 +767,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\DataEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\GrpLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

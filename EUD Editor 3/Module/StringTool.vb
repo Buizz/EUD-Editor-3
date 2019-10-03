@@ -165,7 +165,11 @@
                             End If
                         Next
                     Else
-                        Return str(index)
+                        If str(index) = "-" Then
+                            Return "="
+                        Else
+                            Return str(index)
+                        End If
                     End If
                 End If
             End If

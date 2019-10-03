@@ -200,7 +200,13 @@ Public Class GRPBox
                     Dim SelectOffset As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Sel.Circle Offset", FObjectID)
                     Dim HPBar As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Health Bar", FObjectID) + 3
 
-                    Dim HpYOffset As Integer = pheight / 2 + (SelectOffset + SelectionImage.GetGRP.DrawGRP(0).Height / 2 + 7)
+
+                    Dim HpYOffset As Integer = pheight / 2
+                    Try
+                        HpYOffset = pheight / 2 + (SelectOffset + SelectionImage.GetGRP.DrawGRP(0).Height / 2 + 7)
+                    Catch ex As Exception
+
+                    End Try
 
                     Dim Helthborder As New Border
                     Helthborder.HorizontalAlignment = HorizontalAlignment.Left

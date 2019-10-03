@@ -68,24 +68,24 @@ Public Class DatBinding
 
 
             Dim returnStr As String = ""
-            returnStr = "<0>뎃파일 이름 : <2>" & Tool.GetText(Datfilesname(Datfile)) & "(" & Datfilesname(Datfile) & ")" & vbCrLf &
-             "<0>파라미터 : <2>" & Tool.GetText(Datfilesname(Datfile) & "_" & Parameter) & "(" & Parameter & ")" & vbCrLf
+            returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(Datfile)) & "(" & Datfilesname(Datfile) & ")" & vbCrLf &
+             "<0>" & Tool.GetText("parameter") & " : <2>" & Tool.GetText(Datfilesname(Datfile) & "_" & Parameter) & "(" & Parameter & ")" & vbCrLf
             'returnStr = returnStr & "인덱스 : " & ObjectID & vbCrLf
             'returnStr = returnStr & "사이즈 : " & scData.DefaultDat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.Size) & vbCrLf
 
             Dim ValueType As SCDatFiles.DatFiles = scData.DefaultDat.ParamInfo(Datfile, Parameter, SCDatFiles.EParamInfo.ValueType)
             If ValueType <> SCDatFiles.DatFiles.None Then
-                returnStr = returnStr & "<0>값 타입 : <3>" & Tool.GetText(Datfilesname(ValueType)) & vbCrLf
+                returnStr = returnStr & "<0>" & Tool.GetText("valuetype") & " : <3>" & Tool.GetText(Datfilesname(ValueType)) & vbCrLf
             End If
             'returnStr = returnStr & "베이스오프셋 : 0x" & Hex(Tool.GetOffset(Datfile, Parameter)).ToUpper & vbCrLf
 
             If Not pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault Then
-                returnStr = returnStr & "<0>원본 값 : <3>" & DefaultValue & vbCrLf
+                returnStr = returnStr & "<0>" & Tool.GetText("orgvalue") & " : <3>" & DefaultValue & vbCrLf
             End If
 
             If pjData.IsMapLoading Then
                 If Not pjData.MapData.DatFile.Values(Datfile, Parameter, ObjectID).IsDefault Then '기본 안 값 쓴다면
-                    returnStr = returnStr & "<0>맵 데이터 값 : <3>" & pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID) & vbCrLf
+                    returnStr = returnStr & "<0>" & Tool.GetText("mapdatavalue") & " : <3>" & pjData.MapData.DatFile.Data(Datfile, Parameter, ObjectID) & vbCrLf
                 End If
             End If
 

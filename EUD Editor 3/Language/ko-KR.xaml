@@ -315,9 +315,21 @@
     <sys:String x:Key="orders">명령</sys:String>
     <sys:String x:Key="Startxt">텍스트</sys:String>
     <sys:String x:Key="Icon">아이콘</sys:String>
+    <sys:String x:Key="wireframe">와이어 프레임</sys:String>
+    <sys:String x:Key="statusinfor">상태정보</sys:String>
 
 
+    <sys:String x:Key="datfliename">뎃파일 이름</sys:String>
+    <sys:String x:Key="parameter">파라미터</sys:String>
+    <sys:String x:Key="valuetype">값 타입</sys:String>
+    <sys:String x:Key="orgvalue">원본 값</sys:String>
+    <sys:String x:Key="mapdatavalue">맵 데이터 값</sys:String>
 
+    
+    
+    
+    
+    
     <sys:String x:Key="StatDatalimit">한정자</sys:String>
     <sys:String x:Key="StatDatalimit0">없음</sys:String>
     <sys:String x:Key="StatDatalimit1">일반명령</sys:String>
@@ -850,7 +862,12 @@
 
 
     <sys:String x:Key="FunctionDefinition">함수 정의하기</sys:String>
-    
-    
-    
+
+
+
+
+    <sys:String x:Key="wireframe_wire">선택 시 나타나는 와이어 프레임입니다.</sys:String>
+    <sys:String x:Key="wireframe_grp">부대 선택 시 나타나는 와이어 프레임입니다.</sys:String>
+    <sys:String x:Key="wireframe_tran">탑승 시 나타나는 와이어 프레임입니다.</sys:String>
+
 </ResourceDictionary>

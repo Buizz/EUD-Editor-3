@@ -182,12 +182,16 @@ Partial Public Class ProjectExplorer
         Dim tAddGUIEps As New RoutedCommand()
         tAddGUIEps.InputGestures.Add(New KeyGesture(Key.W, ModifierKeys.Control))
         CommandBindings.Add(New CommandBinding(tAddGUIEps, AddressOf AddGUIEps))
+
+
         'Dim tAddCUIPy As New RoutedCommand()
         'tAddCUIPy.InputGestures.Add(New KeyGesture(Key.Q, ModifierKeys.Alt))
         'CommandBindings.Add(New CommandBinding(tAddCUIPy, AddressOf AddCUIPy))
         'Dim tAddGUIPy As New RoutedCommand()
         'tAddGUIPy.InputGestures.Add(New KeyGesture(Key.Q, ModifierKeys.Control))
         'CommandBindings.Add(New CommandBinding(tAddGUIPy, AddressOf AddGUIPy))
+
+
         Dim tAddFolder As New RoutedCommand()
         tAddFolder.InputGestures.Add(New KeyGesture(Key.F, ModifierKeys.Control))
         CommandBindings.Add(New CommandBinding(tAddFolder, AddressOf NAddFolder))
@@ -332,7 +336,7 @@ Partial Public Class ProjectExplorer
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.CUIPy))
     End Sub
     Private Sub AddGUIEps()
-        'FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.GUIEps))
+        FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.GUIEps))
     End Sub
     Private Sub AddGUIPy()
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.GUIPy))

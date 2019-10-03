@@ -24,12 +24,18 @@ Public Class StarCraftArchive
 
 
     Private _TestMode As Boolean
-    Public Property TestMode As Boolean
+    Private _newTestMode As EGameMode = EGameMode.TestMode
+    Public Enum EGameMode
+        TestMode = 0
+        MultyMode = 1
+        FreeMode = 2
+    End Enum
+    Public Property TestMode As EGameMode
         Get
-            Return _TestMode
+            Return _newTestMode
         End Get
-        Set(value As Boolean)
-            _TestMode = value
+        Set(value As EGameMode)
+            _newTestMode = value
         End Set
     End Property
 

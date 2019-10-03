@@ -260,11 +260,10 @@ function PlayerExec(){
 	
 	//커넥트 상태를 판단.
 	const Ping = wread_epd(EPD(scf.ws) + scf.EntryPointLength, 0);
-
-	if (LastPing != Ping){
-		if (ConnectStatus[CP] == 0){
-			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
-			if (Memory(0x57F1B0,Exactly,CP)){
+	if (Memory(0x57F1B0,Exactly,CP)){
+		if (LastPing != Ping){
+			if (ConnectStatus[CP] == 0){
+				const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
 				if (CurrentConnectingTimer > 500){
 					if (ConnectingPoint == 0){
 						ConnectingTimer = CurrentTime;
@@ -272,32 +271,36 @@ function PlayerExec(){
 					}else{
 						ConnectingTimer = 0;
 							MSQCSpecial = 1;
-						}
 					}
+				}
 			}
-		}
-		if (Memory(0x57F1B0,Exactly,CP)){
+
 			LastPing = Ping;
 			DisConnectTimer = CurrentTime;
-		}
-	}else{
-		if (ConnectStatus[CP] == 0){
-			const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
-			if (CurrentConnectingTimer > 1000){
-				ConnectingTimer = CurrentTime;
-				ConnectingPoint = 0;
+		}else{
+			if (ConnectStatus[CP] == 0){
+				const CurrentConnectingTimer = (ConnectingTimer - CurrentTime);
+				if (CurrentConnectingTimer > 1000){
+					ConnectingTimer = CurrentTime;
+					ConnectingPoint = 0;
+				}
 			}
 		}
 	}
 
+
+
 	
 	if (ConnectStatus[CP] == 1){
-		const CurrentDisConnectTimer = (DisConnectTimer - CurrentTime);
-		if (CurrentDisConnectTimer > 500){
-			wwrite_epd(EPD(scf.ws) + scf.EntryPointLength, 0, 0);
-			LastPing = 0;
-			MSQCSpecial = 2;
+		if (Memory(0x57F1B0,Exactly,CP)){
+			const CurrentDisConnectTimer = (DisConnectTimer - CurrentTime);
+			if (CurrentDisConnectTimer > 500){
+				wwrite_epd(EPD(scf.ws) + scf.EntryPointLength, 0, 0);
+				LastPing = 0;
+				MSQCSpecial = 2;
+			}
 		}
+
 
 
 		if(MSQCSpecialBuffer[CP] == 200){

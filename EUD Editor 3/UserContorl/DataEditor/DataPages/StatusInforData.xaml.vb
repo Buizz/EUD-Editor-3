@@ -24,6 +24,41 @@
         WI.Init(SCDatFiles.DatFiles.wireframe, ObjectID, WI.Tag)
         GR.Init(SCDatFiles.DatFiles.wireframe, ObjectID, GR.Tag)
         TR.Init(SCDatFiles.DatFiles.wireframe, ObjectID, TR.Tag)
+
+
+
+        Dim returnStr As String = ""
+        returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.wireframe)) & "(" & Datfilesname(SCDatFiles.DatFiles.wireframe) & ")" & vbCrLf &
+             "<0>" & Tool.GetText("parameter") & " : <2>wire" & vbCrLf
+        returnStr = returnStr & "<0>" & Tool.GetText("valuetype") & " : <3>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.units)) & vbCrLf & vbCrLf & "<0>" & Tool.GetText("wireframe_wire")
+        WI.ToolTip = Tool.TextColorBlock(returnStr)
+
+        returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.wireframe)) & "(" & Datfilesname(SCDatFiles.DatFiles.wireframe) & ")" & vbCrLf &
+     "<0>" & Tool.GetText("parameter") & " : <2>grp" & vbCrLf
+        returnStr = returnStr & "<0>" & Tool.GetText("valuetype") & " : <3>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.units)) & vbCrLf & vbCrLf & "<0>" & Tool.GetText("wireframe_grp")
+        GR.ToolTip = Tool.TextColorBlock(returnStr)
+
+        returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.wireframe)) & "(" & Datfilesname(SCDatFiles.DatFiles.wireframe) & ")" & vbCrLf &
+     "<0>" & Tool.GetText("parameter") & " : <2>tran" & vbCrLf
+        returnStr = returnStr & "<0>" & Tool.GetText("valuetype") & " : <3>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.units)) & vbCrLf & vbCrLf & "<0>" & Tool.GetText("wireframe_tran")
+        TR.ToolTip = Tool.TextColorBlock(returnStr)
+
+
+        returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.ButtonSet)) & "(" & Datfilesname(SCDatFiles.DatFiles.ButtonSet) & ")" & vbCrLf &
+     "<0>" & Tool.GetText("parameter") & " : <2>ButtonSet" & vbCrLf
+        returnStr = returnStr & "<0>" & Tool.GetText("valuetype") & " : <3>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.units))
+        BS.ToolTip = Tool.TextColorBlock(returnStr)
+
+
+
+        returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.statusinfor)) & "(" & Datfilesname(SCDatFiles.DatFiles.statusinfor) & ")" & vbCrLf &
+     "<0>" & Tool.GetText("parameter") & " : <2>Status"
+        ST.ToolTip = Tool.TextColorBlock(returnStr)
+
+        returnStr = "<0>" & Tool.GetText("datfliename") & " : <2>" & Tool.GetText(Datfilesname(SCDatFiles.DatFiles.statusinfor)) & "(" & Datfilesname(SCDatFiles.DatFiles.statusinfor) & ")" & vbCrLf &
+     "<0>" & Tool.GetText("parameter") & " : <2>Display"
+        DI.ToolTip = Tool.TextColorBlock(returnStr)
+
     End Sub
     Public Sub ReLoad(tDatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         ObjectID = ObjectID

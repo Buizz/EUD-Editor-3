@@ -575,7 +575,9 @@ Public Class CodeSelecter
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", tGraphics)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    ObjectNames.Add(pjData.CodeLabel(pagetype, i))
+                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+
+                    ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
                 Next
             Case SCDatFiles.DatFiles.weapons
@@ -594,7 +596,6 @@ Public Class CodeSelecter
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
                     Dim cname As String = pjData.CodeLabel(pagetype, i)
-
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
@@ -781,109 +782,109 @@ Public Class CodeSelecter
 
 
                     If IsComboBox And (pagetype = SCDatFiles.DatFiles.stattxt) Then
-                            Dim textblock As New TextBlock
-                            textblock.TextWrapping = TextWrapping.Wrap
-                            textblock.Text = Tool.GetText("None")
+                        Dim textblock As New TextBlock
+                        textblock.TextWrapping = TextWrapping.Wrap
+                        textblock.Text = Tool.GetText("None")
 
-                            Dim stackpanel As New DockPanel
-                            stackpanel.Children.Add(textblock)
+                        Dim stackpanel As New DockPanel
+                        stackpanel.Children.Add(textblock)
 
-                            Dim tListItem As New ListBoxItem()
-                            tListItem.Tag = -1
-                            tListItem.Content = stackpanel
+                        Dim tListItem As New ListBoxItem()
+                        tListItem.Tag = -1
+                        tListItem.Content = stackpanel
 
-                            If CodeIndexerList.Items.Count = tStartIndex Then
-                                SelectItem = tListItem
-                                If IsComboBox Then
-                                    tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                                    tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
-                                End If
+                        If CodeIndexerList.Items.Count = tStartIndex Then
+                            SelectItem = tListItem
+                            If IsComboBox Then
+                                tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                                tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
                             End If
+                        End If
 
 
+                        CodeIndexerList.Items.Add(tListItem)
+                    End If
+
+                    For i = 0 To ObjectNames.Count - 1
+                        Dim index As Integer
+                        If Fliter.SortType = ESortType.ABC Then
+                            index = tList(i).index
+                        Else
+                            index = i
+                        End If
+
+
+                        Dim unitname As String = ObjectNames(index)  '"[" & Format(i, "000") & "]  " & pjData.UnitName(i)
+
+                        Dim textblock As New TextBlock
+                        textblock.TextWrapping = TextWrapping.WrapWithOverflow
+
+                        If BindingManager.CheckUIAble(pagetype) Then
+                            Dim NameBinding As Binding = New Binding("Name")
+                            NameBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
+                            textblock.SetBinding(TextBlock.TextProperty, NameBinding)
+                        Else
+                            textblock.Text = ObjectNames(index)
+                        End If
+
+
+                        'textblock.Text = unitname
+
+                        Dim stackpanel As New DockPanel
+
+                        If ObjectImages.Count > index Then
+                            textblock.Padding = New Thickness(15, 0, 0, 0)
+                            stackpanel.Children.Add(ObjectImages(index))
+                        End If
+
+                        stackpanel.Children.Add(textblock)
+
+                        Dim tListItem As New ListBoxItem()
+                        tListItem.Tag = index
+                        tListItem.Content = stackpanel
+
+                        If BindingManager.CheckUIAble(pagetype) Then
+                            Dim BackBinding As Binding = New Binding("Back")
+                            BackBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
+                            tListItem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
+                        End If
+
+
+
+                        If index = tStartIndex Then
+                            SelectItem = tListItem
+                            If IsComboBox Then
+                                tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                                tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                            End If
+                        End If
+
+
+                        Dim CheckPss As Boolean = False
+                        If Fliter.IsEdit Then
+                            Dim IsEdit As Boolean = pjData.DataManager.CheckDirtyObject(pagetype, index)
+
+
+
+                            If Not IsEdit Then
+                                CheckPss = True
+                            End If
+                        Else
+                            If Fliter.fliterText IsNot Nothing Then
+                                If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                    CheckPss = True
+                                End If
+                            Else
+                                CheckPss = True
+                            End If
+                        End If
+                        If CheckPss Then
                             CodeIndexerList.Items.Add(tListItem)
                         End If
 
-                        For i = 0 To ObjectNames.Count - 1
-                            Dim index As Integer
-                            If Fliter.SortType = ESortType.ABC Then
-                                index = tList(i).index
-                            Else
-                                index = i
-                            End If
-
-
-                            Dim unitname As String = ObjectNames(index)  '"[" & Format(i, "000") & "]  " & pjData.UnitName(i)
-
-                            Dim textblock As New TextBlock
-                            textblock.TextWrapping = TextWrapping.WrapWithOverflow
-
-                            If BindingManager.CheckUIAble(pagetype) Then
-                                Dim NameBinding As Binding = New Binding("Name")
-                                NameBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
-                                textblock.SetBinding(TextBlock.TextProperty, NameBinding)
-                            Else
-                                textblock.Text = ObjectNames(index)
-                            End If
-
-
-                            'textblock.Text = unitname
-
-                            Dim stackpanel As New DockPanel
-
-                            If ObjectImages.Count > index Then
-                                textblock.Padding = New Thickness(15, 0, 0, 0)
-                                stackpanel.Children.Add(ObjectImages(index))
-                            End If
-
-                            stackpanel.Children.Add(textblock)
-
-                            Dim tListItem As New ListBoxItem()
-                            tListItem.Tag = index
-                            tListItem.Content = stackpanel
-
-                            If BindingManager.CheckUIAble(pagetype) Then
-                                Dim BackBinding As Binding = New Binding("Back")
-                                BackBinding.Source = pjData.BindingManager.UIManager(pagetype, index)
-                                tListItem.SetBinding(ListBoxItem.BackgroundProperty, BackBinding)
-                            End If
-
-
-
-                            If index = tStartIndex Then
-                                SelectItem = tListItem
-                                If IsComboBox Then
-                                    tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                                    tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
-                                End If
-                            End If
-
-
-                            Dim CheckPss As Boolean = False
-                            If Fliter.IsEdit Then
-                                Dim IsEdit As Boolean = pjData.DataManager.CheckDirtyObject(pagetype, index)
-
-
-
-                                If Not IsEdit Then
-                                    CheckPss = True
-                                End If
-                            Else
-                                If Fliter.fliterText IsNot Nothing Then
-                                    If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
-                                        CheckPss = True
-                                    End If
-                                Else
-                                    CheckPss = True
-                                End If
-                            End If
-                            If CheckPss Then
-                                CodeIndexerList.Items.Add(tListItem)
-                            End If
-
-                        Next
-                    End If
-                    If IsComboBox And (pagetype = SCDatFiles.DatFiles.units Or pagetype = SCDatFiles.DatFiles.weapons Or pagetype = SCDatFiles.DatFiles.techdata) Then
+                    Next
+                End If
+                If IsComboBox And (pagetype = SCDatFiles.DatFiles.units Or pagetype = SCDatFiles.DatFiles.weapons Or pagetype = SCDatFiles.DatFiles.techdata) Then
                     Dim textblock As New TextBlock
                     textblock.TextWrapping = TextWrapping.Wrap
                     textblock.Text = Tool.GetText("None")

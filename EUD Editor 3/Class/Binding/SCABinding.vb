@@ -23,11 +23,11 @@ Public Class SCABinding
         End Set
     End Property
 
-    Public Property SCATestMode() As Boolean
+    Public Property SCATestMode() As Integer
         Get
-            Return pjData.TEData.SCArchive.TestMode
+            Return CInt(pjData.TEData.SCArchive.TestMode)
         End Get
-        Set(value As Boolean)
+        Set(value As Integer)
             pjData.SetDirty(True)
             pjData.TEData.SCArchive.TestMode = value
             PropertyChangedPack()

@@ -116,7 +116,21 @@ Public Class DataManager
                 Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
 
-                Dim Value As Long = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
+                Dim Value As Long
+
+                If pjData.IsMapLoading Then
+                    If pjData.MapData.DatFile.Values(DatFiles, Paramname, i).IsDefault Then
+                        Value = pjData.MapData.DatFile.Data(DatFiles, Paramname, ObjectID)
+                    Else
+                        Value = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
+                    End If
+                Else
+                    Value = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
+                End If
+
+
+
+
                 Template.Values.Add(Paramname & ValueSpliter & Value)
             Next
             Select Case DatFiles

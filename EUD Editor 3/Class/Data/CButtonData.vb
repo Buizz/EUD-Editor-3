@@ -226,6 +226,7 @@ Public Class CButtonSet
 
     Public Sub PasteFromString(value As String)
         Dim btnsetStr() As String = value.Split(".")
+        pButtonSets.Clear()
 
         For i = 0 To btnsetStr.Count - 1
             AddBtnFromStr(btnsetStr(i))

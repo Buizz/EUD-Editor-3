@@ -55,38 +55,7 @@
                     
                 </StackPanel>
             </Expander.Header>
-            <DockPanel>
-                <ToolBarTray x:Name="toolBarTray"  DockPanel.Dock="Top" >
-                    <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}"  >
-                        <Button Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource OpenFuncFoloder}" Click="OpenFucnFolder">
-                            <materialDesign:PackIcon Kind="FolderOpen"  Margin="-10" />
-                        </Button>
-                        <Button Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource refreshLua}" Click="refreshLua">
-                            <materialDesign:PackIcon Kind="Restart" Margin="-10"/>
-                        </Button>
-                        <Button  Padding="0" MinWidth="0" Width="34"  Height="34" ToolTip="{StaticResource LogClear}" Click="LogClear">
-                            <materialDesign:PackIcon Kind="RubbishBinEmpty"  Margin="-10"/>
-                        </Button>
-                    </ToolBar>
-                </ToolBarTray>
-
-
-                <avalonEdit:TextEditor  
-                    PreviewKeyDown="ConsoleText_PreviewKeyDown"
-                    Foreground="{DynamicResource MaterialDesignBody}"
-                    x:Name="ConsoleText"
-                    DockPanel.Dock="Bottom" 
-                    VerticalAlignment="Top" 
-                    VerticalScrollBarVisibility="Auto">>
-
-                </avalonEdit:TextEditor>
-                <TextBox
-                    x:Name="ConsoleLog"
-                    IsReadOnly="true"
-                    VerticalAlignment="Top"
-                    TextWrapping="Wrap"
-                    VerticalScrollBarVisibility="Auto" Height="130" />
-            </DockPanel>
+            <local:ConsoleTextbox/>
         </Expander>
 
         <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" VerticalContentAlignment="Stretch" >
@@ -101,13 +70,13 @@
                     </TextBlock.LayoutTransform>
                 </TextBlock>
             </Expander.Header>
-            <Grid Width="350">
+            <Grid Width="400">
                 <Grid.ColumnDefinitions>
                     <ColumnDefinition Width="100*"/>
                     <ColumnDefinition Width="80"/>
                 </Grid.ColumnDefinitions>
 
-                <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow"/>
+                <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow" />
                 <ListBox  Grid.Column="1" Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
                     <ListBoxItem Content="{StaticResource units}" Tag="0"/>
                     <ListBoxItem Content="{StaticResource weapons}" Tag="1"/>

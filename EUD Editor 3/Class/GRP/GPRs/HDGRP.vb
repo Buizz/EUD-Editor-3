@@ -37,11 +37,17 @@
     Public Overrides Function DrawGRP(frame As Integer) As BitmapSource
         frame = frame Mod maxframe
 
-        Dim fx As Integer = framedata(frame).x / 2
-        Dim fy As Integer = framedata(frame).y / 2
-        Dim fw As Integer = framedata(frame).width / 2
-        Dim fh As Integer = framedata(frame).height / 2
 
+        Dim fx As Integer
+        Dim fy As Integer
+        Dim fw As Integer
+        Dim fh As Integer
+
+
+        fx = framedata(frame).x / 2
+        fy = framedata(frame).y / 2
+        fw = framedata(frame).width / 2
+        fh = framedata(frame).height / 2
 
 
         If framebitmap(frame) Is Nothing Then

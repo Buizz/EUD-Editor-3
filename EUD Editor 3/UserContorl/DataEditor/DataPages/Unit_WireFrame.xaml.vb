@@ -16,6 +16,7 @@
 
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
 
+
         'CAI.Init(DatFiles, ObjectID, CAI.Tag, 80)
         'HAI.Init(DatFiles, ObjectID, HAI.Tag, 80)
         'RTI.Init(DatFiles, ObjectID, RTI.Tag, 80)

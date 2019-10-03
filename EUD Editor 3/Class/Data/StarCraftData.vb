@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
 Imports Pfim
 Public Module SCConst
     Public SCUnitCount As Byte = 228
@@ -310,17 +311,7 @@ Public Class StarCraftData
     Private CTTranFrame(SCMenCount) As WIREFRAMEGRP
 
 
-    'Private SDGRP(SCImageCount) As GRP
-    'Private HDGRP(SCImageCount) As GRP
-    'Private SDICON As GRP
-    'Private HDICON As GRP
 
-    'Private SDWireFrame As GRP
-    'Private HDWireFrame As GRP
-    'Private SDGrpFrame As GRP
-    'Private HDGrpFrame As GRP
-    'Private SDTramFrame As GRP
-    'Private HDTramFrame As GRP
     Public ReadOnly Property GetGRPImage(index As Integer, frame As Integer) As BitmapSource
         Get
             Select Case pgData.Setting(ProgramData.TSetting.Graphic)
@@ -766,10 +757,15 @@ Public Class StarCraftData
         IsLoadMPQ = True
     End Sub
 
+
+
+
+
     Private Sub LoadSDGRP()
         If isSDGLoad Then
             Return
         End If
+
 
 
         Dim pos As UInteger = 0
@@ -897,7 +893,6 @@ Public Class StarCraftData
         Loadddsgrp("SD/unit/wirefram/wirefram.dds.grp", SDWireFrame, False)
         Loadddsgrp("SD/unit/wirefram/grpwire.dds.grp", SDGrpFrame, False)
         Loadddsgrp("SD/unit/wirefram/tranwire.dds.grp", SDTranFrame, False)
-
 
 
         isSDGLoad = True
@@ -1136,6 +1131,7 @@ Public Class StarCraftData
 
 
     Private Sub Loadddsgrp(filename As String, ByRef icongrp() As RGRP, isIcon As Boolean)
+
         Dim pos As Integer
         Dim iconbytes As Byte() = Tool.CascData.ReadFileCascStorage(filename)
         'Header:

@@ -18,7 +18,7 @@ Public Class UIManager
 
     Public ReadOnly Property Name() As String
         Get
-            Return pjData.CodeLabel(Datfile, ObjectID, True)
+            Return "[" & Format(ObjectID, "000") & "]  " & pjData.CodeLabel(Datfile, ObjectID, True)
         End Get
     End Property
     Public ReadOnly Property TabName() As String

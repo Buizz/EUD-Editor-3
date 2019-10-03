@@ -50,7 +50,7 @@
                               Text="{StaticResource UnitWireFrame}" Padding="6"/>
                         <StackPanel Grid.Row="1" Margin="10">
 
-                            <local:IconSelecter x:Name="WI" Tag="wire" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300" />
+                            <local:IconSelecter x:Name="WI" Tag="wire" HorizontalAlignment="Left" VerticalAlignment="Top" Width="300"/>
                             <local:IconSelecter x:Name="GR" Tag="grp" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="300"/>
                             <local:IconSelecter x:Name="TR" Tag="tran" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="300" />
 

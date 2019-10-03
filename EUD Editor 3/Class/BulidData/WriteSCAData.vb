@@ -226,41 +226,6 @@ Partial Public Class BuildData
         sb.AppendLine("    }")
         sb.AppendLine("}")
 
-        'sb.AppendLine("")
-        'sb.AppendLine("")
-        'sb.AppendLine("function LoadValue(tagNum, index){")
-        'sb.AppendLine("    switch(tagNum){")
-
-        'For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
-        '    sb.AppendLine("    case " & i & ":")
-
-
-        '    Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
-        '        Case StarCraftArchive.CodeData.CodeType.Variable
-        '            '변수
-        '            Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
-        '            names = names.Split(".").First
-        '            names = names.Replace("\", ".")
-
-        '            sb.AppendLine("        return n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[getcurpl()];")
-        '        Case StarCraftArchive.CodeData.CodeType.Deaths
-        '            '데스값
-        '            sb.AppendLine("        return dwread_epd(" & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & " * 12 + getcurpl());")
-        '        Case StarCraftArchive.CodeData.CodeType.Array
-        '            '배열
-        '            Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
-        '            names = names.Split(".").First
-        '            names = names.Replace("\", ".")
-
-        '            Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
-
-        '            sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
-        '            sb.AppendLine("        return " & arrayname & "[alen * getcurpl() + index];")
-        '    End Select
-        'Next
-
-        'sb.AppendLine("    }")
-        'sb.AppendLine("}")
         sb.AppendLine("")
         sb.AppendLine("")
         sb.AppendLine("function SaveValue(tagNum, Value, index){")
