@@ -1,4 +1,5 @@
-﻿Public MustInherit Class RGRP
+﻿<Serializable()>
+Public MustInherit Class RGRP
     Public Enum PalettType
         normal
         doesnt_draw_hallucination
@@ -30,6 +31,7 @@
     Public MustOverride Function DrawImage(SCImage As SCImage) As Image
     Public MustOverride Sub Reset()
 End Class
+<Serializable()>
 Public Structure FrameData
     'struct frame{
     ' unsigned short x; // Coordinates of the top-left pixel of the frame

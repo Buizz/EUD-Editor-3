@@ -1,7 +1,10 @@
-﻿Public Class ICONGRP
+﻿<Serializable()>
+Public Class ICONGRP
     Inherits RGRP
 
     Private mainbitmap As ByteBitmap
+
+    <NonSerialized()>
     Private mainBitmapSource As BitmapSource
 
 

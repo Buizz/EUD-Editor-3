@@ -104,6 +104,7 @@ Public Class BitmapManager
     End Function
 End Class
 
+<Serializable()>
 Public Class ByteBitmap
     Private compressByte() As Byte
     Public Property Bytes As Byte()

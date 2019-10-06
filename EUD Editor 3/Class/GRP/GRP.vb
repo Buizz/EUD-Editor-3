@@ -66,6 +66,7 @@ Namespace MGRP
 
 
     End Module
+    <Serializable()>
     Public Class CPCX
         Private ppheight As Integer
         Private PCXdata(,) As Byte 'Byte(,)
@@ -163,6 +164,7 @@ Namespace MGRP
     End Enum
 End Namespace
 
+<Serializable()>
 Public Class CPalett
     Private ReadOnly Property PalletPath As String
         Get
@@ -264,7 +266,7 @@ Public Class CPalett
         filestream.Close()
     End Sub
 End Class
-
+<Serializable()>
 Public Class GRP
     Public GRPfilename As String
 
@@ -277,7 +279,7 @@ Public Class GRP
     Public grpHeight As UInteger
     Public GRPFrame As New List(Of GRPFrameData)
 
-
+    <NonSerialized()>
     Private GRPCashing() As BitmapImage
 
     Private isremapping As Boolean
@@ -285,6 +287,7 @@ Public Class GRP
     Private DrawFunction As Integer
     Private RemappingNum As PalettType
 
+    <Serializable()>
     Structure GRPFrameData
         Public frameXOffset As Byte
         Public frameYOffset As Byte

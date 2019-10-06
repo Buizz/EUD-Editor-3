@@ -1,10 +1,11 @@
-﻿Public Class HDGRP
+﻿<Serializable()>
+Public Class HDGRP
     Inherits RGRP
 
     Private mainbitmap As ByteBitmap
     Private framedata As List(Of FrameData)
 
-
+    <NonSerialized()>
     Private framebitmap() As BitmapSource
     Private maxframe As Integer = 1
 
@@ -49,7 +50,9 @@
         fw = framedata(frame).width / 2
         fh = framedata(frame).height / 2
 
-
+        If framebitmap Is Nothing Then
+            ReDim framebitmap(framedata.Count - 1)
+        End If
         If framebitmap(frame) Is Nothing Then
             framebitmap(frame) = mainbitmap.GetImage(New Int32Rect(fx, fy, fw, fh))
         End If

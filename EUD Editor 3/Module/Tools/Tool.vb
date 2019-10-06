@@ -395,6 +395,17 @@ Namespace Tool
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\" & Filename
             End Get
         End Property
+        Public Sub CreateDataPath(Filename As String)
+            Dim tpath As String = System.AppDomain.CurrentDomain.BaseDirectory & "Data\" & Filename
+            If Not My.Computer.FileSystem.DirectoryExists(tpath) Then
+                My.Computer.FileSystem.CreateDirectory(tpath)
+            End If
+        End Sub
+        Public ReadOnly Property GRPSaveFilePath As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\GRPDATA"
+            End Get
+        End Property
         Public ReadOnly Property FiregraftActFunPath() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Texts\FireGraftActFun.txt"

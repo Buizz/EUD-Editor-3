@@ -1,9 +1,10 @@
-﻿Imports EUD_Editor_3
-
+﻿<Serializable()>
 Public Class WIREFRAMEGRP
     Inherits RGRP
 
     Private mainbitmap As ByteBitmap
+
+    <NonSerialized()>
     Private mainBitmapSource As BitmapSource
 
 

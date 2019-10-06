@@ -265,6 +265,7 @@
       <DependentUpon>GRPImageBox.xaml</DependentUpon>
     </Compile>
     <Compile Include="Class\GRP\GPRs\RGRP.vb" />
+    <Compile Include="Class\GRP\GRPManager.vb" />
     <Compile Include="Class\GRP\SCIScriptMoudle.vb" />
     <Compile Include="Class\GRP\SCImage.vb" />
     <Compile Include="Class\Hash\AESModule.vb" />

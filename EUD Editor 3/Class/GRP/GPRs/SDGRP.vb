@@ -1,4 +1,5 @@
-﻿Public Class SDGRP
+﻿<Serializable()>
+Public Class SDGRP
     Inherits RGRP
 
     Private oldgrp As GRP
@@ -6,7 +7,7 @@
     Private mainbitmap As ByteBitmap
     Private framedata As List(Of FrameData)
 
-
+    <NonSerialized()>
     Private framebitmap() As BitmapSource
     Private maxframe As Integer = 1
 
@@ -46,6 +47,10 @@
     End Function
 
     Public Overrides Function DrawGRP(frame As Integer) As BitmapSource
+        If framebitmap Is Nothing Then
+            ReDim framebitmap(framedata.Count - 1)
+        End If
+
         frame = frame Mod maxframe
 
         If framebitmap(frame) Is Nothing Then
