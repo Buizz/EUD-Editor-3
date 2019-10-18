@@ -138,6 +138,7 @@ Public Class IconSelecter
                         IconBox.Visibility = Visibility.Collapsed
                     End If
 
+
                     If pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID) IsNot Nothing Then
                         If True Then
                             Dim tbind As New Binding
@@ -202,6 +203,7 @@ Public Class IconSelecter
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
+
 
         Select Case DatFile
             Case SCDatFiles.DatFiles.wireframe
@@ -480,6 +482,9 @@ Public Class IconSelecter
                     Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
                     Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
                     If CheckOverFlow(valueType, value) Then
+                        If valueType = SCDatFiles.DatFiles.stattxt Then
+                            value -= 1
+                        End If
                         TabItemTool.WindowTabItem(valueType, value)
                     End If
             End Select

@@ -18,12 +18,20 @@ Public Class UIManager
 
     Public ReadOnly Property Name() As String
         Get
-            Return "[" & Format(ObjectID, "000") & "]  " & pjData.CodeLabel(Datfile, ObjectID, True)
+            If Datfile = SCDatFiles.DatFiles.stattxt Then
+                Return "[" & Format(ObjectID + 1, "000") & "]  " & pjData.CodeLabel(Datfile, ObjectID + 1, True)
+            Else
+                Return "[" & Format(ObjectID, "000") & "]  " & pjData.CodeLabel(Datfile, ObjectID, True)
+            End If
         End Get
     End Property
     Public ReadOnly Property TabName() As String
         Get
-            Return Tool.GetText(Datfilesname(Datfile)) & " '" & pjData.CodeLabel(Datfile, ObjectID, True) & "'"
+            If Datfile = SCDatFiles.DatFiles.stattxt Then
+                Return Tool.GetText(Datfilesname(Datfile)) & " '" & pjData.CodeLabel(Datfile, ObjectID + 1, True) & "'"
+            Else
+                Return Tool.GetText(Datfilesname(Datfile)) & " '" & pjData.CodeLabel(Datfile, ObjectID, True) & "'"
+            End If
         End Get
     End Property
 

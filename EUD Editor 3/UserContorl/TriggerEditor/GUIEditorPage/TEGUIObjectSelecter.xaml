@@ -13,6 +13,29 @@
              Loaded="UserControl_Loaded">
     <DockPanel>
         <ListBox x:Name="ToolBoxList" SelectionChanged="ToolBoxList_SelectionChanged">
+            <!--<ListBoxItem Tag="1" Padding="0">
+                <Grid HorizontalAlignment="Right">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="*"/>
+                        <ColumnDefinition Width="20"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Margin="8">
+                        함수테스트
+                    </Label>
+                    <Border Grid.Column="1" Background="#FFCF2AFF"/>
+                </Grid>
+            </ListBoxItem>
+            <ListBoxItem Tag="1" Padding="0">
+                <DockPanel>
+                    <Label Margin="8">
+                        함수
+                    </Label>
+                    <Border DockPanel.Dock="Right" Background="#FFCF2AFF"/>
+                </DockPanel>
+                
+            </ListBoxItem>-->
+
+
             <!--<ListBoxItem Content="제어" Background="#FFFFC500" Tag="0"/>
             <ListBoxItem Content="함수" Background="#FFCF2AFF" Tag="1"/>
             <ListBoxItem Content="조건" Background="#FF45EC5B" Tag="2"/>

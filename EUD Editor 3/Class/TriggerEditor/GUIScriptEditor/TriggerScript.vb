@@ -34,13 +34,30 @@ Public Class ScriptBlock
         Argument = New List(Of ScriptBlock)
         Child = New List(Of ScriptBlock)
 
-        If TriggerScript.IsHaveValues Then
-            For i = 0 To TriggerScript.ValuesDef.Count - 1
+        If TriggerScript.SName = "FunctionDefinition" Then
+            For i = 0 To copySb.ArgumentName.Count - 1
+                'MsgBox(copySb.Argument(i).TriggerScript.SName)
+
+                ArgumentName.Add(copySb.ArgumentName(i))
+            Next
+            For i = 0 To copySb.Argument.Count - 1
                 'MsgBox(copySb.Argument(i).TriggerScript.SName)
 
                 Argument.Add(New ScriptBlock(copySb.Argument(i)))
             Next
+        Else
+            If TriggerScript.IsHaveValues Then
+                For i = 0 To TriggerScript.ValuesDef.Count - 1
+                    'MsgBox(copySb.Argument(i).TriggerScript.SName)
+
+                    Argument.Add(New ScriptBlock(copySb.Argument(i)))
+                Next
+            End If
         End If
+
+
+
+
 
         Value = copySb.Value
     End Sub
@@ -141,6 +158,7 @@ Public Class TriggerScript
         OutSide = 4
         Free = 5
         Value = 6
+        VarDefine = 7
 
         Null = 99
     End Enum

@@ -327,7 +327,7 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.weapons
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.weapons, "Label", index)
 
-                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel - 1))
                     Case SCDatFiles.DatFiles.flingy
                         Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
                         Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
@@ -342,15 +342,15 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.upgrades
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.upgrades, "Label", index)
 
-                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel - 1))
                     Case SCDatFiles.DatFiles.techdata
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.techdata, "Label", index)
 
-                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel - 1))
                     Case SCDatFiles.DatFiles.orders
                         Dim tLabel As Integer = Dat.Data(SCDatFiles.DatFiles.orders, "Label", index)
 
-                        ReturnStr = CodeTrimer(Stat_txt(tLabel))
+                        ReturnStr = CodeTrimer(Stat_txt(tLabel - 1))
                     Case SCDatFiles.DatFiles.portdata
                         ReturnStr = scData.PortdataName(index)
 
@@ -359,7 +359,7 @@ Public Class ProjectData
                     Case SCDatFiles.DatFiles.Icon
                         ReturnStr = scData.IconName(index)
                     Case SCDatFiles.DatFiles.stattxt
-                        ReturnStr = Stat_txt(index)
+                        ReturnStr = Stat_txt(index - 1)
 
                     Case SCDatFiles.DatFiles.IscriptID
                         ReturnStr = scData.IscriptName(index)
@@ -382,7 +382,11 @@ Public Class ProjectData
                 If SCDatFiles.CheckValidDat(Datfile) Then
                     ToolTipText = SaveData.Dat.ToolTip(Datfile, index)
                 Else
-                    ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
+                    If SCDatFiles.DatFiles.stattxt Then
+                        ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index - 1)
+                    Else
+                        ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
+                    End If
                 End If
                 If Datfile <> SCDatFiles.DatFiles.units Then
                     If IsFullname And ToolTipText <> "" Then

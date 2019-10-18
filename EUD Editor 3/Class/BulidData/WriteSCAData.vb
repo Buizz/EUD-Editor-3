@@ -134,7 +134,7 @@ Partial Public Class BuildData
 
 
     Public Function GetSCAEps() As String
-        Const CommandLength As Integer = 12
+        'Const CommandLength As Integer = 12
         Dim SpaceLength As Integer = pjData.TEData.SCArchive.DataSpace
 
 

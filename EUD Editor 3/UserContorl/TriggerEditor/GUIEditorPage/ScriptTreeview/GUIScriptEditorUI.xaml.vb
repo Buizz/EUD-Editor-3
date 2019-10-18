@@ -3,6 +3,38 @@
 Public Class GUIScriptEditorUI
     Private popupScript As ScriptBlock
     Private popupbutton As Button
+
+    Public ObjectSelecter As TEGUIObjectSelecter
+    Public Sub SetObjectSelecter(tObjectSelecter As TEGUIObjectSelecter)
+        ObjectSelecter = tObjectSelecter
+    End Sub
+
+    Public Sub OpenVarSelecter(script As ScriptBlock, btn As Button, sb As ScriptBlockItem)
+        'FuncEdit.init(script, sb)
+
+        popupScript = script
+        popupbutton = btn
+
+
+        'FPopupbox.Width = ActualWidth
+        PopupVarSelecter.IsOpen = True
+
+        Dim value As Integer = 0
+        If IsNumeric(popupScript.Value) Then
+            value = popupScript.Value
+        End If
+    End Sub
+    Public Sub OpenFunctionEdit(script As ScriptBlock, btn As Button, sb As ScriptBlockItem)
+        FuncEdit.init(script, sb)
+
+        popupScript = script
+        popupbutton = btn
+
+
+        'FPopupbox.Width = ActualWidth
+        FPopupbox.IsOpen = True
+
+    End Sub
     Public Sub OpenCodeSelecter(script As ScriptBlock, btn As Button)
         popupScript = script
         popupbutton = btn
@@ -25,36 +57,6 @@ Public Class GUIScriptEditorUI
         'ValueText.Text = sender(1)
     End Sub
 
-    'Private Sub MyHotKeyManager_LocalHotKeyPressed(sender As Object, e As LocalHotKeyEventArgs)
-    '    Select Case e.HotKey.Name
-    '        Case "Undo"
-    '            Undo()
-    '        Case "Redo"
-    '            Redo()
-    '    End Select
-    'End Sub
-
-
-    'Private MyHotKeyManager As HotKeyManager
-    'Public Sub HotkeyInit(twindow As Window)
-    '    MyHotKeyManager = New HotKeyManager(twindow)
-    '    Dim hUndo As New LocalHotKey("Undo", ModifierKeys.Control, Keys.Z)
-    '    Dim hRedo As New LocalHotKey("Redo", ModifierKeys.Control, Keys.R)
-
-    '    MyHotKeyManager.AddLocalHotKey(hUndo)
-    '    MyHotKeyManager.AddLocalHotKey(hRedo)
-
-    '    AddHandler MyHotKeyManager.LocalHotKeyPressed, AddressOf MyHotKeyManager_LocalHotKeyPressed
-    'End Sub
-
-    'Public Shared UndoKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(GUIScriptEditorUI))
-    'Public Shared RedoItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(GUIScriptEditorUI))
-    'Private Sub UndoCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
-    '    Undo()
-    'End Sub
-    'Private Sub RedoCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
-    '    Redo()
-    'End Sub
 
     Private MulitSelectItems As New List(Of ScriptTreeviewItem)
     Public Function AddMulitSelectItem(STreeviewItem As ScriptTreeviewItem) As Boolean
@@ -212,12 +214,17 @@ Public Class GUIScriptEditorUI
         Return treeitem
     End Function
 
-    Public Function GetTreeviewItem(key As String) As TreeViewItem
+    Public Function GetTreeviewItem(key As String, Optional initvalue As String = "") As TreeViewItem
         Dim treeitem As New TreeViewItem
         Dim groupname As String = tescm.GetTriggerScript(key).Group
 
         treeitem.Background = New SolidColorBrush(TriggerScript.GetColor(groupname))
-        treeitem.Header = New ScriptTreeviewItem(Me, New ScriptBlock(key))
+
+        Dim sb As New ScriptBlock(key)
+        If initvalue <> "" Then
+            sb.Value = initvalue
+        End If
+        treeitem.Header = New ScriptTreeviewItem(Me, sb)
         If tescm.GetTriggerScript(key).shortheader Then
             treeitem.Style = Application.Current.Resources("ShortTreeViewItem")
         End If
@@ -231,6 +238,8 @@ Public Class GUIScriptEditorUI
                     Dim ttreeitem As New TreeViewItem
                     ttreeitem.Style = Application.Current.Resources("ShortTreeViewItem")
                     ttreeitem.Background = New SolidColorBrush(TriggerScript.GetColor(tgroupname))
+
+
                     ttreeitem.Header = New ScriptTreeviewItem(Me, New ScriptBlock(initkey))
                     treeitem.Items.Add(ttreeitem)
                 Next
@@ -258,12 +267,17 @@ Public Class GUIScriptEditorUI
                     Return False
                 End If
             Case TriggerScript.ScriptType.Action
-                If childScript.SType <> TriggerScript.ScriptType.Action And childScript.SType <> TriggerScript.ScriptType.Both Then
+                If childScript.SType <> TriggerScript.ScriptType.Action And
+                    childScript.SType <> TriggerScript.ScriptType.Both And
+                    childScript.SType <> TriggerScript.ScriptType.Free And
+                    childScript.SType <> TriggerScript.ScriptType.VarDefine Then
                     ErrorPopup("액션만 넣을 수 있습니다.")
                     Return False
                 End If
             Case TriggerScript.ScriptType.Condition
-                If childScript.SType <> TriggerScript.ScriptType.Condition And childScript.SType <> TriggerScript.ScriptType.Both Then
+                If childScript.SType <> TriggerScript.ScriptType.Condition And
+                    childScript.SType <> TriggerScript.ScriptType.Both And
+                    childScript.SType <> TriggerScript.ScriptType.Free Then
                     ErrorPopup("조건만 넣을 수 있습니다.")
                     Return False
                 End If
@@ -314,8 +328,13 @@ Public Class GUIScriptEditorUI
 
 
         pAddItemScript(tvitem, keyname)
-        'MainTreeview.Items.Add(New ScriptTreeviewItem(Me, New ScriptBlock(keyname)))
-        'MsgBox("스크립터에서 받음 : " & keyname)
+    End Sub
+
+    Public Sub AddFuncItemClick(keyname As String)
+        Dim tvitem As TreeViewItem = GetTreeviewItem("FuncUse", keyname)
+
+
+        pAddItemScript(tvitem, "FuncUse")
     End Sub
 
     Private Sub ValueAddItem(AddedTriggerScript As TriggerScript, keyname As String)
@@ -391,7 +410,9 @@ Public Class GUIScriptEditorUI
                         '부모를 구해야됨
                         If insertitem.Parent.GetType Is GetType(TreeView) Then
 
-                            If AddedTriggerScript.SType = TriggerScript.ScriptType.OutSide Then
+                            If AddedTriggerScript.SType = TriggerScript.ScriptType.OutSide Or
+                                AddedTriggerScript.SType = TriggerScript.ScriptType.Free Or
+                                AddedTriggerScript.SType = TriggerScript.ScriptType.VarDefine Then
                                 Dim ttreeview As TreeView = insertitem.Parent
                                 itemcollcteion = ttreeview.Items
                                 PlaceAble = True
@@ -447,7 +468,9 @@ Public Class GUIScriptEditorUI
                 End If
             End If
         Else
-            If AddedTriggerScript.SType = TriggerScript.ScriptType.OutSide Or AddedTriggerScript.SType = TriggerScript.ScriptType.Free Then
+            If AddedTriggerScript.SType = TriggerScript.ScriptType.OutSide Or
+                AddedTriggerScript.SType = TriggerScript.ScriptType.Free Or
+                AddedTriggerScript.SType = TriggerScript.ScriptType.VarDefine Then
                 Dim ttreeviewItem As TreeViewItem = GetTreeviewItem(keyname)
 
                 MainTreeview.Items.Add(ttreeviewItem)

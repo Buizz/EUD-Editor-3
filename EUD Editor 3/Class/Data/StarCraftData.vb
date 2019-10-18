@@ -13,7 +13,7 @@ Public Module SCConst
     Public SCPortdataCount As UShort = 220
     Public SCSfxdataCount As UShort = 1144
     Public SCIconCount As UShort = 390
-    Public SCtbltxtCount As UShort = 1547
+    Public SCtbltxtCount As UShort = 1547 '없음코드
     Public SCIscriptCount As UShort = 412
 
 
@@ -78,7 +78,11 @@ Public Module SCConst
 
 
     Public Function CheckOverFlow(Datfiles As SCDatFiles.DatFiles, Value As Long) As Boolean
-        Return (SCCodeCount(Datfiles) > Value) And Value >= 0
+        If Datfiles = SCDatFiles.DatFiles.stattxt Then
+            Return (SCCodeCount(Datfiles) > Value) And Value >= 1
+        Else
+            Return (SCCodeCount(Datfiles) > Value) And Value >= 0
+        End If
     End Function
 
     Public ColorTable() As Color = {

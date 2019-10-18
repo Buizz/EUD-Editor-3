@@ -185,15 +185,12 @@
       ""
     ]
   },
-
-
-
   {
     "IsFolder": false,
     "IsLock": false,
     "IsChildLock": false,
     "Group": "Func",
-    "SType": 0,
+    "SType": 2,
     "shortheader": false,
     "FolderType": 3,
     "Uniqueness": false,
@@ -203,7 +200,7 @@
     "InitBlock": [
       ""
     ],
-    "SName": "SetMemory",
+    "SName": "FuncUse",
     "CodeStart": "",
     "CodeEnd": "",
     "Codehead": "",
@@ -218,6 +215,43 @@
       ""
     ]
   },
+
+
+
+
+
+
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Func",
+    "SType": 5,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Code",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
   {
     "IsFolder": false,
     "IsLock": false,
@@ -368,6 +402,36 @@
     "FolderType": 3,
     "Uniqueness": false,
     "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Var",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Value",
+    "SType": 6,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
       "Location",
       "Where"
     ],
@@ -466,6 +530,220 @@
       ""
     ],
     "SName": "Number",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
+
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Variable",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "VarDefine",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Variable",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "ConstVarDefine",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Variable",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "PlayerVarDefine",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Variable",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "ArrayDefine",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Variable",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "VArrayDefine",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "SoundLopper",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "DefineSoundLopper",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": false,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "StringBuffer",
+    "SType": 7,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "DefineStringBuffer",
     "CodeStart": "",
     "CodeEnd": "",
     "Codehead": "",

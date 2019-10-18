@@ -25,6 +25,9 @@
                   
                  PreviewKeyDown="MainTreeview_PreviewKeyDown"
                  PreviewKeyUp="MainTreeview_PreviewKeyUp"
+                  
+                  VirtualizingStackPanel.IsVirtualizing="True"
+                  VirtualizingStackPanel.VirtualizationMode="Recycling"
                   >
             <TreeView.ContextMenu>
                 <ContextMenu Opened="ContextMenu_Opened">
@@ -47,8 +50,17 @@
             <Popup x:Name="Popupbox" Focusable="False" StaysOpen="False">
                 <local:CodeSelecter  x:Name="CodeList" ListSelect="CodeList_Select" MaxHeight="300"  />
             </Popup>
-            
-          </Border>
+        </Border>
+        <Border x:Name="BFuncEdit" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Popup x:Name="FPopupbox" Focusable="False" StaysOpen="False">
+                <local:FunctionDefine  x:Name="FuncEdit" MaxHeight="300"  />
+            </Popup>
+        </Border>
+        <Border x:Name="VFuncEdit" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Popup x:Name="PopupVarSelecter" Focusable="False" StaysOpen="False">
+                <local:VarSelecter  x:Name="VarSelect" MaxHeight="300"  />
+            </Popup>
+        </Border>
         <materialDesign:Snackbar
   IsActive="False"
   x:Name="ErrorSnackbar">

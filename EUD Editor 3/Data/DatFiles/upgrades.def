@@ -32,7 +32,6 @@ OutputEntrycount=61
 8Name=Label
 8Size=2
 8Type=11
-8InitVar=-1
 
 9Name=Race
 9Size=1

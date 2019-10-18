@@ -7,7 +7,6 @@ OutputEntrycount=189
 0Name=Label
 0Size=2
 0Type=11
-0InitVar=-1
 
 1Name=Use Weapon Targeting
 1Size=1

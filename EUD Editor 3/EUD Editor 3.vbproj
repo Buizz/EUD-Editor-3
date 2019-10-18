@@ -456,14 +456,21 @@
       <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\CodeEditor\Init.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\FunctionDefine.xaml.vb">
+      <DependentUpon>FunctionDefine.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptEditorUI.xaml.vb">
       <DependentUpon>GUIScriptEditorUI.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptBlockItem.xaml.vb">
       <DependentUpon>ScriptBlockItem.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptManager.vb" />
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptTreeviewItem.xaml.vb">
       <DependentUpon>ScriptTreeviewItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\VarSelecter.xaml.vb">
+      <DependentUpon>VarSelecter.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml.vb">
       <DependentUpon>TEGUIObjectSelecter.xaml</DependentUpon>
@@ -731,6 +738,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\FunctionDefine.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptEditorUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -740,6 +751,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptTreeviewItem.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\VarSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

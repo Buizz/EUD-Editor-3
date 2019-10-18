@@ -18,6 +18,10 @@
         PTEFile = tTEFile
 
         Script.LoadScript(tTEFile)
+
+
+        ObjectSelector.SetGUIScriptEditorUI(Script)
+        Script.SetObjectSelecter(ObjectSelector)
     End Sub
 
 
@@ -60,7 +64,16 @@
 
 
     Private Sub ObjectSelector_ItemSelect(sender As Object, e As RoutedEventArgs)
-        Script.AddItemClick(sender.ToString)
+        Dim itemtag As String = sender.ToString
+        If itemtag.Length > 7 Then
+            If Mid(itemtag, 1, 7) = "FuncDef" Then
+                itemtag = Mid(itemtag, 8)
+                Script.AddFuncItemClick(itemtag)
+                Return
+            End If
+        End If
+
+        Script.AddItemClick(itemtag)
     End Sub
 
     Private Sub UserControl_GotFocus(sender As Object, e As RoutedEventArgs)

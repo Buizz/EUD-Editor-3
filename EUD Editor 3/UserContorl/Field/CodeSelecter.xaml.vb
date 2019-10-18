@@ -468,7 +468,6 @@ Public Class CodeSelecter
         End Select
 
 
-
         ListResetData(pagetype, StartIndex)
     End Sub
     Private Function GetIcon(iconIndex As Integer, isSizeBig As Boolean) As Border
@@ -733,6 +732,11 @@ Public Class CodeSelecter
 
                 End If
 
+                If IsComboBox Then
+                    tStartIndex -= 1
+                End If
+
+
                 If Fliter.IsIcon Then
                     CodeIndexerImage.Items.Clear()
 
@@ -790,7 +794,7 @@ Public Class CodeSelecter
                         stackpanel.Children.Add(textblock)
 
                         Dim tListItem As New ListBoxItem()
-                        tListItem.Tag = -1
+                        tListItem.Tag = 0
                         tListItem.Content = stackpanel
 
                         If CodeIndexerList.Items.Count = tStartIndex Then
@@ -801,18 +805,17 @@ Public Class CodeSelecter
                             End If
                         End If
 
-
                         CodeIndexerList.Items.Add(tListItem)
                     End If
 
                     For i = 0 To ObjectNames.Count - 1
                         Dim index As Integer
+
                         If Fliter.SortType = ESortType.ABC Then
                             index = tList(i).index
                         Else
                             index = i
                         End If
-
 
                         Dim unitname As String = ObjectNames(index)  '"[" & Format(i, "000") & "]  " & pjData.UnitName(i)
 
@@ -827,7 +830,6 @@ Public Class CodeSelecter
                             textblock.Text = ObjectNames(index)
                         End If
 
-
                         'textblock.Text = unitname
 
                         Dim stackpanel As New DockPanel
@@ -840,7 +842,12 @@ Public Class CodeSelecter
                         stackpanel.Children.Add(textblock)
 
                         Dim tListItem As New ListBoxItem()
-                        tListItem.Tag = index
+
+                        If IsComboBox And (pagetype = SCDatFiles.DatFiles.stattxt) Then
+                            tListItem.Tag = index + 1
+                        Else
+                            tListItem.Tag = index
+                        End If
                         tListItem.Content = stackpanel
 
                         If BindingManager.CheckUIAble(pagetype) Then

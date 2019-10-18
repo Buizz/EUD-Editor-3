@@ -859,7 +859,9 @@
     <sys:String x:Key="Action">액션|&amp;H2C,&amp;HC0,&amp;HEC</sys:String>
     <sys:String x:Key="Variable">변수|&amp;HFF,&amp;H68,&amp;H50</sys:String>
     <sys:String x:Key="Value">값|&amp;HFF,&amp;H80,&amp;H40</sys:String>
-
+    <sys:String x:Key="SoundLopper">소리|&amp;H5F,&amp;H00,&amp;HFF</sys:String>
+    <sys:String x:Key="StringBuffer">문자|&amp;H2F,&amp;H9D,&amp;H27</sys:String>
+    
 
     <sys:String x:Key="FunctionDefinition">함수 정의하기</sys:String>
 
@@ -870,4 +872,10 @@
     <sys:String x:Key="wireframe_grp">부대 선택 시 나타나는 와이어 프레임입니다.</sys:String>
     <sys:String x:Key="wireframe_tran">탑승 시 나타나는 와이어 프레임입니다.</sys:String>
 
+    <sys:String x:Key="Var">변수</sys:String>
+    <sys:String x:Key="Label">라벨</sys:String>
+    <sys:String x:Key="Code">코드</sys:String>
+
+
+    <sys:String x:Key="VarDefine">변수 정의하기</sys:String>
 </ResourceDictionary>
