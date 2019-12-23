@@ -112,8 +112,10 @@
 
             Dim FuncList As List(Of String) = ScriptEditor.GetFuncList()
             For i = 0 To FuncList.Count - 1
+
                 Dim tlistboxitem As New ListBoxItem
                 Dim keyname As String = FuncList(i)
+
                 tlistboxitem.Tag = "FuncDef" & keyname
 
                 tlistboxitem.Content = keyname

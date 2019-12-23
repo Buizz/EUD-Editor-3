@@ -31,10 +31,12 @@ Public Class GUIScriptEditorUI
         popupbutton = btn
 
 
+
         'FPopupbox.Width = ActualWidth
         FPopupbox.IsOpen = True
-
     End Sub
+
+
     Public Sub OpenCodeSelecter(script As ScriptBlock, btn As Button)
         popupScript = script
         popupbutton = btn
@@ -206,7 +208,9 @@ Public Class GUIScriptEditorUI
         End If
 
         For i = 0 To sb.Child.Count - 1
-            treeitem.Items.Add(GetTreeviewItem(sb.Child(i)))
+            Dim t As TreeViewItem = GetTreeviewItem(sb.Child(i))
+            AddFuncUseList(t.Header)
+            treeitem.Items.Add(t)
         Next
 
 
@@ -393,6 +397,8 @@ Public Class GUIScriptEditorUI
 
     Private Function pAddItemScript(tvitem As TreeViewItem, keyname As String) As Boolean
         Dim AddedTriggerScript As TriggerScript = tescm.GetTriggerScript(keyname)
+
+
         If SelectedScript IsNot Nothing Then
             '부모 타입이 뭔지 알아보기
             If SelectedScript.Parent.GetType Is GetType(WrapPanel) Then
@@ -447,8 +453,10 @@ Public Class GUIScriptEditorUI
                     If tindex = -1 Then
                         insertitem.Items.Add(tvitem)
                         Dim tst As ScriptTreeviewItem = tvitem.Header
+                        If keyname = "FuncUse" Then
+                            AddFuncUseList(tst)
+                        End If
                         'tst.GetPosition(insertitem, insertitem.Items.Count - 1)
-
 
                         CreateWork(tst)
                         insertitem.IsExpanded = True
@@ -456,8 +464,10 @@ Public Class GUIScriptEditorUI
                         itemcollcteion.Insert(tindex, tvitem)
 
 
-
                         Dim tst As ScriptTreeviewItem = tvitem.Header
+                        If keyname = "FuncUse" Then
+                            AddFuncUseList(tst)
+                        End If
                         'tst.GetPosition(ttreeviewItem, tindex)
 
 
@@ -474,9 +484,11 @@ Public Class GUIScriptEditorUI
                 Dim ttreeviewItem As TreeViewItem = GetTreeviewItem(keyname)
 
                 MainTreeview.Items.Add(ttreeviewItem)
-
-
                 Dim tst As ScriptTreeviewItem = ttreeviewItem.Header
+                If keyname = "FuncUse" Then
+                    AddFuncUseList(tst)
+                End If
+
                 CreateWork(tst)
             Else
                 ErrorPopup("함수나 변수 선언문만 들어 갈 수 있습니다.")
@@ -703,6 +715,7 @@ Public Class GUIScriptEditorUI
                 SelectedScript = Nothing
             End If
             For i = 0 To MulitSelectItems.Count - 1
+
                 MulitSelectItems(i).Delete()
             Next
             MulitSelectItems.Clear()
@@ -1260,6 +1273,7 @@ Public Class GUIScriptEditorUI
 
         Return ttreeitem
     End Function
+
 
 End Class
 

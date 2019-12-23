@@ -10,7 +10,7 @@
              d:DesignHeight="450" d:DesignWidth="800">
     <Border>
         <DockPanel>
-            <WrapPanel x:Name="ValuePanel"  DockPanel.Dock="Top" Height="32" >
+            <WrapPanel x:Name="ValuePanel"  DockPanel.Dock="Top" Height="32" Visibility="Collapsed">
                 <materialDesign:Chip IsDeletable="True" Background="{x:Null}" Height="Auto">
                     <TextBox
   materialDesign:HintAssist.Hint="Floating Hint" >
@@ -26,6 +26,9 @@
                     </TextBox>
                 </materialDesign:Chip>
             </WrapPanel>
+
+            <TextBox x:Name="FuncBody" DockPanel.Dock="Top" TextChanged="FuncBody_TextChanged"/>
+
             <Label DockPanel.Dock="Top">
                 인자 추가
             </Label>
@@ -39,7 +42,7 @@
                 <materialDesign:Chip>
                     Example Chip
                 </materialDesign:Chip>
-            </WrapPanel>
+            </WrapPanel >
         </DockPanel>
     </Border>
 </UserControl>

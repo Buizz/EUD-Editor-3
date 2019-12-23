@@ -221,6 +221,7 @@
     <Compile Include="Class\Binding\TETabItemUI.vb" />
     <Compile Include="Class\Binding\UIManager.vb" />
     <Compile Include="Class\Binding\ValidationRule\EMailValidationRule.vb" />
+    <Compile Include="Class\Binding\ValidationRule\FunctionValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />

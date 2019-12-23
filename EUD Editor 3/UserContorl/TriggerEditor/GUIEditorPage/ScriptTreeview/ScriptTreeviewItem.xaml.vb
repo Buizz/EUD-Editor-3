@@ -286,6 +286,15 @@
         End Try
 
 
+        If Script.TriggerScript.SName = "FunctionDefinition" Then
+            pScriptEditor.ObjectSelecter.ToolBoxListRefresh("Func")
+        End If
+
+        If Script.TriggerScript.SName = "FuncUse" Then
+            pScriptEditor.DeleteFuncUseList(Me)
+        End If
+
+
 
 
         Return True

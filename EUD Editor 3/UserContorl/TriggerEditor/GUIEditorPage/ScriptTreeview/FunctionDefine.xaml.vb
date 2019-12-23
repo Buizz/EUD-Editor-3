@@ -9,13 +9,6 @@ Public Class FunctionDefine
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         valueList.Children.Clear()
 
-
-        Dim ttChip As New Chip
-        ttChip.Content = Tool.GetText("Label")
-        ttChip.Tag = "Label"
-        AddHandler ttChip.Click, AddressOf valueAdd
-        valueList.Children.Add(ttChip)
-
         For Each s As String In GUIScriptEditorUI.GetArgumentType
 
             Dim tChip As New Chip
@@ -42,85 +35,29 @@ Public Class FunctionDefine
     Private sb As ScriptBlockItem
 
 
-    Private Sub Grprefresh()
-        ValuePanel.Children.Clear()
-
-        For i = 0 To script.Argument.Count - 1
-            Dim tagname As String = script.ArgumentName(i)
-
-
-
-
-            Dim tChip As New Chip
-            tChip.Tag = i
-            tChip.IsDeletable = True
-            tChip.Height = Double.NaN
-
-            If tagname = "Label" Then
-                Dim textbox As New TextBox
-                textbox.MinWidth = 40
-                textbox.Text = script.Argument(i).Value
-                textbox.VerticalAlignment = VerticalAlignment.Bottom
-
-                textbox.Tag = script.Argument(i)
-
-                tChip.Content = textbox
-                AddHandler textbox.TextChanged, AddressOf labelchange
-            Else
-                Dim sp As New StackPanel
-                sp.Orientation = Orientation.Horizontal
-
-                Dim textbox As New TextBox
-                textbox.MinWidth = 40
-                textbox.VerticalAlignment = VerticalAlignment.Center
-
-
-                textbox.Tag = script.Argument(i)
-
-                sp.Children.Add(textbox)
-                AddHandler textbox.TextChanged, AddressOf labelchange
-
-
-                'textbox.Style = Application.Current.Resources("MaterialDesignFloatingHintTextBox")
-
-
-                Dim tt As String
-                tt = Tool.GetText(tagname)
-
-                Dim tstr As String
-                If tt = "" Then
-                    tstr = tagname
-                Else
-                    tstr = tt
-                End If
-                HintAssist.SetHint(textbox, tstr)
-                If script.Argument(i).Value = "" Then
-                    textbox.Text = tstr
-                Else
-                    textbox.Text = script.Argument(i).Value
-                End If
-
-                tChip.Background = New SolidColorBrush(Color.FromRgb(&HFF, &H80, &H40))
-
-                tChip.Content = sp
+    Private Property FuncArg As String
+        Get
+            If script.Argument.Count = 0 Then
+                script.Argument.Add(New ScriptBlock("Label", True))
             End If
+            Return script.Argument.First.Value
+        End Get
+        Set(value As String)
+            If script.Argument.Count = 0 Then
+                script.Argument.Add(New ScriptBlock("Label", True))
+            End If
+            script.Argument.First.Value = value
+        End Set
+    End Property
 
 
 
-            AddHandler tChip.DeleteClick, AddressOf valueDelete
-            ValuePanel.Children.Add(tChip)
-        Next
+    Private Sub Grprefresh()
+        isGrpChange = True
+        FuncBody.Text = FuncArg
+        isGrpChange = False
     End Sub
 
-    Private Sub labelchange(sender As Object, e As TextChangedEventArgs)
-        Dim textbox As TextBox = sender
-
-        Dim arg As ScriptBlock = textbox.Tag
-        arg.Value = textbox.Text
-
-
-        sb.BlockGraphic()
-    End Sub
 
     Public Sub init(tscript As ScriptBlock, tsb As ScriptBlockItem)
         script = tscript
@@ -132,28 +69,47 @@ Public Class FunctionDefine
 
 
 
-    Private Sub valueDelete(sender As Object, e As RoutedEventArgs)
-        Dim tChip As Chip = sender
-        Dim index As Integer = tChip.Tag
+    'Private Sub valueDelete(sender As Object, e As RoutedEventArgs)
+    '    Dim tChip As Chip = sender
+    '    Dim index As Integer = tChip.Tag
 
-        script.Argument.RemoveAt(index)
-        script.ArgumentName.RemoveAt(index)
+    '    script.Argument.RemoveAt(index)
+    '    script.ArgumentName.RemoveAt(index)
 
 
 
-        Grprefresh()
-        sb.BlockGraphic()
-    End Sub
+    '    Grprefresh()
+    '    sb.BlockGraphic()
+    'End Sub
+
     Private Sub valueAdd(sender As Object, e As RoutedEventArgs)
         Dim tChip As Chip = sender
         Dim keyname As String = tChip.Tag
 
-        script.Argument.Add(New ScriptBlock(keyname, True))
-        script.ArgumentName.Add(keyname)
+        FuncArg = FuncArg & "{" & keyname & "}"
 
-        'MsgBox(tChip.Tag)
+
+
+        'MsgBox("변수추가")
+
+        'script.Argument.Add(New ScriptBlock(keyname, True))
+        'script.ArgumentName.Add(keyname)
+
+        ''MsgBox(tChip.Tag)
 
         sb.BlockGraphic()
         Grprefresh()
+    End Sub
+
+    Private isGrpChange As Boolean
+    Private Sub FuncBody_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If Not isGrpChange Then
+            Dim ttext As String = FuncBody.Text
+
+            FuncArg = ttext
+
+
+            sb.BlockGraphic()
+        End If
     End Sub
 End Class

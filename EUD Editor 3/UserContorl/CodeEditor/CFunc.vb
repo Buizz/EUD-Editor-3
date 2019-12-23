@@ -349,6 +349,9 @@ Public Class CFunc
         End If
 
         'const\s+[\w\d_]+\s+=\s+(.*);
+        If str Is Nothing Then
+            Return
+        End If
 
 
         If True Then

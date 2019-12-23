@@ -45,7 +45,15 @@ Public Class ScriptBlock
 
                 Argument.Add(New ScriptBlock(copySb.Argument(i)))
             Next
+        ElseIf TriggerScript.SName = "FuncUse" Then
+            For i = 0 To copySb.Argument.Count - 1
+                'MsgBox(copySb.Argument(i).TriggerScript.SName)
+
+                Argument.Add(New ScriptBlock(copySb.Argument(i)))
+                ArgumentName.Add(copySb.ArgumentName(i))
+            Next
         Else
+
             If TriggerScript.IsHaveValues Then
                 For i = 0 To TriggerScript.ValuesDef.Count - 1
                     'MsgBox(copySb.Argument(i).TriggerScript.SName)
