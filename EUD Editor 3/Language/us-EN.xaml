@@ -45,53 +45,838 @@
 
     <sys:String x:Key="Project Setting">Project Setting</sys:String>
     <sys:String x:Key="Default Setting">Default Setting</sys:String>
-    <sys:String x:Key="DatEdit Setting">DatEdit Setting</sys:String>
-    <sys:String x:Key="TE Setting">TE Setting</sys:String>
-    <sys:String x:Key="Plugin Setting">Plugin Setting</sys:String>
-    <sys:String x:Key="StarExeFile Select">StarExeFile Select</sys:String>
-    <sys:String x:Key="euddraftExe Select">euddraftExe Select</sys:String>
-    <sys:String x:Key="SCX Fliter">스타크래프트 맵 파일|*.scx</sys:String>
-    <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
-    <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
 
-    <sys:String x:Key="ToolTip OpenMapEditor">OpenMapEditor</sys:String>
-    <sys:String x:Key="ToolTip Compile">컴파일</sys:String>
-    <sys:String x:Key="ToolTip DE">데이터에디터</sys:String>
-    <sys:String x:Key="ToolTip TE">트리거에디터</sys:String>
-    <sys:String x:Key="ToolTip Plugin">플러그인 설정</sys:String>
+    <sys:String x:Key="Editor Setting">Editor Setting</sys:String>
+    <sys:String x:Key="DatEdit Setting">Data Editor</sys:String>
+    <sys:String x:Key="TE Setting">Trigger Editor</sys:String>
+    <sys:String x:Key="Plugin Setting">Plugin</sys:String>
+    <sys:String x:Key="StarExeFile Select">Select Starcraft run file</sys:String>
+    <sys:String x:Key="euddraftExe Select">Select euddraft run fil</sys:String>
+    <sys:String x:Key="SCX Fliter">Starcraft map file|*.scx</sys:String>
+    <sys:String x:Key="SCX Select">Open target map</sys:String>
+    <sys:String x:Key="SCX Save Select">Select save map</sys:String>
 
-    <sys:String x:Key="StarExeFile">스타크래프트 실행 파일</sys:String>
-    <sys:String x:Key="euddraftExe">euddraft 실행 파일</sys:String>
 
-    <sys:String x:Key="SaveFliter">EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p</sys:String>
-    <sys:String x:Key="LoadFliter">EUD Editor 저장 파일|*.e3s;*.e3p;*.e2s;*.e2p;*.ees;*.mem|EUD Editor 3 저장 파일|*.e3s|EUD Editor 3 프로젝트 파일|*.e3p|EUD Editor 2 저장 파일|*.e2s|EUD Editor 2 프로젝트 파일|*.e2p|EUD Editor 1 저장 파일|*.ees|EUD Editor 메모리 파일|*.mem</sys:String>
+
+
+    <sys:String x:Key="ToolTip Setting">Program setting(Ctrl + E)</sys:String>
+    <sys:String x:Key="ToolTip NewFile">New project(Ctrl + Shift + N)</sys:String>
+    <sys:String x:Key="ToolTip OpenFile">Open project(Ctrl + O)</sys:String>
+    <sys:String x:Key="ToolTip SaveFile">Save project(Ctrl + S)</sys:String>
+    <sys:String x:Key="ToolTip CloseFile">Close project</sys:String>
+
+    <sys:String x:Key="ToolTip OpenMapEditor">Open as map editor(Ctrl + W)</sys:String>
+    <sys:String x:Key="ToolTip Compile">Build(Ctrl + B)</sys:String>
+
+    <sys:String x:Key="ToolTip DE">Data editor(Ctrl + D)</sys:String>
+    <sys:String x:Key="ToolTip TE">Trigger editor #(Ctrl + T)</sys:String>
+    <sys:String x:Key="ToolTip Plugin">Plugin settings(Ctrl + P)</sys:String>
+
+
+
+
+    <sys:String x:Key="DataEditor">Data Editor</sys:String>
+    <sys:String x:Key="TriggerEditor">Trigger Editor</sys:String>
+    <sys:String x:Key="PluginSetting">Plugin Setting</sys:String>
+
+
+
+    <sys:String x:Key="StarExeFile">Starcraft run file</sys:String>
+    <sys:String x:Key="euddraftExe">euddraft run file</sys:String>
+    <sys:String x:Key="euddraftVersion1">Current version :</sys:String>
+    <sys:String x:Key="euddraftVersion2">Recommended version :</sys:String>
+
+    <!--<sys:String x:Key="SaveFliter">EUD Editor 3 Save file|*.e3s</sys:String>-->
+    <sys:String x:Key="SaveFliter">EUD Editor 3 Save file|*.e3s|EUD Editor 2 Save file|*.e2s</sys:String>
+    <!--<sys:String x:Key="LoadFliter">EUD Editor Save file|*.e3s</sys:String>-->
+    <sys:String x:Key="LoadFliter">EUD Editor Save file|*.e3s;*.e2s;|EUD Editor 3 Save file|*.e3s|EUD Editor 2 Save file|*.e2s</sys:String>
+
+
+
+    <sys:String x:Key="NoName">No title</sys:String>
+    <sys:String x:Key="None">None</sys:String>
+    <sys:String x:Key="NotUse">X</sys:String>
+
+
+    <sys:String x:Key="Theme">Theme</sys:String>
+    <sys:String x:Key="Light">Light</sys:String>
+    <sys:String x:Key="Dark">Dark</sys:String>
+
+    <sys:String x:Key="Code Lan">Code language</sys:String>
+    <sys:String x:Key="Code CEng">English</sys:String>
+    <sys:String x:Key="Code CKor-Eng">Korean(transliteration)</sys:String>
+    <sys:String x:Key="Code CKor-Kor">Korean(Complete translation)</sys:String>
+
+    <sys:String x:Key="Code CTbl">Save modified text</sys:String>
+
+
+    <!--ContextMenu-->
+    <sys:String x:Key="Cut">Cut</sys:String>
+    <sys:String x:Key="Edit">Modify</sys:String>
+    <sys:String x:Key="Copy">Copy</sys:String>
+    <sys:String x:Key="Paste">Paste</sys:String>
+    <sys:String x:Key="Reset">Reset</sys:String>
+    <sys:String x:Key="Check">Check</sys:String>
+    <sys:String x:Key="Okay">Confirm</sys:String>
+    <sys:String x:Key="Cancel">Cancel</sys:String>
+    <sys:String x:Key="PageCopy">Copy page</sys:String>
+    <sys:String x:Key="PagePaste">Paste page</sys:String>
+    <sys:String x:Key="PageReset">Reset page</sys:String>
+    <sys:String x:Key="CoverWrite">Paste</sys:String>
+    <sys:String x:Key="Rename">Change name</sys:String>
+
+    <sys:String x:Key="Save">Save</sys:String>
+    <sys:String x:Key="InsertEdd">Run as Edd</sys:String>
+
+    <sys:String x:Key="SaveAs">Save As</sys:String>
+    <!--RequireMenu-->
+    <sys:String x:Key="NewCode">New Code</sys:String>
+    <sys:String x:Key="CodeDelete">Delete</sys:String>
+
+    <sys:String x:Key="TECodeCut">Cut code</sys:String>
+    <sys:String x:Key="TECodeCopy">Copy Code</sys:String>
+    <sys:String x:Key="TECodePaste">Paste Code</sys:String>
+    <sys:String x:Key="TECodeDelete">Delete Code</sys:String>
+    <sys:String x:Key="TECodeUndo">Undo</sys:String>
+    <sys:String x:Key="TECodeRedo">Redo</sys:String>
+
+
+
+
+    <sys:String x:Key="UnitName">Unit Name</sys:String>
+    <sys:String x:Key="Group">Group</sys:String>
+    <sys:String x:Key="ToolTip">TooTip</sys:String>
+
+    <sys:String x:Key="ColseSaveMsg">Do you want to save modified detail?</sys:String>
+
+
+
+    <sys:String x:Key="ErrorMsgbox">Error</sys:String>
+    <sys:String x:Key="Error MapOpen">Error has occured as opening a map.</sys:String>
+
+
+    <sys:String x:Key="Error SaveFileOpen">Save file is incorrect.</sys:String>
+
+    <sys:String x:Key="Error OpenMap is not SaveMap">Connected map’s name and saved map’s name must not be same within each other.</sys:String>
+    <sys:String x:Key="Error OpenMap is not exist reset">There’s no connected map. Do you want to Select maps?</sys:String>
+    <sys:String x:Key="Error SaveMap is not exist reset">Saved map cannot be created. Do you want to select maps?</sys:String>
+    <sys:String x:Key="Error SettingSave Fail">Saving program settings has been failed.</sys:String>
+    <sys:String x:Key="Error ProgramInit Fail">Problem has occured when resetting program data.</sys:String>
+    <sys:String x:Key="Error TriggerScript Init Fail">Problem has occured when resetting TriggerScript Editor.</sys:String>
+    <sys:String x:Key="Error LoadStarCraftData Fail">Problem has occured when resetting starcraft data.</sys:String>
+    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve" >Reading Casc data has been failed.&#13;Starcraft version may not be the latest.</sys:String>
+    <sys:String x:Key="Error NotExistMPQ">Casc file is not selected. Therefore, Graphics file cannot be loaded also.</sys:String>
+    <sys:String x:Key="Error NotExistMPQ reset">Casc file is not selected. Do you want to select files?</sys:String>
+
+    <sys:String x:Key="Error OpenMap is not exist!">Connected map is not valid. Map cannot be opened.</sys:String>
+    <sys:String x:Key="Error WriteMapFile">Map file cannot be written.</sys:String>
+
+
+    <sys:String x:Key="CompileFail">Compile has failed</sys:String>
+    <sys:String x:Key="CompileSucesse">Comfile has succeed.</sys:String>
+
+    <sys:String x:Key="Error CompileFail NotSaved Project">Compiling build has failed. Save file must exist for selecting save file folder form.</sys:String>
+    <sys:String x:Key="Error CompileFail OpenMap is not exist!">Compiling build has failed. There is no connected maps.</sys:String>
+    <sys:String x:Key="Error CompileFail SaveMap is not exist!">Compiling build has failed. Saved map cannot be created.</sys:String>
+    <sys:String x:Key="Error CompileFail euddraft is not exist!">Compiling build has failed. There is no euddraft files.</sys:String>
+    <sys:String x:Key="Error TempFolder is not exist reset">Temp file folder is not selected. Do you want to select files?</sys:String>
+    <sys:String x:Key="Error complieFail TempFolder is not exist!">Compiling build has failed. Temp file doler is not selected.</sys:String>
+    <sys:String x:Key="Error euddraft is not exist reset">euddraft run file is not valid. Do you want to select files?</sys:String>
+    <sys:String x:Key="Error FailLoad DataEditor">Loading data editor has been failed.</sys:String>
+    <sys:String x:Key="Error FailLoad TriggerEditor">Loading Trigger editor has been failed.</sys:String>
+    <sys:String x:Key="Error FailLoad PluginSet">Loading Plugin settings has been failed.</sys:String>
+
+
+
+
+    <sys:String x:Key="Error compiling">You cannot close EUD Editor 3 while compiling maps.</sys:String>
+    <sys:String x:Key="Error ProgramLoading">Data is loading. Do you still want to close EUD Editor 3?</sys:String>
+
+    <sys:String x:Key="Error WriteStatusInfor">Error has occurred while compiling maps. Status info has been gone wrong.</sys:String>
+
+
+
+
+    <sys:String x:Key="Error Dont Delete File">You can’t delete this file.</sys:String>
+    <sys:String x:Key="Error CompileStop">Compiling has stopped.</sys:String>
+    <sys:String x:Key="Error SCAPassWord">Password is not matched!</sys:String>
+    <sys:String x:Key="Error SCANresponDB">DB is not responding.</sys:String>
+    <sys:String x:Key="Error SCAUnKnow">Unknown error has occurred.</sys:String>
+    <sys:String x:Key="Error SCA">SCArchive Error : Compile has failed.</sys:String>
+    <sys:String x:Key="Error SCA Freeze">To use SCArchive and freeze를, prompt option must be used.</sys:String>
+
+
+    <sys:String x:Key="Compile">Compiling...</sys:String>
+
+
+
+    <!--MapOpenError-->
+    <sys:String x:Key="Error Not support SCM">SCM map cannot be supported.</sys:String>
+
+
+
+    <!--CodeSelecter-->
+    <sys:String x:Key="FliterEnter">Search</sys:String>
+
+
+    <!--DataEditor-->
+    <sys:String x:Key="CodeUseIndexer">List of used codes</sys:String>
+
+
+    <sys:String x:Key="OpenFuncFoloder">Open Function folder</sys:String>
+    <sys:String x:Key="refreshLua">Refresh</sys:String>
+    <sys:String x:Key="LogClear">Clear log</sys:String>
+
+
+    <sys:String x:Key="TopMost">Always on top</sys:String>
+    <sys:String x:Key="TopMostOption">Opened always on top</sys:String>
+    <sys:String x:Key="Transparency">transparency</sys:String>
+
+    <sys:String x:Key="CommandExpander">Command Prompt</sys:String>
+    <sys:String x:Key="CodeExpander">Cde(Ctrl + F)</sys:String>
+
+
+    <sys:String x:Key="TabClose">Close tab</sys:String>
+    <sys:String x:Key="RightTabsClose">Close right tab</sys:String>
+    <sys:String x:Key="OtherTabsClose">Close other tab</sys:String>
+    <sys:String x:Key="OpenTab">Open as new tab</sys:String>
+    <sys:String x:Key="OpenWindow">Open as new window</sys:String>
+
+    <sys:String x:Key="SortCode">Sort Codes</sys:String>
+    <sys:String x:Key="SortABC">Sort letters</sys:String>
+    <sys:String x:Key="SortTree">Tree views</sys:String>
+    <sys:String x:Key="FliterIcon">View icons</sys:String>
+    <sys:String x:Key="FliterEdit">View modified things</sys:String>
+
+    <sys:String x:Key="DefaultInfor">Default Information</sys:String>
+    <sys:String x:Key="UpgradeRequir">Research requirements</sys:String>
+    <sys:String x:Key="TechUseRequir">Requirements for use</sys:String>
+    <sys:String x:Key="TechReserachRequir">Research requirements</sys:String>
+    <sys:String x:Key="OrderRequir">Order Requirements</sys:String>
+
+    <sys:String x:Key="UnitDefault">Default information</sys:String>
+    <sys:String x:Key="UnitSpecial">Advanced information</sys:String>
+    <sys:String x:Key="UnitSound">Sound</sys:String>
+    <sys:String x:Key="UnitGraphic">Graphics</sys:String>
+    <sys:String x:Key="UnitMapEdit">Edit</sys:String>
+    <sys:String x:Key="UnitAIOrder">AI Order</sys:String>
+
+    <sys:String x:Key="UnitInfor">Screen Information</sys:String>
+    <sys:String x:Key="UnitRequir">Creating requirements</sys:String>
+    <sys:String x:Key="UnitWireFrame">Wireframe</sys:String>
+
+    <sys:String x:Key="UnitBionic">Unit bionic information</sys:String>
+    <sys:String x:Key="UnitCreate">Creating unit information</sys:String>
+    <sys:String x:Key="UnitWeapon">Weapon</sys:String>
+    <sys:String x:Key="UnitSupply">Supply</sys:String>
+    <sys:String x:Key="UnitEntrance">Unit Entrance space</sys:String>
+    <sys:String x:Key="UnitOthers">Other informations</sys:String>
+
+
+    <sys:String x:Key="UnitSpecialAbilityFlag">Special ability Flag</sys:String>
+    <sys:String x:Key="UnitSpecialOthers">Other informations</sys:String>
+    <sys:String x:Key="UnitMovementFlag">Unit movement flag</sys:String>
+
+    <sys:String x:Key="UnitStarEditFlag">Belonged Abilities</sys:String>
+    <sys:String x:Key="UnitGroupFlag">Belonged groups</sys:String>
+    <sys:String x:Key="UnitString">String information</sys:String>
+
+    <sys:String x:Key="UnitGraphicinfor">Graphics information</sys:String>
+    <sys:String x:Key="UnitSize">Unit size</sys:String>
+    <sys:String x:Key="UnitCreateSize">Size of construction</sys:String>
+    <sys:String x:Key="UnitAddonPos">Addon location</sys:String>
+
+    <sys:String x:Key="FlingyInfor">Flight information</sys:String>
+    <sys:String x:Key="SpriteInfor">Sprite Information</sys:String>
+    <sys:String x:Key="UpgradeScreen">Screen information</sys:String>
+    <sys:String x:Key="UpgradeCost">Default cost</sys:String>
+    <sys:String x:Key="UpgradeExtraCost">Additional Cost</sys:String>
+    <sys:String x:Key="UpgradeInfor">Upgrade information</sys:String>
+
+    <sys:String x:Key="TechScreen">Screen information</sys:String>
+    <sys:String x:Key="TechCost">Tech cost</sys:String>
+    <sys:String x:Key="TechInfor">Tech information</sys:String>
+    <sys:String x:Key="OrderInfor">Order information</sys:String>
+
+    <sys:String x:Key="ImageInfor">Image information</sys:String>
+    <sys:String x:Key="ImageDefault">Default information</sys:String>
+    <sys:String x:Key="ImageScreen">Displayed screen information</sys:String>
+
+
+    <sys:String x:Key="units">Units</sys:String>
+    <sys:String x:Key="weapons">Weapons</sys:String>
+    <sys:String x:Key="flingy">Flingy</sys:String>
+    <sys:String x:Key="sprites">Sprites</sys:String>
+    <sys:String x:Key="images">Images</sys:String>
+    <sys:String x:Key="upgrades">Upgrades</sys:String>
+    <sys:String x:Key="techdata">Techdata</sys:String>
+    <sys:String x:Key="orders">Orders</sys:String>
+    <sys:String x:Key="Startxt">Text</sys:String>
+    <sys:String x:Key="Icon">Icon</sys:String>
+    <sys:String x:Key="wireframe">Wireframe</sys:String>
+    <sys:String x:Key="statusinfor">StatusInfor</sys:String>
+
+
+
+    <sys:String x:Key="datfliename">Datfile tag</sys:String>
+    <sys:String x:Key="parameter">Parameter</sys:String>
+    <sys:String x:Key="valuetype">Value Type</sys:String>
+    <sys:String x:Key="orgvalue">Source</sys:String>
+    <sys:String x:Key="mapdatavalue">Map Value</sys:String>
+
+
+
+    <sys:String x:Key="StatDatalimit">Qualified unit</sys:String>
+    <sys:String x:Key="StatDatalimit0">None</sys:String>
+    <sys:String x:Key="StatDatalimit1">Normal order</sys:String>
+    <sys:String x:Key="StatDatalimit2">Create units</sys:String>
+    <sys:String x:Key="StatDatalimit3">N Upgrade</sys:String>
+    <sys:String x:Key="StatDatalimit4">Skills used</sys:String>
+    <sys:String x:Key="StatDatalimit5">Tech upgrade</sys:String>
+    <sys:String x:Key="StatDatalimit6">Unit transformation</sys:String>
+
+
+
+    <sys:String x:Key="StatDataShortCut">Shortcut</sys:String>
+    <sys:String x:Key="StatDataShortCut0">None</sys:String>
+
+
+
+    <sys:String x:Key="ImageScriptSelect">Image Script</sys:String>
+
+
+
+
+
+
+
+
+    <sys:String x:Key="units_Graphics">Air information</sys:String>
+    <sys:String x:Key="units_Subunit 1">Subunit1</sys:String>
+    <sys:String x:Key="units_Subunit 2">Subunit2</sys:String>
+    <sys:String x:Key="units_Infestation">Infested unit</sys:String>
+    <sys:String x:Key="units_Construction Animation">Construction Animation</sys:String>
+    <sys:String x:Key="units_Unit Direction">Unit Direction</sys:String>
+    <sys:String x:Key="units_Unit Direction_V">Up(Vertical)|Rightup|Rightup|Rightup|Rightup|Rightup|Rightup|Rightup|Right(Vertical)|Rightdown|Rightdown|Rightdown|Rightdown|Rightdown|Rightdown|Rightdown|Down(Vertical)|Leftdown|Leftdown|Leftdown|Leftdown|Leftdown|Leftdown|Leftdown|Left(Vertical)|Leftup|Leftup|Leftup|Leftup|Leftup|Leftup|Leftup|Random</sys:String>
+
+    <sys:String x:Key="units_Shield Enable">Enable</sys:String>
+    <sys:String x:Key="units_Shield Amount">Shield</sys:String>
+    <sys:String x:Key="units_Hit Points">Hit Point</sys:String>
+    <sys:String x:Key="units_Elevation Level">Height</sys:String>
+    <sys:String x:Key="units_Elevation Level_V">Bottom ground|Bottom ground|Ground location|Ground location|Ground location|Ground location|Ground location|Ground location|Ground location|Ground location|Ground location|Ground location|Air|Air|Air|Air|Air|Air|Air|Air</sys:String>
+
+    <sys:String x:Key="units_Unknown (old Movement)">Flag Movement</sys:String>
+    <sys:String x:Key="units_Unknown (old Movement)_V">0x01|0x02|0x04|0x08|0x10|0x20|0x40|0x80</sys:String>
+    <sys:String x:Key="units_Rank/Sublabel">Rank</sys:String>
+    <sys:String x:Key="units_Comp AI Idle">Computer Idle</sys:String>
+    <sys:String x:Key="units_Human AI Idle">Human Idle</sys:String>
+    <sys:String x:Key="units_Return to Idle">Return to Idle</sys:String>
+    <sys:String x:Key="units_Attack Unit">Unit attacks</sys:String>
+    <sys:String x:Key="units_Attack Move">Attack&amp;Move</sys:String>
+    <sys:String x:Key="units_Ground Weapon">Ground Weapon</sys:String>
+    <sys:String x:Key="units_Max Ground Hits">Max Ground Hits</sys:String>
+    <sys:String x:Key="units_Air Weapon">Air Weapon</sys:String>
+    <sys:String x:Key="units_Max Air Hits">Max AirHits</sys:String>
+    <sys:String x:Key="units_AI Internal">Internal AI</sys:String>
+    <sys:String x:Key="units_AI Internal_V">"Ignore Strategic Sucide missions" AI.|Will not become "Guard" status</sys:String>
+
+    <sys:String x:Key="units_Special Ability Flags">Special Ability Flags</sys:String>
+    <sys:String x:Key="units_Special Ability Flags_V">Building|Addon|Air Unit|Accumulate resources|Subunit1|Fly able buildings|Hero|HP Auto heal|Normal Image|Clocking|1 Egg 2 Unit|Single Individual|Resource Storage(Return)|Resource Collect Building|Robotic|detector|Bionic|Required creeps|Unused|Required pylons|Burrow Able Unit|Skill units|Infinity Clock|Able to have items|Ignore a check for population|Middle Overlay|Large Ovelay|Target Direction Auto attack|Reation to fight|Complately Invincibility|Mechanic unit|Create units</sys:String>
+
+    <sys:String x:Key="units_Target Acquisition Range">Acquisition Range</sys:String>
+    <sys:String x:Key="units_Sight Range">Sight Range</sys:String>
+    <sys:String x:Key="units_Armor Upgrade">Armor</sys:String>
+    <sys:String x:Key="units_Unit Size">Unit size</sys:String>
+    <sys:String x:Key="units_Unit Size_V">Independent size|Small|Middle|Large</sys:String>
+    <sys:String x:Key="units_Armor">Armor strength</sys:String>
+    <sys:String x:Key="units_Right-click Action">Movements when mouse right clicked</sys:String>
+    <sys:String x:Key="units_Right-click Action_V">Order Invalid / Auto Attack|Default Movement / Normal  Attack|Normal Movement / Invalid Attack|Invalid movement / Default Attack|Accumulate resource|Accumulate resource / Repair|None</sys:String>
+
+    <sys:String x:Key="units_Ready Sound">Waitting</sys:String>
+    <sys:String x:Key="units_What Sound Start">Asking(First)</sys:String>
+    <sys:String x:Key="units_What Sound End">Asking(Last)</sys:String>
+    <sys:String x:Key="units_Piss Sound Start">Pissed(First)</sys:String>
+    <sys:String x:Key="units_Piss Sound End">Pissed(Last)</sys:String>
+    <sys:String x:Key="units_Yes Sound Start">Response(First)</sys:String>
+    <sys:String x:Key="units_Yes Sound End">Response(Last)</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Width">Width</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Height">Height</sys:String>
+    <sys:String x:Key="units_Addon Horizontal (X) Position">Horizontal</sys:String>
+    <sys:String x:Key="units_Addon Vertical (Y) Position">Vertical</sys:String>
+    <sys:String x:Key="units_Unit Size Left">Left</sys:String>
+    <sys:String x:Key="units_Unit Size Up">Up</sys:String>
+    <sys:String x:Key="units_Unit Size Right">Right</sys:String>
+    <sys:String x:Key="units_Unit Size Down">Down</sys:String>
+    <sys:String x:Key="units_Portrait">Portrait</sys:String>
+    <sys:String x:Key="units_Mineral Cost">Mineral</sys:String>
+    <sys:String x:Key="units_Vespene Cost">Vespene</sys:String>
+    <sys:String x:Key="units_Build Time">Time</sys:String>
+    <sys:String x:Key="units_Unknown1">Requirements start location</sys:String>
+    <sys:String x:Key="units_Staredit Group Flags">Group flags</sys:String>
+    <sys:String x:Key="units_Staredit Group Flags_V">Zerg|Terran|Protoss|Unit(Human)|Building|Construct Building|Independent unit|Neutral</sys:String>
+
+    <sys:String x:Key="units_Supply Provided">Provided unit supply</sys:String>
+    <sys:String x:Key="units_Supply Required">Required unit supply</sys:String>
+    <sys:String x:Key="units_Space Required">Required unit space</sys:String>
+    <sys:String x:Key="units_Space Provided">Provided unit space</sys:String>
+    <sys:String x:Key="units_Build Score">Build score</sys:String>
+    <sys:String x:Key="units_Destroy Score">Death score</sys:String>
+    <sys:String x:Key="units_Unit Map String">Map string</sys:String>
+    <sys:String x:Key="units_Broodwar Unit Flag">Brood War units</sys:String>
+    <sys:String x:Key="units_Staredit Availability Flags">Staredit ability flags</sys:String>
+    <sys:String x:Key="units_Staredit Availability Flags_V">None Natural units|Unit Material &amp; Palatte|Briefing|Player Settings|On all Broods|Set Doodad Status|None location trigger|Unit/Hero Setting|Location trigger|Broodwar|Cannot be used|Cannot be used|Cannot be used|Cannot be used|Cannot be used|Cannot be used</sys:String>
+
+
+
+
+    <sys:String x:Key="weapons_Label">Name</sys:String>
+    <sys:String x:Key="weapons_Graphics">Graphics</sys:String>
+    <sys:String x:Key="weapons_Unused">Unused</sys:String>
+    <sys:String x:Key="weapons_Target Flags">Target</sys:String>
+    <sys:String x:Key="weapons_Target Flags_V">Air|Ground|Mechanic|Bionic|None buildings|None Robotics|Terrain|Bionic/Mechanic|Possessed things</sys:String>
+
+    <sys:String x:Key="weapons_Minimum Range">Minimum range</sys:String>
+    <sys:String x:Key="weapons_Maximum Range">Maximum range</sys:String>
+    <sys:String x:Key="weapons_Damage Upgrade">Upgrade</sys:String>
+    <sys:String x:Key="weapons_Weapon Type">Weapon type</sys:String>
+    <sys:String x:Key="weapons_Weapon Type_V">Unknown|Explosive|Vibrate|Normal damage|Ignore armors(Psionic Strom)</sys:String>
+
+    <sys:String x:Key="weapons_Weapon Behavior">Weapon Behavior</sys:String>
+    <sys:String x:Key="weapons_Weapon Behavior_V">Targets on target|Follows target|Disappears on target|Psionic Storm Type|Apprats around target|Appears from target unit|Suicide attack|Projectile dribble
+|rotate around target|Stretch on max range</sys:String>
+
+    <sys:String x:Key="weapons_Remove After">Remaining times</sys:String>
+    <sys:String x:Key="weapons_Explosion Type">Explosion type</sys:String>
+    <sys:String x:Key="weapons_Explosion Type_V">None|Default|Splash on around target|Splash on target|Lockdown|Nuclear Missile|Parasite|Broodling|EMP Shockwave|Irridiate|Ensnair|Plague|Stasis Field|Dark Sworm|Consume|Yamato Gun|Restoration|Web|Acid|Mind Control|Feedback|Optical Flare|Maelstorm|Unknown 2|Air Splash</sys:String>
+
+    <sys:String x:Key="weapons_Inner Splash Range">Inside</sys:String>
+    <sys:String x:Key="weapons_Medium Splash Range">Center</sys:String>
+    <sys:String x:Key="weapons_Outer Splash Range">Outside</sys:String>
+    <sys:String x:Key="weapons_Damage Amount">Damage amount</sys:String>
+    <sys:String x:Key="weapons_Damage Bonus">+</sys:String>
+    <sys:String x:Key="weapons_Weapon Cooldown">Weapon Cooldown time</sys:String>
+    <sys:String x:Key="weapons_Damage Factor">Number of damage inviduals</sys:String>
+    <sys:String x:Key="weapons_Attack Angle">Effect angle</sys:String>
+    <sys:String x:Key="weapons_Launch Spin">Launch angle</sys:String>
+    <sys:String x:Key="weapons_Forward Offset">Location</sys:String>
+    <sys:String x:Key="weapons_Upward Offset">Height</sys:String>
+    <sys:String x:Key="weapons_Target Error Message">Error message</sys:String>
+    <sys:String x:Key="weapons_Icon">Icon</sys:String>
+
+
+
+    <sys:String x:Key="flingy_Sprite">Sprite</sys:String>
+    <sys:String x:Key="flingy_Speed">Highest speed</sys:String>
+    <sys:String x:Key="flingy_Acceleration">Acceleration</sys:String>
+    <sys:String x:Key="flingy_Halt Distance">Braking distance</sys:String>
+    <sys:String x:Key="flingy_Turn Radius">Rotation Radius</sys:String>
+    <sys:String x:Key="flingy_Unused">Iscript Mask</sys:String>
+    <sys:String x:Key="flingy_Movement Control">Movement control</sys:String>
+    <sys:String x:Key="flingy_Movement Control_V">Control as Flingy.dat file|Control as partially, Attack form|Control as Iscript.bin file</sys:String>
+
+
+
+    <sys:String x:Key="sprites_Image File">Image</sys:String>
+    <sys:String x:Key="sprites_Health Bar">Health bar</sys:String>
+    <sys:String x:Key="sprites_Unknown2">Unknown</sys:String>
+    <sys:String x:Key="sprites_Is Visible">Visible</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Image">Selected circle image</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Offset">Selected circle location</sys:String>
+
+
+
+    <sys:String x:Key="images_GRP File">GRP file</sys:String>
+    <sys:String x:Key="images_Gfx Turns">Graphic rotation</sys:String>
+    <sys:String x:Key="images_Clickable">Click is allowed</sys:String>
+    <sys:String x:Key="images_Use Full Iscript">All Iscripts</sys:String>
+    <sys:String x:Key="images_Draw If Cloaked">Display if clocked</sys:String>
+    <sys:String x:Key="images_Draw Function">Function</sys:String>
+    <sys:String x:Key="images_Draw Function_V">Draw as Default type|Unknown1|Enemy clocking(+Skilll)|Clocking as oneself(+skill)|Ally clocking|Clocking as oneself(+Skill)|Clocking as oneself(Draw only)|(Downloaded)|EMP Shockwave|Draw again|Shadow/Ocean(dark.pcx)|Unknown11|Warp Flashes(Downloaded from Editor)|Trun graphics to other direction (Frame)|Unknown14|hide graphic|Halluciation effect|Warp Flashes</sys:String>
+
+    <sys:String x:Key="images_Remapping">Color table</sys:String>
+    <sys:String x:Key="images_Remapping_V">Not draw as new one|ofire.pcx (Orange)|gfire.pcx (Green)|bfire.pcx (Blue)|bexpl.pcx (Blue2)|Special (Clock as oneself)|(crash)|(crash)|Unknown8 (?)|Unknown9 (?)</sys:String>
+
+    <sys:String x:Key="images_Iscript ID">Script ID</sys:String>
+    <sys:String x:Key="images_Shield Overlay">Shield Overlay</sys:String>
+    <sys:String x:Key="images_Attack Overlay">Attack Overlay</sys:String>
+    <sys:String x:Key="images_Damage Overlay">Damage overlay</sys:String>
+    <sys:String x:Key="images_Special Overlay">Special</sys:String>
+    <sys:String x:Key="images_Landing Dust Overlay">Landing Overlay</sys:String>
+    <sys:String x:Key="images_Lift-Off Overlay">Left-Off Overlay</sys:String>
+
+
+
+    <sys:String x:Key="upgrades_Mineral Cost Base">Mineral</sys:String>
+    <sys:String x:Key="upgrades_Mineral Cost Factor">미네랄</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Base">가스</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Factor">가스</sys:String>
+    <sys:String x:Key="upgrades_Research Time Base">시간</sys:String>
+    <sys:String x:Key="upgrades_Research Time Factor">시간</sys:String>
+    <sys:String x:Key="upgrades_Unknown6">알수없음</sys:String>
+    <sys:String x:Key="upgrades_Icon">Icon</sys:String>
+    <sys:String x:Key="upgrades_Label">Name</sys:String>
+    <sys:String x:Key="upgrades_Race">Brood</sys:String>
+    <sys:String x:Key="upgrades_Race_V">Zerg|Terran|Protoss|All</sys:String>
+
+    <sys:String x:Key="upgrades_Max. Repeats">Number of steps</sys:String>
+    <sys:String x:Key="upgrades_Broodwar Flag">Broodwar</sys:String>
+
+
+
+    <sys:String x:Key="techdata_Mineral Cost">Mineral</sys:String>
+    <sys:String x:Key="techdata_Vespene Cost">Gas</sys:String>
+    <sys:String x:Key="techdata_Resarch Time">Time</sys:String>
+    <sys:String x:Key="techdata_Energy Required">Energy</sys:String>
+    <sys:String x:Key="techdata_Unknown 4">Unknown</sys:String>
+    <sys:String x:Key="techdata_Icon">Icon</sys:String>
+    <sys:String x:Key="techdata_Label">Name</sys:String>
+    <sys:String x:Key="techdata_Race">Brood</sys:String>
+    <sys:String x:Key="techdata_Race_V">Zerg|Terran|Protoss|All</sys:String>
+
+    <sys:String x:Key="techdata_Unused">Unknown</sys:String>
+    <sys:String x:Key="techdata_Brood War Flag">Broodwar</sys:String>
+
+
+
+    <sys:String x:Key="orders_Label">Name</sys:String>
+    <sys:String x:Key="orders_Use Weapon Targeting">Use weapon target</sys:String>
+    <sys:String x:Key="orders_Unknown2">Use second order</sys:String>
+    <sys:String x:Key="orders_Unknown3">Unknown3</sys:String>
+    <sys:String x:Key="orders_Unknown4">Unknown4</sys:String>
+    <sys:String x:Key="orders_Unknown5">Unknown5</sys:String>
+    <sys:String x:Key="orders_Can Be Interrupted">Can cancel in middle</sys:String>
+    <sys:String x:Key="orders_Unknown7">Unknown7</sys:String>
+    <sys:String x:Key="orders_Can Be Queued">Use Order queue</sys:String>
+    <sys:String x:Key="orders_Unknown9">Unknown9</sys:String>
+    <sys:String x:Key="orders_Unknown10">Blocked by terrain</sys:String>
+    <sys:String x:Key="orders_Unknown11">Unknown11</sys:String>
+    <sys:String x:Key="orders_Unknown12">Unknown12</sys:String>
+    <sys:String x:Key="orders_Targeting">Select target</sys:String>
+    <sys:String x:Key="orders_Energy">Energy</sys:String>
+    <sys:String x:Key="orders_Animation">Animation</sys:String>
+    <sys:String x:Key="orders_Animation_V">Default|Death|Ground attack - Default|Air attack - Default|Unused1|Ground attack - Repeat|Air attack - Repeat|Use Special Ability |Ground attack - Return|Air attack - Return|Unknown2|Walk|Walk - Return|Special Status1|Special Status2|Construction has finished - At near|Construction has finished|Building Landing|Lift-off building|Creating|Creating - Return|Warp|Unknown3|Default - Staredit|Cannot be used - Disable|Burrow|Unburrow|Can be used - Enable|Normally/Default Animation</sys:String>
+
+    <sys:String x:Key="orders_Highlight">Activation buton</sys:String>
+    <sys:String x:Key="orders_Unknown17">Unknown</sys:String>
+    <sys:String x:Key="orders_Obscured Order">Unclear order</sys:String>
+
+
+    <!--ToolTip-->
+    <sys:String x:Key="units_Graphics_ToolTip">Unit’s fly information.</sys:String>
+    <sys:String x:Key="units_Subunit 1_ToolTip">Unit’s main subunit.</sys:String>
+    <sys:String x:Key="units_Subunit 2_ToolTip">Unit’s secondary subunit. Cannot be used.</sys:String>
+    <sys:String x:Key="units_Infestation_ToolTip">List of changing units If queen infested a thing, Only 106-201 (Building) exist.</sys:String>
+    <sys:String x:Key="units_Construction Animation_ToolTip">Set graphics if unit is being constructed. Graphics does not appear if this value is 0.</sys:String>
+    <sys:String x:Key="units_Unit Direction_ToolTip">Set view direction if unit is created.A value from 0 to 31 creates then looks at specific direction. If a value is 32, it sees random direction if it creates..</sys:String>
+    <sys:String x:Key="units_Shield Enable_ToolTip">It activates unit’s shield. Not only it can be used for Protoss,  It can be used for all units. Terran and Zerg buildings’ shield does not go up while these being constructed.</sys:String>
+    <sys:String x:Key="units_Shield Amount_ToolTip">Unit’s amound of shield point. HP does not go down as shield point exist.</sys:String>
+    <sys:String x:Key="units_Hit Points_ToolTip">Unit’s HP. Amount from "9999" can be allowed on game but it does not be displayed.</sys:String>
+    <sys:String x:Key="units_Elevation Level_ToolTip">Unit’s height while unit’s movement.You can make a unit to be moved like air units. However, if this unit is not an air unit, it can be ground unit for special ability (Such as recall) and Hit formula. As a value goes up, unit can be put on higher place not like terrain or other unit.</sys:String>
+    <sys:String x:Key="units_Unknown (old Movement)_ToolTip">This movement control related data came from SC beta version. It does not be used now..</sys:String>
+    <sys:String x:Key="units_Rank/Sublabel_ToolTip">Set unit’s rank</sys:String>
+    <sys:String x:Key="units_Comp AI Idle_ToolTip">Being ordered when computer’s unit does not do anything.</sys:String>
+    <sys:String x:Key="units_Human AI Idle_ToolTip">Being ordered when Human’s unit does not do anything.</sys:String>
+    <sys:String x:Key="units_Return to Idle_ToolTip">An order that makes unit does not do anything after previous order.</sys:String>
+    <sys:String x:Key="units_Attack Unit_ToolTip">An prosecute order that unit follows order as being attack target. If target is an enemy, right click can be used.</sys:String>
+    <sys:String x:Key="units_Attack Move_ToolTip">An prosecute order that owner makes attack order on terrain.</sys:String>
+    <sys:String x:Key="units_Ground Weapon_ToolTip">A weapon that can be used for attacking ground units.</sys:String>
+    <sys:String x:Key="units_Max Ground Hits_ToolTip">A maximum counts that unit can damage on target when unit attacks with ground target weapon.</sys:String>
+    <sys:String x:Key="units_Air Weapon_ToolTip">A weapon when attacking air units.</sys:String>
+    <sys:String x:Key="units_Max Air Hits_ToolTip">유닛이 대상을 공중 대상 무기로 공격할 때마다 피해를 입힐 수 있는 최대 횟수.</sys:String>
+    <sys:String x:Key="units_AI Internal_ToolTip">유닛의 내부 인공지능을 지정합니다. ‘Strategic Suicide Mission’ AI 명령을 무시하게 하거나 Guard 명령 상태 (타겟 소멸 시 원래 자리로 귀환) 를 발생시키지 않게 할 수 있습니다.</sys:String>
+
+
+    <sys:String x:Key="units_Special Ability Flags_ToolTip">유닛의 특수한 고유 능력 데이터입니다. 체력 자동회복, 영구 클로킹, 공중유닛화 등을 체크할 수 있습니다.</sys:String>
+    <sys:String x:Key="units_Target Acquisition Range_ToolTip">캐리어의 인터셉터가 나오거나 리버의 스캐럽이 발사되는 거리. 근접유닛의 공격가능거리와 메딕의 치료가능거리를 결정하기도 합니다. 값을 0으로 두면 게임에서 기존 무기 데이터를 거리 데이터로 사용합니다.  여기서 거리값 1은 기존 무기 데이터에서 거리값 2와 같습니다.</sys:String>
+    <sys:String x:Key="units_Sight Range_ToolTip">시야가 보이는 거리(단위 1칸). &lt;5&gt;11보다 큰 값은 게임이 다운됩니다!&lt;0&gt;</sys:String>
+    <sys:String x:Key="units_Armor Upgrade_ToolTip">유닛의 방어구가 어떤 방어구 업그레이드의 영향을 받는 지 지정할 수 있습니다.</sys:String>
+    <sys:String x:Key="units_Unit Size_ToolTip">폭발형과 진동형의 공격형식으로 받을 피해를 계산할 때 사용됩니다. 폭발형 : 소형에게 50%, 중형에게 75%, 대형에게 100%의 피해를 입힐 수 있습니다. 진동형 : 소형에게 100%, 중형에게 50%, 대형에게 25%의 피해를 입힐 수 있습니다. 독립적 크기는 방어력이나 유닛의 형식에 관계없이 매 2번째 피격마다 1의 피해를 입습니다. 일부 스킬의 피해는 그대로 적용됩니다. 예를 들어 플래이그의 피해값은 그대로 적용되지만 이래디에잇은 그렇지 않습니다.</sys:String>
+    <sys:String x:Key="units_Armor_ToolTip">유닛의 기본 방어력입니다. 방어력 만큼 모든 데미지가 줄어듭니다. 방어구가 공격 데미지보다 높으면 유닛은 "독립형" 타입 시 적용되는 데미지가 들어옵니다.</sys:String>
+    <sys:String x:Key="units_Right-click Action_ToolTip">유닛을 선택한 상태에서 특정 지점 혹은 대상에 우클릭을 하였을 경우 취하는 행위를 선택할 수 있습니다. 0 : 유저가 명령을 내릴 수 없으며 부가사거리 내 적이 들어올 경우 자동으로 공격합니다. 1 : 명령을 내릴 수 있으며 자동으로 공격도 합니다. 2 : 우클릭을 하면 이동만 합니다. 공격은 유닛 버튼셋을 이용하여 강제 공격이 가능합니다. 3: 우클릭을 할 경우 공격만 하고 이동하지 않습니다. 이동하여 공격하지도 않습니다. 4: 1의 특성을 가지는 데에 자원도 캡니다. 5: 1의 특성을 지니며 자원을 캐기도 하며 수리도 합니다. 6 : 우클릭을 하더라도 어떠한 명령도 받지 않고 어떠한 명령도 수행하지 않습니다.</sys:String>
+    <sys:String x:Key="units_Ready Sound_ToolTip">유닛이 생산되었을 때 재생될 사운드를 정합니다.</sys:String>
+    <sys:String x:Key="units_What Sound Start_ToolTip">소유자가 유닛을 선택했을 때 재생되는 “왜 불러?”라는 의미의 첫번째 소리를 정합니다. 이 값을 0으로 두면 소리가 나오지 않습니다.</sys:String>
+    <sys:String x:Key="units_What Sound End_ToolTip">소유자가 유닛을 선택했을 때 재생되는 “왜 불러?” 라는 의미의 마지막 소리를 정합니다. 이 값을 0으로 두면 소리가 나오지 않습니다.</sys:String>
+    <sys:String x:Key="units_Piss Sound Start_ToolTip">What Sound End 소리가 재생된 이후 유저가 다시 해당 유닛을 선택하였을 경우 내는 유닛이 짜증내는 소리 번호의 시작점입니다. 0으로 두면 소리가 나오지 않습니다.</sys:String>
+    <sys:String x:Key="units_Piss Sound End_ToolTip">What Sound End 소리가 재생된 이후 유저가 다시 해당 유닛을 선택하였을 경우 내는 유닛이 짜증내는 소리 번호의 마지막점입니다. 0으로 두면 소리가 나오지 않습니다.</sys:String>
+    <sys:String x:Key="units_Yes Sound Start_ToolTip">소유자가 유닛에게 명령을 내렸을 때 재생되는 “알았다”라는 의미의 첫번째 소리를 재생합니다. 이 값을 0으로 두면 소리가 나오지 않습니다.</sys:String>
+    <sys:String x:Key="units_Yes Sound End_ToolTip">소유자가 유닛에게 명령을 내렸을 때 재생되는 “알았다”라는 의미의 마지막 소리를 재생합니다. 이 값을 0으로 두면 소리가 나오지 않습니다.</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Width_ToolTip">스타에디터 내 녹색 직사각형 배치공간의 너비(픽셀단위). 스타에디터에서는 건물에만 단위 치수대신에  사용됩니다.</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Height_ToolTip">스타에디터 내 녹색 직사각형 배치공간의 높이(픽셀단위)를 정합니다. 스타에디터에서 건물에만 단위 치수대신에  사용됩니다.</sys:String>
+    <sys:String x:Key="units_Addon Horizontal (X) Position_ToolTip">애드온이 놓일 수평(X축)위치를 정합니다. 유닛 아이디가 106-201인 건물에만 존재합니다.</sys:String>
+    <sys:String x:Key="units_Addon Vertical (Y) Position_ToolTip">애드온이 놓일 수직(Y축)위치를 정합니다. 유닛 아이디가 106-201인 건물에만 존재합니다.</sys:String>
+    <sys:String x:Key="units_Unit Size Left_ToolTip">해당 위치에서 왼쪽을 차지하는 크기를 정합니다. 픽셀단위로 정할 수 있습니다.</sys:String>
+    <sys:String x:Key="units_Unit Size Up_ToolTip">해당 위치에서 위을 차지하는 크기를 정합니다. 픽셀단위로 정할 수 있습니다</sys:String>
+    <sys:String x:Key="units_Unit Size Right_ToolTip">해당 위치에서 오른쪽을 차지하는 크기를 정합니다. 픽셀단위로 정할 수 있습니다</sys:String>
+    <sys:String x:Key="units_Unit Size Down_ToolTip">해당 위치에서 아래쪽을 차지하는 크기를 정합니다. 픽셀단위로 정할 수 있습니다</sys:String>
+    <sys:String x:Key="units_Portrait_ToolTip">유닛의 초상화를 정합니다. 현재 값에 110을 더해서 초상화를 바꿀 수 있습니다. 말하고있는 초상화를 기본 초상화로 설정하지 마십시오. 고스트와 벌쳐의 경우에는 예외로 사용할 수 있습니다.</sys:String>
+    <sys:String x:Key="units_Mineral Cost_ToolTip">생산에 필요한 미네랄 값</sys:String>
+    <sys:String x:Key="units_Vespene Cost_ToolTip">생산에 필요한 베스핀 가스 값</sys:String>
+    <sys:String x:Key="units_Build Time_ToolTip">건설시간을 정합니다. 게임에서 1초 : Fastest-24 ~ Slowest-6.이 값을 0으로 두지 마십시오.</sys:String>
+    <sys:String x:Key="units_Unknown1_ToolTip">사용되지 않습니다.</sys:String>
+    <sys:String x:Key="units_Staredit Group Flags_ToolTip">속할 종족을 정합니다. 인구값이 정해진 종족으로 적용됩니다.</sys:String>
+    <sys:String x:Key="units_Supply Provided_ToolTip">인구 수용가능값 증가량을 정합니다. 0.5의 인구 수용량은 표기 시에 반올림 되지만 실제 값은 0.5로 계산됩니다.</sys:String>
+    <sys:String x:Key="units_Supply Required_ToolTip">훈련이나 건설 시에 필요한 인구 요구값을 정합니다. 0.5의 인구값은 표기 시에 반올림 되지만 실제 값은 0.5로 계산됩니다.</sys:String>
+    <sys:String x:Key="units_Space Required_ToolTip">유닛이 적재되었을 때 차지하는 공간의 크기를 정합니다. 최대 적재량을 넘어서 적재될 수는 없습니다. 이 값을 바꿔도 유닛의 와이어 프레임의 크기는 바뀌지 않습니다.</sys:String>
+    <sys:String x:Key="units_Space Provided_ToolTip">유닛의 최대 적재량을 정합니다. 적재할 수 있는 유닛의 수가 아닌 적재 가능 공간의 크기입니다. 적재되는 유닛에 따라 차지하는 공간의 크기가 다를 수 있습니다.</sys:String>
+    <sys:String x:Key="units_Build Score_ToolTip">유닛을 생산,건설하여 얻는 점수의 양. 게임이 끝나고 결과화면에서 총합이 나타납니다.</sys:String>
+    <sys:String x:Key="units_Destroy Score_ToolTip">유닛을 파괴하여 얻는 점수의 양을 정합니다. 게임이 끝나고 결과화면에서 총합이 나타납니다. 이 값은 목표 선정 인공지능에 사용됩니다. 파괴점수가 더 높은 유닛이 목표로 먼저 선정됩니다.</sys:String>
+    <sys:String x:Key="units_Unit Map String_ToolTip">해당 유닛의 이름 정보를 몇 번째 스트링에서 가져오는 지 나타냅니다.</sys:String>
+    <sys:String x:Key="units_Broodwar Unit Flag_ToolTip">해당 유닛을 브루드워 확장팩에서만 사용할 수 있게 합니다.</sys:String>
+    <sys:String x:Key="units_Staredit Availability Flags_ToolTip">유닛의 에디터 상 특성 데이터를 지정할 수 있습니다. 비 자연물은 두데드의 여부를 나타냅니다. 유닛기제 &amp; 팔레트는 유닛의 팔레트를 지형에 맞게 바꾸는지의 여부입니다. 브리핑은 브리핑 화면에 유닛의 얼굴을 나타낼 수 있는지의 여부입니다. 플레이어 세팅은 플레이어별로 유닛의 생성 가능/불가능 세팅을 지정할 수 있는지의 여부입니다. 두다드 상태설정은 Set Doodad State 트리거의 영향을 받는지 여부입니다. 로케이션 트리거는 로케이션을 사용하는 트리거의 영향을 받는지의 여부입니다. 브루드워는 체크하지 않을 시 무조건 해당 유닛을 오리지널 데이터로 나타내도록 합니다.</sys:String>
+
+
+    <sys:String x:Key="weapons_Label_ToolTip">게임 내에서 마우스 포인터를 아이콘 위에 올려놓았을 때 표기될 무기의 이름을 정합니다.</sys:String>
+    <sys:String x:Key="weapons_Graphics_ToolTip">무기로 사용될 메인 그래픽을 정합니다. 이 값을 0으로 두면 그래픽이 없는 것으로 처리됩니다.</sys:String>
+    <sys:String x:Key="weapons_Unused_ToolTip">아무 기능이 없습니다. 무기와 함께 사용된 기술과 관련이 있다고 여겨졌으나 디자이너의 힌트로 드러났습니다.</sys:String>
+    <sys:String x:Key="weapons_Target Flags_ToolTip">스킬 혹은 공격의 대상으로 지정될 수 있는 유닛의 특징을 정합니다.</sys:String>
+    <sys:String x:Key="weapons_Minimum Range_ToolTip">공격 가능한 최소 거리를 정합니다.</sys:String>
+    <sys:String x:Key="weapons_Maximum Range_ToolTip">공격 가능한 최대 거리를 정합니다.</sys:String>
+    <sys:String x:Key="weapons_Damage Upgrade_ToolTip">업그래이드로 가해질 피해량에 추가될 값을 정합니다.</sys:String>
+    <sys:String x:Key="weapons_Weapon Type_ToolTip">피해의 형식을 정합니다. 폭발형, 진동형은 대상의 크기분류에 따라 가하는 피해량이 다릅니다. 일반형은 대형, 중형, 소형에 100%의 피해를 입힐 수 있습니다. 폭발형은 대형에 100%, 중형에 75%, 소형에 50%의 피해를 입힐 수 있습니다. 진동형은 대형에 25%, 중형에 50%, 소형에 100%피해를 입힐 수 있습니다. 독립적인 피해방식은 같은 대상을 짝수로 때릴 때 마다 1의 피해를 입힙니다.</sys:String>
+    <sys:String x:Key="weapons_Weapon Behavior_ToolTip">무기가 어떤 식으로 대상을 공격할 지 움직일 방식을 결정합니다.</sys:String>
+    <sys:String x:Key="weapons_Remove After_ToolTip">무기 스프라이트가 대상을 공격하지 않고 유지될 수 있는 시간. 게임에서 1초 : Fastest-24 ~ Slowest-6.</sys:String>
+    <sys:String x:Key="weapons_Explosion Type_ToolTip">대형에 100%, 중형에 75%, 소형에 50%의 피해를 입힐 수 있습니다.</sys:String>
+    <sys:String x:Key="weapons_Inner Splash Range_ToolTip">대상이 아닌 것에 100%의 피해를 입힐 수 있는 범위를 정합니다. 핵, 원방형 스플래쉬, 일방형 스플래쉬, 공중 스플래쉬인 폭발형에서만 적용됩니다.</sys:String>
+    <sys:String x:Key="weapons_Medium Splash Range_ToolTip">대상이 아닌 것에 50%의 피해를 입힐 수 있는 범위. 핵, 원방형 스플래쉬, 일방형 스플래쉬, 공중 스플래쉬인 폭발형에서만 적용됩니다</sys:String>
+    <sys:String x:Key="weapons_Outer Splash Range_ToolTip">대상이 아닌 것에 25%의 피해를 입힐 수 있는 범위. 핵, 원방형 스플래쉬, 일방형 스플래쉬, 공중 스플래쉬인 폭발형에서만 적용됩니다</sys:String>
+    <sys:String x:Key="weapons_Damage Amount_ToolTip">대상을 공격할 때마다 가해질 기본 피해량.</sys:String>
+    <sys:String x:Key="weapons_Damage Bonus_ToolTip">매 업그레이드 단계마다 기본 피해량에 추가될 피해값.</sys:String>
+    <sys:String x:Key="weapons_Weapon Cooldown_ToolTip">다음 공격까지 기다릴 시간. 게임에서 1초 : Fastest-24 ~ Slowest-6. 이 값을 0으로 두지 마십시오.</sys:String>
+    <sys:String x:Key="weapons_Damage Factor_ToolTip">무기의 피해값이 무기의 실제 피해값에 이 값을 곱한 값이 표기됩니다. 곱한 값이 65535를 넘어 표기값이 0으로 나타나도 실제 피해값은 유지됩니다.</sys:String>
+    <sys:String x:Key="weapons_Attack Angle_ToolTip">유닛 그래픽을 더이상 회전시키지 않고 무기를 사용할 수 있는 각도를 정합니다. 128 = 180˚</sys:String>
+    <sys:String x:Key="weapons_Launch Spin_ToolTip">무기의 스프라이트가 회전된 상태로 생성될 각도를 정합니다. 128 = 180˚</sys:String>
+    <sys:String x:Key="weapons_Forward Offset_ToolTip">공격 유닛의 앞쪽에서 무기 스프라이트가 생성될 위치(픽셀단위)를 정합니다. 유닛이 바라보는 방향에 따라 앞쪽이 결정됩니다.</sys:String>
+    <sys:String x:Key="weapons_Upward Offset_ToolTip">공격 유닛의 위쪽에서 무기 스프라이트가 생성될 위치(픽셀단위)를 정합니다. 방향과 관계없이 유닛의 위에서 무기 스프라이트가 생성됩니다.</sys:String>
+    <sys:String x:Key="weapons_Target Error Message_ToolTip">현재의 무기로 공격할 수 없는 대상을 공격대상으로 지정하였을 때 표기되는 메시지를 정합니다.</sys:String>
+    <sys:String x:Key="weapons_Icon_ToolTip">무기에 사용될 아이콘.</sys:String>
+
+
+    <sys:String x:Key="flingy_Sprite_ToolTip">해당 비행정보(외형)가 이용하는 스프라이트입니다. 확인을 누를 경우 연결된 스프라이트 탭으로 이동합니다.</sys:String>
+    <sys:String x:Key="flingy_Speed_ToolTip">해당 비행정보(외형)의 최고 속도를 의미합니다.</sys:String>
+
+    <sys:String x:Key="flingy_Acceleration_ToolTip">해당 비행정보(외형)의 가속도를 의미합니다. 해당 값이 높을 수록 더 빠르게 최고속도를 내어 날 수 있습니다.</sys:String>
+    <sys:String x:Key="flingy_Halt Distance_ToolTip">해당 비행정보(외형)이 멈추기 시작하는 거리값을 의미합니다. 해당 값이 높을 수록 목적지에서 더 먼곳에서부터 속도를 늦추기 시작합니다. 가속도의 영향을 받으며 서로 적절히 맞아야 합니다.</sys:String>
+    <sys:String x:Key="flingy_Turn Radius_ToolTip">해당 비행정보(외형)의 선회 반경을 의미합니다. 해당 값이 클 수록 다른 방향으로 선회할 때 더 각지게 방향을 틉니다. 값이 작으면 원하는 방향으로 선회할 때 천천히 둥글게 회전합니다. 값이 매우 클 경우 제자리를 맴돌 수 있습니다. 0일 경우 게임이 튕깁니다.</sys:String>
+    <sys:String x:Key="flingy_Unused_ToolTip">베타버젼 당시 사용되는 데이터입니다. 현재 사용되지 않습니다.</sys:String>
+    <sys:String x:Key="flingy_Movement Control_ToolTip">해당 비행정보(외형)을 제어하는 형태를 의미합니다. 0 : Flingy.dat 해당 비행정보가 위에서 설정 가능한 최고속도, 가속도, 멈추는 거리 등을 따르게 합니다. 1 : 무기 형태 해당 비행정보가 위에서 설정한 사항들을 따르지만 일부는 Iscript에서 적용시킨 사항을 따르게 합니다. 2 : Iscript.bin 이미지 탭에서 설정해 둔 IscriptID의 스크립트 내부에서 설정한 속도를 따르게 합니다. 위에서 설정한 것들은 무시합니다.</sys:String>
+
+
+    <sys:String x:Key="sprites_Image File_ToolTip">해당 스프라이트가 참조하는 이미지를 의미합니다. 확인을 누를 경우 해당하는 이미지 탭으로 넘어갑니다.</sys:String>
+    <sys:String x:Key="sprites_Health Bar_ToolTip">해당 스프라이트를 선택하였을 경우 나타나는 체력바의 크기를 나타냅니다.</sys:String>
+    <sys:String x:Key="sprites_Unknown2_ToolTip">활용되지 않는 데이터입니다.</sys:String>
+    <sys:String x:Key="sprites_Is Visible_ToolTip">해당 스프라이트가 맵 상에 표시되는 지의 여부를 선택합니다.</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Image_ToolTip">해당 스프라이트를 선택하였을 때 나타나는 선택원의 이미지를 나타냅니다. 크기와 형태에 따라 다릅니다.</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Offset_ToolTip">해당 스프라이트를 선택하였을 때 나타나는 선택원의 위아래 위치를 나타냅니다. 크기가 클 수록 선택원이 아래로 내려갑니다.</sys:String>
+
+
+    <sys:String x:Key="images_GRP File_ToolTip">Display that current image refer to GRP files. Is not work</sys:String>
+    <sys:String x:Key="images_Gfx Turns_ToolTip">Check that current image is enable to left and right inversion.</sys:String>
+    <sys:String x:Key="images_Clickable_ToolTip">Check that current image unit is enable to click.</sys:String>
+    <sys:String x:Key="images_Use Full Iscript_ToolTip">Check that current image is refer to Iscript and active all script contents.</sys:String>
+    <sys:String x:Key="images_Draw If Cloaked_ToolTip">Check that current image become cloaking (invisible) state to display shape.</sys:String>
+    <sys:String x:Key="images_Draw Function_ToolTip">Select that current image displayed type 0 : Display GRP file shown. 1 : Disable 2 : Display units’ silhouette, it similar enemy cloaking shown. 3 : Display to dim image like your own units’ cloaking shown 4 : Same as 3rd. 5 : Same as 3rd. 6 : Similar like 3rd, but it is not cloaked status. 7 : Display image like Unpowered state 8 : Display image like EMP shockwave’s special effect, displayed white color. 9 : Apply remapping color. Is not work. 10 : Display darker image like shadow 11 : Disable 12 : Warped effect that end of Protoss building construction . 13 : Display left and right inversion. 14 : Disable 15 : Graphics become invisible, indicate with green edge. Edge is always visible. 16 : Display blue like hallucinated units, it is not hallucination units. 17 : Same as 12nd.</sys:String>
+    <sys:String x:Key="images_Remapping_ToolTip">In above display type is  9 : Applicable color overlay when remapping (Some part of image is not totally over painted.) 0 : Display default image. 1 : Paint over image into yellow palette. 2 : Paint over image into green palette. 3 : Paint over image into blue palette. (Darker blue) 4 : Paint over image into blue palette. (Pale blue) 5 : Turn to dim color like cloak effect. 6~9 : Crashed Starcraft.</sys:String>
+    <sys:String x:Key="images_Iscript ID_ToolTip">Image that refer to Iscript ID.</sys:String>
+    <sys:String x:Key="images_Shield Overlay_ToolTip">Indicates the shield hit image position data when current shield unit has been attack.</sys:String>
+    <sys:String x:Key="images_Attack Overlay_ToolTip">Indicates the position data when current unit is attack overlay special attack effects.</sys:String>
+    <sys:String x:Key="images_Damage Overlay_ToolTip">Indicates the position data when current unit has been attacked overlay special damaged effects.</sys:String>
+    <sys:String x:Key="images_Special Overlay_ToolTip">Indicates the position data when current unit pick up Powerups or have additional units.</sys:String>
+    <sys:String x:Key="images_Landing Dust Overlay_ToolTip">Indicates the position data when current unit do landing. Used in Terran buildings.</sys:String>
+    <sys:String x:Key="images_Lift-Off Overlay_ToolTip">Indicates the position data when current unit do lift off. Used in Terran buildings</sys:String>
+
+
+
+    <sys:String x:Key="upgrades_Mineral Cost Base_ToolTip">Require Mineral cost to research upgrade.</sys:String>
+    <sys:String x:Key="upgrades_Mineral Cost Factor_ToolTip">Additional Mineral cost per upgrade.</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Base_ToolTip">Require Vespene Gas cost to research upgrade.</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Factor_ToolTip">Additional Vespene Gas cost per upgrade</sys:String>
+    <sys:String x:Key="upgrades_Research Time Base_ToolTip">Time to complete research upgrade.</sys:String>
+    <sys:String x:Key="upgrades_Research Time Factor_ToolTip">Additional time to complete per upgrade</sys:String>
+    <sys:String x:Key="upgrades_Unknown6_ToolTip">Unused data</sys:String>
+    <sys:String x:Key="upgrades_Icon_ToolTip">Current upgrade icon. displayed in researching.</sys:String>
+    <sys:String x:Key="upgrades_Label_ToolTip">Current upgrade name. different that name in buttonset.</sys:String>
+    <sys:String x:Key="upgrades_Race_ToolTip">Display upgrade belonging race.</sys:String>
+    <sys:String x:Key="upgrades_Max. Repeats_ToolTip">Maximum upgrade levels</sys:String>
+    <sys:String x:Key="upgrades_Broodwar Flag_ToolTip">Check if upgrade is only for BroodWar. It will not affect anything.</sys:String>
+
+
+    <sys:String x:Key="techdata_Mineral Cost_ToolTip">Require Mineral cost to research tech.</sys:String>
+    <sys:String x:Key="techdata_Vespene Cost_ToolTip">Require Vespene Gas cost to research tech.</sys:String>
+    <sys:String x:Key="techdata_Resarch Time_ToolTip">Time to complete research tech.</sys:String>
+    <sys:String x:Key="techdata_Energy Required_ToolTip">Require energy cost to cast tech.</sys:String>
+    <sys:String x:Key="techdata_Unknown 4_ToolTip">Unused data</sys:String>
+    <sys:String x:Key="techdata_Icon_ToolTip">Current tech icon. displayed in researching.</sys:String>
+    <sys:String x:Key="techdata_Label_ToolTip">Current tech name. different that name in buttonset.</sys:String>
+    <sys:String x:Key="techdata_Race_ToolTip">Display tech belonging race.</sys:String>
+    <sys:String x:Key="techdata_Unused_ToolTip">Unused data</sys:String>
+    <sys:String x:Key="techdata_Brood War Flag_ToolTip">Check if tech is only for BroodWar. It will not affect anything.</sys:String>
+
+
+    <sys:String x:Key="orders_Label_ToolTip">Current order name. different that name in buttonset.</sys:String>
+    <sys:String x:Key="orders_Use Weapon Targeting_ToolTip">Check that selected weapons’ acquired target</sys:String>
+    <sys:String x:Key="orders_Unknown2_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Unknown3_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Unknown4_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Unknown5_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Can Be Interrupted_ToolTip">Check that player can be cancel current order.</sys:String>
+    <sys:String x:Key="orders_Unknown7_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Can Be Queued_ToolTip">Check that player can be queue this order</sys:String>
+    <sys:String x:Key="orders_Unknown9_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Unknown10_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Unknown11_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Unknown12_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Targeting_ToolTip">Check that specified weapon’s enable target status. for example if you specify ‘Maelstorm’ then apply Maelstorm’s target data. if Maelstrom is not working to flying units, then current order target can’t be flying units.</sys:String>
+    <sys:String x:Key="orders_Energy_ToolTip">Display Tech/Magic index number that require energy cost to execute order.If this place ‘Recall’, it requires enough energy cost to cast Recall</sys:String>
+    <sys:String x:Key="orders_Animation_ToolTip">Order that displaying Iscript parts. It isn’t totally working when modified Iscript.</sys:String>
+    <sys:String x:Key="orders_Highlight_ToolTip">Button image when enabled.</sys:String>
+    <sys:String x:Key="orders_Unknown17_ToolTip">Unknown data that can be effect on various things.</sys:String>
+    <sys:String x:Key="orders_Obscured Order_ToolTip">Order that check if blocked by all kinds of obstacles and doodads.</sys:String>
+
+
+    <!--FG-->
+    <sys:String x:Key="FG_StatusInfor1">Units Type</sys:String>
+    <sys:String x:Key="FG_StatusInfor1_V">Building|Unit|Hanger Units|Transport Unit|Control provided transport Units|Powerups Unit|Mutate Unit(Egg)|Meld Unit(Dark Archon)|Can’t be select(Nuclear missile,Scanner Sweep)|Scarab, Map Revealer|UnusedProtossBuilding</sys:String>
+    <sys:String x:Key="FG_Status">Status</sys:String>
+    <sys:String x:Key="FG_Display">Display</sys:String>
+
+    <sys:String x:Key="FG_WireFrame">Standard</sys:String>
+    <sys:String x:Key="FG_GrpFrame">in Multi selection</sys:String>
+    <sys:String x:Key="FG_TranFrame">in Transport</sys:String>
+
+
+    <!--Require-->
+    <sys:String x:Key="RequireText">(Setting Require Unit)|Or|Setting Target Unit|Setting Require Units|Setting Require Addon|Building on ground|Building on air|Not Train or Mutate|Not Building Addon|Not Researching Tech|Not Researching Upgrade|Is not Construct|Is not attached any Addon|Don’t have exit canal|Have any transport|Researched|Don’t have reloaded Nuclear|Not Borrow|Can be Attack|Enable to Rally point|Can be Move|Have any Weapon|Is Worker|Can be Lift|Can be Transport|Powerups Units|Enable to attached Units|Have Spider Mine|Enable to Hero Units|Can be Hold|Enable to Hallucinated|Upgrade_Lv-1 Require|Upgrade_Lv-2 Require|Upgrade_Lv-3 Require|Grey|Blank|Only Brood War|Setting require Tech|is Burrowed|조건 분기</sys:String>
+    <sys:String x:Key="RequireSubListEnd">End Upgrade Require</sys:String>
+
+
+    <sys:String x:Key="FG_DefaultUse">Default</sys:String>
+    <sys:String x:Key="FG_DontUse">Don’t Use</sys:String>
+    <sys:String x:Key="FG_AlwaysUse">Always Use</sys:String>
+    <sys:String x:Key="FG_AlwaysCurrentUse">Current Use</sys:String>
+    <sys:String x:Key="FG_CustomUse">User Custom</sys:String>
+
+    <sys:String x:Key="FG_DefaultUseToolTip">All codes makes Default.</sys:String>
+    <sys:String x:Key="FG_DontUseToolTip">All codes makes Don’t Use.</sys:String>
+    <sys:String x:Key="FG_AlwaysUseToolTip">All codes makes Always Use.</sys:String>
+    <sys:String x:Key="FG_AlwaysCurrentUseToolTip">All codes makes Current Use.</sys:String>
+    <sys:String x:Key="FG_CustomUseToolTip">User Custom</sys:String>
+
+    <!--색 코드-->
+    <sys:String x:Key="ColorNames">Using Default Color|Pale Blue|Yellow|White|Grey|Red|Green|Red (P1)|NULL|NULL|&lt;1&gt;Invisible|&lt;1&gt;Remove beyond|NULL|Blue (P2)|Teal (P3)|Purple (P4)|Orange (P5)|Right Align|Center Align|&lt;1&gt;Invisible|Brown (P6)|white (P7)|Yellow (P8)|Green (P9)|Brighter Yellow (P10)|Cyan|Pinkish (P11)|Dark Cyan (P12)|Greygreen|BlueGrey|Truquoise</sys:String>
+
+    <!--버튼셋-->
+    <sys:String x:Key="buttonSetEtcGroup">Etc Button</sys:String>
+    <sys:String x:Key="buttonSet">Buttonset</sys:String>
+    <sys:String x:Key="button">Button Data</sys:String>
+    <sys:String x:Key="BtnList">Button List</sys:String>
+    <sys:String x:Key="BtnInfor">Basic Info</sys:String>
+    <sys:String x:Key="BtnPreview">Preview</sys:String>
+    <sys:String x:Key="BtnWork">Button Work</sys:String>
+
+
+    <sys:String x:Key="BtnLoc">Location</sys:String>
+    <sys:String x:Key="BtnIcon">Icon</sys:String>
+    <sys:String x:Key="BtnEnaStr">Enable</sys:String>
+    <sys:String x:Key="BtnDisStr">Disable</sys:String>
+    <sys:String x:Key="BtnCon">Condition</sys:String>
+    <sys:String x:Key="BtnConVal">Condition Value</sys:String>
+    <sys:String x:Key="BtnAct">Action</sys:String>
+    <sys:String x:Key="BtnActVal">Action Value</sys:String>
+
+    <sys:String x:Key="BtnNewString">Value</sys:String>
+
+    <sys:String x:Key="BtnNewIndex">Basic Command|Flying Building Command|Burrow Command|Gather Command|Transport Command|Empty Button|Train Unit|Train Unit - Mutation|Upgrade Research|Tech Research|Activate Tech|Mutation Building|Build -  Mutation|Build - Terran|Build - Protoss|Build - Addon</sys:String>
+
+
+    <!--트리거에디터-->
+    <sys:String x:Key="NewFolder">New Folder</sys:String>
+    <sys:String x:Key="NewEpsScript">New epScript File</sys:String>
+    <sys:String x:Key="NewPyScript">New eudplib File</sys:String>
+    <sys:String x:Key="Folder">Folder</sys:String>
+    <sys:String x:Key="EpsScriptFile">epScript File</sys:String>
+    <sys:String x:Key="PyScriptFile">eudplib File</sys:String>
+    <sys:String x:Key="FIleName">File name</sys:String>
+    <sys:String x:Key="CreateDate">Created Date</sys:String>
+    <sys:String x:Key="LastDate">Last Editted</sys:String>
+
+    <!--트리거에디터 설정-->
+    <sys:String x:Key="TE_CompileSetting">Setting Compile</sys:String>
+    <sys:String x:Key="TE_MainScriptSetting">Setting Main File</sys:String>
+
+
+    <sys:String x:Key="TE_CustomUserDataSetting">Custom User Data</sys:String>
+    <sys:String x:Key="TE_MacroDatASetting">Setting Macro</sys:String>
+    <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
+
+    <!--Menu-->
+    <sys:String x:Key="MenuOpen">Open</sys:String>
+    <sys:String x:Key="MenuAdd">Add</sys:String>
+    <sys:String x:Key="MenuImport">Import</sys:String>
+    <sys:String x:Key="MenuExport">Export</sys:String>
+    <sys:String x:Key="MenuConnect">Connect</sys:String>
+    <sys:String x:Key="MenuDisConnect">Disconnect</sys:String>
+
+    <sys:String x:Key="OpenEpsFileFliter">epScript File|*.eps</sys:String>
+    <sys:String x:Key="OpenPyFileFliter">eudplib File|*.py</sys:String>
+
+    <sys:String x:Key="OpenEpsTitle">Select epScript File</sys:String>
+    <sys:String x:Key="OpenPyTitle">Select eudplib File</sys:String>
+
+
+    <sys:String x:Key="MenuCNewEpsScript">[CUI] epScript File</sys:String>
+    <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib File</sys:String>
+    <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript File</sys:String>
+    <sys:String x:Key="MenuGNewPyScript">[GUI] eudplib File</sys:String>
+
+
+
+    <sys:String x:Key="NewEdsPlugin">New Plugin</sys:String>
+    <sys:String x:Key="PluginDelete">Delete Plugin</sys:String>
+
+
+
+    <sys:String x:Key="onPluginStart">Function that execute only one time</sys:String>
+    <sys:String x:Key="beforeTriggerExec">Function that execute each frame before execute trigger</sys:String>
+    <sys:String x:Key="afterTriggerExec">Function that execute each frame after execute trigger</sys:String>
+
+
+
+    <sys:String x:Key="MatchCaseText">Case sendsitive</sys:String>
+    <sys:String x:Key="MatchWholeWordsText">모든 단어와 일치</sys:String>
+    <sys:String x:Key="UseRegexText">정규 표현식 사용</sys:String>
+    <sys:String x:Key="FindNextText">Find Next (F3)</sys:String>
+    <sys:String x:Key="FindPreviousText">Find Prev(Shift+F3)</sys:String>
+    <sys:String x:Key="ErrorText">Error!</sys:String>
+    <sys:String x:Key="NoMatchesFoundText">일치하는 결과가 없습니다!</sys:String>
+
+
+    <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
+    <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
+
+    <sys:String x:Key="Control">제어|&amp;HFF,&amp;HC5,&amp;H00</sys:String>
+    <sys:String x:Key="Func">함수|&amp;HCF,&amp;H2A,&amp;HFF</sys:String>
+    <sys:String x:Key="Condition">조건|&amp;H45,&amp;HEC,&amp;H5B</sys:String>
+    <sys:String x:Key="Action">액션|&amp;H2C,&amp;HC0,&amp;HEC</sys:String>
+    <sys:String x:Key="Variable">변수|&amp;HFF,&amp;H68,&amp;H50</sys:String>
+    <sys:String x:Key="Value">값|&amp;HFF,&amp;H80,&amp;H40</sys:String>
+    <sys:String x:Key="SoundLopper">소리|&amp;H5F,&amp;H00,&amp;HFF</sys:String>
+    <sys:String x:Key="StringBuffer">문자|&amp;H2F,&amp;H9D,&amp;H27</sys:String>
+
 
     <sys:String x:Key="FunctionDefinition">함수 정의하기</sys:String>
 
 
-    <sys:String x:Key="NoName">제목 없음</sys:String>
+    <sys:String x:Key="wireframe_wire">선택 시 나타나는 와이어 프레임입니다.</sys:String>
+    <sys:String x:Key="wireframe_grp">부대 선택 시 나타나는 와이어 프레임입니다.</sys:String>
+    <sys:String x:Key="wireframe_tran">탑승 시 나타나는 와이어 프레임입니다.</sys:String>
 
     <sys:String x:Key="Var">변수</sys:String>
     <sys:String x:Key="Label">라벨</sys:String>
     <sys:String x:Key="Code">코드</sys:String>
 
-    <sys:String x:Key="Theme">테마</sys:String>
-    <sys:String x:Key="Light">밝음</sys:String>
-    <sys:String x:Key="Dark">어두움</sys:String>
 
-    <sys:String x:Key="ErrorMsgbox">오류</sys:String>
-    <sys:String x:Key="Error OpenMap is not SaveMap">연결된 맵과 저장맵의 이름은 같을 수 없습니다.</sys:String>
-    <sys:String x:Key="Error OpenMap is not exist reset">연결된 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
-    <sys:String x:Key="Error SaveMap is not exist reset">저장 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
-    <sys:String x:Key="Error SettingSave Fail">프로그램 세팅 저장을 실패했습니다.</sys:String>
-    <sys:String x:Key="Error ProgramInit Fail">프로그램 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
-    <sys:String x:Key="Error LoadStarCraftData Fail">스타크래프트 데이터를 초기화 하는데에 문제가 발생했습니다.</sys:String>
+    <sys:String x:Key="VarDefine">변수 정의하기</sys:String>
 
-    <sys:String x:Key="Error OpenMap is not exist!">맵을 열 수 없습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error CompileFail OpenMap is not exist!">컴파일에 실패했습니다. 연결된 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error CompileFail SaveMap is not exist!">컴파일에 실패했습니다. 저장 맵이 없습니다.</sys:String>
-    <sys:String x:Key="Error CompileFail euddraft is not exist!">컴파일에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
-    <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
 </ResourceDictionary>
 
 
