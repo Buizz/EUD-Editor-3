@@ -65,6 +65,48 @@ Public Class SCABinding
         End Set
     End Property
 
+    Public Property MapTitle() As String
+        Get
+            Return pjData.TEData.SCArchive.MapTitle
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MapTitle = value
+            PropertyChangedPack()
+        End Set
+    End Property
+    Public Property ImageLink() As String
+        Get
+            Return pjData.TEData.SCArchive.ImageLink
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.ImageLink = value
+            PropertyChangedPack()
+        End Set
+    End Property
+    Public Property DownLink() As String
+        Get
+            Return pjData.TEData.SCArchive.DownLink
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.DownLink = value
+            PropertyChangedPack()
+        End Set
+    End Property
+    Public Property MapDes() As String
+        Get
+            Return pjData.TEData.SCArchive.MapDes
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MapDes = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
+
 
     Public Property MakerEmail() As String
         Get

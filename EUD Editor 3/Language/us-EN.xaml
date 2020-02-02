@@ -43,10 +43,10 @@
 
 
 
-    <sys:String x:Key="Project Setting">Project Setting</sys:String>
-    <sys:String x:Key="Default Setting">Default Setting</sys:String>
+    <sys:String x:Key="Project Setting">Project</sys:String>
+    <sys:String x:Key="Default Setting">Default</sys:String>
 
-    <sys:String x:Key="Editor Setting">Editor Setting</sys:String>
+    <sys:String x:Key="Editor Setting">Editor</sys:String>
     <sys:String x:Key="DatEdit Setting">Data Editor</sys:String>
     <sys:String x:Key="TE Setting">Trigger Editor</sys:String>
     <sys:String x:Key="Plugin Setting">Plugin</sys:String>
@@ -248,14 +248,14 @@
     <sys:String x:Key="FliterIcon">View icons</sys:String>
     <sys:String x:Key="FliterEdit">View modified things</sys:String>
 
-    <sys:String x:Key="DefaultInfor">Default Information</sys:String>
+    <sys:String x:Key="DefaultInfor">Default</sys:String>
     <sys:String x:Key="UpgradeRequir">Research requirements</sys:String>
     <sys:String x:Key="TechUseRequir">Requirements for use</sys:String>
     <sys:String x:Key="TechReserachRequir">Research requirements</sys:String>
     <sys:String x:Key="OrderRequir">Order Requirements</sys:String>
 
-    <sys:String x:Key="UnitDefault">Default information</sys:String>
-    <sys:String x:Key="UnitSpecial">Advanced information</sys:String>
+    <sys:String x:Key="UnitDefault">Default</sys:String>
+    <sys:String x:Key="UnitSpecial">Advanced</sys:String>
     <sys:String x:Key="UnitSound">Sound</sys:String>
     <sys:String x:Key="UnitGraphic">Graphics</sys:String>
     <sys:String x:Key="UnitMapEdit">Edit</sys:String>
@@ -283,7 +283,7 @@
 
     <sys:String x:Key="UnitGraphicinfor">Graphics information</sys:String>
     <sys:String x:Key="UnitSize">Unit size</sys:String>
-    <sys:String x:Key="UnitCreateSize">Size of construction</sys:String>
+    <sys:String x:Key="UnitCreateSize">Create Size</sys:String>
     <sys:String x:Key="UnitAddonPos">Addon location</sys:String>
 
     <sys:String x:Key="FlingyInfor">Flight information</sys:String>
@@ -399,10 +399,10 @@
     <sys:String x:Key="units_Piss Sound End">Pissed(Last)</sys:String>
     <sys:String x:Key="units_Yes Sound Start">Response(First)</sys:String>
     <sys:String x:Key="units_Yes Sound End">Response(Last)</sys:String>
-    <sys:String x:Key="units_StarEdit Placement Box Width">Width</sys:String>
-    <sys:String x:Key="units_StarEdit Placement Box Height">Height</sys:String>
-    <sys:String x:Key="units_Addon Horizontal (X) Position">Horizontal</sys:String>
-    <sys:String x:Key="units_Addon Vertical (Y) Position">Vertical</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Width">W</sys:String>
+    <sys:String x:Key="units_StarEdit Placement Box Height">H</sys:String>
+    <sys:String x:Key="units_Addon Horizontal (X) Position">H</sys:String>
+    <sys:String x:Key="units_Addon Vertical (Y) Position">V</sys:String>
     <sys:String x:Key="units_Unit Size Left">Left</sys:String>
     <sys:String x:Key="units_Unit Size Up">Up</sys:String>
     <sys:String x:Key="units_Unit Size Right">Right</sys:String>
@@ -419,10 +419,10 @@
     <sys:String x:Key="units_Supply Required">Required unit supply</sys:String>
     <sys:String x:Key="units_Space Required">Required unit space</sys:String>
     <sys:String x:Key="units_Space Provided">Provided unit space</sys:String>
-    <sys:String x:Key="units_Build Score">Build score</sys:String>
-    <sys:String x:Key="units_Destroy Score">Death score</sys:String>
+    <sys:String x:Key="units_Build Score">Build</sys:String>
+    <sys:String x:Key="units_Destroy Score">Destroy</sys:String>
     <sys:String x:Key="units_Unit Map String">Map string</sys:String>
-    <sys:String x:Key="units_Broodwar Unit Flag">Brood War units</sys:String>
+    <sys:String x:Key="units_Broodwar Unit Flag">BW units</sys:String>
     <sys:String x:Key="units_Staredit Availability Flags">Staredit ability flags</sys:String>
     <sys:String x:Key="units_Staredit Availability Flags_V">None Natural units|Unit Material &amp; Palatte|Briefing|Player Settings|On all Broods|Set Doodad Status|None location trigger|Unit/Hero Setting|Location trigger|Broodwar|Cannot be used|Cannot be used|Cannot be used|Cannot be used|Cannot be used|Cannot be used</sys:String>
 
@@ -435,31 +435,31 @@
     <sys:String x:Key="weapons_Target Flags">Target</sys:String>
     <sys:String x:Key="weapons_Target Flags_V">Air|Ground|Mechanic|Bionic|None buildings|None Robotics|Terrain|Bionic/Mechanic|Possessed things</sys:String>
 
-    <sys:String x:Key="weapons_Minimum Range">Minimum range</sys:String>
-    <sys:String x:Key="weapons_Maximum Range">Maximum range</sys:String>
+    <sys:String x:Key="weapons_Minimum Range">Min</sys:String>
+    <sys:String x:Key="weapons_Maximum Range">Max</sys:String>
     <sys:String x:Key="weapons_Damage Upgrade">Upgrade</sys:String>
-    <sys:String x:Key="weapons_Weapon Type">Weapon type</sys:String>
+    <sys:String x:Key="weapons_Weapon Type">Type</sys:String>
     <sys:String x:Key="weapons_Weapon Type_V">Unknown|Explosive|Vibrate|Normal damage|Ignore armors(Psionic Strom)</sys:String>
 
-    <sys:String x:Key="weapons_Weapon Behavior">Weapon Behavior</sys:String>
+    <sys:String x:Key="weapons_Weapon Behavior">Behavior</sys:String>
     <sys:String x:Key="weapons_Weapon Behavior_V">Targets on target|Follows target|Disappears on target|Psionic Storm Type|Apprats around target|Appears from target unit|Suicide attack|Projectile dribble
 |rotate around target|Stretch on max range</sys:String>
 
-    <sys:String x:Key="weapons_Remove After">Remaining times</sys:String>
-    <sys:String x:Key="weapons_Explosion Type">Explosion type</sys:String>
+    <sys:String x:Key="weapons_Remove After">Remaining</sys:String>
+    <sys:String x:Key="weapons_Explosion Type">Explosion</sys:String>
     <sys:String x:Key="weapons_Explosion Type_V">None|Default|Splash on around target|Splash on target|Lockdown|Nuclear Missile|Parasite|Broodling|EMP Shockwave|Irridiate|Ensnair|Plague|Stasis Field|Dark Sworm|Consume|Yamato Gun|Restoration|Web|Acid|Mind Control|Feedback|Optical Flare|Maelstorm|Unknown 2|Air Splash</sys:String>
 
     <sys:String x:Key="weapons_Inner Splash Range">Inside</sys:String>
     <sys:String x:Key="weapons_Medium Splash Range">Center</sys:String>
     <sys:String x:Key="weapons_Outer Splash Range">Outside</sys:String>
-    <sys:String x:Key="weapons_Damage Amount">Damage amount</sys:String>
+    <sys:String x:Key="weapons_Damage Amount">Amount</sys:String>
     <sys:String x:Key="weapons_Damage Bonus">+</sys:String>
-    <sys:String x:Key="weapons_Weapon Cooldown">Weapon Cooldown time</sys:String>
-    <sys:String x:Key="weapons_Damage Factor">Number of damage inviduals</sys:String>
-    <sys:String x:Key="weapons_Attack Angle">Effect angle</sys:String>
-    <sys:String x:Key="weapons_Launch Spin">Launch angle</sys:String>
-    <sys:String x:Key="weapons_Forward Offset">Location</sys:String>
-    <sys:String x:Key="weapons_Upward Offset">Height</sys:String>
+    <sys:String x:Key="weapons_Weapon Cooldown">Cooldown</sys:String>
+    <sys:String x:Key="weapons_Damage Factor">Factor</sys:String>
+    <sys:String x:Key="weapons_Attack Angle">Attack A</sys:String>
+    <sys:String x:Key="weapons_Launch Spin">Launch A</sys:String>
+    <sys:String x:Key="weapons_Forward Offset">Forward</sys:String>
+    <sys:String x:Key="weapons_Upward Offset">Upward</sys:String>
     <sys:String x:Key="weapons_Target Error Message">Error message</sys:String>
     <sys:String x:Key="weapons_Icon">Icon</sys:String>
 

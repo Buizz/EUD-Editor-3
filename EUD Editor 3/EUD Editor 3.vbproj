@@ -486,6 +486,9 @@
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml.vb">
       <DependentUpon>TriggerEditorSetting.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml.vb">
+      <DependentUpon>SCASetting.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ItemControl.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\Menu.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml.vb">
@@ -773,6 +776,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1066,9 +1073,6 @@
     <None Include="Data\Resources\BlackOverlay.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Data\SCArchiveConnecter\SCArchiveConnecter.exe">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
     <Content Include="x64\lz4X64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1188,12 +1192,6 @@
     <Content Include="Data\Downloader\System.Windows.Interactivity.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>
-    <None Include="Data\SCArchiveConnecter\SCArchive.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
-    <None Include="Data\SCArchiveConnecter\libmysql.dll">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </None>
     <None Include="Data\TriggerEditor\GUIScript.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

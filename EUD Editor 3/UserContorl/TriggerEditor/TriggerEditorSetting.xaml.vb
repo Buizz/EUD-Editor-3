@@ -41,7 +41,6 @@
         InitStartFileCombox("", pjData.TEData.PFIles)
         LoadCmp = True
 
-        DataContext = New SCABinding
 
 
 

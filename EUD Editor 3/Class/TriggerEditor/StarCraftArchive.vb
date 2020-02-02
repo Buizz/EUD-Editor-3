@@ -116,6 +116,56 @@ Public Class StarCraftArchive
 
 
 
+
+    Private _MapTitle As String
+    Public Property MapTitle As String
+        Get
+            Return _MapTitle
+        End Get
+        Set(value As String)
+            _MapTitle = value
+        End Set
+    End Property
+
+
+
+
+    Private _DownLink As String
+    Public Property DownLink As String
+        Get
+            Return _DownLink
+        End Get
+        Set(value As String)
+            _DownLink = value
+        End Set
+    End Property
+
+
+
+    Private _ImageLink As String
+    Public Property ImageLink As String
+        Get
+            Return _ImageLink
+        End Get
+        Set(value As String)
+            _ImageLink = value
+        End Set
+    End Property
+
+
+    Private _MapDes As String
+    Public Property MapDes As String
+        Get
+            Return _MapDes
+        End Get
+        Set(value As String)
+            _MapDes = value
+        End Set
+    End Property
+
+
+
+
     <Serializable>
     Public Class CodeData
         Public Property TagName As String

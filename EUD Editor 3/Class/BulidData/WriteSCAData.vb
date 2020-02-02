@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 Imports System.Text
 
 Partial Public Class BuildData
@@ -55,73 +56,73 @@ Partial Public Class BuildData
     End Sub
 
 
+    Private cookie As CookieContainer
+    Public Function httpRequest(filename As String, senddata As String) As String
+        Dim url As String = "https://scarchive.kr/eudeditor/" & filename & ".php"
 
+        Dim strResult As String = ""
+        Dim req As HttpWebRequest = WebRequest.Create(url)
+        req.Method = "POST"
+        req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8"
+        req.ContentLength = senddata.Length
+        req.KeepAlive = True
+        req.CookieContainer = cookie
+
+        Dim sw As StreamWriter = New StreamWriter(req.GetRequestStream())
+        sw.Write(senddata)
+        sw.Close()
+
+        Dim result As HttpWebResponse = req.GetResponse()
+
+        If result.StatusCode = HttpStatusCode.OK Then
+            Dim strReceiveStream As Stream = result.GetResponseStream()
+            Dim reqStreamReader As StreamReader = New StreamReader(strReceiveStream, Text.Encoding.UTF8)
+
+            strResult = reqStreamReader.ReadToEnd()
+
+            req.Abort()
+            strReceiveStream.Close()
+            reqStreamReader.Close()
+
+        Else
+            strResult = "ERROR"
+        End If
+
+        Return strResult
+    End Function
     Private Function ConnecterStart() As Boolean
-        'Private EntryPoint As String
-        'Private ConnectKey As String
 
+        '$mapcode = $_POST['mapcode'];
+        '$bt = $_POST['bt'];
+        '$pw = $_POST['pw'];
+        '$mapname = $_POST['mapname'];
+        '$email = $_POST['email'];
+        '$maplink = $_POST['maplink'];
+        '$mapinfor = $_POST['mapinfor'];
 
-        Dim process As New Process
-        Dim startInfo As New ProcessStartInfo
+        Dim senddata As String = ""
+        senddata = "mapcode=" & WebUtility.UrlEncode(GetMapCode()) & "&"
+        senddata = senddata & "bt=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerBattleTag) & "&"
+        senddata = senddata & "pw=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.PassWord) & "&"
+        senddata = senddata & "mapname=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTitle) & "&"
+        senddata = senddata & "email=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerEmail) & "&"
+        senddata = senddata & "maplink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.DownLink) & "&"
+        senddata = senddata & "imglink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ImageLink) & "&"
+        senddata = senddata & "mapinfor=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapDes)
 
-        startInfo.FileName = GetConnectPath
-        startInfo.Arguments = pjData.TEData.SCArchive.MakerEmail & " " & GetMapCode() & " " & pjData.TEData.SCArchive.MakerBattleTag & " " & pjData.TEData.SCArchive.PassWord
+        Dim respon As String = httpRequest("registermap", senddata)
 
-
-        'startInfo.StandardOutputEncoding = Text.Encoding.UTF32
-        'startInfo.StandardErrorEncoding = Text.Encoding.UTF32
-        startInfo.RedirectStandardOutput = True
-        startInfo.RedirectStandardInput = True
-        startInfo.RedirectStandardError = True
-        startInfo.WindowStyle = ProcessWindowStyle.Hidden
-        startInfo.CreateNoWindow = True
-
-        startInfo.UseShellExecute = False
-
-
-        process.StartInfo = startInfo
-        Try
-            process.Start()
-        Catch ex As Exception
-            MsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCArchiveConnecter.exe파일을 찾을 수 없습니다.", MsgBoxStyle.Critical)
-            Return False
-        End Try
-        Dim OutputString As String = ""
-        While (Not process.HasExited)
-            OutputString = process.StandardOutput.ReadLine
-            If OutputString <> "" Then
-                ConnectKey = OutputString.Trim
-                Threading.Thread.Sleep(100)
-                If Not process.HasExited Then
-                    process.Kill()
-                End If
-
-            End If
-        End While
-
-        'process.WaitForExit()
-        'OutputString = process.StandardOutput.ReadToEnd
-
-        'ConnectKey = OutputString.Trim
-
-        Select Case ConnectKey
-            Case "BTERROR"
-                MsgBox(Tool.GetText("Error SCA") & vbCrLf & "존재하지 않는 배틀태그 입니다.", MsgBoxStyle.Critical)
+        Select Case respon
+            Case "NOACCOUNT"
+                MsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다.", MsgBoxStyle.Critical)
                 Return False
-            Case "ERROR"
-                MsgBox(Tool.GetText("Error SCA") & vbCrLf & Tool.GetText("Error SCAUnKnow"), MsgBoxStyle.Critical)
-                Return False
-            Case "PWERROR"
-                MsgBox(Tool.GetText("Error SCA") & vbCrLf & Tool.GetText("Error SCAPassWord"), MsgBoxStyle.Critical)
-                Return False
-            Case "DBERROR"
-                MsgBox(Tool.GetText("Error SCA") & vbCrLf & Tool.GetText("Error SCANresponDB"), MsgBoxStyle.Critical)
-                Return False
-            Case "FALGERROR"
+            Case "BANUSER"
                 MsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCA사용이 금지된 아이디입니다.", MsgBoxStyle.Critical)
                 Return False
         End Select
 
+
+        ConnectKey = respon
 
         Return True
     End Function
@@ -168,7 +169,6 @@ Partial Public Class BuildData
         sb.AppendLine("function Init(){")
         sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
         sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', py_open('scadatafile', 'rb').read());")
-        'sb.AppendLine("f_eprintln(""시발 오류"", dwread_epd(EPD(ws)), ""  "",  dwread_epd(EPD(ws) + 1));")
         sb.AppendLine("    //EntryPoint")
         For i = 0 To EntryPoint.Count - 1
             'sb.AppendLine("    dwwrite_epd(EPD(ws) + " & i & ", " & 98761234 & ");")
@@ -439,8 +439,10 @@ Partial Public Class BuildData
 
 
         Dim Sb As New StringBuilder
-        Sb.AppendLine("SCArchive by BingSu")
-        Sb.AppendLine(pjData.TEData.SCArchive.DataSpace)
+        Sb.Append("SCArchive by BingSu")
+        Sb.Append("!")
+        Sb.Append(pjData.TEData.SCArchive.DataSpace)
+        Sb.Append("!")
 
         Dim EntryStr As String = ""
         For i = 0 To EntryPoint.Count - 1
@@ -452,7 +454,8 @@ Partial Public Class BuildData
         Next
 
 
-        Sb.AppendLine(EntryStr)
+        Sb.Append(EntryStr)
+        Sb.Append("!")
 
 
 
@@ -465,9 +468,9 @@ Partial Public Class BuildData
             End If
         Next
 
-        Sb.AppendLine(KeyHeaderStr)
-
-        Sb.AppendLine(pjData.TEData.SCArchive.TestMode)
+        Sb.Append(KeyHeaderStr)
+        Sb.Append("!")
+        Sb.Append(pjData.TEData.SCArchive.TestMode)
 
 
 
@@ -476,7 +479,11 @@ Partial Public Class BuildData
         Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)
         Dim sw As New StreamWriter(fs)
 
-        sw.Write(AESModule.EncryptString128Bit(Sb.ToString, ConnectKey))
+        Dim checkstring As String = httpRequest("encrypt", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(Sb.ToString))
+        sw.Write(checkstring)
+
+
+        'sw.Write(AESModule.EncryptString128Bit(Sb.ToString, ConnectKey))
 
         '2데이터태그 실제데이터위치 배열
         '엔트리포인트(현재 시간과 제작코드 등을 이용해 만들기, 빌드 시 마다 달라짐)

@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Net
 
 Partial Public Class BuildData
     Public Function WriteChecksum() As Boolean
@@ -21,14 +22,17 @@ Partial Public Class BuildData
 
 
         Dim crc32 As New CRC32
-        Dim checksumv As UInteger = crc32.GetCRC32(Buffer)
-
+        Dim checksumv As UInteger = crc32.GetCRC32(buffer)
 
         'MsgBox(mapstream.Position & "," & mapstream.Length)
-        Dim checkstring As String = AESModule.EncryptString128Bit(checksumv, ConnectKey)
+
+
+
+        Dim checkstring As String = httpRequest("encrypt", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(checksumv))
+        'Dim checkstring As String = AESModule.EncryptString128Bit(checksumv, ConnectKey)
 
         bw.Write(checkstring)
-
+        'MsgBox(checkstring)
 
         br.Close()
         bw.Close()

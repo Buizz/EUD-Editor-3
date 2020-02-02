@@ -9,10 +9,8 @@
     <sys:String x:Key="HDGraphic">리마스터</sys:String>
     <sys:String x:Key="CarbotGraphic">카봇그래픽</sys:String>
 
-
     <sys:String x:Key="DataLoading">실행을 위해 데이터를 불러오는 중...</sys:String>
     <sys:String x:Key="RegistryConnect">확장자가 연결되어 있지 않습니다. 연결하시겠습니까?</sys:String>
-
 
     <sys:String x:Key="Setting">설정</sys:String>
     <sys:String x:Key="OpenMap">연결된 맵</sys:String>
