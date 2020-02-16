@@ -101,6 +101,16 @@
     <sys:String x:Key="Theme">Theme</sys:String>
     <sys:String x:Key="Light">Light</sys:String>
     <sys:String x:Key="Dark">Dark</sys:String>
+    <sys:String x:Key="Normal">Default</sys:String>
+    <sys:String x:Key="Main Colour">Main Colour</sys:String>
+
+
+    <sys:String x:Key="Background Colour">Background</sys:String>
+    <sys:String x:Key="Default Colour">Default</sys:String>
+    <sys:String x:Key="Map Colour">Map Data</sys:String>
+    <sys:String x:Key="Edit Colour">Edit Data</sys:String>
+    <sys:String x:Key="Check Colour">Check Data</sys:String>
+
 
     <sys:String x:Key="Code Lan">Code language</sys:String>
     <sys:String x:Key="Code CEng">English</sys:String>

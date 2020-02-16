@@ -32,7 +32,7 @@
                                     <local:ColorPicker x:Name="MainColorPicker" ColorSelect="MainColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click" Content="메인 컬러" Style="{DynamicResource MaterialDesignFlatButton}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                            <Button Click="Button_Click" Content="{StaticResource Main Colour}" Style="{DynamicResource MaterialDesignFlatButton}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
                         </DockPanel>
                         <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource PrimaryHueLightBrush}">
                             <Popup x:Name="LightColorPickerPopup" StaysOpen="False">
@@ -40,7 +40,7 @@
                                     <local:ColorPicker x:Name="LightColorPicker" ColorSelect="LightColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_1" Content="밝음" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
+                            <Button Click="Button_Click_1" Content="{StaticResource Light}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
                         </DockPanel>
                         <DockPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource PrimaryHueMidBrush}">
                             <Popup x:Name="DefaultColorPickerPopup" StaysOpen="False">
@@ -48,7 +48,7 @@
                                     <local:ColorPicker x:Name="DefaultColorPicker" ColorSelect="DefaultColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_2" Content="기본" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                            <Button Click="Button_Click_2" Content="{StaticResource Normal}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
                         </DockPanel>
                         <DockPanel Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource PrimaryHueDarkBrush}">
                             <Popup x:Name="DarkColorPickerPopup" StaysOpen="False">
@@ -56,7 +56,7 @@
                                     <local:ColorPicker x:Name="DarkColorPicker" ColorSelect="DarkColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_3" Content="어두움" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
+                            <Button Click="Button_Click_3" Content="{StaticResource Dark}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
                         </DockPanel>
                         <DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Background="{DynamicResource SecondaryAccentBrush}">
                             <Popup x:Name="AccentColorPickerPopup" StaysOpen="False">
@@ -64,7 +64,7 @@
                                     <local:ColorPicker x:Name="AccentColorPicker" ColorSelect="AccentColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_4" Content="확인" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource SecondaryAccentForegroundBrush}"/>
+                            <Button Click="Button_Click_4" Content="{StaticResource Okay}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource SecondaryAccentForegroundBrush}"/>
                         </DockPanel>
 
                     </Grid>
@@ -96,14 +96,14 @@
                         <Button x:Name="CheckedData" Style="{StaticResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesignBody}" 
                             Click="CheckedData_Click" Grid.Column="4" Grid.Row="1" Grid.RowSpan="2" Margin="5" Height="Auto" />
 
-                        <TextBlock Text="배경" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        <TextBlock Text="{StaticResource Background Colour}" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         <DockPanel Grid.Column="1" >
                             <Popup x:Name="DefaultDataPopup" StaysOpen="False"   Grid.Column="1" Grid.Row="0" >
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="DefaultDataColorPicker" ColorSelect="DefaultDataColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <TextBlock Text="기본" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Default Colour}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DockPanel>
 
                         <DockPanel Grid.Column="2" >
@@ -112,7 +112,7 @@
                                     <local:ColorPicker x:Name="MapEditorDataColorPicker" ColorSelect="MapEditorColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <TextBlock Text="맵" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Map Colour}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DockPanel>
                         <DockPanel Grid.Column="3" >
                             <Popup x:Name="EditedDataPopup" StaysOpen="False" >
@@ -120,7 +120,7 @@
                                     <local:ColorPicker x:Name="EditedDataColorPicker" ColorSelect="EditedDataColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <TextBlock Text="편집" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Edit Colour}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DockPanel>
                         <DockPanel Grid.Column="4" >
                             <Popup x:Name="CheckedDataPopup" StaysOpen="False"  >
@@ -128,7 +128,7 @@
                                     <local:ColorPicker x:Name="CheckedDataColorPicker" ColorSelect="CheckedDataColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <TextBlock Text="체크" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBlock Text="{StaticResource Check Colour}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </DockPanel>
                     </Grid>
                 </DockPanel>
@@ -147,7 +147,7 @@
   Style="{StaticResource MaterialDesignSwitchToggleButton}"
   HorizontalAlignment="Left" />
             <Label  Content="{StaticResource Dark}" />
-            <Button DockPanel.Dock="Right" Content="초기화" Click="Button_Click_5" Width="100" >
+            <Button DockPanel.Dock="Right" Content="{StaticResource Reset}" Click="Button_Click_5" Width="100" >
                 
             </Button>
         </DockPanel>

@@ -22,6 +22,16 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
+    Public Property ViewPublic() As Boolean
+        Get
+            Return pjData.TEData.SCArchive.ViewPublic
+        End Get
+        Set(value As Boolean)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.ViewPublic = value
+            PropertyChangedPack()
+        End Set
+    End Property
 
     Public Property SCATestMode() As Integer
         Get
@@ -65,6 +75,16 @@ Public Class SCABinding
         End Set
     End Property
 
+    Public Property MapTags() As String
+        Get
+            Return pjData.TEData.SCArchive.MapTags
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MapTags = value
+            PropertyChangedPack()
+        End Set
+    End Property
     Public Property MapTitle() As String
         Get
             Return pjData.TEData.SCArchive.MapTitle

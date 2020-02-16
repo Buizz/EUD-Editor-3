@@ -101,6 +101,16 @@
     <sys:String x:Key="Theme">테마</sys:String>
     <sys:String x:Key="Light">밝음</sys:String>
     <sys:String x:Key="Dark">어두움</sys:String>
+    <sys:String x:Key="Normal">기본</sys:String>
+    <sys:String x:Key="Main Colour">메인 컬러</sys:String>
+
+
+    <sys:String x:Key="Background Colour">배경</sys:String>
+    <sys:String x:Key="Default Colour">기본</sys:String>
+    <sys:String x:Key="Map Colour">맵</sys:String>
+    <sys:String x:Key="Edit Colour">편집</sys:String>
+    <sys:String x:Key="Check Colour">체크</sys:String>
+    
 
     <sys:String x:Key="Code Lan">코드 언어</sys:String>
     <sys:String x:Key="Code CEng">영어</sys:String>

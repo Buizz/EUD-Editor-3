@@ -320,7 +320,7 @@ Partial Public Class BuildData
 
                 'MsgBox(tempstr(tempstr.Count - 2))
                 '임시 판단
-                If StandardOutput.IndexOf("Output scenario.chk") < 0 Then
+                If StandardOutput.IndexOf("Output scenario.chk") < 0 Or StandardOutput.IndexOf("출력된 scenario.chk 크기") < 0 Then
                     If eudplibShutDown Then
                         MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
                     Else

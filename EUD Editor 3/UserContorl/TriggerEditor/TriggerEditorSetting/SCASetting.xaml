@@ -134,8 +134,31 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-
+                        <Label VerticalAlignment="Center">맵 비공개</Label>
+                        <CheckBox x:Name="ViewPublic" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
+                            <CheckBox.IsChecked>
+                                <Binding
+                                            Path="ViewPublic"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </CheckBox.IsChecked>
+                        </CheckBox>
+                        <Label VerticalAlignment="Center">맵 공개</Label>
                     </StackPanel>
+                    <TextBox x:Name="MapTags" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 태그입니다." materialDesign:HintAssist.Hint="맵 태그 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                        <TextBox.Text>
+                            <Binding
+                                            Path="MapTags"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                <Binding.ValidationRules>
+                                    <local:TextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                     <TextBox x:Name="MapLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 링크입니다." materialDesign:HintAssist.Hint="맵 정보 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                         <TextBox.Text>
                             <Binding

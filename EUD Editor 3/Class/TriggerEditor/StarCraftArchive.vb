@@ -3,7 +3,7 @@
 <Serializable>
 Public Class StarCraftArchive
     Public Sub New()
-        DataSpace = 100
+        DataSpace = 300
         _CodeDatas = New List(Of CodeData)
         _MakerBattleTag = ""
         _MakerServerName = ""
@@ -23,6 +23,15 @@ Public Class StarCraftArchive
     End Property
 
 
+    Private _ViewPublic As Boolean
+    Public Property ViewPublic As Boolean
+        Get
+            Return _ViewPublic
+        End Get
+        Set(value As Boolean)
+            _ViewPublic = value
+        End Set
+    End Property
     Private _TestMode As Boolean
     Private _newTestMode As EGameMode = EGameMode.TestMode
     Public Enum EGameMode
@@ -124,6 +133,16 @@ Public Class StarCraftArchive
         End Get
         Set(value As String)
             _MapTitle = value
+        End Set
+    End Property
+
+    Private _MapTags As String
+    Public Property MapTags As String
+        Get
+            Return _MapTags
+        End Get
+        Set(value As String)
+            _MapTags = value
         End Set
     End Property
 

@@ -21,7 +21,7 @@
     <Grid x:Name="MainGrid">
         <DockPanel x:Name="LoadPanel" Background="{DynamicResource PrimaryHueMidBrush}">
             <ProgressBar DockPanel.Dock="Bottom" IsIndeterminate="True" />
-            <TextBlock Text="{StaticResource DataLoading}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+            <TextBlock Text="{DynamicResource DataLoading}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
         </DockPanel>
         
     </Grid>

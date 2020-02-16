@@ -237,7 +237,7 @@ Partial Public Class CodeEditor
                         Dim tb As New TextBox
                         tb.Text = strs(i)
 
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+                        data.Add(New TECompletionData(0, strs(i), """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
                 Case "TrgLocation", "TrgLocationIndex"
                     For i = 0 To 254
