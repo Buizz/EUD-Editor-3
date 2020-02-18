@@ -64,26 +64,32 @@ Public Class MapData
         LoadComplete = True
     End Sub
 
-    Private Sub SearchCHK(chkname As String, binary As BinaryReader)
-        Dim _name As String
+    Private Function SearchCHK(chkname As String, binary As BinaryReader)
+        Dim _name As String = ""
         Dim _size As UInteger
 
         binary.BaseStream.Position = 0
         While (True)
-            _name = ""
-            _name = _name & ChrW(binary.ReadByte)
-            _name = _name & ChrW(binary.ReadByte)
-            _name = _name & ChrW(binary.ReadByte)
-            _name = _name & ChrW(binary.ReadByte)
+
+            Try
+                _name = ""
+                _name = _name & ChrW(binary.ReadByte)
+                _name = _name & ChrW(binary.ReadByte)
+                _name = _name & ChrW(binary.ReadByte)
+                _name = _name & ChrW(binary.ReadByte)
+            Catch ex As Exception
+                Return False
+            End Try
 
             If _name = chkname Then
-                Return
+                Return True
             Else
                 _size = binary.ReadUInt32()
                 binary.BaseStream.Position += _size
             End If
         End While
-    End Sub
+        Return True
+    End Function
 
     Public Function ReLoad(MapName As String) As Boolean
         Try
@@ -525,13 +531,34 @@ Public Class MapData
 
 
 
-            'SearchCHK("STRx", binary)
-            'MsgBox(binary.BaseStream.Position)
+            Dim f As Boolean = SearchCHK("STRx", binary)
+            If f Then
+                size = binary.ReadUInt32
 
-            'SearchCHK("STR ", binary)
-            'MsgBox(binary.BaseStream.Position)
+                Dim BasePos As UInteger = mem.Position
+                Dim strCount As UInteger = binary.ReadUInt32()
+                Dim lastPos As UInteger = mem.Position
 
-            If True Then
+                For i = 0 To strCount - 1 '사이즈 만큼 반복
+                    mem.Position = lastPos
+
+                    Dim StartPos As UInteger = binary.ReadUInt32()
+                    mem.Position = BasePos + StartPos
+
+                    While (binary.ReadByte <> 0)
+                    End While
+                    Dim Bytecount As Integer = mem.Position - (BasePos + StartPos)
+
+                    mem.Position = BasePos + StartPos
+
+                    Dim str As String = System.Text.Encoding.UTF8.GetString(binary.ReadBytes(Bytecount - 1))
+
+                    Strings.Add(str)
+
+                    lastPos += 4
+                Next
+
+            Else
                 SearchCHK("STR ", binary)
 
                 size = binary.ReadUInt32
@@ -564,11 +591,12 @@ Public Class MapData
 
 
 
+
             binary.Close()
             mem.Close()
         Else
             SFmpq.SFileCloseArchive(hmpq)
-            Throw New Exception("Header is Zero")
+            'Throw New Exception("Header is Zero")
         End If
 
         'Throw New Exception("Exception Occured")
