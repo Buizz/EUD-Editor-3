@@ -525,7 +525,11 @@ Public Class MapData
 
 
 
+            'SearchCHK("STRx", binary)
+            'MsgBox(binary.BaseStream.Position)
 
+            'SearchCHK("STR ", binary)
+            'MsgBox(binary.BaseStream.Position)
 
             If True Then
                 SearchCHK("STR ", binary)
@@ -564,6 +568,7 @@ Public Class MapData
             mem.Close()
         Else
             SFmpq.SFileCloseArchive(hmpq)
+            Throw New Exception("Header is Zero")
         End If
 
         'Throw New Exception("Exception Occured")
