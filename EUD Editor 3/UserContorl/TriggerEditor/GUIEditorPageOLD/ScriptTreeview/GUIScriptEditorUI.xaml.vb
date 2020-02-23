@@ -258,12 +258,12 @@ Public Class GUIScriptEditorUI
         Dim parrentScript As TriggerScript = parrent
         Dim childScript As TriggerScript = child
 
+
         If Not parrentScript.IsFolder Then
             '폴더가 아니면 당연히 나가야지
             ErrorPopup("자식을 가질 수 없는 스크립트 입니다.")
             Return False
         End If
-
         Select Case parrentScript.FolderType
             Case TriggerScript.ScriptType.Both
                 If childScript.SType <> TriggerScript.ScriptType.Action Or childScript.SType <> TriggerScript.ScriptType.Condition Then
@@ -299,7 +299,11 @@ Public Class GUIScriptEditorUI
             If parrentScript.FolderRull(0) = "" Then
                 folderrullexist = False
             End If
+        ElseIf parrentScript.FolderRull.Count = 0 Then
+            folderrullexist = False
         End If
+
+
 
         If folderrullexist Then
             If parrentScript.FolderRull.IndexOf(childScript.SName) = -1 Then

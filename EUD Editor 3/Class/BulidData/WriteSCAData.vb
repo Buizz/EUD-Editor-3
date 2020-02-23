@@ -102,15 +102,33 @@ Partial Public Class BuildData
 
         Dim senddata As String = ""
         senddata = "mapcode=" & WebUtility.UrlEncode(GetMapCode()) & "&"
+        senddata = senddata & "subtitle=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SubTitle) & "&"
         senddata = senddata & "bt=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerBattleTag) & "&"
         senddata = senddata & "pw=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.PassWord) & "&"
-        senddata = senddata & "mapname=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTitle) & "&"
-        senddata = senddata & "email=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerEmail) & "&"
-        senddata = senddata & "maplink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.DownLink) & "&"
-        senddata = senddata & "imglink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ImageLink) & "&"
-        senddata = senddata & "mapinfor=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapDes) & "&"
-        senddata = senddata & "viewpublic=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ViewPublic) & "&"
-        senddata = senddata & "maptag=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTags)
+
+        Dim tagsdata As String = ""
+        For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
+            If i <> 0 Then
+                tagsdata = tagsdata & ","
+            End If
+            tagsdata = tagsdata & pjData.TEData.SCArchive.CodeDatas(i).TagName
+        Next
+        senddata = senddata & "vtaglist=" & WebUtility.UrlEncode(tagsdata) & "&"
+
+        If pjData.TEData.SCArchive.updateinfo Then
+            senddata = senddata & "mapname=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTitle) & "&"
+            senddata = senddata & "email=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerEmail) & "&"
+            senddata = senddata & "maplink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.DownLink) & "&"
+            senddata = senddata & "imglink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ImageLink) & "&"
+            senddata = senddata & "mapinfor=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapDes) & "&"
+            senddata = senddata & "viewpublic=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ViewPublic) & "&"
+            senddata = senddata & "maptag=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTags) & "&"
+            senddata = senddata & "isupdate=True"
+        Else
+            senddata = senddata & "isupdate=False"
+        End If
+        'MsgBox(senddata)
+
 
         Dim respon As String = httpRequest("registermap", senddata)
 

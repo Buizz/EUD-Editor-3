@@ -51,7 +51,11 @@ Public Class ExtraDatFiles
 
     End Sub
     Public Sub ToolTipReset(key As SCDatFiles.DatFiles, index As Integer)
-        ToolTipDic(key)(index) = index
+        If key = SCDatFiles.DatFiles.stattxt Then
+            ToolTipDic(key)(index) = index + 1
+        Else
+            ToolTipDic(key)(index) = index
+        End If
     End Sub
 
     Public Sub New()

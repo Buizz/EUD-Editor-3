@@ -12,7 +12,7 @@ Public Class TextValidationRule
         If str = "" Then
             Return New ValidationResult(False, "값은 비어있으면 안됩니다.")
         End If
-        If str.Length > 20 Then
+        If str.Length > 100 Then
             Return New ValidationResult(False, "20글자 이하로 입력하세요.")
         End If
 

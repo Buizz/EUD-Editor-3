@@ -74,7 +74,30 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
+    Public Property SubTitle() As String
+        Get
+            Return pjData.TEData.SCArchive.SubTitle
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.SubTitle = value
+            PropertyChangedPack()
+        End Set
+    End Property
 
+
+
+
+    Public Property updateinfo() As Boolean
+        Get
+            Return pjData.TEData.SCArchive.updateinfo
+        End Get
+        Set(value As Boolean)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.updateinfo = value
+            PropertyChangedPack()
+        End Set
+    End Property
     Public Property MapTags() As String
         Get
             Return pjData.TEData.SCArchive.MapTags

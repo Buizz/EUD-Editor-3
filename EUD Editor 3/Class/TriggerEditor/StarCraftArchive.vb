@@ -91,6 +91,17 @@ Public Class StarCraftArchive
     End Property
 
 
+    Private _SubTitle As String
+    Public Property SubTitle As String
+        Get
+            Return _SubTitle
+        End Get
+        Set(value As String)
+            _SubTitle = value
+        End Set
+    End Property
+
+
     Private _MapName As String
     Public Property MapName As String
         Get
@@ -146,6 +157,15 @@ Public Class StarCraftArchive
         End Set
     End Property
 
+    Private _updateinfo As Boolean
+    Public Property updateinfo As Boolean
+        Get
+            Return _updateinfo
+        End Get
+        Set(value As Boolean)
+            _updateinfo = value
+        End Set
+    End Property
 
 
 

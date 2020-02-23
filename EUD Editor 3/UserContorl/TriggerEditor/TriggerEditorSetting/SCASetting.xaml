@@ -35,7 +35,7 @@
             </ComboBox>
             <Expander x:Name="mapSettingex" HorizontalAlignment="Stretch" Header="맵 설정">
                 <StackPanel>
-                    <Label  Content="SCA 로그인 정보" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <Label Content="SCA 로그인 정보" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="MakerBattleTag"  MinWidth="120" materialDesign:HintAssist.Hint="배틀코드" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
                             <TextBox.Text>
@@ -69,7 +69,7 @@
                     
 
                     <Separator Background="#4CA0A0A0"/>
-                    <Label  Content="고유 식별 번호" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <Label  Content="고유 식별 번호" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
 
                     <StackPanel Orientation="Horizontal" Margin="5">
 
@@ -101,15 +101,109 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                    </StackPanel>
-                    <Separator Background="#4CA0A0A0"/>
-                    <Label  Content="맵 정보" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-
-                    <StackPanel Orientation="Horizontal" Margin="5">
-                        <TextBox x:Name="Maptitle" Grid.Column="0" MinWidth="150" ToolTip="다운로드 페이지에서 보이는 이름입니다." materialDesign:HintAssist.Hint="맵 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
+                        <TextBox x:Name="subtitle"  MinWidth="200" Grid.Column="0" materialDesign:HintAssist.Hint="하위 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
                             <TextBox.Text>
                                 <Binding
+                                            Path="SubTitle"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+
+                                    <Binding.ValidationRules>
+                                        <local:TextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                    </StackPanel>
+                    <Separator Background="#4CA0A0A0"/>
+                    <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                        <Label  Content="맵 정보" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
+                        <CheckBox
+                            x:Name="infoCheckbox"
+                            Style="{StaticResource MaterialDesignCheckBox}" Checked="CheckBox_Checked" Unchecked="infoCheckbox_Unchecked">
+                            정보 갱신
+                            <CheckBox.IsChecked>
+                                <Binding
+                                            Path="updateinfo"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </CheckBox.IsChecked>
+                        </CheckBox>
+                    </StackPanel>
+
+
+                    <StackPanel x:Name="MapDetail">
+                        <StackPanel Orientation="Horizontal" Margin="5">
+                            <TextBox x:Name="Maptitle" Grid.Column="0" MinWidth="150" ToolTip="다운로드 페이지에서 보이는 이름입니다." materialDesign:HintAssist.Hint="맵 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
+                                <TextBox.Text>
+                                    <Binding
                                             Path="MapTitle"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                        <Binding.ValidationRules>
+                                            <local:TextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="신고 기능 이용 시 내용을 수신 받을 수 있습니다." materialDesign:HintAssist.Hint="제작자 이메일" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                                <TextBox.Text>
+                                    <Binding
+                                            Path="MakerEmail"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+
+                                        <Binding.ValidationRules>
+                                            <local:EMailValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                        </Binding.ValidationRules>
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <Label VerticalAlignment="Center">맵 비공개</Label>
+                            <CheckBox x:Name="ViewPublic" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
+                                <CheckBox.IsChecked>
+                                    <Binding
+                                            Path="ViewPublic"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </CheckBox.IsChecked>
+                            </CheckBox>
+                            <Label VerticalAlignment="Center">맵 공개</Label>
+                        </StackPanel>
+                        <TextBox x:Name="MapTags" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 태그입니다." materialDesign:HintAssist.Hint="맵 태그" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                            <TextBox.Text>
+                                <Binding
+                                            Path="MapTags"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox x:Name="MapLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 링크입니다." materialDesign:HintAssist.Hint="맵 정보 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                            <TextBox.Text>
+                                <Binding
+                                            Path="DownLink"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        <TextBox x:Name="ImageLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 이미지 링크입니다." materialDesign:HintAssist.Hint="맵 이미지 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                            <TextBox.Text>
+                                <Binding
+                                            Path="ImageLink"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+                        <TextBox x:Name="Mapdes" AcceptsReturn="True" ToolTip="다운로드 페이지에서 보이는 설명입니다." materialDesign:HintAssist.Hint="맵 설명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" VerticalContentAlignment="Top" Height="100">
+                            <TextBox.Text>
+                                <Binding
+                                            Path="MapDes"
                                             ValidatesOnDataErrors="True"
                                             UpdateSourceTrigger="PropertyChanged">
                                     <Binding.ValidationRules>
@@ -119,86 +213,8 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-
-                        <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="신고 기능 이용 시 내용을 수신 받을 수 있습니다." materialDesign:HintAssist.Hint="제작자 이메일" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                            <TextBox.Text>
-                                <Binding
-                                            Path="MakerEmail"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-
-                                    <Binding.ValidationRules>
-                                        <local:EMailValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-                        <Label VerticalAlignment="Center">맵 비공개</Label>
-                        <CheckBox x:Name="ViewPublic" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
-                            <CheckBox.IsChecked>
-                                <Binding
-                                            Path="ViewPublic"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                </Binding>
-                            </CheckBox.IsChecked>
-                        </CheckBox>
-                        <Label VerticalAlignment="Center">맵 공개</Label>
                     </StackPanel>
-                    <TextBox x:Name="MapTags" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 태그입니다." materialDesign:HintAssist.Hint="맵 태그 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                        <TextBox.Text>
-                            <Binding
-                                            Path="MapTags"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <local:TextValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                    <TextBox x:Name="MapLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 링크입니다." materialDesign:HintAssist.Hint="맵 정보 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                        <TextBox.Text>
-                            <Binding
-                                            Path="DownLink"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <local:TextValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-                    <TextBox x:Name="ImageLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 이미지 링크입니다." materialDesign:HintAssist.Hint="맵 이미지 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                        <TextBox.Text>
-                            <Binding
-                                            Path="ImageLink"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <local:TextValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
-
-                    <TextBox x:Name="Mapdes" AcceptsReturn="True" ToolTip="다운로드 페이지에서 보이는 설명입니다." materialDesign:HintAssist.Hint="맵 설명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" VerticalContentAlignment="Top" Height="100">
-                        <TextBox.Text>
-                            <Binding
-                                            Path="MapDes"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                <Binding.ValidationRules>
-                                    <local:TextValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                </Binding.ValidationRules>
-                            </Binding>
-                        </TextBox.Text>
-                    </TextBox>
+                    
 
                 </StackPanel>
             </Expander>

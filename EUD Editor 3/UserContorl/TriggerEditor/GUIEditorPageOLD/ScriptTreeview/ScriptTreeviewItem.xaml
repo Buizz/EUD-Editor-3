@@ -47,14 +47,14 @@
 
         <local:ScriptBlockItem x:Name="ContentPanel" Grid.RowSpan="3" VerticalAlignment="Center" HorizontalAlignment="Left" Margin="8,0"/>
         <DockPanel x:Name="TopBorder" Grid.Row="0" LastChildFill="False" Visibility="Hidden" Opacity="0.5" Margin="8,0">
-            <Border DockPanel.Dock="Left" Background="{DynamicResource PrimaryHueLightBrush}" Width="2"/>
-            <Border DockPanel.Dock="Right" Background="{DynamicResource PrimaryHueLightBrush}" Width="2"/>
-            <Border DockPanel.Dock="Top" Background="{DynamicResource PrimaryHueLightBrush}" Height="4"/>
+            <Border DockPanel.Dock="Left" Background="{DynamicResource SecondaryAccentBrush}" Width="2"/>
+            <Border DockPanel.Dock="Right" Background="{DynamicResource SecondaryAccentBrush}" Width="2"/>
+            <Border DockPanel.Dock="Top" Background="{DynamicResource SecondaryAccentBrush}" Height="4"/>
         </DockPanel>
         <DockPanel x:Name="BottomBorder" Grid.Row="2" LastChildFill="False" Visibility="Hidden" Opacity="0.5" Margin="8,0">
-            <Border DockPanel.Dock="Left" Background="{DynamicResource PrimaryHueLightBrush}" Width="2"/>
-            <Border DockPanel.Dock="Right" Background="{DynamicResource PrimaryHueLightBrush}" Width="2"/>
-            <Border DockPanel.Dock="Bottom" Background="{DynamicResource PrimaryHueLightBrush}" Height="4"/>
+            <Border DockPanel.Dock="Left" Background="{DynamicResource SecondaryAccentBrush}" Width="2"/>
+            <Border DockPanel.Dock="Right" Background="{DynamicResource SecondaryAccentBrush}" Width="2"/>
+            <Border DockPanel.Dock="Bottom" Background="{DynamicResource SecondaryAccentBrush}" Height="4"/>
         </DockPanel>
     </Grid>
 

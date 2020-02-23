@@ -108,14 +108,12 @@ Public Class DatBinding
     Public Property Value() As String
         Get
             If Parameter = "Rank/Sublabel" Then
-                If Parameter = "Rank/Sublabel" Then
-                    If Not (1301 <= temprsv And temprsv <= 1556) Then
-                        Dim tv As UInteger = temprsv
-                        temprsv = pjData.Dat.Data(Datfile, Parameter, ObjectID)
-                        Return tv
-                    End If
-                    'MsgBox("예외")
+                If Not (1301 <= temprsv And temprsv <= 1556) Then
+                    Dim tv As UInteger = temprsv
+                    temprsv = pjData.Dat.Data(Datfile, Parameter, ObjectID)
+                    Return tv
                 End If
+                'MsgBox("예외")
             End If
             'MsgBox("데이터 파인딩 겟")
             '만약 맵데이터에 있는 항목이라면? 

@@ -287,9 +287,9 @@
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
-    <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
-    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptManager.vb" />
-    <Compile Include="Class\TriggerEditor\GUIScriptEditor\TriggerScript.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditorOLD\GUIScriptEditor.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditorOLD\ScriptManager.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditorOLD\TriggerScript.vb" />
     <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\StarCraftArchive.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
@@ -458,26 +458,26 @@
       <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\CodeEditor\Init.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\FunctionDefine.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\FunctionDefine.xaml.vb">
       <DependentUpon>FunctionDefine.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptEditorUI.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\GUIScriptEditorUI.xaml.vb">
       <DependentUpon>GUIScriptEditorUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptBlockItem.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\ScriptBlockItem.xaml.vb">
       <DependentUpon>ScriptBlockItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptManager.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptTreeviewItem.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\GUIScriptManager.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\ScriptTreeviewItem.xaml.vb">
       <DependentUpon>ScriptTreeviewItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\VarSelecter.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\VarSelecter.xaml.vb">
       <DependentUpon>VarSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\TEGUIObjectSelecter.xaml.vb">
       <DependentUpon>TEGUIObjectSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPageOLD\TEGUIPage.xaml.vb">
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\SCADataList.xaml.vb">
@@ -743,31 +743,31 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\FunctionDefine.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\FunctionDefine.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\GUIScriptEditorUI.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\GUIScriptEditorUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptBlockItem.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\ScriptBlockItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\ScriptTreeviewItem.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\ScriptTreeviewItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\ScriptTreeview\VarSelecter.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\ScriptTreeview\VarSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\TEGUIObjectSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml">
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPageOLD\TEGUIPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1024,8 +1024,10 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Class\Binding\CodeName\" />
+    <Folder Include="Class\TriggerEditor\GUIScriptEditor\" />
     <Folder Include="Data\eudplibData\" />
     <Folder Include="Data\Lua\DataEditor\" />
+    <Folder Include="UserContorl\TriggerEditor\GUIEditorPage\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\file.png" />

@@ -94,6 +94,36 @@
   },
   {
     "IsFolder": true,
+    "IsLock": true,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 99,
+    "shortheader": true,
+    "FolderType": 0,
+    "Uniqueness": true,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Action",
+    "CodeStart": "\t{\n",
+    "CodeEnd": "\n\t}",
+    "Codehead": "\t",
+    "Codetail": ";",
+    "CodeSeparator": "\n",
+    "Intend": 1,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": true,
     "IsLock": false,
     "IsChildLock": false,
     "Group": "Control",
@@ -155,6 +185,200 @@
       ""
     ]
   },
+
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      "Condition",
+      "Action"
+    ],
+    "SName": "While",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      "Action"
+    ],
+    "SName": "For",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      "Case"
+    ],
+    "InitBlock": [
+      "Default"
+    ],
+    "SName": "Switch",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+  {
+    "IsFolder": true,
+    "IsLock": true,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 3,
+    "shortheader": false,
+    "FolderType": 0,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Default",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
+
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 3,
+    "shortheader": true,
+    "FolderType": 0,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Case",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
+
+  {
+    "IsFolder": true,
+    "IsLock": false,
+    "IsChildLock": false,
+    "Group": "Control",
+    "SType": 0,
+    "shortheader": false,
+    "FolderType": 3,
+    "Uniqueness": false,
+    "FolderRull": [
+      ""
+    ],
+    "InitBlock": [
+      ""
+    ],
+    "SName": "Folder",
+    "CodeStart": "",
+    "CodeEnd": "",
+    "Codehead": "",
+    "Codetail": "",
+    "CodeSeparator": "\n",
+    "Intend": 0,
+    "Texts": [
+      ""
+    ],
+    "CodeText": "if",
+    "ValuesDef": [
+      ""
+    ]
+  },
+
+
   {
     "IsFolder": true,
     "IsLock": false,
