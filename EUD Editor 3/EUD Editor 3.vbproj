@@ -517,9 +517,6 @@
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\TestWindow.xaml.vb">
-      <DependentUpon>TestWindow.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Window\TriggerEditor.xaml.vb">
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
     </Compile>
@@ -808,10 +805,6 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\SettingWindows.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Window\TestWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
