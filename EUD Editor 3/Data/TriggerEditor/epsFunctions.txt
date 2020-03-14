@@ -104,7 +104,7 @@ function PlayWAV(WAVName : TrgString){}
  * @Type
  * A
  * @Summary.ko-KR
- * [Text]를 [AlawaysDisplay]의 속성으로 해당 트리거 플레이어에게 출력합니다.
+ * [Text]를 [AlwaysDisplay]의 속성으로 해당 트리거 플레이어에게 출력합니다.
  *
  * @param.Text.ko-KR
  * 해당 플레이어에게 보여줄 텍스트입니다.
@@ -153,6 +153,21 @@ function SetMissionObjectives(Text : TrgString){}
  * 스위치의 상태를 의미합니다. toggle : 현재 상태의 반대 상태로 만들기, randomize : 랜덤하게 켜거나 끄기
 ***/
 function SetSwitch(Switch : TrgSwitch, State : TrgSwitchAction){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 카운트 타이머를 [Time]만큼 [TimeModifier]합니다.
+ *
+ * @param.TimeModifier.ko-KR
+ * 시간의 계산 방법을 설정합니다.
+ * @param.Time.ko-KR
+ * 계산될 시간을 설정합니다.
+***/
+function SetCountdownTimer(TimeModifier : TrgModifier, Time){}
 
 
 
@@ -252,7 +267,7 @@ function LeaderBoardKills(Unit : TrgUnit, Label : TrgString){}
  * @Summary.ko-KR
  * 현재 플레이어들의 [ScoreType] 점수 상위 순위대로 점수표에 표시합니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
  *
- * @param.Unit.ko-KR
+ * @param.ScoreType.ko-KR
  * 순위를 매길 점수입니다.
  * @param.Label.ko-KR
  * 순위표 옆에 뜰 텍스트입니다.
@@ -527,7 +542,7 @@ function LeaderBoardGoalScore(Goal, ScoreType : TrgScore, Label : TrgString){}
  * 로케이션의 중심이 될 유닛을 정합니다
  * @param.Owner.ko-KR
  * 중심이 될 유닛의 소유자를 정합니다
- * @param.DestLocaion.ko-KR
+ * @param.DestLocation.ko-KR
  * 로케이션이 옮겨질 구역을 정합니다
 ***/
 function MoveLocation(Location : TrgLocation, OnUnit : TrgUnit, Owner : TrgPlayer, DestLocation : TrgLocation){}
@@ -918,7 +933,7 @@ function Command(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : 
  * @Type
  * C
  * @Summary.ko-KR
- * [Location]에 [Player]의 [Unit])(이)가 [Number][Comparison] 있을 경우
+ * [Location]에 [Player]의 [Unit](이)가 [Number][Comparison] 있을 경우
  *
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
@@ -1059,7 +1074,7 @@ function Switch(Switch : TrgSwitch, State : TrgSwitchState){}
  * @Type
  * C
  * @Summary.ko-KR
- *게임이 시작된지  [Time]초 [Comparison] 지난경우
+ * 게임이 시작된지  [Time]초 [Comparison] 지난경우
  *
  * @param.Comparison.ko-KR
  * 비교할 방법을 정합니다
@@ -1298,7 +1313,7 @@ function EUDJumpIf(conditions, ontrue) { }
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
-function EUDJumpIfNot(conditions, onfalse)) { }
+function EUDJumpIfNot(conditions, onfalse) { }
 
 
 /***
@@ -1986,7 +2001,7 @@ function Memory(dest, cmptype: TrgComparison, value) { }
 
 /***
  * @Type
- * A
+ * F
  * @Summary.ko-KR
  * 메모리 값을 수정합니다.
  *
@@ -1998,7 +2013,7 @@ function SetMemory(dest, modtype: TrgModifier, value) { }
 
 /***
  * @Type
- * A
+ * F
  * @Summary.ko-KR
  * 트리거의 nextptr값을 수정합니다. 자세한건 뻘강좌를 참고하세요.
  * http://blog.naver.com/whyask37

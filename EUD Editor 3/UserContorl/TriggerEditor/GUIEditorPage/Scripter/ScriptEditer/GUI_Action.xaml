@@ -1,0 +1,56 @@
+﻿<UserControl x:Class="GUI_Action"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Width="550" Height="250">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="24"/>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="100"/>
+        </Grid.RowDefinitions>
+        <DockPanel Grid.Row="0">
+            <Separator DockPanel.Dock="Bottom"/>
+            <Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>
+            <TextBlock x:Name="fname" Text="KillUnit"/>
+        </DockPanel>
+
+        <StackPanel Grid.Row="1">
+            <WrapPanel x:Name="ValuePanel">
+                <TextBlock Text="맵 상에 존재하는" TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="Value"  Padding="5,0" Height="22"/>
+                <TextBlock Text="의 " TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                <Button Content="Value"  Padding="5,0" Height="22"/>
+                <TextBlock Text="을 전부 죽입니다." TextWrapping="WrapWithOverflow" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            </WrapPanel>
+            <StackPanel x:Name="ExtraTipPanel">
+                <Separator/>
+                <TextBlock x:Name="ExtraTip" Text="추가 설명" TextWrapping="WrapWithOverflow"/>
+            </StackPanel>
+
+            <StackPanel x:Name="ToolTipPanel">
+                <Separator/>
+                <TextBlock x:Name="TipInfor" Text="추가 설명" TextWrapping="WrapWithOverflow"/>
+            </StackPanel>
+        </StackPanel>
+
+        <DockPanel x:Name="valueEditPanel" Grid.Row="2" Visibility="Visible">
+            <ComboBox x:Name="typecombobox" SelectionChanged="typecombobox_SelectionChanged" DockPanel.Dock="Top">
+                <ComboBoxItem Content="기본"/>
+                <ComboBoxItem Content="변수"/>
+                <ComboBoxItem Content="함수"/>
+                <ComboBoxItem Content="매크로함수"/>
+                <ComboBoxItem Content="사용자정의"/>
+            </ComboBox>
+            <ComboBox x:Name="valuetypecb" Visibility="Collapsed" DockPanel.Dock="Top">
+
+            </ComboBox>
+            <TextBox x:Name="CountTextbox" VerticalContentAlignment="Top" Visibility="Collapsed" AcceptsReturn="True" DockPanel.Dock="Bottom">
+            </TextBox>
+        </DockPanel>
+
+    </Grid>
+</UserControl>

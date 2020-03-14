@@ -143,10 +143,12 @@
     <sys:String x:Key="NewCode">새로 만들기</sys:String>
     <sys:String x:Key="CodeDelete">삭제</sys:String>
 
+    <sys:String x:Key="TECodeEdit">코드 편집</sys:String>
     <sys:String x:Key="TECodeCut">코드 잘라내기</sys:String>
     <sys:String x:Key="TECodeCopy">코드 복사</sys:String>
     <sys:String x:Key="TECodePaste">코드 붙여넣기</sys:String>
     <sys:String x:Key="TECodeDelete">코드 삭제</sys:String>
+    <sys:String x:Key="TECodedeSelect">선택 취소</sys:String>
     <sys:String x:Key="TECodeUndo">실챙 취소</sys:String>
     <sys:String x:Key="TECodeRedo">다시 실행</sys:String>
     
@@ -861,19 +863,14 @@
     <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
     <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
 
-    <sys:String x:Key="Control">제어|&amp;HFF,&amp;HC5,&amp;H00</sys:String>
-    <sys:String x:Key="Func">함수|&amp;HCF,&amp;H2A,&amp;HFF</sys:String>
-    <sys:String x:Key="Condition">조건|&amp;H45,&amp;HEC,&amp;H5B</sys:String>
-    <sys:String x:Key="Action">액션|&amp;H2C,&amp;HC0,&amp;HEC</sys:String>
-    <sys:String x:Key="Variable">변수|&amp;HFF,&amp;H68,&amp;H50</sys:String>
-    <sys:String x:Key="Value">값|&amp;HFF,&amp;H80,&amp;H40</sys:String>
-    <sys:String x:Key="SoundLopper">소리|&amp;H5F,&amp;H00,&amp;HFF</sys:String>
-    <sys:String x:Key="StringBuffer">문자|&amp;H2F,&amp;H9D,&amp;H27</sys:String>
-    
-
-    <sys:String x:Key="FunctionDefinition">함수 정의하기</sys:String>
-
-
+    <sys:String x:Key="Control">제어</sys:String>
+    <sys:String x:Key="plibFunc">플립</sys:String>
+    <sys:String x:Key="Func">함수</sys:String>
+    <sys:String x:Key="Condition">조건</sys:String>
+    <sys:String x:Key="Action">액션</sys:String>
+    <sys:String x:Key="Variable">변수</sys:String>
+    <sys:String x:Key="Value">값</sys:String>
+    <sys:String x:Key="EtcBlock">추가</sys:String>
 
 
     <sys:String x:Key="wireframe_wire">선택 시 나타나는 와이어 프레임입니다.</sys:String>

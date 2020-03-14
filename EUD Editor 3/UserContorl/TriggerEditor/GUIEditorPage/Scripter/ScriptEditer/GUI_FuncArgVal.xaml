@@ -1,0 +1,27 @@
+﻿<UserControl x:Class="GUI_FuncArgVal"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Width="250" Height="140">
+    <StackPanel>
+        <TextBlock>
+            타입
+        </TextBlock>
+        <ComboBox x:Name="typecombobox" SelectionChanged="typecombobox_SelectionChanged">
+            <ComboBoxItem Content="TrgString" Tag="TrgString"/>
+        </ComboBox>
+        <TextBlock>
+            변수 명
+        </TextBlock>
+        <DockPanel>
+            <Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>
+            <TextBox x:Name="ttb" Margin="4,0" TextChanged="ttb_TextChanged"/>
+        </DockPanel>
+        <Label x:Name="ErrorLog" Foreground="#DDFF0000">
+
+        </Label>
+    </StackPanel>
+</UserControl>

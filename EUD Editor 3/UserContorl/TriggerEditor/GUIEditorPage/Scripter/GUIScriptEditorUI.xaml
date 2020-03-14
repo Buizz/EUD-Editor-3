@@ -1,0 +1,92 @@
+﻿<UserControl
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:controlzex="urn:controlzex" x:Class="GUIScriptEditorUI"
+             mc:Ignorable="d" 
+            Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel LastChildFill="True">
+        <ToolBar
+            DockPanel.Dock="Top"
+            ToolBarTray.IsLocked="True"
+            Style="{DynamicResource MaterialDesignToolBar}"
+            ClipToBounds="False">
+            <Button ToolTip="실행취소">
+                <materialDesign:PackIcon Kind="Undo"/>
+            </Button>
+            <Button ToolTip="다시실행">
+                <materialDesign:PackIcon Kind="Redo"/>
+            </Button>
+            <Separator />
+            <Button x:Name="upbtn"  Click="UpSel_Click" ToolTip="위로 넣기">
+                <materialDesign:PackIcon Kind="ChevronDoubleUp"/>
+            </Button>
+            <Button x:Name="downbtn" IsEnabled="False" Click="DownSel_Click" ToolTip="아래로 넣기">
+                <materialDesign:PackIcon Kind="ChevronDoubleDown"/>
+            </Button>
+            <Separator />
+            <Button x:Name="Editbtn" Click="Editbtn_Click" ToolTip="{StaticResource TECodeEdit}">
+                <materialDesign:PackIcon Kind="TableEdit"/>
+            </Button>
+            <Button x:Name="Cutbtn" Click="Cutbtn_Click" ToolTip="{StaticResource TECodeCut}">
+                <materialDesign:PackIcon Kind="ContentCut"/>
+            </Button>
+            <Button x:Name="Copybtn" Click="Copybtn_Click" ToolTip="{StaticResource TECodeCopy}">
+                <materialDesign:PackIcon Kind="ContentCopy"/>
+            </Button>
+            <Button x:Name="Pastebtn" Click="Pastebtn_Click" ToolTip="{StaticResource TECodePaste}">
+                <materialDesign:PackIcon Kind="ContentPaste"/>
+            </Button>
+            <Button x:Name="Deletebtn" Click="Deletebtn_Click" ToolTip="{StaticResource TECodeDelete}">
+                <materialDesign:PackIcon Kind="Delete"/>
+            </Button>
+            <Button x:Name="DeSelectbtn" Click="DeSelectbtn_Click" ToolTip="{StaticResource TECodedeSelect}">
+                <materialDesign:PackIcon Kind="SelectOff"/>
+            </Button>
+        </ToolBar>
+        <Grid>
+            <TreeView x:Name="MainTreeview" 
+            VirtualizingPanel.IsVirtualizing="True"
+            VirtualizingPanel.VirtualizationMode="Recycling"
+            
+            SelectedItemChanged="MainTreeview_SelectedItemChanged"
+                  
+            PreviewKeyDown="MainTreeview_PreviewKeyDown"
+            PreviewKeyUp="MainTreeview_PreviewKeyUp"
+            >
+                <TreeView.ContextMenu>
+                    <ContextMenu Opened="ContextMenu_Opened">
+                        <MenuItem x:Name="EditItem" Header="{StaticResource TECodeEdit}" Icon="{materialDesign:PackIcon Kind=TableEdit}" Click="EditItem_Click" InputGestureText="Enter"/>
+                        <Separator/>
+                        <MenuItem x:Name="CutItem" Header="{StaticResource TECodeCut}" Icon="{materialDesign:PackIcon Kind=ContentCut}" Click="CutItem_Click" InputGestureText="Ctrl+X"/>
+                        <MenuItem x:Name="CopyItem" Header="{StaticResource TECodeCopy}" Icon="{materialDesign:PackIcon Kind=ContentCopy}" Click="CopyItem_Click" InputGestureText="Ctrl+C"/>
+                        <MenuItem x:Name="PasteItem" Header="{StaticResource TECodePaste}" Icon="{materialDesign:PackIcon Kind=ContentPaste}" Click="PasteItem_Click" InputGestureText="Ctrl+V"/>
+                        <MenuItem x:Name="DeleteItem" Header="{StaticResource TECodeDelete}" Icon="{materialDesign:PackIcon Kind=Delete}" Click="DeleteItem_Click" InputGestureText="Delete"/>
+                        <MenuItem x:Name="deselectItem" Header="{StaticResource TECodedeSelect}" Icon="{materialDesign:PackIcon Kind=SelectOff}" Click="deSelectItem_Click" InputGestureText="ESC"/>
+                        <Separator/>
+                        <MenuItem x:Name="UndoItem" Header="{StaticResource TECodeUndo}" Icon="{materialDesign:PackIcon Kind=Undo}" Click="UndoItem_Click" InputGestureText="Ctrl+Z"/>
+                        <MenuItem x:Name="RedoItem" Header="{StaticResource TECodeRedo}" Icon="{materialDesign:PackIcon Kind=Redo}" Click="RedoItem_Click" InputGestureText="Ctrl+R"/>
+                    </ContextMenu>
+                </TreeView.ContextMenu>
+            </TreeView>
+            <materialDesign:Snackbar
+  IsActive="False"
+  x:Name="ErrorSnackbar">
+                <materialDesign:SnackbarMessage x:Name="SnackbarContent"
+    Content="Hello 2"/>
+            </materialDesign:Snackbar>
+        </Grid>
+
+        <!--<TextBox x:Name="TestTextbox" Grid.Column="1" VerticalAlignment="Top" AcceptsReturn="True">안녕하세욧</TextBox>
+        <TextBox x:Name="TestScripts" Grid.Column="2" VerticalAlignment="Top" AcceptsReturn="True"></TextBox>-->
+
+    </DockPanel>
+    
+</UserControl>

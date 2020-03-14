@@ -68,8 +68,12 @@
 
         Dim IscriptID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.images, "Iscript ID", ObjectID)
         ImageScripts.Items.Clear()
-        For i = 0 To scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).EntryType - 1
-            ImageScripts.Items.Add(Format(scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).AnimHeader(i), "00000") & " " & IScript.HEADERNAME(i))
-        Next
+
+        If scData.IscriptData.key.ContainsKey(IscriptID) Then
+            For i = 0 To scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).EntryType - 1
+                ImageScripts.Items.Add(Format(scData.IscriptData.iscriptEntry(scData.IscriptData.key(IscriptID)).AnimHeader(i), "00000") & " " & IScript.HEADERNAME(i))
+            Next
+        End If
+
     End Sub
 End Class

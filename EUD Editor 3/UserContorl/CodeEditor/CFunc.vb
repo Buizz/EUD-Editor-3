@@ -9,7 +9,7 @@ Public Class FunctionToolTip
         Cond
     End Enum
 
-    Public ReadOnly Property Type As String
+    Public ReadOnly Property Type As FType
         Get
             Return pType
         End Get
@@ -31,6 +31,12 @@ Public Class FunctionToolTip
             Else
                 Return ""
             End If
+        End Get
+    End Property
+
+    Public ReadOnly Property TooltipCount As Integer
+        Get
+            Return FuncArgTooltip.Count
         End Get
     End Property
     '/***
@@ -230,7 +236,10 @@ Public Class CFunc
         Return ""
     End Function
 
-
+    Public Function SearchFunc(name As String) As Integer
+        Dim index As Integer = FuncNames.IndexOf(name)
+        Return index
+    End Function
 
 
     Public Function GetPopupToolTip(name As String, Argindex As Integer) As Border
