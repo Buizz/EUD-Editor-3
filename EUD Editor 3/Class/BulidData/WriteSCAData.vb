@@ -155,7 +155,7 @@ Partial Public Class BuildData
 
 
     Public Function GetSCAEps() As String
-        'Const CommandLength As Integer = 12
+        Const CommandLength As Integer = 12
         Dim SpaceLength As Integer = pjData.TEData.SCArchive.DataSpace
 
 
@@ -163,7 +163,7 @@ Partial Public Class BuildData
 
         Dim NameSapces As New List(Of String)
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
-            If pjData.TEData.SCArchive.CodeDatas(i).TypeIndex = 0 Then
+            If pjData.TEData.SCArchive.CodeDatas(i).TypeIndex <> StarCraftArchive.CodeData.CodeType.Deaths Then
                 '변수
                 Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
                 names = names.Split(".").First
@@ -179,7 +179,8 @@ Partial Public Class BuildData
             sb.AppendLine("import " & NameSapces(i) & " as n" & i & ";")
         Next
         sb.AppendLine("")
-        sb.AppendLine("const ws = 0x58F44A;") 'Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");//workspace")
+        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");//workspace")
+        'sb.AppendLine("const ws = 0x58F44A;")
         sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";//EntryPointLength")
         sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";//DataBufferSize")
         sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";//ObjectCount")
@@ -214,6 +215,8 @@ Partial Public Class BuildData
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
+            sb.AppendLine("    {")
+
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable
                     '변수
@@ -242,6 +245,7 @@ Partial Public Class BuildData
                     sb.AppendLine("        break;")
             End Select
 
+            sb.AppendLine("    }")
         Next
 
         sb.AppendLine("    }")
@@ -258,6 +262,7 @@ Partial Public Class BuildData
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
+            sb.AppendLine("    {")
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable
                     '변수
@@ -282,7 +287,7 @@ Partial Public Class BuildData
                     sb.AppendLine("        " & arrayname & "[alen * cp + index] = Value;")
                     sb.AppendLine("        break;")
             End Select
-
+            sb.AppendLine("    }")
         Next
 
         sb.AppendLine("    }")

@@ -6,14 +6,16 @@
 
     Private IsCreateOpen As Boolean
     Private scr As ScriptBlock
+    Private dotscr As ScriptBlock
     Private ntreeview As TreeViewItem
-    Public Sub New(tscr As ScriptBlock, tntreeview As TreeViewItem, tIsCreateOpen As Boolean, tGUIScriptEditorUI As GUIScriptEditorUI)
+    Public Sub New(tscr As ScriptBlock, tntreeview As TreeViewItem, dotscriptblock As ScriptBlock, tIsCreateOpen As Boolean, tGUIScriptEditorUI As GUIScriptEditorUI)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         scr = tscr
+        dotscr = dotscriptblock
         ntreeview = tntreeview
         IsCreateOpen = tIsCreateOpen
 
@@ -33,27 +35,101 @@
         End If
 
 
-        Select Case scr.name
-            Case "function"
-                'MsgBox("함수추가")
+        Select Case scr.ScriptType
+            Case ScriptBlock.EBlockType.fundefine
                 Dim editer As New GUI_FuncEdit(Me, scr)
 
                 cborder.Child = editer
 
                 maingrid.Width = editer.Width + 32
                 maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType._if, ScriptBlock.EBlockType._elseif
+                Dim editer As New GUI_If(Me, scr, ntreeview)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.switch
+                Dim editer As New GUI_Switch(Me, scr, dotscr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.switchcase
+                Dim editer As New GUI_SwitchCase(Me, scr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType._for
+                Dim editer As New GUI_For(Me, scr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.folder
+                Dim editer As New GUI_Folder(Me, scr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.objectdefine
+                Dim editer As New GUI_Object(Me, scr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.vardefine
+                Dim editer As New GUI_Var(Me, scr, dotscr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.import
+                Dim editer As New GUI_Import(Me, scr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.varuse
+                Dim editer As New GUI_VarUse(Me, scr, dotscr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.exp
+                Dim editer As New GUI_Express(Me, scr, dotscr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.rawcode
+                Dim editer As New GUI_RawCode(Me, scr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
+
+            Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition, ScriptBlock.EBlockType.externfun, ScriptBlock.EBlockType.funuse
+                Dim editer As New GUI_Action(Me, scr, dotscr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
             Case Else
-                If scr.IsEditFunc Then
-                    Dim editer As New GUI_Action(Me, scr)
-
-                    cborder.Child = editer
-
-                    maingrid.Width = editer.Width + 32
-                    maingrid.Height = editer.Height + 32 + 48
-                Else
-                    Return False
-                End If
-
+                Return False
         End Select
 
 
@@ -78,8 +154,13 @@
         RaiseEvent CancelBtnEvent(sender, e)
     End Sub
 
+    Private isShift As Boolean = False
     Private Sub maingrid_PreviewKeyDown(sender As Object, e As KeyEventArgs)
-        If e.Key = Key.Enter Then
+        If e.Key = Key.RightShift Then
+            isShift = True
+        End If
+
+        If e.Key = Key.Enter And isShift Then
             RaiseEvent OkayBtnEvent(scr, e)
 
 
@@ -88,6 +169,12 @@
             End If
         ElseIf e.Key = Key.Escape Then
             RaiseEvent CancelBtnEvent(sender, e)
+        End If
+    End Sub
+
+    Private Sub UserControl_PreviewKeyUp(sender As Object, e As KeyEventArgs)
+        If e.Key = Key.RightShift Then
+            isShift = False
         End If
     End Sub
 End Class

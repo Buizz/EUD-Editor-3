@@ -6,6 +6,8 @@ Public MustInherit Class ScriptEditor
     End Enum
     Protected ScriptType As SType
 
+
+
     Public MustOverride Function GetFileText() As String
     Public MustOverride Function GetStringText() As String
 

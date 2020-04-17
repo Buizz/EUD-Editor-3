@@ -288,11 +288,16 @@
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptManager.vb" />
-    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock\ScriptBlockMain.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock\ValFunc.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptTool\GUIFunctionAnalyze.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptTool\GUIObjectAnalyze.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptTool\GUIVarAnalyze.vb" />
     <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\StarCraftArchive.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
     <Compile Include="Class\TriggerEditor\TEFile.vb" />
+    <Compile Include="Compiler\Lexical Analyzer\Lexical Analyzer.vb" />
     <Compile Include="EUDEditor2\LagacyClass.vb" />
     <Compile Include="EUDEditor2\SaveLoadClass\LagacySaveLoad.vb" />
     <Compile Include="MainWindow\MainWindowD.xaml.vb">
@@ -470,11 +475,83 @@
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Action.xaml.vb">
       <DependentUpon>GUI_Action.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ArgSelecter.xaml.vb">
+      <DependentUpon>GUI_Action_ArgSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_Count.xaml.vb">
+      <DependentUpon>GUI_Action_Count.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ListSelecter.xaml.vb">
+      <DependentUpon>GUI_Action_ListSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_String.xaml.vb">
+      <DependentUpon>GUI_Action_String.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_UnitProperty.xaml.vb">
+      <DependentUpon>GUI_Action_UnitProperty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_FunctionSelecter.xaml.vb">
+      <DependentUpon>GUI_FunctionSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_ObjectSelecter.xaml.vb">
+      <DependentUpon>GUI_ObjectSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml.vb">
+      <DependentUpon>GUI_VariableSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml.vb">
+      <DependentUpon>GUI_ArgEditor.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditorWindow.xaml.vb">
+      <DependentUpon>GUI_ArgEditorWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgExpress.xaml.vb">
+      <DependentUpon>GUI_ArgExpress.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Express.xaml.vb">
+      <DependentUpon>GUI_Express.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Folder.xaml.vb">
+      <DependentUpon>GUI_Folder.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_For.xaml.vb">
+      <DependentUpon>GUI_For.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncArgVal.xaml.vb">
       <DependentUpon>GUI_FuncArgVal.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncEdit.xaml.vb">
       <DependentUpon>GUI_FuncEdit.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_GrayWindow.xaml.vb">
+      <DependentUpon>GUI_GrayWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_If.xaml.vb">
+      <DependentUpon>GUI_If.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Import.xaml.vb">
+      <DependentUpon>GUI_Import.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Object.xaml.vb">
+      <DependentUpon>GUI_Object.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml.vb">
+      <DependentUpon>GUI_RawCode.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml.vb">
+      <DependentUpon>GUI_Switch.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_SwitchCase.xaml.vb">
+      <DependentUpon>GUI_SwitchCase.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Var.xaml.vb">
+      <DependentUpon>GUI_Var.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarFuncUse.xaml.vb">
+      <DependentUpon>GUI_VarFuncUse.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarUse.xaml.vb">
+      <DependentUpon>GUI_VarUse.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptTreeviewitem.xaml.vb">
       <DependentUpon>ScriptTreeviewitem.xaml</DependentUpon>
@@ -757,11 +834,107 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ArgSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_Count.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ListSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_String.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_UnitProperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_FunctionSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_ObjectSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgExpress.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Express.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Folder.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_For.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncArgVal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncEdit.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_GrayWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_If.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Import.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Object.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_SwitchCase.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Var.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarFuncUse.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarUse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1026,6 +1199,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Class\Binding\CodeName\" />
+    <Folder Include="Compiler\Parser\" />
     <Folder Include="Data\eudplibData\" />
     <Folder Include="Data\Lua\DataEditor\" />
   </ItemGroup>
@@ -1073,6 +1247,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
     <None Include="Data\Resources\BlackOverlay.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Resources\NoFrame.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="x64\lz4X64.dll">

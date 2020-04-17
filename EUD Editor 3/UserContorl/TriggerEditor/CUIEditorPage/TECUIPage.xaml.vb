@@ -15,8 +15,8 @@
         Dim TString As String = PTEFile.RefreshData()
         If TString <> "" Then
             TextEditor.Text = TString
+            TextEditor.ExternerLoader()
         End If
-
     End Sub
 
 

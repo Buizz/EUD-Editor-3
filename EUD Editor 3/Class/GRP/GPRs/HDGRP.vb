@@ -71,6 +71,14 @@ Public Class HDGRP
 
         Dim drawFrame As Integer = SCImage.GetFrameGRP()
 
+        If maxframe < drawFrame Then
+            timage.Width = 256 / 2
+            timage.Height = 256 / 2
+
+            timage.Margin = New Thickness(-48, -48, 0, 0)
+            timage.Source = Tool.ErrorBitmap
+            Return timage
+        End If
         Dim bitsource As BitmapSource = DrawGRP(drawFrame)
 
         timage.Width = bitsource.Width / 2

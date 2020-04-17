@@ -45,17 +45,17 @@
 
 
         <DockPanel >
-            <Border x:Name="Colorbar" Width="20" DockPanel.Dock="Left"/>
+            <Border x:Name="Colorbar" Width="10" DockPanel.Dock="Left"/>
             <DockPanel DockPanel.Dock="Top">
                 <materialDesign:PackIcon Kind="Magnify" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
                 <Button  DockPanel.Dock="Right"
                          Style="{StaticResource MaterialDesignFlatButton}"
-                         HorizontalAlignment="Left" Width="20" Height="20">
+                         HorizontalAlignment="Left" Width="20" Height="20" Click="SearchBoxBtnClick">
                     <materialDesign:PackIcon  DockPanel.Dock="Right" Kind="Close" VerticalAlignment="Stretch" Foreground="{DynamicResource MaterialDesignBody}" Margin="-14,0,0,0" />
                 </Button>
                 <TextBox x:Name="FliterText" Grid.Row="1" 
                   materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
-                  Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" />
+                  Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" TextChanged="SearchBoxTextChange"/>
             </DockPanel>
             <ListBox x:Name="ToolBox" SelectionChanged="ToolBox_SelectionChanged">
 

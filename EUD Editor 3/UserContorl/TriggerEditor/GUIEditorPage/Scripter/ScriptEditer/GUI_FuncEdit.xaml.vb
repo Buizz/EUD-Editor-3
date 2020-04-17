@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports MaterialDesignThemes.Wpf
 
 Public Class GUI_FuncEdit
     Private p As GUIScriptEditerWindow
@@ -21,7 +22,7 @@ Public Class GUI_FuncEdit
 
 
         ttb.Text = scr.value
-
+        argtip.Text = scr.GetFuncTooltip
 
         If CheckEditable() Then
             ErrorLog.Content = ""
@@ -29,12 +30,45 @@ Public Class GUI_FuncEdit
         Else
             p.OkBtn.IsEnabled = False
         End If
+
+        Dim argsb As List(Of ScriptBlock) = tescm.GetFuncArgs(scr)
+        For i = 0 To argsb.Count - 1
+            Dim argname As String = argsb(i).value.Split("ᒧ").First
+
+            Dim chip As New Chip
+            chip.Content = argname
+            chip.Tag = argname
+
+            AddHandler chip.Click, AddressOf ChipClick
+            chippanel.Children.Add(chip)
+
+            'argname
+        Next
+        '<materialDesign:Chip
+        'Content = "James Willock" >
+        '<materialDesign:Chip.Icon>
+        '    <Image
+        '        Source="Resources/ProfilePic.jpg"/>
+        '</materialDesign:Chip.Icon>
+        '</materialDesign:Chip>
     End Sub
+
+    Private Sub ChipClick(sender As Object, e As RoutedEventArgs)
+        Dim chip As Chip = sender
+        Dim str As String = "[" & chip.Tag & "]"
+
+        argtip.SelectedText = str
+        argtip.SelectionLength = 0
+        argtip.SelectionStart += str.Length
+        argtip.Focus()
+    End Sub
+
 
 
 
     Public Sub OkayAction(sender As Object, e As RoutedEventArgs)
         scr.value = ttb.Text
+        scr.SetFuncTooltip(argtip.Text)
     End Sub
 
     Private Sub ttb_TextChanged(sender As Object, e As TextChangedEventArgs)
@@ -63,7 +97,7 @@ Public Class GUI_FuncEdit
 
 
 
-        Dim rgx As New Regex("[ !@#$%^&*-=]")
+        Dim rgx As New Regex("[ !@#$%^&*=]")
 
         If rgx.IsMatch(nametext) Then
             ErrorLog.Content = "잘못된 문자가 포함되어 있습니다."
@@ -73,12 +107,32 @@ Public Class GUI_FuncEdit
 
         Dim funcstr As List(Of String) = tescm.GetFuncList(p._GUIScriptEditorUI.PTEFile)
         If funcstr.IndexOf(nametext) <> -1 Then
-            ErrorLog.Content = "중복된 함수명입니다."
-            Return False
+            If tescm.GetFuncInfor(scr.value, p._GUIScriptEditorUI.Script) IsNot scr Then
+                ErrorLog.Content = "중복된 함수명입니다."
+                Return False
+            End If
         End If
 
 
 
         Return True
     End Function
+
+    Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If CheckEditable() Then
+            ErrorLog.Content = ""
+            p.OkBtn.IsEnabled = True
+        Else
+            p.OkBtn.IsEnabled = False
+        End If
+    End Sub
+
+    Private Sub ComboBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If CheckEditable() Then
+            ErrorLog.Content = ""
+            p.OkBtn.IsEnabled = True
+        Else
+            p.OkBtn.IsEnabled = False
+        End If
+    End Sub
 End Class

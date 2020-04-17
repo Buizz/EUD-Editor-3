@@ -113,8 +113,12 @@ Public Class IconSelecterP
     End Sub
 
     Private Sub OpenNew_Click(sender As Object, e As RoutedEventArgs) Handles OpenNew.Click
+        Dim rv As Long = pValue
+        If DatFile = SCDatFiles.DatFiles.stattxt Then
+            rv -= 1
+        End If
         If CheckOverFlow(DatFile, pValue) Then
-            TabItemTool.WindowTabItem(DatFile, pValue)
+            TabItemTool.WindowTabItem(DatFile, rv)
         End If
     End Sub
 

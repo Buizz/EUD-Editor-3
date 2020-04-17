@@ -22,6 +22,12 @@ Public MustInherit Class RGRP
     End Enum
 
 
+    <NonSerialized()>
+    Protected IsStop As Boolean = False
+
+
+
+
     Protected GRPWidth As Integer
     Protected GRPHeight As Integer
 

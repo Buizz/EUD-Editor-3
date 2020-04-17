@@ -7,7 +7,7 @@ Partial Public Class ProjectData
     Public Function Save(Optional IsSaveAs As Boolean = False) As Boolean
         SaveData.LastVersion = pgData.Version
         TETempData.SaveTabitems()
-
+        TERefreshTabITem()
 
 
 

@@ -109,7 +109,7 @@ Public Class TriggerEditor
         'End While
     End Function
 
-    Private Sub SaveLastTabitems()
+    Public Sub SaveLastTabitems()
         For Each win As Window In Application.Current.Windows
             If win.GetType Is GetType(TriggerEditor) Then
                 If Not win Is Me Then

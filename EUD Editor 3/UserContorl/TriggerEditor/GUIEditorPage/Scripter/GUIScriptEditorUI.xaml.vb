@@ -3,7 +3,7 @@
 
 
     Public PTEFile As TEFile
-    Private Script As GUIScriptEditor
+    Public Script As GUIScriptEditor
 
 
     Private selpos As Integer = 1
@@ -19,8 +19,8 @@
         Script = PTEFile.Scripter
 
 
-        For i = 0 To Script.items.Count - 1
-            MainTreeview.Items.Add(Script.items(i).GetTreeviewitem)
+        For i = 0 To Script.ItemCount - 1
+            MainTreeview.Items.Add(Script.GetItems(i).GetTreeviewitem)
         Next
 
     End Sub
@@ -34,7 +34,12 @@
     Private Function IsItemSelected() As Boolean
         Return (MainTreeview.SelectedItem IsNot Nothing)
     End Function
-
+    Public Function GetSelectScriptBlock() As ScriptBlock
+        If IsItemSelected() Then
+            Return CType(MainTreeview.SelectedItem, TreeViewItem).Tag
+        End If
+        Return Nothing
+    End Function
 
 
     Private Sub CopySelectItem()
@@ -158,6 +163,7 @@
             tsel.IsSelected = False
         End If
 
+        TEGUIPage.ObjectSelector.ValueListRefresh(Nothing)
         'RefreshBtn()
     End Sub
 
@@ -233,6 +239,12 @@
     End Sub
     Private Sub MainTreeview_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
         RefreshBtn()
+        If IsItemSelected() Then
+            Dim tb As TreeViewItem = MainTreeview.SelectedItem
+            Dim scr As ScriptBlock = tb.Tag
+
+            TEGUIPage.ObjectSelector.ValueListRefresh(scr)
+        End If
     End Sub
 
 
@@ -241,5 +253,11 @@
         RefreshBtn()
         sMessageQueue = New MaterialDesignThemes.Wpf.SnackbarMessageQueue
         ErrorSnackbar.MessageQueue = sMessageQueue
+    End Sub
+
+    Private Sub MainTreeview_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs)
+        'If IsItemSelected() Then
+        '    OpenEditWindow(MainTreeview.SelectedItem)
+        'End If
     End Sub
 End Class

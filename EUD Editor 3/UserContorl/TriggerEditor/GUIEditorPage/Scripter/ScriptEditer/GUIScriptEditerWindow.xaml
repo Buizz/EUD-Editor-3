@@ -6,7 +6,8 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
              PreviewKeyDown="maingrid_PreviewKeyDown"
-             d:DesignHeight="450" d:DesignWidth="800">
+             PreviewKeyUp="UserControl_PreviewKeyUp"
+             d:DesignHeight="454" d:DesignWidth="800">
     <Grid Background="{DynamicResource MaterialDesignPaper}" x:Name="maingrid" >
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>

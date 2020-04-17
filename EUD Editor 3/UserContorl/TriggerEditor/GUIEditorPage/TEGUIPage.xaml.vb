@@ -30,6 +30,8 @@ Public Class TEGUIPage
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         AnimationInit()
+
+        CType(PTEFile.Scripter, GUIScriptEditor).ExternLoader()
     End Sub
 
     Public Sub SaveData()
@@ -42,9 +44,10 @@ Public Class TEGUIPage
     End Sub
 
     Private Sub ObjectSelector_ItemSelect(sender As Object, e As RoutedEventArgs)
-        Dim itemtag As String = sender.ToString
+        Dim v() As Object = sender
 
-        Script.AddItemClick(itemtag)
+
+        Script.AddItemClick(v.First, v.Last.ToString)
     End Sub
     Private Sub UserControl_GotFocus(sender As Object, e As RoutedEventArgs)
     End Sub
@@ -171,7 +174,7 @@ Public Class TEGUIPage
 
 
             Dim realh As Integer = Script.ActualHeight
-            Dim windowh As Integer = 400 'ctr.Height
+            Dim windowh As Integer = 500 'ctr.Height
             Dim itemh As Integer = 80
             Dim cpos As Integer = pos.Y
 
@@ -186,9 +189,13 @@ Public Class TEGUIPage
         End If
     End Sub
 
+    Public Sub RefreshData()
+        PTEFile.RefreshData()
+    End Sub
 
 
     Public Sub CloseEditWindow()
+        ValueSelecter.Visibility = Visibility.Collapsed
         ValueSelecter.Child = Nothing
         ObjectSelector.IsEnabled = True
         Script.IsEnabled = True

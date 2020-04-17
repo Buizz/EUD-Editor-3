@@ -65,6 +65,16 @@ Public Class ProjectData
     End Sub
     Public Property UseCustomtbl As Boolean
         Get
+            Dim Lasttbls As Integer
+            For i = 0 To SCtbltxtCount - 1
+                If Not pjData.BuildStat_txtIsDefault(i) Then
+                    Lasttbls = i + 1
+                End If
+            Next
+            If Lasttbls = 0 Then
+                Return False
+            End If
+
             Return SaveData.UseCustomTbl
         End Get
         Set(value As Boolean)
@@ -195,9 +205,11 @@ Public Class ProjectData
         End Get
         Set(value As String)
             If My.Computer.FileSystem.FileExists(value) And SaveData.OpenMapName <> value Then
+                IsMapLoading = False
                 tIsDirty = True
                 SaveData.OpenMapName = value
                 _MapData = New MapData(SaveData.OpenMapName)
+
                 IsMapLoading = _MapData.LoadComplete
                 If Not IsMapLoading Then
                     SaveData.OpenMapName = ""
@@ -329,14 +341,14 @@ Public Class ProjectData
 
                         ReturnStr = CodeTrimer(Stat_txt(tLabel - 1))
                     Case SCDatFiles.DatFiles.flingy
-                        Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
-                        Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
+                        'Dim tSprite As Integer = Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", index)
+                        'Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                        ReturnStr = scData.ImageStr(timage)
+                        ReturnStr = scData.flingyStr(index)
                     Case SCDatFiles.DatFiles.sprites
-                        Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", index)
+                        'Dim timage As Integer = Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", index)
 
-                        ReturnStr = scData.ImageStr(timage)
+                        ReturnStr = scData.SpriteStr(index)
                     Case SCDatFiles.DatFiles.images
                         ReturnStr = scData.ImageStr(index)
                     Case SCDatFiles.DatFiles.upgrades

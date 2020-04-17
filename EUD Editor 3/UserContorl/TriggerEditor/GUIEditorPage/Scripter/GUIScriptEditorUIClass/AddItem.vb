@@ -1,15 +1,27 @@
 ﻿Partial Public Class GUIScriptEditorUI
-    Public Sub AddItemClick(tagname As String)
+    Public Sub AddItemClick(type As ScriptBlock.EBlockType, tagname As String)
         Dim selectitem As TreeViewItem = MainTreeview.SelectedItem
+        Dim normalscr As ScriptBlock = Nothing
         Dim ssb As ScriptBlock = Nothing
         Dim addindex As Integer = -1
 
 
         If selectitem IsNot Nothing Then
+            normalscr = selectitem.Tag
             ssb = selectitem.Tag
-            If Not ssb.IsFolderScript Then
+            Dim isfolder As Boolean = ssb.isfolder
+
+            If tagname = "switchcase" Then
+                If ssb.ScriptType = ScriptBlock.EBlockType.switch Then
+                    isfolder = True
+                ElseIf ssb.ScriptType = ScriptBlock.EBlockType.switchcase Then
+                    isfolder = False
+                End If
+            End If
+
+            If Not isfolder Then
                 If selectitem.Parent.GetType Is GetType(TreeView) Then
-                    addindex = Script.items.IndexOf(ssb) + selpos
+                    addindex = Script.IndexOfItem(ssb) + selpos
 
                     ssb = Nothing
                     selectitem = Nothing
@@ -24,7 +36,8 @@
             End If
         End If
 
-        Dim nsb As New ScriptBlock(tagname, True, False, "", Script)
+
+        Dim nsb As New ScriptBlock(type, tagname, True, False, "", Script)
         nsb.Parent = ssb
 
         insertIndex = addindex
@@ -34,10 +47,12 @@
         selectitemIsNothing = selectitem IsNot Nothing
         IsCreateOpen = True
 
+
         If selectitem IsNot Nothing Then
             If CheckValidated(nsb, ssb) Then
                 Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
-                If Not OpenNewWindow(nsb, ntreeview) Then
+
+                If Not OpenNewWindow(nsb, ntreeview, normalscr) Then
                     selectitem.IsExpanded = True
                     If addindex = -1 Then
                         ssb.AddChild(nsb)
@@ -51,12 +66,13 @@
         Else
             If CheckValidated(nsb, Nothing) Then
                 Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
-                If Not OpenNewWindow(nsb, ntreeview) Then
+
+                If Not OpenNewWindow(nsb, ntreeview, normalscr) Then
                     If addindex = -1 Then
-                        Script.items.Add(nsb)
+                        Script.AddItems(nsb)
                         MainTreeview.Items.Add(ntreeview)
                     Else
-                        Script.items.Insert(addindex, nsb)
+                        Script.InsertItems(addindex, nsb)
                         MainTreeview.Items.Insert(addindex, ntreeview)
                     End If
                 End If
@@ -78,8 +94,12 @@
 
         OpenNewWindow(ntreeview.Tag, ntreeview)
     End Sub
-    Private Function OpenNewWindow(scr As ScriptBlock, ntreeview As TreeViewItem) As Boolean
-        Dim scriptEdit As New GUIScriptEditerWindow(scr, ntreeview, IsCreateOpen, Me)
+    Private Function OpenNewWindow(scr As ScriptBlock, ntreeview As TreeViewItem, Optional dotscriptblock As ScriptBlock = Nothing) As Boolean
+        If dotscriptblock Is Nothing Then
+            dotscriptblock = scr
+        End If
+
+        Dim scriptEdit As New GUIScriptEditerWindow(scr, ntreeview, dotscriptblock, IsCreateOpen, Me)
 
         If Not scriptEdit.Init Then
             Return False
@@ -117,23 +137,22 @@
             Else
                 If CheckValidated(insertScriptBlock, Nothing) Then
                     If insertIndex = -1 Then
-                        Script.items.Add(insertScriptBlock)
+                        Script.AddItems(insertScriptBlock)
                         MainTreeview.Items.Add(ntreeview)
                     Else
-                        Script.items.Insert(insertIndex, insertScriptBlock)
+                        Script.InsertItems(insertIndex, insertScriptBlock)
                         MainTreeview.Items.Insert(insertIndex, ntreeview)
                     End If
                 End If
             End If
         End If
 
-        Select Case scr.name
-            Case "function"
+        Select Case scr.ScriptType
+            Case ScriptBlock.EBlockType.fundefine, ScriptBlock.EBlockType.vardefine,
+                 ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition,
+                 ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.externfun,
+                 ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.import
                 TEGUIPage.ObjectSelector.RefreshCurrentList()
-            Case Else
-                If scr.IsFunction Then
-                    TEGUIPage.ObjectSelector.RefreshCurrentList()
-                End If
         End Select
 
 

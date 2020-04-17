@@ -10,9 +10,10 @@
              mc:Ignorable="d"
              Unloaded="UserControl_Unloaded"
              d:DesignHeight="256" d:DesignWidth="256">
-    <Grid x:Name="ImageBox">
+    <Grid>
+        <Grid x:Name="ImageBox">
 
-        <!--<interop:AirspaceDecorator AirspaceMode="Redirect"
+            <!--<interop:AirspaceDecorator AirspaceMode="Redirect"
                            Background="White"
                            IsInputRedirectionEnabled="True"
                            IsOutputRedirectionEnabled="True">
@@ -21,5 +22,8 @@
             </wpf:WindowsFormsHost>
         </interop:AirspaceDecorator>-->
 
+        </Grid>
+        <!--<TextBlock Text="Frame 5" Foreground="Red"/>-->
     </Grid>
+   
 </UserControl>

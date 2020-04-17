@@ -5,23 +5,28 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             Width="250" Height="140">
-    <StackPanel>
-        <TextBlock>
-            타입
+             Width="250" Height="180">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top">
+            인자 명
         </TextBlock>
-        <ComboBox x:Name="typecombobox" SelectionChanged="typecombobox_SelectionChanged">
-            <ComboBoxItem Content="TrgString" Tag="TrgString"/>
-        </ComboBox>
-        <TextBlock>
-            변수 명
-        </TextBlock>
-        <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
             <Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>
             <TextBox x:Name="ttb" Margin="4,0" TextChanged="ttb_TextChanged"/>
         </DockPanel>
-        <Label x:Name="ErrorLog" Foreground="#DDFF0000">
+        <Label x:Name="ErrorLog" Foreground="#DDFF0000" DockPanel.Dock="Top">
 
         </Label>
-    </StackPanel>
+        <TextBlock DockPanel.Dock="Top">
+            타입
+        </TextBlock>
+        <ComboBox DockPanel.Dock="Top" x:Name="typecombobox" SelectionChanged="typecombobox_SelectionChanged">
+        </ComboBox>
+
+        <TextBlock DockPanel.Dock="Top">
+           설명
+        </TextBlock>
+        <TextBox DockPanel.Dock="Top" x:Name="argtip" AcceptsReturn="True" VerticalContentAlignment="Stretch"/>
+
+    </DockPanel>
 </UserControl>

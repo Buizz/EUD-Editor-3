@@ -1,0 +1,38 @@
+﻿<UserControl x:Class="GUI_ArgEditor"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             mc:Ignorable="d"
+             d:DesignWidth="300"
+           >
+    <DockPanel>
+        <StackPanel Orientation="Vertical" Margin="4" DockPanel.Dock="Left">
+            <RadioButton x:Name="typebtn0" Style="{StaticResource MaterialDesignTabRadioButton}"  Checked="typebtn_Checked" Tag="0" Content="기본" Padding="0" Margin="0" Height="24"/>
+            <RadioButton x:Name="typebtn1" Style="{StaticResource MaterialDesignTabRadioButton}"  Checked="typebtn_Checked" Tag="1" Content="변수" Padding="0" Margin="0" Height="24"/>
+            <RadioButton x:Name="typebtn2" Style="{StaticResource MaterialDesignTabRadioButton}"  Checked="typebtn_Checked" Tag="2" Content="함수" Padding="0" Margin="0" Height="24"/>
+            <RadioButton x:Name="typebtn3" Style="{StaticResource MaterialDesignTabRadioButton}"  Checked="typebtn_Checked" Tag="3" Content="수식" Padding="0" Margin="0" Height="24"/>
+            <RadioButton x:Name="typebtn4" Style="{StaticResource MaterialDesignTabRadioButton}"  Checked="typebtn_Checked" Tag="4" Content="사용자" Padding="0" Margin="0" Height="24"/>
+        </StackPanel>
+        <DockPanel>
+            <ComboBox x:Name="valuetypecb" Visibility="Collapsed" DockPanel.Dock="Top" SelectionChanged="valuetypecb_SelectionChanged">
+
+            </ComboBox>
+            <DockPanel x:Name="Vartab" Visibility="Collapsed" DockPanel.Dock="Top" LastChildFill="False">
+                <local:GUI_VarFuncUse x:Name="VarUseFunc"/>
+            </DockPanel>
+            <DockPanel x:Name="ArgExpressTab" Visibility="Collapsed" DockPanel.Dock="Top" >
+
+                <local:GUI_ArgExpress x:Name="ArgExpress"/>
+            </DockPanel>
+            <DockPanel x:Name="functab" Visibility="Visible" DockPanel.Dock="Top" LastChildFill="False">
+
+                <local:GUI_Action_ArgSelecter x:Name="ArgSelecter" Visibility="Collapsed"/>
+            </DockPanel>
+            <local:CodeEditor x:Name="CountTextbox" VerticalContentAlignment="Top" Visibility="Collapsed" DockPanel.Dock="Bottom" TextChange="CountTextbox_TextChange">
+            </local:CodeEditor>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

@@ -149,7 +149,7 @@
     <sys:String x:Key="TECodePaste">코드 붙여넣기</sys:String>
     <sys:String x:Key="TECodeDelete">코드 삭제</sys:String>
     <sys:String x:Key="TECodedeSelect">선택 취소</sys:String>
-    <sys:String x:Key="TECodeUndo">실챙 취소</sys:String>
+    <sys:String x:Key="TECodeUndo">실행 취소</sys:String>
     <sys:String x:Key="TECodeRedo">다시 실행</sys:String>
     
     
@@ -800,11 +800,11 @@
 
     <!--트리거에디터-->
     <sys:String x:Key="NewFolder">새 폴더</sys:String>
-    <sys:String x:Key="NewEpsScript">새 epScript 파일</sys:String>
-    <sys:String x:Key="NewPyScript">새 eudplib 파일</sys:String>
+    <sys:String x:Key="NewEpsScript">새epScript파일</sys:String>
+    <sys:String x:Key="NewPyScript">새eudplib파일</sys:String>
     <sys:String x:Key="Folder">폴더</sys:String>
-    <sys:String x:Key="EpsScriptFile">epScript 파일</sys:String>
-    <sys:String x:Key="PyScriptFile">eudplib 파일</sys:String>
+    <sys:String x:Key="EpsScriptFile">epScript파일</sys:String>
+    <sys:String x:Key="PyScriptFile">eudplib파일</sys:String>
     <sys:String x:Key="FIleName">파일 이름</sys:String>
     <sys:String x:Key="CreateDate">생성 날짜</sys:String>
     <sys:String x:Key="LastDate">마지막으로 편집된 날짜</sys:String>
@@ -866,9 +866,12 @@
     <sys:String x:Key="Control">제어</sys:String>
     <sys:String x:Key="plibFunc">플립</sys:String>
     <sys:String x:Key="Func">함수</sys:String>
+    <sys:String x:Key="MacroFunc">매크로</sys:String>
+
+    
     <sys:String x:Key="Condition">조건</sys:String>
     <sys:String x:Key="Action">액션</sys:String>
-    <sys:String x:Key="Variable">변수</sys:String>
+    <sys:String x:Key="Variable">객체</sys:String>
     <sys:String x:Key="Value">값</sys:String>
     <sys:String x:Key="EtcBlock">추가</sys:String>
 

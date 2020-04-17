@@ -39,7 +39,7 @@
             <StackPanel>
                 <TextBlock x:Name="TextTitle" Text="하이"  Foreground="{DynamicResource PrimaryHueMidBrush}"/>
                 <TextBlock x:Name="Textb" Text="하이" Padding="5"/>
-                <TextBox x:Name="Textbox" Padding="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextChanged="Textbox_TextChanged"/>
+                <TextBox x:Name="Textbox" Padding="5" VerticalScrollBarVisibility="Auto" AcceptsReturn="True" TextChanged="Textbox_TextChanged" MaxHeight="300"/>
             </StackPanel>
         </DockPanel>
         

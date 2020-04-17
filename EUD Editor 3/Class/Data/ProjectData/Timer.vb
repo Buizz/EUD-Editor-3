@@ -13,22 +13,25 @@ Partial Public Class ProjectData
             If Not pgData.IsCompilng Then
                 If My.Computer.FileSystem.FileExists(OpenMapName) Then
                     If LastModifiyTimer <> File.GetLastWriteTime(OpenMapName) Then
-                        IsMapLoading = MapData.ReLoad(OpenMapName)
-                        _MapData = New MapData(OpenMapName)
-                        IsMapLoading = _MapData.LoadComplete
-                        If Not IsMapLoading Then
-                            _MapData = Nothing
-                            OpenMapName = ""
-                        End If
+                        Threading.Thread.Sleep(1000)
+                        If Not Tool.isFileLock(OpenMapName) Then
+                            IsMapLoading = MapData.ReLoad(OpenMapName)
+                            _MapData = New MapData(OpenMapName)
+                            IsMapLoading = _MapData.LoadComplete
+                            If Not IsMapLoading Then
+                                _MapData = Nothing
+                                OpenMapName = ""
+                            End If
 
-                        If Not MapData.ReLoad(OpenMapName) Then
-                            MsgBox("맵을 불러 올 수 없었습니다.")
-                        End If
-                        If AutoBuild Then
-                            If LastCompile Then
-                                LastCompile = False
-                            Else
-                                pjData.EudplibData.Build()
+                            If Not MapData.ReLoad(OpenMapName) Then
+                                MsgBox("맵을 불러 올 수 없었습니다.")
+                            End If
+                            If AutoBuild Then
+                                If LastCompile Then
+                                    LastCompile = False
+                                Else
+                                    pjData.EudplibData.Build()
+                                End If
                             End If
                         End If
                     End If
@@ -50,20 +53,22 @@ Partial Public Class ProjectData
 
                 '만약 edd로 실행중인 경우
             End If
-            TERefreshTabITem()
+            'TERefreshTabITem()
         End If
     End Sub
-    Private Sub TERefreshTabITem()
+    Public Sub TERefreshTabITem()
+        'MsgBox("TE리프레시")
         '우선 모든 윈도우 돌면서 조사하자
         For Each win As Window In Application.Current.Windows
             If win.GetType Is GetType(TriggerEditor) Then
-                Dim MainContent As Object = CType(win, TriggerEditor).MainTab
+                Dim t As TriggerEditor = win
 
+                Dim MainContent As Object = t.MainTab
+                t.SaveLastTabitems()
 
                 If CheckBranch(MainContent) Then
                     Exit Sub
                 End If
-
 
 
                 'If CheckTabablzControl(tTEFile, MainContent) Then
@@ -105,6 +110,10 @@ Partial Public Class ProjectData
 
             If TypeOf TabContent Is TECUIPage Then
                 Dim tPage As TECUIPage = TabContent
+
+                tPage.RefreshData()
+            ElseIf TypeOf TabContent Is TEGUIPage Then
+                Dim tPage As TEGUIPage = TabContent
 
                 tPage.RefreshData()
             End If

@@ -119,7 +119,7 @@ Public Class DataManager
                 Dim Value As Long
 
                 If pjData.IsMapLoading Then
-                    If pjData.MapData.DatFile.Values(DatFiles, Paramname, i).IsDefault Then
+                    If Not pjData.MapData.DatFile.Values(DatFiles, Paramname, ObjectID).IsDefault Then
                         Value = pjData.MapData.DatFile.Data(DatFiles, Paramname, ObjectID)
                     Else
                         Value = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
@@ -127,7 +127,6 @@ Public Class DataManager
                 Else
                     Value = pjData.Dat.Data(DatFiles, Paramname, ObjectID)
                 End If
-
 
 
 

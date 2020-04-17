@@ -371,7 +371,7 @@ function SetResources(Player : TrgPlayer, Modifier : TrgModifier, Amount, Resour
  *
  * @param.Player.ko-KR
  * 점수가 설정될 플레이어입니다.
- * @param.ResourceType.ko-KR
+ * @param.ScoreType.ko-KR
  * 설정할 점수의 종류입니다.
  * @param.Amount.ko-KR
  * 설정할 점수의 양입니다.
@@ -399,10 +399,13 @@ function MinimapPing(Where : TrgLocation){}
  * @Type
  * A
  * @Summary.ko-KR
- * 해당 트리거 플레이어의 포트레잇 창에 [Unit]이 말하는 초상화를 띄웁니다.
+ * 해당 트리거 플레이어의 포트레잇 창에 [Unit]이 말하는 초상화를 [Time]동안 띄웁니다.
  *
  * @param.Unit.ko-KR
  * 포트레잇 창에 말하는 모습을 띄울 유닛입니다.
+ *
+ * @param.Time.ko-KR
+ * 띄울 시간입니다.
 ***/
 function TalkingPortrait(Unit : TrgUnit, Time){}
 
@@ -553,7 +556,7 @@ function MoveLocation(Location : TrgLocation, OnUnit : TrgUnit, Owner : TrgPlaye
  * @Type
  * A
  * @Summary.ko-KR
- * [StartLocation]에 있는 [Owner]의 [UnitType] [Count]기를 [DestLocation](으)로 옮깁니다
+ * [StartLocation]에 있는 [Owner]의 [UnitType]을 [Count]만큼 [DestLocation](으)로 옮깁니다
  *
  * @param.Count.ko-KR
  * 옮길 유닛의 수를 정합니다
@@ -573,6 +576,7 @@ function MoveUnit(Count : TrgCount, UnitType : TrgUnit, Owner : TrgPlayer, Start
 /***
  * @Type
  * A
+ * @Summary.ko-KR
  * 자원의 총합을 목표치 [Goal]에 가깝게 보유한 플레이어의 순위를 보여줍니다.
  *
  * @param.Goal.ko-KR
@@ -698,11 +702,11 @@ function SetDeaths(Player : TrgPlayer, Modifier : TrgModifier, Number, Unit : Tr
  * @Summary.ko-KR
  * [StartLocation]에 있는 [Owner]소유의 [Unit]에게 [DestLocation]로 [OrderType]명령을 내립니다
  *
- * @param.StarLocation.ko-KR
+ * @param.StartLocation.ko-KR
  * 명령의 시작 위치를 정합니다
  * @param.Owner.ko-KR
  * 대상이 될 유닛의 소유자를 정합니다
- * @param.Unite.ko-KR
+ * @param.Unit.ko-KR
  * 명령을 받을 유닛을 정합니다
  * @param.DestLocation.ko-KR
  * 목적지를 정합니다

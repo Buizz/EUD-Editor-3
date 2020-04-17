@@ -25,7 +25,7 @@ Public Class MapData
     Private pLocationName(255) As Integer
     Public ReadOnly Property LocationName(index As Integer) As String
         Get
-            If 255 > index Then
+            If 255 >= index Then
                 If pLocationName(index) = 0 Then
                     Return ""
                 Else
@@ -41,7 +41,7 @@ Public Class MapData
     Private pSwitchName(255) As Integer
     Public ReadOnly Property SwitchName(index As Integer) As String
         Get
-            If 255 > index Then
+            If 255 >= index Then
                 If pSwitchName(index) = 0 Then
                     Return "Switch " & index
                 Else
@@ -470,7 +470,6 @@ Public Class MapData
                 For i = 0 To 227
                     If TEMPIsUnitDefault(i) = 0 Then
                         Dim Key As String
-
                         Key = "Hit Points"
                         Dat.Data(SCDatFiles.DatFiles.units, Key, i) = TEMPUnitHP(i)
                         Dat.Values(SCDatFiles.DatFiles.units, Key, i).IsDefault = False

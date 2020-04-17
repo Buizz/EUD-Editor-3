@@ -18,7 +18,6 @@ Module WindowControl
 
     Public Sub CloseToolWindow()
         '다른 윈도우들이 하나라도 남아 있는지 판단
-
         Dim flag As Boolean = False
         Dim MainWindow As Window = Nothing
         For Each win As Window In Application.Current.Windows
@@ -42,7 +41,6 @@ Module WindowControl
             End If
         Next
     End Sub
-
 
 
     Public Sub TECloseTabITem(tTEFile As TEFile)

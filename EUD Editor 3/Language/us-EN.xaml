@@ -868,9 +868,10 @@
     <sys:String x:Key="Control">제어</sys:String>
     <sys:String x:Key="plibFunc">플립</sys:String>
     <sys:String x:Key="Func">함수</sys:String>
+    <sys:String x:Key="MacroFunc">매크로</sys:String>
     <sys:String x:Key="Condition">조건</sys:String>
     <sys:String x:Key="Action">액션</sys:String>
-    <sys:String x:Key="Variable">변수</sys:String>
+    <sys:String x:Key="Variable">객체</sys:String>
     <sys:String x:Key="Value">값</sys:String>
     <sys:String x:Key="EtcBlock">추가</sys:String>
 

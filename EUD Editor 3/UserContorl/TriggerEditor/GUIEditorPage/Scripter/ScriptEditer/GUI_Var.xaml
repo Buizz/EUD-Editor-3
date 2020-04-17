@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="GUI_Var"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Width="550" Height="245">
+    
+    <DockPanel x:Name="MainStackPanel" LastChildFill="False">
+        <TextBox x:Name="vname" materialDesign:HintAssist.Hint="변수 명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" DockPanel.Dock="Top" TextChanged="vname_TextChanged"/>
+        <ComboBox x:Name="VarType" materialDesign:HintAssist.Hint="타입" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="VarType_SelectionChanged">
+            <ComboBoxItem Content="변수"/>
+            <ComboBoxItem Content="상수"/>
+            <ComboBoxItem Content="오브젝트"/>
+        </ComboBox>
+        <CheckBox x:Name="initcb" Content="초기값" DockPanel.Dock="Top" Checked="initcb_Checked" Unchecked="initcb_Unchecked"/>
+
+        <DockPanel x:Name="varObjectBorder" DockPanel.Dock="Top" >
+            <!-- Object들을 골라야 한다. -->
+            <!-- 고른 Object에서 함수를 선택한다. -->
+
+            <ComboBox x:Name="ObjectFunc" materialDesign:HintAssist.Hint="함수" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ObjectFunc_SelectionChanged">
+                <ComboBoxItem Content="생성자" Tag="constructor"/>
+                <ComboBoxItem Content="Cast" Tag="cast"/>
+                <ComboBoxItem Content="Alloc" Tag="alloc"/>
+            </ComboBox>
+            <local:GUI_VarFuncUse x:Name="varFunction"/>
+        </DockPanel>
+        
+        <!--<CheckBox x:Name="initcb" Content="초기값 사용" DockPanel.Dock="Top" Checked="initcb_Checked" Unchecked="initcb_Unchecked"/>-->
+        <TextBlock x:Name="valuetb" DockPanel.Dock="Top" />
+        <Separator DockPanel.Dock="Top" />
+    </DockPanel>
+</UserControl>

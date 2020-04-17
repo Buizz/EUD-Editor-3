@@ -153,6 +153,8 @@ Public Class StarCraftData
         End Get
     End Property
 
+    Private flingyName(SCFlingyCount) As String
+    Private SpriteName(SCSpriteCount) As String
 
     Private ImageName(SCImageCount) As String
     Private pSfxName(SCSfxdataCount) As String
@@ -171,6 +173,16 @@ Public Class StarCraftData
     Public ReadOnly Property IconName(index As Integer) As String
         Get
             Return pIconName(index)
+        End Get
+    End Property
+    Public ReadOnly Property SpriteStr(index As Integer) As String
+        Get
+            Return SpriteName(index)
+        End Get
+    End Property
+    Public ReadOnly Property flingyStr(index As Integer) As String
+        Get
+            Return flingyName(index)
         End Get
     End Property
     Public ReadOnly Property ImageStr(index As Integer) As String
@@ -428,6 +440,25 @@ Public Class StarCraftData
         pstatusFnVal2 = New List(Of UInteger)
         statusFnVal1.AddRange({4343040, 4344192, 4346240, 4345616, 4344656, 4344560, 4344512, 4348160, 4343072})
         statusFnVal2.AddRange({4353872, 4356240, 4357264, 4355232, 4355040, 4354656, 4357424, 4353760, 4349664})
+
+        For i = 0 To SCFlingyCount - 1
+            Dim tSprite As Integer = DefaultDat.Data(SCDatFiles.DatFiles.flingy, "Sprite", i)
+            Dim timage As Integer = DefaultDat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
+
+            flingyName(i) = ImageName(timage)
+        Next
+        For i = 0 To SCSpriteCount - 1
+            Dim timage As Integer = DefaultDat.Data(SCDatFiles.DatFiles.sprites, "Image File", i)
+
+            SpriteName(i) = ImageName(timage)
+        Next
+
+
+        'Case SCDatFiles.DatFiles.flingy
+
+        'ReturnStr = scData.flingyStr(index)
+        'Case SCDatFiles.DatFiles.sprites
+
     End Sub
 
     Public ReadOnly Property FuncConDict As Dictionary(Of UInteger, ButtonFunc)

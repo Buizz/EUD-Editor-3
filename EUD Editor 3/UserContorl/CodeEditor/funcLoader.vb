@@ -5,165 +5,61 @@ Imports ICSharpCode.AvalonEdit.Editing
 
 Partial Public Class CodeEditor
 
+    Public Shared Function GetArgList(ArgumentName As String) As String()
+        Select Case ArgumentName
+            Case "TrgAllyStatus"
+                Dim strs() As String = {"Enemy", "Ally", "AlliedVictory"}
 
-    '함수 목록작성.
+                Return strs
+            Case "TrgComparison"
+                Dim strs() As String = {"AtLeast", "AtMost", "Exactly"}
 
-    '가져야 할 리스트 작성
+                Return strs
+            Case "TrgCount"
+                Dim strs() As String = {"All"}
 
-    '리스트를 아래에서 옮긴다
+                Return strs
+            Case "TrgModifier"
+                '상수
+                Dim strs() As String = {"SetTo", "Add", "Subtract"}
 
+                Return strs
+            Case "TrgOrder"
+                Dim strs() As String = {"Move", "Patrol", "Attack"}
 
-    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
-        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
+                Return strs
+            Case "TrgPlayer"
+                Dim strs() As String = {"P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10", "P11", "P12",
+                    "CurrentPlayer", "Foes", "Allies", "NeutralPlayers", "AllPlayers", "Force1", "Force2", "Force3", "Force4", "NonAlliedVictoryPlayers"}
 
-        'TrgAllyStatus
-        'TrgComparison
-        'TrgCount
-        'TrgModifier
-        'TrgOrder
-        'TrgPlayer
-        'TrgProperty
-        'TrgPropState
-        'TrgResource
-        'TrgScore
-        'TrgSwitchAction
-        'TrgSwitchState
-        'TrgAIScript
-        'TrgLocation
-        'TrgLocationIndex
-        'TrgString
-        'TrgSwitch
-        'TrgUnit
+                Return strs
+            Case "TrgProperty"
+                Dim strs() As String = {"UnitProperty"}
 
+                Return strs
+            Case "TrgPropState"
+                Dim strs() As String = {"Enable", "Disable", "Toggle"}
 
+                Return strs
+            Case "TrgResource"
+                Dim strs() As String = {"Ore", "Gas", "OreAndGas"}
 
+                Return strs
+            Case "TrgScore"
+                Dim strs() As String = {"Total", "Units", "Buildings", "UnitsAndBuildings", "Kills",
+                    "Razings", "KillsAndRazings", "Custom"}
 
-        Dim Argument As String = GetArgument(FuncNameas, ArgumentCount, LastStr)
-        Dim ArgumentType As String = Argument.Split(":").Last.Trim
+                Return strs
+            Case "TrgSwitchAction"
+                Dim strs() As String = {"Set", "Clear", "Toggle", "Random"}
 
+                Return strs
+            Case "TrgSwitchState"
+                Dim strs() As String = {"Set", "Cleared"}
 
-        Select Case FuncNameas
-            Case "$S"
-                IsFirstArgumnet = True
-                ArgumentType = "TrgSwitch"
-            Case "$U"
-                IsFirstArgumnet = True
-                ArgumentType = "TrgUnit"
-            Case "$L"
-                IsFirstArgumnet = True
-                ArgumentType = "TrgLocation"
-        End Select
-
-        If IsFirstArgumnet Then
-            Select Case ArgumentType
-                Case "TrgAllyStatus"
-                    Dim strs() As String = {"Enemy", "Ally", "AlliedVictory"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgComparison"
-                    Dim strs() As String = {"AtLeast", "AtMost", "Exactly"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgCount"
-                    '숫자
-                    Dim tb As New TextBox
-                    tb.Text = "All"
-
-                    data.Add(New TECompletionData(0, "All", "All", tb, TextEditor, TECompletionData.EIconType.StarConst))
-
-                Case "TrgModifier"
-                    '상수
-                    Dim strs() As String = {"SetTo", "Add", "Subtract"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgOrder"
-                    Dim strs() As String = {"Move", "Patrol", "Attack"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgPlayer"
-                    Dim strs() As String = {"P1", "P2", "P3", "P4", "P5", "P6", "P7", "P8", "P9", "P10", "P11", "P12",
-                        "CurrentPlayer", "Foes", "Allies", "NeutralPlayers", "AllPlayers", "Force1", "Force2", "Force3", "Force4", "NonAlliedVictoryPlayers"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgProperty"
-                    Dim tb As New TextBox
-                    tb.Text = "UnitProperty"
-
-                    data.Add(New TECompletionData(0, "UnitProperty", "UnitProperty", tb, TextEditor, TECompletionData.EIconType.StarConst))
-
-                Case "TrgPropState"
-                    Dim strs() As String = {"Enable", "Disable", "Toggle"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgResource"
-                    Dim strs() As String = {"Ore", "Gas", "OreAndGas"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgScore"
-                    Dim strs() As String = {"Total", "Units", "Buildings", "UnitsAndBuildings", "Kills",
-                        "Razings", "KillsAndRazings", "Custom"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgSwitchAction"
-                    Dim strs() As String = {"Set", "Clear", "Toggle", "Random"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgSwitchState"
-                    Dim strs() As String = {"Set", "Cleared"}
-
-                    For i = 0 To strs.Length - 1
-                        Dim tb As New TextBox
-                        tb.Text = strs(i)
-
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
-                    Next
-                Case "TrgAIScript"
-                    Dim strs() As String = {"Terran Custom Level", "Zerg Custom Level", "Protoss Custom Level", "Terran Expansion Custom Level",
+                Return strs
+            Case "TrgAIScript"
+                Dim strs() As String = {"Terran Custom Level", "Zerg Custom Level", "Protoss Custom Level", "Terran Expansion Custom Level",
 "Zerg Expansion Custom Level", "Protoss Expansion Custom Level", "Terran Campaign Easy", "Terran Campaign Medium", "Terran Campaign Difficult",
 "Terran Campaign Insane", "Terran Campaign Area Town", "Zerg Campaign Easy", "Zerg Campaign Medium", "Zerg Campaign Difficult",
 "Zerg Campaign Insane", "Zerg Campaign Area Town", "Protoss Campaign Easy", "Protoss Campaign Medium", "Protoss Campaign Difficult",
@@ -233,6 +129,99 @@ Partial Public Class CodeEditor
 "Brood Wars Zerg 9 - Town E", "Brood Wars Zerg 9 - Town F", "Brood Wars Zerg 10 - Town A", "Brood Wars Zerg 10 - Town B",
 "Brood Wars Zerg 10 - Town C", "Brood Wars Zerg 10 - Town D", "Brood Wars Zerg 10 - Town E", "Brood Wars Zerg 10 - Town F"}
 
+                Return strs
+            Case "TrgLocation", "TrgLocationIndex"
+                Dim strs As New List(Of String)
+
+                For i = 0 To 254
+                    Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
+
+
+                    strs.Add(tstr)
+                Next
+                Return strs.ToArray
+            Case "TrgSwitch"
+                Dim strs As New List(Of String)
+                For i = 0 To 255
+                    Dim tstr As String
+                    If pjData.IsMapLoading Then
+                        tstr = pjData.MapData.SwitchName(i)
+                    Else
+                        tstr = "Switch " & i
+                    End If
+
+                    strs.Add(tstr)
+                Next
+                Return strs.ToArray
+            Case "TrgUnit"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCUnitCount - 1
+                    strs.Add(pjData.UnitInGameName(i))
+                Next
+
+                strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
+
+                Return strs.ToArray
+        End Select
+        Return {""}
+    End Function
+
+
+    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
+
+        'TrgAllyStatus
+        'TrgComparison
+        'TrgCount
+        'TrgModifier
+        'TrgOrder
+        'TrgPlayer
+        'TrgProperty
+        'TrgPropState
+        'TrgResource
+        'TrgScore
+        'TrgSwitchAction
+        'TrgSwitchState
+        'TrgAIScript
+        'TrgLocation
+        'TrgLocationIndex
+        'TrgString
+        'TrgSwitch
+        'TrgUnit
+
+
+        Dim Argument As String = GetArgument(FuncNameas, ArgumentCount, LastStr)
+        Dim ArgumentType As String = Argument.Split(":").Last.Trim
+
+
+        Select Case FuncNameas
+            Case "$S"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgSwitch"
+            Case "$U"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgUnit"
+            Case "$L"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgLocation"
+        End Select
+
+        If IsFirstArgumnet Then
+            Select Case ArgumentType
+                Case "TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder", "TrgPlayer",
+                     "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tb As New TextBox
+                        tb.Text = strs(i)
+
+                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+                    Next
+                Case "TrgAIScript"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
                     For i = 0 To strs.Length - 1
                         Dim tb As New TextBox
                         tb.Text = strs(i)
@@ -240,10 +229,10 @@ Partial Public Class CodeEditor
                         data.Add(New TECompletionData(0, strs(i), """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
                 Case "TrgLocation", "TrgLocationIndex"
-                    For i = 0 To 254
-                        Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
+                    Dim strs() As String = GetArgList(ArgumentType)
 
-
+                    For i = 0 To strs.Length - 1
+                        Dim tstr As String = strs(i)
 
                         If tstr <> "" Then
                             Dim tb As New TextBox
@@ -253,14 +242,10 @@ Partial Public Class CodeEditor
                         End If
                     Next
                 Case "TrgSwitch"
-                    For i = 0 To 255
-                        Dim tstr As String
-                        If pjData.IsMapLoading Then
-                            tstr = pjData.MapData.SwitchName(i)
-                        Else
-                            tstr = "Location " & i
-                        End If
+                    Dim strs() As String = GetArgList(ArgumentType)
 
+                    For i = 0 To strs.Length - 1
+                        Dim tstr As String = strs(i)
 
                         Dim tb As New TextBox
                         tb.Text = "[" & i & "] " & tstr
@@ -471,6 +456,16 @@ Partial Public Class CodeEditor
                 data.Add(New TECompletionData(0, str, str, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
             Next
 
+
+            'Dim euddraftFile As System.IO.FileInfo = My.Computer.FileSystem.GetFileInfo(pgData.Setting(ProgramData.TSetting.euddraft))
+            'If euddraftFile.Exists Then
+            '    For Each s As String In My.Computer.FileSystem.GetDirectories(euddraftFile.DirectoryName & "\lib")
+            '        Dim pyfile As System.IO.FileInfo = My.Computer.FileSystem.GetFileInfo(s)
+            '        If pyfile.Extension Then
+
+            '        End If
+            '    Next
+            'End If
         End If
         Return data
     End Function

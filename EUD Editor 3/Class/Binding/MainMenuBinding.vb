@@ -186,32 +186,37 @@ Public Class MainMenuBinding
 
     Public ReadOnly Property BackgroundOpenMap As SolidColorBrush
         Get
-            Try
-                If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
+            If Tool.IsProjectLoad Then
+                Try
+                    If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
+                        Return Application.Current.Resources("PrimaryHueMidBrush")
+                    Else
+                        Return Application.Current.Resources("SecondaryAccentBrush")
+                    End If
+                Catch ex As Exception
                     Return Application.Current.Resources("PrimaryHueMidBrush")
-                Else
-                    Return Application.Current.Resources("SecondaryAccentBrush")
-                End If
-            Catch ex As Exception
-                Return Application.Current.Resources("PrimaryHueMidBrush")
-            End Try
-
+                End Try
+            End If
+            Return Application.Current.Resources("PrimaryHueMidBrush")
         End Get
     End Property
 
     Public ReadOnly Property BackgroundInsert As SolidColorBrush
         Get
-            Try
-                If My.Computer.FileSystem.FileExists(pjData.OpenMapName) And
-My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) And
-My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
+            If Tool.IsProjectLoad Then
+                Try
+                    If My.Computer.FileSystem.FileExists(pjData.OpenMapName) And
+    My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) And
+    My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
+                        Return Application.Current.Resources("PrimaryHueMidBrush")
+                    Else
+                        Return Application.Current.Resources("SecondaryAccentBrush")
+                    End If
+                Catch ex As Exception
                     Return Application.Current.Resources("PrimaryHueMidBrush")
-                Else
-                    Return Application.Current.Resources("SecondaryAccentBrush")
-                End If
-            Catch ex As Exception
-                Return Application.Current.Resources("PrimaryHueMidBrush")
-            End Try
+                End Try
+            End If
+            Return Application.Current.Resources("PrimaryHueMidBrush")
         End Get
     End Property
 

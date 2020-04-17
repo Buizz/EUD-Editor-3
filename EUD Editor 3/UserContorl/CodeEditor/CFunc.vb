@@ -18,6 +18,10 @@ Public Class FunctionToolTip
     Private pSummary As String
     Public ReadOnly Property Summary As String
         Get
+            If pSummary Is Nothing Then
+                Return ""
+            End If
+
             Return pSummary
         End Get
     End Property

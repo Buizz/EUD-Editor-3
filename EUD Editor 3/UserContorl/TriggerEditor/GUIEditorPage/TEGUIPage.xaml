@@ -36,7 +36,7 @@
 
             </materialDesign:Card>
         </Border>
-        <Border Grid.ColumnSpan="1" x:Name="ValueSelecter">
+        <Border Grid.ColumnSpan="1" x:Name="ValueSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Collapsed">
       
         </Border>
         

@@ -5,14 +5,32 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             Width="200" Height="70">
-    <StackPanel>
-        <DockPanel>
+             Width="270" Height="240">
+    <DockPanel>
+        <TextBlock DockPanel.Dock="Top">
+           함수 이름
+        </TextBlock>
+        <DockPanel DockPanel.Dock="Top">
             <Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>
-            <TextBox x:Name="ttb" Margin="4,0" TextChanged="ttb_TextChanged"/>
-        </DockPanel>
-        <Label x:Name="ErrorLog" Foreground="#DDFF0000">
+            <ComboBox x:Name="ttb" IsEditable="True" Margin="4,0" IsTextSearchCaseSensitive="True" SelectionChanged="ComboBox_SelectionChanged" TextBoxBase.TextChanged="ComboBox_TextChanged">
+                <ComboBoxItem Content="onPluginStart"/>
+                <ComboBoxItem Content="beforeTriggerExec"/>
+                <ComboBoxItem Content="afterTriggerExec"/>
+                <ComboBoxItem Content="constructor"/>
+            </ComboBox>
             
+
+            <!--<TextBox x:Name="ttb" Margin="4,0" TextChanged="ttb_TextChanged"/>-->
+        </DockPanel>
+        <Label x:Name="ErrorLog" Foreground="#DDFF0000" DockPanel.Dock="Top">
+
         </Label>
-    </StackPanel>
+        <WrapPanel x:Name="chippanel" DockPanel.Dock="Bottom">
+
+        </WrapPanel>
+        <TextBlock DockPanel.Dock="Top">
+           함수 설명
+        </TextBlock>
+        <TextBox DockPanel.Dock="Top" x:Name="argtip" AcceptsReturn="True" VerticalContentAlignment="Stretch"/>
+    </DockPanel>
 </UserControl>

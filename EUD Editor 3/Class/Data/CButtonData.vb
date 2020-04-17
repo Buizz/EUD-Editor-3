@@ -385,10 +385,10 @@ Public Class CButtonData
         Return returnData
     End Function
     Public Function GetEnaStr() As String
-        Return pjData.CodeLabel(SCDatFiles.DatFiles.stattxt, enaStr - 1)
+        Return pjData.CodeLabel(SCDatFiles.DatFiles.stattxt, enaStr)
     End Function
     Public Function GetDisStr() As String
-        Return pjData.CodeLabel(SCDatFiles.DatFiles.stattxt, disStr - 1)
+        Return pjData.CodeLabel(SCDatFiles.DatFiles.stattxt, disStr)
     End Function
 
 

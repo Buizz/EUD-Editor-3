@@ -51,15 +51,26 @@ Public Class TEFile
 
     Private LastConnectTimer() As Date
     Public Function RefreshData() As String
-        If Scripter.CheckConnect Then
-            If pLastDate <> File.GetLastWriteTime(Scripter.ConnectFile) Then
-                pLastDate = File.GetLastWriteTime(Scripter.ConnectFile)
-                Return Scripter.GetStringText()
-            End If
-            Return ""
-        Else
-            Return ""
-        End If
+        Select Case FileType
+            Case EFileType.CUIEps, EFileType.CUIPy
+                If Scripter.CheckConnect Then
+                    If pLastDate <> File.GetLastWriteTime(Scripter.ConnectFile) Then
+                        pLastDate = File.GetLastWriteTime(Scripter.ConnectFile)
+
+                        'CType(Scripter, CUIScriptEditor).co
+                        'Scripter.ExternerLoader
+                        Return Scripter.GetStringText()
+                    End If
+                    Return ""
+                Else
+                    Return ""
+                End If
+
+            Case EFileType.GUIEps, EFileType.GUIPy
+                CType(Scripter, GUIScriptEditor).ExternLoader()
+                Return ""
+        End Select
+
     End Function
 
 
@@ -121,9 +132,9 @@ Public Class TEFile
             Case EFileType.CUIPy
                 _Scripter = New CUIScriptEditor(ScriptEditor.SType.Py)
             Case EFileType.GUIEps
-                _Scripter = New GUIScriptEditor(ScriptEditor.SType.Eps)
+                _Scripter = New GUIScriptEditor(ScriptEditor.SType.Eps, Me)
             Case EFileType.GUIPy
-                _Scripter = New GUIScriptEditor(ScriptEditor.SType.Py)
+                _Scripter = New GUIScriptEditor(ScriptEditor.SType.Py, Me)
         End Select
 
 

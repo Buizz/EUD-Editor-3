@@ -1,0 +1,14 @@
+﻿<UserControl x:Class="GUI_If"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Width="100" Height="20">
+    <StackPanel>
+        <CheckBox x:Name="ifCB" Checked="ifCB_Checked" Unchecked="ifCB_Unchecked">
+            Else사용
+        </CheckBox>
+    </StackPanel>
+</UserControl>

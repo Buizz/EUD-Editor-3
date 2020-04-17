@@ -1,0 +1,16 @@
+﻿<UserControl x:Class="GUI_SwitchCase"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Width="100" Height="55">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <TextBlock Text="값" DockPanel.Dock="Left" VerticalAlignment="Center"/>
+            <TextBox x:Name="vtb" Margin="10,0,0,0" TextChanged="vtb_TextChanged"/>
+        </DockPanel>
+        <CheckBox x:Name="breakcb" Content="Break사용" Checked="CheckBox_Checked" Unchecked="CheckBox_Checked"/>
+    </DockPanel>
+</UserControl>

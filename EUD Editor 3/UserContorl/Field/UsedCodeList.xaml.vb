@@ -59,6 +59,7 @@
             Dim DatFiles As SCDatFiles.DatFiles = Tags(0)
             Dim index As Integer = Tags(2)
             TabItemTool.WindowTabItem(DatFiles, index)
+            MainListBox.SelectedIndex = -1
         End If
 
     End Sub

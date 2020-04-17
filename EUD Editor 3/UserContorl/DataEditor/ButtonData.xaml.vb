@@ -359,8 +359,8 @@ Public Class ButtonData
             '선택 작업
             BtnLocation.Text = SelectButton.pos
             BIconSelecter.Value = SelectButton.icon
-            UseStrSelecter.Value = SelectButton.enaStr - 1
-            DUseStrSelecter.Value = SelectButton.disStr - 1
+            UseStrSelecter.Value = SelectButton.enaStr
+            DUseStrSelecter.Value = SelectButton.disStr
 
             Try
                 ConFunc.SelectedIndex = scData.FuncConDict(SelectButton.con).Index
@@ -632,7 +632,7 @@ Public Class ButtonData
 
     Private Sub UseStrSelecter_ValueChange(sender As Object, e As RoutedEventArgs)
         If SelectButton IsNot Nothing Then
-            SelectButton.enaStr = UseStrSelecter.Value + 1
+            SelectButton.enaStr = UseStrSelecter.Value
             CType(buttonList.SelectedItem, ListBoxItem).Content = SelectButton.GetListBoxContent
             PreviewDraw()
         End If
@@ -640,7 +640,7 @@ Public Class ButtonData
 
     Private Sub DUseStrSelecter_ValueChange(sender As Object, e As RoutedEventArgs)
         If SelectButton IsNot Nothing Then
-            SelectButton.disStr = DUseStrSelecter.Value + 1
+            SelectButton.disStr = DUseStrSelecter.Value
             CType(buttonList.SelectedItem, ListBoxItem).Content = SelectButton.GetListBoxContent
             PreviewDraw()
         End If

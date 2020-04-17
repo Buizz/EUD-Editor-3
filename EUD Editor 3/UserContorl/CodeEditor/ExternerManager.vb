@@ -3,71 +3,12 @@
 Partial Public Class CodeEditor
 
     Private ExternFiles As List(Of ExternFile)
-    Private Class ExternFile
-        '외부파일을 관리하는 곳
-        '외부 파일들의 최종 수정 날짜를 판단함
 
+    Public Shared Function FineFile(TEFile As TEFile, path As String) As TEFile
+        If path = "Tool" Then
+            'MsgBox(path)
+        End If
 
-
-        '
-        Public Property nameSpaceName As String
-
-
-        Public ReadOnly Property Funcs As CFunc
-
-
-
-        Public Property TEFile As TEFile '지정된 TE파일
-
-
-        Public LastDate As Date
-
-        Public Property CheckFlag As Boolean = False
-
-        Public Sub New(tTEFile As TEFile, tnameSpaceName As String)
-            TEFile = tTEFile
-            nameSpaceName = tnameSpaceName
-            CheckFlag = True
-
-            Funcs = New CFunc
-
-            DateRefresh()
-        End Sub
-
-        Public Sub DateRefresh()
-            '파일을 읽어서 CFunc를 작성함
-            Funcs.Init()
-            Try
-                Funcs.LoadFunc(TEFile.Scripter.GetStringText)
-            Catch ex As Exception
-                Funcs.Init()
-            End Try
-
-            'Try
-            '    MsgBox("데이터 불러오기 : " & TEFile.FileName)
-            'Catch ex As Exception
-            'End Try
-
-
-            If TEFile IsNot Nothing Then
-                LastDate = TEFile.LastDate '생성시 마지막 날짜를 기록
-            End If
-        End Sub
-
-
-
-        Public Function CheckFIleChange() As Boolean
-
-            If TEFile IsNot Nothing Then
-                Return LastDate.ToString = TEFile.LastDate.ToString
-            Else
-                Return False
-            End If
-        End Function
-    End Class
-
-
-    Private Function FineFile(path As String) As TEFile
         Dim paths() As String = path.Split(".")
 
         'Log.Text = Log.Text & "Path : " & path & "   "
@@ -119,7 +60,7 @@ Partial Public Class CodeEditor
     End Function
 
 
-    Private Sub ExternerLoader()
+    Public Sub ExternerLoader()
         If TEFile IsNot Nothing Then
             For i = 0 To ExternFiles.Count - 1
                 ExternFiles(i).CheckFlag = False
@@ -161,7 +102,7 @@ Partial Public Class CodeEditor
 
                         tTEfile = SCATEFile
                     Else
-                        tTEfile = FineFile(FileName)
+                        tTEfile = FineFile(TEFile, FileName)
                     End If
                 Catch ex As Exception
                     Continue For
@@ -204,4 +145,68 @@ Partial Public Class CodeEditor
             Next
         End If
     End Sub
+End Class
+
+
+Public Class ExternFile
+    '외부파일을 관리하는 곳
+    '외부 파일들의 최종 수정 날짜를 판단함
+
+
+
+    '
+    Public Property nameSpaceName As String
+
+
+    Public ReadOnly Property Funcs As CFunc
+
+
+
+    Public Property TEFile As TEFile '지정된 TE파일
+
+
+    Public LastDate As Date
+
+    Public Property CheckFlag As Boolean = False
+
+    Public Sub New(tTEFile As TEFile, tnameSpaceName As String)
+        TEFile = tTEFile
+        nameSpaceName = tnameSpaceName
+        CheckFlag = True
+
+        Funcs = New CFunc
+
+        DateRefresh()
+    End Sub
+
+    Public Sub DateRefresh()
+        '파일을 읽어서 CFunc를 작성함
+        Funcs.Init()
+        Try
+            Funcs.LoadFunc(TEFile.Scripter.GetStringText)
+        Catch ex As Exception
+            Funcs.Init()
+        End Try
+
+        'Try
+        '    MsgBox("데이터 불러오기 : " & TEFile.FileName)
+        'Catch ex As Exception
+        'End Try
+
+
+        If TEFile IsNot Nothing Then
+            LastDate = TEFile.LastDate '생성시 마지막 날짜를 기록
+        End If
+    End Sub
+
+
+
+    Public Function CheckFIleChange() As Boolean
+
+        If TEFile IsNot Nothing Then
+            Return LastDate.ToString = TEFile.LastDate.ToString
+        Else
+            Return False
+        End If
+    End Function
 End Class

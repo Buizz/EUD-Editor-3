@@ -7,6 +7,18 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public Function GetLanText(Str As String) As String
+            Dim rstr As String = GetText(Str)
+            If rstr = "" Then
+                Return Str
+            End If
+            Return rstr
+        End Function
+
+
+
+        Public ErrorBitmap As BitmapSource
+
         Public BlackOverlaybitmap As BitmapSource
 
 
@@ -55,7 +67,7 @@ Namespace Tool
             fs.Close()
 
             BlackOverlaybitmap = New BitmapImage(New Uri(ResourcesPath("BlackOverlay.png")))
-
+            ErrorBitmap = New BitmapImage(New Uri(ResourcesPath("NoFrame.png")))
 
 
             CodeGrouping = New CodeGrouping
@@ -537,6 +549,24 @@ Namespace Tool
 
         Public Function StripFileName(ByVal name As String) As String
             Return System.Text.RegularExpressions.Regex.Replace(name, "[\\/:*?""<>|]", "_")
+        End Function
+
+
+
+        Public Function isFileLock(filePath As String) As Boolean
+            Dim f As New FileInfo(filePath)
+
+            Dim stream As FileStream = Nothing
+
+            Try
+                stream = f.Open(FileMode.Open, FileAccess.Read, FileShare.None)
+            Catch __unusedIOException1__ As IOException
+                Return True
+            Finally
+                If stream IsNot Nothing Then stream.Close()
+            End Try
+
+            Return False
         End Function
 
 

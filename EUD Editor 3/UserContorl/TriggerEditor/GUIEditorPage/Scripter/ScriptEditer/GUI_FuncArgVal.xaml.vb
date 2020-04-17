@@ -4,6 +4,7 @@ Public Class GUI_FuncArgVal
     Private p As GUIScriptEditerWindow
     Private scr As ScriptBlock
 
+    Private isLoad As Boolean = False
     Public Sub New(tp As GUIScriptEditerWindow, tscr As ScriptBlock)
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -13,14 +14,30 @@ Public Class GUI_FuncArgVal
         p = tp
         scr = tscr
 
+
+        Dim index As Integer = -1
+        For i = 0 To tescm.SCValueType.Count - 1
+            Dim comboboxitem As New ComboBoxItem
+            comboboxitem.Tag = tescm.SCValueType(i)
+            comboboxitem.Content = tescm.SCValueType(i)
+            typecombobox.Items.Add(comboboxitem)
+
+            If tescm.SCValueType(i) = scr.name Then
+                index = i
+            End If
+        Next
+        typecombobox.SelectedIndex = index
+
+
         AddHandler p.OkayBtnEvent, AddressOf OkayAction
 
-        Dim colorcode As String = tescm.Tabkeys("Func")
+        Dim colorcode As String = tescm.Tabkeys("Value")
         colorbox.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
 
 
-        ttb.Text = scr.value
 
+        ttb.Text = scr.value
+        argtip.Text = scr.value2
 
         If CheckEditable() Then
             ErrorLog.Content = ""
@@ -28,12 +45,19 @@ Public Class GUI_FuncArgVal
         Else
             p.OkBtn.IsEnabled = False
         End If
+
+        isLoad = True
     End Sub
 
 
 
     Public Sub OkayAction(sender As Object, e As RoutedEventArgs)
+
+
         scr.value = ttb.Text
+        scr.value2 = argtip.Text
+
+
         scr.name = CType(typecombobox.SelectedItem, ComboBoxItem).Tag
     End Sub
 
@@ -67,7 +91,7 @@ Public Class GUI_FuncArgVal
 
 
 
-        Dim rgx As New Regex("[ !@#$%^&*-=]")
+        Dim rgx As New Regex("[ !@#$%^&*=]")
 
         If rgx.IsMatch(nametext) Then
             ErrorLog.Content = "잘못된 문자가 포함되어 있습니다."
@@ -79,11 +103,14 @@ Public Class GUI_FuncArgVal
     End Function
 
     Private Sub typecombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        If CheckEditable() Then
-            ErrorLog.Content = ""
-            p.OkBtn.IsEnabled = True
-        Else
-            p.OkBtn.IsEnabled = False
+        If IsLoad Then
+            If CheckEditable() Then
+                ErrorLog.Content = ""
+                p.OkBtn.IsEnabled = True
+            Else
+                p.OkBtn.IsEnabled = False
+            End If
         End If
+
     End Sub
 End Class

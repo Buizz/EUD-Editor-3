@@ -55,7 +55,8 @@
             <TreeView x:Name="MainTreeview" 
             VirtualizingPanel.IsVirtualizing="True"
             VirtualizingPanel.VirtualizationMode="Recycling"
-            
+            MouseDoubleClick="MainTreeview_MouseDoubleClick"
+                      
             SelectedItemChanged="MainTreeview_SelectedItemChanged"
                   
             PreviewKeyDown="MainTreeview_PreviewKeyDown"
