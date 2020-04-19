@@ -432,11 +432,11 @@ Public Class CFunc
 
             Dim matches As MatchCollection = fregex.Matches(str)
 
-
             'MsgBox(matches.Count)
             For i = 0 To matches.Count - 1
                 Dim ObjName As String = matches(i).Groups(1).Value
                 Dim ObjContents As String
+
 
 
                 Dim StartIndex As Integer = matches(i).Groups(2).Index

@@ -358,6 +358,7 @@ Partial Public Class CodeEditor
 
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
+                completionWindow.CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
                 'If results.TriggerWordLength > 0 Then
                 '    completionWindow.CompletionList.SelectItem(results.TriggerWord)
@@ -412,6 +413,7 @@ Partial Public Class CodeEditor
                 End Select
 
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
+                completionWindow.CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
 
 

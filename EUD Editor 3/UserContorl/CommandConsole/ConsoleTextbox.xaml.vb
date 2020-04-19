@@ -139,6 +139,7 @@ Public Class ConsoleTextbox
 
 
                 'completionWindow.CompletionList.Foreground = Brushes.Black
+                completionWindow.CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
 
@@ -175,6 +176,7 @@ Public Class ConsoleTextbox
 
 
 
+                completionWindow.CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
                 completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
                 completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
 

@@ -11,6 +11,8 @@
              mc:Ignorable="d" 
              Loaded="UserControl_Loaded"
              Unloaded="UserControl_Unloaded"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
         <DockPanel DockPanel.Dock="Top">
@@ -29,7 +31,10 @@
             <TreeView x:Name="MainTreeview" PreviewKeyDown="MainTreeview_PreviewKeyDown"  PreviewKeyUp="MainTreeview_PreviewKeyUp"
                   PreviewMouseLeftButtonDown="MainTreeview_PreviewMouseLeftButtonDown" PreviewMouseLeftButtonUp="MainTreeview_PreviewMouseLeftButtonUp"
                   PreviewMouseRightButtonDown="MainTreeview_PreviewMouseRightButtonDown" PreviewMouseRightButtonUp="MainTreeview_PreviewMouseRightButtonUp"
-                  PreviewMouseMove="MainTreeview_PreviewMouseMove" SelectedItemChanged="MainTreeview_SelectedItemChanged">
+                  PreviewMouseMove="MainTreeview_PreviewMouseMove" SelectedItemChanged="MainTreeview_SelectedItemChanged"
+                      
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}">
                 <TreeView.ContextMenu>
                     <ContextMenu Opened="ContextMenu_Opened">
                         <MenuItem x:Name="MenuOpen" Header="{StaticResource MenuOpen}" InputGestureText="Enter" Icon="{materialDesign:PackIcon Kind=Share}" Click="MenuOpen_Click"/>
@@ -45,6 +50,10 @@
                             <MenuItem x:Name="MenuCUIEPS" Header="{StaticResource MenuCNewEpsScript}" InputGestureText="Alt+W" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIEps_Click"/>
                         </MenuItem>
                         <MenuItem x:Name="MenuExport" Header="{StaticResource MenuExport}" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}" Click="MenuExport_Click"/>
+
+                        <Separator />
+                        <MenuItem x:Name="ToGUI" Header="GUI로 변환" Click="ToGUI_Click"/>
+                        <MenuItem x:Name="ToCUI" Header="CUI로 변환" Click="ToCUI_Click"/>
                         <Separator x:Name="Separator1"/>
                         <MenuItem x:Name="MenuCut" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Icon="{materialDesign:PackIcon Kind=ContentCut}" Click="CutItem_Click"/>
                         <MenuItem x:Name="MenuCopy" Header="{StaticResource Copy}" InputGestureText="Ctrl+C" Icon="{materialDesign:PackIcon Kind=ContentCopy}" Click="CopyItem_Click"/>

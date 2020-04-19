@@ -126,6 +126,7 @@ Public Class CodeSelecter
         Select Case Fliter.SortType
             Case ESortType.Tree
                 If CodeIndexerTree.SelectedItem Is Nothing Then
+                    'CType(sender, ContextMenu).IsOpen = False
                     Exit Sub
                 End If
 
@@ -313,7 +314,7 @@ Public Class CodeSelecter
                     treeviewitem.SetBinding(TreeViewItem.BackgroundProperty, BackBinding)
                 End If
             End If
-            treeviewitem.Background = Application.Current.Resources("MaterialDesignToolBackground")
+            treeviewitem.Background = Application.Current.Resources("MaterialDesignPaper")
             treeviewitem.Foreground = Application.Current.Resources("MaterialDesignBody")
         End If
         For i = 0 To treeviewitem.Items.Count - 1

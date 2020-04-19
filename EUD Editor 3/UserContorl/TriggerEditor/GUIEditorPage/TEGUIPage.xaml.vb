@@ -19,8 +19,8 @@ Public Class TEGUIPage
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         PTEFile = tTEFile
 
-        Script.LoadScript(tTEFile)
         Script.SetTEGUIPage(Me)
+        Script.LoadScript(tTEFile, CType(tTEFile.Scripter, GUIScriptEditor).GetItemsList)
 
         ObjectSelector.SetGUIScriptEditorUI(Script)
         'Script.SetObjectSelecter(ObjectSelector)

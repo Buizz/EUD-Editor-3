@@ -43,12 +43,23 @@
                     valueEditPanel.Visibility = Visibility.Visible
                     valueEditPanel.ComboboxInit(scr.child(0))
                 End If
-            Case "const"
+            Case "static"
                 VarType.SelectedIndex = 1
+                initcb.Visibility = Visibility.Visible
+                If scr.child.Count = 0 Then
+                    initcb.IsChecked = False
+                    valueEditPanel.Visibility = Visibility.Collapsed
+                Else
+                    initcb.IsChecked = True
+                    valueEditPanel.Visibility = Visibility.Visible
+                    valueEditPanel.ComboboxInit(scr.child(0))
+                End If
+            Case "const"
+                VarType.SelectedIndex = 2
                 valueEditPanel.Visibility = Visibility.Visible
                 valueEditPanel.ComboboxInit(scr.child(0))
             Case "object"
-                VarType.SelectedIndex = 2
+                VarType.SelectedIndex = 3
                 varObjectBorder.Visibility = Visibility.Visible
                 valuetb.Visibility = Visibility.Collapsed
                 If EditValues Is Nothing Then
@@ -70,7 +81,7 @@
                     End Select
 
 
-                    varFunction.CrlInit(EditValues)
+                    varFunction.CrlInit(EditValues, dotscr, p._GUIScriptEditorUI, valueEditPanel)
                 End If
                 Dim ListSelecter As New GUI_ObjectSelecter(p._GUIScriptEditorUI.Script)
 
@@ -106,9 +117,12 @@
                 scr.value2 = "var"
                 scr.flag = False
             Case 1
-                scr.value2 = "const"
+                scr.value2 = "static"
                 scr.flag = True
             Case 2
+                scr.value2 = "const"
+                scr.flag = True
+            Case 3
                 scr.value2 = "object"
                 scr.flag = True
         End Select
@@ -123,7 +137,7 @@
         End If
 
 
-        If VarType.SelectedIndex = 2 Then
+        If VarType.SelectedIndex = 3 Then
             If EditValues Is Nothing Then
                 Return False
             End If
@@ -204,11 +218,19 @@
                     p._GUIScriptEditorUI.TEGUIPage.ValueSelecter.Visibility = Visibility.Collapsed
                 Case 1
                     valuetb.Visibility = Visibility.Visible
+                    valueEditPanel.Visibility = Visibility.Collapsed
+                    initcb.Visibility = Visibility.Visible
+                    initcb.IsChecked = False
+                    EditValues = Nothing
+                    p._GUIScriptEditorUI.TEGUIPage.ValueSelecter.Child = Nothing
+                    p._GUIScriptEditorUI.TEGUIPage.ValueSelecter.Visibility = Visibility.Collapsed
+                Case 2
+                    valuetb.Visibility = Visibility.Visible
                     valueEditPanel.Visibility = Visibility.Visible
                     EditValues = New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", True, False, "1", p._GUIScriptEditorUI.Script)
 
                     valueEditPanel.ComboboxInit(EditValues)
-                Case 2
+                Case 3
                     varObjectBorder.Visibility = Visibility.Visible
 
                     ObjectFunc.Visibility = Visibility.Collapsed
@@ -244,7 +266,7 @@
             ObjectFunc.SelectedIndex = 0
 
             varFunction.Visibility = Visibility.Visible
-            varFunction.CrlInit(EditValues)
+            varFunction.CrlInit(EditValues, dotscr, p._GUIScriptEditorUI, valueEditPanel)
 
             btnRefresh()
             ObjectfuncLoad = True
@@ -256,7 +278,7 @@
         If isload And ObjectfuncLoad Then
             If ObjectFunc.SelectedItem IsNot Nothing Then
                 EditValues.value = CType(ObjectFunc.SelectedItem, ComboBoxItem).Tag
-                varFunction.CrlInit(EditValues)
+                varFunction.CrlInit(EditValues, dotscr, p._GUIScriptEditorUI, valueEditPanel)
                 btnRefresh()
             End If
         End If

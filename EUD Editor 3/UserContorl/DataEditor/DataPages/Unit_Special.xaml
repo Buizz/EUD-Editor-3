@@ -9,7 +9,9 @@
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" Background="{DynamicResource MaterialDesignPaper}" 
+             mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}" 
              d:DesignHeight="482"  d:DesignWidth="610">
 
     <Grid>

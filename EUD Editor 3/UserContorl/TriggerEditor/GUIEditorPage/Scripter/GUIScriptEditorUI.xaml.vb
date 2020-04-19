@@ -1,9 +1,47 @@
-﻿Public Class GUIScriptEditorUI
+﻿Imports Microsoft.DwayneNeed.Win32.UrlMon
+
+Public Class GUIScriptEditorUI
     Public TEGUIPage As TEGUIPage
 
 
     Public PTEFile As TEFile
     Public Script As GUIScriptEditor
+    Private MainItems As List(Of ScriptBlock)
+
+    Public ReadOnly Property GetItems(index As Integer) As ScriptBlock
+        Get
+            Return MainItems(index)
+        End Get
+    End Property
+    Public Sub RemoveItems(scr As ScriptBlock)
+        MainItems.Remove(scr)
+        If scr.ScriptType = ScriptBlock.EBlockType.import Then
+            Script.ExternLoader()
+        End If
+    End Sub
+    Public ReadOnly Property IndexOfItem(scr As ScriptBlock) As Integer
+        Get
+            Return MainItems.IndexOf(scr)
+        End Get
+
+    End Property
+    Public ReadOnly Property ItemCount() As Integer
+        Get
+            Return MainItems.Count
+        End Get
+    End Property
+    Public Sub AddItems(Scr As ScriptBlock)
+        MainItems.Add(Scr)
+        If Scr.ScriptType = ScriptBlock.EBlockType.import Then
+            Script.ExternLoader()
+        End If
+    End Sub
+    Public Sub InsertItems(index As Integer, Scr As ScriptBlock)
+        MainItems.Insert(index, Scr)
+        If Scr.ScriptType = ScriptBlock.EBlockType.import Then
+            Script.ExternLoader()
+        End If
+    End Sub
 
 
     Private selpos As Integer = 1
@@ -12,15 +50,15 @@
     Public Sub SetTEGUIPage(tTEGUIPage As TEGUIPage)
         TEGUIPage = tTEGUIPage
     End Sub
-    Public Sub LoadScript(tTEFile As TEFile)
+    Public Sub LoadScript(tTEFile As TEFile, mainScrlist As List(Of ScriptBlock))
         PTEFile = tTEFile
-
+        MainItems = mainScrlist
 
         Script = PTEFile.Scripter
 
 
-        For i = 0 To Script.ItemCount - 1
-            MainTreeview.Items.Add(Script.GetItems(i).GetTreeviewitem)
+        For i = 0 To ItemCount - 1
+            MainTreeview.Items.Add(GetItems(i).GetTreeviewitem)
         Next
 
     End Sub
@@ -59,9 +97,21 @@
     End Sub
     Private Sub DeleteSelectItem()
         If IsItemSelected() Then
-            If Not f_DeleteItem(MainTreeview.SelectedItem) Then
-                SnackBarDialog("지울 수 없는 아이템입니다.")
+            If SelectedList.Count = 0 Then
+                If Not f_DeleteItem(MainTreeview.SelectedItem) Then
+                    SnackBarDialog("지울 수 없는 아이템입니다.")
+                End If
+            Else
+                Dim Deleteitem As Integer = 0
+                For i = 0 To SelectedList.Count - 1
+                    If f_DeleteItem(SelectedList(i - Deleteitem)) Then
+                        Deleteitem += 1
+                    End If
+                Next
+                SnackBarDialog(Deleteitem & "개의 아이템이 지워졌습니다.")
             End If
+
+
         End If
     End Sub
 
@@ -162,6 +212,11 @@
         If tsel IsNot Nothing Then
             tsel.IsSelected = False
         End If
+        For i = 0 To SelectedList.Count - 1
+            Dim ttbheader As ScriptTreeviewitem = SelectedList(i).Header
+            ttbheader.DeSelectItem()
+        Next
+        SelectedList.Clear()
 
         TEGUIPage.ObjectSelector.ValueListRefresh(Nothing)
         'RefreshBtn()
@@ -237,16 +292,91 @@
     Private Sub Deletebtn_Click(sender As Object, e As RoutedEventArgs)
         DeleteSelectItem()
     End Sub
+
+    Private lastSelectItem As TreeViewItem
+    Private pivotSelectItem As TreeViewItem
     Private Sub MainTreeview_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
         RefreshBtn()
         If IsItemSelected() Then
             Dim tb As TreeViewItem = MainTreeview.SelectedItem
+            Dim tbheader As ScriptTreeviewitem = tb.Header
             Dim scr As ScriptBlock = tb.Tag
 
             TEGUIPage.ObjectSelector.ValueListRefresh(scr)
-        End If
-    End Sub
 
+            If leftCtrlDown Then
+                If SelectedList.Count = 0 Then
+                    tbheader.SelectItem()
+                    SelectedList.Add(tb)
+                Else
+                    If SelectedList.First.Parent Is tb.Parent Then
+                        If SelectedList.IndexOf(tb) = -1 Then
+                            tbheader.SelectItem()
+                            SelectedList.Add(tb)
+                        End If
+                    End If
+                End If
+
+            ElseIf leftShiftDown Then
+                If lastSelectItem IsNot Nothing Then
+                    If lastSelectItem.Parent Is tb.Parent Then
+                        If SelectedList.Count <> 0 Then
+                            lastSelectItem = pivotSelectItem
+
+                            For i = 0 To SelectedList.Count - 1
+                                Dim ttbheader As ScriptTreeviewitem = SelectedList(i).Header
+                                ttbheader.DeSelectItem()
+                            Next
+                            SelectedList.Clear()
+                        Else
+                            pivotSelectItem = lastSelectItem
+                        End If
+
+
+                        If tb.Parent.GetType Is GetType(TreeViewItem) Then
+                            Dim pnode As TreeViewItem = tb.Parent
+
+                            Dim a1 As Integer = pnode.Items.IndexOf(lastSelectItem)
+                            Dim a2 As Integer = pnode.Items.IndexOf(tb)
+
+                            Dim startindex As Integer = Math.Min(a1, a2)
+                            Dim endindex As Integer = Math.Max(a1, a2)
+
+                            For i = startindex To endindex
+                                Dim tnode As TreeViewItem = pnode.Items(i)
+                                Dim th As ScriptTreeviewitem = tnode.Header
+                                th.SelectItem()
+                                SelectedList.Add(tnode)
+                            Next
+                        Else
+                            Dim pnode As TreeView = tb.Parent
+
+                            Dim a1 As Integer = pnode.Items.IndexOf(lastSelectItem)
+                            Dim a2 As Integer = pnode.Items.IndexOf(tb)
+
+                            Dim startindex As Integer = Math.Min(a1, a2)
+                            Dim endindex As Integer = Math.Max(a1, a2)
+
+                            For i = startindex To endindex
+                                Dim tnode As TreeViewItem = pnode.Items(i)
+                                Dim th As ScriptTreeviewitem = tnode.Header
+                                th.SelectItem()
+                                SelectedList.Add(tnode)
+                            Next
+                        End If
+                    End If
+                End If
+            Else
+                For i = 0 To SelectedList.Count - 1
+                    Dim ttbheader As ScriptTreeviewitem = SelectedList(i).Header
+                    ttbheader.DeSelectItem()
+                Next
+                SelectedList.Clear()
+            End If
+        End If
+        lastSelectItem = MainTreeview.SelectedItem
+    End Sub
+    Private SelectedList As New List(Of TreeViewItem)
 
     Private sMessageQueue As MaterialDesignThemes.Wpf.SnackbarMessageQueue
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
@@ -256,8 +386,12 @@
     End Sub
 
     Private Sub MainTreeview_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs)
-        'If IsItemSelected() Then
-        '    OpenEditWindow(MainTreeview.SelectedItem)
-        'End If
+        If IsItemSelected() Then
+            Dim tb As TreeViewItem = MainTreeview.SelectedItem
+            Dim scr As ScriptBlock = tb.Tag
+            If Not scr.isfolder Then
+                OpenEditWindow(MainTreeview.SelectedItem)
+            End If
+        End If
     End Sub
 End Class

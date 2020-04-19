@@ -19,6 +19,9 @@ Module GlobalObj
 
     Public tescm As GUIScriptManager
 
+
+    Public ctheme As CustomTheme
+
     Public Function UpdateCheck() As Boolean
         If pgData.Setting(ProgramData.TSetting.CheckUpdate) Then
             Dim data As String = ""
@@ -99,6 +102,7 @@ Module GlobalObj
             pgData = New ProgramData
             Lagacy = New LagacyClass
             tescm = New GUIScriptManager
+            ctheme = New CustomTheme
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
             Application.Current.Shutdown()
@@ -121,12 +125,12 @@ Module GlobalObj
 
         '색 설정
         If pgData.Setting(ProgramData.TSetting.Theme) = "Light" Then
-            pgData.SetTheme(True)
+            ctheme.IsLight = True
         ElseIf pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
-            pgData.SetTheme(False)
+            ctheme.IsLight = False
         Else
             pgData.Setting(ProgramData.TSetting.Theme) = "Light"
-            pgData.SetTheme(True)
+            ctheme.IsLight = True
         End If
 
 
@@ -160,46 +164,47 @@ Module GlobalObj
         End If
 
 
+        ctheme.InitColor()
         colorStr = pgData.Setting(ProgramData.TSetting.PrimaryHueLightBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("PrimaryHueLightBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.PrimaryHueLight = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.PrimaryHueMidBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("PrimaryHueMidBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.PrimaryHueMid = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.PrimaryHueDarkBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("PrimaryHueDarkBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.PrimaryHueDark = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.PrimaryHueLightForegroundBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("PrimaryHueLightForegroundBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.PrimaryHueLightForeground = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.PrimaryHueMidForegroundBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("PrimaryHueMidForegroundBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.PrimaryHueMidForeground = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.PrimaryHueDarkForegroundBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("PrimaryHueDarkForegroundBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.PrimaryHueDarkForeground = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.SecondaryAccentBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("SecondaryAccentBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.SecondaryMid = ColorConverter.ConvertFromString(colorStr)
         End If
 
         colorStr = pgData.Setting(ProgramData.TSetting.SecondaryAccentForegroundBrush)
         If colorStr IsNot Nothing Then
-            Application.Current.Resources("SecondaryAccentForegroundBrush") = New SolidColorBrush(ColorConverter.ConvertFromString(colorStr))
+            ctheme.SecondaryMidForeground = ColorConverter.ConvertFromString(colorStr)
         End If
-
+        ctheme.ApplyTheme()
 
 
 

@@ -48,6 +48,9 @@
 
         </ListBox>
         <TreeView 
+            
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}" 
              x:Name="CodeIndexerTree"  Grid.RowSpan="1"  Visibility="Hidden" ScrollViewer.VerticalScrollBarVisibility="Visible"  SelectedItemChanged="CodeIndexerTree_SelectedItemChanged" ScrollViewer.HorizontalScrollBarVisibility="Disabled" >
 
         </TreeView>
@@ -69,10 +72,10 @@
                 <DockPanel  Width="{Binding ActualWidth, ElementName=toolBarTray}" LastChildFill="False" Margin="-10,0" >
                     <ListBox x:Name="SortListBox" SelectionChanged="ListBox_SelectionChanged" Margin="10,0,0,0" >
                         <ListBoxItem x:Name="Btnsortn123" Padding="0" MinWidth="0" Width="34" Height="34" IsSelected="True" ToolTip="{StaticResource SortCode}">
-                            <materialDesign:PackIcon Kind="SortNumeric"  Margin="-10" />
+                            <materialDesign:PackIcon Kind="SortNumerically"  Margin="-10" />
                         </ListBoxItem>
                         <ListBoxItem x:Name="BtnsortABC" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource SortABC}">
-                            <materialDesign:PackIcon Kind="SortAlphabetical" Margin="-10"/>
+                            <materialDesign:PackIcon Kind="SortByAlpha" Margin="-10"/>
                         </ListBoxItem>
                         <ListBoxItem x:Name="BtnsortTree" Padding="0" MinWidth="0" Width="34" ToolTip="{StaticResource SortTree}">
                             <materialDesign:PackIcon Kind="FileTree"  Margin="-10"/>

@@ -31,6 +31,7 @@
                 <ComboBoxItem Content="전체" Tag="all"/>
                 <ComboBoxItem Content="상수변수" Tag="const"/>
                 <ComboBoxItem Content="일반변수" Tag="default"/>
+                <ComboBoxItem Content="스태틱변수" Tag="static"/>
                 <ComboBoxItem Content="오브젝트" Tag="object"/>
             </ComboBox>
             <ComboBox x:Name="variablepos"  DockPanel.Dock="Top" SelectionChanged="variablepos_SelectionChanged" materialDesign:HintAssist.Hint="변수 위치" Style="{StaticResource MaterialDesignFloatingHintComboBox}">

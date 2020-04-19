@@ -1,4 +1,6 @@
-﻿Public Class GUI_VariableSelecter
+﻿Imports System.Windows.Markup
+
+Public Class GUI_VariableSelecter
     Public Event SelectEvent As RoutedEventHandler
     Private GUIEditor As GUIScriptEditorUI
 
@@ -19,10 +21,12 @@
                 Select Case scrlist(0).value2
                     Case "var"
                         variabletype.SelectedIndex = 2
+                    Case "static"
+                        variabletype.SelectedIndex = 3
                     Case "const"
                         variabletype.SelectedIndex = 1
                     Case "object"
-                        variabletype.SelectedIndex = 3
+                        variabletype.SelectedIndex = 4
                 End Select
             End If
 
@@ -126,6 +130,8 @@
             Case 2
                 vartype = "var"
             Case 3
+                vartype = "static"
+            Case 4
                 vartype = "object"
         End Select
 
@@ -181,6 +187,9 @@
     End Sub
     Private Sub FuncListReset()
         funclist.Items.Clear()
+        'MsgBox(VariableName)
+
+        Dim isExtern As Boolean = False
 
         Dim k As ScriptBlock
 
@@ -194,6 +203,7 @@
                     Return
                 End If
                 k = tscrlist.First
+                isExtern = True
             Else
                 k = tscrlist.First
             End If
@@ -202,6 +212,7 @@
         End If
 
 
+        'MsgBox("VariableName : " & VariableName)
         'MsgBox("선언한 변수 명" & k.value)
         'k = 변수 선언부, 이 변수의 child를 이용
 
@@ -211,17 +222,42 @@
             Return
         End If
 
-        'MsgBox("오브젝트 이름" & k.child(0).name)
+        'MsgBox("오브젝트 타입" & k.child(0).ScriptType.ToString)
+        'MsgBox("오브젝트 이름" & k.child(0).name & "," & k.child(0).value & "," & k.child(0).value2)
 
+        Dim n As String = ""
+        If VariableName.IndexOf(".") >= 0 Then
+            n = VariableName.Split(".").First
+        End If
 
-
-        Dim scr As ScriptBlock = tescm.GetObjectByName(k.child(0).name, GUIEditor.Script)
+        Dim scr As ScriptBlock = tescm.GetObjectByName(k.child(0).name, GUIEditor.Script, n)
         '변수명을 이용해 본래 변수 정의 즉 var을 찾아야됨.
+
 
         If scr Is Nothing Then
             Return
         End If
 
+
+        If True Then
+            Dim listitem As New ListBoxItem
+
+            listitem.Content = "주소"
+            listitem.Tag = "!default"
+
+            funclist.Items.Add(listitem)
+        End If
+        If True Then
+            Dim listitem As New ListBoxItem
+
+            listitem.Content = "인덱스"
+            listitem.Tag = "!index"
+
+            funclist.Items.Add(listitem)
+        End If
+
+
+        funclist.Items.Add(New Separator)
 
         FuncAddList(tescm.GetObjectMethod(scr))
 
@@ -285,12 +321,16 @@
     Private Sub funclist_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim item As ListBoxItem = funclist.SelectedItem
         If item IsNot Nothing Then
-            Dim scr As ScriptBlock = item.Tag
+            If item.Tag.GetType Is GetType(String) Then
+                RaiseEvent SelectEvent({VariableName, item.Tag, ScriptBlock.EBlockType.constVal}, e)
+            Else
+                Dim scr As ScriptBlock = item.Tag
 
 
-            VariableFuncName = scr.value
+                VariableFuncName = scr.value
 
-            RaiseEvent SelectEvent({VariableName, VariableFuncName, scr.ScriptType}, e)
+                RaiseEvent SelectEvent({VariableName, VariableFuncName, scr.ScriptType}, e)
+            End If
         Else
             Return
         End If

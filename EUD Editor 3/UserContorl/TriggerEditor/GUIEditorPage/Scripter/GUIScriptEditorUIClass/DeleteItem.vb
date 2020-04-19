@@ -4,6 +4,7 @@
 
         Dim scr As ScriptBlock = titem.Tag
         If scr.IsDeleteAble Then
+            SelectedList.Remove(titem)
             If scr.Parent Is Nothing Then
                 Script.RemoveItems(scr)
             Else
@@ -22,7 +23,7 @@
             Return False
         End If
         TEGUIPage.ObjectSelector.RefreshCurrentList()
-
+        MsgBox("아이템삭제")
 
         pjData.SetDirty(True)
         Return True

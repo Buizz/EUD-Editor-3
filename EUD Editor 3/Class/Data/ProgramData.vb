@@ -8,9 +8,23 @@ Public Class ProgramData
 
 
 
-    Public Sub SetTheme(IsLight As Boolean)
+    Public Sub SetTheme_Unused(IsLight As Boolean)
         Dim palettes As New PaletteHelper
-        palettes.SetLightDark(Not IsLight)
+
+
+        Dim Theme As ITheme = palettes.GetTheme()
+        Dim BaseTheme As IBaseTheme
+        If IsLight Then
+            BaseTheme = New MaterialDesignLightTheme()
+        Else
+            BaseTheme = New MaterialDesignDarkTheme()
+        End If
+
+        Theme.SetBaseTheme(BaseTheme)
+        palettes.SetTheme(Theme)
+
+
+        'palettes.SetLightDark(Not IsLight)
         If IsLight Then
             Setting(ProgramData.TSetting.Theme) = "Light"
         Else
@@ -221,14 +235,19 @@ Public Class ProgramData
         Setting(ProgramData.TSetting.CheckedData) = pgData.PFiledFalgColor.ToString()
 
 
-        Setting(ProgramData.TSetting.PrimaryHueLightBrush) = CType(Application.Current.Resources("PrimaryHueLightBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.PrimaryHueMidBrush) = CType(Application.Current.Resources("PrimaryHueMidBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.PrimaryHueDarkBrush) = CType(Application.Current.Resources("PrimaryHueDarkBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.PrimaryHueLightForegroundBrush) = CType(Application.Current.Resources("PrimaryHueLightForegroundBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.PrimaryHueMidForegroundBrush) = CType(Application.Current.Resources("PrimaryHueMidForegroundBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.PrimaryHueDarkForegroundBrush) = CType(Application.Current.Resources("PrimaryHueDarkForegroundBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.SecondaryAccentBrush) = CType(Application.Current.Resources("SecondaryAccentBrush"), SolidColorBrush).Color.ToString
-        Setting(ProgramData.TSetting.SecondaryAccentForegroundBrush) = CType(Application.Current.Resources("SecondaryAccentForegroundBrush"), SolidColorBrush).Color.ToString
+
+
+        Setting(ProgramData.TSetting.PrimaryHueLightBrush) = ctheme.PrimaryHueLight.ToString
+        Setting(ProgramData.TSetting.PrimaryHueMidBrush) = ctheme.PrimaryHueMid.ToString
+        Setting(ProgramData.TSetting.PrimaryHueDarkBrush) = ctheme.PrimaryHueDark.ToString
+        Setting(ProgramData.TSetting.PrimaryHueLightForegroundBrush) = ctheme.PrimaryHueLightForeground.ToString
+        Setting(ProgramData.TSetting.PrimaryHueMidForegroundBrush) = ctheme.PrimaryHueMidForeground.ToString
+        Setting(ProgramData.TSetting.PrimaryHueDarkForegroundBrush) = ctheme.PrimaryHueDarkForeground.ToString
+        Setting(ProgramData.TSetting.SecondaryAccentBrush) = ctheme.SecondaryMid.ToString
+        Setting(ProgramData.TSetting.SecondaryAccentForegroundBrush) = ctheme.SecondaryMidForeground.ToString
+
+
+
 
         pgsetting.WriteIni()
     End Sub

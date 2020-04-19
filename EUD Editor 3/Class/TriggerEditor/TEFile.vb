@@ -281,5 +281,39 @@ Public Class TEFile
         memory_stream.Position = 0
         Return CType(formatter.Deserialize(memory_stream), TEFile)
     End Function
+
+    Public Function ChagneType() As Boolean
+        Select Case _FileType
+            Case EFileType.CUIEps
+                Dim la As New Lexical_Analyzer
+                Try
+                    Dim tokenlist As List(Of Token) = la.DoWork(_Scripter.GetStringText)
+
+
+                    For i = 0 To tokenlist.Count - 1
+                        MsgBox("타입 : " & tokenlist(i).TType.ToString & "  값 : " & tokenlist(i).value)
+                    Next
+                    Dim parser As New Parser(tokenlist)
+
+
+
+
+                    Return False
+                Catch ex As Exception
+                    MsgBox(ex.ToString)
+
+                    Return False
+                End Try
+            Case EFileType.GUIEps
+                Dim CUIScrEditor As New CUIScriptEditor(ScriptEditor.SType.Eps)
+                CUIScrEditor.StringText = CType(_Scripter, GUIScriptEditor).GetStringText()
+
+                _Scripter = CUIScrEditor
+
+                _FileType = EFileType.CUIEps
+                Return True
+        End Select
+        Return False
+    End Function
 End Class
 

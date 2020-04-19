@@ -14,7 +14,7 @@
              GotFocus="UserControl_GotFocus"
              PreviewKeyDown="UserControl_PreviewKeyDown"
              PreviewKeyUp="UserControl_PreviewKeyUp"
-             d:DesignHeight="450" d:DesignWidth="500" >
+             d:DesignHeight="700" d:DesignWidth="1000" >
     <Grid>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="250" MinWidth="220"/>

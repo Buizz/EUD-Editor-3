@@ -215,7 +215,7 @@
                 
                         </DockPanel>
 
-                        <RichTextBox x:Name="PatchNote" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Stretch" IsReadOnly="True" Margin="0,10"  FontFamily="Malgun Gothic" Padding="14,1,1,1" BorderBrush="{x:Null}"/>
+                        <RichTextBox x:Name="PatchNote" VerticalScrollBarVisibility="Auto" Foreground="{DynamicResource MaterialDesignBody}" VerticalContentAlignment="Stretch" IsReadOnly="True" Margin="0,10"  FontFamily="Malgun Gothic" Padding="14,1,1,1" BorderBrush="{x:Null}"/>
                     </DockPanel>
 
                 </DockPanel>

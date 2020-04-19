@@ -36,6 +36,7 @@ Public Class CodeEditor
     Private timer As DispatcherTimer
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         PopupToolTip = New PopupToolTip
+        PopupToolTip.Topmost = True
         PopupToolTip.Show()
 
         PopupToolTip.Visibility = Visibility.Hidden

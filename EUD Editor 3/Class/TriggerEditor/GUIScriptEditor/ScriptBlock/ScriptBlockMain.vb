@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports Microsoft.DwayneNeed.Win32.Gdi32
 
 <Serializable>
 Public Class ScriptBlock
@@ -67,6 +68,12 @@ Public Class ScriptBlock
     Public flag As Boolean
     Public value As String
     Public value2 As String
+
+    <NonSerialized>
+    Public tobject As Object
+
+
+
     Public child As List(Of ScriptBlock)
 
     Public Parent As ScriptBlock
@@ -339,6 +346,15 @@ Public Class ScriptBlock
                 rstr = value
             Case EBlockType.varuse
                 If value.Trim <> "" Then
+                    If value = "!index" Then
+                        rstr = name & "[" & child(0).ValueCoder() & "]"
+                        Return rstr
+                    End If
+                    If value = "!default" Then
+                        rstr = name & ".ptr"
+                        Return rstr
+                    End If
+
                     rstr = name & "." & value
 
                     If value2 = "method" Then
@@ -726,7 +742,10 @@ Public Class ScriptBlock
     Public Function GetTreeviewitem() As TreeViewItem
         Dim treeviewitem As New TreeViewItem
         treeviewitem.Tag = Me
-        treeviewitem.Header = GetScriptBlockItem()
+
+        Dim scritem As ScriptTreeviewitem = GetScriptBlockItem()
+        treeviewitem.Header = scritem
+
         treeviewitem.IsExpanded = isexpand
 
         AddHandler treeviewitem.Collapsed, AddressOf treeviewcollapsed

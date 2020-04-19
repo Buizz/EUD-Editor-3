@@ -12,6 +12,7 @@
         <TextBox x:Name="vname" materialDesign:HintAssist.Hint="변수 명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" DockPanel.Dock="Top" TextChanged="vname_TextChanged"/>
         <ComboBox x:Name="VarType" materialDesign:HintAssist.Hint="타입" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="VarType_SelectionChanged">
             <ComboBoxItem Content="변수"/>
+            <ComboBoxItem Content="스태틱변수"/>
             <ComboBoxItem Content="상수"/>
             <ComboBoxItem Content="오브젝트"/>
         </ComboBox>

@@ -22,6 +22,9 @@
         AddHandler ArgSelecter.ArgBtnClickEvent, AddressOf ArgSelecterEvent
         AddHandler ArgExpress.ArgBtnClickEvent, AddressOf ArgSelecterEvent
         AddHandler ArgExpress.ArgExpressRefreshEvent, AddressOf ArgExpressRefresh
+        AddHandler VarUseFunc.RefreshEvent, AddressOf VarUseFunc_Change
+        'AddHandler VarUseFunc.ArgBtnRefreshEvent, AddressOf ArgExpressRefresh
+        'AddHandler VarUseFunc.ArgBtnClickEvent, AddressOf ArgSelecterEvent
     End Sub
 
     Public Sub ArgExpressRefresh(sender As Object, e As RoutedEventArgs)
@@ -163,7 +166,7 @@
                 If scr.ScriptType = ScriptBlock.EBlockType.varuse Then
                     initstr(0) = scr.name
                     initstr(1) = scr.value
-                    VarUseFunc.CrlInit(scr)
+                    VarUseFunc.CrlInit(scr, normalscrscr, Scripter, Me)
                 End If
 
 
@@ -332,13 +335,16 @@
 
 
         scr.DuplicationBlock(nsb)
-        VarUseFunc.CrlInit(scr)
+        VarUseFunc.CrlInit(scr, normalscrscr, Scripter, Me)
 
 
 
 
         RaiseEvent BtnRefresh("", e)
         '현재 선택한 인자가 몇번째 인자인지 조사.
+    End Sub
+    Private Sub VarUseFunc_Change(sender As Object, e As RoutedEventArgs)
+        RaiseEvent BtnRefresh("", e)
     End Sub
     Public Sub FuncListSelect(sender() As Object, e As RoutedEventArgs)
         'TODO: 받아서 값에다가 이름을 넣는 식으로 해보자

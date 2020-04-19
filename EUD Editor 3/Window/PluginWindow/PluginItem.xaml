@@ -7,6 +7,7 @@
              xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
+             
              d:DesignHeight="145.869" d:DesignWidth="339.142" Background="#02FFFFFF"
              >
     <DockPanel>

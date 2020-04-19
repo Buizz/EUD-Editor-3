@@ -17,6 +17,10 @@ Partial Public Class ProjectExplorer
             MenuCut.IsEnabled = True
             MenuCopy.IsEnabled = True
             MenuConnect.IsEnabled = True
+
+
+            ToGUI.Visibility = Visibility.Visible
+            ToCUI.Visibility = Visibility.Visible
         Else
             MenuOpen.IsEnabled = False
             MenuExport.IsEnabled = False
@@ -24,6 +28,8 @@ Partial Public Class ProjectExplorer
             MenuCut.IsEnabled = False
             MenuCopy.IsEnabled = False
             MenuConnect.IsEnabled = False
+            ToGUI.Visibility = Visibility.Collapsed
+            ToCUI.Visibility = Visibility.Collapsed
         End If
 
         '마지막으로 선택한 아이템이 있을 경우
@@ -54,9 +60,11 @@ Partial Public Class ProjectExplorer
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Then
                             MenuConnect.Visibility = Visibility.Collapsed
                             MenuDisConnect.Visibility = Visibility.Collapsed
+                            ToGUI.Visibility = Visibility.Collapsed
                         Else
                             MenuConnect.Visibility = Visibility.Visible
                             MenuDisConnect.Visibility = Visibility.Collapsed
+                            ToCUI.Visibility = Visibility.Collapsed
                         End If
                     End If
                 Else
@@ -128,6 +136,7 @@ Partial Public Class ProjectExplorer
             MenuConnect.Visibility = Visibility.Collapsed
         End If
     End Sub
+
 
 
     Private Sub MenuConnect_Click(sender As Object, e As RoutedEventArgs)
@@ -328,6 +337,33 @@ Partial Public Class ProjectExplorer
         End If
     End Sub
 
+    Private Sub ToGUI_Click(sender As Object, e As RoutedEventArgs)
+        If LastSelectItem IsNot Nothing Then
+            Dim cfile As TEFile = GetFile(LastSelectItem)
+
+            If cfile.FileType = TEFile.EFileType.CUIEps Then
+                If cfile.ChagneType() Then
+                    LastSelectItem.Header = GetTreeNodeHeader(cfile)
+                    pjData.SetDirty(True)
+                    TECloseTabITem(cfile)
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub ToCUI_Click(sender As Object, e As RoutedEventArgs)
+        If LastSelectItem IsNot Nothing Then
+            Dim cfile As TEFile = GetFile(LastSelectItem)
+
+            If cfile.FileType = TEFile.EFileType.GUIEps Then
+                If cfile.ChagneType() Then
+                    LastSelectItem.Header = GetTreeNodeHeader(cfile)
+                    pjData.SetDirty(True)
+                    TECloseTabITem(cfile)
+                End If
+            End If
+        End If
+    End Sub
 
     Private Sub AddCUIEps()
         FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.CUIEps))

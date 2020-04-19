@@ -60,30 +60,30 @@ Public Class GUIScriptManager
 
 
     Public SCValueType() As String = {
-    "None",
-    "TrgAllyStatus",
-    "TrgComparison",
-    "TrgCount",
-    "Number",
-    "TrgModifier",
-    "TrgOrder",
-    "TrgPlayer",
-    "TrgProperty",
-    "TrgPropState",
-    "TrgResource",
-    "TrgScore",
-    "TrgSwitchAction",
-    "TrgSwitchState",
-    "TrgAIScript",
-    "TrgLocation",
-    "TrgLocationIndex",
-    "TrgString",
-    "TrgSwitch",
-    "TrgUnit"}
+        "None",
+        "TrgAllyStatus",
+        "TrgComparison",
+        "TrgCount",
+        "Number",
+        "TrgModifier",
+        "TrgOrder",
+        "TrgPlayer",
+        "TrgProperty",
+        "TrgPropState",
+        "TrgResource",
+        "TrgScore",
+        "TrgSwitchAction",
+        "TrgSwitchState",
+        "TrgAIScript",
+        "TrgLocation",
+        "TrgLocationIndex",
+        "TrgString",
+        "TrgSwitch",
+        "TrgUnit"}
 
     Public SCValueNoneType() As String = {
-    "None",
-    "Number"}
+        "None",
+        "Number"}
 
     Public Function GetFuncArgs(scr As ScriptBlock) As List(Of ScriptBlock)
         If scr.ScriptType = ScriptBlock.EBlockType.fundefine Then
@@ -272,6 +272,7 @@ Public Class GUIScriptManager
             Dim stype As String = scr(i).ScriptType
             Dim sname As String = scr(i).name
             Dim svalue As String = scr(i).value
+            Dim svalue2 As String = scr(i).value2
             Dim flag As Boolean = scr(i).flag
             Dim schild As List(Of ScriptBlock) = scr(i).child
             Dim isLastValue As Boolean = (i = scr.Count - 1)
@@ -298,7 +299,13 @@ Public Class GUIScriptManager
                     strb.Append(GetIntend(intend))
 
                     If flag Then
-                        strb.Append("const ")
+                        If svalue2 = "static" Then
+                            strb.Append("static ")
+                        Else
+                            strb.Append("const ")
+                        End If
+
+
                     Else
                         strb.Append("var ")
                     End If
@@ -532,6 +539,71 @@ Public Class GUIScriptManager
                     strb.AppendLine(tail)
                 Case ScriptBlock.EBlockType.folderaction
                     GetScriptText(schild, strb, intend, flag)
+                Case ScriptBlock.EBlockType.exp
+                    strb.Append(GetIntend(intend))
+
+                    GetScriptText(schild, strb, intend)
+
+                    strb.AppendLine(";")
+                Case ScriptBlock.EBlockType.sign
+                    strb.Append(svalue)
+
+
+                Case ScriptBlock.EBlockType.varuse
+                    'strb.Append(sname)
+                    'strb.Append("/")
+                    'strb.Append(svalue)
+                    'strb.Append("/")
+                    'strb.Append(svalue2)
+                    'strb.Append("////")
+                    Select Case svalue
+                        Case "constructor"
+                            strb.Append(sname)
+                            strb.Append("(")
+                            GetScriptText(schild, strb, intend)
+                            strb.Append(")")
+                            Continue For
+                        Case "cast"
+                            strb.Append(sname)
+                            strb.Append("(")
+                            GetScriptText(schild, strb, intend)
+                            strb.Append(")")
+                            Continue For
+                        Case "alloc"
+                            strb.Append(sname)
+                            strb.Append("(")
+                            GetScriptText(schild, strb, intend)
+                            strb.Append(")")
+                            Continue For
+                        Case "!index"
+                            strb.Append(sname)
+                            strb.Append("[")
+                            GetScriptText(schild, strb, intend)
+                            strb.Append("]")
+                            Continue For
+                        Case "!default"
+                            strb.Append(sname)
+                    End Select
+
+                    Select Case svalue2
+                        Case "value"
+                            strb.Append(sname)
+                        Case "method"
+                            strb.Append(sname)
+                            strb.Append(".")
+                            strb.Append(svalue)
+
+                            strb.Append("(")
+                            GetScriptText(schild, strb, intend)
+                            strb.Append(")")
+                        Case "fields"
+                            strb.Append(sname)
+                            strb.Append(".")
+                            strb.Append(svalue)
+                    End Select
+
+
+                    '    v1 value +=Test method method + Test f1 fields+13;
                 Case Else
                     If isFuncArg Then
                         If tescm.SCValueNoneType.ToList.IndexOf(sname) <> -1 Then
@@ -577,7 +649,7 @@ Public Class GUIScriptManager
                             End If
                         End If
                     Else
-                            Select Case sname.Trim
+                        Select Case sname.Trim
                             Case "TrgString", "TrgAIScript", "TrgUnit", "TrgLocation"
                                 strb.Append("""" & svalue & """")
                             Case "TrgLocationIndex"

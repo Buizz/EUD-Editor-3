@@ -61,6 +61,7 @@
                         ssb.InsertChild(addindex, nsb)
                         selectitem.Items.Insert(addindex, ntreeview)
                     End If
+                    MsgBox("아이템생성 새 창없이")
                 End If
             End If
         Else
@@ -69,12 +70,13 @@
 
                 If Not OpenNewWindow(nsb, ntreeview, normalscr) Then
                     If addindex = -1 Then
-                        Script.AddItems(nsb)
+                        AddItems(nsb)
                         MainTreeview.Items.Add(ntreeview)
                     Else
-                        Script.InsertItems(addindex, nsb)
+                        InsertItems(addindex, nsb)
                         MainTreeview.Items.Insert(addindex, ntreeview)
                     End If
+                    MsgBox("아이템생성 새 창없이")
                 End If
             End If
         End If
@@ -111,8 +113,6 @@
         If MainTreeview.SelectedItem IsNot Nothing Then
             Dim tv As TreeViewItem = MainTreeview.SelectedItem
 
-
-
             TEGUIPage.OpenEditWindow(scriptEdit, tv.TransformToAncestor(MainTreeview).Transform(New Point(0, 0)))
         Else
             TEGUIPage.OpenEditWindow(scriptEdit, Nothing)
@@ -133,16 +133,18 @@
                         parentScriptBlock.InsertChild(insertIndex, insertScriptBlock)
                         parentTreeviewitem.Items.Insert(insertIndex, ntreeview)
                     End If
+                    MsgBox("아이템생성 창 있음")
                 End If
             Else
                 If CheckValidated(insertScriptBlock, Nothing) Then
                     If insertIndex = -1 Then
-                        Script.AddItems(insertScriptBlock)
+                        AddItems(insertScriptBlock)
                         MainTreeview.Items.Add(ntreeview)
                     Else
-                        Script.InsertItems(insertIndex, insertScriptBlock)
+                        InsertItems(insertIndex, insertScriptBlock)
                         MainTreeview.Items.Insert(insertIndex, ntreeview)
                     End If
+                    MsgBox("아이템생성 창 있음")
                 End If
             End If
         End If

@@ -1,4 +1,5 @@
 ﻿Imports MaterialDesignColors
+Imports MaterialDesignColors.Recommended
 Imports MaterialDesignThemes.Wpf
 
 Public Class ThemeContorl
@@ -7,6 +8,18 @@ Public Class ThemeContorl
     Private DefaultColors As String() = {"#FFF44336", "#FFE91E63", "#FF9C27B0", "#FF673AB7", "#FF3F51B5", "#FF2196F3", "#FF03A9F4",
     "#FF00BCD4", "#FF009688", "#FF4CAF50", "#FF8BC34A", "#FFCDDC39", "#FFFFEB3B", "#FFFFC107", "#FFFF9800", "#FFFF5722", "#FF795548", "#FF9E9E9E", "#FF607D8B"}
 
+    Private DefaultPrimaryColor As MaterialDesignColor() = {
+        MaterialDesignColor.Red, MaterialDesignColor.Pink, MaterialDesignColor.Purple, MaterialDesignColor.DeepPurple,
+        MaterialDesignColor.Indigo, MaterialDesignColor.Blue, MaterialDesignColor.LightBlue, MaterialDesignColor.Cyan,
+        MaterialDesignColor.Teal, MaterialDesignColor.Green, MaterialDesignColor.LightGreen, MaterialDesignColor.Lime,
+        MaterialDesignColor.Yellow, MaterialDesignColor.Amber, MaterialDesignColor.Orange, MaterialDesignColor.DeepOrange,
+        MaterialDesignColor.Brown, MaterialDesignColor.Grey, MaterialDesignColor.BlueGrey}
+    Private DefaultSecondaryColor As MaterialDesignColor() = {
+        MaterialDesignColor.RedSecondary, MaterialDesignColor.PinkSecondary, MaterialDesignColor.PurpleSecondary, MaterialDesignColor.DeepPurpleSecondary,
+        MaterialDesignColor.IndigoSecondary, MaterialDesignColor.BlueSecondary, MaterialDesignColor.LightBlueSecondary, MaterialDesignColor.CyanSecondary,
+        MaterialDesignColor.TealSecondary, MaterialDesignColor.GreenSecondary, MaterialDesignColor.LightGreenSecondary, MaterialDesignColor.LimeSecondary,
+        MaterialDesignColor.YellowSecondary, MaterialDesignColor.AmberSecondary, MaterialDesignColor.OrangeSecondary, MaterialDesignColor.DeepOrangeSecondary,
+        MaterialDesignColor.Lime, MaterialDesignColor.Lime, MaterialDesignColor.Lime}
     Public Sub New()
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
@@ -35,58 +48,43 @@ Public Class ThemeContorl
             AddHandler btn.Click, AddressOf ButtonClick
             DefaultPalettes.Children.Add(btn)
         Next
-        'Dim tempStr As String = ""
-        'For i = 0 To DefaultPalettName.Count - 1
-        '    Dim MyBorder As New Border
-        '    Dim helper As New PaletteHelper
-        '    helper.ReplacePrimaryColor(DefaultPalettName(i))
-        '    Dim palette As Palette = helper.QueryPalette
-
-
-        '    Dim hue As Hue = palette.PrimarySwatch().ExemplarHue
-        '    MyBorder.Background = New SolidColorBrush(hue.Color)
-        '    MyBorder.Width = 30
-        '    MyBorder.Height = 30
-        '    DefaultPalettes.Children.Add(MyBorder)
-        '    tempStr = tempStr & ", """ & hue.Color.ToString & """"
-        'Next
-        'My.Computer.Clipboard.SetText(tempStr)
     End Sub
     Private Sub ButtonClick(sender As Object, e As RoutedEventArgs)
         Dim index As Integer = sender.Tag
 
 
-        Application.Current.Resources.Remove("PrimaryHueLightBrush")
-        Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
-        Application.Current.Resources.Remove("PrimaryHueMidBrush")
-        Application.Current.Resources.Remove("PrimaryHueMidForegroundBrush")
-        Application.Current.Resources.Remove("PrimaryHueDarkBrush")
-        Application.Current.Resources.Remove("PrimaryHueDarkForegroundBrush")
-        Application.Current.Resources.Remove("SecondaryAccentBrush")
-        Application.Current.Resources.Remove("SecondaryAccentForegroundBrush")
-
-
         Dim helper As New PaletteHelper
-        helper.ReplacePrimaryColor(DefaultPalettName(index))
 
-        Try
-            helper.ReplaceAccentColor(DefaultPalettName(index))
-        Catch ex As Exception
-            helper.ReplaceAccentColor("lime")
-        End Try
+        Dim theme As ITheme = helper.GetTheme
+
+
+        theme.SetPrimaryColor(SwatchHelper.Lookup(DefaultPrimaryColor(index)))
+        theme.SetSecondaryColor(SwatchHelper.Lookup(DefaultSecondaryColor(index)))
+
+        ctheme.PrimaryHueLight = theme.PrimaryLight.Color
+        ctheme.PrimaryHueMid = theme.PrimaryMid.Color
+        ctheme.PrimaryHueDark = theme.PrimaryDark.Color
+
+
+        ctheme.SecondaryMid = theme.SecondaryMid.Color
+
+        helper.SetTheme(theme)
     End Sub
 
 
     Private Sub ToggleButton_Checked(sender As Object, e As RoutedEventArgs)
-        pgData.SetTheme(False)
+        ctheme.IsLight = False
+        ctheme.ApplyTheme()
+        pgData.Setting(ProgramData.TSetting.Theme) = "Dark"
         If Tool.IsProjectLoad Then
             pjData.BindingManager.DataRefresh()
         End If
-
     End Sub
 
     Private Sub ToggleButton_Unchecked(sender As Object, e As RoutedEventArgs)
-        pgData.SetTheme(True)
+        ctheme.IsLight = True
+        ctheme.ApplyTheme()
+        pgData.Setting(ProgramData.TSetting.Theme) = "Light"
         If Tool.IsProjectLoad Then
             pjData.BindingManager.DataRefresh()
         End If
@@ -94,58 +92,34 @@ Public Class ThemeContorl
 
 
 
-    Private Function CheckBlack(color As Color) As SolidColorBrush
-        Dim h As Double
-        Dim s As Double
-        Dim v As Double
-
-        ColorPicker.ColorToHSV(color, h, s, v)
-
-        If s < 0.3 And v > 0.7 Then '밝음
-            Return New SolidColorBrush(Colors.Black)
-        End If
-
-        If v <= 0.7 Then '어두움
-            Return New SolidColorBrush(Colors.White)
-        End If
-
-        Select Case h
-            Case 30 To 210
-                Return New SolidColorBrush(Colors.Black)
-            Case Else
-                Return New SolidColorBrush(Colors.White)
-        End Select
-
-        Return New SolidColorBrush(Colors.Black)
-    End Function
 
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        Dim mainBrush As SolidColorBrush = Application.Current.Resources("PrimaryHueMidBrush")
+        Dim mainBrush As SolidColorBrush = New SolidColorBrush(ctheme.PrimaryHueMid)
         MainColorPickerPopup.IsOpen = True
         MainColorPicker.InitColor(mainBrush.Color)
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-        Dim mainBrush As SolidColorBrush = Application.Current.Resources("PrimaryHueLightBrush")
+        Dim mainBrush As SolidColorBrush = New SolidColorBrush(ctheme.PrimaryHueLight)
         LightColorPickerPopup.IsOpen = True
         LightColorPicker.InitColor(mainBrush.Color)
     End Sub
 
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
-        Dim mainBrush As SolidColorBrush = Application.Current.Resources("PrimaryHueMidBrush")
+        Dim mainBrush As SolidColorBrush = New SolidColorBrush(ctheme.PrimaryHueMid)
         DefaultColorPickerPopup.IsOpen = True
         DefaultColorPicker.InitColor(mainBrush.Color)
     End Sub
 
     Private Sub Button_Click_3(sender As Object, e As RoutedEventArgs)
-        Dim mainBrush As SolidColorBrush = Application.Current.Resources("PrimaryHueDarkBrush")
+        Dim mainBrush As SolidColorBrush = New SolidColorBrush(ctheme.PrimaryHueDark)
         DarkColorPickerPopup.IsOpen = True
         DarkColorPicker.InitColor(mainBrush.Color)
     End Sub
 
     Private Sub Button_Click_4(sender As Object, e As RoutedEventArgs)
-        Dim mainBrush As SolidColorBrush = Application.Current.Resources("SecondaryAccentBrush")
+        Dim mainBrush As SolidColorBrush = New SolidColorBrush(ctheme.SecondaryMid)
         AccentColorPickerPopup.IsOpen = True
         AccentColorPicker.InitColor(mainBrush.Color)
     End Sub
@@ -164,17 +138,21 @@ Public Class ThemeContorl
 
         Dim AccentColor As Color = ColorPicker.ColorFromHSV(h + 40, s * 0.6, Math.Min(v * 1.6, 1))
 
+        ctheme.PrimaryHueLight = LightColor
+        ctheme.PrimaryHueMid = MainColor
+        ctheme.PrimaryHueDark = DarkColor
 
-        Application.Current.Resources("PrimaryHueLightBrush") = New SolidColorBrush(LightColor)
-        Application.Current.Resources("PrimaryHueMidBrush") = New SolidColorBrush(MainColor)
-        Application.Current.Resources("PrimaryHueDarkBrush") = New SolidColorBrush(DarkColor)
 
-        Application.Current.Resources("PrimaryHueLightForegroundBrush") = CheckBlack(LightColor)
-        Application.Current.Resources("PrimaryHueMidForegroundBrush") = CheckBlack(MainColor)
-        Application.Current.Resources("PrimaryHueDarkForegroundBrush") = CheckBlack(DarkColor)
+        ctheme.PrimaryHueLightForeground = CustomTheme.CheckBlack(LightColor)
+        ctheme.PrimaryHueMidForeground = CustomTheme.CheckBlack(MainColor)
+        ctheme.PrimaryHueDarkForeground = CustomTheme.CheckBlack(DarkColor)
 
-        Application.Current.Resources("SecondaryAccentBrush") = New SolidColorBrush(AccentColor)
-        Application.Current.Resources("SecondaryAccentForegroundBrush") = CheckBlack(AccentColor)
+
+        ctheme.SecondaryMid = AccentColor
+        ctheme.SecondaryMidForeground = CustomTheme.CheckBlack(AccentColor)
+
+
+        ctheme.ApplyTheme()
 
         'Dim PaletteHelper As New PaletteHelper()
         'PaletteHelper.SetLightDark(True)
@@ -183,39 +161,33 @@ Public Class ThemeContorl
     Private Sub LightColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
         Dim MainColor As Color = sender
 
-        'For i = 0 To Application.Current.Resources.Keys.Count - 1
-        '    MsgBox(Application.Current.Resources.Keys(i).ToString)
-        'Next
-
-
-
-        Application.Current.Resources("PrimaryHueLightBrush") = New SolidColorBrush(MainColor)
-        Application.Current.Resources("PrimaryHueLightForegroundBrush") = CheckBlack(MainColor)
-        'Application.Current.Resources.Remove("PrimaryHueLightBrush")
-
-
-        'Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
+        ctheme.PrimaryHueLight = MainColor
+        'ctheme.PrimaryHueLightForeground = CustomTheme.CheckBlack(MainColor)
+        ctheme.ApplyTheme()
     End Sub
 
     Private Sub DefaultColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
         Dim MainColor As Color = sender
 
-        Application.Current.Resources("PrimaryHueMidBrush") = New SolidColorBrush(MainColor)
-        Application.Current.Resources("PrimaryHueMidForegroundBrush") = CheckBlack(MainColor)
+        ctheme.PrimaryHueMid = MainColor
+        'ctheme.PrimaryHueMidForeground = CustomTheme.CheckBlack(MainColor)
+        ctheme.ApplyTheme()
     End Sub
 
     Private Sub DarkColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
         Dim MainColor As Color = sender
 
-        Application.Current.Resources("PrimaryHueDarkBrush") = New SolidColorBrush(MainColor)
-        Application.Current.Resources("PrimaryHueDarkForegroundBrush") = CheckBlack(MainColor)
+        ctheme.PrimaryHueDark = MainColor
+        'ctheme.PrimaryHueDarkForeground = CustomTheme.CheckBlack(MainColor)
+        ctheme.ApplyTheme()
     End Sub
 
     Private Sub AccentColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
         Dim MainColor As Color = sender
 
-        Application.Current.Resources("SecondaryAccentBrush") = New SolidColorBrush(MainColor)
-        Application.Current.Resources("SecondaryAccentForegroundBrush") = CheckBlack(MainColor)
+        ctheme.SecondaryMid = MainColor
+        'ctheme.SecondaryMidForeground = CustomTheme.CheckBlack(MainColor)
+        ctheme.ApplyTheme()
     End Sub
 
     Private Sub DefaultData_Click(sender As Object, e As RoutedEventArgs)
@@ -285,19 +257,20 @@ Public Class ThemeContorl
         EditedData.Background = New SolidColorBrush(pgData.PFiledEditColor)
         CheckedData.Background = New SolidColorBrush(pgData.PFiledFalgColor)
 
-        Application.Current.Resources.Remove("PrimaryHueLightBrush")
-        Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
-        Application.Current.Resources.Remove("PrimaryHueMidBrush")
-        Application.Current.Resources.Remove("PrimaryHueMidForegroundBrush")
-        Application.Current.Resources.Remove("PrimaryHueDarkBrush")
-        Application.Current.Resources.Remove("PrimaryHueDarkForegroundBrush")
-        Application.Current.Resources.Remove("SecondaryAccentBrush")
-        Application.Current.Resources.Remove("SecondaryAccentForegroundBrush")
+        'Application.Current.Resources.Remove("PrimaryHueLightBrush")
+        'Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")
+        'Application.Current.Resources.Remove("PrimaryHueMidBrush")
+        'Application.Current.Resources.Remove("PrimaryHueMidForegroundBrush")
+        'Application.Current.Resources.Remove("PrimaryHueDarkBrush")
+        'Application.Current.Resources.Remove("PrimaryHueDarkForegroundBrush")
+        'Application.Current.Resources.Remove("SecondaryAccentBrush")
+        'Application.Current.Resources.Remove("SecondaryAccentForegroundBrush")
+
+        ctheme.InitColor()
+        ctheme.ApplyTheme()
 
 
-        Dim helper As New PaletteHelper
-        helper.ReplacePrimaryColor("bluegrey")
-        helper.ReplaceAccentColor("lime")
+        'helper.ReplacePrimaryColor("bluegrey")
+        'helper.ReplaceAccentColor("lime")
     End Sub
 End Class
-'MaterialDesignToolButton

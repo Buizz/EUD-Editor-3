@@ -5,9 +5,11 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             d:DesignHeight="450" d:DesignWidth="800"
+             PreviewMouseDown="UserControl_PreviewMouseDown" PreviewMouseUp="UserControl_PreviewMouseUp">
 
     <Grid Margin="0,-6">
+        <Grid x:Name="ColorBorder" Margin="-8,-8"/>
         <TextBlock x:Name="textblock" >
         </TextBlock>
     </Grid>

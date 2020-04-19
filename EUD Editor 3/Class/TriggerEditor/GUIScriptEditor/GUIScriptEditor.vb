@@ -25,6 +25,11 @@ Public Class GUIScriptEditor
     '}"
 
     Private items As List(Of ScriptBlock)
+    Public ReadOnly Property GetItemsList As List(Of ScriptBlock)
+        Get
+            Return items
+        End Get
+    End Property
     Public ReadOnly Property GetItems(index As Integer) As ScriptBlock
         Get
             Return items(index)
@@ -118,13 +123,13 @@ Public Class GUIScriptEditor
 
     Public Overrides Function GetFileText() As String
         Dim strb As New StringBuilder
-        Dim indend As Integer = 3
+        Dim indend As Integer = 0
         GUIScriptManager.GetScriptText(items, strb, indend)
         Return strb.ToString
     End Function
     Public Overrides Function GetStringText() As String
         Dim strb As New StringBuilder
-        Dim indend As Integer = 3
+        Dim indend As Integer = 0
         GUIScriptManager.GetScriptText(items, strb, indend)
         Return strb.ToString
     End Function

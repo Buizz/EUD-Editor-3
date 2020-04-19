@@ -11,6 +11,7 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:EUD_Editor_3"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
+        Background="{DynamicResource MaterialDesignPaper}"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
@@ -19,7 +20,6 @@
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
             <local:ProjectControl x:Name="ControlBar"/>
-
         </controls:WindowCommands>
     </controls:MetroWindow.RightWindowCommands>
 
@@ -28,13 +28,12 @@
             <StackPanel Orientation="Horizontal" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Height="32" Text="{StaticResource TopMost}" Padding="7"/>
-                    <ToggleButton x:Name="toggleBtn"
-                              Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding Topmost, ElementName=metroWindow}"/>
-
+                    <CheckBox x:Name="toggleBtn" IsChecked="{Binding Topmost, ElementName=metroWindow}"/>
                 </StackPanel>
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
+    
     <Grid>
             <ListBox x:Name="EdsText" MouseUp="EdsText_MouseUp" PreviewMouseLeftButtonDown="EdsText_PreviewMouseLeftButtonDown" PreviewMouseMove="EdsText_PreviewMouseMove" PreviewMouseLeftButtonUp="EdsText_PreviewMouseLeftButtonUp" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False">
             <ListBox.ContextMenu>

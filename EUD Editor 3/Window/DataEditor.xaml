@@ -38,8 +38,7 @@
             <StackPanel Orientation="Horizontal" >
                 <StackPanel Orientation="Horizontal">
                     <TextBlock  Height="32" Text="{StaticResource TopMost}" Padding="7"/>
-                    <ToggleButton x:Name="toggleBtn"
-                              Style="{StaticResource MaterialDesignSwitchToggleButton}" IsChecked="{Binding Topmost, ElementName=metroWindow}"/>
+                    <CheckBox x:Name="toggleBtn" IsChecked="{Binding Topmost, ElementName=metroWindow}"/>
 
                 </StackPanel>
             </StackPanel>

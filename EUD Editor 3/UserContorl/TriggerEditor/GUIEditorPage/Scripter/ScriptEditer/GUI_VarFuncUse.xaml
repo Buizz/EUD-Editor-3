@@ -6,7 +6,10 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-        <Label x:Name="TestLabel"/>
-    </Grid>
+    <DockPanel>
+        <Label x:Name="tLabel" DockPanel.Dock="Top"/>
+        <TextBlock x:Name="destb" DockPanel.Dock="Bottom"/>
+        <WrapPanel x:Name="MainPanel">
+        </WrapPanel>
+    </DockPanel>
 </UserControl>

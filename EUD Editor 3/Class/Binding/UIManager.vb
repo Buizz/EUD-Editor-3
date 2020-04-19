@@ -262,12 +262,12 @@ Public Class UIManager
                 If TrueFlag Then
                     If pjData.IsMapLoading Then
                         If TrueFlag Then
-                            Return Application.Current.Resources("MaterialDesignToolBackground")
+                            Return Application.Current.Resources("MaterialDesignPaper")
                         Else
                             Return New SolidColorBrush(pgData.FiledMapEditColor)
                         End If
                     Else
-                        Return Application.Current.Resources("MaterialDesignToolBackground")
+                        Return Application.Current.Resources("MaterialDesignPaper")
                     End If
                 Else
                     Return New SolidColorBrush(pgData.FiledEditColor)
@@ -276,20 +276,20 @@ Public Class UIManager
                 Select Case Datfile
                     Case SCDatFiles.DatFiles.stattxt
                         If pjData.ExtraDat.Stat_txt(ObjectID) = ExtraDatFiles.StatNullString Then
-                            Return Application.Current.Resources("MaterialDesignToolBackground")
+                            Return Application.Current.Resources("MaterialDesignPaper")
                         Else
                             Return New SolidColorBrush(pgData.FiledEditColor)
                         End If
                     Case SCDatFiles.DatFiles.ButtonData
                         Dim TrueFlag As Boolean = pjData.DataManager.CheckDirtyObject(Datfile, ObjectID)
                         If TrueFlag Then
-                            Return Application.Current.Resources("MaterialDesignToolBackground")
+                            Return Application.Current.Resources("MaterialDesignPaper")
                         Else
                             Return New SolidColorBrush(pgData.FiledEditColor)
                         End If
                 End Select
 
-                Return Application.Current.Resources("MaterialDesignToolBackground")
+                Return Application.Current.Resources("MaterialDesignPaper")
             End If
         End Get
     End Property

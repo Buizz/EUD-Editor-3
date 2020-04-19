@@ -44,6 +44,8 @@
                 If sb.flag Then
                     If sb.value2 = "object" Then
                         tAddText(lnlines, "오브젝트 ", Nothing)
+                    ElseIf sb.value2 = "static" Then
+                        tAddText(lnlines, "스태틱 변수 ", Nothing)
                     ElseIf sb.value2 = "const" Then
                         tAddText(lnlines, "상수 변수 ", Nothing)
                     End If
@@ -156,6 +158,22 @@
         End Select
     End Sub
 
+    Public Sub SelectItem()
+        ColorBorder.Background = Brushes.Red
+    End Sub
+    Public Sub DeSelectItem()
+        ColorBorder.Background = Nothing
+    End Sub
 
 
+
+
+
+    Private Sub UserControl_PreviewMouseDown(sender As Object, e As MouseButtonEventArgs)
+        'Opacity = 0.5
+    End Sub
+
+    Private Sub UserControl_PreviewMouseUp(sender As Object, e As MouseButtonEventArgs)
+        'Opacity = 1
+    End Sub
 End Class

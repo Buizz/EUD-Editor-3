@@ -92,13 +92,21 @@
 
         Return rscr
     End Function
-    Public Function GetExternVar(GUIEditor As GUIScriptEditor, Optional type As String = "", Optional varname As String = "") As List(Of ScriptBlock)
+    Public Function GetExternVar(GUIEditor As GUIScriptEditor, Optional type As String = "", Optional varname As String = "", Optional nspace As String = "") As List(Of ScriptBlock)
         Dim rscr As New List(Of ScriptBlock)
 
         Dim fname As String = varname
         Dim ftype As String = type
         For i = 0 To GUIEditor.ExternFile.Count - 1
             For j = 0 To GUIEditor.ExternFile(i).Funcs.VariableCount - 1
+                Dim extername As String = GUIEditor.ExternFile(i).nameSpaceName
+
+                If nspace.Trim <> "" And nspace <> extername Then
+                    Continue For
+                End If
+                'MsgBox(nspace & ":" & GUIEditor.ExternFile(i).nameSpaceName)
+
+
                 Dim vname As String = GUIEditor.ExternFile(i).Funcs.GetVariableNames(j)
                 Dim vtype As String = GUIEditor.ExternFile(i).Funcs.GetVariableType(j)
 
@@ -108,6 +116,7 @@
                 Dim cname As String = GUIEditor.ExternFile(i).nameSpaceName & "." & vname
                 Dim curtype As String 'value2
 
+                Dim cscr As ScriptBlock = Nothing
 
                 If vtype.Trim = "" Then
                     '타입이 없음 = 일반 var
@@ -120,21 +129,49 @@
                         '일반 값이 들어있는 상수변수
                         scrtype = ScriptBlock.EBlockType.vardefine
                         curtype = "const"
+
+                        cscr = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", False, False, vtype, GUIEditor)
                     Else
                         '오브젝트
                         scrtype = ScriptBlock.EBlockType.vardefine
                         curtype = "object"
 
 
+                        Dim objname As String = ""
+                        Dim makestyle As String = ""
+                        If vtype.IndexOf("(") <> -1 Then
+                            objname = vtype.Split("(").First
+                        End If
+
+                        If objname.IndexOf(".") = -1 Then
+                            '기본 생성자
+                            makestyle = "constructor"
+                        Else
+                            objname = objname.Split(".").First
+                            makestyle = objname.Split(".").Last
+                        End If
+
+
+                        cscr = New ScriptBlock(ScriptBlock.EBlockType.varuse, objname, False, False, makestyle, GUIEditor)
                     End If
                 End If
 
                 Dim scr As New ScriptBlock(scrtype, "vardefine", False, False, cname, GUIEditor)
                 scr.value2 = curtype
-
-                If AddAble(cname, curtype, fname, ftype) Then
-                    rscr.Add(scr)
+                If cscr IsNot Nothing Then
+                    scr.AddChild(cscr)
                 End If
+
+                If nspace.Trim = "" Then
+                    If AddAble(cname, curtype, fname, ftype) Then
+                        rscr.Add(scr)
+                    End If
+                Else
+                    If AddAble(cname, curtype, nspace & "." & fname, ftype) Then
+                        rscr.Add(scr)
+                    End If
+                End If
+
 
                 'MsgBox(vname & "," & vtype)
             Next
@@ -147,12 +184,12 @@
 
 
 
-    Public Function GetAllVar(normalscr As ScriptBlock, GUIEditor As GUIScriptEditor) As List(Of ScriptBlock)
+    Public Function GetAllVar(normalscr As ScriptBlock, GUIEditor As GUIScriptEditor, Optional type As String = "", Optional varname As String = "") As List(Of ScriptBlock)
         Dim rscr As New List(Of ScriptBlock)
 
-        rscr.AddRange(GetLocalVar(normalscr))
-        rscr.AddRange(GetGlobalVar(GUIEditor))
-        rscr.AddRange(GetExternVar(GUIEditor))
+        rscr.AddRange(GetLocalVar(normalscr, type, varname))
+        rscr.AddRange(GetGlobalVar(GUIEditor, type, varname))
+        rscr.AddRange(GetExternVar(GUIEditor, type, varname))
 
 
         Return rscr
