@@ -30,13 +30,50 @@
     Public Sub CrlInit(_scr As ScriptBlock)
         scr = _scr
 
+
         ValueCountUpdate()
         ExtraTipPanel.Visibility = Visibility.Collapsed
         ToolTipPanel.Visibility = Visibility.Collapsed
         ValuePanel.Children.Clear()
+
+        If scr.ScriptType = ScriptBlock.EBlockType.macrofun Then
+            Dim luafunc As MacroManager.LuaFunction = macro.GetFunction(scr.name)
+
+            If Not luafunc.IsCompleteFunction Then
+                DefaultCoder()
+            End If
+
+            For i = 0 To luafunc.ArgLists.Count - 1
+                Dim argblock As MacroManager.LuaFunction.ArgBlock = luafunc.ArgLists(i)
+
+                If argblock.BType = MacroManager.LuaFunction.ArgBlock.BlockType.Arg Then
+                    Dim btn As New Button
+                    btn.Padding = New Thickness(5, 0, 5, 0)
+                    btn.Height = 22
+
+                    btn.Tag = New GUI_Action.tagcontainer(scr.child(argblock.ArgIndex), EditValues(argblock.ArgIndex), "")
+                    AddHandler btn.Click, AddressOf argBtnClick
+
+                    btn.Content = scr.child(argblock.ArgIndex).ValueCoder()
+                    ValuePanel.Children.Add(btn)
+                    btnlist.Add(btn)
+                Else
+                    Dim tbox As New TextBlock
+                    tbox.TextWrapping = TextWrapping.Wrap
+                    tbox.VerticalAlignment = VerticalAlignment.Center
+                    tbox.HorizontalAlignment = HorizontalAlignment.Center
+                    tbox.Text = argblock.Label
+
+                    ValuePanel.Children.Add(tbox)
+                End If
+            Next
+
+
+            Return
+        End If
+
         If scr.ScriptType = ScriptBlock.EBlockType.funuse Then
             Dim func As ScriptBlock = tescm.GetFuncInfor(scr.name, scr.Scripter)
-
             If func Is Nothing Then
                 DefaultCoder()
             Else
@@ -106,9 +143,27 @@
             End If
         Else
             Dim i As Integer = Tool.TEEpsDefaultFunc.SearchFunc(scr.name)
+            Dim cfun As CFunc = Nothing
+            If i >= 0 Then
+                cfun = Tool.TEEpsDefaultFunc
+            Else
+                Dim Scripter As GUIScriptEditor = scr.Scripter
+
+                Dim sname As String = scr.name
+
+                Dim _namespace As String = sname.Split(".").First
+                Dim funcname As String = sname.Split(".").Last
+                For k = 0 To Scripter.ExternFile.Count - 1
+                    If _namespace = Scripter.ExternFile(k).nameSpaceName Then
+                        i = Scripter.ExternFile(k).Funcs.SearchFunc(funcname)
+                        cfun = Scripter.ExternFile(k).Funcs
+                        Exit For
+                    End If
+                Next
+            End If
 
             If i >= 0 Then
-                Dim functooltip As FunctionToolTip = Tool.TEEpsDefaultFunc.GetFuncTooltip(i)
+                Dim functooltip As FunctionToolTip = cfun.GetFuncTooltip(i)
                 If functooltip.Summary.Trim = "" Then
                     DefaultCoder()
                     Return
@@ -120,7 +175,7 @@
 
                 Dim arglist As New List(Of String)
                 Dim argTooltiplist As New List(Of String)
-                Dim args() As String = Tool.TEEpsDefaultFunc.GetFuncArgument(i).Split(",")
+                Dim args() As String = cfun.GetFuncArgument(i).Split(",")
 
                 Dim vcount As Integer = 0
                 For k = 0 To args.Count - 1
@@ -171,12 +226,20 @@
                     End If
 
                 Next
-
             Else
                 DefaultCoder()
             End If
+
+
+
+
         End If
     End Sub
+
+
+
+
+
 
 
     Private btnlist As New List(Of Button)

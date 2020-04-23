@@ -2,9 +2,14 @@
 <SyntaxDefinition name="EPS HighlightingLight" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
   <Color name="Comment" foreground="#0a5903" />
   <Color name="String" foreground="#f65108" />
+  <Color name="php" foreground="#A566FF" />
 
   <!-- This is the main ruleset. -->
   <RuleSet>
+    <!-- PHP 초록 계열-->
+    <Span color="php" multiline="true" begin="&lt;\?" end="\?&gt;" />
+    
+    
     <Span color="Comment" begin="//" />
     <Span color="Comment" multiline="true" begin="/\*" end="\*/" />
 
@@ -144,6 +149,7 @@
     <Rule foreground="#00bd93">
       [\w\d]+(?=\[.*\])
     </Rule>
+
 
 
     <!-- Digits 얉은 연녹-->

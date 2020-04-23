@@ -18,10 +18,12 @@ Module GlobalObj
 
 
     Public tescm As GUIScriptManager
+    Public macro As MacroManager
 
 
     Public ctheme As CustomTheme
 
+    Public SCATEFile As TEFile
     Public Function UpdateCheck() As Boolean
         If pgData.Setting(ProgramData.TSetting.CheckUpdate) Then
             Dim data As String = ""
@@ -103,6 +105,7 @@ Module GlobalObj
             Lagacy = New LagacyClass
             tescm = New GUIScriptManager
             ctheme = New CustomTheme
+            macro = New MacroManager
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
             Application.Current.Shutdown()

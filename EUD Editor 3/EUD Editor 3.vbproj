@@ -131,10 +131,10 @@
       <HintPath>..\packages\AvalonEdit.6.0.1\lib\net45\ICSharpCode.AvalonEdit.dll</HintPath>
     </Reference>
     <Reference Include="lua51, Version=0.0.0.0, Culture=neutral, PublicKeyToken=1e1fb15b02227b8a, processorArchitecture=x86">
-      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\lua51.dll</HintPath>
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4212.35002\lib\net35\lua51.dll</HintPath>
     </Reference>
     <Reference Include="LuaInterface, Version=2.0.0.16708, Culture=neutral, processorArchitecture=x86">
-      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\LuaInterface.dll</HintPath>
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4212.35002\lib\net35\LuaInterface.dll</HintPath>
     </Reference>
     <Reference Include="Lz4Net, Version=1.0.2.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Lz4.Net.1.0.98\lib\net45\Lz4Net.dll</HintPath>
@@ -188,8 +188,8 @@
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="UIAutomationProvider" />
-    <Reference Include="VikingErik.LuaInterface, Version=1.0.4213.34901, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4213.34901\lib\net35\VikingErik.LuaInterface.dll</HintPath>
+    <Reference Include="VikingErik.LuaInterface, Version=1.0.4212.35002, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\VikingErik.LuaInterface.1.0.4212.35002\lib\net35\VikingErik.LuaInterface.dll</HintPath>
     </Reference>
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
@@ -269,6 +269,8 @@
     <Compile Include="Class\Data\SCDatFiles.vb" />
     <Compile Include="Class\Data\StarCraftData.vb" />
     <Compile Include="Class\DataEditCompletionData.vb" />
+    <Compile Include="Class\MacroFunc\MacroDefaultFunction.vb" />
+    <Compile Include="Class\MacroFunc\MacroManager.vb" />
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\tblWriter.vb" />
@@ -464,6 +466,7 @@
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\DeleteItem.vb" />
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\ErrorSnackBar.vb" />
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\TaskManager.vb" />
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUIScriptEditerWindow.xaml.vb">
       <DependentUpon>GUIScriptEditerWindow.xaml</DependentUpon>
     </Compile>
@@ -562,6 +565,12 @@
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml.vb">
       <DependentUpon>TriggerEditorSetting.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\BGMManager.xaml.vb">
+      <DependentUpon>BGMManager.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\MacroFuncSetting.xaml.vb">
+      <DependentUpon>MacroFuncSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml.vb">
       <DependentUpon>SCASetting.xaml</DependentUpon>
@@ -953,6 +962,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\BGMManager.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\MacroFuncSetting.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1095,6 +1112,27 @@
     </None>
     <None Include="Data\iscriptx.bin">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\BtnRefresh.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Dat.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\DatOffset.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Encoder.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\GetDat.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\GetDeaths.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\SetDat.lua">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\Palletes\ashworld.wpe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1244,6 +1282,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Resources\NoFrame.png">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\#ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="x64\lz4X64.dll">

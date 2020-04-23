@@ -136,6 +136,7 @@ Public Class GUI_VarFuncUse
                 Else
                     tLabel.Visibility = Visibility.Visible
                     tLabel.Content = "존재하지 않는 벨류"
+                    Return
                 End If
             ElseIf tstr.Count = 2 Then
                 '변수가 외부에 있음
@@ -169,13 +170,14 @@ Public Class GUI_VarFuncUse
 
             Dim scrlist As New List(Of ScriptBlock)
             scrlist.AddRange(tescm.GetGlobalObject(GUIEditorUI.Script))
+            scrlist.AddRange(tescm.GetDefaultObject(GUIEditorUI.Script))
 
             If scrlist.Count <> 0 Then
                 objscr = scrlist.First
                 isExternObj = False
             Else
                 tLabel.Visibility = Visibility.Visible
-                tLabel.Content = "존재하지 않는 벨류"
+                tLabel.Content = "존재하지 않는 오브젝트"
                 Return
             End If
         Else
@@ -192,7 +194,7 @@ Public Class GUI_VarFuncUse
                 isExternObj = True
             Else
                 tLabel.Visibility = Visibility.Visible
-                tLabel.Content = "존재하지 않는 벨류"
+                tLabel.Content = "존재하지 않는 오브젝트"
                 Return
             End If
         End If
@@ -217,7 +219,8 @@ Public Class GUI_VarFuncUse
                         scr.child.RemoveAt(methodfunc.child.Count)
                     Next
                 Else
-                    If isExternObj Then
+                    If methodfunc.tobject IsNot Nothing Then
+                        isExternObj = True
                         Dim cfun As CFunc = methodfunc.tobject
                         Dim cfunindex As Integer = methodfunc.value2
 

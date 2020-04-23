@@ -6,7 +6,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             Width="550" Height="245">
+             Width="550" Height="260">
     
     <DockPanel x:Name="MainStackPanel" LastChildFill="False">
         <TextBox x:Name="vname" materialDesign:HintAssist.Hint="변수 명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" DockPanel.Dock="Top" TextChanged="vname_TextChanged"/>

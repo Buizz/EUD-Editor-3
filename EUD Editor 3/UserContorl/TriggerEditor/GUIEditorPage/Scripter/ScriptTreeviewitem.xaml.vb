@@ -144,7 +144,7 @@
                 tAddText(lnlines, tail, tescm.HighlightBrush)
             Case ScriptBlock.EBlockType.folderaction
                 tAddText(lnlines, "액션", Nothing)
-            Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition, ScriptBlock.EBlockType.externfun
+            Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition, ScriptBlock.EBlockType.externfun, ScriptBlock.EBlockType.macrofun
                 sb.FuncCoder(lnlines)
             Case ScriptBlock.EBlockType.exp
                 tAddText(lnlines, "수식 : ", Nothing)
@@ -159,7 +159,7 @@
     End Sub
 
     Public Sub SelectItem()
-        ColorBorder.Background = Brushes.Red
+        ColorBorder.Background = Application.Current.Resources("MaterialDesignSelection")
     End Sub
     Public Sub DeSelectItem()
         ColorBorder.Background = Nothing

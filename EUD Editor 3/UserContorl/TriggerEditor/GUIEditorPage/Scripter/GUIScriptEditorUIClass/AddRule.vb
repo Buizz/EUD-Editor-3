@@ -48,7 +48,8 @@
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.ifcondition, ScriptBlock.EBlockType.whilecondition
-                    If newscr.ScriptType = ScriptBlock.EBlockType.rawcode Or newscr.ScriptType = ScriptBlock.EBlockType._or Or newscr.ScriptType = ScriptBlock.EBlockType._and Or ScriptBlock.EBlockType.exp Then
+                    If newscr.ScriptType = ScriptBlock.EBlockType.rawcode Or newscr.ScriptType = ScriptBlock.EBlockType._or Or
+                        newscr.ScriptType = ScriptBlock.EBlockType._and Or newscr.ScriptType = ScriptBlock.EBlockType.exp Or newscr.ScriptType = ScriptBlock.EBlockType.macrofun Then
                         Return True
                     End If
 

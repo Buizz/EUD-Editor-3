@@ -67,9 +67,20 @@ Public Class DataEditCompletionData
         Select Case IconType
             Case EIconType.KeyWord
                 ResultStr = Me.Text
-                If ResultStr = "for" Then
-                    ResultStr = "for i = 0, 10 do" & vbCrLf & "end"
-                End If
+                Select Case ResultStr
+                    Case "for"
+                        ResultStr = "for i = 0, 10 do" & vbCrLf & "end"
+                    Case "if"
+                        ResultStr = "if condition then" & vbCrLf & "end"
+                    Case "while"
+                        ResultStr = "while condition do" & vbCrLf & "end"
+                    Case "function"
+                        ResultStr = "function name(args)" & vbCrLf & "end"
+                    Case "elseif"
+                        ResultStr = "elseif condition then" & vbCrLf & "end"
+                    Case "refeat"
+                        ResultStr = "repeat" & vbCrLf & "until condition"
+                End Select
             Case EIconType.SettingValue
                 ResultStr = """" & Me.Text.Replace("_", " ") & """"
             Case EIconType.Funcname

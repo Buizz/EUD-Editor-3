@@ -22,6 +22,8 @@
                 colorcode = tescm.Tabkeys("Func")
             Case ScriptBlock.EBlockType.externfun
                 colorcode = tescm.Tabkeys("Func")
+            Case ScriptBlock.EBlockType.macrofun
+                colorcode = tescm.Tabkeys("MacroFunc")
         End Select
         colorbox.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
         ArgSelecter.CrlInit(scr)

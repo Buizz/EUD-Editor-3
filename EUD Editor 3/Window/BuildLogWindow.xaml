@@ -12,6 +12,8 @@
         AllowsTransparency="True"
         Loaded="MetroWindow_Loaded"
         Unloaded="MetroWindow_Unloaded"
+        Background="{DynamicResource MaterialDesignPaper}" 
+        Foreground="{DynamicResource MaterialDesignBody}"  
         Title="BuildLogWindow" Height="500" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox x:Name="LogTextBox"  VerticalContentAlignment="Top" AcceptsReturn="True" IsReadOnly="True" TextWrapping="Wrap">

@@ -77,7 +77,15 @@
                     End If
                 Next
             Case "macro"
-
+                For i = 0 To macro.FunctionList.Count - 1
+                    Dim keyname As String = macro.FunctionList(i).Fname
+                    If fliter.Trim = "" Or keyname.ToLower.IndexOf(fliter.ToLower()) <> -1 Then
+                        Dim tlistboxitem As New ListBoxItem
+                        tlistboxitem.Tag = {ScriptBlock.EBlockType.macrofun, macro.FunctionList(i).Fname}
+                        tlistboxitem.Content = keyname
+                        mainlist.Items.Add(tlistboxitem)
+                    End If
+                Next
             Case "extern"
                 For j = 0 To GUIEditor.Script.ExternFile.Count - 1
                     Dim tcfun As CFunc = GUIEditor.Script.ExternFile(j).Funcs

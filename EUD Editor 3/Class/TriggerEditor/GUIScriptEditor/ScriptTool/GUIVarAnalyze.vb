@@ -37,15 +37,26 @@
         While normalscr.Parent IsNot Nothing
             Dim index As Integer = normalscr.Parent.child.IndexOf(normalscr)
             For i = index To 0 Step -1
-                If normalscr.Parent.child(i).ScriptType = ScriptBlock.EBlockType.vardefine Then
-                    Dim cname As String = normalscr.Parent.child(i).value
-                    Dim curtype As String = normalscr.Parent.child(i).value2
+                Dim tscr As ScriptBlock = normalscr.Parent.child(i)
+                Select Case tscr.ScriptType
+                    Case ScriptBlock.EBlockType.vardefine
+                        Dim cname As String = tscr.value
+                        Dim curtype As String = tscr.value2
 
-                    If AddAble(cname, curtype, fname, ftype) Then
-                        rscr.Add(normalscr.Parent.child(i))
-                    End If
+                        If AddAble(cname, curtype, fname, ftype) Then
+                            rscr.Add(tscr)
+                        End If
+                    Case ScriptBlock.EBlockType.funargs
+                        Dim arglist As List(Of ScriptBlock) = tscr.child
+                        For k = 0 To arglist.Count - 1
+                            Dim cname As String = arglist(k).value
+                            Dim curtype As String = arglist(k).value2
 
-                End If
+                            If AddAble(cname, curtype, fname, ftype) Then
+                                rscr.Add(arglist(k))
+                            End If
+                        Next
+                End Select
             Next
             normalscr = normalscr.Parent
 

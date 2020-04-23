@@ -19,6 +19,12 @@ Public Class GUIScriptEditorUI
             Script.ExternLoader()
         End If
     End Sub
+    Public Sub RemoveAtItems(index As Integer)
+        If MainItems(index).ScriptType = ScriptBlock.EBlockType.import Then
+            Script.ExternLoader()
+        End If
+        MainItems.RemoveAt(index)
+    End Sub
     Public ReadOnly Property IndexOfItem(scr As ScriptBlock) As Integer
         Get
             Return MainItems.IndexOf(scr)
@@ -79,39 +85,210 @@ Public Class GUIScriptEditorUI
         Return Nothing
     End Function
 
+    Private Sub CopyItemListSort(ByRef list As List(Of ScriptBlock))
+        list = list.OrderBy(Function(x) x.Parent.child.IndexOf(x)).ToList()
+        'CopyItemList.Sort()
+    End Sub
 
+    'Private CopyItemList As New List(Of ScriptBlock)
     Private Sub CopySelectItem()
+        Dim CopyItemList As New List(Of ScriptBlock)
 
-    End Sub
-    Private Sub CutSelectItem()
+        If IsItemSelected() Then
+            CopyItemList.Clear()
+            If SelectedList.Count = 0 Then
+                Dim tscr As ScriptBlock = CType(MainTreeview.SelectedItem, TreeViewItem).Tag
+                If tscr.IsDeleteAble Then
+                    CopyItemList.Add(tscr)
+                End If
+            Else
+                For i = 0 To SelectedList.Count - 1
+                    Dim tscr As ScriptBlock = CType(SelectedList(i), TreeViewItem).Tag
+                    If tscr.IsDeleteAble Then
+                        CopyItemList.Add(tscr)
+                    End If
+                Next
+            End If
+        End If
+        CopyItemListSort(CopyItemList)
+        Clipboard.SetDataObject(CopyItemList)
 
+        RefreshBtn()
     End Sub
+    Private Function IsCopyable() As Boolean
+        If SelectedList.Count = 0 Then
+            Dim tscr As ScriptBlock = CType(MainTreeview.SelectedItem, TreeViewItem).Tag
+            If Not tscr.IsDeleteAble Then
+                Return False
+            End If
+        Else
+            For i = 0 To SelectedList.Count - 1
+                Dim tscr As ScriptBlock = CType(SelectedList(i), TreeViewItem).Tag
+                If Not tscr.IsDeleteAble Then
+                    Return False
+                End If
+            Next
+        End If
+        Return True
+    End Function
+
+
     Private Sub PasteSelectItem()
+        Dim CopyItemList As List(Of ScriptBlock) = Nothing
+        Dim data_object As IDataObject = Clipboard.GetDataObject()
+        If (data_object.GetDataPresent(GetType(List(Of ScriptBlock)).FullName)) Then
+            CopyItemList = data_object.GetData(GetType(List(Of ScriptBlock)).FullName)
+        End If
+        If CopyItemList Is Nothing Then
+            Return
+        End If
 
+
+        For i = 0 To SelectedList.Count - 1
+            Dim ttbheader As ScriptTreeviewitem = SelectedList(i).Header
+            ttbheader.DeSelectItem()
+        Next
+        SelectedList.Clear()
+
+        Dim selectitem As TreeViewItem = MainTreeview.SelectedItem
+        Dim ssb As ScriptBlock = Nothing
+        Dim addindex As Integer = -1
+
+
+        Dim tagname As String = CopyItemList.First.name
+
+        If selectitem IsNot Nothing Then
+            ssb = selectitem.Tag
+            Dim isfolder As Boolean = ssb.isfolder
+
+            If tagname = "switchcase" Then
+                If ssb.ScriptType = ScriptBlock.EBlockType.switch Then
+                    isfolder = True
+                ElseIf ssb.ScriptType = ScriptBlock.EBlockType.switchcase Then
+                    isfolder = False
+                End If
+            End If
+
+            If Not isfolder Then
+                If selectitem.Parent.GetType Is GetType(TreeView) Then
+                    addindex = Script.IndexOfItem(ssb) + selpos
+
+                    ssb = Nothing
+                    selectitem = Nothing
+                Else
+                    Dim tsb As ScriptBlock = CType(selectitem.Parent, TreeViewItem).Tag
+
+                    addindex = tsb.child.IndexOf(ssb) + selpos
+
+                    ssb = tsb
+                    selectitem = selectitem.Parent
+                End If
+            End If
+        End If
+
+        For i = 0 To CopyItemList.Count - 1
+            Dim nsb As ScriptBlock = CopyItemList(i)
+
+            If selectitem IsNot Nothing Then
+                If CheckValidated(nsb, ssb) Then
+                    Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
+
+                    selectitem.IsExpanded = True
+                    If addindex = -1 Then
+                        ssb.AddChild(nsb)
+                        selectitem.Items.Add(ntreeview)
+                    Else
+                        ssb.InsertChild(addindex, nsb)
+                        selectitem.Items.Insert(addindex, ntreeview)
+                    End If
+                    'MsgBox("아이템생성 새 창없이")
+                    AddInsertTask(ntreeview)
+                End If
+            Else
+                If CheckValidated(nsb, Nothing) Then
+                    Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
+
+                    If addindex = -1 Then
+                        AddItems(nsb)
+                        MainTreeview.Items.Add(ntreeview)
+                    Else
+                        InsertItems(addindex, nsb)
+                        MainTreeview.Items.Insert(addindex, ntreeview)
+                    End If
+                    'MsgBox("아이템생성 새 창없이")
+                    AddInsertTask(ntreeview)
+                End If
+            End If
+        Next
+        SetRepeatCount(CopyItemList.Count)
+
+
+
+
+
+        'For i = 0 To CopyItemList.Count - 1
+        '    Dim tscr As ScriptBlock = CopyItemList(i)
+        '    AddItemClick(ScriptBlock.EBlockType.none, "", tscr)
+        'Next
     End Sub
-    Private Sub tUndoItem()
 
+
+    Private Sub CutSelectItem()
+        CopySelectItem()
+        DeleteSelectItem()
+    End Sub
+
+    Private Sub tUndoItem()
+        If Undoable() Then
+            Dim repeatcount As Integer = GetRepeatCount(False)
+            For i = 0 To repeatcount - 1
+                UndoTask()
+            Next
+
+
+            Undobtn.IsEnabled = Undoable()
+            Redobtn.IsEnabled = Redoable()
+        End If
     End Sub
     Private Sub tRedoItem()
+        If Redoable() Then
+            Dim repeatcount As Integer = GetRepeatCount(True)
+            For i = 0 To repeatcount - 1
+                RedoTask()
+            Next
 
+
+            Undobtn.IsEnabled = Undoable()
+            Redobtn.IsEnabled = Redoable()
+        End If
     End Sub
     Private Sub DeleteSelectItem()
         If IsItemSelected() Then
             If SelectedList.Count = 0 Then
                 If Not f_DeleteItem(MainTreeview.SelectedItem) Then
                     SnackBarDialog("지울 수 없는 아이템입니다.")
+                Else
+                    SetRepeatCount(1)
                 End If
             Else
-                Dim Deleteitem As Integer = 0
+                Dim tlist As New List(Of TreeViewItem)
                 For i = 0 To SelectedList.Count - 1
-                    If f_DeleteItem(SelectedList(i - Deleteitem)) Then
+                    tlist.Add(SelectedList(i))
+                Next
+
+
+                Dim Deleteitem As Integer = 0
+                Dim FaileDeleteItem As Integer = 0
+                For i = 0 To tlist.Count - 1
+                    If f_DeleteItem(tlist(i)) Then
                         Deleteitem += 1
+                    Else
+                        FaileDeleteItem += 1
                     End If
                 Next
                 SnackBarDialog(Deleteitem & "개의 아이템이 지워졌습니다.")
+                SetRepeatCount(Deleteitem)
             End If
-
-
         End If
     End Sub
 
@@ -135,8 +312,18 @@ Public Class GUIScriptEditorUI
         RefreshBtn()
     End Sub
     Private Sub RefreshBtn()
+        Undobtn.IsEnabled = Undoable()
+        Redobtn.IsEnabled = Redoable()
+
+        Dim CopyItemList As List(Of ScriptBlock) = Nothing
+        Dim data_object As IDataObject = Clipboard.GetDataObject()
+        If (data_object.GetDataPresent(GetType(List(Of ScriptBlock)).FullName)) Then
+            CopyItemList = data_object.GetData(GetType(List(Of ScriptBlock)).FullName)
+        End If
+
+
         '복사한 항목이 있냐 없냐 판단
-        If False Then
+        If CopyItemList IsNot Nothing Then
             '복사한 아이템이 있을 경우
             PasteItem.IsEnabled = True
             Pastebtn.IsEnabled = True
@@ -165,8 +352,14 @@ Public Class GUIScriptEditorUI
             '선택한 아이템이 있을 경우
             CutItem.IsEnabled = True
             Cutbtn.IsEnabled = True
-            CopyItem.IsEnabled = True
-            Copybtn.IsEnabled = True
+            If IsCopyable() Then
+                CopyItem.IsEnabled = True
+                Copybtn.IsEnabled = True
+            Else
+                CopyItem.IsEnabled = False
+                Copybtn.IsEnabled = False
+            End If
+
             deselectItem.IsEnabled = True
             DeSelectbtn.IsEnabled = True
 
@@ -228,8 +421,10 @@ Public Class GUIScriptEditorUI
         If leftCtrlDown Then
             Select Case e.Key
                 Case Key.C
+                    leftCtrlDown = False
                     CopySelectItem()
                 Case Key.X
+                    leftCtrlDown = False
                     CutSelectItem()
                 Case Key.V
                     PasteSelectItem()
@@ -306,8 +501,13 @@ Public Class GUIScriptEditorUI
 
             If leftCtrlDown Then
                 If SelectedList.Count = 0 Then
-                    tbheader.SelectItem()
-                    SelectedList.Add(tb)
+                    Dim ttbheader As ScriptTreeviewitem = lastSelectItem.Header
+                    ttbheader.SelectItem()
+                    SelectedList.Add(lastSelectItem)
+                    If SelectedList.First.Parent Is tb.Parent Then
+                        tbheader.SelectItem()
+                        SelectedList.Add(tb)
+                    End If
                 Else
                     If SelectedList.First.Parent Is tb.Parent Then
                         If SelectedList.IndexOf(tb) = -1 Then
@@ -342,11 +542,16 @@ Public Class GUIScriptEditorUI
                             Dim startindex As Integer = Math.Min(a1, a2)
                             Dim endindex As Integer = Math.Max(a1, a2)
 
+                            'MainTreeview.UpdateLayout()
+                            'MsgBox(startindex & "TO" & endindex)
+
                             For i = startindex To endindex
                                 Dim tnode As TreeViewItem = pnode.Items(i)
-                                Dim th As ScriptTreeviewitem = tnode.Header
-                                th.SelectItem()
-                                SelectedList.Add(tnode)
+                                If SelectedList.IndexOf(tnode) = -1 Then
+                                    Dim th As ScriptTreeviewitem = tnode.Header
+                                    th.SelectItem()
+                                    SelectedList.Add(tnode)
+                                End If
                             Next
                         Else
                             Dim pnode As TreeView = tb.Parent
@@ -357,11 +562,16 @@ Public Class GUIScriptEditorUI
                             Dim startindex As Integer = Math.Min(a1, a2)
                             Dim endindex As Integer = Math.Max(a1, a2)
 
+                            'MainTreeview.UpdateLayout()
+                            'MsgBox(startindex & "TO" & endindex)
+
                             For i = startindex To endindex
                                 Dim tnode As TreeViewItem = pnode.Items(i)
-                                Dim th As ScriptTreeviewitem = tnode.Header
-                                th.SelectItem()
-                                SelectedList.Add(tnode)
+                                If SelectedList.IndexOf(tnode) = -1 Then
+                                    Dim th As ScriptTreeviewitem = tnode.Header
+                                    th.SelectItem()
+                                    SelectedList.Add(tnode)
+                                End If
                             Next
                         End If
                     End If
@@ -388,10 +598,17 @@ Public Class GUIScriptEditorUI
     Private Sub MainTreeview_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs)
         If IsItemSelected() Then
             Dim tb As TreeViewItem = MainTreeview.SelectedItem
-            Dim scr As ScriptBlock = tb.Tag
-            If Not scr.isfolder Then
+            If tb.Items.Count = 0 Then
                 OpenEditWindow(MainTreeview.SelectedItem)
             End If
         End If
+    End Sub
+
+    Private Sub Undobtn_Click(sender As Object, e As RoutedEventArgs)
+        tUndoItem()
+    End Sub
+
+    Private Sub Redobtn_Click(sender As Object, e As RoutedEventArgs)
+        tRedoItem()
     End Sub
 End Class

@@ -127,7 +127,7 @@
         Select Case typecomboboxSelectedIndex
             Case 0 '기본
                 If scr.ScriptType <> ScriptBlock.EBlockType.constVal Then
-                    Dim nsb As New ScriptBlock(ScriptBlock.EBlockType.constVal, "TrgCount", True, False, "1", scr.Scripter)
+                    Dim nsb As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", True, False, "0", scr.Scripter)
 
                     scr.DuplicationBlock(nsb)
                     RaiseEvent BtnRefresh("", New RoutedEventArgs)

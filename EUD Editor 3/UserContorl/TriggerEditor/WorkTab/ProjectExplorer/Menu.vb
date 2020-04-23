@@ -46,6 +46,9 @@ Partial Public Class ProjectExplorer
                 MenuAdd.Visibility = Visibility.Visible
                 MenuConnect.Visibility = Visibility.Collapsed
                 MenuDisConnect.Visibility = Visibility.Collapsed
+                ToGUI.Visibility = Visibility.Collapsed
+                ToCUI.Visibility = Visibility.Collapsed
+                GUISeparator.Visibility = Visibility.Collapsed
             Else
                 MenuAdd.Visibility = Visibility.Collapsed
 
@@ -111,6 +114,9 @@ Partial Public Class ProjectExplorer
                 MenuDelete.Visibility = Visibility.Collapsed
                 Separator2.Visibility = Visibility.Collapsed
                 MenuConnect.Visibility = Visibility.Collapsed
+                ToGUI.Visibility = Visibility.Collapsed
+                ToCUI.Visibility = Visibility.Collapsed
+                GUISeparator.Visibility = Visibility.Collapsed
             Else
                 If IsFolder(LastSelectItem) And SelectItems.Count = 1 Then
                     MenuOpen.Visibility = Visibility.Collapsed
@@ -124,6 +130,7 @@ Partial Public Class ProjectExplorer
                 MenuDelete.Visibility = Visibility.Visible
                 Separator1.Visibility = Visibility.Visible
                 Separator2.Visibility = Visibility.Visible
+                GUISeparator.Visibility = Visibility.Visible
             End If
         Else
             MenuOpen.Visibility = Visibility.Collapsed
@@ -134,6 +141,9 @@ Partial Public Class ProjectExplorer
             MenuDelete.Visibility = Visibility.Collapsed
             Separator2.Visibility = Visibility.Collapsed
             MenuConnect.Visibility = Visibility.Collapsed
+            ToGUI.Visibility = Visibility.Collapsed
+            ToCUI.Visibility = Visibility.Collapsed
+            GUISeparator.Visibility = Visibility.Collapsed
         End If
     End Sub
 

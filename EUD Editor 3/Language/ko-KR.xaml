@@ -812,9 +812,10 @@
     <!--트리거에디터 설정-->
     <sys:String x:Key="TE_CompileSetting">컴파일 설정</sys:String>
     <sys:String x:Key="TE_MainScriptSetting">시작 파일 설정</sys:String>
-    
-    
+
+
     <sys:String x:Key="TE_CustomUserDataSetting">사용자 데이터</sys:String>
+    <sys:String x:Key="TE_BGMSetting">사운드 설정</sys:String>
     <sys:String x:Key="TE_MacroDatASetting">매크로 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
 

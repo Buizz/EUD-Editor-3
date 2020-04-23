@@ -1,0 +1,16 @@
+ParseConst
+ParseAllyStatus
+ParseComparison
+ParseModifier
+ParseOrder
+ParsePlayer
+ParsePropState
+ParseResource
+ParseScore
+ParseSwitchAction
+ParseSwitchState
+ParseAIScript
+ParseCount
+ParseUnit
+ParseSwitchName
+ParseLocation

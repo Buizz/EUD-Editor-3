@@ -41,7 +41,7 @@
                 Else
                     initcb.IsChecked = True
                     valueEditPanel.Visibility = Visibility.Visible
-                    valueEditPanel.ComboboxInit(scr.child(0))
+                    valueEditPanel.ComboboxInit(EditValues)
                 End If
             Case "static"
                 VarType.SelectedIndex = 1
@@ -52,12 +52,12 @@
                 Else
                     initcb.IsChecked = True
                     valueEditPanel.Visibility = Visibility.Visible
-                    valueEditPanel.ComboboxInit(scr.child(0))
+                    valueEditPanel.ComboboxInit(EditValues)
                 End If
             Case "const"
                 VarType.SelectedIndex = 2
                 valueEditPanel.Visibility = Visibility.Visible
-                valueEditPanel.ComboboxInit(scr.child(0))
+                valueEditPanel.ComboboxInit(EditValues)
             Case "object"
                 VarType.SelectedIndex = 3
                 varObjectBorder.Visibility = Visibility.Visible

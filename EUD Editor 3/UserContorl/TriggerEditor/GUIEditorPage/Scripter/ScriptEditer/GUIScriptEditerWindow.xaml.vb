@@ -121,7 +121,8 @@
                 maingrid.Width = editer.Width + 32
                 maingrid.Height = editer.Height + 32 + 48
 
-            Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition, ScriptBlock.EBlockType.externfun, ScriptBlock.EBlockType.funuse
+            Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition,
+                 ScriptBlock.EBlockType.externfun, ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.macrofun
                 Dim editer As New GUI_Action(Me, scr, dotscr)
 
                 cborder.Child = editer

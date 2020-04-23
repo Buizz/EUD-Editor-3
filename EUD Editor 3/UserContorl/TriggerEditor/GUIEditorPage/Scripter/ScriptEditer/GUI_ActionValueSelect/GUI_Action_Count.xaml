@@ -5,6 +5,8 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}"  
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel LastChildFill="False">
         <TextBox x:Name="countVal" DockPanel.Dock="Top" TextChanged="countVal_TextChanged" MouseWheel="countVal_MouseWheel"/>

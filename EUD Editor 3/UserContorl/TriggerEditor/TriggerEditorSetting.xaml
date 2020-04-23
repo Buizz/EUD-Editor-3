@@ -45,11 +45,14 @@
             </TabItem>
             <!--<TabItem Header="{StaticResource TE_CustomUserDataSetting}">
              
-            </TabItem>
+            </TabItem>-->
 
             <TabItem Header="{StaticResource TE_MacroDatASetting}">
-                
-            </TabItem>-->
+                <local:MacroFuncSetting/>
+            </TabItem>
+            <TabItem Header="{StaticResource TE_BGMSetting}">
+                <local:BGMManager/>
+            </TabItem>
 
             <TabItem Header="{StaticResource TE_SCASetting}">
                 <local:SCASetting/>

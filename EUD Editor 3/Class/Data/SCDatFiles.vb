@@ -13,7 +13,16 @@ Public Class SCDatFiles
 
     Private DatfileDic As Dictionary(Of DatFiles, CDatFile)
 
+    Public Function GetDatFileE(name) As DatFiles
+        Dim EnumList As DatFiles() = {DatFiles.units, DatFiles.weapons, DatFiles.flingy, DatFiles.sprites, DatFiles.images, DatFiles.upgrades, DatFiles.techdata, DatFiles.orders}
 
+        For i = 0 To EnumList.Count - 1
+            If name = EnumList(i).ToString Then
+                Return EnumList(i)
+            End If
+        Next
+        Return DatFiles.None
+    End Function
     Public Enum DatFiles
         units = 0
         weapons = 1

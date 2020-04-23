@@ -28,7 +28,12 @@
                 End If
             End If
         Next
-
+        If True Then
+            Dim tComboboxitem As New ComboBoxItem
+            tComboboxitem.Tag = "SCArchive"
+            tComboboxitem.Content = "SCArchive"
+            StartFileCombobox.Items.Add(tComboboxitem)
+        End If
 
         For i = 0 To tTEfile.FolderCount - 1
             If tTEfile.Folders(i).FileType <> TEFile.EFileType.Setting Then

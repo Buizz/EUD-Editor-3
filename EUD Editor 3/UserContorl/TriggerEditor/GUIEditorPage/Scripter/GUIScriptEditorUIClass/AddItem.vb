@@ -6,6 +6,7 @@
         Dim addindex As Integer = -1
 
 
+
         If selectitem IsNot Nothing Then
             normalscr = selectitem.Tag
             ssb = selectitem.Tag
@@ -36,8 +37,9 @@
             End If
         End If
 
-
         Dim nsb As New ScriptBlock(type, tagname, True, False, "", Script)
+
+
         nsb.Parent = ssb
 
         insertIndex = addindex
@@ -47,37 +49,44 @@
         selectitemIsNothing = selectitem IsNot Nothing
         IsCreateOpen = True
 
-
         If selectitem IsNot Nothing Then
             If CheckValidated(nsb, ssb) Then
                 Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
 
-                If Not OpenNewWindow(nsb, ntreeview, normalscr) Then
-                    selectitem.IsExpanded = True
-                    If addindex = -1 Then
-                        ssb.AddChild(nsb)
-                        selectitem.Items.Add(ntreeview)
-                    Else
-                        ssb.InsertChild(addindex, nsb)
-                        selectitem.Items.Insert(addindex, ntreeview)
-                    End If
-                    MsgBox("아이템생성 새 창없이")
+                If OpenNewWindow(nsb, ntreeview, normalscr) Then
+                    Return
                 End If
+
+                selectitem.IsExpanded = True
+                If addindex = -1 Then
+                    ssb.AddChild(nsb)
+                    selectitem.Items.Add(ntreeview)
+                Else
+                    ssb.InsertChild(addindex, nsb)
+                    selectitem.Items.Insert(addindex, ntreeview)
+                End If
+                'MsgBox("아이템생성 새 창없이")
+                AddInsertTask(ntreeview)
+                SetRepeatCount(1)
             End If
         Else
             If CheckValidated(nsb, Nothing) Then
                 Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
 
-                If Not OpenNewWindow(nsb, ntreeview, normalscr) Then
-                    If addindex = -1 Then
-                        AddItems(nsb)
-                        MainTreeview.Items.Add(ntreeview)
-                    Else
-                        InsertItems(addindex, nsb)
-                        MainTreeview.Items.Insert(addindex, ntreeview)
-                    End If
-                    MsgBox("아이템생성 새 창없이")
+                If OpenNewWindow(nsb, ntreeview, normalscr) Then
+                    Return
                 End If
+
+                If addindex = -1 Then
+                    AddItems(nsb)
+                    MainTreeview.Items.Add(ntreeview)
+                Else
+                    InsertItems(addindex, nsb)
+                    MainTreeview.Items.Insert(addindex, ntreeview)
+                End If
+                'MsgBox("아이템생성 새 창없이")
+                AddInsertTask(ntreeview)
+                SetRepeatCount(1)
             End If
         End If
     End Sub
@@ -96,7 +105,16 @@
 
         OpenNewWindow(ntreeview.Tag, ntreeview)
     End Sub
+
+    Private LastScrOrgin As ScriptBlock
+    Private LastScr As ScriptBlock
+    Private LastTreeview As TreeViewItem
     Private Function OpenNewWindow(scr As ScriptBlock, ntreeview As TreeViewItem, Optional dotscriptblock As ScriptBlock = Nothing) As Boolean
+        LastScrOrgin = scr.DeepCopy
+        LastScr = scr
+        LastTreeview = ntreeview
+        'MsgBox(LastScr.ValueCoder)
+
         If dotscriptblock Is Nothing Then
             dotscriptblock = scr
         End If
@@ -133,7 +151,9 @@
                         parentScriptBlock.InsertChild(insertIndex, insertScriptBlock)
                         parentTreeviewitem.Items.Insert(insertIndex, ntreeview)
                     End If
-                    MsgBox("아이템생성 창 있음")
+                    'MsgBox("아이템생성 창 있음")
+                    AddInsertTask(ntreeview)
+                    SetRepeatCount(1)
                 End If
             Else
                 If CheckValidated(insertScriptBlock, Nothing) Then
@@ -144,7 +164,9 @@
                         InsertItems(insertIndex, insertScriptBlock)
                         MainTreeview.Items.Insert(insertIndex, ntreeview)
                     End If
-                    MsgBox("아이템생성 창 있음")
+                    'MsgBox("아이템생성 창 있음")
+                    AddInsertTask(ntreeview)
+                    SetRepeatCount(1)
                 End If
             End If
         End If
@@ -156,12 +178,18 @@
                  ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.import
                 TEGUIPage.ObjectSelector.RefreshCurrentList()
         End Select
+        If Not IsCreateOpen Then
+            'MsgBox("오케이이벤트 : " & scr.ValueCoder & vbCrLf & "바뀌기 전 이벤트 : " & LastScrOrgin.ValueCoder)
+            AddEditTask(scr, LastScrOrgin, LastTreeview)
+            SetRepeatCount(1)
+        End If
 
 
 
         TEGUIPage.CloseEditWindow()
     End Sub
     Public Sub CancelBtnEvent()
+        LastScr.DuplicationBlock(LastScrOrgin)
 
 
         TEGUIPage.CloseEditWindow()

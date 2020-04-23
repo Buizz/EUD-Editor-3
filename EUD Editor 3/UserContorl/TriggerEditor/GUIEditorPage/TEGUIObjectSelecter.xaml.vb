@@ -316,6 +316,15 @@
 
 
             Case "MacroFunc"
+                For i = 0 To macro.FunctionList.Count - 1
+                    Dim keyname As String = macro.FunctionList(i).Fname
+                    If Fliters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                        Dim tlistboxitem As New ListBoxItem
+                        tlistboxitem.Tag = {ScriptBlock.EBlockType.macrofun, macro.FunctionList(i).Fname}
+                        tlistboxitem.Content = keyname
+                        ToolBox.Items.Add(tlistboxitem)
+                    End If
+                Next
         End Select
 
 

@@ -1,5 +1,13 @@
 ﻿Partial Public Class GUIScriptManager
 
+    Public Function GetDefaultObject(GUIEditor As GUIScriptEditor) As List(Of ScriptBlock)
+        Dim rscr As New List(Of ScriptBlock)
+
+        Dim ObjectList As List(Of ScriptBlock) = tescm.GetObjectFromCFunc(Tool.TEEpsDefaultFunc, GUIEditor)
+        rscr.AddRange(ObjectList)
+
+        Return rscr
+    End Function
     Public Function GetGlobalObject(GUIEditor As GUIScriptEditor) As List(Of ScriptBlock)
         Dim rscr As New List(Of ScriptBlock)
 

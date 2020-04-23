@@ -41,7 +41,7 @@
         </StackPanel>
 
         <TextBox x:Name="ObjToolTip"  Text="{Binding Path=ToolTip, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"  materialDesign:HintAssist.Hint="{StaticResource ToolTip}"
-                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="40" Margin="0,0,20,0" MinWidth="100">
+                  Style="{StaticResource MaterialDesignFloatingHintTextBox}" Height="45" Margin="0,0,20,0" MinWidth="100">
       
             <TextBox.ContextMenu>
                 <ContextMenu>
@@ -54,7 +54,7 @@
         </TextBox>
 
         <TextBox x:Name="ObjGroup" Text="{Binding Path=Group, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="{StaticResource Group}" 
-                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="40"  Tag="Hit Points" Margin="0,0,20,0" MinWidth="200" >
+                      Style="{StaticResource MaterialDesignFloatingHintTextBox}"  Height="45"  Tag="Hit Points" Margin="0,0,20,0" MinWidth="200" >
             <TextBox.ContextMenu>
                 <ContextMenu>
                     <MenuItem x:Name="GCCutItem" Header="{StaticResource Cut}" InputGestureText="Ctrl+X" Command="Cut" Icon="{materialDesign:PackIcon Kind=ContentCut}"/>

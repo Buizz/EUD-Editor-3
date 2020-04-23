@@ -93,7 +93,17 @@ Public Class GUIScriptEditor
                 Dim n As String = strs.Last.Trim
 
 
-                Dim fTEFile As TEFile = CodeEditor.FineFile(TEFile, path)
+                Dim fTEFile As TEFile
+                If path = "SCArchive" Then
+                    Dim SCATEFile As New TEFile("SCAFile", TEFile.EFileType.CUIEps)
+                    CType(SCATEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetSCAMainEps
+
+
+                    fTEFile = SCATEFile
+                Else
+                    fTEFile = CodeEditor.FineFile(TEFile, path)
+                End If
+
 
                 'MsgBox(fTEFile.FileName)
 
@@ -124,13 +134,13 @@ Public Class GUIScriptEditor
     Public Overrides Function GetFileText() As String
         Dim strb As New StringBuilder
         Dim indend As Integer = 0
-        GUIScriptManager.GetScriptText(items, strb, indend)
-        Return strb.ToString
+        GUIScriptManager.GetScriptText(items, strb, indend, "")
+        Return macro.MacroApply(strb.ToString)
     End Function
     Public Overrides Function GetStringText() As String
         Dim strb As New StringBuilder
         Dim indend As Integer = 0
-        GUIScriptManager.GetScriptText(items, strb, indend)
+        GUIScriptManager.GetScriptText(items, strb, indend, "")
         Return strb.ToString
     End Function
 

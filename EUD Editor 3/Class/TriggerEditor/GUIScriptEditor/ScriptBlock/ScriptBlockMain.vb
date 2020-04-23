@@ -1,11 +1,14 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports LuaInterface
 Imports Microsoft.DwayneNeed.Win32.Gdi32
 
 <Serializable>
 Public Class ScriptBlock
     Public Enum EBlockType
+        none = -1
+
         constVal
 
         action
@@ -129,7 +132,7 @@ Public Class ScriptBlock
         Select Case ScriptType
             Case EBlockType.funargs, EBlockType.funcontent, EBlockType.ifcondition,
                    EBlockType.ifthen, EBlockType.ifelse, EBlockType.foraction,
-                 EBlockType.whileaction, EBlockType.whileaction, EBlockType.folderaction,
+                 EBlockType.whilecondition, EBlockType.whileaction, EBlockType.folderaction,
                  EBlockType.objectfields, EBlockType.objectmethod
                 IsDeleteAble = False
             Case Else
@@ -165,7 +168,7 @@ Public Class ScriptBlock
             Case EBlockType.vardefine
                 value2 = "var"
                 'AddChild(New ScriptBlock("", False, False, "defaultvalue;init", Scripter))
-            Case EBlockType.plibfun, EBlockType.macrofun, EBlockType.funuse, EBlockType.externfun, EBlockType.action, EBlockType.condition
+            Case EBlockType.plibfun, EBlockType.funuse, EBlockType.externfun, EBlockType.action, EBlockType.condition, EBlockType.macrofun
                 RefreshValue()
         End Select
     End Sub
@@ -210,6 +213,8 @@ Public Class ScriptBlock
                         End If
                     End If
                 Next
+            Case EBlockType.macrofun
+                Return macro.GetFunction(name).ArgName.Count
             Case Else
                 Dim i As Integer = Tool.TEEpsDefaultFunc.SearchFunc(name)
                 If i >= 0 Then
@@ -242,38 +247,55 @@ Public Class ScriptBlock
         Dim curentvals As Integer = child.Count
 
         If name.IndexOf(".") = -1 Then
-            Dim index As Integer = Tool.TEEpsDefaultFunc.SearchFunc(name)
+            If ScriptType = EBlockType.macrofun Then
+                Dim luafunc As MacroManager.LuaFunction = macro.GetFunction(name)
 
-            If index >= 0 Then
-                Dim functooltip As FunctionToolTip = Tool.TEEpsDefaultFunc.GetFuncTooltip(index)
-                Dim argument As String = Tool.TEEpsDefaultFunc.GetFuncArgument(index)
-                lamdaRefreshValue(functooltip, argument)
-            Else
-                Dim func As ScriptBlock = tescm.GetFuncInfor(name, Scripter)
-                'DEBUG
-                If func Is Nothing Then
-                    If Not IsValue() Then
-                        name = "funcisnotexist"
+                For i = 0 To luafunc.ArgName.Count - 1
+                    If child.Count <= i Then
+                        Dim vname As String = "defaultvalue;" & luafunc.ArgName(i).Trim
+                        Dim vtype As String = luafunc.ArgType(i).Trim
+
+                        'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+
+                        Dim tscr As New ScriptBlock(EBlockType.constVal, vtype, False, False, vname, Scripter)
+                        AddChild(tscr)
                     End If
+                Next
+            Else
+                Dim index As Integer = Tool.TEEpsDefaultFunc.SearchFunc(name)
+
+                If index >= 0 Then
+                    Dim functooltip As FunctionToolTip = Tool.TEEpsDefaultFunc.GetFuncTooltip(index)
+                    Dim argument As String = Tool.TEEpsDefaultFunc.GetFuncArgument(index)
+                    lamdaRefreshValue(functooltip, argument)
                 Else
-                    Dim args As List(Of ScriptBlock) = tescm.GetFuncArgs(func)
-
-
-                    For i = 0 To args.Count - 1
-                        If child.Count <= i Then
-                            Dim vname As String = "defaultvalue;" & args(i).value.Trim
-                            Dim vtype As String = args(i).name
-
-                            'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
-
-                            Dim tscr As New ScriptBlock(EBlockType.constVal, vtype, False, False, vname, Scripter)
-                            tscr.value2 = args(i).value2
-                            AddChild(tscr)
+                    Dim func As ScriptBlock = tescm.GetFuncInfor(name, Scripter)
+                    'DEBUG
+                    If func Is Nothing Then
+                        If Not IsValue() Then
+                            name = "funcisnotexist"
                         End If
-                    Next
+                    Else
+                        Dim args As List(Of ScriptBlock) = tescm.GetFuncArgs(func)
 
+
+                        For i = 0 To args.Count - 1
+                            If child.Count <= i Then
+                                Dim vname As String = "defaultvalue;" & args(i).value.Trim
+                                Dim vtype As String = args(i).name
+
+                                'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+
+                                Dim tscr As New ScriptBlock(EBlockType.constVal, vtype, False, False, vname, Scripter)
+                                tscr.value2 = args(i).value2
+                                AddChild(tscr)
+                            End If
+                        Next
+
+                    End If
                 End If
             End If
+
         Else
             Dim _namespace As String = name.Split(".").First
             Dim funcname As String = name.Split(".").Last
@@ -291,10 +313,6 @@ Public Class ScriptBlock
             Next
         End If
 
-
-
-
-
         Dim funcargs As Integer = GetFuncArgsCount()
         If funcargs <> -1 Then
             If funcargs < curentvals Then
@@ -303,7 +321,6 @@ Public Class ScriptBlock
                 Next
             End If
         End If
-
     End Sub
 
 
@@ -555,6 +572,28 @@ Public Class ScriptBlock
     End Sub
 
     Public Sub FuncCoder(lnlines As InlineCollection)
+        If ScriptType = EBlockType.macrofun Then
+            Dim luafunc As MacroManager.LuaFunction = macro.GetFunction(name)
+            If luafunc IsNot Nothing Then
+                If luafunc.IsCompleteFunction Then
+                    For k = 0 To luafunc.ArgLists.Count - 1
+                        If luafunc.ArgLists(k).BType = MacroManager.LuaFunction.ArgBlock.BlockType.Arg Then
+                            AddText(lnlines, child(luafunc.ArgLists(k).ArgIndex).ValueCoder(), tescm.HighlightBrush)
+                        Else
+                            AddText(lnlines, luafunc.ArgLists(k).Label, Nothing)
+                        End If
+                    Next
+                Else
+                    DefaultCoder(lnlines)
+                End If
+            Else
+                DefaultCoder(lnlines)
+            End If
+
+            Return
+        End If
+
+
         Dim i As Integer = Tool.TEEpsDefaultFunc.SearchFunc(name)
 
         If i >= 0 Then
@@ -721,7 +760,7 @@ Public Class ScriptBlock
 
 
 
-    Private Function GetScriptBlockItem() As ScriptTreeviewitem
+    Function GetScriptBlockItem() As ScriptTreeviewitem
         Dim stvi As New ScriptTreeviewitem(Me)
 
         Return stvi
@@ -741,6 +780,10 @@ Public Class ScriptBlock
 
     Public Function GetTreeviewitem() As TreeViewItem
         Dim treeviewitem As New TreeViewItem
+        treeviewitem.Background = Application.Current.Resources("MaterialDesignPaper")
+        treeviewitem.Foreground = Application.Current.Resources("MaterialDesignBody")
+
+
         treeviewitem.Tag = Me
 
         Dim scritem As ScriptTreeviewitem = GetScriptBlockItem()
@@ -865,7 +908,7 @@ Public Class ScriptBlock
         ScriptType = scr.ScriptType
 
         isfolder = scr.isfolder
-        IsDeleteAble = scr.isfolder
+        IsDeleteAble = scr.IsDeleteAble
 
 
         name = scr.name
@@ -888,6 +931,8 @@ Public Class ScriptBlock
         Scripter = scr.Scripter
     End Sub
 
+
+
     Public Function DeepCopy() As ScriptBlock
         Dim stream As MemoryStream = New MemoryStream()
 
@@ -904,4 +949,6 @@ Public Class ScriptBlock
 
         Return rScriptBlock
     End Function
+
+
 End Class

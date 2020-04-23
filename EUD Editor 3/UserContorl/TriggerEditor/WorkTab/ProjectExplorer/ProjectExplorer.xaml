@@ -51,7 +51,7 @@
                         </MenuItem>
                         <MenuItem x:Name="MenuExport" Header="{StaticResource MenuExport}" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}" Click="MenuExport_Click"/>
 
-                        <Separator />
+                        <Separator x:Name="GUISeparator"/>
                         <MenuItem x:Name="ToGUI" Header="GUI로 변환" Click="ToGUI_Click"/>
                         <MenuItem x:Name="ToCUI" Header="CUI로 변환" Click="ToCUI_Click"/>
                         <Separator x:Name="Separator1"/>

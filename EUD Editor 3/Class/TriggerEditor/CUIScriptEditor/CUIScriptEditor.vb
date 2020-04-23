@@ -43,7 +43,7 @@ Public Class CUIScriptEditor
     End Function
 
     Public Overrides Function GetFileText() As String
-        Return StringText
+        Return macro.MacroApply(StringText)
     End Function
 
 

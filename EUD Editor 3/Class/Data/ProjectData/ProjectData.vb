@@ -315,6 +315,123 @@ Public Class ProjectData
     End Property
 
 
+
+    Public ReadOnly Property GetUnitIndex(name As String) As Integer
+        Get
+            For i = 0 To SCUnitCount - 1
+                If UnitName(i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetWeaponIndex(name As String) As Integer
+        Get
+            For i = 0 To SCWeaponCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.weapons, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetFlingyIndex(name As String) As Integer
+        Get
+            For i = 0 To SCFlingyCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.flingy, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetSpriteIndex(name As String) As Integer
+        Get
+            For i = 0 To SCSpriteCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.sprites, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetImageIndex(name As String) As Integer
+        Get
+            For i = 0 To SCImageCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.images, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetUpgradeIndex(name As String) As Integer
+        Get
+            For i = 0 To SCUpgradeCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.upgrades, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetTechIndex(name As String) As Integer
+        Get
+            For i = 0 To SCTechCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.techdata, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetOrderIndex(name As String) As Integer
+        Get
+            For i = 0 To SCOrderCount - 1
+                If CodeLabel(SCDatFiles.DatFiles.orders, i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+
+
+
+
+
+    Public ReadOnly Property GetSwitchIndex(name As String) As Integer
+        Get
+            For i = 0 To 255
+                If pjData.MapData.SwitchName(i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+    Public ReadOnly Property GetLocationIndex(name As String) As Integer
+        Get
+            For i = 0 To 255
+                If pjData.MapData.LocationName(i) = name Then
+                    Return i
+                End If
+            Next
+
+            Return -1
+        End Get
+    End Property
+
     Private Function CodeTrimer(texts As String) As String
         Dim rgx As New Text.RegularExpressions.Regex("<([A-Za-z0-9])+>", Text.RegularExpressions.RegexOptions.IgnoreCase)
         Dim MatchCollection As Text.RegularExpressions.MatchCollection = rgx.Matches(texts)

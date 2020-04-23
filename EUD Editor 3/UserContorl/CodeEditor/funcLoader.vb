@@ -163,6 +163,79 @@ Partial Public Class CodeEditor
                 strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
 
                 Return strs.ToArray
+            Case "UnitsDat", "WeaponsDat", "FlingyDat", "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat"
+                Dim strs As New List(Of String)
+
+                Dim dname As String = ArgumentName.Replace("Dat", "").ToLower
+
+
+                Dim datindex As Integer = Datfilesname.ToList.IndexOf(dname)
+                If datindex <> -1 Then
+                    If SCDatFiles.CheckValidDat(datindex) Then
+                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParamaterList.Count - 1
+                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetParamname
+                            Paramname = Paramname.Replace(" ", "_")
+                            strs.Add(Paramname)
+                        Next
+                    End If
+                End If
+                Return strs.ToArray
+            Case "Weapon"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCWeaponCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.weapons, i))
+                Next
+
+                Return strs.ToArray
+            Case "Flingy"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCFlingyCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.flingy, i))
+                Next
+
+                Return strs.ToArray
+            Case "Sprite"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCSpriteCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.sprites, i))
+                Next
+
+                Return strs.ToArray
+            Case "Image"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCImageCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.images, i))
+                Next
+
+                Return strs.ToArray
+            Case "Upgrade"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCUpgradeCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.upgrades, i))
+                Next
+
+                Return strs.ToArray
+            Case "Tech"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCTechCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.techdata, i))
+                Next
+
+                Return strs.ToArray
+            Case "Order"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCOrderCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.orders, i))
+                Next
+
+                Return strs.ToArray
         End Select
         Return {""}
     End Function
@@ -392,7 +465,126 @@ Partial Public Class CodeEditor
         Return data
     End Function
 
+    Public Function LoadMacroData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+        Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
+
+
+        Dim func As MacroManager.LuaFunction = macro.GetFunction(FuncName)
+        Dim Argument As String = ""
+        Dim ArgumentType As String = ""
+        If func IsNot Nothing Then
+            If func.ArgName.Count > ArgumentCount Then
+                Argument = func.ArgName(ArgumentCount).Trim
+                ArgumentType = func.ArgType(ArgumentCount).Trim
+            End If
+            'MsgBox(Argument & "<" & ArgumentType & "," & IsFirstArgumnet)
+        End If
+
+
+        Select Case FuncNameas
+            Case "$S"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgSwitch"
+            Case "$U"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgUnit"
+            Case "$L"
+                IsFirstArgumnet = True
+                ArgumentType = "TrgLocation"
+        End Select
+
+        If IsFirstArgumnet Then
+            Select Case ArgumentType
+                Case "TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder", "TrgPlayer",
+                     "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tb As New TextBox
+                        tb.Text = strs(i)
+
+                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+                    Next
+                Case "TrgAIScript"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tb As New TextBox
+                        tb.Text = strs(i)
+
+                        data.Add(New TECompletionData(0, strs(i), """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarConst))
+                    Next
+                Case "TrgLocation", "TrgLocationIndex"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tstr As String = strs(i)
+
+                        If tstr <> "" Then
+                            Dim tb As New TextBox
+                            tb.Text = "[" & i & "] " & tstr
+
+                            data.Add(New TECompletionData(0, """" & tstr & """", """" & tstr & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                        End If
+                    Next
+                Case "TrgSwitch"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tstr As String = strs(i)
+
+                        Dim tb As New TextBox
+                        tb.Text = "[" & i & "] " & tstr
+
+                        data.Add(New TECompletionData(0, """" & tstr & """", """" & tstr & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                    Next
+                Case "TrgUnit"
+                    '스트링
+                    For i = 0 To SCUnitCount - 1
+                        Dim tb As New TextBox
+                        tb.Text = "[" & i & "] " & pjData.UnitInGameName(i)
+
+                        data.Add(New TECompletionData(0, """" & pjData.CodeLabel(SCDatFiles.DatFiles.units, i) & """", """" & pjData.UnitInGameName(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                    Next
+
+                    Dim strs() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+
+                    For i = 0 To strs.Length - 1
+                        Dim tb As New TextBox
+                        tb.Text = strs(i)
+
+                        data.Add(New TECompletionData(0, """" & strs(i) & """", """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                    Next
+                Case Else
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tb As New TextBox
+                        tb.Text = strs(i)
+
+                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+                    Next
+            End Select
+        End If
+
+
+        For i = 0 To macro.FunctionList.Count - 1
+            Dim tb As New TextBox
+            tb.Text = macro.FunctionList(i).Fcomment
+
+            data.Add(New TECompletionData(30, macro.FunctionList(i).Fname, macro.FunctionList(i).Fname, tb, TextEditor, TECompletionData.EIconType.localFunction))
+        Next
+
+
+
+        'KeyWord추가
+        For i = 0 To LuaKeyWords.Count - 1
+            data.Add(New TECompletionData(30, LuaKeyWords(i), LuaKeyWords(i), Nothing, TextEditor, TECompletionData.EIconType.LuaKeyWord))
+        Next
+
+        Return data
+    End Function
     Public Function LoadFuncNameData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
@@ -471,6 +663,8 @@ Partial Public Class CodeEditor
     End Function
 
 
+    Private LuaKeyWords() As String = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function",
+        "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"}
 
     Private KeyWords() As String = {"object", "static", "once", "if", "else", "for", "function", "foreach",
         "return", "true", "True", "false", "False", "switch", "case", "break", "var", "const", "import", "as"}
@@ -534,6 +728,7 @@ Public Class TECompletionData
 
         '키워드
         KeyWord
+        LuaKeyWord
         SettingValue
         Funcname
         StarKeyWord
@@ -654,7 +849,7 @@ Public Class TECompletionData
                     Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/Action.png"))
                     Imageicon.Freeze()
                     Return Imageicon
-                Case EIconType.KeyWord
+                Case EIconType.KeyWord, EIconType.LuaKeyWord
                     Dim Imageicon As New BitmapImage(New Uri("pack://siteoforigin:,,,/Data/Resources/KeyWord.png"))
                     Imageicon.Freeze()
                     Return Imageicon
@@ -705,6 +900,22 @@ Public Class TECompletionData
         'TextEditor.SelectionLength = completionSegment.Length + 1
 
         Select Case IconType
+            Case EIconType.LuaKeyWord
+                ResultStr = inputtext
+                Select Case ResultStr
+                    Case "for"
+                        ResultStr = "for i = 0, 10 do" & vbCrLf & "end"
+                    Case "if"
+                        ResultStr = "if condition then" & vbCrLf & "end"
+                    Case "while"
+                        ResultStr = "while condition do" & vbCrLf & "end"
+                    Case "function"
+                        ResultStr = "function name(args)" & vbCrLf & "end"
+                    Case "elseif"
+                        ResultStr = "elseif condition then" & vbCrLf & "end"
+                    Case "refeat"
+                        ResultStr = "repeat" & vbCrLf & "until condition"
+                End Select
             Case EIconType.KeyWord
                 ResultStr = inputtext
                 If ResultStr = "for" Then

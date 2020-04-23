@@ -385,10 +385,10 @@
     <sys:String x:Key="units_Return to Idle">Return to Idle</sys:String>
     <sys:String x:Key="units_Attack Unit">Unit attacks</sys:String>
     <sys:String x:Key="units_Attack Move">Attack&amp;Move</sys:String>
-    <sys:String x:Key="units_Ground Weapon">Ground Weapon</sys:String>
-    <sys:String x:Key="units_Max Ground Hits">Max Ground Hits</sys:String>
-    <sys:String x:Key="units_Air Weapon">Air Weapon</sys:String>
-    <sys:String x:Key="units_Max Air Hits">Max AirHits</sys:String>
+    <sys:String x:Key="units_Ground Weapon">Ground</sys:String>
+    <sys:String x:Key="units_Max Ground Hits">Hits</sys:String>
+    <sys:String x:Key="units_Air Weapon">Air</sys:String>
+    <sys:String x:Key="units_Max Air Hits">Hits</sys:String>
     <sys:String x:Key="units_AI Internal">Internal AI</sys:String>
     <sys:String x:Key="units_AI Internal_V">"Ignore Strategic Sucide missions" AI.|Will not become "Guard" status</sys:String>
 
@@ -427,10 +427,10 @@
     <sys:String x:Key="units_Staredit Group Flags">Group flags</sys:String>
     <sys:String x:Key="units_Staredit Group Flags_V">Zerg|Terran|Protoss|Unit(Human)|Building|Construct Building|Independent unit|Neutral</sys:String>
 
-    <sys:String x:Key="units_Supply Provided">Provided unit supply</sys:String>
-    <sys:String x:Key="units_Supply Required">Required unit supply</sys:String>
-    <sys:String x:Key="units_Space Required">Required unit space</sys:String>
-    <sys:String x:Key="units_Space Provided">Provided unit space</sys:String>
+    <sys:String x:Key="units_Supply Provided">Provided supply</sys:String>
+    <sys:String x:Key="units_Supply Required">Required supply</sys:String>
+    <sys:String x:Key="units_Space Required">Required space</sys:String>
+    <sys:String x:Key="units_Space Provided">Provided space</sys:String>
     <sys:String x:Key="units_Build Score">Build</sys:String>
     <sys:String x:Key="units_Destroy Score">Destroy</sys:String>
     <sys:String x:Key="units_Unit Map String">Map string</sys:String>
@@ -817,6 +817,7 @@
 
 
     <sys:String x:Key="TE_CustomUserDataSetting">Custom User Data</sys:String>
+    <sys:String x:Key="TE_BGMSetting">Setting Sound</sys:String>
     <sys:String x:Key="TE_MacroDatASetting">Setting Macro</sys:String>
     <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
 

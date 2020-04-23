@@ -1,4 +1,6 @@
-﻿Partial Public Class CodeEditor
+﻿Imports System.Text.RegularExpressions
+
+Partial Public Class CodeEditor
 
     Private FuncName As String = ""
     Private ArgumentIndex As Integer
@@ -28,6 +30,36 @@
         Dim IsFunctionSpace As Boolean = False
         Dim IsQuotes As Boolean = False
         Dim QuotesCount As Integer
+
+
+        Dim remainText As String = "<?" & Mid(MainStr, SelectStart)
+
+        Dim regex As New Regex("(<\?|<\?php)(.+?)\?>", RegexOptions.Multiline Or RegexOptions.Singleline Or RegexOptions.ExplicitCapture)
+        Dim IsInline As Boolean = False
+
+        Dim regexmatch As Match = regex.Match(remainText)
+        If regexmatch.Success Then
+            If regexmatch.Index = 0 Then
+                Dim startText As String = Mid(MainStr, 1, SelectStart) & "?>"
+
+                Dim matchex As MatchCollection = regex.Matches(startText)
+
+                If matchex.Count > 0 Then
+                    Dim lastMatch As Match = matchex(matchex.Count - 1)
+
+                    If lastMatch.Success Then
+                        Dim startIndex As Long = lastMatch.Index
+                        Dim endIndex As Long = startIndex + lastMatch.Value.Length
+
+                        If endIndex = startText.Length Then
+                            IsInline = True
+                        End If
+                    End If
+                End If
+            End If
+        End If
+
+
         While ((SelectStart - index) > 0)
             Dim MidStr As String = Mid(MainStr, SelectStart - index, 1)
 
@@ -178,15 +210,19 @@
                 ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.Extern)
             Else
                 If Not IsFuncDefWrite And Not IsFuncNameWrite And Not IsImportWrite Then
-                    LocalFunc.Init()
-                    LocalFunc.LoadFunc(MainStr, SelectStart)
-                    '외부함수 불러오는건 여기가아님
+                    If IsInline Then
+                        ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.lnlineCode)
+                        ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset, True)
+                    Else
+                        LocalFunc.Init()
+                        LocalFunc.LoadFunc(MainStr, SelectStart)
+                        '외부함수 불러오는건 여기가아님
 
 
+                        ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True)
 
-                    ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True)
-
-                    ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
+                        ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
+                    End If
                 ElseIf IsImportWrite Then
                     ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsImportWrite)
                 ElseIf IsFuncDefWrite Then

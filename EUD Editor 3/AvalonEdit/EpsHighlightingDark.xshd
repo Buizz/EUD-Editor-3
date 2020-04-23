@@ -1,11 +1,16 @@
 ﻿<?xml version="1.0"?>
 <SyntaxDefinition name="EPS HighlightingDark" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 	<Color name="Comment" foreground="#47C83E" />
-	<Color name="String" foreground="#F29661" />
+  <Color name="String" foreground="#F29661" />
+  <Color name="php" foreground="#A566FF" />
 	
 	<!-- This is the main ruleset. -->
 	<RuleSet>
-		<Span color="Comment" begin="//" />
+    <!-- PHP 초록 계열-->
+    <Span color="php" multiline="true" begin="&lt;\?" end="\?&gt;"/>
+
+
+    <Span color="Comment" begin="//" />
 		<Span color="Comment" multiline="true" begin="/\*" end="\*/" />
 
     <!-- 함수 파란계열(시스템 색, 문법등)-->
@@ -151,7 +156,8 @@
       [\w\d]+(?=\[.*\])
     </Rule>
 
-
+    
+    
     <!-- Digits 얉은 연녹-->
     <Rule foreground="#2DF8B8">
       \b0[xX][0-9a-fA-F]+  # hex number

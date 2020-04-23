@@ -18,10 +18,10 @@
             ToolBarTray.IsLocked="True"
             Style="{DynamicResource MaterialDesignToolBar}"
             ClipToBounds="False">
-            <Button ToolTip="실행취소">
+            <Button ToolTip="실행취소" x:Name="Undobtn" Click="Undobtn_Click">
                 <materialDesign:PackIcon Kind="Undo"/>
             </Button>
-            <Button ToolTip="다시실행">
+            <Button ToolTip="다시실행" x:Name="Redobtn" Click="Redobtn_Click">
                 <materialDesign:PackIcon Kind="Redo"/>
             </Button>
             <Separator />
