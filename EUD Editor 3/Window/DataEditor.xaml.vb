@@ -97,7 +97,7 @@ Public Class DataEditor
         End If
         Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
 
-        ControlBar.HotkeyInit(Me)
+        'ControlBar.HotkeyInit(Me)
     End Sub
 
 

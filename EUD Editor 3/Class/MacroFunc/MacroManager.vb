@@ -106,6 +106,11 @@ Public Class MacroManager
     Public Function MacroApply(str As String) As String
         ErrorMsg = ""
 
+        If str Is Nothing Then
+            str = ""
+        End If
+
+
         '스트링을 받아서 Regex를 통해 루아함수를 찾는다.
         Dim rstr As String = str
         'global extended singleline multiline

@@ -86,7 +86,10 @@ Public Class GUIScriptEditorUI
     End Function
 
     Private Sub CopyItemListSort(ByRef list As List(Of ScriptBlock))
-        list = list.OrderBy(Function(x) x.Parent.child.IndexOf(x)).ToList()
+        If list.First.Parent IsNot Nothing Then
+            list = list.OrderBy(Function(x) x.Parent.child.IndexOf(x)).ToList()
+        End If
+
         'CopyItemList.Sort()
     End Sub
 
