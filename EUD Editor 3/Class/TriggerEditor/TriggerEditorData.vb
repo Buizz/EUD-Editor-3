@@ -16,6 +16,16 @@ Public Class TriggerEditorData
     Public Const TopFileName As String = "​ProjectMain"
 
 
+    Private _BGMData As BGMData
+    Public ReadOnly Property BGMData As BGMData
+        Get
+            If _BGMData Is Nothing Then
+                _BGMData = New BGMData
+            End If
+            Return _BGMData
+        End Get
+    End Property
+
     Private _MainFile As TEFile
     Public Property MainFile As TEFile
         Get

@@ -90,6 +90,18 @@
 
 
 
+    Public Sub GetBGMIndex(bgmname As String)
+        For i = 0 To pjData.TEData.BGMData.BGMList.Count - 1
+            Dim bgmFile As BGMData.BGMFile = pjData.TEData.BGMData.BGMList(i)
+
+            If bgmname = bgmFile.BGMName Then
+                echo(i)
+                Return
+            End If
+        Next
+        echo(0)
+    End Sub
+
 
 
     Public Function DatOffset(DatName As String, Paramater As String) As String

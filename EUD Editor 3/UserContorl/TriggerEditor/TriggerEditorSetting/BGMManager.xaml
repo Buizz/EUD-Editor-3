@@ -4,9 +4,141 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             d:DesignHeight="450" d:DesignWidth="800">
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}"  
+             d:DesignHeight="450" d:DesignWidth="800"
+             Loaded="UserControl_Loaded"
+             Unloaded="UserControl_Unloaded">
     <Grid>
-            
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition
+          Height="*" />
+                <RowDefinition
+          Height="Auto" />
+            </Grid.RowDefinitions>
+            <ListView x:Name="List" >
+                <ListView.View>
+                    <GridView>
+                        <GridViewColumn Width="40">
+                            <GridViewColumn.CellTemplate>
+                                <DataTemplate>
+                                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Height="22" Width="22" Click="BGMPlay" Tag="{Binding BGMFile }">
+                                        <materialDesign:PackIcon Kind="PlaySpeed" Height="18" Width="18" />
+                                    </Button>
+                                </DataTemplate>
+                            </GridViewColumn.CellTemplate>
+                        </GridViewColumn>
+                        <GridViewColumn Width="100"
+                        DisplayMemberBinding="{Binding BGMName}"
+                        Header="이름" />
+                        <GridViewColumn Width="200"
+                        DisplayMemberBinding="{Binding BGMPath}"
+                        Header="주소" />
+                        <GridViewColumn Width="100"
+                        DisplayMemberBinding="{Binding BGMLen}"
+                        Header="길이" />
+                        <GridViewColumn Width="100"
+                        DisplayMemberBinding="{Binding BGMOrgSizestr}"
+                        Header="용량" />
+                        <GridViewColumn Width="100"
+                        DisplayMemberBinding="{Binding BGMCompressionSizestr}"
+                        Header="압축용량" />
+                        <GridViewColumn Width="100"
+                        DisplayMemberBinding="{Binding BGMSampleRateStr}"
+                        Header="샘플레이트" />
+                        <GridViewColumn Width="100"
+                        DisplayMemberBinding="{Binding BGMBitRateStr}"
+                        Header="비트레이트" />
+                    </GridView>
+                    
+                </ListView.View>
+                <ListView.ContextMenu>
+                    <ContextMenu Opened="ContextMenu_Opened" >
+                        <MenuItem x:Name="EditItem" Header="{StaticResource Edit}" Icon="{materialDesign:PackIcon Kind=PlaylistEdit}" Click="EditItem_Click"/>
+                        <Separator/>
+                        <MenuItem x:Name="DeleteItem" Header="{StaticResource CodeDelete}" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="DeleteItem_Click"/>
+
+                    </ContextMenu>
+                </ListView.ContextMenu>
+            </ListView>
+            <materialDesign:ColorZone Mode="PrimaryDark" Grid.Row="1" Effect="{DynamicResource MaterialDesignShadowDepth5}">
+                <StackPanel Orientation="Horizontal">
+                    <TextBlock Margin="16">
+                BGM 목록
+                    </TextBlock>
+                    <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Height="22" Width="22" Click="BGMStop">
+                        <materialDesign:PackIcon Kind="StopCircleOutline" Height="18" Width="18" />
+                    </Button>
+                </StackPanel>
+                
+              
+            </materialDesign:ColorZone>
+            <Button
+        Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
+        Click="Button_Click"
+        VerticalAlignment="Bottom"
+        HorizontalAlignment="Right"
+        Grid.Row="0"
+        Margin="0 0 28 -20">
+                <materialDesign:PackIcon
+          Kind="Plus"
+          Height="22"
+          Width="22" />
+            </Button>
+        </Grid>
+        <Border x:Name="CreateEditWindow" Background="#7F000000" Visibility="Collapsed" >
+            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3"  VerticalAlignment="Center" Width="500" >
+                <Grid Background="{DynamicResource MaterialDesignPaper}" >
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="*"/>
+                        <RowDefinition Height="60"/>
+                    </Grid.RowDefinitions>
+                    <StackPanel Margin="18">
+                        <DockPanel Margin="5">
+                            <Label Content="이름" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                            <TextBox x:Name="BGMName" Margin="10,0,0,0"  TextChanged="BGMName_TextChanged">
+                            </TextBox>
+                        </DockPanel>
+                        <DockPanel Margin="5">
+                            <Label Content="주소" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                            <Button DockPanel.Dock="Right" Content="찾기" Click="BGMPath_Click"/>
+                            <TextBlock x:Name="BGMPath" Margin="10,0,0,0" VerticalAlignment="Center"  />
+                        </DockPanel>
+                        <DockPanel Margin="5">
+                            <UniformGrid Columns="2">
+                                <ComboBox x:Name="SampleRateCombobox" materialDesign:HintAssist.Hint="샘플레이트" MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                    <ComboBoxItem Content="기본" Tag="-1"/>
+                                    <ComboBoxItem Content="44,100 Hz" Tag="44100"/>
+                                    <ComboBoxItem Content="32,000 Hz" Tag="32000"/>
+                                    <ComboBoxItem Content="22,050 Hz" Tag="22050"/>
+                                    <ComboBoxItem Content="16,000 Hz" Tag="16000"/>
+                                    <ComboBoxItem Content="11,025 Hz" Tag="11025"/>
+                                    <ComboBoxItem Content="8,000 Hz" Tag="8000"/>
+                                </ComboBox>
+                                <ComboBox x:Name="BitRateCombobox" materialDesign:HintAssist.Hint="비트레이트" MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                    <ComboBoxItem Content="기본" Tag="-1"/>
+                                    <ComboBoxItem Content="256kbps" Tag="256"/>
+                                    <ComboBoxItem Content="196kbps" Tag="196"/>
+                                    <ComboBoxItem Content="128kbps" Tag="128"/>
+                                    <ComboBoxItem Content="96kbps" Tag="96"/>
+                                    <ComboBoxItem Content="64kbps" Tag="64"/>
+                                </ComboBox>
+                            </UniformGrid>
+                        </DockPanel>
+                    </StackPanel>
+
+                    <DockPanel LastChildFill="False"  Grid.Row="1">
+                        <Button Click="CancelButton_Click" Width="130" DockPanel.Dock="Right" Content="{StaticResource Cancel}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                        <Button x:Name="OkKey" Width="130" Click="OkKey_Click" DockPanel.Dock="Right" Content="{StaticResource Okay}" Style="{StaticResource MaterialDesignFlatButton}"/>
+                    </DockPanel>
+
+                </Grid>
+            </materialDesign:Card>
+        </Border>
     </Grid>
 </UserControl>

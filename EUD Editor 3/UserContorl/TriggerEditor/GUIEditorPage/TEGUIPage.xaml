@@ -20,6 +20,8 @@
             <ColumnDefinition Width="250" MinWidth="220"/>
             <ColumnDefinition Width="Auto"/>
             <ColumnDefinition Width="100*" MinWidth="220"/>
+            <ColumnDefinition Width="Auto"/>
+            <ColumnDefinition Width="200" MinWidth="150"/>
         </Grid.ColumnDefinitions>
 
         <local:TEGUIObjectSelecter Grid.Column="0" x:Name="ObjectSelector" ItemSelect="ObjectSelector_ItemSelect"/>
@@ -39,6 +41,14 @@
         <Border Grid.ColumnSpan="1" x:Name="ValueSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Collapsed">
       
         </Border>
-        
+        <GridSplitter Grid.Column="3"
+            ShowsPreview="True"
+            Width="5" 
+            HorizontalAlignment="Center"
+            VerticalAlignment="Stretch"
+        />
+        <ListBox x:Name="ExternList" Grid.Column="4" SelectionChanged="ExternList_SelectionChanged">
+            
+        </ListBox>
     </Grid>
 </UserControl>

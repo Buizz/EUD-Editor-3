@@ -7,6 +7,16 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public Function GetFileSize(filepath As String) As ULong
+            Dim fileinfo As FileInfo = My.Computer.FileSystem.GetFileInfo(filepath)
+
+            Return fileinfo.Length
+        End Function
+
+
+
+
+
         Public Function GetLanText(Str As String) As String
             Dim rstr As String = GetText(Str)
             If rstr = "" Then

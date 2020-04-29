@@ -160,20 +160,41 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>.\Microsoft.DwayneNeed.Win32.dll</HintPath>
     </Reference>
+    <Reference Include="NAudio, Version=1.10.0.0, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.1.10.0\lib\net35\NAudio.dll</HintPath>
+    </Reference>
+    <Reference Include="NAudio.Vorbis, Version=1.2.0.1, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NAudio.Vorbis.1.2.0\lib\net45\NAudio.Vorbis.dll</HintPath>
+    </Reference>
     <Reference Include="Newtonsoft.Json, Version=12.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
       <HintPath>..\packages\Newtonsoft.Json.12.0.3\lib\net45\Newtonsoft.Json.dll</HintPath>
     </Reference>
+    <Reference Include="NVorbis, Version=0.10.0.2, Culture=neutral, processorArchitecture=MSIL">
+      <HintPath>..\packages\NVorbis.0.10.0\lib\net45\NVorbis.dll</HintPath>
+    </Reference>
     <Reference Include="Pfim, Version=0.7.0.0, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Pfim.0.7.0\lib\netstandard1.0\Pfim.dll</HintPath>
+    </Reference>
+    <Reference Include="System.Buffers, Version=4.0.2.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Buffers.4.4.0\lib\netstandard1.1\System.Buffers.dll</HintPath>
     </Reference>
     <Reference Include="System.ComponentModel.Composition" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.IO.Compression" />
+    <Reference Include="System.Memory, Version=4.0.1.1, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Memory.4.5.3\lib\netstandard1.1\System.Memory.dll</HintPath>
+    </Reference>
     <Reference Include="System.Numerics" />
+    <Reference Include="System.Runtime.CompilerServices.Unsafe, Version=4.0.4.1, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.Runtime.CompilerServices.Unsafe.4.5.2\lib\netstandard1.0\System.Runtime.CompilerServices.Unsafe.dll</HintPath>
+    </Reference>
     <Reference Include="System.Runtime.InteropServices.RuntimeInformation, Version=4.0.1.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a, processorArchitecture=MSIL">
       <HintPath>..\packages\System.Runtime.InteropServices.RuntimeInformation.4.3.0\lib\net45\System.Runtime.InteropServices.RuntimeInformation.dll</HintPath>
+    </Reference>
+    <Reference Include="System.ValueTuple, Version=4.0.3.0, Culture=neutral, PublicKeyToken=cc7b13ffcd2ddd51, processorArchitecture=MSIL">
+      <HintPath>..\packages\System.ValueTuple.4.5.0\lib\netstandard1.0\System.ValueTuple.dll</HintPath>
     </Reference>
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Windows.Interactivity, Version=4.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
@@ -220,6 +241,7 @@
     <Compile Include="Class\Bitmap\BitmapManager.vb" />
     <Compile Include="Class\BulidData\BulidPaths.vb" />
     <Compile Include="Class\BulidData\SCACheckSum.vb" />
+    <Compile Include="Class\BulidData\WriteBGMFile.vb" />
     <Compile Include="Class\BulidData\WriteSCAData.vb" />
     <Compile Include="Class\BulidData\WriteButtonData.vb" />
     <Compile Include="Class\BulidData\WriteDatFile.vb" />
@@ -276,6 +298,7 @@
     <Compile Include="Class\tblWriter.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
+    <Compile Include="Class\TriggerEditor\BGMData.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
@@ -294,6 +317,8 @@
     <Compile Include="Compiler\Lexical Analyzer\TokenizerTool.vb" />
     <Compile Include="Compiler\Parser\CodeBlock.vb" />
     <Compile Include="Compiler\Parser\Parser.vb" />
+    <Compile Include="Compiler\Parser\ParseTool.vb" />
+    <Compile Include="Compiler\Parser\TokenTool.vb" />
     <Compile Include="EUDEditor2\LagacyClass.vb" />
     <Compile Include="EUDEditor2\SaveLoadClass\LagacySaveLoad.vb" />
     <Compile Include="MainWindow\MainWindowD.xaml.vb">
@@ -536,6 +561,9 @@
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml.vb">
       <DependentUpon>GUI_RawCode.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Return.xaml.vb">
+      <DependentUpon>GUI_Return.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml.vb">
       <DependentUpon>GUI_Switch.xaml</DependentUpon>
     </Compile>
@@ -560,7 +588,7 @@
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\SCADataList.xaml.vb">
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml.vb">
       <DependentUpon>SCADataList.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml.vb">
@@ -584,6 +612,9 @@
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DeleteItem.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DragItem.vb" />
     <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\System.vb" />
+    <Compile Include="Window\BGMPlayerConverter.xaml.vb">
+      <DependentUpon>BGMPlayerConverter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\BuildLogWindow.xaml.vb">
       <DependentUpon>BuildLogWindow.xaml</DependentUpon>
     </Compile>
@@ -922,6 +953,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Return.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -954,7 +989,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\SCADataList.xaml">
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -975,6 +1010,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\BGMPlayerConverter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1209,6 +1248,9 @@
     <None Include="Data\tranwire.grp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\TriggerEditor\BGMPlayer.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\TriggerEditor\SCArchive.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1218,6 +1260,7 @@
     <None Include="Data\wirefram.grp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="LICENSE" />
     <None Include="My Project\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.vb</LastGenOutput>
@@ -1287,6 +1330,9 @@
     <None Include="Data\Lua\TriggerEditor\#ReadMe.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\ffmpeg.exe">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="x64\lz4X64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -1327,6 +1373,7 @@
     <None Include="Data\Resources\KeyWord.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="README.md" />
     <None Include="Resources\success.wav" />
     <EmbeddedResource Include="Data\Texts\Virtual-Key Codes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>

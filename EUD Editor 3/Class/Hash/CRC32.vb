@@ -1,4 +1,6 @@
-﻿Public Class CRC32
+﻿Imports System.IO
+
+Public Class CRC32
     Private Shared CrcTable As UInt32() = Nothing
 
     Shared Sub New()
@@ -22,7 +24,7 @@
         Dim CRC As UInt32 = UInt32.MaxValue
         'Dim stream As MemoryStream = New MemoryStream(ByteArray)
 
-        Dim buffer As Byte() = System.text.Encoding.UTF8.GetBytes(s)
+        Dim buffer As Byte() = System.Text.Encoding.UTF8.GetBytes(s)
         For i As Integer = 0 To buffer.Length - 1
             CRC = CrcTable((CRC Xor buffer(i)) And 255) Xor (CRC >> 8)
         Next
@@ -35,6 +37,25 @@
 
         For i As Integer = 0 To bytes.Length - 1
             CRC = CrcTable((CRC Xor bytes(i)) And 255) Xor (CRC >> 8)
+        Next
+
+        Return CRC Xor UInteger.MaxValue
+    End Function
+
+    Public Function GetCRC32FromFile(ByVal filepath As String) As UInt32
+        Dim fs As New FileStream(filepath, FileMode.Open)
+        Dim br As New BinaryReader(fs)
+
+        Dim buffer As Byte() = br.ReadBytes(fs.Length)
+
+        br.Close()
+        fs.Close()
+
+        Dim CRC As UInt32 = UInt32.MaxValue
+        'Dim stream As MemoryStream = New MemoryStream(ByteArray)
+
+        For i As Integer = 0 To buffer.Length - 1
+            CRC = CrcTable((CRC Xor buffer(i)) And 255) Xor (CRC >> 8)
         Next
 
         Return CRC Xor UInteger.MaxValue

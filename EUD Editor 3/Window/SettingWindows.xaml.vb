@@ -1,4 +1,6 @@
 ﻿
+Imports System.ComponentModel
+
 Public Class SettingWindows
     Private DatLoad As Boolean = False
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
@@ -71,28 +73,48 @@ Public Class SettingWindows
 
 
 
+        PatchNote.AppendText("Loading...")
+        UpDateBtn.IsEnabled = False
+        UpDateBtn.Content = "Loading..."
 
-        Dim data As String = ""
+
+        UpdateChecker = New BackgroundWorker()
+        AddHandler UpdateChecker.DoWork, AddressOf UpdateChecker_DoWork
+        AddHandler UpdateChecker.RunWorkerCompleted, AddressOf UpdateChecker_RunWorkerCompleted
+        UpdateChecker.RunWorkerAsync()
+
+        DatLoad = True
+    End Sub
+
+
+    Private VersionText As String
+    Private PatchText As String
+
+
+    Private UpdateChecker As BackgroundWorker
+    Private Sub UpdateChecker_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
         Try
             With CreateObject("WinHttp.WinHttpRequest.5.1")
                 .Open("GET", "https://raw.githubusercontent.com/Buizz/EUD-Editor-3/master/EUD%20Editor%203/Version.txt")
                 .Send
                 .WaitForResponse
 
-                data = .ResponseText
+                VersionText = .ResponseText
 
             End With
         Catch ex As Exception
-            data = "Error"
+            VersionText = "Error"
         End Try
 
+        PatchNoteLoader()
+    End Sub
+    Private Sub UpdateChecker_RunWorkerCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs)
         Dim version As String
 
-        Dim lines() As String = data.Trim.Split(vbLf)
+        Dim lines1() As String = VersionText.Trim.Split(vbLf)
 
-        If lines.Count > 1 Then
-            version = lines(0).Trim
-
+        If lines1.Count > 1 Then
+            version = lines1(0).Trim
             If pgData.Version.ToString = version Then
                 UpDateBtn.Content = Tool.GetText("LastVersion")
                 UpDateBtn.IsEnabled = False
@@ -105,45 +127,20 @@ Public Class SettingWindows
             UpDateBtn.IsEnabled = False
         End If
 
-        PatchNoteLoader()
-
-
-
-        'UpDateBtn
-
-
-        DatLoad = True
-    End Sub
-
-
-    Private Sub PatchNoteLoader()
-        Dim data As String = ""
-        Try
-            With CreateObject("WinHttp.WinHttpRequest.5.1")
-                .Open("GET", "https://raw.githubusercontent.com/Buizz/EUD-Editor-3/master/EUD%20Editor%203/PatchNote.txt")
-                .Send
-                .WaitForResponse
-
-                Data = .ResponseText
-
-            End With
-        Catch ex As Exception
-            Data = "Error"
-        End Try
 
         Dim myFlowDoc As FlowDocument = New FlowDocument()
 
 
-        Dim lines() As String = data.Trim.Split(vbLf)
+        Dim lines2() As String = PatchText.Trim.Split(vbLf)
 
 
-        For i = 0 To lines.Count - 1
-            Dim line As String = lines(i).Trim
+        For i = 0 To lines2.Count - 1
+            Dim line As String = lines2(i).Trim
 
-            If i = lines.Count - 1 Then
+            If i = lines2.Count - 1 Then
                 line = line.Replace("-", "    └ ")
             Else
-                If lines(i + 1).Trim.IndexOf("-") <> -1 Then
+                If lines2(i + 1).Trim.IndexOf("-") <> -1 Then
                     line = line.Replace("-", "    ├ ")
                 Else
                     line = line.Replace("-", "    └ ")
@@ -173,11 +170,24 @@ Public Class SettingWindows
         Next
 
 
-
         PatchNote.Document = myFlowDoc
+    End Sub
 
 
 
+    Private Sub PatchNoteLoader()
+        Try
+            With CreateObject("WinHttp.WinHttpRequest.5.1")
+                .Open("GET", "https://raw.githubusercontent.com/Buizz/EUD-Editor-3/master/EUD%20Editor%203/PatchNote.txt")
+                .Send
+                .WaitForResponse
+
+                PatchText = .ResponseText
+
+            End With
+        Catch ex As Exception
+            PatchText = "Error"
+        End Try
     End Sub
 
 

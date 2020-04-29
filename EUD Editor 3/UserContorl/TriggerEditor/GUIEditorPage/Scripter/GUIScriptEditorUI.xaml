@@ -53,6 +53,7 @@
         </ToolBar>
         <Grid>
             <TreeView x:Name="MainTreeview" 
+            
             VirtualizingPanel.IsVirtualizing="True"
             VirtualizingPanel.VirtualizationMode="Recycling"
             MouseDoubleClick="MainTreeview_MouseDoubleClick"

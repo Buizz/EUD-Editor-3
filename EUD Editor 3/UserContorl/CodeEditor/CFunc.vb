@@ -75,7 +75,14 @@ Public Class FunctionToolTip
 
         Dim FuncArgs() As String = tFuncArgument.Split(",")
         For i = 0 To FuncArgs.Count - 1
-            FuncArgTooltip.Add(FuncArgs(i).Split(":").First.Trim)
+            Dim argtext As String = FuncArgs(i)
+            If argtext.IndexOf("/*") <> -1 And argtext.IndexOf("*/") <> -1 And argtext.IndexOf(":") = -1 Then
+                argtext = argtext.Replace("*/", "")
+                argtext = argtext.Replace("/*", ":")
+            End If
+
+
+            FuncArgTooltip.Add(argtext.Split(":").First.Trim)
         Next
 
 
@@ -355,8 +362,45 @@ Public Class CFunc
     End Sub
 
 
-    Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1, Optional NameSpace_ As String = "")
+    Private Function BraketLiner(str As String, StartIndex As Integer) As Integer
+        Dim si As Long = StartIndex + 1
+        Dim stack As New Stack()
 
+        stack.Push("{")
+        While si < str.Length
+            Dim chr As String = Mid(str, si, 1)
+
+            Select Case chr
+                Case "{", "[", "("
+                    stack.Push(chr)
+                Case ")"
+                    If stack.Peek = "(" Then
+                        stack.Pop()
+                    Else
+                        Exit While
+                    End If
+                Case "]"
+                    If stack.Peek = "[" Then
+                        stack.Pop()
+                    Else
+                        Exit While
+                    End If
+                Case "}"
+                    If stack.Peek = "{" Then
+                        stack.Pop()
+                    Else
+                        Exit While
+                    End If
+            End Select
+
+            si += 1
+            If stack.Count = 0 Then
+                Exit While
+            End If
+        End While
+        Return si
+    End Function
+    Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1, Optional NameSpace_ As String = "")
         If StartPos <> -1 Then
             str = Mid(str, 1, StartPos)
         End If
@@ -365,6 +409,82 @@ Public Class CFunc
         If str Is Nothing Then
             Return
         End If
+
+        If True Then
+            Dim fregex As New Regex("object[\s]+([\w\d]+)\s*({)")
+
+            Dim matches As MatchCollection = fregex.Matches(str)
+            Dim changesStr As New List(Of String)
+
+
+            'MsgBox(matches.Count)
+            For i = 0 To matches.Count - 1
+                Dim ObjName As String = matches(i).Groups(1).Value
+                Dim ObjContents As String
+
+                Dim StartIndex As Integer = matches(i).Index + matches(i).Length
+
+
+                ObjContents = Mid(str, StartIndex, BraketLiner(str, StartIndex) - StartIndex)
+
+                'MsgBox(ObjName) '오브젝트 이름
+                'MsgBox(ObjContents)
+                Objects.Add(New CObject(ObjName, ObjContents))
+                changesStr.Add(matches(i).Value & Mid(ObjContents, 2))
+            Next
+            For i = 0 To changesStr.Count - 1
+                str = Replace(str, changesStr(i), "", 1, 1)
+            Next
+        End If
+
+
+
+        If True Then
+            Dim fregex As New Regex("\/\*\*\*([^/]*)\*\*\*\/\s+function[\s]+([\w\d]+)\(([^{};]*)\)\s*{")
+
+            Dim matches As MatchCollection = fregex.Matches(str)
+
+            Dim changesStr As New List(Of String)
+            For i = 0 To matches.Count - 1
+                Dim ObjContents As String
+                FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value, matches(i).Groups(2).Value))
+                FuncNames.Add(matches(i).Groups(2).Value)
+                FuncArgument.Add(matches(i).Groups(3).Value)
+                Dim StartIndex As Integer = matches(i).Index + matches(i).Length
+
+                ObjContents = Mid(str, StartIndex, BraketLiner(str, StartIndex) - StartIndex)
+                changesStr.Add(matches(i).Value & Mid(ObjContents, 2))
+            Next
+            For i = 0 To changesStr.Count - 1
+                str = Replace(str, changesStr(i), "", 1, 1)
+            Next
+        End If
+
+        If True Then
+            Dim fregex As New Regex("function[\s]+([\w\d]+)\(([^{};]*)\)\s*{")
+
+            Dim matches As MatchCollection = fregex.Matches(str)
+
+            Dim changesStr As New List(Of String)
+            'MsgBox(matches.Count)
+            For i = 0 To matches.Count - 1
+                Dim ObjContents As String
+                If FuncNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
+                    FuncTooltip.Add(New FunctionToolTip())
+                    FuncNames.Add(matches(i).Groups(1).Value)
+                    FuncArgument.Add(matches(i).Groups(2).Value)
+                End If
+                Dim StartIndex As Integer = matches(i).Index + matches(i).Length
+
+                ObjContents = Mid(str, StartIndex, BraketLiner(str, StartIndex) - StartIndex)
+                changesStr.Add(matches(i).Value & Mid(ObjContents, 2))
+            Next
+            For i = 0 To changesStr.Count - 1
+                str = Replace(str, changesStr(i), "", 1, 1)
+            Next
+        End If
+
+
 
 
         If True Then
@@ -397,87 +517,10 @@ Public Class CFunc
 
 
 
-        If True Then
-            Dim fregex As New Regex("\/\*\*\*([^/]*)\*\*\*\/\s+function[\s]+([\w\d]+)\(([^{};]*)\)\s*{")
-
-            Dim matches As MatchCollection = fregex.Matches(str)
-
-            For i = 0 To matches.Count - 1
-                FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value, matches(i).Groups(2).Value))
-                FuncNames.Add(matches(i).Groups(2).Value)
-                FuncArgument.Add(matches(i).Groups(3).Value)
-            Next
-        End If
-
-
-        If True Then
-            Dim fregex As New Regex("function[\s]+([\w\d]+)\(([^{};]*)\)\s*{")
-
-            Dim matches As MatchCollection = fregex.Matches(str)
-
-
-            'MsgBox(matches.Count)
-            For i = 0 To matches.Count - 1
-                If FuncNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
-                    FuncTooltip.Add(New FunctionToolTip())
-                    FuncNames.Add(matches(i).Groups(1).Value)
-                    FuncArgument.Add(matches(i).Groups(2).Value)
-                End If
-            Next
-        End If
-
-
-        If True Then
-            Dim fregex As New Regex("object[\s]+([\w\d]+)\s*({)")
-
-            Dim matches As MatchCollection = fregex.Matches(str)
-
-            'MsgBox(matches.Count)
-            For i = 0 To matches.Count - 1
-                Dim ObjName As String = matches(i).Groups(1).Value
-                Dim ObjContents As String
-
-
-
-                Dim StartIndex As Integer = matches(i).Groups(2).Index
-
-
-                Dim bc1 As Integer = 0 '(
-                Dim bc2 As Integer = 1 '{
-                Dim bc3 As Integer = 0 '[
-
-                Dim index As Integer = StartIndex + 2
-                While Not (bc1 = 0 And bc2 = 0 And bc3 = 0) And index < str.Length
-                    Dim Chr As String = Mid(str, index, 1)
-
-                    Select Case Chr
-                        Case "("
-                            bc1 += 1
-                        Case "{"
-                            bc2 += 1
-                        Case "["
-                            bc3 += 1
-                        Case ")"
-                            bc1 -= 1
-                        Case "}"
-                            bc2 -= 1
-                        Case "]"
-                            bc3 -= 1
-                    End Select
-                    index += 1
-                End While
-
-
-                ObjContents = Mid(str, StartIndex, index - StartIndex)
 
 
 
 
-                'MsgBox(ObjName) '오브젝트 이름
-                'MsgBox(ObjContents)
-                Objects.Add(New CObject(ObjName, ObjContents))
-            Next
-        End If
     End Sub
 End Class
 

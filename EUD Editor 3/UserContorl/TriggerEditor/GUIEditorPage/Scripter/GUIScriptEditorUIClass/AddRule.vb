@@ -23,7 +23,7 @@
 
         Else
             If newscr.ScriptType = ScriptBlock.EBlockType.fundefine Then
-                If destscr.ScriptType <> ScriptBlock.EBlockType.objectmethod Then
+                If destscr.ScriptType <> ScriptBlock.EBlockType.objectmethod Or destscr.ScriptType <> ScriptBlock.EBlockType.folderaction Then
                     SnackBarDialog("함수 선언은 외부에 할 수 있습니다.")
                     Return False
                 End If
@@ -43,7 +43,7 @@
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.switch
-                    If newscr.ScriptType <> "switchcase" Then
+                    If newscr.ScriptType <> ScriptBlock.EBlockType.switchcase Then
                         SnackBarDialog("케이스만 들어 갈 수 있습니다.")
                         Return False
                     End If

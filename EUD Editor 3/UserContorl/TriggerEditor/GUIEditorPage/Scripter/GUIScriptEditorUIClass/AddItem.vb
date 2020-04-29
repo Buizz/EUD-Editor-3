@@ -68,9 +68,13 @@
                 'MsgBox("아이템생성 새 창없이")
                 AddInsertTask(ntreeview)
                 SetRepeatCount(1)
+
+                MainTreeview.UpdateLayout()
+
+                ntreeview.IsSelected = True
             End If
         Else
-            If CheckValidated(nsb, Nothing) Then
+            If CheckValidated(nsb, MainScr) Then
                 Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
 
                 If OpenNewWindow(nsb, ntreeview, normalscr) Then
@@ -79,17 +83,52 @@
 
                 If addindex = -1 Then
                     AddItems(nsb)
-                    MainTreeview.Items.Add(ntreeview)
+                    TreeAddItems(ntreeview)
+                    'MainTreeview.Items.Add(ntreeview)
                 Else
                     InsertItems(addindex, nsb)
-                    MainTreeview.Items.Insert(addindex, ntreeview)
+                    TreeAddItems(ntreeview)
+                    'MainTreeview.Items.Insert(addindex, ntreeview)
                 End If
                 'MsgBox("아이템생성 새 창없이")
                 AddInsertTask(ntreeview)
                 SetRepeatCount(1)
+
+                MainTreeview.UpdateLayout()
+
+                ntreeview.IsSelected = True
             End If
         End If
     End Sub
+    Public Sub TreeAddItems(ntreeview As TreeViewItem)
+        Dim Scr As ScriptBlock = ntreeview.Tag
+
+
+
+
+        For i = 0 To MainItems.Count - 1
+            If Scr Is MainItems(i) Then
+                MainTreeview.Items.Insert(i, ntreeview)
+                Exit For
+            End If
+        Next
+
+
+
+        TEGUIPage.globalObjectListRefreah()
+    End Sub
+    'Public Sub TreeInsertItems(index As Integer, ntreeview As TreeViewItem)
+    '    Dim Scr As ScriptBlock = ntreeview.Tag
+
+
+
+    '    MainTreeview.Items.Insert(index, ntreeview)
+    '    TEGUIPage.globalObjectListRefreah()
+    'End Sub
+
+
+
+
 
     Public insertIndex As Integer
     Public insertScriptBlock As ScriptBlock
@@ -154,19 +193,29 @@
                     'MsgBox("아이템생성 창 있음")
                     AddInsertTask(ntreeview)
                     SetRepeatCount(1)
+
+
+                    MainTreeview.UpdateLayout()
+
+                    ntreeview.IsSelected = True
                 End If
             Else
                 If CheckValidated(insertScriptBlock, Nothing) Then
                     If insertIndex = -1 Then
                         AddItems(insertScriptBlock)
-                        MainTreeview.Items.Add(ntreeview)
+                        TreeAddItems(ntreeview)
                     Else
                         InsertItems(insertIndex, insertScriptBlock)
-                        MainTreeview.Items.Insert(insertIndex, ntreeview)
+                        TreeAddItems(ntreeview)
                     End If
                     'MsgBox("아이템생성 창 있음")
                     AddInsertTask(ntreeview)
                     SetRepeatCount(1)
+
+
+                    MainTreeview.UpdateLayout()
+
+                    ntreeview.IsSelected = True
                 End If
             End If
         End If

@@ -112,10 +112,10 @@
 
         Select Case ScriptGroup
             Case "Control"
-                Dim strs() As String = {"if", "elseif", "for", "while", "switch", "switchcase", "folder", "rawcode", "expression"}
+                Dim strs() As String = {"if", "elseif", "for", "while", "switch", "switchcase", "break", "folder", "rawcode", "expression"}
                 Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType._if, ScriptBlock.EBlockType._elseif, ScriptBlock.EBlockType._for,
                     ScriptBlock.EBlockType._while, ScriptBlock.EBlockType.switch, ScriptBlock.EBlockType.switchcase,
-                    ScriptBlock.EBlockType.folder, ScriptBlock.EBlockType.rawcode, ScriptBlock.EBlockType.exp}
+                    ScriptBlock.EBlockType.break, ScriptBlock.EBlockType.folder, ScriptBlock.EBlockType.rawcode, ScriptBlock.EBlockType.exp}
                 For i = 0 To strs.Length - 1
                     If strs(i) = "folder" Then
                         ToolBox.Items.Add(New Separator)
@@ -251,8 +251,8 @@
                 '    Next
                 'End If
             Case "Func"
-                Dim strs() As String = {"fundefine", "funargblock"}
-                Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.fundefine, ScriptBlock.EBlockType.funargblock}
+                Dim strs() As String = {"fundefine", "funargblock", "funreturn"}
+                Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.fundefine, ScriptBlock.EBlockType.funargblock, ScriptBlock.EBlockType.funreturn}
                 For i = 0 To strs.Length - 1
                     Dim keyname As String = strs(i)
 

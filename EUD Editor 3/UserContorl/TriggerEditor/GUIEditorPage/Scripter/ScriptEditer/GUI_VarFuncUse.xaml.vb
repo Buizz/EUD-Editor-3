@@ -20,6 +20,8 @@ Public Class GUI_VarFuncUse
         MainPanel.Children.Clear()
         tLabel.Content = _scr.name & ":" & _scr.value & ":" & _scr.value2
 
+        'tLabel.Visibility = Visibility.Visible
+        'Return
 
         Dim flag As Boolean = False
 

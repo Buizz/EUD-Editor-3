@@ -1,6 +1,7 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports System.Security.AccessControl
 Imports LuaInterface
 Imports Microsoft.DwayneNeed.Win32.Gdi32
 
@@ -59,6 +60,9 @@ Public Class ScriptBlock
         _and
         exp
         sign
+
+        funreturn
+        break
     End Enum
 
     Public ScriptType As EBlockType
@@ -81,6 +85,7 @@ Public Class ScriptBlock
 
     Public Parent As ScriptBlock
 
+    <NonSerialized>
     Public Scripter As GUIScriptEditor
 
     Public Sub AddChild(scr As ScriptBlock)
@@ -103,7 +108,7 @@ Public Class ScriptBlock
         child.Insert(i, scr)
     End Sub
 
-    Public Sub New(_ScriptType As EBlockType, tname As String, tisexpand As Boolean, tflag As Boolean, tvalue As String, tScripter As GUIScriptEditor)
+    Public Sub New(_ScriptType As EBlockType, tname As String, tisexpand As Boolean, tflag As Boolean, tvalue As String, tScripter As GUIScriptEditor, Optional ValueRefresh As Boolean = True)
         name = tname
         isexpand = tisexpand
         flag = tflag
@@ -159,7 +164,7 @@ Public Class ScriptBlock
                 AddChild(New ScriptBlock(EBlockType.whileaction, "whileaction", False, False, "", Scripter))
             Case EBlockType.switch
                 value = "defaultvalue"
-                'AddChild(New ScriptBlock("switchvar", False, False, "", Scripter))
+                'AddChild(New ScriptBlock(EBlockType.constVal, "defaultvalue;init", False, False, "defaultvalue;init", Scripter))
             Case EBlockType.folder
                 AddChild(New ScriptBlock(EBlockType.folderaction, "folderaction", False, False, "", Scripter))
             Case EBlockType.objectdefine
@@ -169,7 +174,11 @@ Public Class ScriptBlock
                 value2 = "var"
                 'AddChild(New ScriptBlock("", False, False, "defaultvalue;init", Scripter))
             Case EBlockType.plibfun, EBlockType.funuse, EBlockType.externfun, EBlockType.action, EBlockType.condition, EBlockType.macrofun
-                RefreshValue()
+                If ValueRefresh Then
+                    RefreshValue()
+                End If
+            Case EBlockType.funreturn
+                AddChild(New ScriptBlock(EBlockType.constVal, "defaultvalue;init", False, False, "defaultvalue;init", Scripter))
         End Select
     End Sub
 
@@ -231,10 +240,23 @@ Public Class ScriptBlock
             Dim args() As String = argument.Split(",")
             For i = 0 To args.Length - 1
                 If child.Count <= i Then
-                    Dim tstr() As String = args(i).Split(":")
+                    Dim vname As String
+                    Dim vtype As String
 
-                    Dim vname As String = "defaultvalue;" & tstr.First.Trim
-                    Dim vtype As String = tstr.Last
+                    Dim argtext As String = args(i)
+
+
+
+                    If argtext.IndexOf("/*") <> -1 And argtext.IndexOf("*/") <> -1 And argtext.IndexOf(":") = -1 Then
+                        argtext = argtext.Replace("*/", "")
+                        argtext = argtext.Replace("/*", ":")
+                    End If
+
+                    Dim tstr() As String = argtext.Split(":")
+
+                    vname = "defaultvalue;" & tstr.First.Trim
+                    vtype = tstr.Last
+
 
                     'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
 
@@ -337,6 +359,24 @@ Public Class ScriptBlock
 
 
         Select Case ScriptType
+            Case EBlockType.vardefine
+                If flag Then
+                    If value2 = "static" Then
+                        rstr = "static "
+                    Else
+                        rstr = "const "
+                    End If
+                Else
+                    rstr = "var "
+                End If
+                rstr = rstr & value
+
+                If child.Count <> 0 Then
+                    rstr = rstr & " = "
+
+                    rstr = rstr & child(0).ValueCoder
+                End If
+
             Case EBlockType.constVal
                 Dim strs() As String = value.Trim.Split(";")
                 If strs.Length = 2 Then
@@ -348,6 +388,10 @@ Public Class ScriptBlock
                 End If
             Case EBlockType.funuse, EBlockType.plibfun, EBlockType.externfun, EBlockType.macrofun
                 rstr = "함수:" & name
+            Case EBlockType.action
+                rstr = "액션:" & name
+            Case EBlockType.condition
+                rstr = "조건:" & name
             Case EBlockType.rawcode
                 rstr = value
             Case EBlockType.exp
@@ -395,8 +439,8 @@ Public Class ScriptBlock
     Public Function ForScriptCoder() As String
         'ᗢ
 
-        Dim ForType As String = value.Split(";").First
-        Dim vvalue As String = value.Split(";").Last
+        Dim ForType As String = value.Split("ᚢ").First
+        Dim vvalue As String = value.Split("ᚢ").Last
 
         Dim rvalue As String = ""
         Select Case ForType
@@ -490,8 +534,8 @@ Public Class ScriptBlock
     End Function
 
     Public Function ForCoder() As String
-        Dim ForType As String = value.Split(";").First
-        Dim vvalue As String = value.Split(";").Last
+        Dim ForType As String = value.Split("ᚢ").First
+        Dim vvalue As String = value.Split("ᚢ").Last
 
         Dim rvalue As String = ""
         Select Case ForType
@@ -835,6 +879,8 @@ Public Class ScriptBlock
             Case EBlockType.ifelse
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+            Case EBlockType.break
+                groupname = "Control"
             Case EBlockType._for
                 groupname = "Control"
             Case EBlockType.foraction
@@ -882,6 +928,9 @@ Public Class ScriptBlock
                 groupname = "MacroFunc"
                 drawchild = False
             Case EBlockType.externfun
+                groupname = "Func"
+                drawchild = False
+            Case EBlockType.funreturn
                 groupname = "Func"
                 drawchild = False
         End Select

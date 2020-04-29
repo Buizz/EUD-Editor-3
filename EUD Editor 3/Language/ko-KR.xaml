@@ -53,6 +53,7 @@
     <sys:String x:Key="StarExeFile Select">스타크래프트 실행 파일 선택</sys:String>
     <sys:String x:Key="euddraftExe Select">euddraft 실행 파일 선택</sys:String>
     <sys:String x:Key="SCX Fliter">스타크래프트 맵 파일|*.scx</sys:String>
+    <sys:String x:Key="BGM Fliter">사운드 파일|*.ogg;*.wav;*.mp3</sys:String>
     <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
     <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
 
@@ -819,6 +820,8 @@
     <sys:String x:Key="TE_MacroDatASetting">매크로 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
 
+    <sys:String x:Key="TE_AllScript">모든 코드</sys:String>
+    
     <!--Menu-->
     <sys:String x:Key="MenuOpen">열기</sys:String>
     <sys:String x:Key="MenuAdd">추가</sys:String>

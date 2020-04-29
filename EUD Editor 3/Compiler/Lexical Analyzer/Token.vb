@@ -31,7 +31,9 @@
         TOKEN_STRING
         TOKEN_LINECOMMENT
         TOKEN_COMMENT
+        TOKEN_MACRO
 
+        TOKEN_OPERATOR1
         'Operators
         TOKEN_INC '++
         TOKEN_DEC '--
@@ -68,6 +70,8 @@
         TOKEN_GT '>
         TOKEN_NE '!=
 
+        TOKEN_OPERATOR2
+
         'Other tokens
         TOKEN_LPAREN '(
         TOKEN_RPAREN ')
@@ -80,14 +84,98 @@
         TOKEN_COMMA ',
         TOKEN_COLON ':
         TOKEN_SEMICOLON ';
-
     End Enum
     Public TType As TokenType
 
     Public value As String
+    Public Ln As Long
+    Public Col As Long
 
-    Public Sub New(_ttype As TokenType, Optional v As String = "")
+
+    Public Function ToText() As String
+        Select Case TType
+            Case TokenType.TOKEN_INC
+                Return "++"
+            Case TokenType.TOKEN_DEC
+                Return "--"
+            Case TokenType.TOKEN_IADD
+                Return "+="
+            Case TokenType.TOKEN_ISUB
+                Return "-="
+            Case TokenType.TOKEN_IMUL
+                Return "*="
+            Case TokenType.TOKEN_IDIV
+                Return "/="
+            Case TokenType.TOKEN_IMOD
+                Return "%="
+            Case TokenType.TOKEN_ILSHIFT
+                Return "<<="
+            Case TokenType.TOKEN_IRSHIFT
+                Return ">>="
+            Case TokenType.TOKEN_IBITAND
+                Return "&="
+            Case TokenType.TOKEN_IBITOR
+                Return "|="
+            Case TokenType.TOKEN_IBITXOR
+                Return "^="
+            Case TokenType.TOKEN_ASSIGN
+                Return "="
+            Case TokenType.TOKEN_PLUS
+                Return "+"
+            Case TokenType.TOKEN_MINUS
+                Return "-"
+            Case TokenType.TOKEN_MULTIPLY
+                Return "*"
+            Case TokenType.TOKEN_DIVIDE
+                Return "/"
+            Case TokenType.TOKEN_MOD
+                Return "%"
+            Case TokenType.TOKEN_BITLSHIFT
+                Return "<<"
+            Case TokenType.TOKEN_BITRSHIFT
+                Return ">>"
+            Case TokenType.TOKEN_BITAND
+                Return "&"
+            Case TokenType.TOKEN_BITOR
+                Return "|"
+            Case TokenType.TOKEN_BITXOR
+                Return "^"
+            Case TokenType.TOKEN_BITNOT
+                Return "~"
+            Case TokenType.TOKEN_LAND
+                Return "&&"
+            Case TokenType.TOKEN_LOR
+                Return "||"
+            Case TokenType.TOKEN_LNOT
+                Return "!"
+            Case TokenType.TOKEN_EQ
+                Return "=="
+            Case TokenType.TOKEN_LE
+                Return "<="
+            Case TokenType.TOKEN_GE
+                Return ">="
+            Case TokenType.TOKEN_LT
+                Return "<"
+            Case TokenType.TOKEN_GT
+                Return ">"
+            Case TokenType.TOKEN_NE
+                Return "!="
+        End Select
+    End Function
+
+
+    Public ReadOnly Property IsOperator As Boolean
+        Get
+            Return TokenType.TOKEN_OPERATOR1 < TType And TType < TokenType.TOKEN_OPERATOR2
+        End Get
+    End Property
+
+
+    Public Sub New(_ttype As TokenType, tk As Tokenizer, Optional v As String = "")
         TType = _ttype
+        Ln = tk.line
+        Col = tk.col
+
         value = v
     End Sub
 End Class

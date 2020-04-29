@@ -13,8 +13,8 @@
             Return
         End If
 
-        Dim type As String = scr.value.Split(";").First
-        Dim vvalue As String = scr.value.Split(";").Last
+        Dim type As String = scr.value.Split("ᚢ").First
+        Dim vvalue As String = scr.value.Split("ᚢ").Last
 
         SetCombobox(type, vvalue)
         'Dim foreachvalue() As String = scr.value.Split(":")
@@ -83,7 +83,7 @@
                 '원래 아무것도 업슴
         End Select
 
-        scr.value = ForType & ";" & rvalue
+        scr.value = ForType & "ᚢ" & rvalue
     End Sub
     Private Function CheckEditable() As Boolean
         '//////////////////////////////

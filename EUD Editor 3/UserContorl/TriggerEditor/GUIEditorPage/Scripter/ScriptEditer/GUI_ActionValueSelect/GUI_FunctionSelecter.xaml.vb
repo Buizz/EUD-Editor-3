@@ -39,6 +39,53 @@
         mainlist.Items.Clear()
 
         Select Case initvalue
+            Case "action"
+                For i = 0 To Tool.TEEpsDefaultFunc.FuncCount - 1
+                    If Tool.TEEpsDefaultFunc.GetFuncTooltip(i).Type = FunctionToolTip.FType.Act Then
+
+                        Dim keyname As String = Tool.TEEpsDefaultFunc.GetFuncName(i)
+
+                        Dim headername As String = Tool.GetText(keyname)
+                        Dim flitertext As String
+                        If headername = "" Then
+                            flitertext = keyname
+                        Else
+                            flitertext = headername
+                        End If
+
+
+                        If fliter.Trim = "" Or flitertext.ToLower.IndexOf(fliter.ToLower()) <> -1 Then
+                            Dim tlistboxitem As New ListBoxItem
+                            tlistboxitem.Tag = {ScriptBlock.EBlockType.action, keyname}
+                            tlistboxitem.Content = flitertext
+                            mainlist.Items.Add(tlistboxitem)
+                        End If
+                    End If
+                Next
+            Case "condition"
+                For i = 0 To Tool.TEEpsDefaultFunc.FuncCount - 1
+                    If Tool.TEEpsDefaultFunc.GetFuncTooltip(i).Type = FunctionToolTip.FType.Cond Then
+
+                        Dim keyname As String = Tool.TEEpsDefaultFunc.GetFuncName(i)
+
+                        Dim headername As String = Tool.GetText(keyname)
+                        Dim flitertext As String
+                        If headername = "" Then
+                            flitertext = keyname
+                        Else
+                            flitertext = headername
+                        End If
+
+
+                        If fliter.Trim = "" Or flitertext.ToLower.IndexOf(fliter.ToLower()) <> -1 Then
+                            Dim tlistboxitem As New ListBoxItem
+                            tlistboxitem.Tag = {ScriptBlock.EBlockType.condition, keyname}
+                            tlistboxitem.Content = flitertext
+                            mainlist.Items.Add(tlistboxitem)
+                        End If
+                    End If
+                Next
+
             Case "default"
                 Dim strs As List(Of String) = tescm.GetFuncList(GUIEditor.PTEFile)
                 For i = 0 To strs.Count - 1

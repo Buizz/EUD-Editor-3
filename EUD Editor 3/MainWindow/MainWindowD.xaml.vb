@@ -4,6 +4,7 @@ Imports System.ComponentModel
 
 Public Class MainWindowD
     Private BackGroundWorker As BackgroundWorker
+    Private UpdateChecker As BackgroundWorker
 
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         InitProgram()
@@ -41,7 +42,6 @@ Public Class MainWindowD
 
     Private Sub ProgramLoad()
         InitProgramDatas()
-
         IsProgramLoad = True
         Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
                                                                     LoadPanel.Visibility = Visibility.Collapsed
@@ -53,8 +53,14 @@ Public Class MainWindowD
                                                                     ProjectControlBinding.PropertyChangedPack()
                                                                 End Sub))
     End Sub
-    Private Sub ProgramLoadCmp()
-        If UpdateCheck() Then
+
+
+    Private UpdataCheckb As Boolean = False
+    Private Sub UpdateChecker_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
+        UpdataCheckb = UpdateCheck()
+    End Sub
+    Private Sub UpdateChecker_RunWorkerCompleted(ByVal sender As System.Object, ByVal e As System.ComponentModel.RunWorkerCompletedEventArgs)
+        If UpdataCheckb Then
             Me.Visibility = Visibility.Hidden
             SettiingForm = New SettingWindows
             'SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
@@ -64,6 +70,15 @@ Public Class MainWindowD
             SettiingForm.ShowDialog()
             Me.Visibility = Visibility.Visible
         End If
+    End Sub
+
+    Private Sub ProgramLoadCmp()
+
+        UpdateChecker = New BackgroundWorker()
+        AddHandler UpdateChecker.DoWork, AddressOf UpdateChecker_DoWork
+        AddHandler UpdateChecker.RunWorkerCompleted, AddressOf UpdateChecker_RunWorkerCompleted
+        UpdateChecker.RunWorkerAsync()
+
         If pgData.Setting(ProgramData.TSetting.CheckReg) Then
 
             If Tool.CheckexeConnect("e3s") Then

@@ -366,6 +366,7 @@ Partial Public Class ProjectExplorer
             Dim cfile As TEFile = GetFile(LastSelectItem)
 
             If cfile.FileType = TEFile.EFileType.GUIEps Then
+
                 If cfile.ChagneType() Then
                     LastSelectItem.Header = GetTreeNodeHeader(cfile)
                     pjData.SetDirty(True)

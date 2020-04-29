@@ -12,7 +12,10 @@
     <DockPanel Margin="4">
         <ComboBox x:Name="functype"  DockPanel.Dock="Top" SelectionChanged="functype_SelectionChanged" materialDesign:HintAssist.Hint="함수 타입" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
             <ComboBoxItem Content="일반함수" Tag="default"/>
+            <ComboBoxItem Content="액션" Tag="action"/>
+            <ComboBoxItem Content="조건" Tag="condition"/>
             <ComboBoxItem Content="플립함수" Tag="plib"/>
+            
             <ComboBoxItem Content="매크로함수" Tag="macro"/>
             <ComboBoxItem Content="외부파일" Tag="extern"/>
         </ComboBox>

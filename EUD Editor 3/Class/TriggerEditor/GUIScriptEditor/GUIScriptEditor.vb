@@ -25,6 +25,30 @@ Public Class GUIScriptEditor
     '}"
 
     Private items As List(Of ScriptBlock)
+
+    Public Sub SetItemsList(tlist As List(Of ScriptBlock))
+        items = tlist
+    End Sub
+
+
+
+    Public Sub LoadInit()
+        For i = 0 To items.Count - 1
+            scrLoadRefresh(items(i))
+        Next
+    End Sub
+    Private Sub scrLoadRefresh(scr As ScriptBlock)
+        'MsgBox(scr.ValueCoder)
+        scr.Scripter = Me
+        For i = 0 To scr.child.Count - 1
+            scr.child(i).Parent = scr
+            scrLoadRefresh(scr.child(i))
+        Next
+    End Sub
+
+
+
+
     Public ReadOnly Property GetItemsList As List(Of ScriptBlock)
         Get
             Return items
@@ -100,6 +124,12 @@ Public Class GUIScriptEditor
 
 
                     fTEFile = SCATEFile
+                ElseIf path = "BGMPlayer" Then
+                    Dim BGMTEFile As New TEFile("BGMFile", TEFile.EFileType.CUIEps)
+                    CType(BGMTEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetBGMMainEps
+
+
+                    fTEFile = BGMTEFile
                 Else
                     fTEFile = CodeEditor.FineFile(TEFile, path)
                 End If
@@ -130,10 +160,18 @@ Public Class GUIScriptEditor
 
 
 
-
     Public Overrides Function GetFileText() As String
         Dim strb As New StringBuilder
         Dim indend As Integer = 0
+
+        Dim flist As New List(Of ScriptBlock)
+        For i = 0 To items.Count - 1
+            If items(i).ScriptType = ScriptBlock.EBlockType.fundefine Then
+                flist.Add(items(i))
+            End If
+        Next
+        GUIScriptManager.GetScriptText(flist, strb, indend, "PREDEF")
+
         GUIScriptManager.GetScriptText(items, strb, indend, "")
         Return macro.MacroApply(strb.ToString)
     End Function

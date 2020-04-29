@@ -1,4 +1,5 @@
-﻿Imports ICSharpCode.AvalonEdit
+﻿Imports System.CodeDom
+Imports ICSharpCode.AvalonEdit
 Imports ICSharpCode.AvalonEdit.CodeCompletion
 Imports ICSharpCode.AvalonEdit.Document
 Imports ICSharpCode.AvalonEdit.Editing
@@ -161,6 +162,15 @@ Partial Public Class CodeEditor
                 Next
 
                 strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
+
+                Return strs.ToArray
+            Case "BGM"
+                Dim strs As New List(Of String)
+
+                For i = 0 To pjData.TEData.BGMData.BGMList.Count - 1
+                    Dim bgmFile As BGMData.BGMFile = pjData.TEData.BGMData.BGMList(i)
+                    strs.Add(bgmFile.BGMName)
+                Next
 
                 Return strs.ToArray
             Case "UnitsDat", "WeaponsDat", "FlingyDat", "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat"
@@ -666,7 +676,7 @@ Partial Public Class CodeEditor
     Private LuaKeyWords() As String = {"and", "break", "do", "else", "elseif", "end", "false", "for", "function",
         "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"}
 
-    Private KeyWords() As String = {"object", "static", "once", "if", "else", "for", "function", "foreach",
+    Private KeyWords() As String = {"object", "static", "once", "if", "else", "while", "for", "function", "foreach",
         "return", "true", "True", "false", "False", "switch", "case", "break", "var", "const", "import", "as"}
 
 

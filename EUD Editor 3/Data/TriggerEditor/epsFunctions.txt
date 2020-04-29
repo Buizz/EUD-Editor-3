@@ -3451,9 +3451,9 @@ object StringBuffer {
 
 object EUDArray {
    function length() {}
+};
 object EUDVArray {
    function length() {}
-};
 };
 object PVariable {
    function length() {}

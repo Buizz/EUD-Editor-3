@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports System.Windows.Forms.VisualStyles
 
 Partial Public Class CodeEditor
 
@@ -101,6 +102,12 @@ Partial Public Class CodeEditor
 
 
                         tTEfile = SCATEFile
+                    ElseIf FileName = "BGMPlayer" Then
+                        Dim BGMTEFile As New TEFile("BGMFile", TEFile.EFileType.CUIEps)
+                        CType(BGMTEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetBGMMainEps
+
+
+                        tTEfile = BGMTEFile
                     Else
                         tTEfile = FineFile(TEFile, FileName)
                     End If

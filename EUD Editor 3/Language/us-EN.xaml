@@ -53,6 +53,9 @@
     <sys:String x:Key="StarExeFile Select">Select Starcraft run file</sys:String>
     <sys:String x:Key="euddraftExe Select">Select euddraft run fil</sys:String>
     <sys:String x:Key="SCX Fliter">Starcraft map file|*.scx</sys:String>
+    <sys:String x:Key="BGM Fliter">Sound File|*.ogg;*.wav;*.mp3</sys:String>
+
+    
     <sys:String x:Key="SCX Select">Open target map</sys:String>
     <sys:String x:Key="SCX Save Select">Select save map</sys:String>
 
@@ -820,6 +823,8 @@
     <sys:String x:Key="TE_BGMSetting">Setting Sound</sys:String>
     <sys:String x:Key="TE_MacroDatASetting">Setting Macro</sys:String>
     <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
+
+    <sys:String x:Key="TE_AllScript">All Script</sys:String>
 
     <!--Menu-->
     <sys:String x:Key="MenuOpen">Open</sys:String>

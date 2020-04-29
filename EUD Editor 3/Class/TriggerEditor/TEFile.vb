@@ -71,6 +71,7 @@ Public Class TEFile
                 Return ""
         End Select
 
+        Return ""
     End Function
 
 
@@ -114,6 +115,17 @@ Public Class TEFile
             End Select
         End Get
     End Property
+
+    Public Sub LoadInit()
+        If FileType = EFileType.GUIEps Then
+            CType(Scripter, GUIScriptEditor).LoadInit
+        Else
+            For i = 0 To FileCount - 1
+                Files(i).LoadInit()
+            Next
+        End If
+    End Sub
+
 
     Public Sub New(TFName As String, FileType As EFileType)
         _UIBinding = New TETabItemUI(Me)
@@ -286,19 +298,24 @@ Public Class TEFile
         Select Case _FileType
             Case EFileType.CUIEps
                 Dim la As New Lexical_Analyzer
+
+
                 Try
                     Dim tokenlist As List(Of Token) = la.DoWork(_Scripter.GetStringText)
 
 
-                    For i = 0 To tokenlist.Count - 1
-                        MsgBox("타입 : " & tokenlist(i).TType.ToString & "  값 : " & tokenlist(i).value)
-                    Next
                     Dim parser As New Parser(tokenlist)
 
+                    Dim GUIScrEditor As New GUIScriptEditor(ScriptEditor.SType.Eps, Me)
 
+                    GUIScrEditor.SetItemsList(parser.GetGUIScripter())
+                    GUIScrEditor.LoadInit()
 
+                    _Scripter = GUIScrEditor
 
-                    Return False
+                    _FileType = EFileType.GUIEps
+
+                    Return True
                 Catch ex As Exception
                     MsgBox(ex.ToString)
 

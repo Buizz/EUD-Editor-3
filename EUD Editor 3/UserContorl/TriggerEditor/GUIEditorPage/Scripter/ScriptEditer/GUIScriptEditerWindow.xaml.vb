@@ -113,6 +113,13 @@
 
                 maingrid.Width = editer.Width + 32
                 maingrid.Height = editer.Height + 32 + 48
+            Case ScriptBlock.EBlockType.funreturn
+                Dim editer As New GUI_Return(Me, scr, dotscr)
+
+                cborder.Child = editer
+
+                maingrid.Width = editer.Width + 32
+                maingrid.Height = editer.Height + 32 + 48
             Case ScriptBlock.EBlockType.rawcode
                 Dim editer As New GUI_RawCode(Me, scr)
 
@@ -120,7 +127,6 @@
 
                 maingrid.Width = editer.Width + 32
                 maingrid.Height = editer.Height + 32 + 48
-
             Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition,
                  ScriptBlock.EBlockType.externfun, ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.macrofun
                 Dim editer As New GUI_Action(Me, scr, dotscr)

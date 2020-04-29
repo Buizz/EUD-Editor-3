@@ -34,6 +34,12 @@
             tComboboxitem.Content = "SCArchive"
             StartFileCombobox.Items.Add(tComboboxitem)
         End If
+        If True Then
+            Dim tComboboxitem As New ComboBoxItem
+            tComboboxitem.Tag = "BGMPlayer"
+            tComboboxitem.Content = "BGMPlayer"
+            StartFileCombobox.Items.Add(tComboboxitem)
+        End If
 
         For i = 0 To tTEfile.FolderCount - 1
             If tTEfile.Folders(i).FileType <> TEFile.EFileType.Setting Then

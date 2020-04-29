@@ -41,6 +41,15 @@ Partial Public Class BuildData
             'Tool.GetRelativePath("zzz\asd\bcx\aqw\zxv\하이.txt", "zzz\asd\c\ㅎㅎ.txt")
 
             If CheckBuildable() Then
+                If Not SoundConverter() Then
+                    Tool.ErrorMsgBox("Sound파일 변환 에러")
+                    pgData.IsCompilng = False
+                    pgData.isEddCompile = False
+                    Tool.RefreshMainWindow()
+
+                    Return
+                End If
+
                 MainThread = New System.Threading.Thread(AddressOf BuildProgress)
                 MainThread.Start(isEdd)
             End If
@@ -166,6 +175,9 @@ Partial Public Class BuildData
         pgData.isEddCompile = isEdd
         Tool.RefreshMainWindow()
 
+
+        WriteBGMData()
+
         If pjData.TEData.SCArchive.IsUsed Then
             If Not ConnecterStart() Then
                 pgData.IsCompilng = False
@@ -190,6 +202,8 @@ Partial Public Class BuildData
         If pjData.TEData.SCArchive.IsUsed Then
             WriteSCAScript()
         End If
+
+
 
 
         'Dat설정 파일을 저장하는 py제작

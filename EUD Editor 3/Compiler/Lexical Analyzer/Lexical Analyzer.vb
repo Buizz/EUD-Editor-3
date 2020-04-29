@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Text.RegularExpressions
+Imports System.Windows.Interop
 
 Public Class Lexical_Analyzer
     Public Function DoWork(str As String) As List(Of Token)
@@ -22,276 +23,296 @@ Public Class Lexical_Analyzer
                 c = tk.NextChar
                 If c = "x" Then
                     'hex값
-                    Dim v As String = ("&H" & tk.NextHex())
-                    tokenlist.Add(New Token(Token.TokenType.TOKEN_NUMBER, v))
+                    Dim v As String = ("0x" & tk.NextHex())
+                    tokenlist.Add(New Token(Token.TokenType.TOKEN_NUMBER, tk, v))
                 Else
                     tk.Back()
                     tk.Back()
                     Dim v As String = tk.NextDigt()
-                    tokenlist.Add(New Token(Token.TokenType.TOKEN_NUMBER, v))
+                    tokenlist.Add(New Token(Token.TokenType.TOKEN_NUMBER, tk, v))
                 End If
             ElseIf IsLetter(c) Then
                 Dim letter As String = c & tk.NextBlock.Trim
 
                 Select Case letter
                     Case "import"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IMPORT))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IMPORT, tk))
                     Case "as"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_AS))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_AS, tk))
                     Case "var"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_VAR))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_VAR, tk))
                     Case "const"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_CONST))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_CONST, tk))
                     Case "static"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_STATIC))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_STATIC, tk))
                     Case "function"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_FUNCTION))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_FUNCTION, tk))
                     Case "object"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_OBJECT))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_OBJECT, tk))
                     Case "if"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IF))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IF, tk))
                     Case "else"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_ELSE))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_ELSE, tk))
                     Case "for"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_FOR))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_FOR, tk))
                     Case "foreach"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_FOREACH))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_FOREACH, tk))
                     Case "while"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_WHILE))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_WHILE, tk))
                     Case "switch"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_SWITCH))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_SWITCH, tk))
                     Case "case"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_CASE))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_CASE, tk))
                     Case "break"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BREAK))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BREAK, tk))
                     Case "continue"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_CONTINUE))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_CONTINUE, tk))
                     Case "return"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RETURN))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RETURN, tk))
                     Case Else
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IDENTIFIER, letter))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IDENTIFIER, tk, letter))
                 End Select
             Else
                 Select Case c
                     Case "("
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LPAREN))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LPAREN, tk))
                     Case ")"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RPAREN))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RPAREN, tk))
                     Case "["
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LBRACKET))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LBRACKET, tk))
                     Case "]"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RBRACKET))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RBRACKET, tk))
                     Case "{"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LSQBRACKET))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LSQBRACKET, tk))
                     Case "}"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RSQBRACKET))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_RSQBRACKET, tk))
 
                     Case "."
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_PERIOD))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_PERIOD, tk))
                     Case "?"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_QMARK))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_QMARK, tk))
                     Case ","
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_COMMA))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_COMMA, tk))
                     Case ":"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_COLON))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_COLON, tk))
                     Case ";"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_SEMICOLON))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_SEMICOLON, tk))
                     Case "~"
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BITNOT))
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BITNOT, tk))
                     Case "+"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_PLUS))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_PLUS, tk))
                         Else
                             c = tk.NextChar()
                             If c = "+" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_INC))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_INC, tk))
                             ElseIf c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IADD))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IADD, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_PLUS))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_PLUS, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "-"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MINUS))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MINUS, tk))
                         Else
                             c = tk.NextChar()
                             If c = "-" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_DEC))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_DEC, tk))
                             ElseIf c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_ISUB))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_ISUB, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_MINUS))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_MINUS, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "*"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MULTIPLY))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MULTIPLY, tk))
                         Else
                             c = tk.NextChar()
                             If c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IMUL))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IMUL, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_MULTIPLY))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_MULTIPLY, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "/"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_DIVIDE))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_DIVIDE, tk))
                         Else
                             c = tk.NextChar()
                             If c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IDIV))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IDIV, tk))
                             ElseIf c = "*" Then
                                 Dim commentstr As String = ""
 
                                 '주석시작
                                 While (True)
                                     c = tk.NextChar()
-                                    commentstr = commentstr & c
                                     If c = "*" Then
                                         c = tk.NextChar()
                                         If c = "/" Then
-                                            tokenlist.Add(New Token(Token.TokenType.TOKEN_LINECOMMENT, commentstr))
+                                            tokenlist.Add(New Token(Token.TokenType.TOKEN_COMMENT, tk, commentstr))
                                             Exit While
                                         Else
-                                            commentstr = commentstr & "*" & c
+                                            commentstr = commentstr & c
                                         End If
                                     End If
+                                    commentstr = commentstr & c
                                 End While
 
                             ElseIf c = "/" Then
                                 '주석시작
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LINECOMMENT, tk.NextLine()))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LINECOMMENT, tk, tk.NextLine()))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_DIVIDE))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_DIVIDE, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "%"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MOD))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MOD, tk))
                         Else
                             c = tk.NextChar()
                             If c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IMOD))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IMOD, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_MOD))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_MOD, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "<"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_LT))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_LT, tk))
                         Else
                             c = tk.NextChar()
-                            If c = "<" Then
+
+                            If c = "?" Then
+                                Dim commentstr As String = ""
+
+                                '주석시작
+                                While (True)
+                                    c = tk.NextChar()
+                                    If c = "?" Then
+                                        c = tk.NextChar()
+                                        If c = ">" Then
+                                            tokenlist.Add(New Token(Token.TokenType.TOKEN_MACRO, tk, commentstr))
+                                            Exit While
+                                        Else
+                                            commentstr = commentstr & "?" & c
+                                        End If
+                                    End If
+                                    commentstr = commentstr & c
+                                End While
+
+
+                            ElseIf c = "<" Then
                                 If tk.IsEnd Then
-                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_BITLSHIFT))
+                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_BITLSHIFT, tk))
                                 Else
                                     c = tk.NextChar()
                                     If c = "=" Then
-                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_ILSHIFT))
+                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_ILSHIFT, tk))
                                     Else
-                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BITLSHIFT))
+                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BITLSHIFT, tk))
                                         tk.Back()
                                     End If
                                 End If
                             ElseIf c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LE))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LE, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LT))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LT, tk))
                                 tk.Back()
                             End If
                         End If
                     Case ">"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_GT))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_GT, tk))
                         Else
                             c = tk.NextChar()
                             If c = ">" Then
                                 If tk.IsEnd Then
-                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_BITRSHIFT))
+                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_BITRSHIFT, tk))
                                 Else
                                     c = tk.NextChar()
                                     If c = "=" Then
-                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IRSHIFT))
+                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IRSHIFT, tk))
                                     Else
-                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BITRSHIFT))
+                                        tokenlist.Add(New Token(Token.TokenType.TOKEN_BITRSHIFT, tk))
                                         tk.Back()
                                     End If
                                 End If
                             ElseIf c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_GE))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_GE, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_GT))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_GT, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "&"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_BITAND))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_BITAND, tk))
                         Else
                             c = tk.NextChar()
                             If c = "&" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LAND))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LAND, tk))
                             ElseIf c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IBITAND))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IBITAND, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_BITAND))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_BITAND, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "|"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_BITOR))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_BITOR, tk))
                         Else
                             c = tk.NextChar()
                             If c = "|" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LOR))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LOR, tk))
                             ElseIf c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IBITOR))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IBITOR, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_BITOR))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_BITOR, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "="
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_ASSIGN))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_ASSIGN, tk))
                         Else
                             c = tk.NextChar()
                             If c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_EQ))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_EQ, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_ASSIGN))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_ASSIGN, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "^"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_BITXOR))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_BITXOR, tk))
                         Else
                             c = tk.NextChar()
                             If c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IBITXOR))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_IBITXOR, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_BITXOR))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_BITXOR, tk))
                                 tk.Back()
                             End If
                         End If
                     Case "!"
                         If tk.IsEnd Then
-                            tokenlist.Add(New Token(Token.TokenType.TOKEN_LNOT))
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_LNOT, tk))
                         Else
                             c = tk.NextChar()
                             If c = "=" Then
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_NE))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_NE, tk))
                             Else
-                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LNOT))
+                                tokenlist.Add(New Token(Token.TokenType.TOKEN_LNOT, tk))
                                 tk.Back()
                             End If
                         End If
@@ -309,7 +330,7 @@ Public Class Lexical_Analyzer
                                     c = """"
                                 Else
                                     tk.NextChar()
-                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_STRING, textstr))
+                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_STRING, tk, textstr))
                                     Exit While
                                 End If
                             End If
@@ -329,7 +350,7 @@ Public Class Lexical_Analyzer
                                     c = "'"
                                 Else
                                     tk.NextChar()
-                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_STRING, textstr))
+                                    tokenlist.Add(New Token(Token.TokenType.TOKEN_STRING, tk, textstr))
                                     Exit While
                                 End If
                             End If

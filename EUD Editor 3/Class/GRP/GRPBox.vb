@@ -80,6 +80,17 @@ Public Class GRPBox
     End Sub
 
     Private Sub Exec()
+        If pjData Is Nothing Then
+            Delete()
+            Timer.Enabled = False
+            Return
+        End If
+        If Not pjData.IsLoad Then
+            Delete()
+            Timer.Enabled = False
+            Return
+        End If
+
         If pgData.Setting(ProgramData.TSetting.Graphic) = 0 Then
             Return
         End If

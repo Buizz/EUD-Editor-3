@@ -24,7 +24,47 @@ Public Class TEGUIPage
 
         ObjectSelector.SetGUIScriptEditorUI(Script)
         'Script.SetObjectSelecter(ObjectSelector)
+
+        globalObjectListRefreah()
     End Sub
+
+    Public Sub globalObjectListRefreah()
+        ExternList.Items.Clear()
+
+        Dim scripter As GUIScriptEditor = CType(TEFile.Scripter, GUIScriptEditor)
+        If True Then
+            Dim listitme As New ListBoxItem
+            listitme.Tag = scripter.GetItemsList
+            listitme.Content = Tool.GetText("TE_AllScript")
+
+
+            ExternList.Items.Add(listitme)
+        End If
+
+
+        For i = 0 To scripter.ItemCount - 1
+            If scripter.GetItems(i).ScriptType = ScriptBlock.EBlockType.fundefine Or scripter.GetItems(i).ScriptType = ScriptBlock.EBlockType.objectdefine Then
+                Dim listitme As New ListBoxItem
+                listitme.Tag = scripter.GetItems(i).child
+                listitme.Content = scripter.GetItems(i).value
+
+
+                ExternList.Items.Add(listitme)
+            End If
+        Next
+    End Sub
+
+    Private Sub ExternList_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If ExternList.SelectedItem IsNot Nothing Then
+            Dim listitem As ListBoxItem = ExternList.SelectedItem
+
+            Script.LoadScript(PTEFile, listitem.Tag)
+        End If
+
+        ExternList.SelectedIndex = -1
+    End Sub
+
+
 
 
 

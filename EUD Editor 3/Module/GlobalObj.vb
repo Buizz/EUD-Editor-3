@@ -92,7 +92,6 @@ Module GlobalObj
 
         End Try
 
-
         'Try
         '    tescm = New ScriptManager
         'Catch ex As Exception

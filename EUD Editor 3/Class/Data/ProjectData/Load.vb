@@ -30,6 +30,9 @@ Partial Public Class ProjectData
             Load(tFilename, _pjdata)
         End If
     End Sub
+
+
+
     Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
         Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
         Try
@@ -42,6 +45,14 @@ Partial Public Class ProjectData
                 _pjdata.LoadInit(FileName)
                 _pjdata.Legacy()
                 stm.Close()
+
+
+                Dim mainTEFile As TEFile = _pjdata.TEData.PFIles
+                For i = 0 To mainTEFile.FileCount - 1
+                    mainTEFile.Files(i).LoadInit()
+                Next
+
+
 
                 'If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
                 '    Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")

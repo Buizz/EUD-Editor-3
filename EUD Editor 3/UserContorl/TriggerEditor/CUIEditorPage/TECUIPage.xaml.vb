@@ -45,7 +45,9 @@
     End Sub
 
     Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
-        CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+        If TEFile.FileType = TEFile.EFileType.CUIEps Then
+            CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+        End If
     End Sub
 End Class
 

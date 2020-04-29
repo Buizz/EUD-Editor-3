@@ -1,4 +1,5 @@
-﻿Imports Microsoft.DwayneNeed.Win32.UrlMon
+﻿Imports MaterialDesignThemes.Wpf
+Imports Microsoft.DwayneNeed.Win32.UrlMon
 
 Public Class GUIScriptEditorUI
     Public TEGUIPage As TEGUIPage
@@ -37,26 +38,121 @@ Public Class GUIScriptEditorUI
         End Get
     End Property
     Public Sub AddItems(Scr As ScriptBlock)
+
+        Select Case Scr.ScriptType
+            Case ScriptBlock.EBlockType.import, ScriptBlock.EBlockType.vardefine, ScriptBlock.EBlockType.objectdefine, ScriptBlock.EBlockType.fundefine
+                ItemFixer(Scr)
+                Return
+        End Select
+
         MainItems.Add(Scr)
+        If MainItems.First.Parent IsNot Nothing Then
+            Scr.Parent = MainItems.First.Parent
+        End If
         If Scr.ScriptType = ScriptBlock.EBlockType.import Then
             Script.ExternLoader()
         End If
     End Sub
     Public Sub InsertItems(index As Integer, Scr As ScriptBlock)
+
+        Select Case Scr.ScriptType
+            Case ScriptBlock.EBlockType.import, ScriptBlock.EBlockType.vardefine, ScriptBlock.EBlockType.objectdefine, ScriptBlock.EBlockType.fundefine
+                If MainItems.Count > index Then
+                    If MainItems(index).ScriptType <> Scr.ScriptType Then
+                        ItemFixer(Scr)
+                        If Scr.ScriptType = ScriptBlock.EBlockType.import Then
+                            Script.ExternLoader()
+                        End If
+                        Return
+                    End If
+                Else
+                    ItemFixer(Scr)
+                    If Scr.ScriptType = ScriptBlock.EBlockType.import Then
+                        Script.ExternLoader()
+                    End If
+                    Return
+                End If
+        End Select
+
         MainItems.Insert(index, Scr)
+        If MainItems.First.Parent IsNot Nothing Then
+            Scr.Parent = MainItems.First.Parent
+        End If
         If Scr.ScriptType = ScriptBlock.EBlockType.import Then
             Script.ExternLoader()
         End If
     End Sub
+    Private Sub ItemFixer(item As ScriptBlock)
+        Dim TypeLisT() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.import, ScriptBlock.EBlockType.vardefine,
+            ScriptBlock.EBlockType.objectdefine, ScriptBlock.EBlockType.fundefine}
+
+        Dim bflag() As Boolean = {False, False, False, False}
+
+        For k = 0 To TypeLisT.Count - 1
+            If TypeLisT(k) = item.ScriptType Then
+                For i = MainItems.Count - 1 To 0 Step -1
+                    If MainItems(i).ScriptType = TypeLisT(k) Then
+                        MainItems.Insert(i, item)
+                        Return
+                    End If
+                Next
+            End If
+        Next
+
+        For i = 0 To MainItems.Count - 1
+            If TypeLisT.ToList.IndexOf(MainItems(i).ScriptType) <> -1 Then
+                bflag(TypeLisT.ToList.IndexOf(MainItems(i).ScriptType)) = True
+            End If
+        Next
+
+        Dim ctypeindex As Integer = TypeLisT.ToList.IndexOf(item.ScriptType)
+
+
+        Select Case item.ScriptType
+            Case ScriptBlock.EBlockType.import
+                MainItems.Insert(0, item)
+            Case ScriptBlock.EBlockType.vardefine
+                If Not bflag(0) Then
+                    MainItems.Insert(0, item)
+                Else
+                    For i = MainItems.Count - 1 To 0 Step -1
+                        If MainItems(i).ScriptType = ScriptBlock.EBlockType.import Then
+                            MainItems.Insert(i + 1, item)
+                            Return
+                        End If
+                    Next
+                End If
+            Case ScriptBlock.EBlockType.objectdefine
+                If Not bflag(3) Then
+                    MainItems.Add(item)
+                Else
+                    For i = 0 To MainItems.Count - 1
+                        If MainItems(i).ScriptType = ScriptBlock.EBlockType.fundefine Then
+                            MainItems.Insert(i, item)
+                            Return
+                        End If
+                    Next
+                End If
+            Case ScriptBlock.EBlockType.fundefine
+                MainItems.Add(item)
+        End Select
+    End Sub
+
+
 
 
     Private selpos As Integer = 1
 
-
+    Public MainScr As ScriptBlock = Nothing
     Public Sub SetTEGUIPage(tTEGUIPage As TEGUIPage)
         TEGUIPage = tTEGUIPage
     End Sub
     Public Sub LoadScript(tTEFile As TEFile, mainScrlist As List(Of ScriptBlock))
+        MainTreeview.Items.Clear()
+        Tasklist.Clear()
+        TaskIndex = -1
+
+
         PTEFile = tTEFile
         MainItems = mainScrlist
 
@@ -66,8 +162,20 @@ Public Class GUIScriptEditorUI
         For i = 0 To ItemCount - 1
             MainTreeview.Items.Add(GetItems(i).GetTreeviewitem)
         Next
+        MainScr = Nothing
+        If mainScrlist.Count <> 0 Then
+            If mainScrlist.First.Parent IsNot Nothing Then
+                MainScr = mainScrlist.First.Parent
+            End If
+        End If
 
+
+
+        RefreshBtn()
     End Sub
+
+
+
 
     Public Sub Save()
         'Script.SetJsonObject(TestTextbox.Text)
@@ -118,6 +226,9 @@ Public Class GUIScriptEditorUI
 
         RefreshBtn()
     End Sub
+
+
+
     Private Function IsCopyable() As Boolean
         If SelectedList.Count = 0 Then
             Dim tscr As ScriptBlock = CType(MainTreeview.SelectedItem, TreeViewItem).Tag
@@ -137,6 +248,7 @@ Public Class GUIScriptEditorUI
 
 
     Private Sub PasteSelectItem()
+        pjData.SetDirty(True)
         Dim CopyItemList As List(Of ScriptBlock) = Nothing
         Dim data_object As IDataObject = Clipboard.GetDataObject()
         If (data_object.GetDataPresent(GetType(List(Of ScriptBlock)).FullName)) Then
@@ -189,11 +301,16 @@ Public Class GUIScriptEditorUI
             End If
         End If
 
+        Dim time As Date = Now
+        'MsgBox("시작")
+        Dim sucesscount As Integer = 0
         For i = 0 To CopyItemList.Count - 1
-            Dim nsb As ScriptBlock = CopyItemList(i)
+            Dim nsb As ScriptBlock = CopyItemList(i).DeepCopy
+
 
             If selectitem IsNot Nothing Then
                 If CheckValidated(nsb, ssb) Then
+                    sucesscount += 1
                     Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
 
                     selectitem.IsExpanded = True
@@ -208,14 +325,21 @@ Public Class GUIScriptEditorUI
                     AddInsertTask(ntreeview)
                 End If
             Else
-                If CheckValidated(nsb, Nothing) Then
+                If CheckValidated(nsb, MainScr) Then
+                    sucesscount += 1
                     Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
 
                     If addindex = -1 Then
-                        AddItems(nsb)
+                        MainItems.Add(nsb)
+                        If MainItems.First.Parent IsNot Nothing Then
+                            nsb.Parent = MainItems.First.Parent
+                        End If
                         MainTreeview.Items.Add(ntreeview)
                     Else
-                        InsertItems(addindex, nsb)
+                        MainItems.Insert(addindex, nsb)
+                        If MainItems.First.Parent IsNot Nothing Then
+                            nsb.Parent = MainItems.First.Parent
+                        End If
                         MainTreeview.Items.Insert(addindex, ntreeview)
                     End If
                     'MsgBox("아이템생성 새 창없이")
@@ -223,9 +347,10 @@ Public Class GUIScriptEditorUI
                 End If
             End If
         Next
-        SetRepeatCount(CopyItemList.Count)
+        SetRepeatCount(sucesscount)
 
 
+        'MsgBox("끝  걸린시간 : " & time.Subtract(Now).Milliseconds)
 
 
 
@@ -614,4 +739,5 @@ Public Class GUIScriptEditorUI
     Private Sub Redobtn_Click(sender As Object, e As RoutedEventArgs)
         tRedoItem()
     End Sub
+
 End Class

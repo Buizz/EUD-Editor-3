@@ -1,10 +1,5 @@
 ﻿Partial Public Class BuildData
 #Region "Paths"
-    Public ReadOnly Property GetConnectPath() As String
-        Get
-            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\SCArchiveConnecter\SCArchiveConnecter.exe"
-        End Get
-    End Property
     Public ReadOnly Property GetSCArchiveeps() As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\SCArchive.eps"
@@ -13,6 +8,11 @@
     Public ReadOnly Property GetSCATooleps() As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\SCATool.eps"
+        End Get
+    End Property
+    Public ReadOnly Property GetBGMTooleps() As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\BGMPlayer.eps"
         End Get
     End Property
 
@@ -70,6 +70,11 @@
     Public Shared ReadOnly Property TempFilePath() As String
         Get
             Return Tool.GetDirectoy(TempFloder & "\", "temp")
+        End Get
+    End Property
+    Public Shared ReadOnly Property SoundFilePath() As String
+        Get
+            Return Tool.GetDirectoy(TempFloder & "\", "sound")
         End Get
     End Property
     Public Shared ReadOnly Property TempFloder() As String

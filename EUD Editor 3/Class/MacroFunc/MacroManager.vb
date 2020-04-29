@@ -38,6 +38,8 @@ Public Class MacroManager
         lua.RegisterFunction("echo", Me, Me.GetType().GetMethod("echo"))
         FunctionList.Add(New LuaFunction("echo", "값을 반환합니다.", "str", "str"))
 
+
+        lua.RegisterFunction("GetBGMIndex", Me, Me.GetType().GetMethod("GetBGMIndex"))
         lua.RegisterFunction("ParseUnit", Me, Me.GetType().GetMethod("ParseUnit"))
         lua.RegisterFunction("ParseWeapon", Me, Me.GetType().GetMethod("ParseWeapon"))
         lua.RegisterFunction("ParseFlingy", Me, Me.GetType().GetMethod("ParseFlingy"))

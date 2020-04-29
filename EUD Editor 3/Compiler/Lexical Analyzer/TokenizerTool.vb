@@ -2,6 +2,11 @@
     Private _str As String
     Private index As Long
 
+
+    Public line As Long = 1
+    Public col As Long = 0
+
+
     Public ReadOnly Property IsEnd As Boolean
         Get
           return  _str.Length <= index
@@ -16,23 +21,32 @@
 
     Public Sub Back()
         index -= 1
+        col -= 0
     End Sub
     Public Function NextChar() As String
         If _str.Length > index Then
             Dim rstr As String = _str(index)
+
+            col += 1
+            If rstr = vbLf Then
+                line += 1
+                col = 0
+            End If
+
             index += 1
             Return rstr
         End If
-        Throw New Exception("문자열의 끝에 도달했습니다.")
+        Throw New Exception("Line : " & line & " Col : " & col & " 문자열의 끝에 도달했습니다.")
 
         Return ""
     End Function
+
 
     Public Function NextBlock() As String
         Dim c As String = NextChar()
         Dim r As String = ""
 
-        While (Lexical_Analyzer.IsLetter(c) And Not IsEnd)
+        While ((Lexical_Analyzer.IsLetter(c) Or IsNumeric(c) Or c = ".") And Not IsEnd)
             r = r & c
 
             c = NextChar()

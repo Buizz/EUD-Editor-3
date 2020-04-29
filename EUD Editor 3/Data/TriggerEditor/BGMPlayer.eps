@@ -1,0 +1,175 @@
+import BGMFlexible as bgm;
+
+function loadSound(){
+	bgm.loadSound();
+}
+
+
+object Player{
+	var track;
+	var lasttimer;
+	
+	var bgmcode;
+	var bgmindex;
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 처음 트랙으로 돌아갑니다.
+***/
+	function ResetTrack(){
+		this.track = 0x40404040;
+	}
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 플레이할 BGM을 설정합니다.
+ *
+ * @param.bindex.ko-KR
+ * 재생할 BGM의 인덱스입니다.
+***/
+	function constructor(bgmindex /*BGM*/){
+		this.bgmindex = bgmindex;
+
+		var T1 = bgmindex;
+		DoActions(T1.SetNumberX(0, ~0xF000));
+		var T2 = bgmindex;
+		DoActions(T2.SetNumberX(0, ~0xF00));
+		var T3 = bgmindex;
+		DoActions(T3.SetNumberX(0, ~0xF0));
+		var T4 = bgmindex;
+		DoActions(T4.SetNumberX(0, ~0xF));
+
+		this.bgmcode = T4 * 0x1000000 + T3 * 0x1000 + T2 + T1 / 0x100 + 0x40404040;
+
+		this.track = 0x40404040;
+		this.lasttimer = dwread_epd(EPD(0x51CE8C));
+	}
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * BGM을 재생합니다. 반복해서 호출해야 재생됩니다.
+***/
+	function Play(){
+		if(IsUserCP()){
+			const CurrentTime = dwread_epd(EPD(0x51CE8C));
+			const FrameTick = (this.lasttimer - CurrentTime);
+			
+			if (FrameTick >= 1000){
+				const r = bgm.PlayOGG(this.bgmindex, this.bgmcode, this.track);
+				this.lasttimer = dwread_epd(EPD(0x51CE8C));;
+
+				this.track += 0x1000000;
+				if(this.track.AtLeastX(1, 0x10000000)){
+					this.track -= 0x10000000;
+					this.track += 0x10000;
+					if(this.track.AtLeastX(1, 0x100000)){
+						this.track -= 0x100000;
+						this.track += 0x100;
+						if(this.track.AtLeastX(1, 0x1000)){
+							this.track -= 0x1000;
+							this.track += 0x1;
+
+						}
+					}
+				}
+
+
+				//0x10 = 0001 0000
+
+				if (r == 0){
+					this.track = 0x40404040;
+				}
+			}
+		}
+	}
+};
+
+var track;
+var lasttimer;
+
+var bgmcode;
+var bgmindex;
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 처음 트랙으로 돌아갑니다.
+***/
+function ResetTrack(){
+	track = 0x40404040;
+}
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 플레이할 BGM을 설정합니다.
+ *
+ * @param.bindex.ko-KR
+ * 재생할 BGM의 인덱스입니다.
+***/
+function SetBGM(bindex /*BGM*/){
+	if(IsUserCP()){
+		bgmindex = bindex;
+
+		var T1 = bgmindex;
+		DoActions(T1.SetNumberX(0, ~0xF000));
+		var T2 = bgmindex;
+		DoActions(T2.SetNumberX(0, ~0xF00));
+		var T3 = bgmindex;
+		DoActions(T3.SetNumberX(0, ~0xF0));
+		var T4 = bgmindex;
+		DoActions(T4.SetNumberX(0, ~0xF));
+
+		bgmcode = T4 * 0x1000000 + T3 * 0x1000 + T2 + T1 / 0x100 + 0x40404040;
+
+		track = 0x40404040;
+		lasttimer = dwread_epd(EPD(0x51CE8C));
+	}
+}
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * BGM을 재생합니다. 반복해서 호출해야 재생됩니다.
+***/
+function Play(){
+	if(IsUserCP()){
+		const CurrentTime = dwread_epd(EPD(0x51CE8C));
+		const FrameTick = (lasttimer - CurrentTime);
+		
+		if (FrameTick >= 1000){
+			const r = bgm.PlayOGG(bgmindex, bgmcode, track);
+			lasttimer = dwread_epd(EPD(0x51CE8C));;
+			
+			track += 0x1000000;
+			if(track.AtLeastX(1, 0x10000000)){
+				DoActions(track.SetNumberX(0, 0x10000000));
+				track += 0x10000;
+				if(track.AtLeastX(1, 0x100000)){
+					DoActions(track.SetNumberX(0, 0x100000));
+					track += 0x100;
+					if(track.AtLeastX(1, 0x1000)){
+						DoActions(track.SetNumberX(0, 0x1000));
+						track += 0x1;
+
+					}
+				}
+			}
+
+			if (r == 0){
+				track = 0;
+			}
+		}
+	}
+}
+
+

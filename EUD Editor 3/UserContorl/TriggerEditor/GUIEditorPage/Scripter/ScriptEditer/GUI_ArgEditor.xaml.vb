@@ -296,8 +296,9 @@
     End Sub
     Public Sub ListSelect(sender As Object, e As RoutedEventArgs)
         Dim value As String = sender
-
+        Dim vtype As String = CType(valuetypecb.SelectedItem, ComboBoxItem).Tag
         scr.value = value
+        scr.name = vtype
         RaiseEvent BtnRefresh("Next", e)
 
         '현재 선택한 인자가 몇번째 인자인지 조사.

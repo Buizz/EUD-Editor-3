@@ -149,6 +149,11 @@
             Case ScriptBlock.EBlockType.exp
                 tAddText(lnlines, "수식 : ", Nothing)
                 sb.ExpCoder(lnlines)
+            Case ScriptBlock.EBlockType.break
+                tAddText(lnlines, "Break", Nothing)
+            Case ScriptBlock.EBlockType.funreturn
+                tAddText(lnlines, "Return : ", Nothing)
+                tAddText(lnlines, sb.child(0).ValueCoder, tescm.HighlightBrush)
             Case Else
                 If sb.IsArgument Then
                     sb.ArgCoder(lnlines)

@@ -151,6 +151,9 @@ Partial Public Class BuildData
     Public Function GetSCAMainEps() As String
         Return My.Computer.FileSystem.ReadAllText(GetSCArchiveeps)
     End Function
+    Public Function GetBGMMainEps() As String
+        Return My.Computer.FileSystem.ReadAllText(GetBGMTooleps)
+    End Function
 
 
 

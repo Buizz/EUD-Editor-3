@@ -1,0 +1,22 @@
+﻿<controls:MetroWindow x:Class="BGMPlayerConverter"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+        xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+        xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:EUD_Editor_3"
+        Background="{DynamicResource MaterialDesignPaper}" 
+        Foreground="{DynamicResource MaterialDesignBody}"  
+        IsCloseButtonEnabled="False"
+        mc:Ignorable="d"
+        Loaded="Window_Loaded"
+        Title="BGMPlayerConverter" Height="100" Width="400" ResizeMode="NoResize">
+    <DockPanel>
+        <ProgressBar x:Name="probar" Value="0" Height="20" DockPanel.Dock="Bottom"/>
+        <ProgressBar Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" DockPanel.Dock="Left" Margin="8,0,0,0"/>
+        <TextBlock x:Name="TLabel" Text="" VerticalAlignment="Center" Margin="10" DockPanel.Dock="Left"/>
+    </DockPanel>
+</controls:MetroWindow>

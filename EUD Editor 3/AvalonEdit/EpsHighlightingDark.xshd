@@ -21,6 +21,7 @@
       <Word>if</Word>
       <Word>else</Word>
       <Word>for</Word>
+      <Word>while</Word>
       <Word>function</Word>
       <Word>foreach</Word>
       <Word>return</Word>
