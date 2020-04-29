@@ -161,6 +161,7 @@
             Case TokenType.TOKEN_NE
                 Return "!="
         End Select
+        Return ""
     End Function
 
 

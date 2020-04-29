@@ -26,13 +26,48 @@
     <Grid>
         <DockPanel>
             <TextBox x:Name="Log" DockPanel.Dock="Top" Height="100" Visibility="Collapsed" />
+            <Border x:Name="TextSearchBox" Height="80" DockPanel.Dock="Bottom" Visibility="Visible" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="1">
+                <materialDesign:ColorZone x:Name="ColorZone">
+                    <UniformGrid Rows="2" Background="{DynamicResource MaterialDesignToolBarBackground}" >
+                        <DockPanel >
+                            <Button x:Name="SearchCloseBtn" DockPanel.Dock="Right" Margin="4">
+                                <materialDesign:PackIcon Kind="WindowClose" />
+                            </Button>
+                            <Button x:Name="FindBtn" DockPanel.Dock="Right" Margin="4">
+                                <materialDesign:PackIcon Kind="ArrowRightBold" />
+                            </Button>
+                            <TextBox x:Name="FindText" DockPanel.Dock="Left" TextChanged="FindText_TextChanged" VerticalAlignment="Center" PreviewKeyDown="FindText_PreviewKeyDown" Margin="5,0"/>
+                        </DockPanel>
+                        <DockPanel>
+                            <Button x:Name="ReplaceAllBtn" DockPanel.Dock="Right" Margin="4">
+                                <materialDesign:PackIcon Kind="Repeat"  />
+                            </Button>
+                            <Button x:Name="ReplaceBtn" DockPanel.Dock="Right" Margin="4">
+                                <materialDesign:PackIcon Kind="FindReplace"  />
+                            </Button>
+                            <TextBox x:Name="ReplaceText" DockPanel.Dock="Left" VerticalAlignment="Center" PreviewKeyDown="ReplaceText_PreviewKeyDown" Margin="5,0"/>
+                        </DockPanel>
+                    </UniformGrid>
+                </materialDesign:ColorZone>
+            </Border>
             <avalonEdit:TextEditor 
                     TextChanged="TextEditor_TextChanged"
                     PreviewMouseDown="TextEditor_PreviewMouseDown"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}"
-                    x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" FontFamily="D2Coding" FontSize="16"  >
+                    Background="{DynamicResource MaterialDesignPaper}" 
+                    Foreground="{DynamicResource MaterialDesignBody}"
+                    x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" FontFamily="D2Coding" FontSize="16">
+                <avalonEdit:TextEditor.ContextMenu>
+                    <ContextMenu>
+                        <MenuItem Command="ApplicationCommands.Copy" />
+                        <MenuItem Command="ApplicationCommands.Cut" />
+                        <MenuItem Command="ApplicationCommands.Paste" />
+                        <Separator/>
+                        <MenuItem Header="{StaticResource SearchText}" InputGestureText="Ctrl + F" Click="MenuItem_Click"/>
+                    </ContextMenu>
+                </avalonEdit:TextEditor.ContextMenu>
+
             </avalonEdit:TextEditor>
+       
         </DockPanel>
 
         <materialDesign:Snackbar

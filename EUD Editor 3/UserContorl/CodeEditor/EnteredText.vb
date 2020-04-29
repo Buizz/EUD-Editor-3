@@ -59,7 +59,6 @@ Partial Public Class CodeEditor
             End If
         End If
 
-
         While ((SelectStart - index) > 0)
             Dim MidStr As String = Mid(MainStr, SelectStart - index, 1)
 

@@ -20,11 +20,16 @@ Partial Public Class CodeEditor
 
 
 
+    Private SPanel As Search.SearchPanel
     Private foldingUpdateTimer As DispatcherTimer
     Private Sub InitTextEditor()
-        Dim SPanel As Search.SearchPanel = Search.SearchPanel.Install(TextEditor)
+        SPanel = Search.SearchPanel.Install(TextEditor)
         SPanel.MarkerBrush = New SolidColorBrush(Color.FromArgb(120, 125, 125, 125))
         SPanel.Localization = New CodeSearchLocalization
+
+
+        TextSearchBox.Visibility = Visibility.Collapsed
+
 
 
 
@@ -309,21 +314,24 @@ Partial Public Class CodeEditor
     Private Sub MoveToolTipBox()
         If PopupToolTip.Visibility = Visibility.Visible Then
             If completionWindow IsNot Nothing Then
-                Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
-                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
+                PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
+                PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
 
-                Dim CaretPos As Integer = p.Y - TextEditor.VerticalOffset
-                Dim copPos As Integer = completionWindow.Top - TextEditor.PointToScreen(New Point(0, 0)).Y
+                'Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
+                'Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
 
-                If CaretPos > copPos Then
-                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos + 23
-                    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos + 23, 0, 0)
-                Else
-                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
-                    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
-                End If
+                'Dim CaretPos As Integer = p.Y - TextEditor.VerticalOffset
+                'Dim copPos As Integer = completionWindow.Top - TextEditor.PointToScreen(New Point(0, 0)).Y
+
+                'If CaretPos > copPos Then
+                '    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
+                '    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos + 23
+                '    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos + 23, 0, 0)
+                'Else
+                '    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
+                '    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
+                '    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
+                'End If
 
 
             Else

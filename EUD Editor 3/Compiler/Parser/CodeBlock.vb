@@ -5,6 +5,8 @@
     Public Items As List(Of CodeBlock)
 
 
+    Public comment As CodeBlock
+
 
     Public Value1 As String
     Public Value2 As String

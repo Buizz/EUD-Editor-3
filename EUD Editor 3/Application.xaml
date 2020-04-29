@@ -30,7 +30,6 @@ ShutdownMode="OnMainWindowClose">
 
                 <!-- ListBoxReset -->
                 <ResourceDictionary Source="ResourceDictionary/MaterialListbox.xaml" />
-                
             </ResourceDictionary.MergedDictionaries>
 
             <!-- MahApps Brushes -->

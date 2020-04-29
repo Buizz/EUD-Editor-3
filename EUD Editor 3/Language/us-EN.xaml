@@ -814,6 +814,9 @@
     <sys:String x:Key="CreateDate">Created Date</sys:String>
     <sys:String x:Key="LastDate">Last Editted</sys:String>
 
+    
+    <sys:String x:Key="SearchText">Search</sys:String>
+    
     <!--트리거에디터 설정-->
     <sys:String x:Key="TE_CompileSetting">Setting Compile</sys:String>
     <sys:String x:Key="TE_MainScriptSetting">Setting Main File</sys:String>

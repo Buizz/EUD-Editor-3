@@ -5,15 +5,7 @@ Partial Public Class CodeEditor
 
     Private ExternFiles As List(Of ExternFile)
 
-    Public Shared Function FineFile(TEFile As TEFile, path As String) As TEFile
-        If path = "Tool" Then
-            'MsgBox(path)
-        End If
-
-        Dim paths() As String = path.Split(".")
-
-        'Log.Text = Log.Text & "Path : " & path & "   "
-        Dim currentPath As TEFile = TEFile
+    Public Shared Function _FildFile(currentPath As TEFile, paths() As String) As TEFile
         For i = 0 To paths.Count - 1
             'Log.Text = Log.Text & "Path" & i & " : " & paths(i) & "  "
 
@@ -54,6 +46,26 @@ Partial Public Class CodeEditor
                 Next
             End If
         Next
+
+        Return currentPath
+    End Function
+    Public Shared Function FineFile(TEFile As TEFile, path As String) As TEFile
+        Dim paths() As String = path.Split(".")
+
+        'Log.Text = Log.Text & "Path : " & path & "   "
+        Dim currentPath As TEFile = TEFile
+        currentPath = _FildFile(currentPath, paths)
+
+
+        If path <> currentPath.FileName Then
+            currentPath = pjData.TEData.PFIles
+            currentPath = _FildFile(currentPath, paths)
+
+        End If
+
+
+
+
 
         Return currentPath
         '선택한게 폴더일 경우와 파일일 경우로 나눠지긴 하지만 일단 구하긴함

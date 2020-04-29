@@ -223,6 +223,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="AvalonEdit\CodeEditor\EditorInit.vb" />
     <Compile Include="Class\Binding\BindingManager.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
     <Compile Include="Class\Binding\MainMenuBinding.vb" />
@@ -312,6 +313,9 @@
     <Compile Include="Class\TriggerEditor\StarCraftArchive.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
     <Compile Include="Class\TriggerEditor\TEFile.vb" />
+    <Compile Include="AvalonEdit\CodeEditor\CodeTextEditor.xaml.vb">
+      <DependentUpon>CodeTextEditor.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Compiler\Lexical Analyzer\Lexical Analyzer.vb" />
     <Compile Include="Compiler\Lexical Analyzer\Token.vb" />
     <Compile Include="Compiler\Lexical Analyzer\TokenizerTool.vb" />
@@ -638,6 +642,10 @@
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
     </Compile>
     <Page Include="Class\GRP\GRPImageBox.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="AvalonEdit\CodeEditor\CodeTextEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

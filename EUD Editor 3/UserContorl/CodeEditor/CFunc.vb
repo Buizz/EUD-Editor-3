@@ -68,10 +68,9 @@ Public Class FunctionToolTip
         Summary
         Param
     End Enum
-    Public Sub New(InitStr As String, tFuncArgument As String, FName As String)
+    Public Sub New(InitStr As String, tFuncArgument As String, FName As String, Optional AddOrg As Boolean = True)
         Dim Lanstr As String = pgData.Setting(ProgramData.TSetting.Language)
         FuncArgTooltip = New List(Of String)
-
 
         Dim FuncArgs() As String = tFuncArgument.Split(",")
         For i = 0 To FuncArgs.Count - 1
@@ -154,8 +153,9 @@ Public Class FunctionToolTip
         Next
         If pSummary IsNot Nothing Then
             pSummary = pSummary.Trim
-
-            pSummary = FName & "(" & tFuncArgument & ")" & vbCrLf & pSummary
+            If AddOrg Then
+                pSummary = FName & "(" & tFuncArgument & ")" & vbCrLf & pSummary
+            End If
         End If
 
     End Sub

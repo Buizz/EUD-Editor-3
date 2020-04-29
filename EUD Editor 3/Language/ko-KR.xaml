@@ -810,6 +810,9 @@
     <sys:String x:Key="CreateDate">생성 날짜</sys:String>
     <sys:String x:Key="LastDate">마지막으로 편집된 날짜</sys:String>
 
+
+    <sys:String x:Key="SearchText">찾기</sys:String>
+
     <!--트리거에디터 설정-->
     <sys:String x:Key="TE_CompileSetting">컴파일 설정</sys:String>
     <sys:String x:Key="TE_MainScriptSetting">시작 파일 설정</sys:String>

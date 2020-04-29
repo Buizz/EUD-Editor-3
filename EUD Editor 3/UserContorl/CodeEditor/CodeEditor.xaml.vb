@@ -1,4 +1,6 @@
-﻿Imports System.Windows.Threading
+﻿Imports System.Text.RegularExpressions
+Imports System.Windows.Threading
+Imports MaterialDesignThemes.Wpf
 
 Public Class CodeEditor
     Public Property Text As String
@@ -49,12 +51,15 @@ Public Class CodeEditor
         timer.Interval = TimeSpan.FromMilliseconds(100)
         AddHandler timer.Tick, AddressOf timer_Tick
     End Sub
-
+    Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        SearchBoxOpen()
+    End Sub
     Private Sub UserControl_LostFocus(sender As Object, e As RoutedEventArgs)
         'TooltipHide()
     End Sub
 
     Private Sub TextEditor_TextChanged(sender As Object, e As EventArgs)
+        pjData.SetDirty(True)
         RaiseEvent TextChange(Me, Nothing)
     End Sub
 
@@ -96,6 +101,11 @@ Public Class CodeEditor
     Private Sub UserControl_PreviewKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.LeftCtrl Then
             isctrl = True
+        ElseIf e.Key = Key.F And isctrl Then
+            SPanel.Open()
+            SearchBoxOpen()
+        ElseIf e.Key = Key.S And isctrl Then
+            pjData.Save()
         End If
     End Sub
 
@@ -103,5 +113,46 @@ Public Class CodeEditor
         If e.Key = Key.LeftCtrl Then
             isctrl = False
         End If
+    End Sub
+
+    Public Sub SearchBoxOpen()
+        SPanel.Visibility = Visibility.Hidden
+        TextSearchBox.Visibility = Visibility.Visible
+        TextSearchBox.UpdateLayout()
+        FindText.Focus()
+    End Sub
+
+    Private Sub SearchCloseBtn_Click(sender As Object, e As RoutedEventArgs) Handles SearchCloseBtn.Click
+        SPanel.Close()
+        TextSearchBox.Visibility = Visibility.Collapsed
+    End Sub
+    Private Sub FindBtn_Click(sender As Object, e As RoutedEventArgs) Handles FindBtn.Click
+        SPanel.FindNext()
+    End Sub
+    Private Sub ReplaceBtn_Click(sender As Object, e As RoutedEventArgs) Handles ReplaceBtn.Click
+        TextEditor.SelectedText = ReplaceText.Text
+        SPanel.FindNext()
+    End Sub
+
+    Private Sub FindText_TextChanged(sender As Object, e As TextChangedEventArgs)
+        SPanel.SearchPattern = FindText.Text
+        pjData.SetDirty(True)
+    End Sub
+
+    Private Sub FindText_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+        If e.Key = Key.Enter Then
+            SPanel.FindNext()
+        End If
+    End Sub
+
+    Private Sub ReplaceText_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+        If e.Key = Key.Enter Then
+            TextEditor.SelectedText = ReplaceText.Text
+            SPanel.FindNext()
+        End If
+    End Sub
+
+    Private Sub ReplaceAllBtn_Click(sender As Object, e As RoutedEventArgs) Handles ReplaceAllBtn.Click
+        TextEditor.Text = TextEditor.Text.Replace(FindText.Text, ReplaceText.Text)
     End Sub
 End Class

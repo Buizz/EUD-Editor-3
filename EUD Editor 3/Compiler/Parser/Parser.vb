@@ -340,7 +340,7 @@ Public Class Parser
                     Case Token.TokenType.TOKEN_COMMENT
                         Dim emdcode As New CodeBlock(CodeType.CODE_COMMENT)
                         emdcode.Value1 = CurrentToken().value
-                        ncode.Items.Add(ncode)
+                        ncode.Items.Add(emdcode)
                         index += 1
                     Case Token.TokenType.TOKEN_LINECOMMENT
                         Dim emdcode As New CodeBlock(CodeType.CODE_COMMENTLINE)
@@ -475,12 +475,78 @@ PRIUse:
 
 
 
+    Private Function CheckFuncComment(funcCode As ScriptBlock, Comment As ScriptBlock) As Boolean
+        Dim commentstr As String = Comment.value
 
+        If commentstr.IndexOf("/***") = 0 Then
+            If commentstr.IndexOf("***/") = (commentstr.Length - 4) Then
+                Return True
+            End If
+        End If
+
+        Return False
+    End Function
+    Private Sub GetFuncComment(funcCode As ScriptBlock, Comment As ScriptBlock)
+        '두 스크립트를 섞는다
+        Dim commentstr As String = Comment.value
+        Dim argstr As String = ""
+        Dim fname As String = funcCode.value
+
+        commentstr = Mid(commentstr, 5, commentstr.Length - 8).Trim
+        '두 스크립트를 비교하여 인코딩 가능하면 True를 반환
+        Dim arglist As List(Of ScriptBlock) = tescm.GetFuncArgs(funcCode)
+        For i = 0 To arglist.Count - 1
+            If i <> 0 Then
+                argstr = argstr & ","
+            End If
+
+            If tescm.SCValueNoneType.ToList.IndexOf(arglist(i).name) <> -1 Then
+                argstr = argstr & arglist(i).value
+            Else
+                argstr = argstr & arglist(i).value & ":" & arglist(i).name
+            End If
+
+        Next
+
+
+        Dim ftooltip As New FunctionToolTip(commentstr, argstr, fname, False)
+
+        funcCode.SetFuncTooltip(ftooltip.Summary)
+
+        For i = 0 To arglist.Count - 1
+            arglist(i).value2 = ftooltip.GetTooltip(i)
+        Next
+    End Sub
     Public Function GetGUIScripter() As List(Of ScriptBlock)
 
         Dim scrlist As New List(Of ScriptBlock)
         For i = 0 To MainCode.Items.Count - 1
+
             Dim scr As ScriptBlock = GetScriptBlock(MainCode.Items(i))
+
+            If i < MainCode.Items.Count - 1 Then
+                If scr.ScriptType = ScriptBlock.EBlockType.rawcode Then
+                    Dim funcstr As ScriptBlock = GetScriptBlock(MainCode.Items(i + 1))
+
+                    If funcstr.ScriptType = ScriptBlock.EBlockType.fundefine Then
+                        If CheckFuncComment(funcstr, scr) Then
+                            Continue For
+                        End If
+                    End If
+                End If
+            End If
+            If i <> 0 Then
+                If scr.ScriptType = ScriptBlock.EBlockType.fundefine Then
+                    Dim comstr As ScriptBlock = GetScriptBlock(MainCode.Items(i - 1))
+
+                    If comstr.ScriptType = ScriptBlock.EBlockType.rawcode Then
+                        If CheckFuncComment(scr, comstr) Then
+                            GetFuncComment(scr, comstr)
+                        End If
+                    End If
+                End If
+            End If
+
             If scr IsNot Nothing Then
                 scrlist.Add(scr)
             End If
@@ -522,9 +588,11 @@ PRIUse:
                 Dim compound As CodeBlock = cblock.Items(0)
                 For i = 0 To compound.Items.Count - 1
                     Select Case compound.Items(i).BType
+                        Case CodeType.CODE_COMMENT
+
                         Case CodeType.CODE_FUNCTION
                             scritem.child(1).child.Add(GetScriptBlock(compound.Items(i)))
-                        Case Else
+                        Case CodeType.CODE_VAR, CodeType.CODE_CONST, CodeType.CODE_STATIC
                             scritem.child(0).child.Add(GetScriptBlock(compound.Items(i)))
                     End Select
 
