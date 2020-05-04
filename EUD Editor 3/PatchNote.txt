@@ -1,3 +1,9 @@
+# Beta 0.9.3.0
+-CUI검색 기능 추가
++버그수정
+-CUI관련 버그 수정(Import관련)
+-CUI to GUI버그 
+
 # Beta 0.9.2.0
 -CUI To GUI 기능 임시 추가(버그가 있을 수 있음)
 -BGM플레이어 추가

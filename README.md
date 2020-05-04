@@ -1,11 +1,17 @@
-# EUD-Editor-3
+# EUD Editor 3
 StarCraft: Remastered UMS Make Tool
 
 
 > The current project is a test version.
+
 > Save files may not be compatible with the full version.
 
 
+
+
+
+## UserManual
+https://github.com/Buizz/EUD-Editor-3/wiki
 
 
 ## CheckPatch
