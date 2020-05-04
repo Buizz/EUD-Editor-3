@@ -138,6 +138,9 @@ function SetLocation(Location ,X ,Y ,Width ,Height) {
 function SetLocationLURD(Location ,L ,U ,R ,D) {
     setloc(Location, L, U, R, D);
 }
+function EUDMoveLocation(Location ,X ,Y) {
+    addloc(Location, X, Y);
+}
 function ScreenShake(x ,y ,tempLoc) {
     if(
         Memory(0x57F1B0, Exactly, (getcurpl()))
@@ -153,9 +156,6 @@ function ScreenShake(x ,y ,tempLoc) {
         EUDMoveLocation(tempLoc,2048 - dwread_epd_safe(EPD(0x628448)),dwread_epd_safe(EPD(0x628470)) - 2048);
         CenterView((tempLoc + 1));
     }
-}
-function EUDMoveLocation(Location ,X ,Y) {
-    addloc(Location, X, Y);
 }
 function hotkeyUnit(UnitPTR ,player ,hotkey ,slot) {
     var epd = EPD(UnitPTR);
@@ -254,6 +254,19 @@ function PolarLocation(loc ,length ,angle) {
 function RemoveStatusFlags(UnitPTR ,flags) {
     dwsubtract_epd(EPD(UnitPTR) + 0xDC / 4, flags & dwread_epd(EPD(UnitPTR) + 0xDC / 4));
 }
+function SetLocationToUnit(Location ,UnitPTR ,X ,Y) {
+    const x = wread(UnitPTR + X);
+    const y = wread(UnitPTR + Y);
+    setloc(Location, x, y);
+}
+function LocationDistance(loc1 ,loc2) {
+    const locTable = EPD(0x58DC60);
+    const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
+    const y1 = dwread_epd(locTable + loc1 * 5 + 1) + dwread_epd(locTable + loc1 * 5 + 3);
+    const x2 = dwread_epd(locTable + loc2 * 5) + dwread_epd(locTable + loc2 * 5 + 2);
+    const y2 = dwread_epd(locTable + loc2 * 5 + 1) + dwread_epd(locTable + loc2 * 5 + 3);
+    return sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
+}
 function CheckNoneTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
     if(
         bread(UnitPTR + 0x04D) == SkillOrder
@@ -272,10 +285,12 @@ function CheckNoneTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
     }
     return False;
 }
-function SetLocationToUnit(Location ,UnitPTR ,X ,Y) {
-    const x = wread(UnitPTR + X);
-    const y = wread(UnitPTR + Y);
-    setloc(Location, x, y);
+function SetLocationToUnitSafe(Location ,UnitPTR ,posX) {
+    var xloc, yloc = dwbreak(dwread_epd_safe(EPD(UnitPTR + posX)))[[0, 1]];
+    SetMemory(0x58DC60 + Location * 20 + 4 * 0, SetTo, xloc);
+    SetMemory(0x58DC60 + Location * 20 + 4 * 2, SetTo, xloc);
+    SetMemory(0x58DC60 + Location * 20 + 4 * 1, SetTo, yloc);
+    SetMemory(0x58DC60 + Location * 20 + 4 * 3, SetTo, yloc);
 }
 function CheckTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
     if(
@@ -294,21 +309,6 @@ function CheckTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
         }
     }
     return False;
-}
-function SetLocationToUnitSafe(Location ,UnitPTR ,posX) {
-    var xloc, yloc = dwbreak(dwread_epd_safe(EPD(UnitPTR + posX)))[[0, 1]];
-    SetMemory(0x58DC60 + Location * 20 + 4 * 0, SetTo, xloc);
-    SetMemory(0x58DC60 + Location * 20 + 4 * 2, SetTo, xloc);
-    SetMemory(0x58DC60 + Location * 20 + 4 * 1, SetTo, yloc);
-    SetMemory(0x58DC60 + Location * 20 + 4 * 3, SetTo, yloc);
-}
-function LocationDistance(loc1 ,loc2) {
-    const locTable = EPD(0x58DC60);
-    const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
-    const y1 = dwread_epd(locTable + loc1 * 5 + 1) + dwread_epd(locTable + loc1 * 5 + 3);
-    const x2 = dwread_epd(locTable + loc2 * 5) + dwread_epd(locTable + loc2 * 5 + 2);
-    const y2 = dwread_epd(locTable + loc2 * 5 + 1) + dwread_epd(locTable + loc2 * 5 + 3);
-    return sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
 }
 function CBring(UnitPTR ,Location ,dummyUnit) {
     MoveLocation((Location), (dummyUnit), (AllPlayers), (Location));
@@ -333,14 +333,14 @@ function BuildSCV(UnitPTR ,loc ,Building) {
     wwrite(UnitPTR + 0x058, x / 2);
     wwrite(UnitPTR + 0x05A, y / 2);
 }
-function BuildReset(unitPTR) {
-    BuildResetEPD(EPD(unitPTR));
-}
 function BuildResetEPD(unitEPD) {
     SetMemoryXEPD(unitEPD + 38, SetTo, 14942436, 0xFFFFFFFF);
     SetMemoryXEPD(unitEPD + 39, SetTo, 14942436, 0xFFFFFFFF);
     SetMemoryXEPD(unitEPD + 40, SetTo, 228, 0xFFFF);
     SetMemoryXEPD(unitEPD + 41, SetTo, 131072, 0xFFFF0000);
+}
+function BuildReset(unitPTR) {
+    BuildResetEPD(EPD(unitPTR));
 }
 function BuildProbe(UnitPTR ,loc ,Building) {
     const locTable = EPD(0x58DC60);
@@ -389,25 +389,18 @@ function BuildCheck(unitPTR ,Unit) {
     return False;
 }
 function AttackGround(attackLoc ,targetLoc ,attackUnit ,targetUnit ,player) {
-    var ap, ae, tp, te;
-    ap, ae = cunitepdread_epd(EPD(0x628438));
+    var aunit;
+    var tunit;
+    var tunitptr;
+    aunit = epdread_epd(EPD(0x628438));
     CreateUnit(1, (attackUnit), (attackLoc + 1), (player));
-    if(
-        Memory(0x628438, (10), ap)
-    ){
-        return false;
-    }
-    wwrite_epd(ae + 0x110 / 4,  0x110 % 4, 2);
-    tp, te = cunitepdread_epd(EPD(0x628438));
+    tunit = epdread_epd(EPD(0x628438));
+    tunitptr = dwread_epd(EPD(0x628438));
     CreateUnit(1, (targetUnit), (targetLoc + 1), (player));
-    if(
-        Memory(0x628438, (10), tp)
-    ){
-        return false;
-    }
-    wwrite_epd(tunit + 0x110 / 4,  0x110 % 4, 2);
     SetMemoryEPD(aunit + 0x05C / 4, SetTo, tunitptr);
-    return true;
+    bwrite_epd(aunit + 0x04D / 4,  0x04D % 4, 10);
+    wwrite_epd(aunit + 0x110 / 4,  0x110 % 4, 2);
+    wwrite_epd(tunit + 0x110 / 4,  0x110 % 4, 2);
 }
 function AddStatusFlags(UnitPTR ,flags) {
     SetMemoryX(UnitPTR + 0xDC, SetTo, flags, flags);
