@@ -32,4 +32,16 @@
             RaiseEvent SelectEvent(MainTB.Text, e)
         End If
     End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        TextEditorOpen()
+    End Sub
+    Private Sub TextEditorOpen()
+        MainTB.IsEnabled = False
+        Dim TEditor As New TextEditorWindow(MainTB.Text)
+
+        TEditor.ShowDialog()
+        MainTB.Text = TEditor.TextString
+        MainTB.IsEnabled = True
+    End Sub
 End Class

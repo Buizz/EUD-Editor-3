@@ -43,14 +43,21 @@ Module WindowControl
     End Sub
 
 
-    Public Sub TECloseTabITem(tTEFile As TEFile)
+    Public Enum CloseType
+        All
+        Other
+        This
+    End Enum
+
+
+    Public Sub TECloseAllTabITem(tTEFile As TEFile)
         '우선 모든 윈도우 돌면서 조사하자
         For Each win As Window In Application.Current.Windows
             If win.GetType Is GetType(TriggerEditor) Then
                 Dim MainContent As Object = CType(win, TriggerEditor).MainTab
 
 
-                If CheckBranch(tTEFile, MainContent) Then
+                If CloseCheckBranch(tTEFile, MainContent, CloseType.All) Then
                     Exit Sub
                 End If
 
@@ -63,7 +70,50 @@ Module WindowControl
             End If
         Next
     End Sub
-    Private Function CheckBranch(tTEFile As TEFile, ParentBranch As Object) As Boolean
+
+    Public Sub TECloseOtherTabITem(tTEFile As TEFile)
+        '우선 모든 윈도우 돌면서 조사하자
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(TriggerEditor) Then
+                Dim MainContent As Object = CType(win, TriggerEditor).MainTab
+
+
+                If CloseCheckBranch(tTEFile, MainContent, CloseType.Other) Then
+                    Exit Sub
+                End If
+
+
+
+                'If CheckTabablzControl(tTEFile, MainContent) Then
+                '    win.Activate()
+                '    Return True
+                'End If
+            End If
+        Next
+    End Sub
+
+
+    Public Sub TECloseTabITem(tTEFile As TEFile)
+        '우선 모든 윈도우 돌면서 조사하자
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(TriggerEditor) Then
+                Dim MainContent As Object = CType(win, TriggerEditor).MainTab
+
+
+                If CloseCheckBranch(tTEFile, MainContent, CloseType.This) Then
+                    Exit Sub
+                End If
+
+
+
+                'If CheckTabablzControl(tTEFile, MainContent) Then
+                '    win.Activate()
+                '    Return True
+                'End If
+            End If
+        Next
+    End Sub
+    Private Function CloseCheckBranch(tTEFile As TEFile, ParentBranch As Object, CloseType As CloseType) As Boolean
         '우선 모든 윈도우 돌면서 조사하자
         While TypeOf ParentBranch IsNot TabablzControl
             Select Case ParentBranch.GetType
@@ -72,10 +122,10 @@ Module WindowControl
                 Case GetType(Dockablz.Branch)
                     Dim tBranch As Dockablz.Branch = ParentBranch
 
-                    If CheckBranch(tTEFile, ParentBranch.FirstItem) Then
+                    If CloseCheckBranch(tTEFile, ParentBranch.FirstItem, CloseType) Then
                         Return True
                     End If
-                    If CheckBranch(tTEFile, ParentBranch.SecondItem) Then
+                    If CloseCheckBranch(tTEFile, ParentBranch.SecondItem, CloseType) Then
                         Return True
                     End If
                     Return False
@@ -85,31 +135,48 @@ Module WindowControl
                     ParentBranch = tLayout.Content
             End Select
         End While
-        Return CheckTabablzControl(tTEFile, ParentBranch)
+        Return CloseCheckTabablzControl(tTEFile, ParentBranch, CloseType)
 
         Return False
     End Function
-    Private Function CheckTabablzControl(tTEFile As TEFile, Control As TabablzControl) As Boolean
+    Private Function CloseCheckTabablzControl(tTEFile As TEFile, Control As TabablzControl, CloseType As CloseType) As Boolean
+
+        Dim tefile As TEFile = Nothing
+        Dim index As Integer
+
         For i = 0 To Control.Items.Count - 1
-            Dim TabContent As Object = CType(Control.Items(i), TabItem).Content
+            Dim TabContent As Object = CType(Control.Items(index), TabItem).Content
 
             If TypeOf TabContent Is TECUIPage Then
                 Dim tPage As TECUIPage = TabContent
-
-                If tPage.CheckTEFile(tTEFile) Then
-                    Control.Items.RemoveAt(i)
-                    Return True
-                End If
+                tefile = tPage.TEFile
             ElseIf TypeOf TabContent Is TEGUIPage Then
                 Dim tPage As TEGUIPage = TabContent
+                tefile = tPage.TEFile
+            End If
 
-                If tPage.CheckTEFile(tTEFile) Then
-                    Control.Items.RemoveAt(i)
-                    Return True
-                End If
+
+            If tefile Is tTEFile Then
+                Select Case CloseType
+                    Case CloseType.This
+                        Control.Items.RemoveAt(index)
+                        Return True
+                    Case CloseType.All
+                        Control.Items.RemoveAt(index)
+                    Case CloseType.Other
+                        index += 1
+                End Select
+            Else
+                Select Case CloseType
+                    Case CloseType.This
+                        index += 1
+                    Case CloseType.All
+                        Control.Items.RemoveAt(index)
+                    Case CloseType.Other
+                        Control.Items.RemoveAt(index)
+                End Select
             End If
         Next
-
 
 
         Return False

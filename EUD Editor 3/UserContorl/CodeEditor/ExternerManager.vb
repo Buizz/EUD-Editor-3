@@ -108,19 +108,20 @@ Partial Public Class CodeEditor
 
                 Dim tTEfile As TEFile
                 Try
-                    If FileName = "SCArchive" Then
-                        Dim SCATEFile As New TEFile("SCAFile", TEFile.EFileType.CUIEps)
-                        CType(SCATEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetSCAMainEps
+                    Dim iscmp As Boolean = False
+                    Dim externList As List(Of String) = tescm.GetExternFileList
+                    Dim realPath As List(Of String) = tescm.GetExternFileList(True)
+                    For k = 0 To externList.Count - 1
+                        If externList(k) = FileName & ".eps" Then
+                            Dim SCATEFile As New TEFile(FileName, TEFile.EFileType.CUIEps)
+                            CType(SCATEFile.Scripter, CUIScriptEditor).StringText = My.Computer.FileSystem.ReadAllText(realPath(k))
 
-
-                        tTEfile = SCATEFile
-                    ElseIf FileName = "BGMPlayer" Then
-                        Dim BGMTEFile As New TEFile("BGMFile", TEFile.EFileType.CUIEps)
-                        CType(BGMTEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetBGMMainEps
-
-
-                        tTEfile = BGMTEFile
-                    Else
+                            iscmp = True
+                            tTEfile = SCATEFile
+                            Exit For
+                        End If
+                    Next
+                    If Not iscmp Then
                         tTEfile = FineFile(TEFile, FileName)
                     End If
                 Catch ex As Exception

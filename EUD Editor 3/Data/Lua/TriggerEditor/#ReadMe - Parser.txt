@@ -10,7 +10,15 @@ ParseScore
 ParseSwitchAction
 ParseSwitchState
 ParseAIScript
-ParseCount
 ParseUnit
 ParseSwitchName
+ParseWeapon
+ParseFlingy
+ParseSprites
+ParseImages
+ParseUpgrades
+ParseTechdata
+ParseOrders
 ParseLocation
+ParseEUDScore
+ParseSupplyType

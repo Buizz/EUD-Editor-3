@@ -27,6 +27,11 @@
         'AddHandler VarUseFunc.ArgBtnClickEvent, AddressOf ArgSelecterEvent
     End Sub
 
+
+
+
+
+
     Public Sub ArgExpressRefresh(sender As Object, e As RoutedEventArgs)
         RaiseEvent BtnRefresh("", e)
         ArgExpress.UpdateValue()
@@ -273,7 +278,7 @@
                 AddHandler ListSelecter.SelectEvent, AddressOf ListSelect
                 bd.Child = ListSelecter
                 bd.Visibility = Visibility.Visible
-            Case "TrgString"
+            Case "TrgString", "FormatText"
                 Dim ListSelecter As New GUI_Action_String(scr.value)
 
                 AddHandler ListSelecter.SelectEvent, AddressOf ListTextSelect

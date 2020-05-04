@@ -52,6 +52,7 @@ Public Class CodeEditor
         AddHandler timer.Tick, AddressOf timer_Tick
     End Sub
     Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        SPanel.Open()
         SearchBoxOpen()
     End Sub
     Private Sub UserControl_LostFocus(sender As Object, e As RoutedEventArgs)
@@ -101,13 +102,21 @@ Public Class CodeEditor
     Private Sub UserControl_PreviewKeyDown(sender As Object, e As KeyEventArgs)
         If e.Key = Key.LeftCtrl Then
             isctrl = True
-        ElseIf e.Key = Key.F And isctrl Then
+        End If
+        If e.Key = Key.F And isctrl Then
             SPanel.Open()
             SearchBoxOpen()
-        ElseIf e.Key = Key.S And isctrl Then
+
+        End If
+        If e.Key = Key.T And isctrl Then
+            TextEditorOpen()
+
+        End If
+        If e.Key = Key.S And isctrl Then
             pjData.Save()
         End If
     End Sub
+
 
     Private Sub UserControl_PreviewKeyUp(sender As Object, e As KeyEventArgs)
         If e.Key = Key.LeftCtrl Then
@@ -154,5 +163,18 @@ Public Class CodeEditor
 
     Private Sub ReplaceAllBtn_Click(sender As Object, e As RoutedEventArgs) Handles ReplaceAllBtn.Click
         TextEditor.Text = TextEditor.Text.Replace(FindText.Text, ReplaceText.Text)
+    End Sub
+
+    Private Sub TextEditor_Click(sender As Object, e As RoutedEventArgs)
+        TextEditorOpen()
+    End Sub
+
+    Private Sub TextEditorOpen()
+        TextEditor.IsEnabled = False
+        Dim TEditor As New TextEditorWindow(TextEditor.SelectedText)
+
+        TEditor.ShowDialog()
+        TextEditor.SelectedText = TEditor.TextString
+        TextEditor.IsEnabled = True
     End Sub
 End Class

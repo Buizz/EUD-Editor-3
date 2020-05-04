@@ -10,6 +10,10 @@ Public Class GUI_VarFuncUse
     Private GUIEditorUI As GUIScriptEditorUI
     Private ArgEditor As GUI_ArgEditor
 
+
+    Private FuncDefine As FuncDefine
+
+    Private methodname As String = ""
     Public Sub CrlInit(_scr As ScriptBlock, _dotscr As ScriptBlock, _GUIEditorUI As GUIScriptEditorUI, _ArgEditor As GUI_ArgEditor)
         scr = _scr
         dotscr = _dotscr
@@ -17,6 +21,7 @@ Public Class GUI_VarFuncUse
         ArgEditor = _ArgEditor
 
         tLabel.Visibility = Visibility.Collapsed
+        ToolBtnlist.Visibility = Visibility.Visible
         MainPanel.Children.Clear()
         tLabel.Content = _scr.name & ":" & _scr.value & ":" & _scr.value2
 
@@ -24,8 +29,19 @@ Public Class GUI_VarFuncUse
         'Return
 
         Dim flag As Boolean = False
+        If scr.name = "init" Then
+            flag = True
+        End If
+        If scr.value = "init" Then
+            flag = True
+        End If
+        If flag Then
+            ToolBtnlist.Visibility = Visibility.Collapsed
+            Return
+        End If
 
 
+        flag = False
         'v1::value
         'Test:f1:fields
         'tt.o2:!default:
@@ -43,6 +59,7 @@ Public Class GUI_VarFuncUse
             flag = True
         End If
         If flag Then
+            ToolBtnlist.Visibility = Visibility.Collapsed
             scr.child.Clear()
             Return
         End If
@@ -91,11 +108,10 @@ Public Class GUI_VarFuncUse
 
 
             MainPanel.Children.Add(b)
+            ToolBtnlist.Visibility = Visibility.Collapsed
             Return
         End If
 
-
-        Dim methodname As String = ""
         Dim varname As String = ""
         Dim objname As String = ""
 
@@ -138,6 +154,7 @@ Public Class GUI_VarFuncUse
                 Else
                     tLabel.Visibility = Visibility.Visible
                     tLabel.Content = "존재하지 않는 벨류"
+                    ToolBtnlist.Visibility = Visibility.Collapsed
                     Return
                 End If
             ElseIf tstr.Count = 2 Then
@@ -159,6 +176,7 @@ Public Class GUI_VarFuncUse
                 Else
                     tLabel.Visibility = Visibility.Visible
                     tLabel.Content = "존재하지 않는 벨류"
+                    ToolBtnlist.Visibility = Visibility.Collapsed
                     Return
                 End If
             End If
@@ -180,6 +198,7 @@ Public Class GUI_VarFuncUse
             Else
                 tLabel.Visibility = Visibility.Visible
                 tLabel.Content = "존재하지 않는 오브젝트"
+                ToolBtnlist.Visibility = Visibility.Collapsed
                 Return
             End If
         Else
@@ -197,12 +216,13 @@ Public Class GUI_VarFuncUse
             Else
                 tLabel.Visibility = Visibility.Visible
                 tLabel.Content = "존재하지 않는 오브젝트"
+                ToolBtnlist.Visibility = Visibility.Collapsed
                 Return
             End If
         End If
 
 
-        tLabel.Content = "오브젝트 이름" & objscr.value
+        tLabel.Content = "오브젝트 이름" & objscr.value & " 함수 명 : " & methodname
 
         Dim methodlist As List(Of ScriptBlock) = tescm.GetObjectMethod(objscr)
         Dim IsExistFunc As Boolean = False
@@ -215,57 +235,85 @@ Public Class GUI_VarFuncUse
             End If
         Next
         If IsExistFunc And methodfunc IsNot Nothing Then
-            If scr.child.Count <> methodfunc.child.Count Then
-                If methodfunc.child.Count < scr.child.Count Then
-                    For i = 0 To scr.child.Count - methodfunc.child.Count - 1
-                        scr.child.RemoveAt(methodfunc.child.Count)
-                    Next
-                Else
-                    If methodfunc.tobject IsNot Nothing Then
-                        isExternObj = True
-                        Dim cfun As CFunc = methodfunc.tobject
-                        Dim cfunindex As Integer = methodfunc.value2
-
-                        Dim functooltip As FunctionToolTip = cfun.GetFuncTooltip(cfunindex)
-                        Dim argument As String = cfun.GetFuncArgument(cfunindex)
-
-                        If argument.Trim <> "" Then
-                            Dim args() As String = argument.Split(",")
-                            For i = 0 To args.Length - 1
-                                If scr.child.Count <= i Then
-                                    Dim tstr() As String = args(i).Split(":")
-
-                                    Dim vname As String = "defaultvalue;" & tstr.First.Trim
-                                    Dim vtype As String = tstr.Last
-
-                                    'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
-
-                                    scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script))
-                                End If
-                            Next
-                        End If
-                    Else
-                        Dim func As ScriptBlock = methodfunc
-                        'DEBUG
-                        Dim args As List(Of ScriptBlock) = tescm.GetFuncArgs(func)
 
 
-                        For i = 0 To args.Count - 1
+
+
+            If methodfunc.tobject IsNot Nothing Then
+                isExternObj = True
+                Dim cfun As CFunc = methodfunc.tobject
+                Dim cfunindex As Integer = methodfunc.value2
+
+                Dim functooltip As FunctionToolTip = cfun.GetFuncTooltip(cfunindex)
+                Dim argument As String = cfun.GetFuncArgument(cfunindex)
+
+                Dim argcount As Integer = 0
+                If argument.Trim <> "" Then
+                    argcount = argument.Split(",").Count
+                End If
+                '만약 마지막 define된 arg의 이름이 *로 시작 할 경우
+                'If scr.child.Count <> argcount Then
+                '    If methodfunc.child.Count < scr.child.Count Then
+                '        For i = 0 To scr.child.Count - argcount - 1
+                '            scr.child.RemoveAt(argcount)
+                '        Next
+                '    End If
+                'End If
+
+
+                If methodname <> "constructor" Then
+                    If argument.Trim <> "" Then
+                        Dim args() As String = argument.Split(",")
+                        For i = 0 To args.Length - 1
                             If scr.child.Count <= i Then
-                                Dim vname As String = "defaultvalue;" & args(i).value.Trim
-                                Dim vtype As String = args(i).name
+                                Dim tstr() As String = args(i).Split(":")
+
+                                Dim vname As String = "defaultvalue;" & tstr.First.Trim
+                                Dim vtype As String = tstr.Last
 
                                 'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
 
-                                Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script)
-                                tscr.value2 = args(i).value2
-                                scr.AddChild(tscr)
+                                scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script))
                             End If
                         Next
-
                     End If
                 End If
+
+            Else
+                Dim argsb As List(Of ScriptBlock) = tescm.GetFuncArgs(methodfunc)
+                '만약 마지막 define된 arg의 이름이 *로 시작 할 경우
+                'If scr.child.Count <> argsb.Count Then
+                '    If methodfunc.child.Count < scr.child.Count Then
+                '        For i = 0 To scr.child.Count - argsb.Count - 1
+                '            scr.child.RemoveAt(argsb.Count)
+                '        Next
+                '    End If
+                'End If
+
+
+                Dim func As ScriptBlock = methodfunc
+                'DEBUG
+                Dim args As List(Of ScriptBlock) = tescm.GetFuncArgs(func)
+
+
+                For i = 0 To args.Count - 1
+                    If scr.child.Count <= i Then
+                        Dim vname As String = "defaultvalue;" & args(i).value.Trim
+                        Dim vtype As String = args(i).name
+
+                        'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+
+                        Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script)
+                        tscr.value2 = args(i).value2
+                        scr.AddChild(tscr)
+                    End If
+                Next
+
             End If
+
+
+
+
 
 
             If isExternObj Then
@@ -277,16 +325,90 @@ Public Class GUI_VarFuncUse
             tLabel.Visibility = Visibility.Visible
             If methodname = "constructor" Then
                 tLabel.Content = "기본생성자"
+                DefaultConstructor = True
             Else
                 tLabel.Content = "존재하지 않는 함수"
+                ToolBtnlist.Visibility = Visibility.Collapsed
             End If
         End If
 
+        EditBtnRefresh()
         'Test:method:method
         'testObject:constructor:
     End Sub
 
+    Private DefaultConstructor As Boolean = False
+    Private Sub FuncCoder()
+        If FuncDefine Is Nothing Then
+            DefaultCoder()
+            Return
+        End If
+
+        If Not (FuncDefine.ValueCount = scr.child.Count And FuncDefine.ValueCount = FuncDefine.ArgViewCount) Then
+            DefaultCoder()
+            Return
+        End If
+        MainPanel.Children.Clear()
+
+
+        For i = 0 To FuncDefine.ArgCommentList.Count - 1
+            If FuncDefine.ArgCommentList(i).BType = FuncDefine.ArgBlock.BlockType.Label Then
+                Dim tbox As New TextBlock
+                tbox.TextWrapping = TextWrapping.Wrap
+                tbox.VerticalAlignment = VerticalAlignment.Center
+                tbox.HorizontalAlignment = HorizontalAlignment.Center
+                tbox.Text = FuncDefine.ArgCommentList(i).Label
+
+                MainPanel.Children.Add(tbox)
+            Else
+                Dim argindex As Integer = FuncDefine.ArgCommentList(i).ArgIndex
+
+                Dim btn As New Button
+                btn.Padding = New Thickness(5, 0, 5, 0)
+                btn.Height = 22
+
+                btn.Tag = {btn, scr.child(argindex), FuncDefine.Args(argindex).ArgComment}
+                AddHandler btn.Click, AddressOf BtnClick
+
+                btn.Content = scr.child(argindex).ValueCoder()
+                MainPanel.Children.Add(btn)
+            End If
+        Next
+
+    End Sub
     Private Sub EnCoding(isScrBlock As Boolean, func As ScriptBlock, Optional cfun As CFunc = Nothing, Optional findex As Integer = 0)
+
+
+        If Not isScrBlock Then
+            If func Is Nothing Then
+                DefaultCoder()
+                Return
+            Else
+                'func
+                FuncDefine = New FuncDefine
+                FuncDefine.InitScript(func)
+            End If
+        Else
+            Dim i As Integer = findex
+
+            If i >= 0 Then
+                'cfun
+                FuncDefine = New FuncDefine
+                FuncDefine.InitCFunc(i, cfun)
+            Else
+                DefaultCoder()
+                Return
+            End If
+        End If
+
+        FuncCoder()
+
+
+
+        Return
+
+
+
         If Not isScrBlock Then
             If func Is Nothing Then
                 DefaultCoder()
@@ -432,14 +554,7 @@ Public Class GUI_VarFuncUse
 
 
     Private Sub DefaultCoder()
-        If True Then
-            Dim tbox As New TextBlock
-            tbox.TextWrapping = TextWrapping.Wrap
-            tbox.VerticalAlignment = VerticalAlignment.Center
-            tbox.HorizontalAlignment = HorizontalAlignment.Center
-            tbox.Text = scr.name & "("
-            MainPanel.Children.Add(tbox)
-        End If
+        MainPanel.Children.Clear()
 
         For i = 0 To scr.child.Count - 1
             If i <> 0 Then
@@ -470,14 +585,6 @@ Public Class GUI_VarFuncUse
         Next
 
 
-        If True Then
-            Dim tbox As New TextBlock
-            tbox.TextWrapping = TextWrapping.Wrap
-            tbox.VerticalAlignment = VerticalAlignment.Center
-            tbox.HorizontalAlignment = HorizontalAlignment.Center
-            tbox.Text = ")"
-            MainPanel.Children.Add(tbox)
-        End If
 
     End Sub
 
@@ -537,5 +644,64 @@ Public Class GUI_VarFuncUse
         btn.Content = scr.ValueCoder
 
         RaiseEvent RefreshEvent(sender, e)
+    End Sub
+
+    Private IsDefaultCoder As Boolean
+    Private Sub ResetCoder_Click(sender As Object, e As RoutedEventArgs)
+        FuncDefine.ResetScriptBlock(scr)
+
+        FuncCoder()
+        EditBtnRefresh()
+    End Sub
+
+    Private Sub ArgAdder_Click(sender As Object, e As RoutedEventArgs)
+        scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            FuncCoder()
+        End If
+        EditBtnRefresh()
+    End Sub
+
+    Private Sub ArgRemove_Click(sender As Object, e As RoutedEventArgs)
+        scr.child.RemoveAt(scr.child.Count - 1)
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            FuncCoder()
+        End If
+        EditBtnRefresh()
+    End Sub
+
+    Private Sub EditBtnRefresh()
+        If methodname = "constructor" Then
+            ArgRemovebtn.IsEnabled = 0 < scr.child.Count
+            ArgAdderbtn.IsEnabled = True
+
+            Return
+        End If
+        If FuncDefine IsNot Nothing Then
+            If FuncDefine.ArgStartIndex = -1 Then
+                ArgRemovebtn.IsEnabled = FuncDefine.ValueCount < scr.child.Count
+            Else
+                ArgRemovebtn.IsEnabled = FuncDefine.ValueCount <= scr.child.Count
+            End If
+
+            ArgAdderbtn.IsEnabled = (FuncDefine.ArgStartIndex <> -1)
+        Else
+            ArgRemovebtn.IsEnabled = True
+            ArgAdderbtn.IsEnabled = True
+        End If
+
+    End Sub
+
+    Private Sub CoderChange_Click(sender As Object, e As RoutedEventArgs)
+        IsDefaultCoder = Not IsDefaultCoder
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            FuncCoder()
+        End If
     End Sub
 End Class

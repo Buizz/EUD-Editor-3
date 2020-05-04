@@ -812,6 +812,7 @@
 
 
     <sys:String x:Key="SearchText">찾기</sys:String>
+    <sys:String x:Key="TextEditor">텍스트 에디터</sys:String>
 
     <!--트리거에디터 설정-->
     <sys:String x:Key="TE_CompileSetting">컴파일 설정</sys:String>

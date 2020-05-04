@@ -40,8 +40,7 @@ Partial Public Class BuildData
         sw.Close()
         fs.Close()
 
-        My.Computer.FileSystem.CopyFile(GetSCArchiveeps, TriggerEditorPath & "\SCArchive.eps", True)
-        My.Computer.FileSystem.CopyFile(GetSCATooleps, TriggerEditorPath & "\SCATool.eps", True)
+
 
 
 

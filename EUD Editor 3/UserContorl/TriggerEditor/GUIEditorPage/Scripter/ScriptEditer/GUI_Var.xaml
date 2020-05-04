@@ -21,12 +21,15 @@
         <DockPanel x:Name="varObjectBorder" DockPanel.Dock="Top" >
             <!-- Object들을 골라야 한다. -->
             <!-- 고른 Object에서 함수를 선택한다. -->
-
-            <ComboBox x:Name="ObjectFunc" materialDesign:HintAssist.Hint="함수" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ObjectFunc_SelectionChanged">
-                <ComboBoxItem Content="생성자" Tag="constructor"/>
-                <ComboBoxItem Content="Cast" Tag="cast"/>
-                <ComboBoxItem Content="Alloc" Tag="alloc"/>
-            </ComboBox>
+            <DockPanel DockPanel.Dock="Top">
+                <CheckBox x:Name="SpFlag" Content="인게임초기화" DockPanel.Dock="Right" Checked="SpFlag_Checked" Unchecked="SpFlag_Unchecked" Visibility="Collapsed"/>
+                <ComboBox x:Name="ObjectFunc" materialDesign:HintAssist.Hint="함수" DockPanel.Dock="Left" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="ObjectFunc_SelectionChanged">
+                    <ComboBoxItem Content="생성자" Tag="constructor"/>
+                    <ComboBoxItem Content="Cast" Tag="cast"/>
+                    <ComboBoxItem Content="Alloc" Tag="alloc"/>
+                </ComboBox>
+            </DockPanel>
+        
             <local:GUI_VarFuncUse x:Name="varFunction"/>
         </DockPanel>
         

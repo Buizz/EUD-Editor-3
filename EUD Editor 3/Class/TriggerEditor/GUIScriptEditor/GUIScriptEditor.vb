@@ -104,7 +104,6 @@ Public Class GUIScriptEditor
 
     Public Sub ExternLoader()
         ExternFile = New List(Of ExternFile)
-
         ExternFile.Clear()
         For i = 0 To items.Count - 1
             If items(i).ScriptType = ScriptBlock.EBlockType.import Then
@@ -117,22 +116,28 @@ Public Class GUIScriptEditor
                 Dim n As String = strs.Last.Trim
 
 
+
                 Dim fTEFile As TEFile
-                If path = "SCArchive" Then
-                    Dim SCATEFile As New TEFile("SCAFile", TEFile.EFileType.CUIEps)
-                    CType(SCATEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetSCAMainEps
 
+                Dim iscmp As Boolean = False
 
-                    fTEFile = SCATEFile
-                ElseIf path = "BGMPlayer" Then
-                    Dim BGMTEFile As New TEFile("BGMFile", TEFile.EFileType.CUIEps)
-                    CType(BGMTEFile.Scripter, CUIScriptEditor).StringText = pjData.EudplibData.GetBGMMainEps
+                Dim externList As List(Of String) = tescm.GetExternFileList
+                Dim realPath As List(Of String) = tescm.GetExternFileList(True)
 
+                For k = 0 To externList.Count - 1
+                    If externList(k) = path & ".eps" Then
+                        Dim SCATEFile As New TEFile(path, TEFile.EFileType.CUIEps)
+                        CType(SCATEFile.Scripter, CUIScriptEditor).StringText = My.Computer.FileSystem.ReadAllText(realPath(k))
 
-                    fTEFile = BGMTEFile
-                Else
+                        iscmp = True
+                        fTEFile = SCATEFile
+                        Exit For
+                    End If
+                Next
+                If Not iscmp Then
                     fTEFile = CodeEditor.FineFile(TEFile, path)
                 End If
+
 
 
                 'MsgBox(fTEFile.FileName)

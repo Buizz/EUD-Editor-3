@@ -365,7 +365,7 @@ Public Class Lexical_Analyzer
     End Function
 
     Public Shared Function IsLetter(str As String) As Boolean
-        Dim rex As New Regex("[a-zA-Z_]+")
+        Dim rex As New Regex("[ㄱ-ㅎ|ㅏ-ㅣ|가-힣a-zA-Z_]+")
         Return rex.Match(str).Success
     End Function
     Public Shared Function IsHexLetter(str As String) As Boolean

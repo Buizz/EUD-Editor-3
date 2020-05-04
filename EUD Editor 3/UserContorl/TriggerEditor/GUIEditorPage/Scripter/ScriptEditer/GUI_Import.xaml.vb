@@ -8,6 +8,19 @@
         Dim astext As String = scr.value.Split(" ").Last.Trim
         tb.Text = astext
 
+
+        Dim cfile As String = scr.value.Split(" ").First.Trim
+        cfile = cfile & ".eps"
+        Dim externList As List(Of String) = tescm.GetExternFileList
+        For i = 0 To externList.Count - 1
+            Dim tComboboxitem As New ComboBoxItem
+            tComboboxitem.Tag = externList(i)
+            tComboboxitem.Content = externList(i)
+            StartFileCombobox.Items.Add(tComboboxitem)
+            If cfile = externList(i) Then
+                StartFileCombobox.SelectedIndex = StartFileCombobox.Items.Count - 1
+            End If
+        Next
         InitStartFileCombox("", pjData.TEData.PFIles)
     End Sub
 
@@ -28,18 +41,7 @@
                 End If
             End If
         Next
-        If True Then
-            Dim tComboboxitem As New ComboBoxItem
-            tComboboxitem.Tag = "SCArchive"
-            tComboboxitem.Content = "SCArchive"
-            StartFileCombobox.Items.Add(tComboboxitem)
-        End If
-        If True Then
-            Dim tComboboxitem As New ComboBoxItem
-            tComboboxitem.Tag = "BGMPlayer"
-            tComboboxitem.Content = "BGMPlayer"
-            StartFileCombobox.Items.Add(tComboboxitem)
-        End If
+
 
         For i = 0 To tTEfile.FolderCount - 1
             If tTEfile.Folders(i).FileType <> TEFile.EFileType.Setting Then

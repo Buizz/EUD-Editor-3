@@ -1,0 +1,420 @@
+function CountAtLoc(player ,units ,loc) {
+    var x = 0xFF;
+    foreach(i : py_range(31, -1, -1)) {
+    if(x >= py_pow(2, i)) {
+    x -= py_pow(2, i);
+    if(!Bring(player, AtMost, x, units, loc + 1)) {
+    x += py_pow(2, i);
+    }
+    }
+    }
+    return x;
+    //made by Artanis[M] & safhfh & Jpoker & trgk;
+}
+function COrderLoc(UnitPTR ,order ,loc) {
+    const locTable = EPD(0x58DC60);
+    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
+    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
+    bwrite(UnitPTR + 0x04D, order);
+    wwrite(UnitPTR + 0x058, x / 2);
+    wwrite(UnitPTR + 0x05A, y / 2);
+}
+function RotateLocation(target_location ,origin_location ,angle) {
+    const locTable = EPD(0x58DC60);
+    const target = target_location * 5;
+    const origin = origin_location * 5;
+    DoActions(list(
+    target.AddNumber(locTable),
+    origin.AddNumber(locTable)
+    ));
+    const tx1 = dwread_epd(target);
+    const ox1 = dwread_epd(origin);
+    DoActions(list(
+    target.AddNumber(1),
+    origin.AddNumber(1)
+    ));
+    const ty1 = dwread_epd(target);
+    const oy1 = dwread_epd(origin);
+    DoActions(list(
+    target.AddNumber(1),
+    origin.AddNumber(1)
+    ));
+    const tx2 = dwread_epd(target);
+    const ox2 = dwread_epd(origin);
+    DoActions(list(
+    target.AddNumber(1),
+    origin.AddNumber(1)
+    ));
+    const ty2 = dwread_epd(target);
+    const oy2 = dwread_epd(origin);
+    
+    const tx, ty = (tx1+tx2)/2, (ty1+ty2)/2;
+    const ox, oy = (ox1+ox2)/2, (oy1+oy2)/2;
+    const dx, dy = tx-ox, ty-oy;
+    const theta = atan2(dy, dx);
+    const x, y = lengthdir(sqrt(dx*dx+dy*dy), theta+angle);
+    const rx, ry = x-dx, y-dy;
+    dwadd_epd(target, ry);
+    DoActions(target.AddNumber(-1));
+    dwadd_epd(target, rx);
+    DoActions(target.AddNumber(-1));
+    dwadd_epd(target, ry);
+    DoActions(target.AddNumber(-1));
+    dwadd_epd(target, rx);
+}
+function RemoveStatusFlagsEPD(epd ,flags) {
+    dwsubtract_epd(epd + 0xDC / 4, flags & dwread_epd(epd + 0xDC / 4));
+}
+function COrderLocEPD(UnitEPD ,order ,loc) {
+    const locTable = loc * 5;
+    DoActions(locTable.AddNumber(EPD(0x58DC60)));
+    const x1 = dwread_epd(locTable);
+    DoActions(locTable.AddNumber(1));
+    const y1 = dwread_epd(locTable);
+    DoActions(locTable.AddNumber(1));
+    const x2 = dwread_epd(locTable);
+    DoActions(locTable.AddNumber(1));
+    const y2 = dwread_epd(locTable);
+    bwrite_epd(UnitEPD + 0x04D / 4,  0x04D % 4, order);
+    wwrite_epd(UnitEPD + 0x058 / 4,  0x058 % 4, (x1+x2) / 2);
+    wwrite_epd(UnitEPD + 0x05A / 4,  0x05A % 4, (y1+y2) / 2);
+}
+function COrderUnit(UnitPTR ,order ,target) {
+    bwrite(UnitPTR + 0x04D, order);
+    dwwrite(UnitPTR + 0x05C, target);
+}
+function COrderUnitEPD(UnitEPD ,order ,target) {
+    bwrite_epd(UnitEPD + 0x04D / 4,  0x04D % 4, order);
+    SetMemoryEPD(UnitEPD + 0x05C / 4, SetTo, target);
+}
+function SetPColor(pnum ,color) {
+    const pcolor_dst = 0x581D76 + 8 * pnum;
+    const mcolor_dst = 0x581DD6 + pnum;
+    bwrite(pcolor_dst, color);
+    bwrite(mcolor_dst, color);
+}
+function SpawnCocoon(UnitPTR ,NewUnit) {
+    if(
+        wread(UnitPTR + 0x064) == 59 && 
+        bread(UnitPTR + 0x04E) == 0
+    ){
+        bwrite(UnitPTR + 0x04E, 1);
+        bwrite(UnitPTR + 0x04D, 42);
+        wwrite(UnitPTR + 0x098, NewUnit);
+    }
+}
+function TrainUnit(UnitPTR ,NewUnit) {
+    wwrite(UnitPTR + 0x098, NewUnit);
+    wwrite(UnitPTR + 0x09A, NewUnit);
+    wwrite(UnitPTR + 0x09C, NewUnit);
+    wwrite(UnitPTR + 0x09E, NewUnit);
+    wwrite(UnitPTR + 0x0A0, NewUnit);
+    bwrite(UnitPTR + 0x0A6, 38);
+}
+function SpawnEgg(UnitPTR ,NewUnit) {
+    if(
+        wread(UnitPTR + 0x064) == 36 && 
+        bread(UnitPTR + 0x04E) == 0
+    ){
+        bwrite(UnitPTR + 0x04E, 1);
+        bwrite(UnitPTR + 0x04D, 42);
+        wwrite(UnitPTR + 0x098, NewUnit);
+    }
+}
+function SetUnitColor(UnitPTR ,Color) {
+    var spritePTR;
+    spritePTR = dwread(UnitPTR + 0x00C);
+    bwrite(spritePTR + 0x0A, Color);
+}
+function SetLocationToUnitEPD(Location ,UnitEPD ,X ,Y) {
+    const xpos = wread_epd(UnitEPD + X / 4, 0);
+    const ypos = wread_epd(UnitEPD + Y / 4, 2);
+    setloc(Location, xpos, ypos);
+}
+function SetLocation(Location ,X ,Y ,Width ,Height) {
+    setloc(Location, X, Y);
+    dilateloc(Location, Width/2, Height/2);
+}
+function SetLocationLURD(Location ,L ,U ,R ,D) {
+    setloc(Location, L, U, R, D);
+}
+function ScreenShake(x ,y ,tempLoc) {
+    if(
+        Memory(0x57F1B0, Exactly, (getcurpl()))
+    ){
+        var ScreenX = dwread_epd_safe(EPD(0x628448));
+        var ScreenY = dwread_epd_safe(EPD(0x628470));
+        ScreenX += dwrand() % (x + 1);
+        ScreenY += dwrand() % (y + 1);
+        ScreenX -= x / 2;
+        ScreenY -= y / 2;
+        SetLocation(tempLoc,ScreenX,ScreenY,0,0);
+        CenterView((64));
+        EUDMoveLocation(tempLoc,2048 - dwread_epd_safe(EPD(0x628448)),dwread_epd_safe(EPD(0x628470)) - 2048);
+        CenterView((tempLoc + 1));
+    }
+}
+function EUDMoveLocation(Location ,X ,Y) {
+    addloc(Location, X, Y);
+}
+function hotkeyUnit(UnitPTR ,player ,hotkey ,slot) {
+    var epd = EPD(UnitPTR);
+    const targetOrderSpecial = dwread_epd(epd + 0xA5 / 4) & 0xFF00;
+    var alphaID = 0;
+    if(
+        epd == 19025
+    ){
+        alphaID = 1 + targetOrderSpecial * 8;
+    }
+    else{
+        alphaID = 1701 - (0x27821 - epd) / 0x54 + targetOrderSpecial * 8;
+    }
+    SetMemoryEPD(EPD(0x57FE60) + 216 * player + 12 * hotkey + slot, SetTo, alphaID);
+}
+function GetAngle(origin ,dest) {
+    const locTable = EPD(0x58DC60);
+    const x1 = (dwread_epd(locTable + origin * 5) + dwread_epd(locTable + origin * 5 + 2))/2;
+    const y1 = (dwread_epd(locTable + origin * 5 + 1) + dwread_epd(locTable + origin * 5 + 3))/2;
+    const x2 = (dwread_epd(locTable + dest * 5) + dwread_epd(locTable + dest * 5 + 2))/2;
+    const y2 = (dwread_epd(locTable + dest * 5 + 1) + dwread_epd(locTable + dest * 5 + 3))/2;
+    return atan2((x2 - x1), (y1 - y2));
+}
+function hotkeyUnitEPD(epd ,player ,hotkey ,slot) {
+    const targetOrderSpecial = dwread_epd(epd + 0xA5 / 4) & 0xFF00;
+    var alphaID = 0;
+    if(
+        epd == 19025
+    ){
+        alphaID = 1 + targetOrderSpecial * 8;
+    }
+    else{
+        alphaID = 1701 - (0x27821 - epd) / 0x54 + targetOrderSpecial * 8;
+    }
+    SetMemoryEPD(EPD(0x57FE60) + 216 * player + 12 * hotkey + slot, SetTo, alphaID);
+}
+function LocationAngle(origin ,dest) {
+    const locOrigin, locDest = origin * 5, dest * 5;
+    DoActions(list(
+    locOrigin.AddNumber(EPD(0x58DC60)),
+    locDest.AddNumber(EPD(0x58DC60)),
+    ));
+    
+    const x1 = dwread_epd(locOrigin);
+    const x3 = dwread_epd(locDest);
+    DoActions(list(
+    locOrigin.AddNumber(1),
+    locDest.AddNumber(1),
+    ));
+    const y1 = dwread_epd(locOrigin);
+    const y3 = dwread_epd(locDest);
+    DoActions(list(
+    locOrigin.AddNumber(1),
+    locDest.AddNumber(1),
+    ));
+    const x2 = dwread_epd(locOrigin);
+    const x4 = dwread_epd(locDest);
+    DoActions(list(
+    locOrigin.AddNumber(1),
+    locDest.AddNumber(1),
+    ));
+    const y2 = dwread_epd(locOrigin);
+    const y4 = dwread_epd(locDest);
+    
+    const ox, oy = (x1+x2)/2, (y1+y2)/2;
+    const dx, dy = (x3+x4)/2, (y3+y4)/2;
+    
+    return atan2((dx - ox), (oy - dy));
+}
+function LocationDistanceVal(variable ,loc1 ,loc2) {
+    const locTable = EPD(0x58DC60);
+    const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
+    const y1 = dwread_epd(locTable + loc1 * 5 + 1) + dwread_epd(locTable + loc1 * 5 + 3);
+    const x2 = dwread_epd(locTable + loc2 * 5) + dwread_epd(locTable + loc2 * 5 + 2);
+    const y2 = dwread_epd(locTable + loc2 * 5 + 1) + dwread_epd(locTable + loc2 * 5 + 3);
+    variable = sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
+    return sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
+}
+function MorphLarva(UnitPTR ,NewUnit) {
+    if(
+        wread(UnitPTR + 0x064) == 35
+    ){
+        wwrite(UnitPTR + 0x098, NewUnit);
+        bwrite(UnitPTR + 0x04E, 0);
+        bwrite(UnitPTR + 0x04D, 42);
+    }
+}
+function PolarLocation(loc ,length ,angle) {
+    const x, y = lengthdir(length, angle);
+    const locTable = EPD(0x58DC60) + loc * 5;
+    SetMemoryEPD(locTable, Add, x);
+    SetMemoryEPD(locTable + 2, Add, x);
+    SetMemoryEPD(locTable + 1, Add, y);
+    SetMemoryEPD(locTable + 3, Add, y);
+}
+function RemoveStatusFlags(UnitPTR ,flags) {
+    dwsubtract_epd(EPD(UnitPTR) + 0xDC / 4, flags & dwread_epd(EPD(UnitPTR) + 0xDC / 4));
+}
+function CheckNoneTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
+    if(
+        bread(UnitPTR + 0x04D) == SkillOrder
+    ){
+        SetLocationToUnit(TargetLoc,UnitPTR,0x058,0x05A);
+        SetLocationToUnit(UnitLoc,UnitPTR,0x028,0x02A);
+        if(
+            Range > LocationDistance(UnitLoc,TargetLoc)
+        ){
+            MoveLocation((TargetLoc + 1), (227), (AllPlayers), (TargetLoc + 1));
+            bwrite(UnitPTR + 0x04D, 1);
+            wwrite(UnitPTR + 0x010, wread(UnitPTR + 0x028));
+            wwrite(UnitPTR + 0x012, wread(UnitPTR + 0x02A));
+            return True;
+        }
+    }
+    return False;
+}
+function SetLocationToUnit(Location ,UnitPTR ,X ,Y) {
+    const x = wread(UnitPTR + X);
+    const y = wread(UnitPTR + Y);
+    setloc(Location, x, y);
+}
+function CheckTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
+    if(
+        bread(UnitPTR + 0x04D) == SkillOrder
+    ){
+        SetLocationToUnitSafe(TargetLoc,UnitPTR,0x058);
+        SetLocationToUnitSafe(UnitLoc,UnitPTR,0x028);
+        if(
+            Range > LocationDistance(UnitLoc,TargetLoc)
+        ){
+            MoveLocation((TargetLoc + 1), (227), (17), (TargetLoc + 1));
+            bwrite(UnitPTR + 0x04D, 1);
+            wwrite(UnitPTR + 0x010, wread(UnitPTR + 0x028));
+            wwrite(UnitPTR + 0x012, wread(UnitPTR + 0x02A));
+            return True;
+        }
+    }
+    return False;
+}
+function SetLocationToUnitSafe(Location ,UnitPTR ,posX) {
+    var xloc, yloc = dwbreak(dwread_epd_safe(EPD(UnitPTR + posX)))[[0, 1]];
+    SetMemory(0x58DC60 + Location * 20 + 4 * 0, SetTo, xloc);
+    SetMemory(0x58DC60 + Location * 20 + 4 * 2, SetTo, xloc);
+    SetMemory(0x58DC60 + Location * 20 + 4 * 1, SetTo, yloc);
+    SetMemory(0x58DC60 + Location * 20 + 4 * 3, SetTo, yloc);
+}
+function LocationDistance(loc1 ,loc2) {
+    const locTable = EPD(0x58DC60);
+    const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
+    const y1 = dwread_epd(locTable + loc1 * 5 + 1) + dwread_epd(locTable + loc1 * 5 + 3);
+    const x2 = dwread_epd(locTable + loc2 * 5) + dwread_epd(locTable + loc2 * 5 + 2);
+    const y2 = dwread_epd(locTable + loc2 * 5 + 1) + dwread_epd(locTable + loc2 * 5 + 3);
+    return sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
+}
+function CBring(UnitPTR ,Location ,dummyUnit) {
+    MoveLocation((Location), (dummyUnit), (AllPlayers), (Location));
+    var tUnitType = 0;
+    tUnitType = wread(UnitPTR + 0x064);
+    wwrite(UnitPTR + 0x064, dummyUnit);
+    if(
+        Bring((AllPlayers), (AtLeast), 1, (dummyUnit), (Location))
+    ){
+        wwrite(UnitPTR + 0x064, tUnitType);
+        return True;
+    }
+    wwrite(UnitPTR + 0x064, tUnitType);
+    return False;
+}
+function BuildSCV(UnitPTR ,loc ,Building) {
+    const locTable = EPD(0x58DC60);
+    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
+    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
+    bwrite(UnitPTR + 0x04D, 30);
+    wwrite(UnitPTR + 0x098, Building);
+    wwrite(UnitPTR + 0x058, x / 2);
+    wwrite(UnitPTR + 0x05A, y / 2);
+}
+function BuildReset(unitPTR) {
+    BuildResetEPD(EPD(unitPTR));
+}
+function BuildResetEPD(unitEPD) {
+    SetMemoryXEPD(unitEPD + 38, SetTo, 14942436, 0xFFFFFFFF);
+    SetMemoryXEPD(unitEPD + 39, SetTo, 14942436, 0xFFFFFFFF);
+    SetMemoryXEPD(unitEPD + 40, SetTo, 228, 0xFFFF);
+    SetMemoryXEPD(unitEPD + 41, SetTo, 131072, 0xFFFF0000);
+}
+function BuildProbe(UnitPTR ,loc ,Building) {
+    const locTable = EPD(0x58DC60);
+    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
+    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
+    bwrite(UnitPTR + 0x04D, 31);
+    wwrite(UnitPTR + 0x098, Building);
+    wwrite(UnitPTR + 0x058, x / 2);
+    wwrite(UnitPTR + 0x05A, y / 2);
+}
+function BuildDrone(UnitPTR ,loc ,Building) {
+    const locTable = EPD(0x58DC60);
+    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
+    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
+    bwrite(UnitPTR + 0x04D, 25);
+    wwrite(UnitPTR + 0x098, Building);
+    wwrite(UnitPTR + 0x058, x / 2);
+    wwrite(UnitPTR + 0x05A, y / 2);
+}
+function BuildCheckEPD(unitEPD ,Unit) {
+    const mulUnit = Unit * 65536;
+    if(MemoryXEPD(unitEPD + 38, Exactly, Unit, 0xFFFF)){
+        return True;
+    } else if(MemoryXEPD(unitEPD + 38, Exactly, mulUnit, 0xFFFF0000)){
+        return True;
+    } else if(MemoryXEPD(unitEPD + 39, Exactly, Unit, 0xFFFF)){
+        return True;
+    } else if(MemoryXEPD(unitEPD + 39, Exactly, mulUnit, 0xFFFF0000)){
+        return True;
+    } else if(MemoryXEPD(unitEPD + 40, Exactly, Unit, 0xFFFF)){
+        return True;
+    } else{
+        return False;
+    };
+}
+function BuildCheck(unitPTR ,Unit) {
+    if(
+        wread(unitPTR + 0x098) == Unit || 
+        wread(unitPTR + 0x09A) == Unit || 
+        wread(unitPTR + 0x09C) == Unit || 
+        wread(unitPTR + 0x09E) == Unit || 
+        wread(unitPTR + 0x0A0) == Unit
+    ){
+        return True;
+    }
+    return False;
+}
+function AttackGround(attackLoc ,targetLoc ,attackUnit ,targetUnit ,player) {
+    var ap, ae, tp, te;
+    ap, ae = cunitepdread_epd(EPD(0x628438));
+    CreateUnit(1, (attackUnit), (attackLoc + 1), (player));
+    if(
+        Memory(0x628438, (10), ap)
+    ){
+        return false;
+    }
+    wwrite_epd(ae + 0x110 / 4,  0x110 % 4, 2);
+    tp, te = cunitepdread_epd(EPD(0x628438));
+    CreateUnit(1, (targetUnit), (targetLoc + 1), (player));
+    if(
+        Memory(0x628438, (10), tp)
+    ){
+        return false;
+    }
+    wwrite_epd(tunit + 0x110 / 4,  0x110 % 4, 2);
+    SetMemoryEPD(aunit + 0x05C / 4, SetTo, tunitptr);
+    return true;
+}
+function AddStatusFlags(UnitPTR ,flags) {
+    SetMemoryX(UnitPTR + 0xDC, SetTo, flags, flags);
+}
+function AddStatusFlagsEPD(epd ,flags) {
+    SetMemoryXEPD(epd + 0xDC/4, SetTo, flags, flags);
+}
+function AddSizeLocation(Location ,Width ,Height) {
+    dilateloc(Location, Width, Height);
+}

@@ -398,7 +398,11 @@ Public Class CFunc
                 Exit While
             End If
         End While
-        Return si
+        If stack.Count = 0 Then
+            Return si
+        Else
+            Return -1
+        End If
     End Function
     Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1, Optional NameSpace_ As String = "")
         If StartPos <> -1 Then
@@ -424,8 +428,12 @@ Public Class CFunc
 
                 Dim StartIndex As Integer = matches(i).Index + matches(i).Length
 
+                Dim bl As Integer = BraketLiner(str, StartIndex)
+                If bl = -1 Then
+                    Continue For
+                End If
 
-                ObjContents = Mid(str, StartIndex, BraketLiner(str, StartIndex) - StartIndex)
+                ObjContents = Mid(str, StartIndex, bl - StartIndex)
 
                 'MsgBox(ObjName) '오브젝트 이름
                 'MsgBox(ObjContents)
@@ -447,13 +455,26 @@ Public Class CFunc
             Dim changesStr As New List(Of String)
             For i = 0 To matches.Count - 1
                 Dim ObjContents As String
-                FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value, matches(i).Groups(2).Value))
-                FuncNames.Add(matches(i).Groups(2).Value)
-                FuncArgument.Add(matches(i).Groups(3).Value)
+
+                Dim argment As String = matches(i).Groups(3).Value
+                If argment.IndexOf("/*") <> -1 And argment.IndexOf("*/") <> -1 And argment.IndexOf(":") = -1 Then
+                    argment = argment.Replace("*/", "")
+                    argment = argment.Replace("/*", ":")
+                End If
                 Dim StartIndex As Integer = matches(i).Index + matches(i).Length
 
-                ObjContents = Mid(str, StartIndex, BraketLiner(str, StartIndex) - StartIndex)
+                Dim bl As Integer = BraketLiner(str, StartIndex)
+                If bl = -1 Then
+                    Continue For
+                End If
+
+                ObjContents = Mid(str, StartIndex, bl - StartIndex)
                 changesStr.Add(matches(i).Value & Mid(ObjContents, 2))
+
+                FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value, matches(i).Groups(2).Value))
+                FuncNames.Add(matches(i).Groups(2).Value)
+
+                FuncArgument.Add(argment)
             Next
             For i = 0 To changesStr.Count - 1
                 str = Replace(str, changesStr(i), "", 1, 1)
@@ -469,15 +490,31 @@ Public Class CFunc
             'MsgBox(matches.Count)
             For i = 0 To matches.Count - 1
                 Dim ObjContents As String
+
+                Dim StartIndex As Integer = matches(i).Index + matches(i).Length
+
+                Dim bl As Integer = BraketLiner(str, StartIndex)
+                If bl = -1 Then
+                    Continue For
+                End If
+
                 If FuncNames.IndexOf(matches(i).Groups(1).Value) = -1 Then
                     FuncTooltip.Add(New FunctionToolTip())
                     FuncNames.Add(matches(i).Groups(1).Value)
-                    FuncArgument.Add(matches(i).Groups(2).Value)
-                End If
-                Dim StartIndex As Integer = matches(i).Index + matches(i).Length
 
-                ObjContents = Mid(str, StartIndex, BraketLiner(str, StartIndex) - StartIndex)
+
+                    Dim argment As String = matches(i).Groups(2).Value
+                    If argment.IndexOf("/*") <> -1 And argment.IndexOf("*/") <> -1 And argment.IndexOf(":") = -1 Then
+                        argment = argment.Replace("*/", "")
+                        argment = argment.Replace("/*", ":")
+                    End If
+
+                    FuncArgument.Add(argment)
+                End If
+
+                ObjContents = Mid(str, StartIndex, bl - StartIndex)
                 changesStr.Add(matches(i).Value & Mid(ObjContents, 2))
+
             Next
             For i = 0 To changesStr.Count - 1
                 str = Replace(str, changesStr(i), "", 1, 1)

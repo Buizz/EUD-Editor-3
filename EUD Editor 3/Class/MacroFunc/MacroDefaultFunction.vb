@@ -1,6 +1,12 @@
 ﻿Partial Public Class MacroManager
     Public luaReturnstr As String
+    Public preDefineStr As New List(Of String)
 
+    Public Sub preDefine(t As String)
+        If preDefineStr.IndexOf(t) = -1 Then
+            preDefineStr.Add(t)
+        End If
+    End Sub
     Public Sub echo(t As String)
         luaReturnstr = luaReturnstr & t
     End Sub
@@ -87,7 +93,102 @@
         End If
     End Function
 
+    Public Shared EUDScoreList() As String = {
+        "Score Total Units Produced",
+        "Score Units Produced",
+        "Score Units Owned",
+        "Score Units Lost",
+        "Score Units Killed",
+        "Score Unit Total",
+        "Score Kill Total",
+        "Score Structures Constructed Total",
+        "Score Structures Constructed",
+        "Score Structures Owned",
+        "Score Structures Lost",
+        "Score Structures Razed",
+        "Score Buildings Total",
+        "Score Razings Total",
+        "Score Factories Constructed",
+        "Score Factories Owned",
+        "Score Factories Lost",
+        "Score Factories Razed",
+        "Score Custom"
+    }
+    Public Shared EUDScoreOffsetList() As String = {
+        "0x581DE4",
+        "0x581E14",
+        "0x581E44",
+        "0x581E74",
+        "0x581EA4",
+        "0x581ED4",
+        "0x581F04",
+        "0x581F34",
+        "0x581F64",
+        "0x581F94",
+        "0x581FC4",
+        "0x581FF4",
+        "0x582024",
+        "0x582054",
+        "0x582084",
+        "0x5820B4",
+        "0x5820E4",
+        "0x582114",
+        "0x5822F4"
+    }
+    Public Shared EUDSupplyTypeList() As String = {
+        "Zerg Control Available",
+        "Zerg Control Used",
+        "Zerg Control Max",
+        "Terran Supply Available",
+        "Terran Supply Used",
+        "Terran Supply Max",
+        "Protoss Psi Available",
+        "Protoss Psi Used",
+        "Protoss Psi Max"
+    }
+    Public Shared EUDSupplyTypeOffsetList() As String = {
+        "0x582144",
+        "0x582174",
+        "0x5821A4",
+        "0x5821D4",
+        "0x582204",
+        "0x582234",
+        "0x582264",
+        "0x582294",
+        "0x5822C4"
+    }
+    Public Function ParseEUDScore(ObjectName As String) As String
+        Dim rint As Integer = EUDScoreList.ToList.IndexOf(ObjectName)
+        If rint = -1 Then
+            Return ObjectName
+        Else
+            Return rint
+        End If
+    End Function
+    Public Function ParseSupplyType(ObjectName As String) As String
+        Dim rint As Integer = EUDSupplyTypeList.ToList.IndexOf(ObjectName)
+        If rint = -1 Then
+            Return ObjectName
+        Else
+            Return rint
+        End If
+    End Function
 
+
+    Public Function GetEUDScoreOffset(index As Integer) As String
+        Return EUDScoreOffsetList(index)
+    End Function
+    Public Function GetSupplyOffset(index As Integer) As String
+        Return EUDSupplyTypeOffsetList(index)
+    End Function
+
+
+
+
+
+    Public Function IsNumber(num As String) As Boolean
+        Return IsNumeric(num)
+    End Function
 
 
     Public Sub GetBGMIndex(bgmname As String)

@@ -6,6 +6,7 @@ Imports ICSharpCode.AvalonEdit.Folding
 Imports ICSharpCode.AvalonEdit.Highlighting
 Imports ICSharpCode.AvalonEdit
 Imports ICSharpCode.AvalonEdit.CodeCompletion
+Imports MahApps.Metro.Controls
 
 Partial Public Class CodeEditor
     Private TEFile As TEFile
@@ -368,7 +369,7 @@ Partial Public Class CodeEditor
     Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, Optional Flag As SpecialFlag = SpecialFlag.None)
         If completionWindow Is Nothing Then
             If Char.IsLetterOrDigit(enteredText) Or enteredText = "_" Then
-                completionWindow = New CompletionWindow(TextEditor.TextArea)
+                completionWindow = New CustomCompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
                 '만약 enteredText로 인해 CompletionData가 남아있을 경우 -1을 한다.
@@ -435,11 +436,11 @@ Partial Public Class CodeEditor
                 End If
 
                 If completionWindow.CompletionList.SelectedItem Is Nothing Then
-                    completionWindow.Close()
-                    'completionWindow.Visibility = Visibility.Collapsed
+                    'completionWindow.Close()
+                    completionWindowHide()
                 End If
             ElseIf enteredText = " " Or enteredText = vbTab Or enteredText = "," Or enteredText = "(" Or enteredText = "." Then 'IsFirstArgumnet And FuncNameas.Trim <> "" Then '
-                completionWindow = New CompletionWindow(TextEditor.TextArea)
+                completionWindow = New CustomCompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
 
@@ -500,9 +501,19 @@ Partial Public Class CodeEditor
             End If
         End If
     End Sub
+    Private Sub completionWindowView()
+        completionWindow._toolTip.IsOpen = True
+        completionWindow.Visibility = Visibility.Visible
+    End Sub
+    Private Sub completionWindowHide()
+        completionWindow._toolTip.IsOpen = False
+        completionWindow.Visibility = Visibility.Collapsed
+    End Sub
 
 
-    Private completionWindow As ICSharpCode.AvalonEdit.CodeCompletion.CompletionWindow
+
+
+    Private completionWindow As CustomCompletionWindow
     Private permissionChar() As String = {" ", "(", ")", "[", "]", "{", "}", vbTab}
 
 
@@ -537,13 +548,15 @@ Partial Public Class CodeEditor
     Private Sub TextEditorPreviewKey(sender As Object, e As KeyEventArgs)
         If completionWindow IsNot Nothing Then
             If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
-                completionWindow.Close()
-                '    completionWindow.Visibility = Visibility.Collapsed
+                'completionWindow.Close()
+                completionWindowHide()
                 '    completionWindow.CompletionList.ListBox.SelectedIndex = -1
                 '    completionWindow.CompletionList.ListBox.Visibility = Visibility.Collapsed
                 'Else
                 '    completionWindow.Visibility = Visibility.Visible
                 '    completionWindow.CompletionList.ListBox.Visibility = Visibility.Visible
+            Else
+                completionWindowView()
             End If
         End If
         If e.Key = Key.Up Or e.Key = Key.Down Then
@@ -725,3 +738,4 @@ Partial Public Class CodeEditor
         End If
     End Sub
 End Class
+

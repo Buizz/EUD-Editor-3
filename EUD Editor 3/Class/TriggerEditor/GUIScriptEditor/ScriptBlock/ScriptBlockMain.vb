@@ -147,6 +147,12 @@ Public Class ScriptBlock
 
 
         Select Case ScriptType
+            Case EBlockType.constVal
+                If name = "Variable" Then
+                    ScriptType = EBlockType.varuse
+                    name = "init"
+                    value = "init"
+                End If
             Case EBlockType.fundefine
                 AddChild(New ScriptBlock(EBlockType.funargs, "funargs", False, False, "", Scripter))
                 AddChild(New ScriptBlock(EBlockType.funcontent, "funcontent", False, False, "", Scripter))
@@ -335,14 +341,17 @@ Public Class ScriptBlock
             Next
         End If
 
-        Dim funcargs As Integer = GetFuncArgsCount()
-        If funcargs <> -1 Then
-            If funcargs < curentvals Then
-                For i = 0 To curentvals - funcargs - 1
-                    child.RemoveAt(funcargs)
-                Next
-            End If
-        End If
+
+        '만약 마지막 define된 arg의 이름이 *로 시작 할 경우
+
+        'Dim funcargs As Integer = GetFuncArgsCount()
+        'If funcargs <> -1 Then
+        '    If funcargs < curentvals Then
+        '        For i = 0 To curentvals - funcargs - 1
+        '            child.RemoveAt(funcargs)
+        '        Next
+        '    End If
+        'End If
     End Sub
 
 
@@ -427,6 +436,22 @@ Public Class ScriptBlock
                             rstr = rstr & child(i).ValueCoder()
                         Next
                         rstr = rstr & ")"
+                    Else
+                        Select Case value
+                            Case "constructor", "cast", "alloc"
+                                If value = "constructor" Then
+                                    rstr = name
+                                End If
+
+                                rstr = rstr & "("
+                                For i = 0 To child.Count - 1
+                                    If i <> 0 Then
+                                        rstr = rstr & ","
+                                    End If
+                                    rstr = rstr & child(i).ValueCoder()
+                                Next
+                                rstr = rstr & ")"
+                        End Select
                     End If
                 Else
                     rstr = name
@@ -675,7 +700,11 @@ Public Class ScriptBlock
                 DefaultCoder(lnlines)
                 Return
             End If
-
+            If vcount <> child.Count Then
+                AddText(lnlines, "인자수가 정의랑 일치하지 않습니다. : ", Brushes.MediumVioletRed)
+                DefaultCoder(lnlines)
+                Return
+            End If
 
             For k = 0 To values.Count - 1
                 If values(k).Trim <> "" Then
@@ -701,8 +730,8 @@ Public Class ScriptBlock
                 Dim arglist As New List(Of String)
                 Dim argTooltiplist As New List(Of String)
                 For i = 0 To argsb.Count - 1
-                    Dim argname As String = value
-                    Dim sargtooltip As String = value2
+                    Dim argname As String = argsb(i).value
+                    Dim sargtooltip As String = argsb(i).value2
                     argtooltip.Add(sargtooltip)
                     args.Add(argname)
                 Next
@@ -722,6 +751,11 @@ Public Class ScriptBlock
                     Return
                 End If
                 If args.Count = 0 And argumentstr = "" Then
+                    DefaultCoder(lnlines)
+                    Return
+                End If
+                If vcount <> child.Count Then
+                    AddText(lnlines, "인자수가 정의랑 일치하지 않습니다. : ", Brushes.MediumVioletRed)
                     DefaultCoder(lnlines)
                     Return
                 End If

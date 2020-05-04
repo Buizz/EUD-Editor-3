@@ -35,11 +35,16 @@ Public Class MacroManager
         FunctionList = New List(Of LuaFunction)
 
 
+        lua.RegisterFunction("preDefine", Me, Me.GetType().GetMethod("preDefine"))
+        FunctionList.Add(New LuaFunction("preDefine", "값을 미리 선언합니다.", "str", "str"))
+
         lua.RegisterFunction("echo", Me, Me.GetType().GetMethod("echo"))
         FunctionList.Add(New LuaFunction("echo", "값을 반환합니다.", "str", "str"))
 
 
         lua.RegisterFunction("GetBGMIndex", Me, Me.GetType().GetMethod("GetBGMIndex"))
+        FunctionList.Add(New LuaFunction("GetBGMIndex", "사운드 인덱스를 반환합니다.", "bgmname", "BGM"))
+
         lua.RegisterFunction("ParseUnit", Me, Me.GetType().GetMethod("ParseUnit"))
         lua.RegisterFunction("ParseWeapon", Me, Me.GetType().GetMethod("ParseWeapon"))
         lua.RegisterFunction("ParseFlingy", Me, Me.GetType().GetMethod("ParseFlingy"))
@@ -50,7 +55,15 @@ Public Class MacroManager
         lua.RegisterFunction("ParseOrders", Me, Me.GetType().GetMethod("ParseOrders"))
         lua.RegisterFunction("ParseLocation", Me, Me.GetType().GetMethod("ParseLocation"))
         lua.RegisterFunction("ParseSwitchName", Me, Me.GetType().GetMethod("ParseSwitchName"))
+        lua.RegisterFunction("ParseEUDScore", Me, Me.GetType().GetMethod("ParseEUDScore"))
+        lua.RegisterFunction("ParseSupplyType", Me, Me.GetType().GetMethod("ParseSupplyType"))
+        lua.RegisterFunction("GetEUDScoreOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
+        lua.RegisterFunction("GetSupplyOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
 
+
+
+
+        lua.RegisterFunction("IsNumber", Me, Me.GetType().GetMethod("IsNumber"))
 
 
 
@@ -119,7 +132,9 @@ Public Class MacroManager
         Dim regex As New Regex("(<\?|<\?php)(.+?)\?>", RegexOptions.Multiline Or RegexOptions.Singleline Or RegexOptions.ExplicitCapture)
         Dim matches As MatchCollection = regex.Matches(str)
 
+        preDefineStr.Clear()
         For i = 0 To matches.Count - 1
+
             luaReturnstr = ""
 
             Dim truestr As String = matches(i).Value
@@ -129,6 +144,7 @@ Public Class MacroManager
                 lua.DoString(mstr)
             Catch ex As Exception
                 ErrorMsg = ex.ToString
+                MsgBox(ErrorMsg)
                 Continue For
             End Try
 
@@ -136,6 +152,9 @@ Public Class MacroManager
             rstr = Replace(rstr, truestr, luaReturnstr, 1, 1)
         Next
 
+        For i = 0 To preDefineStr.Count - 1
+            rstr = preDefineStr(i) & vbCrLf & rstr
+        Next
 
         Return rstr
     End Function
@@ -177,8 +196,7 @@ Public Class MacroManager
 
                 If tstr.IndexOf("[" & ArgName(i).Trim & "]") <> -1 Then
                     tstr = tstr.Replace("[" & ArgName(i).Trim & "]", "*$" & i & "*")
-                    If Fname = "SetUnitsDat" Then
-                    End If
+
 
                     vcount += 1
                 End If

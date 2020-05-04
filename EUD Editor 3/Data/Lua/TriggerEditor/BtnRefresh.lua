@@ -6,6 +6,5 @@ CreateUnit(1, 73, 64, 7);
 if(!Memory(0x628438, Exactly, btntemp2)) {
 wwrite_epd(btntemp3 + 0x110/4, 0, 1);
 wwrite_epd(EPD(0x6615AA), 2, btntemp1);
-};
-SetMemory(0x5124F0, (7), 21)]])
+}]])
 end

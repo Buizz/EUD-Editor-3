@@ -33,3 +33,5 @@ Image
 Upgrade
 Tech
 Order
+EUDScore
+SupplyType

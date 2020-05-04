@@ -250,6 +250,7 @@
     <Compile Include="Class\BulidData\WriteReqFile.vb" />
     <Compile Include="Class\BulidData\WriteTbl.vb" />
     <Compile Include="Class\BulidData\WriteTriggerEditor.vb" />
+    <Compile Include="Class\BulidData\WritleExternFile.vb" />
     <Compile Include="Class\BytesReader.vb" />
     <Compile Include="Class\CascData.vb" />
     <Compile Include="Class\CascLib.vb" />
@@ -302,6 +303,7 @@
     <Compile Include="Class\TriggerEditor\BGMData.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\FuncArgManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock\ScriptBlockMain.vb" />
@@ -351,6 +353,7 @@
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\CodeEditor\CodeSearchLocalization.vb" />
+    <Compile Include="UserContorl\CodeEditor\CompletionWindow.vb" />
     <Compile Include="UserContorl\CodeEditor\EnteredText.vb" />
     <Compile Include="UserContorl\CodeEditor\ExternerManager.vb" />
     <Compile Include="UserContorl\CodeEditor\funcLoader.vb" />
@@ -637,6 +640,9 @@
     </Compile>
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\TextEditorWindow.xaml.vb">
+      <DependentUpon>TextEditorWindow.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\TriggerEditor.xaml.vb">
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
@@ -1049,6 +1055,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\TextEditorWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\TriggerEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1151,6 +1161,8 @@
     <None Include="Data\DatFiles\weapons.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
+    <Resource Include="Resources\EUROSTILE-REG.TTF" />
+    <Resource Include="Resources\Kostar.ttf" />
     <None Include="Data\grpwire.grp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1161,25 +1173,70 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\BtnRefresh.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\CompletedUnitCount.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\Dat.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\DatOffset.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\Encoder.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\EUDTurbo.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\GetCounterTimer.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\GetDat.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\GetDeaths.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\GetElapsedTime.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Kills.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Light.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\PlayerAlliances.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\PlayerUnitsAvailable.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Resource.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Score.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\SetDat.lua">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Supply.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Tech.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\UnitCount.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Upgrade.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Vision.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Palletes\ashworld.wpe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
@@ -1265,6 +1322,9 @@
     <None Include="Data\TriggerEditor\SCATool.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\TriggerEditor\TETools.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\wirefram.grp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1283,7 +1343,6 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Class\Binding\CodeName\" />
-    <Folder Include="Data\eudplibData\" />
     <Folder Include="Data\Lua\DataEditor\" />
   </ItemGroup>
   <ItemGroup>
@@ -1341,6 +1400,13 @@
     <None Include="Data\ffmpeg.exe">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\Lua\TriggerEditor\#ReadMe - Args.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\#ReadMe - Parser.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <Resource Include="Resources\TextEditorBackGround.png" />
     <Content Include="x64\lz4X64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

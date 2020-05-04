@@ -10,25 +10,25 @@
         AddHandler ArgSelecter.ArgBtnRefreshEvent, AddressOf ArgBtnRefreshEvent
         AddHandler ArgSelecter.ArgBtnClickEvent, AddressOf ArgBtnClickEvent
 
-        Dim colorcode As String = ""
-        Select Case scr.ScriptType
-            Case ScriptBlock.EBlockType.action
-                colorcode = tescm.Tabkeys("Action")
-            Case ScriptBlock.EBlockType.condition
-                colorcode = tescm.Tabkeys("Condition")
-            Case ScriptBlock.EBlockType.plibfun
-                colorcode = tescm.Tabkeys("plibFunc")
-            Case ScriptBlock.EBlockType.funuse
-                colorcode = tescm.Tabkeys("Func")
-            Case ScriptBlock.EBlockType.externfun
-                colorcode = tescm.Tabkeys("Func")
-            Case ScriptBlock.EBlockType.macrofun
-                colorcode = tescm.Tabkeys("MacroFunc")
-        End Select
-        colorbox.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
+        'Dim colorcode As String = ""
+        'Select Case scr.ScriptType
+        '    Case ScriptBlock.EBlockType.action
+        '        colorcode = tescm.Tabkeys("Action")
+        '    Case ScriptBlock.EBlockType.condition
+        '        colorcode = tescm.Tabkeys("Condition")
+        '    Case ScriptBlock.EBlockType.plibfun
+        '        colorcode = tescm.Tabkeys("plibFunc")
+        '    Case ScriptBlock.EBlockType.funuse
+        '        colorcode = tescm.Tabkeys("Func")
+        '    Case ScriptBlock.EBlockType.externfun
+        '        colorcode = tescm.Tabkeys("Func")
+        '    Case ScriptBlock.EBlockType.macrofun
+        '        colorcode = tescm.Tabkeys("MacroFunc")
+        'End Select
+        'colorbox.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
         ArgSelecter.CrlInit(scr)
 
-        fname.Text = scr.name
+        'fname.Text = scr.name
         valueEditPanel.Visibility = Visibility.Collapsed
     End Sub
 

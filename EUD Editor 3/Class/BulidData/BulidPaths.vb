@@ -15,6 +15,11 @@
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\BGMPlayer.eps"
         End Get
     End Property
+    Public ReadOnly Property GetTriggerEditorFolderPath() As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor"
+        End Get
+    End Property
 
 
     Public Shared ReadOnly Property OpenMapPath() As String

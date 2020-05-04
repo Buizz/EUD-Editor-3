@@ -176,6 +176,9 @@ Partial Public Class BuildData
         Tool.RefreshMainWindow()
 
 
+        WriteExternFIle()
+
+
         WriteBGMData()
 
         If pjData.TEData.SCArchive.IsUsed Then

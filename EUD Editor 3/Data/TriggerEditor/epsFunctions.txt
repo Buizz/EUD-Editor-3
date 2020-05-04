@@ -1686,6 +1686,36 @@ function dbstr_print(dst, arguments) { }
  * @Type
  * F
  * @Summary.ko-KR
+ * dst에 여러가지를 한꺼번에 출력합니다.
+ * .. note::
+ *     dbstr_print에 변수를 넣으면 10진법으로 출력됩니다. dbstr_addptr처럼
+ *     16진법으로 출력되게 하려면 hptr(숫자)를 넣으세요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function sprintf(dst, formatstring /*FormatText*/, *args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * dst에 여러가지를 한꺼번에 출력합니다.
+ * .. note::
+ *     dbstr_print에 변수를 넣으면 10진법으로 출력됩니다. dbstr_addptr처럼
+ *     16진법으로 출력되게 하려면 hptr(숫자)를 넣으세요.
+ *
+ * @param.인자이름.ko-KR
+ * 인자 설명
+ ***/
+function sprintf_cp(formatstring /*FormatText*/, *args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
  * 랜덤 관련
  ***/
 function rand() { }
@@ -2847,28 +2877,17 @@ function PColor(player: TrgPlayer) { }
 function PName(player: TrgPlayer) { }
 
 
-/***
- * @Type
- * F
- * @Summary.ko-KR
- * 에러 줄에 [args] 내용대로 텍스트를 출력합니다.
- *
- * @param.args.ko-KR
- * str, ptr2s, epd2s, PName, PColor
- ***/
-function eprintln(args, encoding) { }
-
 
 /***
  * @Type
  * F
  * @Summary.ko-KR
- * [player]의 이름을 [args]의 내용들로 설정합니다.
+ * [player]의 이름을 [formatstring /*FormatText*/]으로 [*args]의 내용들로 설정합니다.
  *
  * @param.args.ko-KR
  * str, ptr2s, epd2s, PName, PColor
  ***/
-function SetPName(player: TrgPlayer, args) { }
+function SetPNamef(player: TrgPlayer, formatstring /*FormatText*/, *args) { }
 
 
 /***
@@ -2893,6 +2912,30 @@ function GetTBLAddr(tblId) { }
  * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
  ***/
 function settbl(tblID, offset, args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * stat_txt.tbl 내용 작성
+ *
+ * @param.offset.ko-KR
+ * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
+ ***/
+function settblf(tblID, offset, formatstring /*FormatText*/, *args) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * stat_txt.tbl 내용 작성
+ *
+ * @param.offset.ko-KR
+ * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
+ ***/
+function settblf2(tblID, offset, formatstring /*FormatText*/, *args) { }
 
 
 /***
@@ -3395,7 +3438,7 @@ function addcurpl(cp) { }
  * @param.args.ko-KR
  * Things to print
  ***/
-function cpstr_print(args, EOS, encoding) { }
+function cpstr_print(*args, EOS, encoding) { }
 
 
 /***
@@ -3426,24 +3469,60 @@ function getgametick() { }
  * @Type
  * F
  * @Summary.ko-KR
+ * 스트링을 특정 진수(기본값: 10진법)로 변환한 정수값과, 자리수를 리턴합니다. 수로 변환할 수 없으면 0, 0
+ * 을 리턴합니다. 음수도 지원되며, 선행 공백 문자를 무시합니다. radix가 0이면 0b나 0B로 시작하면 2진법, 
+ * 0o나 0O로 시작하면 8진법, 0x나 0X로 시작하면 16진법으로 읽습니다.
+ *
+ * @param.dst.ko-KR
+ * dst: 스트링 주소. radix: 0 또는 2~36, (기본값: 10진법).
+ * 
+ ***/
+function parse(dst, radix=10) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 에러 줄에 텍스트를 출력합니다.
+ *
+ * @param.args.ko-KR
+ * str, ptr2s, epd2s, PName, PColor
+ ***/
+function eprintln(*args, encoding) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
  * 에러줄에 메세지를 출력합니다.
  ***/
-function f_eprintln(*args) { }
+function f_eprintf(formatstring /*FormatText*/, *args) { }
 
 
 
 object StringBuffer {
    function append(*args) {}
+   function appendf(formatstring /*FormatText*/, *args) {}
    function insert(index, *args) {}
+   function insertf(index, formatstring /*FormatText*/, *args) {}
    function delete(start, length=1) {}
    function Display() {}
    function DisplayAt(line) {}
    function print(*args) {}
+   function printf(formatstring /*FormatText*/, *args) {}
+   function printfAt(line, formatstring /*FormatText*/, *args) {}
    function Play() {}
    function fadeIn(*args, color=None, wait=1, reset=True, tag=None) {}
    function fadeOut(*args, color=None, wait=1, reset=True, tag=None) {}
+   function fadeInf(formatstring /*FormatText*/, *args, color=None, wait=1, reset=True, tag=None) {}
+   function fadeOutf(formatstring /*FormatText*/, *args, color=None, wait=1, reset=True, tag=None) {}
    function length() {}
    function constructor(len) {}
+   const StringIndex;
+   const epd;
 };
 
 

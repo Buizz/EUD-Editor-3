@@ -233,12 +233,9 @@ Public Class Parser
                         CheckNextToken(Token.TokenType.TOKEN_LBRACKET)
 
                         While (Not CheckBlockToken(Token.TokenType.TOKEN_RBRACKET))
-                            Decoder(CodeType.CODE_PARAM_DCL, ncode)
+                            Decoder(CodeType.CODE_PRIMARY, ncode)
                             CheckBlockToken(Token.TokenType.TOKEN_COMMA)
                         End While
-
-
-                        CheckNextToken(Token.TokenType.TOKEN_RBRACKET)
                     Else
                         Decoder(CodeType.CODE_EXPRESSION, ncode)
                     End If
@@ -608,12 +605,25 @@ PRIUse:
                         scritem.value2 = "var"
                     Case CodeType.CODE_CONST
                         scritem.value2 = "const"
+                        scritem.flag = True
                     Case CodeType.CODE_STATIC
                         scritem.value2 = "static"
+                        scritem.flag = True
                 End Select
 
                 If cblock.Value2 = "Array" Then
+                    scritem.value = vname
+                    scritem.flag = True
+                    scritem.value2 = "object"
 
+                    Dim initojb As New ScriptBlock(ScriptBlock.EBlockType.varuse, "EUDArray", True, False, "constructor", Nothing)
+                    initojb.flag = True
+                    For i = 0 To cblock.Items.Count - 1
+                        initojb.AddChild(GetScriptBlock(cblock.Items(i)))
+                    Next
+
+
+                    scritem.AddChild(initojb)
                 Else
                     If cblock.Items.Count > 0 Then
                         Dim initexp As CodeBlock = cblock.Items.First
@@ -623,6 +633,7 @@ PRIUse:
 
                             Select Case tcode.BType
                                 Case CodeType.PRI_USEBRACKET
+                                    scritem.flag = True
                                     scritem.value = vname
                                     scritem.value2 = "object"
 
@@ -643,9 +654,29 @@ PRIUse:
                                         '-> StringBuffer(100)
                                         initojb.name = objname
                                         initojb.value = "constructor"
-                                        For i = 0 To tcode.Items.Count - 1
-                                            initojb.child.Add(GetScriptBlock(tcode.Items(i)))
-                                        Next
+
+                                        Select Case initojb.name
+                                            Case "EUDArray"
+                                                initojb.flag = False
+                                                Dim ListF As CodeBlock = tcode.Items.First
+                                                ListF = ListF.Items.First
+                                                For i = 0 To ListF.Items.Count - 1
+                                                    initojb.child.Add(GetScriptBlock(ListF.Items(i)))
+                                                Next
+                                            Case "VArray"
+                                                initojb.flag = True
+                                                initojb.name = "EUDVArray"
+                                                For i = 0 To tcode.Items.Count - 1
+                                                    initojb.child.Add(GetScriptBlock(tcode.Items(i)))
+                                                Next
+                                            Case Else
+                                                For i = 0 To tcode.Items.Count - 1
+                                                    initojb.child.Add(GetScriptBlock(tcode.Items(i)))
+                                                Next
+                                        End Select
+
+
+
                                     Else
                                         If GetNameSpace.IndexOf(tstr.First) = -1 Then
                                             '-> StringBuffer.cast(a[i])
@@ -714,7 +745,39 @@ PRIUse:
                             End Select
 
 
+                        ElseIf initexp.Items.Count = 2 Then
+                            Dim tcode1 As CodeBlock = initexp.Items(0)
+                            Dim tcode2 As CodeBlock = initexp.Items(1)
+
+                            If tcode1.Value1 = "EUDVArray" Then
+                                scritem.flag = True
+                                scritem.value = vname
+                                scritem.value2 = "object"
+
+                                Dim initojb As New ScriptBlock(ScriptBlock.EBlockType.varuse, "EUDVArray", True, False, "constructor", Nothing)
+
+                                initojb.flag = False
+
+
+                                Dim cont As CodeBlock = cblock.Items.First
+                                'Dim vcount As Integer = cont.Items.First.Items.First.Items.First.Value1
+
+                                Dim listArray As CodeBlock = cont.Items.Last.Items.First
+
+
+                                For i = 0 To listArray.Items.Count - 1
+                                    initojb.AddChild(GetScriptBlock(listArray.Items(i)))
+                                Next
+
+
+                                scritem.AddChild(initojb)
+                            Else
+                                For i = 0 To initexp.Items.Count - 1
+                                    scritem.AddChild(GetScriptBlock(initexp.Items(i)))
+                                Next
+                            End If
                         Else
+
                             For i = 0 To initexp.Items.Count - 1
                                 scritem.AddChild(GetScriptBlock(initexp.Items(i)))
                             Next
@@ -946,7 +1009,7 @@ PRIUse:
                     Case CodeType.CODE_COMMENT
                         scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "/*" & cblock.Value1 & "*/", Nothing)
                     Case CodeType.CODE_COMMENTLINE
-                        scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "//" & cblock.Value1, Nothing)
+                        scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "//" & cblock.Items.First.Value1, Nothing)
                     Case CodeType.CODE_MACRO
                         scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "<?" & cblock.Value1 & "?>", Nothing)
                     Case CodeType.CODE_EXPRESSION
@@ -1150,7 +1213,7 @@ PRIUse:
             Case CodeType.CODE_COMMENT
                 scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "/*" & cblock.Value1 & "*/", Nothing)
             Case CodeType.CODE_COMMENTLINE
-                scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "//" & cblock.Value1, Nothing)
+                scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "//" & cblock.Items.First.Value1, Nothing)
             Case CodeType.CODE_MACRO
                 scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "<?" & cblock.Value1 & "?>", Nothing)
         End Select

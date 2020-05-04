@@ -63,6 +63,7 @@
                         <MenuItem Command="ApplicationCommands.Paste" />
                         <Separator/>
                         <MenuItem Header="{StaticResource SearchText}" InputGestureText="Ctrl + F" Click="MenuItem_Click"/>
+                        <MenuItem Header="{StaticResource TextEditor}" InputGestureText="Ctrl + T" Click="TextEditor_Click"/>
                     </ContextMenu>
                 </avalonEdit:TextEditor.ContextMenu>
 

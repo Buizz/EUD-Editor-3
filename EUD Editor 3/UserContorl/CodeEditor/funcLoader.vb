@@ -246,6 +246,10 @@ Partial Public Class CodeEditor
                 Next
 
                 Return strs.ToArray
+            Case "EUDScore"
+                Return MacroManager.EUDScoreList
+            Case "SupplyType"
+                Return MacroManager.EUDSupplyTypeList
         End Select
         Return {""}
     End Function
@@ -301,6 +305,17 @@ Partial Public Class CodeEditor
                         tb.Text = strs(i)
 
                         data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+                    Next
+                Case "BGM"
+                    Dim strs() As String = GetArgList(ArgumentType)
+
+                    For i = 0 To strs.Length - 1
+                        Dim tb As New TextBox
+                        Dim tstr As String = "<?GetBGMIndex(""" & strs(i) & """)?>"
+
+                        tb.Text = tstr
+
+                        data.Add(New TECompletionData(0, strs(i), tstr, tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
                 Case "TrgAIScript"
                     Dim strs() As String = GetArgList(ArgumentType)
@@ -516,7 +531,7 @@ Partial Public Class CodeEditor
 
                         data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
-                Case "TrgAIScript"
+                Case "TrgAIScript", "BGM"
                     Dim strs() As String = GetArgList(ArgumentType)
 
                     For i = 0 To strs.Length - 1
@@ -573,7 +588,7 @@ Partial Public Class CodeEditor
                         Dim tb As New TextBox
                         tb.Text = strs(i)
 
-                        data.Add(New TECompletionData(0, strs(i), strs(i), tb, TextEditor, TECompletionData.EIconType.StarConst))
+                        data.Add(New TECompletionData(0, """" & strs(i) & """", """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
             End Select
         End If
@@ -629,13 +644,33 @@ Partial Public Class CodeEditor
     Public Function LoadImportWriteData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
-        If pjData.TEData.SCArchive.IsUsed Then
-            Dim str As String = "SCArchive"
+
+        Dim externList As List(Of String) = tescm.GetExternFileList
+        For i = 0 To externList.Count - 1
+            Dim str As String = externList(i)
+
+            Dim filestr As String = ""
+            Dim strarray() As String = str.Split(".")
+            For k = 0 To strarray.Count - 2
+                If k <> 0 Then
+                    filestr = filestr & "."
+                End If
+                filestr = filestr & strarray(k)
+            Next
+
 
             Dim tb As New TextBox
-            tb.Text = str
-            data.Add(New TECompletionData(0, Str, Str, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
-        End If
+            tb.Text = filestr
+            data.Add(New TECompletionData(0, filestr, filestr, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
+        Next
+
+        'If pjData.TEData.SCArchive.IsUsed Then
+        '    Dim str As String = "SCArchive"
+
+        '    Dim tb As New TextBox
+        '    tb.Text = str
+        '    data.Add(New TECompletionData(0, Str, Str, tb, TextEditor, TECompletionData.EIconType.NameSpace_))
+        'End If
 
 
         If TEFile IsNot Nothing Then

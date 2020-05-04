@@ -9,8 +9,6 @@ Public Class GUIScriptManager
     Public Tabkeys As Dictionary(Of String, String)
 
     Public Sub New()
-
-
         Tabkeys = New Dictionary(Of String, String)
         Tabkeys.Add("Control", "#FFFFC500")
         Tabkeys.Add("plibFunc", "#FFCF2AFF")
@@ -22,6 +20,32 @@ Public Class GUIScriptManager
         Tabkeys.Add("Value", "#FFFF8040")
         Tabkeys.Add("EtcBlock", "#FFCC3D3D")
     End Sub
+
+
+    Public Function GetExternFileList(Optional IsFullPath As Boolean = False) As List(Of String)
+        Dim rstrlist As New List(Of String)
+
+
+
+
+        Dim folderpath As String = pjData.EudplibData.GetTriggerEditorFolderPath
+
+        For Each files As String In My.Computer.FileSystem.GetFiles(folderpath)
+            Dim fileinfo As FileInfo = My.Computer.FileSystem.GetFileInfo(files)
+
+            If fileinfo.Extension = ".eps" Then
+                If IsFullPath Then
+                    rstrlist.Add(files)
+                Else
+                    rstrlist.Add("TriggerEditor." & fileinfo.Name)
+                End If
+            End If
+        Next
+
+        Return rstrlist
+    End Function
+
+
 
 
     Public Function GetFuncList(tefile As TEFile) As List(Of String)
@@ -95,6 +119,8 @@ Public Class GUIScriptManager
         "TrgString",
         "TrgSwitch",
         "TrgUnit",
+        "Variable",
+        "FormatText",
         "BGM",
         "UnitsDat",
         "WeaponsDat",
@@ -110,11 +136,15 @@ Public Class GUIScriptManager
         "Image",
         "Upgrade",
         "Tech",
-        "Order"}
+        "Order",
+        "EUDScore",
+        "SupplyType"}
 
     Public SCValueNoneType() As String = {
         "None",
         "Number",
+        "Variable",
+        "FormatText",
         "BGM",
         "UnitsDat",
         "WeaponsDat",
@@ -130,7 +160,9 @@ Public Class GUIScriptManager
         "Image",
         "Upgrade",
         "Tech",
-        "Order"}
+        "Order",
+        "EUDScore",
+        "SupplyType"}
 
     Public Function GetFuncArgs(scr As ScriptBlock) As List(Of ScriptBlock)
         If scr.ScriptType = ScriptBlock.EBlockType.fundefine Then
@@ -214,6 +246,10 @@ Public Class GUIScriptManager
             Case ScriptBlock.EBlockType.rawcode
                 'flag true = raw, false = intend
                 strb.Append(svalue)
+
+                If scr.Parent.isfolder Then
+                    strb.AppendLine("")
+                End If
                     'If flag Then
                     '    strb.Append(svalue)
                     'Else
@@ -235,6 +271,10 @@ Public Class GUIScriptManager
                 Else
                     strb.Append("var ")
                 End If
+
+
+
+
                 strb.Append(svalue)
                 If schild.Count <> 0 Then
                     strb.Append(" = ")
@@ -546,10 +586,46 @@ Public Class GUIScriptManager
                 'strb.Append("////")
                 Select Case svalue
                     Case "constructor"
-                        strb.Append(sname)
-                        strb.Append("(")
-                        GetScriptText(schild, strb, intend, "")
-                        strb.Append(")")
+                        'TODO : 배열관련된것 넣어야됨
+                        '// 인게임 초기화 해당 코드에서 매번 초기화합니다(전역 스코프면 게임 시작 때).
+                        '// 함수 리턴값처럼 게임 안에서 정해지는 값도 넣을 수 있습니다.
+                        'Const a = [getuserplayerid(), 0, 0];
+                        'Const b = VArray(GetTBLAddr(1), GetTBLAddr(2), GetTBLAddr(3));
+
+                        '// 컴파일시간 초기화 맵에 삽입될 때 초기화합니다. 상수 표현식만 넣을 수 있습니다.
+                        'Const a = EUDArray(List(1, 2, 3, 4));
+                        'Const b = EUDVArray(4)(List(EPD(a), EPD(a) + 1, EPD(a) + 2, EPD(a) + 3));
+                        Select Case sname
+                            Case "EUDArray"
+                                If flag Then
+                                    strb.Append("[")
+                                    GetScriptText(schild, strb, intend, ", ")
+                                    strb.Append("]")
+                                Else
+                                    strb.Append(sname)
+                                    strb.Append("(List(")
+                                    GetScriptText(schild, strb, intend, ", ")
+                                    strb.Append("))")
+                                End If
+                            Case "EUDVArray"
+                                If flag Then
+                                    strb.Append("VArray")
+                                    strb.Append("(")
+                                    GetScriptText(schild, strb, intend, ", ")
+                                    strb.Append(")")
+                                Else
+                                    strb.Append(sname)
+                                    strb.Append("(" & schild.Count & ")(List(")
+                                    GetScriptText(schild, strb, intend, ", ")
+                                    strb.Append("))")
+                                End If
+                            Case Else
+                                strb.Append(sname)
+                                strb.Append("(")
+                                GetScriptText(schild, strb, intend, ", ")
+                                strb.Append(")")
+                        End Select
+
                         Return
                     Case "cast"
                         strb.Append(sname)
@@ -593,9 +669,12 @@ Public Class GUIScriptManager
 
                     '    v1 value +=Test method method + Test f1 fields+13;
             Case ScriptBlock.EBlockType.macrofun
-                If scr.Parent.isfolder Then
-                    strb.Append(GetIntend(intend))
+                If scr.Parent IsNot Nothing Then
+                    If scr.Parent.isfolder Then
+                        strb.Append(GetIntend(intend))
+                    End If
                 End If
+
                 strb.Append("<?")
                 strb.Append(sname)
                 strb.Append("(")
@@ -615,10 +694,12 @@ Public Class GUIScriptManager
                     End If
                 End If
 
-
-                If scr.Parent.isfolder Then
-                    strb.AppendLine("")
+                If scr.Parent IsNot Nothing Then
+                    If scr.Parent.isfolder Then
+                        strb.AppendLine("")
+                    End If
                 End If
+
             Case ScriptBlock.EBlockType.funreturn
                 strb.Append(GetIntend(intend))
                 strb.Append("return ")

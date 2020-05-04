@@ -195,7 +195,6 @@ Partial Public Class CodeEditor
         'Log.Text = Log.Text & vbCrLf & "LastStr.IndexOf : " & TypingStr.IndexOf(".")
 
 
-
         AutoInserter(etext)
 
         'Dim selectedValues As List(Of InvoiceSOA)

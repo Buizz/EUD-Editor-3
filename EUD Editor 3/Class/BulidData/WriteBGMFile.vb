@@ -3,7 +3,6 @@ Imports System.Text
 
 Partial Public Class BuildData
     Public Sub WriteBGMData()
-        My.Computer.FileSystem.CopyFile(GetBGMTooleps, TriggerEditorPath & "\BGMPlayer.eps", True)
 
         Dim fs As New FileStream(TriggerEditorPath & "\BGMFlexible.eps", FileMode.Create)
         Dim sw As New StreamWriter(fs)

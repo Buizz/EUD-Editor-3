@@ -8,7 +8,9 @@ Public Class ColoredTextBox
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        KorFont = New FontFamily(New Uri("pack://application:,,,/resources/"), "./#Kostar")
     End Sub
+    Private KorFont As FontFamily
     Public Sub New(text As String)
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -16,12 +18,17 @@ Public Class ColoredTextBox
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         TextColred(text)
+        KorFont = New FontFamily(New Uri("pack://application:,,,/resources/"), "./#Kostar")
     End Sub
 
 
 
 
     Public Sub TextColred(text As String)
+        Texts.FontFamily = KorFont
+        Texts.FontSize = 24.0
+
+
         Dim FristChar As String = StringTool.GetCharAt(0, text)
         Dim SecondChar As String = StringTool.GetCharAt(1, text)
 

@@ -9,6 +9,27 @@
     <DockPanel>
         <Label x:Name="tLabel" DockPanel.Dock="Top"/>
         <TextBlock x:Name="destb" DockPanel.Dock="Bottom"/>
+
+        <StackPanel x:Name="ToolBtnlist" DockPanel.Dock="Top" >
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ResetCoder" Click="ResetCoder_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    초기화
+                </Button>
+                <Button x:Name="CoderChange" Click="CoderChange_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    View
+                </Button>
+                <Button x:Name="ArgAdderbtn" Click="ArgAdder_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    인자추가
+                </Button>
+                <Button x:Name="ArgRemovebtn" Click="ArgRemove_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    인자제거
+                </Button>
+            </StackPanel>
+        </StackPanel>
         <WrapPanel x:Name="MainPanel">
         </WrapPanel>
     </DockPanel>

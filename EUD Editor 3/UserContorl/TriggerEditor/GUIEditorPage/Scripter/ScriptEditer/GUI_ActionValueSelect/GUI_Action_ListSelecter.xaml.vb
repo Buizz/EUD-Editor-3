@@ -32,9 +32,9 @@
 
     Private Sub mainlist_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         Dim item As ListBoxItem = mainlist.SelectedItem
-
-
-        RaiseEvent SelectEvent(item.Tag, e)
+        If item IsNot Nothing Then
+            RaiseEvent SelectEvent(item.Tag, e)
+        End If
     End Sub
 
     Private Sub FliterText_TextChanged(sender As Object, e As TextChangedEventArgs)

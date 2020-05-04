@@ -218,6 +218,8 @@
                     ntreeview.IsSelected = True
                 End If
             End If
+        Else
+            Script.ExternLoader()
         End If
 
         Select Case scr.ScriptType

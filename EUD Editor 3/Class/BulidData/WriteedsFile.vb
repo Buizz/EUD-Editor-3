@@ -165,7 +165,6 @@ MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer")
 
 
 
-
         '=====================================================================================================
 
         Dim filestreama As FileStream

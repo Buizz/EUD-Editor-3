@@ -1,4 +1,6 @@
-﻿Public Class GUI_Action_ArgSelecter
+﻿Imports MaterialDesignThemes.Wpf
+
+Public Class GUI_Action_ArgSelecter
     Public Event ArgBtnRefreshEvent As RoutedEventHandler
     Public Event ArgBtnClickEvent As RoutedEventHandler
 
@@ -9,7 +11,6 @@
 
 
 
-    Private isuseDefaultArg As Boolean = False
 
     Public EditValues As List(Of ScriptBlock)
     Private Sub ValueCountUpdate()
@@ -21,21 +22,49 @@
     End Sub
 
     Public Sub UpdateValue()
-        For i = 0 To scr.child.Count - 1
+        scr.child.Clear()
+
+        For i = 0 To EditValues.Count - 1
             scr.ReplaceChild(EditValues(i), i)
         Next
     End Sub
+
+    Private IsDefaultCoder As Boolean
+
+    Public FuncDefine As FuncDefine
 
 
     Public Sub CrlInit(_scr As ScriptBlock)
         scr = _scr
 
+        Fname.Text = scr.name
+
 
         ValueCountUpdate()
-        ExtraTipPanel.Visibility = Visibility.Collapsed
-        ToolTipPanel.Visibility = Visibility.Collapsed
-        ValuePanel.Children.Clear()
 
+        FuncDefine = New FuncDefine(scr)
+        ExtraTip.Text = FuncDefine.FuncComment
+
+        If FuncDefine.FunNoExist Then
+            Fname.Text = "함수가 존재하지 않습니다."
+            DefaultCoder()
+            IsDefaultCoder = True
+            Return
+        End If
+
+
+        If Not FuncDefine.IsCompleteFunction Then
+            DefaultCoder()
+            IsDefaultCoder = True
+            Return
+        Else
+            ArgEncoder(FuncDefine)
+            IsDefaultCoder = False
+            Return
+        End If
+
+
+        Return
         If scr.ScriptType = ScriptBlock.EBlockType.macrofun Then
             Dim luafunc As MacroManager.LuaFunction = macro.GetFunction(scr.name)
 
@@ -71,7 +100,6 @@
 
             Return
         End If
-
         If scr.ScriptType = ScriptBlock.EBlockType.funuse Then
             Dim func As ScriptBlock = tescm.GetFuncInfor(scr.name, scr.Scripter)
             If func Is Nothing Then
@@ -109,6 +137,11 @@
 
                 If vcount <> args.Count Then
                     DefaultCoder()
+                    Return
+                End If
+                If vcount <> scr.child.Count Then
+                    DefaultCoder()
+                    Warring.Visibility = Visibility.Visible
                     Return
                 End If
 
@@ -162,7 +195,7 @@
                 Next
             End If
 
-            If i >= 0 Then
+            If cfun IsNot Nothing Then
                 Dim functooltip As FunctionToolTip = cfun.GetFuncTooltip(i)
                 If functooltip.Summary.Trim = "" Then
                     DefaultCoder()
@@ -192,11 +225,16 @@
                 Next
                 Dim values() As String = argumentstr.Split("ᐱ")
 
+
                 If vcount <> args.Count Then
                     DefaultCoder()
                     Return
                 End If
-
+                If vcount <> scr.child.Count Then
+                    DefaultCoder()
+                    Warring.Visibility = Visibility.Visible
+                    Return
+                End If
 
                 For k = 0 To values.Count - 1
                     If values(k).Trim <> "" Then
@@ -281,10 +319,48 @@
     End Sub
 
 
-    Private Sub DefaultCoder()
-        isuseDefaultArg = True
+    Private Sub ArgEncoder(FuncDefine As FuncDefine)
+
+
+        If Not (FuncDefine.ValueCount = EditValues.Count And FuncDefine.ValueCount = FuncDefine.ArgViewCount) Then
+            DefaultCoder()
+            Return
+        End If
+        ExtraTipPanel.Visibility = Visibility.Collapsed
+        ToolTipPanel.Visibility = Visibility.Collapsed
         ValuePanel.Children.Clear()
+        EditBtnRefresh()
+
+        For i = 0 To FuncDefine.ArgCommentList.Count - 1
+            If FuncDefine.ArgCommentList(i).BType = FuncDefine.ArgBlock.BlockType.Label Then
+                Dim tbox As New TextBlock
+                tbox.TextWrapping = TextWrapping.Wrap
+                tbox.VerticalAlignment = VerticalAlignment.Center
+                tbox.HorizontalAlignment = HorizontalAlignment.Center
+                tbox.Text = FuncDefine.ArgCommentList(i).Label
+
+                ValuePanel.Children.Add(tbox)
+            Else
+                Dim argindex As Integer = FuncDefine.ArgCommentList(i).ArgIndex
+
+                Dim btn As New Button
+                btn.Padding = New Thickness(5, 0, 5, 0)
+                btn.Height = 22
+
+                btn.Tag = New GUI_Action.tagcontainer(scr.child(argindex), EditValues(argindex), FuncDefine.Args(argindex).ArgComment)
+                AddHandler btn.Click, AddressOf argBtnClick
+
+                btn.Content = scr.child(argindex).ValueCoder()
+                ValuePanel.Children.Add(btn)
+                btnlist.Add(btn)
+            End If
+        Next
+    End Sub
+    Private Sub DefaultCoder()
         ExtraTipPanel.Visibility = Visibility.Visible
+        ToolTipPanel.Visibility = Visibility.Collapsed
+        ValuePanel.Children.Clear()
+        EditBtnRefresh()
 
         If True Then
             Dim tbox As New TextBlock
@@ -295,7 +371,7 @@
             ValuePanel.Children.Add(tbox)
         End If
 
-        For i = 0 To scr.child.Count - 1
+        For i = 0 To EditValues.Count - 1
             If i <> 0 Then
                 Dim tbox As New TextBlock
                 tbox.TextWrapping = TextWrapping.Wrap
@@ -305,16 +381,22 @@
                 ValuePanel.Children.Add(tbox)
             End If
 
-            Dim des As String = scr.child(i).value2
+            Dim des As String = ""
+
+            If FuncDefine.Args.Count > i Then
+                des = FuncDefine.Args(i).ArgComment
+            End If
+
+
 
             Dim btn As New Button
             btn.Padding = New Thickness(5, 0, 5, 0)
             btn.Height = 22
-            btn.Tag = New GUI_Action.tagcontainer(scr.child(i), EditValues(i), des)
+            btn.Tag = New GUI_Action.tagcontainer(Nothing, EditValues(i), des)
 
             AddHandler btn.Click, AddressOf argBtnClick
 
-            btn.Content = scr.child(i).ValueCoder()
+            btn.Content = EditValues(i).ValueCoder()
             ValuePanel.Children.Add(btn)
             btnlist.Add(btn)
         Next
@@ -359,4 +441,55 @@
     End Sub
 
 
+
+    Private Sub ResetCoder_Click(sender As Object, e As RoutedEventArgs)
+        scr.child.Clear()
+        scr.RefreshValue()
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            ArgEncoder(FuncDefine)
+        End If
+        EditBtnRefresh()
+    End Sub
+
+    Private Sub ArgAdder_Click(sender As Object, e As RoutedEventArgs)
+        EditValues.Add(New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            ArgEncoder(FuncDefine)
+        End If
+        BtnvalueRefresh()
+        EditBtnRefresh()
+    End Sub
+
+    Private Sub ArgRemove_Click(sender As Object, e As RoutedEventArgs)
+        EditValues.RemoveAt(EditValues.Count - 1)
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            ArgEncoder(FuncDefine)
+        End If
+        BtnvalueRefresh()
+    End Sub
+
+    Private Sub EditBtnRefresh()
+        If FuncDefine.ArgStartIndex = -1 Then
+            ArgRemovebtn.IsEnabled = FuncDefine.ValueCount < EditValues.Count
+        Else
+            ArgRemovebtn.IsEnabled = FuncDefine.ValueCount <= EditValues.Count
+        End If
+
+        ArgAdderbtn.IsEnabled = (FuncDefine.ArgStartIndex <> -1)
+    End Sub
+
+    Private Sub CoderChange_Click(sender As Object, e As RoutedEventArgs)
+        IsDefaultCoder = Not IsDefaultCoder
+        If IsDefaultCoder Then
+            DefaultCoder()
+        Else
+            ArgEncoder(FuncDefine)
+        End If
+    End Sub
 End Class

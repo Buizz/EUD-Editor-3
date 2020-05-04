@@ -25,6 +25,7 @@
 
         valueEditPanel.Visibility = Visibility.Collapsed
         varObjectBorder.Visibility = Visibility.Collapsed
+        SpFlag.Visibility = Visibility.Collapsed
         initcb.Visibility = Visibility.Collapsed
 
         If scr.child.Count > 0 Then
@@ -74,6 +75,12 @@
                     Select Case EditValues.value
                         Case "constructor"
                             ObjectFunc.SelectedIndex = 0
+
+                            If EditValues.name = "EUDArray" Or EditValues.name = "EUDVArray" Then
+                                SpFlag.Visibility = Visibility.Visible
+                                SpFlag.IsChecked = EditValues.flag
+                            End If
+
                         Case "cast"
                             ObjectFunc.SelectedIndex = 1
                         Case "alloc"
@@ -275,12 +282,29 @@
     End Sub
 
     Private Sub ObjectFunc_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        'SpFlag
         If isload And ObjectfuncLoad Then
             If ObjectFunc.SelectedItem IsNot Nothing Then
                 EditValues.value = CType(ObjectFunc.SelectedItem, ComboBoxItem).Tag
+                SpFlag.Visibility = Visibility.Collapsed
+                If EditValues.value = "constructor" Then
+                    If EditValues.name = "EUDArray" Or EditValues.name = "EUDVArray" Then
+                        SpFlag.Visibility = Visibility.Visible
+                        SpFlag.IsChecked = EditValues.flag
+                    End If
+                End If
+
                 varFunction.CrlInit(EditValues, dotscr, p._GUIScriptEditorUI, valueEditPanel)
                 btnRefresh()
             End If
         End If
+    End Sub
+
+    Private Sub SpFlag_Checked(sender As Object, e As RoutedEventArgs)
+        EditValues.flag = True
+    End Sub
+
+    Private Sub SpFlag_Unchecked(sender As Object, e As RoutedEventArgs)
+        EditValues.flag = False
     End Sub
 End Class
