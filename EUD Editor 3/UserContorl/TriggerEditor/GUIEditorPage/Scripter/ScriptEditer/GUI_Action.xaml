@@ -6,21 +6,26 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             Width="550" Height="310">
-    <Grid>
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*"/>
-            <RowDefinition Height="130"/>
-        </Grid.RowDefinitions>
-        <!--<DockPanel Grid.Row="0">
+             Width="700" Height="400">
+    <DockPanel>
+        <Border x:Name="ValueSelect" DockPanel.Dock="Right" Width="250">
+            
+        </Border>
+        <Grid DockPanel.Dock="Left">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="160"/>
+            </Grid.RowDefinitions>
+            <!--<DockPanel Grid.Row="0">
             <Separator DockPanel.Dock="Bottom"/>
             <Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>
             <TextBlock x:Name="fname" Text="KillUnit" FontWeight="Bold" FontSize="14"/>
         </DockPanel>-->
 
-        <local:GUI_Action_ArgSelecter Grid.Row="0" x:Name="ArgSelecter"/>
+            <local:GUI_Action_ArgSelecter Grid.Row="0" x:Name="ArgSelecter"/>
 
-        <local:GUI_ArgEditor x:Name="valueEditPanel" Grid.Row="1"/>
+            <local:GUI_ArgEditor x:Name="valueEditPanel" Grid.Row="1"/>
 
-    </Grid>
+        </Grid>
+    </DockPanel>
 </UserControl>

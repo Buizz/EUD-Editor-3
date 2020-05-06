@@ -73,6 +73,7 @@ Public Class ScriptBlock
     Public name As String
     Public isexpand As Boolean
     Public flag As Boolean
+    Public flag2 As Boolean = False
     Public value As String
     Public value2 As String
 
@@ -261,8 +262,11 @@ Public Class ScriptBlock
                     Dim tstr() As String = argtext.Split(":")
 
                     vname = "defaultvalue;" & tstr.First.Trim
-                    vtype = tstr.Last
+                    vtype = tstr.Last.Trim
 
+                    If tstr.First.Trim = "WAVName" And vtype = "TrgString" Then
+                        vtype = "WAVName"
+                    End If
 
                     'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
 
@@ -273,7 +277,6 @@ Public Class ScriptBlock
     End Sub
     Public Sub RefreshValue()
         Dim curentvals As Integer = child.Count
-
         If name.IndexOf(".") = -1 Then
             If ScriptType = EBlockType.macrofun Then
                 Dim luafunc As MacroManager.LuaFunction = macro.GetFunction(name)
@@ -284,6 +287,7 @@ Public Class ScriptBlock
                         Dim vtype As String = luafunc.ArgType(i).Trim
 
                         'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+
 
                         Dim tscr As New ScriptBlock(EBlockType.constVal, vtype, False, False, vname, Scripter)
                         AddChild(tscr)
@@ -872,6 +876,8 @@ Public Class ScriptBlock
         AddHandler treeviewitem.Collapsed, AddressOf treeviewcollapsed
         AddHandler treeviewitem.Expanded, AddressOf treeviewcollapsed
 
+        Dim isAllPaint As Boolean = False
+
         Dim drawchild As Boolean = True
         Dim groupname As String = ""
         Select Case ScriptType
@@ -907,32 +913,42 @@ Public Class ScriptBlock
             Case EBlockType.ifcondition
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.ifthen
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.ifelse
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.break
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType._for
+                isAllPaint = True
                 groupname = "Control"
             Case EBlockType.foraction
                 groupname = "Control"
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType._while
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.whilecondition
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.whileaction
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.switch, EBlockType.switchvar
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType.switchcase
                 treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
                 groupname = "Control"
+                isAllPaint = True
             Case EBlockType._or
                 treeviewitem.Background = Brushes.YellowGreen
                 'treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
@@ -941,32 +957,42 @@ Public Class ScriptBlock
                 'treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.folder
                 groupname = "EtcBlock"
+                isAllPaint = True
             Case EBlockType.folderaction
                 groupname = "EtcBlock"
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.exp
                 groupname = "Control"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.action
                 groupname = "Action"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.condition
                 groupname = "Condition"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.funuse
                 groupname = "Func"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.plibfun
                 groupname = "plibFunc"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.macrofun
                 groupname = "MacroFunc"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.externfun
                 groupname = "Func"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
             Case EBlockType.funreturn
                 groupname = "Func"
                 drawchild = False
+                treeviewitem.Style = Application.Current.Resources("ShortTreeViewItem")
         End Select
         If groupname <> "" Then
             Dim colorcode As String = tescm.Tabkeys(groupname)
@@ -983,7 +1009,9 @@ Public Class ScriptBlock
             End If
         Next
 
-
+        If isAllPaint Then
+            scritem.HeaderPaint(treeviewitem.Background)
+        End If
         Return treeviewitem
     End Function
 

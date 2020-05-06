@@ -340,4 +340,8 @@ Public Class GUI_VariableSelecter
         VarSelecter.Visibility = Visibility.Visible
         FuncSelecter.Visibility = Visibility.Collapsed
     End Sub
+
+    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+        FliterText.Focus()
+    End Sub
 End Class

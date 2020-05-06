@@ -17,7 +17,7 @@
         Closed="MetroWindow_Closed"
         Closing="MetroWindow_Closing"
         x:Name="metroWindow"
-        Title="{Binding TriggerEditorName,UpdateSourceTrigger=PropertyChanged}" Height="620" Width="920" WindowStartupLocation="Manual" Topmost="True" MinWidth="678">
+        Title="{Binding TriggerEditorName,UpdateSourceTrigger=PropertyChanged}" Height="620" Width="1200" WindowStartupLocation="Manual" Topmost="True" MinWidth="1100">
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>

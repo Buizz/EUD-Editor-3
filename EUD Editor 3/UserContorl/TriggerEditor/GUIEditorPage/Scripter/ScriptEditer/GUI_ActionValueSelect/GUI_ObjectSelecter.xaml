@@ -8,10 +8,11 @@
              mc:Ignorable="d" 
              Background="{DynamicResource MaterialDesignPaper}" 
              Foreground="{DynamicResource MaterialDesignBody}"  
+             Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
-        <DockPanel DockPanel.Dock="Top">
-            <materialDesign:PackIcon Kind="Magnify" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
+        <DockPanel DockPanel.Dock="Top" Height="35">
+            <materialDesign:PackIcon Kind="Magnify" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" Height="22" Width="22" Margin="4"/>
             <Button  DockPanel.Dock="Right"
                          Style="{StaticResource MaterialDesignFlatButton}"
                          HorizontalAlignment="Left" Width="20" Height="20" Click="Button_Click">
@@ -19,7 +20,7 @@
             </Button>
             <TextBox x:Name="FliterText" Grid.Row="1" 
                   materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
-                  Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" TextChanged="FliterText_TextChanged"/>
+                  Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" TextChanged="FliterText_TextChanged" Height="32"/>
         </DockPanel>
         <ListBox x:Name="mainlist" SelectionChanged="mainlist_SelectionChanged"/>
     </DockPanel>

@@ -1,4 +1,6 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.ComponentModel
+Imports System.Text.RegularExpressions
+Imports System.Windows.Threading
 
 Partial Public Class CodeEditor
 
@@ -121,7 +123,7 @@ Partial Public Class CodeEditor
             If CheckFunction Then
                 CheckFunctionName = MidStr & CheckFunctionName
             End If
-            If Not Char.IsLetterOrDigit(MidStr) And MidStr <> "_" And MidStr <> "." Then
+            If Not Char.IsLetterOrDigit(MidStr) And MidStr <> "/" And MidStr <> "_" And MidStr <> "." Then
                 CheckChar = True
             End If
             If Not CheckChar Then
@@ -197,41 +199,51 @@ Partial Public Class CodeEditor
 
         AutoInserter(etext)
 
+
+        Dim background As New BackgroundWorker
+
+        AddHandler background.DoWork, New DoWorkEventHandler(Sub(sender As Object, e As DoWorkEventArgs)
+                                                                 Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
+                                                                                                                             If Not CompletionPath Then
+                                                                                                                                 If TypingStr.IndexOf(".") >= 0 Then
+                                                                                                                                     LocalFunc.Init()
+                                                                                                                                     LocalFunc.LoadFunc(MainStr, SelectStart)
+                                                                                                                                     '외부함수 불러오는건 여기가아님
+
+                                                                                                                                     ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.Extern)
+                                                                                                                                 Else
+                                                                                                                                     If Not IsFuncDefWrite And Not IsFuncNameWrite And Not IsImportWrite Then
+                                                                                                                                         If IsInline Then
+                                                                                                                                             ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.lnlineCode)
+                                                                                                                                             ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset, True)
+                                                                                                                                         Else
+                                                                                                                                             LocalFunc.Init()
+                                                                                                                                             LocalFunc.LoadFunc(MainStr, SelectStart)
+                                                                                                                                             '외부함수 불러오는건 여기가아님
+
+
+                                                                                                                                             ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True)
+
+                                                                                                                                             ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
+                                                                                                                                         End If
+                                                                                                                                     ElseIf IsImportWrite Then
+                                                                                                                                         ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsImportWrite)
+                                                                                                                                     ElseIf IsFuncDefWrite Then
+                                                                                                                                         ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsFuncDefWrite)
+                                                                                                                                     ElseIf IsFuncNameWrite Then
+                                                                                                                                         ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsFuncNameWrite)
+                                                                                                                                     End If
+                                                                                                                                 End If
+                                                                                                                             End If
+                                                                                                                         End Sub))
+
+                                                             End Sub)
+
+
+        background.RunWorkerAsync()
         'Dim selectedValues As List(Of InvoiceSOA)
         'selectedValues = DisputeList.FindAll(Function(p) p.ColumnName = "Jewel")
-        If Not CompletionPath Then
-            If TypingStr.IndexOf(".") >= 0 Then
-                LocalFunc.Init()
-                LocalFunc.LoadFunc(MainStr, SelectStart)
-                '외부함수 불러오는건 여기가아님
 
-                ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.Extern)
-            Else
-                If Not IsFuncDefWrite And Not IsFuncNameWrite And Not IsImportWrite Then
-                    If IsInline Then
-                        ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.lnlineCode)
-                        ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset, True)
-                    Else
-                        LocalFunc.Init()
-                        LocalFunc.LoadFunc(MainStr, SelectStart)
-                        '외부함수 불러오는건 여기가아님
-
-
-                        ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True)
-
-                        ShowFuncTooltip(FuncName, ArgumentIndex, FunctionStartOffset)
-                    End If
-                ElseIf IsImportWrite Then
-                    ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsImportWrite)
-                ElseIf IsFuncDefWrite Then
-                    ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsFuncDefWrite)
-                ElseIf IsFuncNameWrite Then
-                    ShowCompletion(etext, False, TypingStr, FuncName, ArgumentIndex, True, SpecialFlag.IsFuncNameWrite)
-                End If
-            End If
-
-
-        End If
 
         'Log.Text = Log.Text & vbCrLf & "입력된 함수 갯수 : " & LocalFunc.FuncCount
 
@@ -239,6 +251,10 @@ Partial Public Class CodeEditor
         '    Log.Text = Log.Text & vbCrLf & LocalFunc.GetFuncName(i) & " : " & LocalFunc.GetFuncArgument(i)
         'Next
     End Sub
+
+
+
+
 
     Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
         textEditor_KeyboardInput(e.Text)

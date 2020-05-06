@@ -220,8 +220,8 @@ Public Class TEGUIPage
 
             If (cpos + windowh) > realh Then
                 InputDialog.VerticalAlignment = VerticalAlignment.Center
-                InputDialog.HorizontalAlignment = HorizontalAlignment.Left
-                InputDialog.Margin = New Thickness(ObjectSelector.ActualWidth + 100, 0, 0, 0)
+                InputDialog.HorizontalAlignment = HorizontalAlignment.Center
+                InputDialog.Margin = New Thickness(0, 0, 0, 0)
             Else
                 InputDialog.Margin = New Thickness(ObjectSelector.ActualWidth + pos.X, cpos + itemh, 0, 0)
             End If

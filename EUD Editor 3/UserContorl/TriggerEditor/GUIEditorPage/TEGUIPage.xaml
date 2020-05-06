@@ -33,22 +33,24 @@
         />
 
         <local:GUIScriptEditorUI x:Name="Script" Grid.Column="2"/>
-        <Border Grid.ColumnSpan="3" x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden" >
-            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" VerticalAlignment="Top" HorizontalAlignment="Left">
+        <ListBox x:Name="ExternList" Grid.Column="4" SelectionChanged="ExternList_SelectionChanged">
 
-            </materialDesign:Card>
-        </Border>
-        <Border Grid.ColumnSpan="1" x:Name="ValueSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Collapsed">
-      
-        </Border>
+        </ListBox>
+
+  
         <GridSplitter Grid.Column="3"
             ShowsPreview="True"
             Width="5" 
             HorizontalAlignment="Center"
             VerticalAlignment="Stretch"
         />
-        <ListBox x:Name="ExternList" Grid.Column="4" SelectionChanged="ExternList_SelectionChanged">
-            
-        </ListBox>
+        <Border Grid.ColumnSpan="5" x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden" >
+            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" VerticalAlignment="Top" HorizontalAlignment="Left">
+
+            </materialDesign:Card>
+        </Border>
+        <Border Grid.ColumnSpan="1" x:Name="ValueSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Collapsed">
+
+        </Border>
     </Grid>
 </UserControl>

@@ -178,4 +178,8 @@
             ListReset()
         End If
     End Sub
+
+    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+        FliterText.Focus()
+    End Sub
 End Class

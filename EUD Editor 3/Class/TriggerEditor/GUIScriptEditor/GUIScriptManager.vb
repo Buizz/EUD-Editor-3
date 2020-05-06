@@ -119,6 +119,7 @@ Public Class GUIScriptManager
         "TrgString",
         "TrgSwitch",
         "TrgUnit",
+        "WAVName",
         "Variable",
         "FormatText",
         "BGM",
@@ -143,6 +144,7 @@ Public Class GUIScriptManager
     Public SCValueNoneType() As String = {
         "None",
         "Number",
+        "WAVName",
         "Variable",
         "FormatText",
         "BGM",
@@ -247,9 +249,12 @@ Public Class GUIScriptManager
                 'flag true = raw, false = intend
                 strb.Append(svalue)
 
-                If scr.Parent.isfolder Then
-                    strb.AppendLine("")
+                If scr.Parent IsNot Nothing Then
+                    If scr.Parent.isfolder Then
+                        strb.AppendLine("")
+                    End If
                 End If
+
                     'If flag Then
                     '    strb.Append(svalue)
                     'Else
@@ -409,7 +414,7 @@ Public Class GUIScriptManager
                 If ForType = "EUDLoopPlayer" Then
                     If svalue.Split("ᗢ").Last Then
                         strb.Append(GetIntend(intend))
-                        strb.AppendLine("setcurpl(" & svalue.Split("ᗢ").First.Split(";").Last.Trim & ");")
+                        strb.AppendLine("setcurpl(" & svalue.Split("ᗢ").First.Split("ᚢ").Last.Trim & ");")
                     End If
                 End If
 
@@ -597,27 +602,43 @@ Public Class GUIScriptManager
                         'Const b = EUDVArray(4)(List(EPD(a), EPD(a) + 1, EPD(a) + 2, EPD(a) + 3));
                         Select Case sname
                             Case "EUDArray"
-                                If flag Then
-                                    strb.Append("[")
-                                    GetScriptText(schild, strb, intend, ", ")
-                                    strb.Append("]")
-                                Else
+                                If schild.Count = 1 Then
                                     strb.Append(sname)
-                                    strb.Append("(List(")
-                                    GetScriptText(schild, strb, intend, ", ")
-                                    strb.Append("))")
-                                End If
-                            Case "EUDVArray"
-                                If flag Then
-                                    strb.Append("VArray")
                                     strb.Append("(")
-                                    GetScriptText(schild, strb, intend, ", ")
+                                    GetScriptText(schild, strb, intend, "")
                                     strb.Append(")")
                                 Else
+                                    If flag Then
+                                        strb.Append("[")
+                                        GetScriptText(schild, strb, intend, ", ")
+                                        strb.Append("]")
+                                    Else
+                                        strb.Append(sname)
+                                        strb.Append("(List(")
+                                        GetScriptText(schild, strb, intend, ", ")
+                                        strb.Append("))")
+                                    End If
+                                End If
+                            Case "EUDVArray"
+                                If schild.Count = 1 Then
                                     strb.Append(sname)
-                                    strb.Append("(" & schild.Count & ")(List(")
-                                    GetScriptText(schild, strb, intend, ", ")
-                                    strb.Append("))")
+                                    strb.Append("(")
+                                    GetScriptText(schild, strb, intend, "")
+                                    strb.Append(")")
+                                    strb.Append("(")
+                                    strb.Append(")")
+                                Else
+                                    If flag Then
+                                        strb.Append("VArray")
+                                        strb.Append("(")
+                                        GetScriptText(schild, strb, intend, ", ")
+                                        strb.Append(")")
+                                    Else
+                                        strb.Append(sname)
+                                        strb.Append("(" & schild.Count & ")(List(")
+                                        GetScriptText(schild, strb, intend, ", ")
+                                        strb.Append("))")
+                                    End If
                                 End If
                             Case Else
                                 strb.Append(sname)
@@ -708,7 +729,12 @@ Public Class GUIScriptManager
             Case Else
                 If isFuncArg Then
                     If tescm.SCValueNoneType.ToList.IndexOf(sname) <> -1 Then
-                        strb.Append(svalue)
+                        If sname = "WAVName" Then
+                            strb.Append(svalue & ":TrgString")
+                        Else
+                            strb.Append(svalue)
+                        End If
+
                     Else
                         strb.Append(svalue & ":" & sname)
                     End If
@@ -747,7 +773,7 @@ Public Class GUIScriptManager
                         'strb.Append("{" & i & "," & (scr.Count - 1) & "}")
                         Select Case sname.Trim
                             Case "TrgString", "TrgAIScript", "TrgUnit", "TrgLocation", "UnitsDat", "WeaponsDat", "FlingyDat",
-                                 "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat"
+                                 "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat", "WAVName"
                                 strb.Append("""" & svalue & """")
                             Case "TrgLocationIndex"
                                 Dim v As Integer

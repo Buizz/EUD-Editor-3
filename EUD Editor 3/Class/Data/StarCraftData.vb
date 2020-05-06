@@ -165,6 +165,19 @@ Public Class StarCraftData
     Private pIscriptName(SCIscriptCount) As String
     Private pvirtualCode(255) As String
     Private pASCIICode(128) As String
+
+
+    Private pSoundName() As String
+    Public ReadOnly Property Sound_Count() As Integer
+        Get
+            Return pSoundName.Count
+        End Get
+    End Property
+    Public ReadOnly Property SoundName(index As Integer) As String
+        Get
+            Return pSoundName(index)
+        End Get
+    End Property
     Public ReadOnly Property IscriptName(index As Integer) As String
         Get
             Return pIscriptName(index)
@@ -269,6 +282,11 @@ Public Class StarCraftData
     End Property
 
 
+    Private ReadOnly Property SfxSoundListPath As String
+        Get
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\SoundList.txt"
+        End Get
+    End Property
 
     Private ReadOnly stat_txt As tblReader
     Public ReadOnly Property GetStat_txt(index As Integer, Optional TrueVal As Boolean = False) As String
@@ -617,6 +635,19 @@ Public Class StarCraftData
         End While
         sr.Close()
 
+        sr = New StreamReader(SfxSoundListPath)
+        index = 0
+        Dim tlist As New List(Of String)
+        While Not sr.EndOfStream
+            tlist.Add(sr.ReadLine())
+            index += 1
+        End While
+        ReDim pSoundName(tlist.Count - 1)
+        For i = 0 To tlist.Count - 1
+            pSoundName(i) = tlist(i)
+        Next
+
+        sr.Close()
     End Sub
 
 

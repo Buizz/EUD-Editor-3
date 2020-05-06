@@ -73,4 +73,8 @@
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         FliterText.Text = ""
     End Sub
+
+    Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+        FliterText.Focus()
+    End Sub
 End Class

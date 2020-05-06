@@ -5,33 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
-        Unloaded="Window_Unloaded"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}" 
         Title="TextEditor" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"  >
     <DockPanel>
-        <Grid Width="1280" Height="960">
-            <Grid>
-                <Grid.Background>
-                    <ImageBrush ImageSource="/EUD Editor 3;component/Resources/TextEditorBackGround.png"/>
-                </Grid.Background>
-            </Grid>
-            <Border Margin="20,221,20,386" Background="#19FFFFFF" VerticalAlignment="Bottom">
-                <RichTextBox x:Name="MainTextBox" Foreground="#FFB6B6E8" TextChanged="MainTextBox_TextChanged" Block.LineHeight="8" IsTabStop="False" >
-                </RichTextBox>
+        <Grid Width="1280" Height="560" DockPanel.Dock="Right">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="360"/>
+            </Grid.RowDefinitions>
+            <DockPanel>
+                <ListBox x:Name="FormatFunc"  DockPanel.Dock="Left" SelectionChanged="FormatFunc_SelectionChanged">
+                    <ListBoxItem Content="숫자" Tag=""/>
+                    <ListBoxItem Content="c 플레이어 색상" Tag=":c"/>
+                    <ListBoxItem Content="n 플레이어 이름" Tag=":n"/>
+                    <ListBoxItem Content="s 스트링 주소" Tag=":s"/>
+                    <ListBoxItem Content="t 스트링EPD 주소" Tag=":t"/>
+                    <ListBoxItem Content="x 16진법 출력" Tag=":x"/>
+                </ListBox>
+                <TextBox x:Name="EditTextbox" AcceptsReturn="True" AcceptsTab="True" TextChanged="EditTextbox_TextChanged">
+
+                </TextBox>
+                
+            </DockPanel>
+            <Border Background="Black" Grid.Row="1">
+                <DockPanel x:Name="RenderTextBox" LastChildFill="False" Margin="20,4" VerticalAlignment="Bottom">
+
+                </DockPanel>
             </Border>
+        
         </Grid>
-        <DockPanel DockPanel.Dock="Right" Width="200">
+        <DockPanel DockPanel.Dock="Left" Width="200">
             <ListBox x:Name="ColorInfor" DockPanel.Dock="Top" SelectionChanged="ColorInfor_SelectionChanged"/>
-            <Button DockPanel.Dock="Bottom" Content="확인" Click="Button_Click"/>
-            <ListBox x:Name="FormatFunc"  DockPanel.Dock="Bottom" SelectionChanged="FormatFunc_SelectionChanged">
-                <ListBoxItem Content="숫자" Tag=""/>
-                <ListBoxItem Content="c 플레이어 색상" Tag=":c"/>
-                <ListBoxItem Content="n 플레이어 이름" Tag=":n"/>
-                <ListBoxItem Content="s 스트링 주소" Tag=":s"/>
-                <ListBoxItem Content="t 스트링EPD 주소" Tag=":t"/>
-                <ListBoxItem Content="x 16진법 출력" Tag=":x"/>
-            </ListBox>
+            <Button DockPanel.Dock="Bottom" Content="확인" Click="Button_Click" Height="Auto"/>
         </DockPanel>
     </DockPanel>
 </Window>

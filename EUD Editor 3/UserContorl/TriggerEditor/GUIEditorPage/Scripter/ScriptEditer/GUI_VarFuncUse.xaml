@@ -10,7 +10,7 @@
         <Label x:Name="tLabel" DockPanel.Dock="Top"/>
         <TextBlock x:Name="destb" DockPanel.Dock="Bottom"/>
 
-        <StackPanel x:Name="ToolBtnlist" DockPanel.Dock="Top" >
+        <StackPanel x:Name="ToolBtnlist" DockPanel.Dock="Top" Visibility="Collapsed" >
             <StackPanel Orientation="Horizontal">
                 <Button x:Name="ResetCoder" Click="ResetCoder_Click" DockPanel.Dock="Left"
                     Style="{StaticResource MaterialDesignOutlinedButton}">

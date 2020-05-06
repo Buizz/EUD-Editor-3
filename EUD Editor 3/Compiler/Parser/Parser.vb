@@ -660,9 +660,14 @@ PRIUse:
                                                 initojb.flag = False
                                                 Dim ListF As CodeBlock = tcode.Items.First
                                                 ListF = ListF.Items.First
-                                                For i = 0 To ListF.Items.Count - 1
-                                                    initojb.child.Add(GetScriptBlock(ListF.Items(i)))
-                                                Next
+                                                If IsNumeric(ListF.Value1) Then
+                                                    initojb.child.Add(GetScriptBlock(ListF))
+                                                Else
+                                                    For i = 0 To ListF.Items.Count - 1
+                                                        initojb.child.Add(GetScriptBlock(ListF.Items(i)))
+                                                    Next
+                                                End If
+
                                             Case "VArray"
                                                 initojb.flag = True
                                                 initojb.name = "EUDVArray"
@@ -762,12 +767,23 @@ PRIUse:
                                 Dim cont As CodeBlock = cblock.Items.First
                                 'Dim vcount As Integer = cont.Items.First.Items.First.Items.First.Value1
 
-                                Dim listArray As CodeBlock = cont.Items.Last.Items.First
+                                Dim countArray As CodeBlock = cont.Items.First
+                                Dim vcount As ScriptBlock = GetScriptBlock(countArray.Items.First)
+
+                                Dim listArray As CodeBlock = cont.Items.Last
+                                If listArray.Items.Count = 0 Then
+                                    initojb.AddChild(vcount)
+                                Else
+                                    listArray = listArray.Items.First
 
 
-                                For i = 0 To listArray.Items.Count - 1
-                                    initojb.AddChild(GetScriptBlock(listArray.Items(i)))
-                                Next
+                                    For i = 0 To listArray.Items.Count - 1
+                                        initojb.AddChild(GetScriptBlock(listArray.Items(i)))
+                                    Next
+                                End If
+
+
+
 
 
                                 scritem.AddChild(initojb)

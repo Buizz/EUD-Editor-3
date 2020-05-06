@@ -273,7 +273,10 @@
             ObjectFunc.SelectedIndex = 0
 
             varFunction.Visibility = Visibility.Visible
-            varFunction.CrlInit(EditValues, dotscr, p._GUIScriptEditorUI, valueEditPanel)
+            varFunction.CrlInit(EditValues, dotscr, p._GUIScriptEditorUI, valueEditPanel, True)
+
+
+
 
             btnRefresh()
             ObjectfuncLoad = True
@@ -307,4 +310,6 @@
     Private Sub SpFlag_Unchecked(sender As Object, e As RoutedEventArgs)
         EditValues.flag = False
     End Sub
+
+
 End Class

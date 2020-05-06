@@ -16,6 +16,7 @@ Public Class CustomCompletionWindow
     End Property
 
     Public Sub New(ByVal textArea As TextArea)
+
         MyBase.New(textArea)
         Me.CloseAutomatically = True
         Me.SizeToContent = SizeToContent.Height
@@ -24,6 +25,15 @@ Public Class CustomCompletionWindow
         Me.Content = CompletionList
         Me.MinHeight = 15
         Me.MinWidth = 30
+
+        Me.Background = Application.Current.Resources("MaterialDesignPaper")
+        Me.Foreground = Application.Current.Resources("MaterialDesignBody")
+
+        CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
+        CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
+        CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
+
+
         _toolTip.PlacementTarget = Me
         _toolTip.Placement = PlacementMode.Right
         AddHandler _toolTip.Closed, AddressOf toolTip_Closed

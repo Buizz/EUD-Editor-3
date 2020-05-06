@@ -10,7 +10,9 @@
 
     <Grid Margin="0,-6">
         <Grid x:Name="ColorBorder" Margin="-8,-8"/>
-        <TextBlock x:Name="textblock" >
-        </TextBlock>
+        <Border x:Name="color" Margin="-8" HorizontalAlignment="Left">
+            <TextBlock x:Name="textblock" HorizontalAlignment="Left" Margin="8" >
+            </TextBlock>
+        </Border>
     </Grid>
 </UserControl>

@@ -181,4 +181,11 @@
     Private Sub UserControl_PreviewMouseUp(sender As Object, e As MouseButtonEventArgs)
         'Opacity = 1
     End Sub
+
+    Public Sub HeaderPaint(brush As SolidColorBrush)
+        Dim n As New SolidColorBrush(brush.Color)
+
+        n.Opacity = 0.2
+        color.Background = n
+    End Sub
 End Class

@@ -64,27 +64,31 @@
         Dim functooltip As FunctionToolTip = cfun.GetFuncTooltip(i)
 
         Dim targs() As String = cfun.GetFuncArgument(i).Split(",")
-        For k = 0 To targs.Count - 1
-            Dim argtext As String = targs(k)
+        If cfun.GetFuncArgument(i).Trim <> "" Then
+            For k = 0 To targs.Count - 1
+                Dim argtext As String = targs(k)
 
-            If argtext.IndexOf("/*") <> -1 And argtext.IndexOf("*/") <> -1 And argtext.IndexOf(":") = -1 Then
-                argtext = argtext.Replace("*/", "")
-                argtext = argtext.Replace("/*", ":")
-            End If
-
-            Dim aname As String = argtext.Split(":").First.Trim
-            Dim atype As String = argtext.Split(":").Last.Trim
-
-
-            If aname.Length > 0 Then
-                If Mid(aname, 1, 1) = "*" Then
-                    ArgStartIndex = k
+                If argtext.IndexOf("/*") <> -1 And argtext.IndexOf("*/") <> -1 And argtext.IndexOf(":") = -1 Then
+                    argtext = argtext.Replace("*/", "")
+                    argtext = argtext.Replace("/*", ":")
                 End If
-            End If
+
+                Dim aname As String = argtext.Split(":").First.Trim
+                Dim atype As String = argtext.Split(":").Last.Trim
 
 
-            Args.Add(New FuncArgs(aname, atype, ""))
-        Next
+                If aname.Length > 0 Then
+                    If Mid(aname, 1, 1) = "*" Then
+                        ArgStartIndex = k
+                    End If
+                End If
+
+
+                Args.Add(New FuncArgs(aname, atype, functooltip.GetTooltip(k)))
+            Next
+        End If
+
+
         If functooltip.Summary.Trim = "" Then
             IsCompleteFunction = False
             Return

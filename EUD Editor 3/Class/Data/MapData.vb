@@ -11,6 +11,23 @@ Public Class MapData
     End Property
 
 
+    Private _WavIndex As List(Of Integer)
+    Public ReadOnly Property WavIndex(index As Integer) As String
+        Get
+            If _WavIndex.Count > index Then
+                Return Str(_WavIndex(index) - 1).Replace("\", "/")
+            Else
+                Return "Error"
+            End If
+        End Get
+    End Property
+    Public ReadOnly Property WavCount() As Integer
+        Get
+            Return _WavIndex.Count
+        End Get
+    End Property
+
+
     Private Strings As List(Of String)
     Public ReadOnly Property Str(index As Integer) As String
         Get
@@ -106,7 +123,7 @@ Public Class MapData
     Private Sub LoadData(MapName As String)
         Dat = New SCDatFiles(True)
         Strings = New List(Of String)
-
+        _WavIndex = New List(Of Integer)
 
         Dim hmpq As UInteger
         Dim hfile As UInteger
@@ -398,7 +415,16 @@ Public Class MapData
 
             End If
 
-
+            If True Then
+                SearchCHK("WAV ", binary)
+                size = binary.ReadUInt32
+                For i = 0 To (size / 4) - 1
+                    Dim v As UInteger = binary.ReadUInt32()
+                    If v > 0 Then
+                        _WavIndex.Add(v)
+                    End If
+                Next
+            End If
 
 
 

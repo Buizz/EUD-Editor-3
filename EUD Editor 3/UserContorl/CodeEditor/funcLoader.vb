@@ -164,6 +164,23 @@ Partial Public Class CodeEditor
                 strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
 
                 Return strs.ToArray
+            Case "WAVName"
+                Dim strs As New List(Of String)
+                For i = 0 To pjData.MapData.WavCount - 1
+                    Dim tstr As String
+                    If pjData.IsMapLoading Then
+                        tstr = pjData.MapData.WavIndex(i)
+                        strs.Add(tstr)
+                    End If
+                Next
+
+                For i = 0 To scData.Sound_Count - 1
+                    strs.Add(scData.SoundName(i))
+                Next
+
+
+
+                Return strs.ToArray
             Case "BGM"
                 Dim strs As New List(Of String)
 
@@ -280,7 +297,10 @@ Partial Public Class CodeEditor
 
         Dim Argument As String = GetArgument(FuncNameas, ArgumentCount, LastStr)
         Dim ArgumentType As String = Argument.Split(":").Last.Trim
-
+        Dim ArgName As String = Argument.Split(":").First.Trim
+        If ArgName = "WAVName" Then
+            ArgumentType = "WAVName"
+        End If
 
         Select Case FuncNameas
             Case "$S"
@@ -317,14 +337,14 @@ Partial Public Class CodeEditor
 
                         data.Add(New TECompletionData(0, strs(i), tstr, tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
-                Case "TrgAIScript"
+                Case "TrgAIScript", "WAVName"
                     Dim strs() As String = GetArgList(ArgumentType)
 
                     For i = 0 To strs.Length - 1
                         Dim tb As New TextBox
                         tb.Text = strs(i)
 
-                        data.Add(New TECompletionData(0, strs(i), """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarConst))
+                        data.Add(New TECompletionData(0, """" & strs(i) & """", """" & strs(i) & """", tb, TextEditor, TECompletionData.EIconType.StarConst))
                     Next
                 Case "TrgLocation", "TrgLocationIndex"
                     Dim strs() As String = GetArgList(ArgumentType)

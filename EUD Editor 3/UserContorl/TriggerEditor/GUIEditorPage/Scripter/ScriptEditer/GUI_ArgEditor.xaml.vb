@@ -45,7 +45,6 @@
             Return
         End If
 
-
         Dim graywindow As New GUI_GrayWindow
 
 
@@ -142,6 +141,7 @@
                 valuetypecb.Visibility = Visibility.Visible
 
                 Dim tvtype As String = scr.name.Trim
+
                 Dim vindex As Integer = tescm.SCValueType.ToList.IndexOf(tvtype)
                 If vindex = -1 Then
                     tvtype = "Number"
@@ -172,6 +172,9 @@
                     initstr(0) = scr.name
                     initstr(1) = scr.value
                     VarUseFunc.CrlInit(scr, normalscrscr, Scripter, Me)
+                    VarUseFunc.Visibility = Visibility.Visible
+                Else
+                    VarUseFunc.Visibility = Visibility.Collapsed
                 End If
 
 
@@ -284,6 +287,12 @@
                 AddHandler ListSelecter.SelectEvent, AddressOf ListTextSelect
                 bd.Child = ListSelecter
                 bd.Visibility = Visibility.Visible
+            Case "WAVName"
+                Dim ListSelecter As New GUI_WavSelecter(scr.value)
+
+                AddHandler ListSelecter.SelectEvent, AddressOf ListTextSelect
+                bd.Child = ListSelecter
+                bd.Visibility = Visibility.Visible
             Case Else
                 Dim ListSelecter As New GUI_Action_ListSelecter(CodeEditor.GetArgList(vtype))
 
@@ -342,6 +351,7 @@
 
         scr.DuplicationBlock(nsb)
         VarUseFunc.CrlInit(scr, normalscrscr, Scripter, Me)
+        VarUseFunc.Visibility = Visibility.Visible
 
 
 

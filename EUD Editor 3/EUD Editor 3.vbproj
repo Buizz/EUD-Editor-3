@@ -529,6 +529,9 @@
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml.vb">
       <DependentUpon>GUI_VariableSelecter.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_WavSelecter.xaml.vb">
+      <DependentUpon>GUI_WavSelecter.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml.vb">
       <DependentUpon>GUI_ArgEditor.xaml</DependentUpon>
     </Compile>
@@ -628,6 +631,9 @@
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\ExceptionErrorDialog.xaml.vb">
+      <DependentUpon>ExceptionErrorDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\GrpLoader.xaml.vb">
       <DependentUpon>GrpLoader.xaml</DependentUpon>
     </Compile>
@@ -640,6 +646,9 @@
     </Compile>
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\TextEditorPreviewr.xaml.vb">
+      <DependentUpon>TextEditorPreviewr.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\TextEditorWindow.xaml.vb">
       <DependentUpon>TextEditorWindow.xaml</DependentUpon>
@@ -915,6 +924,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_WavSelecter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1039,6 +1052,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\ExceptionErrorDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\GrpLoader.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1052,6 +1069,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Window\SettingWindows.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\TextEditorPreviewr.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1407,6 +1428,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Resources\TextEditorBackGround.png" />
+    <None Include="Data\Texts\SoundList.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="x64\lz4X64.dll">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

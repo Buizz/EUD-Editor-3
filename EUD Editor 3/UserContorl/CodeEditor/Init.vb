@@ -368,7 +368,7 @@ Partial Public Class CodeEditor
 
     Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, Optional Flag As SpecialFlag = SpecialFlag.None)
         If completionWindow Is Nothing Then
-            If Char.IsLetterOrDigit(enteredText) Or enteredText = "_" Then
+            If Char.IsLetterOrDigit(enteredText) Or enteredText = "_" Or enteredText = "/" Then
                 completionWindow = New CustomCompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
@@ -390,6 +390,7 @@ Partial Public Class CodeEditor
                     End If
                 End If
 
+
                 Select Case Flag
                     Case SpecialFlag.None
                         LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
@@ -405,10 +406,6 @@ Partial Public Class CodeEditor
                         LoadMacroData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
                 End Select
 
-
-                completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
-                completionWindow.CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
-                completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
                 'If results.TriggerWordLength > 0 Then
                 '    completionWindow.CompletionList.SelectItem(results.TriggerWord)
                 'End If
@@ -464,9 +461,7 @@ Partial Public Class CodeEditor
                         LoadMacroData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
                 End Select
 
-                completionWindow.CompletionList.ListBox.Background = Application.Current.Resources("MaterialDesignPaper")
-                completionWindow.CompletionList.ListBox.Foreground = Application.Current.Resources("MaterialDesignBody")
-                completionWindow.CompletionList.ListBox.BorderBrush = Application.Current.Resources("MaterialDesignPaper")
+
 
 
                 completionWindow.SizeToContent = SizeToContent.WidthAndHeight
@@ -501,6 +496,18 @@ Partial Public Class CodeEditor
             End If
         End If
     End Sub
+
+
+
+
+
+
+
+
+
+
+
+
     Private Sub completionWindowView()
         completionWindow._toolTip.IsOpen = True
         completionWindow.Visibility = Visibility.Visible
@@ -647,7 +654,9 @@ Partial Public Class CodeEditor
                     TextEditor.SelectedText = keys
                     TextEditor.SelectionLength -= 1
                     If headchar = "" Then
-                        TextEditor.SelectionStart += 1
+                        If tailchar <> "" Then
+                            TextEditor.SelectionStart += 1
+                        End If
                     End If
                 Else
                     If tailchar = keys Then

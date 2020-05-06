@@ -306,7 +306,7 @@ Public Class GUIScriptEditorUI
         Dim sucesscount As Integer = 0
         For i = 0 To CopyItemList.Count - 1
             Dim nsb As ScriptBlock = CopyItemList(i).DeepCopy
-
+            nsb.Scripter = Me.Script
 
             If selectitem IsNot Nothing Then
                 If CheckValidated(nsb, ssb) Then

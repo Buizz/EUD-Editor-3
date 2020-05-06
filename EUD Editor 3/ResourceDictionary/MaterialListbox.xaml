@@ -453,9 +453,10 @@
                         </VisualStateManager.VisualStateGroups>
                         <wpf:ScaleHost x:Name="ScaleHost" />
 
-                        <Grid Grid.Column="0" Grid.ColumnSpan="1" Background="{TemplateBinding Background}">
+                        <Grid Grid.Column="0" Grid.Row="0"  Grid.ColumnSpan="1"  Background="{TemplateBinding Background}">
 
                         </Grid>
+            
 
                         <ToggleButton x:Name="Expander" ClickMode="Press" IsChecked="{Binding IsExpanded, RelativeSource={RelativeSource TemplatedParent}}" 
                                       Style="{StaticResource MaterialDesignExpandCollapseToggleStyle}"
@@ -488,7 +489,7 @@
 
 
 
-                        <ContentControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2"
+                        <ContentControl Grid.Row="1" Grid.Column="1" Grid.ColumnSpan="2" 
                                         x:Name="AdditionalContentControl"
                                         Content="{TemplateBinding Header}"
                                         ContentTemplate="{Binding RelativeSource={RelativeSource Self}, Path=(wpf:TreeViewAssist.AdditionalTemplate)}"
@@ -496,9 +497,9 @@
                                         Visibility="Collapsed">
                         </ContentControl>
 
-                        <StackPanel Grid.Column="1" Grid.Row="2"
+                        <StackPanel Grid.Column="1" Grid.Row="2" 
                                     x:Name="ItemsPanel"
-                                    Margin="-16 0 0 0"
+                                    Margin="16 0 0 0"
                                     Grid.ColumnSpan="2">
                             <StackPanel.Height>
                                 <MultiBinding Converter="{StaticResource MathMlpMultipleConverter}">
@@ -506,7 +507,7 @@
                                     <Binding ElementName="ScaleHost" Path="Scale"/>
                                 </MultiBinding>
                             </StackPanel.Height>
-                            <ItemsPresenter x:Name="ItemsHost"
+                            <ItemsPresenter x:Name="ItemsHost"  
                                             VerticalAlignment="Top"
                                             Opacity="0"
                                             Visibility="Collapsed"/>

@@ -3,7 +3,7 @@
     Public Sub CrlInit()
         '//////////////////////////////
         '초기화 식
-        valueEditPanel.Init(p._GUIScriptEditorUI.TEGUIPage.ValueSelecter, dotscr, p._GUIScriptEditorUI)
+        valueEditPanel.Init(ValueSelect, dotscr, p._GUIScriptEditorUI)
         AddHandler valueEditPanel.BtnRefresh, AddressOf ArgSelecter.argBtnRefresh
 
 

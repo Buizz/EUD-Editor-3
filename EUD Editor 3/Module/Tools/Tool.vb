@@ -313,16 +313,46 @@ Namespace Tool
             Return Nothing
         End Function
 
+        Public Function LoadDataFromMAP(filename As String) As Byte()
+            Dim hmpq As UInteger
+            Dim hfile As UInteger
+            Dim buffer() As Byte
+            Dim filesize As UInteger
+
+            Dim pdwread As IntPtr
+
+
+            Dim mpqname As String = pjData.OpenMapName
+            SFmpq.SFileOpenArchive(mpqname, 0, 0, hmpq)
+            filename = filename.Replace("/", "\")
+
+            SFmpq.SFileOpenFileEx(hmpq, filename, 0, hfile)
+
+            If hfile <> 0 Then
+                filesize = SFmpq.SFileGetFileSize(hfile, filesize)
+                ReDim buffer(filesize)
+
+                SFmpq.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
+
+                SFmpq.SFileCloseFile(hfile)
+                SFmpq.SFileCloseArchive(hmpq)
+                Return buffer
+            End If
+            SFmpq.SFileCloseArchive(hmpq)
+            Return buffer
+        End Function
+
 
 
         Public Sub PlaySoundFromMPQ(filename As String)
 
             Dim bytes() As Byte = LoadDataFromMPQ(filename)
 
-            Dim sp As New SoundPlayer(New IO.MemoryStream(bytes))
 
+            Dim sp As New SoundPlayer(New IO.MemoryStream(bytes))
             sp.Play()
         End Sub
+
         Public Sub PlaySoundFromMPQIndex(soundindex As Integer)
             Dim pureFilename As String = scData.SfxFileName(pjData.Dat.Data(SCDatFiles.DatFiles.sfxdata, "Sound File", soundindex) - 1)
             pureFilename = Replace(pureFilename, pureFilename.Split(".").Last, "") & "wav"

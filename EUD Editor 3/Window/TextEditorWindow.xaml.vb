@@ -5,7 +5,6 @@ Public Class TextEditorWindow
 
     Private KorFont As FontFamily
 
-
     Public Sub New(InitStr As String)
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -26,150 +25,157 @@ Public Class TextEditorWindow
         TextString = InitStr
         Dim inittext As String = TextString
         inittext = inittext.Replace("\n", vbCrLf)
-        '전처리기
-        Dim pattern As String = "\\x([\d\w][\d\w])"
-        Dim matches As MatchCollection = Regex.Matches(inittext, pattern)
-        For Each Match As Match In matches
-            Dim v As String = Match.Value
-            Dim hexv As String = "&H" & Mid(v, 3)
-            Dim num As Integer
-            Try
-                num = hexv
-            Catch ex As Exception
-                Continue For
-            End Try
+        ''전처리기
+        'Dim pattern As String = "\\x([\d\w][\d\w])"
+        'Dim matches As MatchCollection = Regex.Matches(inittext, pattern)
+        'For Each Match As Match In matches
+        '    Dim v As String = Match.Value
+        '    Dim hexv As String = "&H" & Mid(v, 3)
+        '    Dim num As Integer
+        '    Try
+        '        num = hexv
+        '    Catch ex As Exception
+        '        Continue For
+        '    End Try
 
-            inittext = inittext.Replace(v, Chr(num))
-        Next
+        '    inittext = inittext.Replace(v, Chr(num))
+        'Next
 
+        EditTextbox.Text = inittext
 
-        NoneChange = True
-        MainTextBox.AppendText(inittext)
-        MainTextBox.FontFamily = KorFont
-        MainTextBox.FontSize = 24.0
-
-        MainTextBox.Focus()
+        EditTextbox.Focus()
+        'MainTextBox.AppendText(inittext)
+        'MainTextBox.FontFamily = KorFont
+        'MainTextBox.FontSize = 24.0
 
         TextBoxRender()
-        NoneChange = False
     End Sub
 
-    Private Sub Window_Unloaded(sender As Object, e As RoutedEventArgs)
-        NoneChange = True
-        MainTextBox.UpdateLayout()
-        ChangeText()
-    End Sub
+    Private Function NewTextBlock() As TextBlock
+        Dim tbox As New TextBlock
+        tbox.Inlines.Clear()
+        tbox.FontFamily = KorFont
+        tbox.FontSize = 24.0
 
-    Private NoneChange As Boolean = False
-    Private Sub MainTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
-        If Not NoneChange Then
-            ChangeText()
-        End If
-    End Sub
-    Private Sub ChangeText()
-        Dim tr As New TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd)
-        tr.ApplyPropertyValue(FontFamilyProperty, KorFont)
-        tr.ApplyPropertyValue(FontSizeProperty, 24.0)
-
-        TextString = tr.Text
-        TextString = TextString.Replace(vbCrLf, "\n")
-        If TextString.Length <> 0 Then
-            TextString = Mid(TextString, 1, TextString.Length - 2)
-
-            Dim pattern As String = "[\x01-\x1F]"
-            Dim matches As MatchCollection = Regex.Matches(TextString, pattern)
-            For Each Match As Match In matches
-                Dim v As String = Match.Value
-                Dim colorCode As Integer = Asc(v)
-
-                Dim ccode As String = "\x" & Hex(colorCode).PadLeft(2, "0")
-                TextString = TextString.Replace(v, ccode)
-            Next
-
-        End If
-        NoneChange = True
-        TextBoxRender()
-        NoneChange = False
-    End Sub
-
+        Return tbox
+    End Function
     Private Sub TextBoxRender()
-        Dim _tr As New TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd)
-        _tr.ApplyPropertyValue(ForegroundProperty, New SolidColorBrush(ColorTable(1)))
-        _tr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Left)
+        RenderTextBox.BeginInit()
+        RenderTextBox.Children.Clear()
+        Dim tstr As String = TextString.Replace("\n", vbCrLf)
+        Dim Strs() As String = tstr.Split(vbCrLf)
 
-
-
-        Dim pattern As String = "[\x01-\x1F]"
+        Dim pattern As String = "\\x([\d\w][\d\w])"
         Dim rg As New Regex(pattern)
+        For i = 0 To Strs.Count - 1
+            Dim defaultBrush As New SolidColorBrush(ColorTable(1))
+            Dim LineStr As String = Strs(i).Trim
 
-        Dim bc As BlockCollection = MainTextBox.Document.Blocks
-        For i = 0 To bc.Count - 1
-            Dim tr As New TextRange(bc(i).ContentStart, bc(i).ContentEnd)
-            Dim matches As MatchCollection = rg.Matches(tr.Text)
-            Dim pointer As TextPointer = bc(i).ContentStart
+            Dim matches As MatchCollection = rg.Matches(LineStr)
 
 
+            Dim LeftTextBox As TextBlock = NewTextBlock()
+            Dim CenterTextBox As TextBlock = NewTextBlock()
+
+            CenterTextBox.HorizontalAlignment = HorizontalAlignment.Center
+            Dim RightTextBox As TextBlock = NewTextBlock()
+            DockPanel.SetDock(RightTextBox, Dock.Right)
+
+            Dim Inlines As InlineCollection = LeftTextBox.Inlines
+
+            Dim lastindex As Integer = 0
             For k = 0 To matches.Count - 1
-                Dim colorCode As Integer = Asc(matches(k).Value)
-                Dim startIndex As Integer = matches(k).Index + 1 + k * 2
-                Dim start As TextPointer = pointer.GetPositionAtOffset(startIndex)
+                Dim v As String = matches(k).Groups(1).Value
+                Dim colorcode As Integer
+                Try
+                    colorcode = "&H" & v
+                Catch ex As Exception
 
-                'MsgBox("찾은 값 : " & Match.Value & "   찾은 시작 값 : " & startIndex)
+                End Try
+
+                Dim startindex As Integer = matches(k).Index
+
+                Dim ctext As String = Mid(LineStr, lastindex + 1, startindex - lastindex)
+
+                Dim tRun As New Run(ctext)
+                tRun.Foreground = defaultBrush
+                Inlines.Add(tRun)
 
 
-                Dim ttr As New TextRange(start, bc(i).ContentEnd)
+                lastindex = startindex + matches(k).Length
 
-                Select Case colorCode
+                Select Case colorcode
                     Case &H12 '오른쪽
-                        ttr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Right)
+                        Inlines = RightTextBox.Inlines
                     Case &H13 '가운대
-                        ttr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center)
-                    Case &H9 '탭
+                        Inlines = CenterTextBox.Inlines
                     Case Else
-                        ttr.ApplyPropertyValue(ForegroundProperty, New SolidColorBrush(ColorTable(colorCode)))
+                        defaultBrush = New SolidColorBrush(ColorTable(colorcode))
                 End Select
             Next
 
+            Dim Run As New Run(Mid(LineStr, lastindex + 1))
+            Run.Foreground = defaultBrush
+            Inlines.Add(Run)
+
+            Dim tdock As New DockPanel
+            tdock.Margin = New Thickness(0, 4, 0, 4)
+            DockPanel.SetDock(tdock, Dock.Top)
+            tdock.Children.Add(LeftTextBox)
+            tdock.Children.Add(RightTextBox)
+            tdock.Children.Add(CenterTextBox)
+
+
+            RenderTextBox.Children.Add(tdock)
         Next
 
-
-
-        'Dim pointer As TextPointer = MainTextBox.Document.ContentStart
-
-        'While (pointer IsNot Nothing)
-        '    If (pointer.GetPointerContext(LogicalDirection.Forward) = TextPointerContext.Text) Then
-        '        Dim textRun As String = pointer.GetTextInRun(LogicalDirection.Forward)
-        '        Dim matches As MatchCollection = rg.Matches(textRun)
-        '        For Each Match As Match In matches
-        '            Dim colorCode As Integer = Asc(Match.Groups(1).Value)
-
-        '            Dim startIndex As Integer = Match.Groups(2).Index
-        '            Dim length As Integer = Match.Groups(2).Length
-        '            Dim start As TextPointer = pointer.GetPositionAtOffset(startIndex)
-        '            Dim tend As TextPointer = start.GetPositionAtOffset(length)
-
-        '            Dim ttr As New TextRange(start, tend)
-
-        '            Select Case colorCode
-        '                Case &H12 '오른쪽
-        '                    ttr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Right)
-        '                Case &H13 '가운대
-        '                    ttr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center)
-        '                Case &H9 '탭
-        '                Case Else
-        '                    ttr.ApplyPropertyValue(ForegroundProperty, New SolidColorBrush(ColorTable(colorCode)))
-        '            End Select
+        'Dim _tr As New TextRange(MainTextBox.Document.ContentStart, MainTextBox.Document.ContentEnd)
+        '_tr.ApplyPropertyValue(ForegroundProperty, New SolidColorBrush(ColorTable(1)))
+        '_tr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Left)
 
 
 
-        '        Next
+        'Dim pattern As String = "[\x01-\x1F]"
+        'Dim rg As New Regex(pattern)
+
+        'Dim bc As BlockCollection = MainTextBox.Document.Blocks
+        'For i = 0 To bc.Count - 1
+        '    Dim tr As New TextRange(bc(i).ContentStart, bc(i).ContentEnd)
+        '    Dim matches As MatchCollection = rg.Matches(tr.Text)
+        '    Dim pointer As TextPointer = bc(i).ContentStart
+
+        '    Dim stflag As Integer = 0
+        '    For k = 0 To matches.Count - 1
+        '        Dim colorCode As Integer = Asc(matches(k).Value)
+        '        Dim startIndex As Integer = matches(k).Index + 1 + k * 2 + stflag
+        '        If matches(k).Index = 0 Then
+        '            stflag = -1
+        '        End If
+
+        '        Dim start As TextPointer = pointer.GetPositionAtOffset(startIndex)
+
+        '        'MsgBox("찾은 값 : " & Match.Value & "   찾은 시작 값 : " & startIndex)
 
 
-        '    End If
+        '        Dim ttr As New TextRange(start, bc(i).ContentEnd)
 
-        '    pointer = pointer.GetNextContextPosition(LogicalDirection.Forward)
-        'End While
+        '        Select Case colorCode
+        '            Case &H12 '오른쪽
+        '                ttr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Right)
+        '            Case &H13 '가운대
+        '                ttr.ApplyPropertyValue(Paragraph.TextAlignmentProperty, TextAlignment.Center)
+        '            Case &H9 '탭
+        '            Case Else
+        '                ttr.ApplyPropertyValue(ForegroundProperty, New SolidColorBrush(ColorTable(colorCode)))
+        '        End Select
+        '    Next
+
+        'Next
+
+
+        RenderTextBox.EndInit()
     End Sub
+
 
 
 
@@ -179,20 +185,38 @@ Public Class TextEditorWindow
         If ColorInfor.SelectedItem IsNot Nothing Then
             Dim ColorCode As Integer = ColorInfor.SelectedItem.Tag
 
-            Dim InsertString As String = Chr(ColorCode)
-            MainTextBox.Selection.Text = InsertString
-            Dim tptr As TextPointer = MainTextBox.Selection.End
-            MainTextBox.Selection.Select(tptr, tptr)
+            Dim InsertString As String = "\x" & Hex(ColorCode).ToUpper.PadLeft(2, "0")
+            EditTextbox.SelectedText = InsertString
+            Dim len As Integer = EditTextbox.SelectionLength
+            EditTextbox.SelectionLength = 0
+            EditTextbox.SelectionStart += len
 
 
             ColorInfor.SelectedIndex = -1
-            MainTextBox.Focus()
+            EditTextbox.Focus()
         End If
 
     End Sub
+
+    Private Sub FormatFunc_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If FormatFunc.SelectedItem IsNot Nothing Then
+            Dim FormatCode As String = FormatFunc.SelectedItem.Tag
+
+            Dim InsertString As String = "{" & FormatCode & "}"
+            EditTextbox.SelectedText = InsertString
+            Dim len As Integer = EditTextbox.SelectionLength
+            EditTextbox.SelectionLength = 0
+            EditTextbox.SelectionStart += len
+
+            FormatFunc.SelectedIndex = -1
+            EditTextbox.Focus()
+        End If
+
+    End Sub
+
     Private Sub AddPalett(ColorCode As Integer, tip As String)
 
-        Dim ColoreTextbox As New ColoredTextBlock("<" & Hex(ColorCode) & ">  " & tip)
+        Dim ColoreTextbox As New ColoredTextBlock("<" & Hex(ColorCode) & ">\x" & Hex(ColorCode).ToUpper.PadLeft(2, "0") & "   " & tip)
         ColoreTextbox.HorizontalAlignment = HorizontalAlignment.Left
         ColoreTextbox.Margin = New Thickness(-8)
 
@@ -203,35 +227,15 @@ Public Class TextEditorWindow
         ListboxItems.Background = Brushes.Black
         ListboxItems.Content = ColoreTextbox
         ListboxItems.Height = 16
-
-        'Dim btn As New Button
-        'btn.Content = ColoreTextbox
-        'btn.Style = Application.Current.Resources("MaterialDesignFlatButton")
-        'btn.Background = Brushes.Black
-        'btn.Margin = New Thickness(0, -4, 0, -4)
-
-        'ColorBtn.Children.Add(btn)
         ColorInfor.Items.Add(ListboxItems)
     End Sub
-
-    Private Sub FormatFunc_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        If FormatFunc.SelectedItem IsNot Nothing Then
-            Dim FormatCode As String = FormatFunc.SelectedItem.Tag
-
-            Dim InsertString As String = "{" & FormatCode & "}"
-            MainTextBox.Selection.Text = InsertString
-            Dim tptr As TextPointer = MainTextBox.Selection.End
-            MainTextBox.Selection.Select(tptr, tptr)
-
-
-            FormatFunc.SelectedIndex = -1
-            MainTextBox.Focus()
-        End If
-
-    End Sub
-
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         Close()
+    End Sub
+
+    Private Sub EditTextbox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        TextString = EditTextbox.Text.Replace(vbCrLf, "\n")
+        TextBoxRender()
     End Sub
 
 End Class

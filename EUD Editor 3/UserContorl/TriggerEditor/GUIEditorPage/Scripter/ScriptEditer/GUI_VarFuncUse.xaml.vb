@@ -14,14 +14,14 @@ Public Class GUI_VarFuncUse
     Private FuncDefine As FuncDefine
 
     Private methodname As String = ""
-    Public Sub CrlInit(_scr As ScriptBlock, _dotscr As ScriptBlock, _GUIEditorUI As GUIScriptEditorUI, _ArgEditor As GUI_ArgEditor)
+    Public Sub CrlInit(_scr As ScriptBlock, _dotscr As ScriptBlock, _GUIEditorUI As GUIScriptEditorUI, _ArgEditor As GUI_ArgEditor, Optional VReset As Boolean = False)
         scr = _scr
         dotscr = _dotscr
         GUIEditorUI = _GUIEditorUI
         ArgEditor = _ArgEditor
 
         tLabel.Visibility = Visibility.Collapsed
-        ToolBtnlist.Visibility = Visibility.Visible
+        ToolBtnlist.Visibility = Visibility.Collapsed
         MainPanel.Children.Clear()
         tLabel.Content = _scr.name & ":" & _scr.value & ":" & _scr.value2
 
@@ -224,6 +224,7 @@ Public Class GUI_VarFuncUse
 
         tLabel.Content = "오브젝트 이름" & objscr.value & " 함수 명 : " & methodname
 
+        ToolBtnlist.Visibility = Visibility.Visible
         Dim methodlist As List(Of ScriptBlock) = tescm.GetObjectMethod(objscr)
         Dim IsExistFunc As Boolean = False
         Dim methodfunc As ScriptBlock = Nothing
@@ -330,6 +331,12 @@ Public Class GUI_VarFuncUse
                 tLabel.Content = "존재하지 않는 함수"
                 ToolBtnlist.Visibility = Visibility.Collapsed
             End If
+        End If
+
+        If VReset Then
+            FuncDefine.ResetScriptBlock(scr)
+
+            FuncCoder()
         End If
 
         EditBtnRefresh()

@@ -60,25 +60,55 @@
             Next
             normalscr = normalscr.Parent
 
-            'If normalscr.ScriptType = ScriptBlock.EBlockType._for Then
-            '    Dim values As String() = normalscr.ForvarName
-            '    For i = 0 To values.Count - 1
+            If normalscr.ScriptType = ScriptBlock.EBlockType._for Then
+                Dim forscr As ScriptBlock = normalscr
+                Dim tstr() As String = forscr.value.Split("ᚢ")
+                Dim ForType As String = tstr.First
+                Dim rvalue As String = tstr.Last
 
+                Dim vlist As New List(Of String)
+                Select Case ForType
+                    Case "UserEdit"
+                        Dim vtype As String = rvalue.Split("ᗢ").First
+                        Dim vtext As String = rvalue.Split("ᗢ").Last
 
-            '        If varname.Trim = "" Then
-            '            Dim tscr As ScriptBlock = New ScriptBlock(ScriptBlock.EBlockType.vardefine, "vardefine", False, False, values(i).Trim, Nothing)
-            '            tscr.value2 = "var"
-            '            rscr.Add(tscr)
-            '        Else
-            '            If values(i).Trim = varname Then
-            '                Dim tscr As ScriptBlock = New ScriptBlock(ScriptBlock.EBlockType.vardefine, "vardefine", False, False, values(i).Trim, Nothing)
-            '                tscr.value2 = "var"
-            '                rscr.Add(tscr)
-            '            End If
-            '        End If
-            '        'MsgBox(values(i))
-            '    Next
-            'End If
+                        If vtype = "For" Then
+                            Dim vname As String = vtext.Split(";").First.Replace("var", "").Trim()
+                            vlist.Add(vname)
+                        ElseIf vtype = "ForEach" Then
+                            vlist.AddRange(vtext.Split(":").First.Split(","))
+                        End If
+                    Case "CountRepeat"
+                        Dim vname As String = rvalue.Split("ᗢ").First
+                        vlist.Add(vname)
+                'rvalue = "var " & vname & " = " & vinit & "; " & vname & " < " & vinit + vcount & "; " & vname & "++"
+                    Case "EUDLoopNewUnit", "EUDLoopUnit", "EUDLoopUnit2", "EUDLoopSprite"
+                        Dim vname1 As String = rvalue.Split(",").First
+                        Dim vname2 As String = rvalue.Split(",").Last
+                        vlist.Add(vname1)
+                        vlist.Add(vname2)
+
+                    Case "Timeline"
+                        Dim vname As String = rvalue.Split("ᗢ").First
+                        vlist.Add(vname)
+                    Case "EUDLoopPlayerUnit"
+                        Dim tt As String = rvalue.Split("ᗢ").First
+                        Dim vname1 As String = tt.Split(",").First
+                        Dim vname2 As String = tt.Split(",").Last
+                        vlist.Add(vname1)
+                        vlist.Add(vname2)
+                    Case "EUDLoopPlayer"
+                        Dim vname As String = rvalue.Split("ᗢ").First
+                        vlist.Add(vname)
+                    Case "EUDPlayerLoop"
+                        '원래 아무것도 업슴
+                End Select
+                For k = 0 To vlist.Count - 1
+                    If AddAble(vlist(k).Trim, "var", fname, ftype) Then
+                        rscr.Add(New ScriptBlock(ScriptBlock.EBlockType.vardefine, "vardefine", False, False, vlist(k).Trim, Nothing))
+                    End If
+                Next
+            End If
         End While
 
         '인덱스가 0이 될대까지 위로 올라감.
