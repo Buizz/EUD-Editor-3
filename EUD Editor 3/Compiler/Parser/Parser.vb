@@ -218,6 +218,13 @@ Public Class Parser
                 '변수 이름
                 Dim vname As String = CheckNextToken(Token.TokenType.TOKEN_IDENTIFIER).value
                 ncode.Value1 = vname
+                If CurrentToken.TType = Token.TokenType.TOKEN_COMMA Then
+                    While (CheckBlockToken(Token.TokenType.TOKEN_COMMA))
+                        Dim t As String = CheckNextToken(Token.TokenType.TOKEN_IDENTIFIER).value
+                        ncode.Value1 = ncode.Value1 & ", " & t
+                    End While
+                End If
+
 
 
                 If CurrentToken.TType = Token.TokenType.TOKEN_SEMICOLON Then
@@ -227,6 +234,7 @@ Public Class Parser
                     'EXP가 들어감
                     CheckNextToken(Token.TokenType.TOKEN_ASSIGN)
 
+ReLoad:
                     If CurrentToken.TType = Token.TokenType.TOKEN_LBRACKET Then
                         ncode.Value2 = "Array"
 
@@ -240,11 +248,18 @@ Public Class Parser
                         Decoder(CodeType.CODE_EXPRESSION, ncode)
                     End If
 
+                    If CurrentToken.TType = Token.TokenType.TOKEN_COMMA Then
+                        CheckNextToken(Token.TokenType.TOKEN_COMMA)
+                        GoTo ReLoad
+                    End If
+
+
+
 
                     CheckNextToken(Token.TokenType.TOKEN_SEMICOLON)
-                End If
+                    End If
 
-                code.Items.Add(ncode)
+                    code.Items.Add(ncode)
             Case CodeType.CODE_STATEMENT 'if문, 수식
                 Dim ncode As New CodeBlock(CodeType.CODE_STATEMENT)
 
@@ -374,6 +389,11 @@ Public Class Parser
                                 CheckNextToken(Token.TokenType.TOKEN_LPAREN)
                                 Decoder(CodeType.CODE_EXPRESSION, ncode)
                                 CheckNextToken(Token.TokenType.TOKEN_RPAREN)
+                            Case Token.TokenType.TOKEN_MACRO
+                                Dim emdcode As New CodeBlock(CodeType.CODE_MACRO)
+                                emdcode.Value1 = CurrentToken().value
+                                ncode.Items.Add(emdcode)
+                                index += 1
                             Case Else
                                 Exit While
                         End Select
@@ -626,178 +646,193 @@ PRIUse:
                     scritem.AddChild(initojb)
                 Else
                     If cblock.Items.Count > 0 Then
-                        Dim initexp As CodeBlock = cblock.Items.First
 
-                        If initexp.Items.Count = 1 Then
-                            Dim tcode As CodeBlock = initexp.Items(0)
+                        For p = 0 To cblock.Items.Count - 1
 
-                            Select Case tcode.BType
-                                Case CodeType.PRI_USEBRACKET
-                                    scritem.flag = True
-                                    scritem.value = vname
-                                    scritem.value2 = "object"
+                            Dim initexp As CodeBlock = cblock.Items(p)
+                            If initexp.Items.Count = 1 Then
+                                Dim tcode As CodeBlock = initexp.Items(0)
 
-
-                                    Dim initojb As New ScriptBlock(ScriptBlock.EBlockType.varuse, "", True, False, "", Nothing)
-                                    scritem.AddChild(initojb)
-                                    '=====================================================================================
-                                    Dim objname As String = tcode.Value1
+                                Select Case tcode.BType
+                                    Case CodeType.PRI_USEBRACKET
+                                        scritem.flag = True
+                                        scritem.value = vname
+                                        scritem.value2 = "object"
 
 
-                                    Dim tstr() As String = objname.Split(".")
-                                    If tstr.Count = 1 Then
-                                        '.가지고 하는거임
-                                        'ex
-                                        'name = StringBuffer
-                                        'value = constructor
-                                        'child = 100(일반 값)
-                                        '-> StringBuffer(100)
-                                        initojb.name = objname
-                                        initojb.value = "constructor"
+                                        Dim initojb As New ScriptBlock(ScriptBlock.EBlockType.varuse, "", True, False, "", Nothing)
+                                        scritem.AddChild(initojb)
+                                        '=====================================================================================
+                                        Dim objname As String = tcode.Value1
 
-                                        Select Case initojb.name
-                                            Case "EUDArray"
-                                                initojb.flag = False
-                                                Dim ListF As CodeBlock = tcode.Items.First
-                                                ListF = ListF.Items.First
-                                                If IsNumeric(ListF.Value1) Then
-                                                    initojb.child.Add(GetScriptBlock(ListF))
-                                                Else
-                                                    For i = 0 To ListF.Items.Count - 1
-                                                        initojb.child.Add(GetScriptBlock(ListF.Items(i)))
+
+                                        Dim tstr() As String = objname.Split(".")
+                                        If tstr.Count = 1 Then
+                                            '.가지고 하는거임
+                                            'ex
+                                            'name = StringBuffer
+                                            'value = constructor
+                                            'child = 100(일반 값)
+                                            '-> StringBuffer(100)
+                                            initojb.name = objname
+                                            initojb.value = "constructor"
+
+                                            Select Case initojb.name
+                                                Case "EUDArray"
+                                                    initojb.flag = False
+                                                    Dim ListF As CodeBlock = tcode.Items.First
+                                                    ListF = ListF.Items.First
+                                                    If IsNumeric(ListF.Value1) Then
+                                                        initojb.child.Add(GetScriptBlock(ListF))
+                                                    Else
+                                                        For i = 0 To ListF.Items.Count - 1
+                                                            initojb.child.Add(GetScriptBlock(ListF.Items(i)))
+                                                        Next
+                                                    End If
+
+                                                Case "VArray"
+                                                    initojb.flag = True
+                                                    initojb.name = "EUDVArray"
+                                                    For i = 0 To tcode.Items.Count - 1
+                                                        initojb.child.Add(GetScriptBlock(tcode.Items(i)))
                                                     Next
-                                                End If
-
-                                            Case "VArray"
-                                                initojb.flag = True
-                                                initojb.name = "EUDVArray"
-                                                For i = 0 To tcode.Items.Count - 1
-                                                    initojb.child.Add(GetScriptBlock(tcode.Items(i)))
-                                                Next
-                                            Case Else
-                                                For i = 0 To tcode.Items.Count - 1
-                                                    initojb.child.Add(GetScriptBlock(tcode.Items(i)))
-                                                Next
-                                        End Select
-
-
-
-                                    Else
-                                        If GetNameSpace.IndexOf(tstr.First) = -1 Then
-                                            '-> StringBuffer.cast(a[i])
-                                            '-> StringBuffer.alloc()
-                                            Dim objn As String = ""
-                                            Dim methodn As String = ""
-
-                                            For i = 0 To tstr.Count - 1
-                                                If i = tstr.Count - 1 Then
-                                                    methodn = tstr(i)
-                                                Else
-                                                    If i <> 0 Then
-                                                        objn = objn & "."
-                                                    End If
-                                                    objn = objn & tstr(i)
-                                                End If
-                                            Next
-
-                                            Select Case tstr.Last
-                                                Case "cast"
-                                                    initojb.name = objn
-                                                    initojb.value = "cast"
-                                                Case "alloc"
-                                                    initojb.name = objn
-                                                    initojb.value = "alloc"
+                                                Case Else
+                                                    For i = 0 To tcode.Items.Count - 1
+                                                        initojb.child.Add(GetScriptBlock(tcode.Items(i)))
+                                                    Next
                                             End Select
+
+
+
                                         Else
-                                            '외부 오브젝트
-                                            Dim objn As String = ""
-                                            Dim methodn As String = ""
+                                            If GetNameSpace.IndexOf(tstr.First) = -1 Then
+                                                '-> StringBuffer.cast(a[i])
+                                                '-> StringBuffer.alloc()
+                                                Dim objn As String = ""
+                                                Dim methodn As String = ""
 
-                                            For i = 0 To tstr.Count - 1
-                                                If i = tstr.Count - 1 Then
-                                                    methodn = tstr(i)
-                                                Else
-                                                    If i <> 0 Then
-                                                        objn = objn & "."
+                                                For i = 0 To tstr.Count - 1
+                                                    If i = tstr.Count - 1 Then
+                                                        methodn = tstr(i)
+                                                    Else
+                                                        If i <> 0 Then
+                                                            objn = objn & "."
+                                                        End If
+                                                        objn = objn & tstr(i)
                                                     End If
-                                                    objn = objn & tstr(i)
-                                                End If
-                                            Next
+                                                Next
 
-
-                                            If tstr.Count = 2 Then
-                                                initojb.name = objn
-                                                initojb.value = "constructor"
-                                            Else
                                                 Select Case tstr.Last
                                                     Case "cast"
                                                         initojb.name = objn
                                                         initojb.value = "cast"
+                                                        For i = 0 To tcode.Items.Count - 1
+                                                            initojb.child.Add(GetScriptBlock(tcode.Items(i)))
+                                                        Next
                                                     Case "alloc"
                                                         initojb.name = objn
                                                         initojb.value = "alloc"
                                                 End Select
+                                            Else
+                                                '외부 오브젝트
+                                                Dim objn As String = ""
+                                                Dim methodn As String = ""
+
+                                                For i = 0 To tstr.Count - 1
+                                                    If i = tstr.Count - 1 Then
+                                                        methodn = tstr(i)
+                                                    Else
+                                                        If i <> 0 Then
+                                                            objn = objn & "."
+                                                        End If
+                                                        objn = objn & tstr(i)
+                                                    End If
+                                                Next
+
+
+                                                If tstr.Count = 2 Then
+                                                    initojb.name = objn & "." & methodn
+                                                    initojb.value = "constructor"
+                                                    For i = 0 To tcode.Items.Count - 1
+                                                        initojb.child.Add(GetScriptBlock(tcode.Items(i)))
+                                                    Next
+                                                Else
+                                                    Select Case tstr.Last
+                                                        Case "cast"
+                                                            initojb.name = objn
+                                                            initojb.value = "cast"
+                                                            For i = 0 To tcode.Items.Count - 1
+                                                                initojb.child.Add(GetScriptBlock(tcode.Items(i)))
+                                                            Next
+                                                        Case "alloc"
+                                                            initojb.name = objn
+                                                            initojb.value = "alloc"
+                                                    End Select
+                                                End If
                                             End If
                                         End If
+
+                                        '=====================================================================================
+
+
+
+                                    Case Else
+                                        scritem.AddChild(GetScriptBlock(tcode))
+                                End Select
+
+
+
+
+                            ElseIf initexp.Items.Count = 2 Then
+                                Dim tcode1 As CodeBlock = initexp.Items(0)
+                                Dim tcode2 As CodeBlock = initexp.Items(1)
+
+                                If tcode1.Value1 = "EUDVArray" Then
+                                    scritem.flag = True
+                                    scritem.value = vname
+                                    scritem.value2 = "object"
+
+                                    Dim initojb As New ScriptBlock(ScriptBlock.EBlockType.varuse, "EUDVArray", True, False, "constructor", Nothing)
+
+                                    initojb.flag = False
+
+
+                                    Dim cont As CodeBlock = cblock.Items.First
+                                    'Dim vcount As Integer = cont.Items.First.Items.First.Items.First.Value1
+
+                                    Dim countArray As CodeBlock = cont.Items.First
+                                    Dim vcount As ScriptBlock = GetScriptBlock(countArray.Items.First)
+
+                                    Dim listArray As CodeBlock = cont.Items.Last
+                                    If listArray.Items.Count = 0 Then
+                                        initojb.AddChild(vcount)
+                                    Else
+                                        listArray = listArray.Items.First
+
+
+                                        For i = 0 To listArray.Items.Count - 1
+                                            initojb.AddChild(GetScriptBlock(listArray.Items(i)))
+                                        Next
                                     End If
 
-                                    '=====================================================================================
 
 
 
-                                Case Else
-                                    scritem.AddChild(GetScriptBlock(tcode))
-                            End Select
 
-
-                        ElseIf initexp.Items.Count = 2 Then
-                            Dim tcode1 As CodeBlock = initexp.Items(0)
-                            Dim tcode2 As CodeBlock = initexp.Items(1)
-
-                            If tcode1.Value1 = "EUDVArray" Then
-                                scritem.flag = True
-                                scritem.value = vname
-                                scritem.value2 = "object"
-
-                                Dim initojb As New ScriptBlock(ScriptBlock.EBlockType.varuse, "EUDVArray", True, False, "constructor", Nothing)
-
-                                initojb.flag = False
-
-
-                                Dim cont As CodeBlock = cblock.Items.First
-                                'Dim vcount As Integer = cont.Items.First.Items.First.Items.First.Value1
-
-                                Dim countArray As CodeBlock = cont.Items.First
-                                Dim vcount As ScriptBlock = GetScriptBlock(countArray.Items.First)
-
-                                Dim listArray As CodeBlock = cont.Items.Last
-                                If listArray.Items.Count = 0 Then
-                                    initojb.AddChild(vcount)
+                                    scritem.AddChild(initojb)
                                 Else
-                                    listArray = listArray.Items.First
-
-
-                                    For i = 0 To listArray.Items.Count - 1
-                                        initojb.AddChild(GetScriptBlock(listArray.Items(i)))
+                                    For i = 0 To initexp.Items.Count - 1
+                                        scritem.AddChild(GetScriptBlock(initexp.Items(i)))
                                     Next
                                 End If
-
-
-
-
-
-                                scritem.AddChild(initojb)
                             Else
+
                                 For i = 0 To initexp.Items.Count - 1
                                     scritem.AddChild(GetScriptBlock(initexp.Items(i)))
                                 Next
                             End If
-                        Else
+                        Next
 
-                            For i = 0 To initexp.Items.Count - 1
-                                scritem.AddChild(GetScriptBlock(initexp.Items(i)))
-                            Next
-                        End If
                     End If
                 End If
 
@@ -1089,6 +1124,9 @@ PRIUse:
                         Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.varuse, cblock.Value1.Split(".").First, True, False, cblock.Value1.Split(".").Last, Nothing, False)
                         tscr.value2 = "method"
                         scritem = tscr
+                        For i = 0 To cblock.Items.Count - 1
+                            tscr.child.Add(GetScriptBlock(cblock.Items(i)))
+                        Next
                     Else
                         If tastr.Count = 2 Then
                             'externfun
@@ -1199,6 +1237,9 @@ PRIUse:
                                 scrlist.Add(tscritem.child(k))
                             Next
                             scrlist.Add(New ScriptBlock(ScriptBlock.EBlockType.sign, "sign", True, False, ")", Nothing))
+                        Case CodeType.CODE_MACRO
+                            scrlist.Add(New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "<?" & cblock.Items(i).Value1 & "?>", Nothing))
+
                     End Select
                 Next
 

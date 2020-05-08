@@ -151,6 +151,8 @@
     <sys:String x:Key="TECodeCopy">Copy Code</sys:String>
     <sys:String x:Key="TECodePaste">Paste Code</sys:String>
     <sys:String x:Key="TECodeDelete">Delete Code</sys:String>
+    <sys:String x:Key="TEFold">Code Collapse</sys:String>
+    <sys:String x:Key="TEUnFold">Code Expand</sys:String>
     <sys:String x:Key="TECodedeSelect">Cancel</sys:String>
     <sys:String x:Key="TECodeUndo">Undo</sys:String>
     <sys:String x:Key="TECodeRedo">Redo</sys:String>

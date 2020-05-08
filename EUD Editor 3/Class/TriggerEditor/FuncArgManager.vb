@@ -10,13 +10,37 @@
         scr.child.Clear()
 
         For i = 0 To Args.Count - 1
-            Dim vname As String = "defaultvalue;" & Args(i).ArgName.Trim
+            Dim vname As String = Args(i).ArgName.Trim
             Dim vtype As String = Args(i).ArgType.Trim
+            If vname = "WAVName" And vtype = "TrgString" Then
+                vtype = "WAVName"
+            End If
+            If vname.IndexOf("=") <> -1 Then
+                Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.exp, "exprssion", False, False, "", scr.Scripter)
+                Dim tagname As String = vname.Split("=").First
+                Dim back As String = vname.Split("=").Last
 
-            'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+                If True Then
+                    Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Tag", False, False, tagname, scr.Scripter)
+                    tscr.AddChild(_tscr)
+                End If
+                If True Then
+                    Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.sign, "sign", False, False, "=", scr.Scripter)
+                    tscr.AddChild(_tscr)
+                End If
+                If True Then
+                    Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Tag", False, False, back, scr.Scripter)
+                    tscr.AddChild(_tscr)
+                End If
 
-            Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, scr.Scripter)
-            scr.AddChild(tscr)
+
+
+                scr.AddChild(tscr)
+            Else
+                vname = "defaultvalue;" & vname
+                Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, scr.Scripter)
+                scr.AddChild(tscr)
+            End If
         Next
     End Sub
 
@@ -253,6 +277,9 @@
         Public ArgName As String
         Public ArgType As String
         Public ArgComment As String
+
+
+
 
         Public Sub New(_ArgName As String, _ArgType As String, _ArgComment As String)
             ArgName = _ArgName

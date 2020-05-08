@@ -6,9 +6,10 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-             Width="550" Height="260">
+             Width="600" Height="400">
     
     <DockPanel x:Name="MainStackPanel" LastChildFill="False">
+        <Border x:Name="ValueSelecter" DockPanel.Dock="Right" Width="250"/>
         <TextBox x:Name="vname" materialDesign:HintAssist.Hint="변수 명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" DockPanel.Dock="Top" TextChanged="vname_TextChanged"/>
         <ComboBox x:Name="VarType" materialDesign:HintAssist.Hint="타입" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="VarType_SelectionChanged">
             <ComboBoxItem Content="변수"/>
@@ -18,6 +19,12 @@
         </ComboBox>
         <CheckBox x:Name="initcb" Content="초기값" DockPanel.Dock="Top" Checked="initcb_Checked" Unchecked="initcb_Unchecked"/>
 
+        <WrapPanel x:Name="EditValuesPanel" Visibility="Visible" DockPanel.Dock="Top">
+            <Button Content="ㅁㄴㅇ"/>
+            <Button Content="ㅁㄴㅇ"/>
+            <Button Content="ㅁㄴㅇ"/>
+            <Button Content="ㅁㄴㅇ"/>
+        </WrapPanel>
         <DockPanel x:Name="varObjectBorder" DockPanel.Dock="Top" >
             <!-- Object들을 골라야 한다. -->
             <!-- 고른 Object에서 함수를 선택한다. -->
@@ -34,7 +41,8 @@
         </DockPanel>
         
         <!--<CheckBox x:Name="initcb" Content="초기값 사용" DockPanel.Dock="Top" Checked="initcb_Checked" Unchecked="initcb_Unchecked"/>-->
-        <TextBlock x:Name="valuetb" DockPanel.Dock="Top" />
         <Separator DockPanel.Dock="Top" />
+        <local:GUI_ArgEditor x:Name="valueEditPanel" DockPanel.Dock="Top" Margin="5"/>
+     
     </DockPanel>
 </UserControl>

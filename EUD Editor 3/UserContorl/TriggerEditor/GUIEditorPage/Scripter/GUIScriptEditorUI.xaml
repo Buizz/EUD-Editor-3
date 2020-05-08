@@ -74,6 +74,9 @@
                         <MenuItem x:Name="DeleteItem" Header="{StaticResource TECodeDelete}" Icon="{materialDesign:PackIcon Kind=Delete}" Click="DeleteItem_Click" InputGestureText="Delete"/>
                         <MenuItem x:Name="deselectItem" Header="{StaticResource TECodedeSelect}" Icon="{materialDesign:PackIcon Kind=SelectOff}" Click="deSelectItem_Click" InputGestureText="ESC"/>
                         <Separator/>
+                        <MenuItem x:Name="FoldUnder" Header="{StaticResource TEUnFold}" Click="FoldUnder_Click" />
+                        <MenuItem x:Name="UnFoldUnder" Header="{StaticResource TEFold}"  Click="UnFoldUnder_Click" />
+                        <Separator/>
                         <MenuItem x:Name="UndoItem" Header="{StaticResource TECodeUndo}" Icon="{materialDesign:PackIcon Kind=Undo}" Click="UndoItem_Click" InputGestureText="Ctrl+Z"/>
                         <MenuItem x:Name="RedoItem" Header="{StaticResource TECodeRedo}" Icon="{materialDesign:PackIcon Kind=Redo}" Click="RedoItem_Click" InputGestureText="Ctrl+R"/>
                     </ContextMenu>

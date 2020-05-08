@@ -150,6 +150,8 @@
     <sys:String x:Key="TECodePaste">코드 붙여넣기</sys:String>
     <sys:String x:Key="TECodeDelete">코드 삭제</sys:String>
     <sys:String x:Key="TECodedeSelect">선택 취소</sys:String>
+    <sys:String x:Key="TEFold">코드 접기</sys:String>
+    <sys:String x:Key="TEUnFold">코드 펼치키</sys:String>
     <sys:String x:Key="TECodeUndo">실행 취소</sys:String>
     <sys:String x:Key="TECodeRedo">다시 실행</sys:String>
     

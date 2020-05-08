@@ -60,7 +60,12 @@
                 Else
                     tAddText(lnlines, "를 ", Nothing)
 
-                    tAddText(lnlines, sb.child(0).ValueCoder, tescm.HighlightBrush)
+                    For i = 0 To sb.child.Count - 1
+                        If i <> 0 Then
+                            tAddText(lnlines, ", ", Nothing)
+                        End If
+                        tAddText(lnlines, sb.child(i).ValueCoder, tescm.HighlightBrush)
+                    Next
 
                     tAddText(lnlines, "의 초기값", tescm.HighlightBrush)
                     tAddText(lnlines, "으로 선언합니다.", Nothing)

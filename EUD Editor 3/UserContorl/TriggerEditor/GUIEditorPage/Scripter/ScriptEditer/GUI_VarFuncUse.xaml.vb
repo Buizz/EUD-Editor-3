@@ -262,23 +262,23 @@ Public Class GUI_VarFuncUse
                 'End If
 
 
-                If methodname <> "constructor" Then
-                    If argument.Trim <> "" Then
-                        Dim args() As String = argument.Split(",")
-                        For i = 0 To args.Length - 1
-                            If scr.child.Count <= i Then
-                                Dim tstr() As String = args(i).Split(":")
+                'If methodname <> "constructor" Then
+                '    If argument.Trim <> "" Then
+                '        Dim args() As String = argument.Split(",")
+                '        For i = 0 To args.Length - 1
+                '            If scr.child.Count <= i Then
+                '                Dim tstr() As String = args(i).Split(":")
 
-                                Dim vname As String = "defaultvalue;" & tstr.First.Trim
-                                Dim vtype As String = tstr.Last
+                '                Dim vname As String = "defaultvalue;" & tstr.First.Trim
+                '                Dim vtype As String = tstr.Last
 
-                                'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+                '                'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
 
-                                scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script))
-                            End If
-                        Next
-                    End If
-                End If
+                '                scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script))
+                '            End If
+                '        Next
+                '    End If
+                'End If
 
             Else
                 Dim argsb As List(Of ScriptBlock) = tescm.GetFuncArgs(methodfunc)
@@ -297,18 +297,18 @@ Public Class GUI_VarFuncUse
                 Dim args As List(Of ScriptBlock) = tescm.GetFuncArgs(func)
 
 
-                For i = 0 To args.Count - 1
-                    If scr.child.Count <= i Then
-                        Dim vname As String = "defaultvalue;" & args(i).value.Trim
-                        Dim vtype As String = args(i).name
+                'For i = 0 To args.Count - 1
+                '    If scr.child.Count <= i Then
+                '        Dim vname As String = "defaultvalue;" & args(i).value.Trim
+                '        Dim vtype As String = args(i).name
 
-                        'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
+                '        'ReplaceChild(New ScriptBlock(vtype, False, False, vname, Scripter), i)
 
-                        Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script)
-                        tscr.value2 = args(i).value2
-                        scr.AddChild(tscr)
-                    End If
-                Next
+                '        Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, GUIEditorUI.Script)
+                '        tscr.value2 = args(i).value2
+                '        scr.AddChild(tscr)
+                '    End If
+                'Next
 
             End If
 
@@ -662,7 +662,12 @@ Public Class GUI_VarFuncUse
     End Sub
 
     Private Sub ArgAdder_Click(sender As Object, e As RoutedEventArgs)
-        scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        If methodname = "constructor" Then
+            scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        Else
+            scr.InsertChild(FuncDefine.ArgStartIndex, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        End If
+
         If IsDefaultCoder Then
             DefaultCoder()
         Else
@@ -672,7 +677,11 @@ Public Class GUI_VarFuncUse
     End Sub
 
     Private Sub ArgRemove_Click(sender As Object, e As RoutedEventArgs)
-        scr.child.RemoveAt(scr.child.Count - 1)
+        If methodname = "constructor" Then
+            scr.child.RemoveAt(scr.child.Count - 1)
+        Else
+            scr.child.RemoveAt(FuncDefine.ArgStartIndex)
+        End If
         If IsDefaultCoder Then
             DefaultCoder()
         Else

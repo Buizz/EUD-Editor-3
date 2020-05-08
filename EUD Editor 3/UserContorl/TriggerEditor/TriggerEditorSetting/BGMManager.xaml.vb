@@ -19,7 +19,7 @@ Public Class BGMManager
         SampleRateCombobox.SelectedIndex = 0
         BitRateCombobox.SelectedIndex = 0
 
-        OpenNewWindow()
+        OpenNewWindow(Nothing)
     End Sub
 
     Private Sub EditItem_Click(sender As Object, e As RoutedEventArgs)
@@ -49,7 +49,11 @@ Public Class BGMManager
     End Sub
 
     Private Sub DeleteItem_Click(sender As Object, e As RoutedEventArgs)
-        pjData.TEData.BGMData.BGMList.Remove(CType(List.SelectedItem, BGMData.BGMFile))
+        For Each bgmfile As BGMData.BGMFile In List.SelectedItems
+            pjData.TEData.BGMData.BGMList.Remove(bgmfile)
+
+        Next
+
         List.Items.Refresh()
         pjData.SetDirty(True)
     End Sub
@@ -65,8 +69,16 @@ Public Class BGMManager
             CType(List.SelectedItem, BGMData.BGMFile).Refresh(BGMPath.Text, BGMName.Text,
                                                               CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag)
         Else
-            pjData.TEData.BGMData.BGMList.Add(New BGMData.BGMFile(BGMPath.Text, BGMName.Text,
-                                                              CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag))
+            If IsMultiFileOpne Then
+                For i = 0 To Filelist.Count - 1
+                    Dim fileinfo As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(Filelist(i))
+                    pjData.TEData.BGMData.BGMList.Add(New BGMData.BGMFile(fileinfo.FullName, fileinfo.Name,
+                                                                  CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag))
+                Next
+            Else
+                pjData.TEData.BGMData.BGMList.Add(New BGMData.BGMFile(BGMPath.Text, BGMName.Text,
+                                                                  CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag))
+            End If
         End If
         List.Items.Refresh()
         CloseStroyBoard.Begin(Me)
@@ -74,18 +86,45 @@ Public Class BGMManager
     End Sub
 
 
+    Private IsMultiFileOpne As Boolean
 
     Private IsEditWindowopen As Boolean
-    Private Sub OpenNewWindow()
+
+    Private Filelist As New List(Of String)
+    Private Sub OpenNewWindow(Files() As String)
+        DefailtInfo.IsEnabled = True
+        If Files Is Nothing Then
+            DefailtInfo.Visibility = Visibility.Visible
+            IsMultiFileOpne = False
+        Else
+            If Files.Count = 1 Then
+                Dim fileinfo As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(Files.First)
+
+                IsMultiFileOpne = False
+                BGMPath.Text = fileinfo.FullName
+                BGMName.Text = fileinfo.Name
+            Else
+                IsMultiFileOpne = True
+                Filelist.Clear()
+                Filelist.AddRange(Files)
+                BGMPath.Text = "다중 파일"
+                BGMName.Text = "다중 파일"
+                DefailtInfo.IsEnabled = False
+            End If
+        End If
+
+
         IsEditWindowopen = False
         OpenStroyBoard.Begin(Me)
         CreateEditWindow.Visibility = Visibility.Visible
         BtnRefresh()
     End Sub
     Private Sub OpenEditWindow()
+        IsMultiFileOpne = False
         IsEditWindowopen = True
         OpenStroyBoard.Begin(Me)
         CreateEditWindow.Visibility = Visibility.Visible
+        DefailtInfo.IsEnabled = True
         BtnRefresh()
     End Sub
     Private Sub ContextMenu_Opened(sender As Object, e As RoutedEventArgs)
@@ -200,6 +239,14 @@ Public Class BGMManager
             OkKey.IsEnabled = False
             Return
         End If
+        If SampleRateCombobox.SelectedIndex = -1 Then
+            OkKey.IsEnabled = False
+            Return
+        End If
+        If BitRateCombobox.SelectedIndex = -1 Then
+            OkKey.IsEnabled = False
+            Return
+        End If
         OkKey.IsEnabled = True
     End Sub
 
@@ -278,5 +325,25 @@ Public Class BGMManager
 
     Private Sub BGMStop(sender As Object, e As RoutedEventArgs)
         SoundStop()
+    End Sub
+
+    Private Sub List_DragEnter(sender As Object, e As DragEventArgs)
+
+        If e.Data.GetDataPresent(DataFormats.FileDrop) Then
+
+            Dim files() As String = e.Data.GetData(DataFormats.FileDrop)
+
+
+            OpenNewWindow(files)
+        End If
+
+    End Sub
+
+    Private Sub SampleRateCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        BtnRefresh()
+    End Sub
+
+    Private Sub BitRateCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        BtnRefresh()
     End Sub
 End Class

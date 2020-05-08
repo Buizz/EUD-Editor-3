@@ -454,7 +454,7 @@ Public Class GUI_Action_ArgSelecter
     End Sub
 
     Private Sub ArgAdder_Click(sender As Object, e As RoutedEventArgs)
-        EditValues.Add(New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        scr.InsertChild(FuncDefine.ArgStartIndex, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
         If IsDefaultCoder Then
             DefaultCoder()
         Else
@@ -465,7 +465,7 @@ Public Class GUI_Action_ArgSelecter
     End Sub
 
     Private Sub ArgRemove_Click(sender As Object, e As RoutedEventArgs)
-        EditValues.RemoveAt(EditValues.Count - 1)
+        scr.child.RemoveAt(FuncDefine.ArgStartIndex)
         If IsDefaultCoder Then
             DefaultCoder()
         Else
@@ -478,7 +478,7 @@ Public Class GUI_Action_ArgSelecter
         If FuncDefine.ArgStartIndex = -1 Then
             ArgRemovebtn.IsEnabled = FuncDefine.ValueCount < EditValues.Count
         Else
-            ArgRemovebtn.IsEnabled = FuncDefine.ValueCount <= EditValues.Count
+            ArgRemovebtn.IsEnabled = FuncDefine.ArgStartIndex <= EditValues.Count
         End If
 
         ArgAdderbtn.IsEnabled = (FuncDefine.ArgStartIndex <> -1)

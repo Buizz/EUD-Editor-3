@@ -21,7 +21,7 @@
                 <RowDefinition
           Height="Auto" />
             </Grid.RowDefinitions>
-            <ListView x:Name="List" >
+            <ListView x:Name="List" AllowDrop="True" DragDrop.Drop="List_DragEnter">
                 <ListView.View>
                     <GridView>
                         <GridViewColumn Width="40">
@@ -99,19 +99,25 @@
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="18">
-                        <DockPanel Margin="5">
-                            <Label Content="이름" HorizontalAlignment="Center" VerticalAlignment="Center"  />
-                            <TextBox x:Name="BGMName" Margin="10,0,0,0"  TextChanged="BGMName_TextChanged">
-                            </TextBox>
-                        </DockPanel>
-                        <DockPanel Margin="5">
-                            <Label Content="주소" HorizontalAlignment="Center" VerticalAlignment="Center"  />
-                            <Button DockPanel.Dock="Right" Content="찾기" Click="BGMPath_Click"/>
-                            <TextBlock x:Name="BGMPath" Margin="10,0,0,0" VerticalAlignment="Center"  />
-                        </DockPanel>
+                        <StackPanel x:Name="DefailtInfo">
+                            <DockPanel Margin="5">
+                                <Label Content="이름" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                <TextBox x:Name="BGMName" Margin="10,0,0,0"  TextChanged="BGMName_TextChanged">
+                                </TextBox>
+                            </DockPanel>
+                            <DockPanel Margin="5">
+                                <Label Content="주소" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                <Button DockPanel.Dock="Right" Content="찾기" Click="BGMPath_Click"/>
+                                <TextBlock x:Name="BGMPath" Margin="10,0,0,0" VerticalAlignment="Center"  />
+                            </DockPanel>
+                        </StackPanel>
+              
                         <DockPanel Margin="5">
                             <UniformGrid Columns="2">
-                                <ComboBox x:Name="SampleRateCombobox" materialDesign:HintAssist.Hint="샘플레이트" MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox x:Name="SampleRateCombobox" materialDesign:HintAssist.Hint="샘플레이트"
+                                          MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                          SelectionChanged="SampleRateCombobox_SelectionChanged">
                                     <ComboBoxItem Content="기본" Tag="-1"/>
                                     <ComboBoxItem Content="44,100 Hz" Tag="44100"/>
                                     <ComboBoxItem Content="32,000 Hz" Tag="32000"/>
@@ -120,7 +126,10 @@
                                     <ComboBoxItem Content="11,025 Hz" Tag="11025"/>
                                     <ComboBoxItem Content="8,000 Hz" Tag="8000"/>
                                 </ComboBox>
-                                <ComboBox x:Name="BitRateCombobox" materialDesign:HintAssist.Hint="비트레이트" MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
+                                <ComboBox x:Name="BitRateCombobox" materialDesign:HintAssist.Hint="비트레이트"
+                                          MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}"
+                                          Style="{StaticResource MaterialDesignFloatingHintComboBox}"
+                                          SelectionChanged="BitRateCombobox_SelectionChanged">
                                     <ComboBoxItem Content="기본" Tag="-1"/>
                                     <ComboBoxItem Content="256kbps" Tag="256"/>
                                     <ComboBoxItem Content="196kbps" Tag="196"/>

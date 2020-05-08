@@ -464,6 +464,8 @@ Public Class GUIScriptEditorUI
 
         If Not IsItemSelected() Then
             '선택한 아이템이 없을 경우
+            FoldUnder.IsEnabled = False
+            UnFoldUnder.IsEnabled = False
             CutItem.IsEnabled = False
             Cutbtn.IsEnabled = False
             CopyItem.IsEnabled = False
@@ -478,6 +480,8 @@ Public Class GUIScriptEditorUI
             Deletebtn.IsEnabled = False
         Else
             '선택한 아이템이 있을 경우
+            FoldUnder.IsEnabled = True
+            UnFoldUnder.IsEnabled = True
             CutItem.IsEnabled = True
             Cutbtn.IsEnabled = True
             If IsCopyable() Then
@@ -734,10 +738,38 @@ Public Class GUIScriptEditorUI
 
     Private Sub Undobtn_Click(sender As Object, e As RoutedEventArgs)
         tUndoItem()
+        Dim t As New TreeViewItem
     End Sub
 
     Private Sub Redobtn_Click(sender As Object, e As RoutedEventArgs)
         tRedoItem()
     End Sub
 
+    Private Sub FoldUnder_Click(sender As Object, e As RoutedEventArgs)
+        Dim tb As TreeViewItem = MainTreeview.SelectedItem
+        If tb IsNot Nothing Then
+            tb.IsExpanded = True
+            For i = 0 To tb.Items.Count - 1
+                ExapendTreeviewItem(tb.Items(i), True)
+            Next
+        End If
+
+    End Sub
+
+    Private Sub UnFoldUnder_Click(sender As Object, e As RoutedEventArgs)
+        Dim tb As TreeViewItem = MainTreeview.SelectedItem
+        If tb IsNot Nothing Then
+            tb.IsExpanded = False
+            For i = 0 To tb.Items.Count - 1
+                ExapendTreeviewItem(tb.Items(i), False)
+            Next
+        End If
+    End Sub
+
+    Private Sub ExapendTreeviewItem(titem As TreeViewItem, IsExapend As Boolean)
+        titem.IsExpanded = IsExapend
+        For i = 0 To titem.Items.Count - 1
+            ExapendTreeviewItem(titem.Items(i), IsExapend)
+        Next
+    End Sub
 End Class

@@ -123,6 +123,7 @@ Public Class GUIScriptManager
         "Variable",
         "FormatText",
         "BGM",
+        "Tag",
         "UnitsDat",
         "WeaponsDat",
         "FlingyDat",
@@ -148,6 +149,7 @@ Public Class GUIScriptManager
         "Variable",
         "FormatText",
         "BGM",
+        "Tag",
         "UnitsDat",
         "WeaponsDat",
         "FlingyDat",
@@ -283,7 +285,7 @@ Public Class GUIScriptManager
                 strb.Append(svalue)
                 If schild.Count <> 0 Then
                     strb.Append(" = ")
-                    GetScriptText(schild, strb, intend, "")
+                    GetScriptText(schild, strb, intend, ",")
                 End If
                 strb.AppendLine(";")
             Case ScriptBlock.EBlockType.objectdefine
@@ -679,7 +681,7 @@ Public Class GUIScriptManager
                         strb.Append(svalue)
 
                         strb.Append("(")
-                        GetScriptText(schild, strb, intend, "")
+                        GetScriptText(schild, strb, intend, ", ")
                         strb.Append(")")
                     Case "fields"
                         strb.Append(sname)

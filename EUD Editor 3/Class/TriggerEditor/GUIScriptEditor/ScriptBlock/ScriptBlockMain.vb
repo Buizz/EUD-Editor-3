@@ -276,6 +276,10 @@ Public Class ScriptBlock
         End If
     End Sub
     Public Sub RefreshValue()
+        Dim FuncDefine As New FuncDefine(Me)
+        FuncDefine.ResetScriptBlock(Me)
+        Return
+
         Dim curentvals As Integer = child.Count
         If name.IndexOf(".") = -1 Then
             If ScriptType = EBlockType.macrofun Then

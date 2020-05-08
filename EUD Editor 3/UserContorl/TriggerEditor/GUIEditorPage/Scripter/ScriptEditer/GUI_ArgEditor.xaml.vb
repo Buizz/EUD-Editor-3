@@ -348,9 +348,8 @@
             nsb.value2 = "value"
         End If
 
-
         scr.DuplicationBlock(nsb)
-        VarUseFunc.CrlInit(scr, normalscrscr, Scripter, Me)
+        VarUseFunc.CrlInit(scr, normalscrscr, Scripter, Me, True)
         VarUseFunc.Visibility = Visibility.Visible
 
 

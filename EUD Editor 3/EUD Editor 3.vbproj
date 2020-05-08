@@ -303,7 +303,7 @@
     <Compile Include="Class\TriggerEditor\BGMData.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
-    <Compile Include="Class\TriggerEditor\GUIScriptEditor\FuncArgManager.vb" />
+    <Compile Include="Class\TriggerEditor\FuncArgManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock\ScriptBlockMain.vb" />
@@ -1230,6 +1230,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\PlayerAlliances.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\PlayerSelectedUnit.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\PlayerUnitsAvailable.lua">

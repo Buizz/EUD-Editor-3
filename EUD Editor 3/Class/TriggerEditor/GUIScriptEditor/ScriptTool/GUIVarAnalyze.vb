@@ -43,9 +43,20 @@
                         Dim cname As String = tscr.value
                         Dim curtype As String = tscr.value2
 
-                        If AddAble(cname, curtype, fname, ftype) Then
+
+                        Dim names() As String = cname.Split(",")
+                        If names.Count = 1 Then
                             rscr.Add(tscr)
+                        Else
+                            For k = 0 To names.Count - 1
+                                Dim ts As String = names(k).Trim
+                                If AddAble(ts, curtype, fname, ftype) Then
+                                    rscr.Add(New ScriptBlock(ScriptBlock.EBlockType.vardefine, "vardefine", False, False, ts, Nothing))
+                                End If
+                            Next
                         End If
+
+
                     Case ScriptBlock.EBlockType.funargs
                         Dim arglist As List(Of ScriptBlock) = tscr.child
                         For k = 0 To arglist.Count - 1
