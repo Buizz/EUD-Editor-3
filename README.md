@@ -7,6 +7,7 @@ StarCraft: Remastered UMS Make Tool
 > Save files may not be compatible with the full version.
 
 
+## Initial Setting
 
 
 
