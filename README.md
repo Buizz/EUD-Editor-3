@@ -8,7 +8,7 @@ StarCraft: Remastered UMS Make Tool
 
 
 ## Initial Setting
-
+https://github.com/Buizz/EUD-Editor-3/wiki/%EC%B4%88%EA%B8%B0-%EC%84%B8%ED%8C%85
 
 
 ## UserManual
