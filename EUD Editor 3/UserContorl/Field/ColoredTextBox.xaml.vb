@@ -26,7 +26,7 @@ Public Class ColoredTextBox
 
     Public Sub TextColred(text As String)
         Texts.FontFamily = KorFont
-        Texts.FontSize = 24.0
+        Texts.FontSize = 12.0
 
 
         Dim FristChar As String = StringTool.GetCharAt(0, text)

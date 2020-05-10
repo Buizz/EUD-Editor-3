@@ -293,6 +293,12 @@
                 AddHandler ListSelecter.SelectEvent, AddressOf ListTextSelect
                 bd.Child = ListSelecter
                 bd.Visibility = Visibility.Visible
+            Case "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order"
+                Dim ListSelecter As New GUI_Action_ListSelecter(CodeEditor.GetArgList(vtype), True)
+
+                AddHandler ListSelecter.SelectEvent, AddressOf ListSelect
+                bd.Child = ListSelecter
+                bd.Visibility = Visibility.Visible
             Case Else
                 Dim ListSelecter As New GUI_Action_ListSelecter(CodeEditor.GetArgList(vtype))
 

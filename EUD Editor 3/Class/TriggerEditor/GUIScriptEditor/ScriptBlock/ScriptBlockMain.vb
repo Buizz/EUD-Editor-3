@@ -277,7 +277,12 @@ Public Class ScriptBlock
     End Sub
     Public Sub RefreshValue()
         Dim FuncDefine As New FuncDefine(Me)
-        FuncDefine.ResetScriptBlock(Me)
+
+        For i = 0 To FuncDefine.Args.Count - 1
+            If child.Count <= i Then
+                FuncDefine.ResetScriptBlock(i, Me)
+            End If
+        Next
         Return
 
         Dim curentvals As Integer = child.Count
@@ -395,14 +400,59 @@ Public Class ScriptBlock
                 End If
 
             Case EBlockType.constVal
-                Dim strs() As String = value.Trim.Split(";")
-                If strs.Length = 2 Then
-                    If strs.First = "defaultvalue" Then
-                        rstr = strs.Last
+
+                Dim scdat As SCDatFiles.DatFiles
+                If Not IsNumeric(value) Then
+                    If value Is Nothing Then
+                        value = ""
                     End If
-                Else
-                    rstr = value.Trim
+                    Dim strs() As String = value.Trim.Split(";")
+                    If strs.Length = 2 Then
+                        If strs.First = "defaultvalue" Then
+                            rstr = strs.Last
+                        End If
+                    Else
+                        rstr = value.Trim
+                    End If
+                    Return rstr
                 End If
+                Select Case name
+                    Case "Weapon"
+                        scdat = SCDatFiles.DatFiles.weapons
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case "Flingy"
+                        scdat = SCDatFiles.DatFiles.flingy
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case "Sprite"
+                        scdat = SCDatFiles.DatFiles.sprites
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case "Image"
+                        scdat = SCDatFiles.DatFiles.images
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case "Upgrade"
+                        scdat = SCDatFiles.DatFiles.upgrades
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case "Tech"
+                        scdat = SCDatFiles.DatFiles.techdata
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case "Order"
+                        scdat = SCDatFiles.DatFiles.orders
+                        rstr = pjData.CodeLabel(scdat, value)
+                    Case Else
+                        Dim strs() As String = value.Trim.Split(";")
+                        If strs.Length = 2 Then
+                            If strs.First = "defaultvalue" Then
+                                rstr = strs.Last
+                            End If
+                        Else
+                            rstr = value.Trim
+                        End If
+                End Select
+
+
+
+
+
             Case EBlockType.funuse, EBlockType.plibfun, EBlockType.externfun, EBlockType.macrofun
                 rstr = "함수:" & name
             Case EBlockType.action

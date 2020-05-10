@@ -5,11 +5,15 @@
 
     Private strs() As String
     Private fliter As String = ""
-    Public Sub New(_strs() As String)
+
+    Private IsIntValue As Boolean
+    Public Sub New(_strs() As String, Optional _IsIntValue As Boolean = False)
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        IsIntValue = _IsIntValue
+
         strs = _strs
         ListReset()
     End Sub
@@ -24,7 +28,11 @@
             If fliter.Trim = "" Or strs(i).ToLower.IndexOf(fliter.ToLower) <> -1 Then
                 Dim listitem As New ListBoxItem
                 listitem.Content = strs(i)
-                listitem.Tag = strs(i)
+                If IsIntValue Then
+                    listitem.Tag = i
+                Else
+                    listitem.Tag = strs(i)
+                End If
                 mainlist.Items.Add(listitem)
             End If
         Next

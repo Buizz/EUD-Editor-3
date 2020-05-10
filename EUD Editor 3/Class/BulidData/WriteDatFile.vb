@@ -193,9 +193,8 @@ Partial Public Class BuildData
 
 
         If checkflag Then
-            Dim memStream As FileStream
+            Dim FileSteream As FileStream
             Dim binaryReader As BinaryReader
-            Dim binaryWriter As BinaryWriter
 
             Dim grpframecount As UInt16
 
@@ -205,122 +204,111 @@ Partial Public Class BuildData
 
 
 
-            memStream = New FileStream(Tool.DataPath("wirefram.grp"), FileMode.Open)
-            binaryReader = New BinaryReader(memStream)
-            binaryWriter = New BinaryWriter(memStream)
+            FileSteream = New FileStream(Tool.DataPath("wirefram.grp"), FileMode.Open)
+            binaryReader = New BinaryReader(FileSteream)
+
+
 
             grpframecount = binaryReader.ReadUInt16
             Dim grpdata(grpframecount - 1) As UInt64
+            FileSteream.Position = 6
             For i = 0 To grpframecount - 1
-                If Not pjData.ExtraDat.DefaultWireFrame(i) Then
-                    memStream.Position = 6 + 8 * pjData.ExtraDat.WireFrame(i)
-                    grpdata(i) = binaryReader.ReadUInt64
-                End If
+                grpdata(i) = binaryReader.ReadUInt64
             Next
-
-            For i = 0 To grpframecount - 1
-                If Not pjData.ExtraDat.DefaultWireFrame(i) Then
-                    memStream.Position = 6 + 8 * i
-                    binaryWriter.Write(grpdata(i))
-                End If
-            Next
+            binaryReader.Close()
+            FileSteream.Close()
 
 
             sb.AppendLine("    WireOffset = f_epdread_epd(EPD(0x" & Hex(Tool.GetOffset("wirefram.grp")) & "))")
             sb.AppendLine("    DoActions([")
             For i = 0 To grpframecount - 1
                 If Not pjData.ExtraDat.DefaultWireFrame(i) Then
-                    memStream.Position = 4 + 8 * i
-                    sb.AppendLine("        SetMemoryEPD(WireOffset + " & 1 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(WireOffset + " & 2 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(WireOffset + " & 3 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                    Dim offsetName As String = "WireOffset"
+
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.WireFrame(i)))
+
+
+                    Dim v1 As UShort = bytes(0) + bytes(1) * 256
+                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + bytes(4) * 65536 + bytes(5) * 16777216
+                    Dim v3 As UShort = bytes(6) + bytes(7) * 256
+                    sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 1 + 2 * i & ", SetTo, " & v1 * 65536 & ", 0xFFFF0000),")
+                    sb.AppendLine("        SetMemoryEPD(" & offsetName & " + " & 2 + 2 * i & ", SetTo, " & v2 & "),")
+                    sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 3 + 2 * i & ", SetTo, " & v3 & ", 0xFFFF),")
                 End If
             Next
             sb.AppendLine("    ])")
 
-            binaryReader.Close()
-            binaryWriter.Close()
-            memStream.Close()
+
 
             '#########################################################################################
 
-            memStream = New FileStream(Tool.DataPath("grpwire.grp"), FileMode.Open)
-            binaryReader = New BinaryReader(memStream)
-            binaryWriter = New BinaryWriter(memStream)
+            FileSteream = New FileStream(Tool.DataPath("grpwire.grp"), FileMode.Open)
+            binaryReader = New BinaryReader(FileSteream)
 
             grpframecount = binaryReader.ReadUInt16
             ReDim grpdata(grpframecount - 1)
+            FileSteream.Position = 6
             For i = 0 To grpframecount - 1
-                If Not pjData.ExtraDat.DefaultGrpFrame(i) Then
-                    memStream.Position = 6 + 8 * pjData.ExtraDat.GrpFrame(i)
-
-                    grpdata(i) = binaryReader.ReadUInt64
-                End If
+                grpdata(i) = binaryReader.ReadUInt64
             Next
-
-            For i = 0 To grpframecount - 1
-                If Not pjData.ExtraDat.DefaultGrpFrame(i) Then
-                    memStream.Position = 6 + 8 * i
-                    binaryWriter.Write(grpdata(i))
-                End If
-            Next
+            binaryReader.Close()
+            FileSteream.Close()
 
 
             sb.AppendLine("    GrpOffset = f_epdread_epd(EPD(0x" & Hex(Tool.GetOffset("grpwire.grp")) & "))")
             sb.AppendLine("    DoActions([")
             For i = 0 To grpframecount - 1
                 If Not pjData.ExtraDat.DefaultGrpFrame(i) Then
-                    memStream.Position = 4 + 8 * i
-                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 1 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 2 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(GrpOffset + " & 3 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                    Dim offsetName As String = "GrpOffset"
+
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.WireFrame(i)))
+
+
+                    Dim v1 As UShort = bytes(0) + bytes(1) * 256
+                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + bytes(4) * 65536 + bytes(5) * 16777216
+                    Dim v3 As UShort = bytes(6) + bytes(7) * 256
+                    sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 1 + 2 * i & ", SetTo, " & v1 * 65536 & ", 0xFFFF0000),")
+                    sb.AppendLine("        SetMemoryEPD(" & offsetName & " + " & 2 + 2 * i & ", SetTo, " & v2 & "),")
+                    sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 3 + 2 * i & ", SetTo, " & v3 & ", 0xFFFF),")
                 End If
             Next
             sb.AppendLine("    ])")
 
-            binaryReader.Close()
-            binaryWriter.Close()
-            memStream.Close()
 
             '#########################################################################################
 
-            memStream = New FileStream(Tool.DataPath("tranwire.grp"), FileMode.Open)
-            binaryReader = New BinaryReader(memStream)
-            binaryWriter = New BinaryWriter(memStream)
+            FileSteream = New FileStream(Tool.DataPath("tranwire.grp"), FileMode.Open)
+            binaryReader = New BinaryReader(FileSteream)
 
             grpframecount = binaryReader.ReadUInt16
             ReDim grpdata(grpframecount - 1)
+            FileSteream.Position = 6
             For i = 0 To grpframecount - 1
-                If Not pjData.ExtraDat.DefaultTranFrame(i) Then
-                    memStream.Position = 6 + 8 * pjData.ExtraDat.TranFrame(i)
-
-                    grpdata(i) = binaryReader.ReadUInt64
-                End If
+                grpdata(i) = binaryReader.ReadUInt64
             Next
-
-            For i = 0 To grpframecount - 1
-                If Not pjData.ExtraDat.DefaultTranFrame(i) Then
-                    memStream.Position = 6 + 8 * i
-                    binaryWriter.Write(grpdata(i))
-                End If
-            Next
+            binaryReader.Close()
+            FileSteream.Close()
 
 
             sb.AppendLine("    tranOffset = f_epdread_epd(EPD(0x" & Hex(Tool.GetOffset("tranwire.grp")) & "))")
             sb.AppendLine("    DoActions([")
             For i = 0 To grpframecount - 1
                 If Not pjData.ExtraDat.DefaultTranFrame(i) Then
-                    memStream.Position = 4 + 8 * i
-                    sb.AppendLine("        SetMemoryEPD(tranOffset + " & 1 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(tranOffset + " & 2 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
-                    sb.AppendLine("        SetMemoryEPD(tranOffset + " & 3 + 2 * i & ", SetTo, " & binaryReader.ReadUInt32 & "),")
+                    Dim offsetName As String = "tranOffset"
+
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.WireFrame(i)))
+
+
+                    Dim v1 As UShort = bytes(0) + bytes(1) * 256
+                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + bytes(4) * 65536 + bytes(5) * 16777216
+                    Dim v3 As UShort = bytes(6) + bytes(7) * 256
+                    sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 1 + 2 * i & ", SetTo, " & v1 * 65536 & ", 0xFFFF0000),")
+                    sb.AppendLine("        SetMemoryEPD(" & offsetName & " + " & 2 + 2 * i & ", SetTo, " & v2 & "),")
+                    sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 3 + 2 * i & ", SetTo, " & v3 & ", 0xFFFF),")
                 End If
             Next
             sb.AppendLine("    ])")
 
-            binaryReader.Close()
-            binaryWriter.Close()
-            memStream.Close()
 
             '#########################################################################################
 

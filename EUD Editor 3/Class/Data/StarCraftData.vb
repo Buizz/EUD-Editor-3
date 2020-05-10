@@ -311,7 +311,15 @@ Public Class StarCraftData
             End Try
         End Get
     End Property
-
+    Public ReadOnly Property GetEndStat_txt(index As Integer) As String
+        Get
+            Try
+                Return stat_txt.Strings(index).val1
+            Catch ex As Exception
+                Return "None"
+            End Try
+        End Get
+    End Property
 
     Private ReadOnly stat_txt_kor_eng As tblReader
     Private ReadOnly stat_txt_kor_kor As tblReader

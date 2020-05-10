@@ -443,8 +443,10 @@ Public Class GUI_Action_ArgSelecter
 
 
     Private Sub ResetCoder_Click(sender As Object, e As RoutedEventArgs)
-        scr.child.Clear()
-        scr.RefreshValue()
+        EditValues.Clear()
+
+        FuncDefine.ResetScriptBlock(EditValues)
+        'scr.RefreshValue()
         If IsDefaultCoder Then
             DefaultCoder()
         Else
@@ -454,7 +456,7 @@ Public Class GUI_Action_ArgSelecter
     End Sub
 
     Private Sub ArgAdder_Click(sender As Object, e As RoutedEventArgs)
-        scr.InsertChild(FuncDefine.ArgStartIndex, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        EditValues.Insert(FuncDefine.ArgStartIndex, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
         If IsDefaultCoder Then
             DefaultCoder()
         Else
@@ -465,7 +467,7 @@ Public Class GUI_Action_ArgSelecter
     End Sub
 
     Private Sub ArgRemove_Click(sender As Object, e As RoutedEventArgs)
-        scr.child.RemoveAt(FuncDefine.ArgStartIndex)
+        EditValues.RemoveAt(FuncDefine.ArgStartIndex)
         If IsDefaultCoder Then
             DefaultCoder()
         Else

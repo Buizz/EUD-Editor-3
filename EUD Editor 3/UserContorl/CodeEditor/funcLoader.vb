@@ -158,7 +158,7 @@ Partial Public Class CodeEditor
                 Dim strs As New List(Of String)
                 '스트링
                 For i = 0 To SCUnitCount - 1
-                    strs.Add(pjData.UnitInGameName(i))
+                    strs.Add(pjData.EngStat_txt(i))
                 Next
 
                 strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
@@ -374,9 +374,9 @@ Partial Public Class CodeEditor
                     '스트링
                     For i = 0 To SCUnitCount - 1
                         Dim tb As New TextBox
-                        tb.Text = "[" & i & "] " & pjData.UnitInGameName(i)
+                        tb.Text = "[" & i & "] " & pjData.EngStat_txt(i)
 
-                        data.Add(New TECompletionData(0, """" & pjData.CodeLabel(SCDatFiles.DatFiles.units, i) & """", """" & pjData.UnitInGameName(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
+                        data.Add(New TECompletionData(0, """" & pjData.CodeLabel(SCDatFiles.DatFiles.units, i) & """", """" & pjData.EngStat_txt(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
                     Next
 
                     Dim strs() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}

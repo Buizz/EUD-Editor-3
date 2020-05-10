@@ -43,7 +43,6 @@ Partial Public Class CodeEditor
             highlightName = "EpsHighlightingLight"
         End If
 
-        ExternFiles = New List(Of ExternFile)
 
 
         Dim s As Stream = GetType(TECUIPage).Assembly.GetManifestResourceStream("EUD_Editor_3." & highlightName & ".xshd")
@@ -52,6 +51,10 @@ Partial Public Class CodeEditor
 
         HighlightingManager.Instance.RegisterHighlighting(highlightName, {".eps"}, customHighlighting)
         TextEditor.SyntaxHighlighting = customHighlighting
+
+
+        ExternFiles = New List(Of ExternFile)
+
 
 
         LocalFunc = New CFunc
@@ -280,13 +283,13 @@ Partial Public Class CodeEditor
                 TooltipShow()
 
                 If ToolTipUpdateTimer Is Nothing Then
-                    ToolTipCounter = 100
+                    ToolTipCounter = 2
                     ToolTipUpdateTimer = New DispatcherTimer()
                     ToolTipUpdateTimer.Interval = TimeSpan.FromMilliseconds(10)
                     AddHandler ToolTipUpdateTimer.Tick, AddressOf ToolTipPosUpdateTimer_Tick
                     ToolTipUpdateTimer.Start()
                 Else
-                    ToolTipCounter += 10
+                    ToolTipCounter = 2
                 End If
 
             End If
@@ -318,21 +321,21 @@ Partial Public Class CodeEditor
                 PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
                 PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
 
-                'Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
-                'Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
+                Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
+                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
 
-                'Dim CaretPos As Integer = p.Y - TextEditor.VerticalOffset
-                'Dim copPos As Integer = completionWindow.Top - TextEditor.PointToScreen(New Point(0, 0)).Y
+                Dim CaretPos As Integer = p.Y - TextEditor.VerticalOffset
+                Dim copPos As Integer = completionWindow.Top - TextEditor.PointToScreen(New Point(0, 0)).Y
 
-                'If CaretPos > copPos Then
-                '    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                '    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos + 23
-                '    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos + 23, 0, 0)
-                'Else
-                '    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                '    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
-                '    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
-                'End If
+                If CaretPos > copPos Then
+                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
+                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos + 23
+                    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos + 23, 0, 0)
+                Else
+                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
+                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
+                    'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
+                End If
 
 
             Else
@@ -511,10 +514,14 @@ Partial Public Class CodeEditor
     Private Sub completionWindowView()
         completionWindow._toolTip.IsOpen = True
         completionWindow.Visibility = Visibility.Visible
+        completionWindow.IsEnabled = True
+        completionWindow.Focusable = True
     End Sub
     Private Sub completionWindowHide()
         completionWindow._toolTip.IsOpen = False
         completionWindow.Visibility = Visibility.Collapsed
+        completionWindow.IsEnabled = False
+        completionWindow.Focusable = False
     End Sub
 
 
@@ -546,6 +553,9 @@ Partial Public Class CodeEditor
             End If
 
         End If
+
+
+
         'If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
         '    completionWindow.Close()
         'End If
@@ -569,6 +579,11 @@ Partial Public Class CodeEditor
         If e.Key = Key.Up Or e.Key = Key.Down Then
             If completionWindow Is Nothing Then
                 TooltipHide()
+            Else
+                If completionWindow.CompletionList.SelectedItem Is Nothing Then
+                    completionWindow.Close()
+                    completionWindow = Nothing
+                End If
             End If
         End If
 

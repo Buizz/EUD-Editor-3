@@ -224,6 +224,7 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="AvalonEdit\CodeEditor\EditorInit.vb" />
+    <Compile Include="AvalonEdit\CodeEditor\TriggerEditorCompletionData.vb" />
     <Compile Include="Class\Binding\BindingManager.vb" />
     <Compile Include="Class\Binding\DatBinding.vb" />
     <Compile Include="Class\Binding\MainMenuBinding.vb" />

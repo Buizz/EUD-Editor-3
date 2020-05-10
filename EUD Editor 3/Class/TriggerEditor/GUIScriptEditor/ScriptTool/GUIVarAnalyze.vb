@@ -46,7 +46,9 @@
 
                         Dim names() As String = cname.Split(",")
                         If names.Count = 1 Then
-                            rscr.Add(tscr)
+                            If AddAble(cname, curtype, fname, ftype) Then
+                                rscr.Add(tscr)
+                            End If
                         Else
                             For k = 0 To names.Count - 1
                                 Dim ts As String = names(k).Trim

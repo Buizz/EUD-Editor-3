@@ -141,6 +141,33 @@ Public Class ProjectData
             Return SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString
         End Get
     End Property
+
+
+    Public ReadOnly Property EngStat_txt(index As Integer) As String
+        Get
+            If index = -1 Then
+                Return Tool.GetText("None")
+            End If
+            Dim RealName As String = scData.GetEndStat_txt(index)
+            If IsMapLoading Then
+                Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
+                Dim ToolTipText As String = SaveData.Dat.ToolTip(SCDatFiles.DatFiles.units, index)
+
+
+                If strindex = 0 Then
+                    Return RealName
+                Else
+                    Return MapData.Str(strindex - 1)
+                End If
+            Else
+                Return RealName
+            End If
+
+
+
+
+        End Get
+    End Property
     Public ReadOnly Property BuildStat_txt(index As Integer) As String
         Get
             If index = -1 Then
@@ -578,6 +605,9 @@ Public Class ProjectData
             'Return index & "미상"
         End Get
     End Property
+
+
+
     Public ReadOnly Property UnitInGameName(index As Byte) As String
         Get
             Dim returnStr As String

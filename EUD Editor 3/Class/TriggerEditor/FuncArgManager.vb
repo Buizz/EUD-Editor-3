@@ -6,6 +6,37 @@
     Public ArgStartIndex As Integer = -1
     Public ArgViewCount As Integer = 0
 
+    Public Sub ResetScriptBlock(index As Integer, scr As ScriptBlock)
+        Dim vname As String = Args(index).ArgName.Trim
+        Dim vtype As String = Args(index).ArgType.Trim
+        If vname = "WAVName" And vtype = "TrgString" Then
+            vtype = "WAVName"
+        End If
+        If vname.IndexOf("=") <> -1 Then
+            Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.exp, "exprssion", False, False, "", scr.Scripter)
+            Dim tagname As String = vname.Split("=").First
+            Dim back As String = vname.Split("=").Last
+
+            If True Then
+                Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Tag", False, False, tagname, scr.Scripter)
+                tscr.AddChild(_tscr)
+            End If
+            If True Then
+                Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.sign, "sign", False, False, "=", scr.Scripter)
+                tscr.AddChild(_tscr)
+            End If
+            If True Then
+                Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Tag", False, False, back, scr.Scripter)
+                tscr.AddChild(_tscr)
+            End If
+
+            scr.AddChild(tscr)
+        Else
+            vname = "defaultvalue;" & vname
+            Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, scr.Scripter)
+            scr.AddChild(tscr)
+        End If
+    End Sub
     Public Sub ResetScriptBlock(scr As ScriptBlock)
         scr.child.Clear()
 
@@ -40,6 +71,43 @@
                 vname = "defaultvalue;" & vname
                 Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, scr.Scripter)
                 scr.AddChild(tscr)
+            End If
+        Next
+    End Sub
+    Public Sub ResetScriptBlock(scrlist As List(Of ScriptBlock))
+        scrlist.Clear()
+
+        For i = 0 To Args.Count - 1
+            Dim vname As String = Args(i).ArgName.Trim
+            Dim vtype As String = Args(i).ArgType.Trim
+            If vname = "WAVName" And vtype = "TrgString" Then
+                vtype = "WAVName"
+            End If
+            If vname.IndexOf("=") <> -1 Then
+                Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.exp, "exprssion", False, False, "", Nothing)
+                Dim tagname As String = vname.Split("=").First
+                Dim back As String = vname.Split("=").Last
+
+                If True Then
+                    Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Tag", False, False, tagname, Nothing)
+                    tscr.AddChild(_tscr)
+                End If
+                If True Then
+                    Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.sign, "sign", False, False, "=", Nothing)
+                    tscr.AddChild(_tscr)
+                End If
+                If True Then
+                    Dim _tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, "Tag", False, False, back, Nothing)
+                    tscr.AddChild(_tscr)
+                End If
+
+
+
+                scrlist.Add(tscr)
+            Else
+                vname = "defaultvalue;" & vname
+                Dim tscr As New ScriptBlock(ScriptBlock.EBlockType.constVal, vtype, False, False, vname, Nothing)
+                scrlist.Add(tscr)
             End If
         Next
     End Sub

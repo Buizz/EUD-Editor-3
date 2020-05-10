@@ -38,7 +38,6 @@ Public Class GUIScriptEditor
         Next
     End Sub
     Private Sub scrLoadRefresh(scr As ScriptBlock)
-        'MsgBox(scr.ValueCoder)
         scr.Scripter = Me
         For i = 0 To scr.child.Count - 1
             scr.child(i).Parent = scr

@@ -32,7 +32,14 @@ Partial Public Class ProjectData
     End Sub
 
 
-
+    Private Shared Sub TeFrileRefresh(teFile As TEFile)
+        For i = 0 To teFile.FileCount - 1
+            teFile.Files(i).LoadInit()
+        Next
+        For i = 0 To teFile.FolderCount - 1
+            teFile.Folders(i).LoadInit()
+        Next
+    End Sub
     Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
         Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
         Try
@@ -48,9 +55,9 @@ Partial Public Class ProjectData
 
 
                 Dim mainTEFile As TEFile = _pjdata.TEData.PFIles
-                For i = 0 To mainTEFile.FileCount - 1
-                    mainTEFile.Files(i).LoadInit()
-                Next
+                TeFrileRefresh(mainTEFile)
+
+
 
 
 

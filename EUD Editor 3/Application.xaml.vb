@@ -4,6 +4,9 @@
     ' 이 파일에서 처리할 수 있습니다.
 
     Private Sub Application_DispatcherUnhandledException(ByVal sender As Object, ByVal e As System.Windows.Threading.DispatcherUnhandledExceptionEventArgs)
+        'e.Handled = False
+        'Return
+
         Dim ExceptionDialog As New ExceptionErrorDialog(e.Exception)
         ExceptionDialog.ShowDialog()
         If ExceptionDialog.IsClose Then

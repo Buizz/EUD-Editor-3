@@ -649,25 +649,21 @@ Public Class GUIScriptManager
                                 strb.Append(")")
                         End Select
 
-                        Return
                     Case "cast"
                         strb.Append(sname)
                         strb.Append(".cast(")
                         GetScriptText(schild, strb, intend, "")
                         strb.Append(")")
-                        Return
                     Case "alloc"
                         strb.Append(sname)
                         strb.Append(".alloc(")
                         GetScriptText(schild, strb, intend, "")
                         strb.Append(")")
-                        Return
                     Case "!index"
                         strb.Append(sname)
                         strb.Append("[")
                         GetScriptText(schild, strb, intend, "")
                         strb.Append("]")
-                        Return
                     Case "!default"
                         strb.Append(sname)
                 End Select
@@ -774,7 +770,7 @@ Public Class GUIScriptManager
 
                         'strb.Append("{" & i & "," & (scr.Count - 1) & "}")
                         Select Case sname.Trim
-                            Case "TrgString", "TrgAIScript", "TrgUnit", "TrgLocation", "UnitsDat", "WeaponsDat", "FlingyDat",
+                            Case "TrgString", "TrgAIScript", "TrgUnit", "TrgLocation", "TrgSwitch", "UnitsDat", "WeaponsDat", "FlingyDat",
                                  "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat", "WAVName"
                                 strb.Append("""" & svalue & """")
                             Case "TrgLocationIndex"

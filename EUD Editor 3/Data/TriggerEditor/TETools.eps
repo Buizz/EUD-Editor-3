@@ -126,19 +126,22 @@ function SetUnitColor(UnitPTR ,Color) {
     spritePTR = dwread(UnitPTR + 0x00C);
     bwrite(spritePTR + 0x0A, Color);
 }
-function SetLocationToUnitEPD(Location ,UnitEPD ,X ,Y) {
+function SetLocationToUnitEPD(Location:TrgLocation ,UnitEPD ,X ,Y) {
     const xpos = wread_epd(UnitEPD + X / 4, 0);
     const ypos = wread_epd(UnitEPD + Y / 4, 2);
     setloc(Location, xpos, ypos);
 }
-function SetLocation(Location ,X ,Y ,Width ,Height) {
+function SetLocationToUnit(Location:TrgLocation ,UnitPTR ,X ,Y) {
+    const x = wread(UnitPTR + X);
+    const y = wread(UnitPTR + Y);
+    setloc(Location, x, y);
+}
+
+function SetLocation(Location:TrgLocation ,X ,Y ,Width ,Height) {
     setloc(Location, X, Y);
     dilateloc(Location, Width/2, Height/2);
 }
-function SetLocationLURD(Location ,L ,U ,R ,D) {
-    setloc(Location, L, U, R, D);
-}
-function EUDMoveLocation(Location ,X ,Y) {
+function EUDMoveLocation(Location:TrgLocation ,X ,Y) {
     addloc(Location, X, Y);
 }
 function ScreenShake(x ,y ,tempLoc) {
@@ -179,7 +182,7 @@ function GetAngle(origin ,dest) {
     const y2 = (dwread_epd(locTable + dest * 5 + 1) + dwread_epd(locTable + dest * 5 + 3))/2;
     return atan2((x2 - x1), (y1 - y2));
 }
-function hotkeyUnitEPD(epd ,player ,hotkey ,slot) {
+function hotkeyUnitEPD(epd ,player:TrgPlayer ,hotkey ,slot) {
     const targetOrderSpecial = dwread_epd(epd + 0xA5 / 4) & 0xFF00;
     var alphaID = 0;
     if(
@@ -254,11 +257,7 @@ function PolarLocation(loc ,length ,angle) {
 function RemoveStatusFlags(UnitPTR ,flags) {
     dwsubtract_epd(EPD(UnitPTR) + 0xDC / 4, flags & dwread_epd(EPD(UnitPTR) + 0xDC / 4));
 }
-function SetLocationToUnit(Location ,UnitPTR ,X ,Y) {
-    const x = wread(UnitPTR + X);
-    const y = wread(UnitPTR + Y);
-    setloc(Location, x, y);
-}
+
 function LocationDistance(loc1 ,loc2) {
     const locTable = EPD(0x58DC60);
     const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
@@ -280,6 +279,34 @@ function CheckNoneTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
             bwrite(UnitPTR + 0x04D, 1);
             wwrite(UnitPTR + 0x010, wread(UnitPTR + 0x028));
             wwrite(UnitPTR + 0x012, wread(UnitPTR + 0x02A));
+            return True;
+        }
+    }
+    return False;
+}
+
+function CheckNoneTargetSkillEPD(UnitEPD ,Range ,UnitLoc:TrgLocationIndex ,TargetLoc:TrgLocationIndex ,SkillOrder /*Order*/) {
+    if(
+    	MemoryXEPD(UnitEPD + 0x13 , Exactly, SkillOrder * 256, 0xFF00)
+    ){
+    	const x, y = posread_epd(UnitEPD + 0x28/4);
+	    setloc(UnitLoc, x, y);
+
+
+	    setloc_epd(TargetLoc, UnitEPD + 0x058/4);
+
+
+    	//const sb = StringBuffer();
+    	//sb.print(LocationDistance(UnitLoc,TargetLoc), " X: ", x , " Y:", y);
+        if(
+            Range > LocationDistance(UnitLoc ,TargetLoc)
+        ){
+            MoveLocation(TargetLoc + 1, (227), (AllPlayers), TargetLoc + 1);
+        	SetMemoryXEPD(UnitEPD + 0x13, SetTo, 0x100, 0xFF00);
+
+
+            wwrite_epd(UnitEPD + 0x4, 0, x);
+            wwrite_epd(UnitEPD + 0x4, 2, y);
             return True;
         }
     }
