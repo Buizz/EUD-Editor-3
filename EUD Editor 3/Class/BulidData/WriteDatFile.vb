@@ -229,7 +229,7 @@ Partial Public Class BuildData
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
-                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + bytes(4) * 65536 + bytes(5) * 16777216
+                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + CUInt(bytes(4)) * CUInt(65536) + CUInt(bytes(5)) * CUInt(16777216)
                     Dim v3 As UShort = bytes(6) + bytes(7) * 256
                     sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 1 + 2 * i & ", SetTo, " & v1 * 65536 & ", 0xFFFF0000),")
                     sb.AppendLine("        SetMemoryEPD(" & offsetName & " + " & 2 + 2 * i & ", SetTo, " & v2 & "),")
@@ -265,7 +265,7 @@ Partial Public Class BuildData
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
-                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + bytes(4) * 65536 + bytes(5) * 16777216
+                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + CUInt(bytes(4)) * CUInt(65536) + CUInt(bytes(5)) * CUInt(16777216)
                     Dim v3 As UShort = bytes(6) + bytes(7) * 256
                     sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 1 + 2 * i & ", SetTo, " & v1 * 65536 & ", 0xFFFF0000),")
                     sb.AppendLine("        SetMemoryEPD(" & offsetName & " + " & 2 + 2 * i & ", SetTo, " & v2 & "),")
@@ -300,7 +300,7 @@ Partial Public Class BuildData
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
-                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + bytes(4) * 65536 + bytes(5) * 16777216
+                    Dim v2 As UInteger = bytes(2) + bytes(3) * 256 + CUInt(bytes(4)) * CUInt(65536) + CUInt(bytes(5)) * CUInt(16777216)
                     Dim v3 As UShort = bytes(6) + bytes(7) * 256
                     sb.AppendLine("        SetMemoryXEPD(" & offsetName & " + " & 1 + 2 * i & ", SetTo, " & v1 * 65536 & ", 0xFFFF0000),")
                     sb.AppendLine("        SetMemoryEPD(" & offsetName & " + " & 2 + 2 * i & ", SetTo, " & v2 & "),")
