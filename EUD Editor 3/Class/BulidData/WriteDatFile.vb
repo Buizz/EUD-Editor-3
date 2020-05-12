@@ -261,7 +261,7 @@ Partial Public Class BuildData
                 If Not pjData.ExtraDat.DefaultGrpFrame(i) Then
                     Dim offsetName As String = "GrpOffset"
 
-                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.WireFrame(i)))
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.GrpFrame(i)))
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
@@ -296,7 +296,7 @@ Partial Public Class BuildData
                 If Not pjData.ExtraDat.DefaultTranFrame(i) Then
                     Dim offsetName As String = "tranOffset"
 
-                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.WireFrame(i)))
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.TranFrame(i)))
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
