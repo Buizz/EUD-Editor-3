@@ -1,8 +1,8 @@
-# Beta 0.9.6.2
+# Beta 0.9.6.3
 -BGM플레이어 Drag&Drop지원
 -변수 선언에 있어서 다중 변수 선언 지원 
 +버그수정
--WireFrame관련 버그 수정2
+-WireFrame관련 버그 수정3
 -CUI To GUI버그 수정(인자가 증발하는 버그)
 
 # Beta 0.9.5.0
