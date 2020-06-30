@@ -59,7 +59,7 @@ object Player{
 			const CurrentTime = dwread_epd(EPD(0x51CE8C));
 			const FrameTick = (this.lasttimer - CurrentTime);
 			
-			if (FrameTick >= 1000){
+			if (FrameTick > 2220){
 				const r = bgm.PlayOGG(this.bgmindex, this.bgmcode, this.track);
 				this.lasttimer = dwread_epd(EPD(0x51CE8C));;
 
@@ -145,8 +145,8 @@ function Play(){
 	if(IsUserCP()){
 		const CurrentTime = dwread_epd(EPD(0x51CE8C));
 		const FrameTick = (lasttimer - CurrentTime);
-		
-		if (FrameTick >= 1000){
+
+		if (FrameTick > 2220){
 			const r = bgm.PlayOGG(bgmindex, bgmcode, track);
 			lasttimer = dwread_epd(EPD(0x51CE8C));;
 			
@@ -166,7 +166,7 @@ function Play(){
 			}
 
 			if (r == 0){
-				track = 0;
+				track = 0x40404040;
 			}
 		}
 	}

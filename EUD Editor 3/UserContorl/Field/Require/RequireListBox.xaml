@@ -19,7 +19,7 @@
             </StackPanel>
             <Border  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" ClipToBounds="True">
                 <Grid>
-                    <ListBox x:Name="MainListBox" SelectionChanged="MainListBox_SelectionChanged" MouseUp="MainListBox_MouseUp" PreviewMouseLeftButtonDown="MainListBox_PreviewMouseLeftButtonDown" PreviewMouseMove="MainListBox_PreviewMouseMove" PreviewMouseLeftButtonUp="MainListBox_PreviewMouseLeftButtonUp" >
+                    <ListBox x:Name="MainListBox" SelectionChanged="MainListBox_SelectionChanged" MouseUp="MainListBox_MouseUp" PreviewMouseLeftButtonDown="MainListBox_PreviewMouseLeftButtonDown" PreviewMouseMove="MainListBox_PreviewMouseMove" PreviewMouseLeftButtonUp="MainListBox_PreviewMouseLeftButtonUp" MouseDoubleClick="MainListBox_MouseDoubleClick">
                         <ListBox.InputBindings>
                             <KeyBinding Command="{x:Static local:RequireListBox.NewItemKeyInputCommand}" Key="N"  Modifiers="Ctrl"/>
                             <KeyBinding Command="{x:Static local:RequireListBox.CutItemKeyInputCommand}" Key="X"  Modifiers="Ctrl"/>

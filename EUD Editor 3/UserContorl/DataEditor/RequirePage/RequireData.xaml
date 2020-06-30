@@ -32,23 +32,25 @@
                 <Button ToolTip="{StaticResource FG_AlwaysCurrentUseToolTip}"  Padding="16,4" Click="Button_Click_3" Content="{StaticResource FG_AlwaysCurrentUse}"/>
             </ToolBar>
         </ToolBarTray>
-        <ScrollViewer  Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                
-                <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" MinWidth="590" MinHeight="353" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+        <WrapPanel Grid.Row="2" MaxWidth="610" HorizontalAlignment="Left" VerticalAlignment="Top" >
+
+            <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" MinWidth="590" MinHeight="353" >
+                <Grid>
+                    <Grid.RowDefinitions>
+                        <RowDefinition Height="25" />
+                        <RowDefinition Height="*" />
+                    </Grid.RowDefinitions>
+                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
                               Text="요구사항" Padding="6"/>
-                        <local:RequireListBox x:Name="RequireListbox"  Grid.Row="1" Margin="10"/>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
-        </ScrollViewer>
+                    <local:RequireListBox x:Name="RequireListbox"  Grid.Row="1" Margin="10"/>
+                </Grid>
+            </materialDesign:Card>
+        </WrapPanel>
+
+        <!--<ScrollViewer  Grid.Row="2" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+        
+        </ScrollViewer>-->
     </Grid>
 </UserControl>

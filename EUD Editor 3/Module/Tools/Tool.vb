@@ -316,7 +316,7 @@ Namespace Tool
         Public Function LoadDataFromMAP(filename As String) As Byte()
             Dim hmpq As UInteger
             Dim hfile As UInteger
-            Dim buffer() As Byte
+            Dim buffer() As Byte = Nothing
             Dim filesize As UInteger
 
             Dim pdwread As IntPtr
@@ -383,6 +383,69 @@ Namespace Tool
             End If
         End Sub
 
+
+        Public Function CreateMapSet(sWindow As SettingWindows) As Boolean
+            '우선 맵의 유형을 정한다.
+            Dim sampleWindow As New SampleMapSetting
+            sampleWindow.Owner = sWindow
+
+            sampleWindow.ShowDialog()
+
+            If Not sampleWindow.IsOkay Then
+                Return False
+            End If
+
+
+
+            '맵을 저장할 위치를 정한다.
+            Dim savedialog As New System.Windows.Forms.SaveFileDialog With {
+            .Filter = Tool.GetText("SCX Fliter"),
+            .Title = Tool.GetText("SCX Save Select"),
+            .OverwritePrompt = True
+            }
+
+
+            Dim LastOpenMapName As String = pjData.OpenMapName
+            '맵이 저장맵이랑 이름이 같은지 검사해야됨.
+            If savedialog.ShowDialog() = Forms.DialogResult.OK Then
+                If pjData.SaveMapName = savedialog.FileName Then
+                    Tool.ErrorMsgBox(Tool.GetText("Error OpenMap is not SaveMap"))
+                    Return False
+                End If
+            Else
+                Return False
+            End If
+
+
+
+
+            '맵을 생성합니다.
+            My.Computer.FileSystem.CopyFile(sampleWindow.SelectSampleMap, savedialog.FileName, True)
+            pjData.OpenMapName = savedialog.FileName
+            Return True
+
+
+
+
+
+            ''맵이 플텍맵인지 아닌지 검사해야됨.
+            'pjData.OpenMapName = savedialog.FileName
+            'If pjData.IsMapLoading Then
+            '    Return True
+            'Else
+            '    pjData.OpenMapName = LastOpenMapName
+            '    '샘플맵이 프로텍트 맵입니다.
+
+
+            '    '생성된 맵을 다시 삭제합니다.
+            '    My.Computer.FileSystem.DeleteFile(savedialog.FileName)
+
+
+            '    Return False
+            'End If
+
+        End Function
+
         Public Function OpenMapSet() As Boolean
             Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
             .Filter = Tool.GetText("SCX Fliter"),
@@ -431,6 +494,11 @@ Namespace Tool
         End Function
 
 
+        Public ReadOnly Property SampleDataFolderPath() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Sample"
+            End Get
+        End Property
         Public ReadOnly Property TriggerEditorPath(paths As String) As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\" & paths

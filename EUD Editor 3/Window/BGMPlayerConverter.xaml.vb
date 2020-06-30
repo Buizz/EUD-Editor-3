@@ -79,7 +79,6 @@ Public Class BGMPlayerConverter
         Next
 
 
-
         '세팅파일 구조
         'MainFileCRC32
         'SoundBlockCRC32 XorResult
@@ -103,6 +102,7 @@ Public Class BGMPlayerConverter
         End If
 
         If sbgmCRC32V = bgmCRC32V And sbgmblockCRC32V = bgmblockCRC32V And sbgmblockCount = bgmblockCount And ssamplerate = bgmdata.BGMSampleRate And sbitrate = bgmdata.BGMBitRate Then
+            bgmdata.BGMBlockCount = bgmblockCount
             Return True
         End If
 
@@ -120,7 +120,7 @@ Public Class BGMPlayerConverter
         Dim output As String = folderPath & "\s"
 
         openfile = Chr(34) & openfile & Chr(34)
-        Dim interval As Double = 1.05
+        Dim interval As Double = 2.28
 
 
 
@@ -221,7 +221,6 @@ Public Class BGMPlayerConverter
             End If
         Next
 
-        bgmdata.BGMBlockCount = bgmblockCount
 
 
 

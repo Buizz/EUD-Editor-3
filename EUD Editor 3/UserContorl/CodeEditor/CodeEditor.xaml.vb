@@ -50,6 +50,8 @@ Public Class CodeEditor
         timer = New DispatcherTimer()
         timer.Interval = TimeSpan.FromMilliseconds(100)
         AddHandler timer.Tick, AddressOf timer_Tick
+
+        TextEditor.FontSize = pgData.Setting(ProgramData.TSetting.TEFontSize)
     End Sub
     Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
         SPanel.Open()

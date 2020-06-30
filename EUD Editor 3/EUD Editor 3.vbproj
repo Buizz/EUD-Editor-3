@@ -488,6 +488,9 @@
     <Compile Include="UserContorl\ProjectControl.xaml.vb">
       <DependentUpon>ProjectControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\SampleMapList.xaml.vb">
+      <DependentUpon>SampleMapList.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
       <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
@@ -644,6 +647,9 @@
     </Compile>
     <Compile Include="Window\PluginWindow\PluginItem.xaml.vb">
       <DependentUpon>PluginItem.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\SampleMapSetting.xaml.vb">
+      <DependentUpon>SampleMapSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\SettingWindows.xaml.vb">
       <DependentUpon>SettingWindows.xaml</DependentUpon>
@@ -877,6 +883,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\SampleMapList.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1066,6 +1076,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\PluginWindow\PluginItem.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Window\SampleMapSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

@@ -13,6 +13,7 @@
     <sys:String x:Key="RegistryConnect">Extension is not connected. Do you want to reconnect it?</sys:String>
 
     <sys:String x:Key="Setting">Setting</sys:String>
+    <sys:String x:Key="SampleSelect">Sample Map Select</sys:String>
     <sys:String x:Key="OpenMap">Open Map</sys:String>
     <sys:String x:Key="SaveMap">Save Map</sys:String>
     <sys:String x:Key="Find">Find</sys:String>
@@ -34,6 +35,7 @@
     <sys:String x:Key="TempFileLoc2">Save file folder</sys:String>
     <sys:String x:Key="TempFileLoc3">Custom</sys:String>
 
+    <sys:String x:Key="TEFontSize">Font Size</sys:String>
 
 
     <sys:String x:Key="TBLChange">Use tbl custom</sys:String>
@@ -762,7 +764,7 @@
 
 
     <!--Require-->
-    <sys:String x:Key="RequireText">(Setting Require Unit)|Or|Setting Target Unit|Setting Require Units|Setting Require Addon|Building on ground|Building on air|Not Train or Mutate|Not Building Addon|Not Researching Tech|Not Researching Upgrade|Is not Construct|Is not attached any Addon|Don’t have exit canal|Have any transport|Researched|Don’t have reloaded Nuclear|Not Borrow|Can be Attack|Enable to Rally point|Can be Move|Have any Weapon|Is Worker|Can be Lift|Can be Transport|Powerups Units|Enable to attached Units|Have Spider Mine|Enable to Hero Units|Can be Hold|Enable to Hallucinated|Upgrade_Lv-1 Require|Upgrade_Lv-2 Require|Upgrade_Lv-3 Require|Grey|Blank|Only Brood War|Setting require Tech|is Burrowed|조건 분기</sys:String>
+    <sys:String x:Key="RequireText">(Must have...)|Or|Current unit is...|Must have... |Must have add-on|Is not lifted off|Is lifted off|Is not training or morphing|Is not constructing add-on|Is not researching|Is not upgrading|Is not constructing|Does not have add-on attached|Does not have exit|Has hangar space|Must be researched|Does not have loaded nuke|Is not burrowed|Can attack|Can set rally point|Can move|Has weapon|Is worker|Is flying building|Is transport|Is powerup|Is Subunit|Has spidermines|Is hero and enabled|Can hold position|Allow on hallucinations|Upgrade Lv-1 Require...|Upgrade Lv-2 Require...|Upgrade Lv-3+ Require...|Grey|Blank|Must be Brood War|Is researched...|Is burrowed|Branch</sys:String>
     <sys:String x:Key="RequireSubListEnd">End Upgrade Require</sys:String>
 
 
@@ -898,6 +900,8 @@
 
 
     <sys:String x:Key="VarDefine">변수 정의하기</sys:String>
+
+    <sys:String x:Key="ConnectProgramNoExist">연결 프로그램이 지정되어 있지 않습니다.</sys:String>
 </ResourceDictionary>
 
 

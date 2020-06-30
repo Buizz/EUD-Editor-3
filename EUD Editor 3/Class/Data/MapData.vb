@@ -10,6 +10,20 @@ Public Class MapData
         End Get
     End Property
 
+    Private _MapName As UShort
+    Public ReadOnly Property MapName As String
+        Get
+            Return Strings(_MapName - 1)
+        End Get
+    End Property
+
+    Private _MapDes As UShort
+    Public ReadOnly Property MapDes As String
+        Get
+            Return Strings(_MapDes - 1)
+        End Get
+    End Property
+
 
     Private _WavIndex As List(Of Integer)
     Public ReadOnly Property WavIndex(index As Integer) As String
@@ -146,6 +160,10 @@ Public Class MapData
 
             Dim mem As MemoryStream = New MemoryStream(buffer)
             Dim binary As BinaryReader = New BinaryReader(mem)
+
+
+
+
 
             '맵의 타당성 확인
             Try
@@ -582,7 +600,6 @@ Public Class MapData
 
                     lastPos += 4
                 Next
-
             Else
                 SearchCHK("STR ", binary)
 
@@ -611,6 +628,15 @@ Public Class MapData
 
                     lastPos += 2
                 Next
+            End If
+
+
+            If True Then
+                SearchCHK("SPRP", binary)
+                size = binary.ReadUInt32
+
+                _MapName = binary.ReadUInt16
+                _MapDes = binary.ReadUInt16
             End If
 
 

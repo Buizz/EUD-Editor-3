@@ -106,7 +106,7 @@ Partial Public Class CodeEditor
                 End If
                 nameSpaceName = nameSpaceName.Split(".").Last
 
-                Dim tTEfile As TEFile
+                Dim tTEfile As TEFile = Nothing
                 Try
                     Dim iscmp As Boolean = False
                     Dim externList As List(Of String) = tescm.GetExternFileList

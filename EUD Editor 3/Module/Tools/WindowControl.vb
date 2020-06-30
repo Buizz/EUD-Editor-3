@@ -251,13 +251,23 @@ Namespace WindowMenu
                 ProjectControlBinding.PropertyChangedPack()
 
                 If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
-                    Process.Start(pjData.OpenMapName)
+                    Try
+                        Process.Start(pjData.OpenMapName)
+                    Catch ex As ComponentModel.Win32Exception
+                        MsgBox(Tool.GetText("ConnectProgramNoExist"), MsgBoxStyle.Critical)
+                    End Try
+
                     Exit Sub
                 Else
                     If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
                         If Tool.OpenMapSet Then
                             ProjectControlBinding.PropertyChangedPack()
-                            Process.Start(pjData.OpenMapName)
+                            Try
+                                Process.Start(pjData.OpenMapName)
+                            Catch ex As ComponentModel.Win32Exception
+                                MsgBox(Tool.GetText("ConnectProgramNoExist"), MsgBoxStyle.Critical)
+                            End Try
+
                             Exit Sub
                         End If
                     End If

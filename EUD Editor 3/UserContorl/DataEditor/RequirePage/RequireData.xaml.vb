@@ -93,30 +93,66 @@
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        If MsgBox(Tool.GetLanText("FG_DefaultUseToolTip"), MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+            Return
+        End If
+
         For i = 0 To SCCodeCount(RealDatFiles) - 1
-            pjData.BindingManager.RequireDataBinding(i, DatFiles).IsDefaultUse = True
+            If IsUseRequire Then
+                pjData.BindingManager.RequireDataBinding(i, SCDatFiles.DatFiles.Stechdata).IsDefaultUse = True
+            Else
+                pjData.BindingManager.RequireDataBinding(i, DatFiles).IsDefaultUse = True
+            End If
         Next
-        RequireListbox.ListReset
+        RequireListbox.ListReset()
+        pjData.SetDirty(True)
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
+        If MsgBox(Tool.GetLanText("FG_DontUseToolTip"), MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+            Return
+        End If
+
         For i = 0 To SCCodeCount(RealDatFiles) - 1
-            pjData.BindingManager.RequireDataBinding(i, DatFiles).IsDontUse = True
+            If IsUseRequire Then
+                pjData.BindingManager.RequireDataBinding(i, SCDatFiles.DatFiles.Stechdata).IsDontUse = True
+            Else
+                pjData.BindingManager.RequireDataBinding(i, DatFiles).IsDontUse = True
+            End If
         Next
-        RequireListbox.ListReset
+        RequireListbox.ListReset()
+        pjData.SetDirty(True)
     End Sub
 
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
+        If MsgBox(Tool.GetLanText("FG_AlwaysUseToolTip"), MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+            Return
+        End If
+
         For i = 0 To SCCodeCount(RealDatFiles) - 1
-            pjData.BindingManager.RequireDataBinding(i, DatFiles).IsAlwaysUse = True
+            If IsUseRequire Then
+                pjData.BindingManager.RequireDataBinding(i, SCDatFiles.DatFiles.Stechdata).IsAlwaysUse = True
+            Else
+                pjData.BindingManager.RequireDataBinding(i, DatFiles).IsAlwaysUse = True
+            End If
         Next
-        RequireListbox.ListReset
+        RequireListbox.ListReset()
+        pjData.SetDirty(True)
     End Sub
 
     Private Sub Button_Click_3(sender As Object, e As RoutedEventArgs)
+        If MsgBox(Tool.GetLanText("FG_AlwaysCurrentUseToolTip"), MsgBoxStyle.OkCancel) = MsgBoxResult.Cancel Then
+            Return
+        End If
+
         For i = 0 To SCCodeCount(RealDatFiles) - 1
-            pjData.BindingManager.RequireDataBinding(i, DatFiles).IsAlwaysCurrentUse = True
+            If IsUseRequire Then
+                pjData.BindingManager.RequireDataBinding(i, SCDatFiles.DatFiles.Stechdata).IsAlwaysCurrentUse = True
+            Else
+                pjData.BindingManager.RequireDataBinding(i, DatFiles).IsAlwaysCurrentUse = True
+            End If
         Next
-        RequireListbox.ListReset
+        RequireListbox.ListReset()
+        pjData.SetDirty(True)
     End Sub
 End Class

@@ -116,7 +116,7 @@ Public Class GUIScriptEditor
 
 
 
-                Dim fTEFile As TEFile
+                Dim fTEFile As TEFile = Nothing
 
                 Dim iscmp As Boolean = False
 

@@ -33,6 +33,22 @@ Public Class SettingWindows
         TopMostPluginforce.IsChecked = pgData.Setting(ProgramData.TSetting.PluginSettingTopMost)
 
 
+        Dim fsize As Integer = pgData.Setting(ProgramData.TSetting.TEFontSize)
+        For i = 1 To 40
+            Dim cbitem As New ComboBoxItem
+            cbitem.Content = i & "px"
+            cbitem.Tag = i
+
+            FontSizecb.Items.Add(cbitem)
+
+
+            If fsize = i Then
+                FontSizecb.SelectedIndex = FontSizecb.Items.Count - 1
+            End If
+        Next
+
+
+
         If Tool.IsProjectLoad Then
             TBOpenMap.Text = pjData.OpenMapName
             TBSaveMap.Text = pjData.SaveMapName
@@ -85,6 +101,16 @@ Public Class SettingWindows
 
         DatLoad = True
     End Sub
+
+
+
+    Private Sub FontSize_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        Dim cbitem As ComboBoxItem = FontSizecb.SelectedItem
+
+
+        pgData.Setting(ProgramData.TSetting.TEFontSize) = cbitem.Tag
+    End Sub
+
 
 
     Private VersionText As String
@@ -470,6 +496,16 @@ Public Class SettingWindows
             CBGraphic.SelectedIndex = pgData.Setting(ProgramData.TSetting.Graphic)
         End If
     End Sub
+
+    Private Sub BtnOpenMapCreate_Click(sender As Object, e As RoutedEventArgs)
+        Me.Visibility = Visibility.Hidden
+        If Tool.CreateMapSet(Me) Then
+            TBOpenMap.Text = pjData.OpenMapName
+        End If
+        Me.Visibility = Visibility.Visible
+        'MsgBox("ㅎㅇ")
+    End Sub
+
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged
     '    pgData.Lan.SetLanguage(e.AddedItems(0))
     'End Sub

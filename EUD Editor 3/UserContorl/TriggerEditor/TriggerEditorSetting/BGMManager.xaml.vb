@@ -261,7 +261,6 @@ Public Class BGMManager
     Private Sub SoundStop()
         wo.Stop()
 
-
         If vr IsNot Nothing Then
             vr.Close()
             vr.Dispose()

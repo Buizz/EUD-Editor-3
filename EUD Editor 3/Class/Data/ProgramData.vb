@@ -178,6 +178,9 @@ Public Class ProgramData
             Setting(ProgramData.TSetting.Graphic) = 1
         End If
 
+        Setting(ProgramData.TSetting.TEFontSize) = 16
+
+
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
 
@@ -214,12 +217,14 @@ Public Class ProgramData
         PluginSettingTopMost = 21
         CheckUpdate = 22
         Graphic = 23
+
+        TEFontSize = 24
     End Enum
     Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
     "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush", "PrimaryHueDarkBrush",
     "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush", "DefaultData", "MapEditorData",
     "EditedData", "CheckedData", "CDLanuageChange", "DataEditorTopMost", "CheckReg",
-    "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic"}
+    "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic", "TEFontSize"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))

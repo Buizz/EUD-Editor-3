@@ -310,6 +310,7 @@ Public Class RequireListBox
         RequireList.Insert(InsertIndex, tItem)
         MainListBox.Items.Insert(InsertIndex, listboxitem)
         pjData.BindingManager.RequireCapacityBinding(DatFile).PropertyChangedPack()
+        pjData.SetDirty(True)
     End Sub
 
     Private Sub SDeleteItem()
@@ -327,6 +328,7 @@ Public Class RequireListBox
 
 
         pjData.BindingManager.RequireCapacityBinding(DatFile).PropertyChangedPack()
+        pjData.SetDirty(True)
     End Sub
 
     Private Sub SCutItem()
@@ -340,6 +342,7 @@ Public Class RequireListBox
         MainListBox.Items.RemoveAt(Selectindex)
 
         pjData.BindingManager.RequireCapacityBinding(DatFile).PropertyChangedPack()
+        pjData.SetDirty(True)
     End Sub
 
 
@@ -356,6 +359,7 @@ Public Class RequireListBox
 
     Private Sub RadioButton_Checked(sender As Object, e As RoutedEventArgs)
         ListReset()
+        pjData.SetDirty(True)
     End Sub
 
     Private DragSelectindex As Integer
@@ -537,6 +541,7 @@ Public Class RequireListBox
         CodeSelecter.SelectedIndex = 2
         CreateEditWindow.Visibility = Visibility.Visible
         IconSelecterRefresh()
+        pjData.SetDirty(True)
     End Sub
     Private Sub OpenEditWindow()
         'MsgBox(MainListBox.SelectedIndex)
@@ -554,6 +559,7 @@ Public Class RequireListBox
         End If
         CreateEditWindow.Visibility = Visibility.Visible
         IconSelecterRefresh()
+        pjData.SetDirty(True)
     End Sub
 
     Private Sub IconSelecterRefresh()
@@ -669,4 +675,11 @@ Public Class RequireListBox
         'NewItem.Header = "ContextOpen : " & MainListBox.SelectedIndex
     End Sub
     Private MenuSeletIndex As Integer
+
+    Private Sub MainListBox_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs)
+        MenuSeletIndex = MainListBox.SelectedIndex
+        If MenuSeletIndex <> -1 Then
+            OpenEditWindow()
+        End If
+    End Sub
 End Class

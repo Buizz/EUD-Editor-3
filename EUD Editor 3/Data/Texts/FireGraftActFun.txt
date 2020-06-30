@@ -57,4 +57,4 @@ Play/Pause Replay	4DF2C0
 Spedd Up RePlay	4DF260
 Cancel	429770
 Cancel Place Buildings	429780
-Change Displayed Buttons	459AF0	11
+Change Displayed Buttons	459AF0	20
