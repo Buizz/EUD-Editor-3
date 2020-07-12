@@ -17,13 +17,23 @@ var MSQCValue = 0;
 
 const MSQCSpecialBuffer = PVariable();
 const MSQCBuffer = PVariable();
-
+const mappath = Db(260 + 8 * 4);
 function Init(){
 	EUDRegisterObjectToNamespace("MSQCSpecial", MSQCSpecial);
 	EUDRegisterObjectToNamespace("MSQCSpecialBuffer", MSQCSpecialBuffer);
 	EUDRegisterObjectToNamespace("MSQCCondiction", MSQCCondiction);
 	EUDRegisterObjectToNamespace("MSQCValue", MSQCValue);
 	EUDRegisterObjectToNamespace("MSQCBuffer", MSQCBuffer);
+
+	dwwrite_epd(EPD(mappath) + 0, 3722075717);
+	dwwrite_epd(EPD(mappath) + 1, 3982906636);
+	dwwrite_epd(EPD(mappath) + 2, 1185060405);
+	dwwrite_epd(EPD(mappath) + 3, 2930803196);
+	dwwrite_epd(EPD(mappath) + 4, 773278115);
+	dwwrite_epd(EPD(mappath) + 5, 3579781808);
+	dwwrite_epd(EPD(mappath) + 6, 3074824624);
+	dwwrite_epd(EPD(mappath) + 7, 3414833178);
+	f_repmovsd_epd(EPD(mappath) + 8, EPD(0x57FD3C), 65);
 }
 
 

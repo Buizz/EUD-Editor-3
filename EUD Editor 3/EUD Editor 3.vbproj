@@ -1158,6 +1158,9 @@
     <EmbeddedResource Include="AvalonEdit\EpsHighlightingLight.xshd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Data\Sample\BadlandSample.scx">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\DatFiles\btnset.dat">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
