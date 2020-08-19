@@ -16,6 +16,8 @@ Public Class IconSelecterP
 
 
     Public Sub Init(_DatFile As SCDatFiles.DatFiles, InitText As String, tValue As Long)
+        CodeList.DataLoadCmp = False
+
         DatFile = _DatFile
         pValue = tValue
 

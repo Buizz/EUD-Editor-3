@@ -538,8 +538,10 @@ Public Class ProjectData
                 If SCDatFiles.CheckValidDat(Datfile) Then
                     ToolTipText = SaveData.Dat.ToolTip(Datfile, index)
                 Else
-                    If SCDatFiles.DatFiles.stattxt Then
+                    If Datfile = SCDatFiles.DatFiles.stattxt Then
                         ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index - 1)
+                    ElseIf Datfile = SCDatFiles.DatFiles.ButtonData Then
+                        ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
                     Else
                         ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
                     End If
@@ -550,7 +552,6 @@ Public Class ProjectData
                     End If
                 End If
             Catch ex As Exception
-
             End Try
 
 

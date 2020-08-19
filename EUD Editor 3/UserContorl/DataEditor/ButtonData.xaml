@@ -23,8 +23,8 @@
 
             <Grid Grid.Row="1">
                 <ScrollViewer  VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                    <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical" >
-                        <materialDesign:Card Height="233" Width="215" Background="{DynamicResource MaterialDesignPaper}" Margin="-59,10,10,10" >
+                    <WrapPanel MaxWidth="720" MaxHeight="452" HorizontalAlignment="Left" VerticalAlignment="Top" Orientation="Vertical" >
+                        <materialDesign:Card Height="412" Width="215" Background="{DynamicResource MaterialDesignPaper}" Margin="10,10,10,10" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25" />
@@ -72,86 +72,84 @@
                                 </Border>
                             </Grid>
                         </materialDesign:Card>
-
-                        <materialDesign:Card Height="168" Width="293" Background="{DynamicResource MaterialDesignPaper}" Padding="0" Margin="10,0,0,0" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="25" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
-                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource BtnPreview}" Padding="6"/>
-                                <DockPanel Grid.Row="1" Margin="10,2" Background="Black" >
-                                    <Border Width="96" Height="96" DockPanel.Dock="Left" Background="#FF5DF13B">
-                                        <WrapPanel Name="xpanel">
- 
-
-                                        </WrapPanel>
-                                    </Border>
-                                    <Grid>
-                                        <Grid.RowDefinitions>
-                                            <RowDefinition Height="*"/>
-                                            <RowDefinition Height="*"/>
-                                        </Grid.RowDefinitions>
-                                        <local:ColoredTextBox x:Name="TopText" Grid.Row="0"/>
-                                        <local:ColoredTextBox x:Name="BottomText" Grid.Row="1"/>
-                                    </Grid>
-                                </DockPanel>
-                            </Grid>
-                        </materialDesign:Card>
-                        <materialDesign:Card x:Name="DefaultInfor" Height="194" Width="470" Background="{DynamicResource MaterialDesignPaper}" Margin="-68,10,10,10" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="25" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                        <materialDesign:Card x:Name="DefaultInfor" Height="200" Width="470" Background="{DynamicResource MaterialDesignPaper}" Margin="0,10,10,0" >
+                            <DockPanel>
+                                <Grid DockPanel.Dock="Right" Width="140">
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="*"/>
+                                        <RowDefinition Height="*"/>
+                                    </Grid.RowDefinitions>
+                                    <local:ColoredTextBox x:Name="TopText" Grid.Row="0"/>
+                                    <local:ColoredTextBox x:Name="BottomText" Grid.Row="1"/>
+                                </Grid>
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource BtnInfor}" Padding="6"/>
-                                <StackPanel Grid.Row="1" Margin="10,2">
-                                    <StackPanel Orientation="Horizontal" Margin="3">
-                                        <TextBlock Text="{StaticResource BtnLoc}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
-                                        <TextBox x:Name="BtnLocation" TextChanged="BtnLocation_TextChanged"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="21" />
+                                    <StackPanel Grid.Row="1" Margin="10,2">
+                                        <StackPanel Orientation="Horizontal" Margin="3">
+                                            <TextBlock Text="{StaticResource BtnLoc}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
+                                            <TextBox x:Name="BtnLocation" TextChanged="BtnLocation_TextChanged"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="21" />
+                                        </StackPanel>
+                                        <local:IconSelecterP x:Name="BIconSelecter" ValueChange="BIconSelecter_ValueChange" />
+                                        <local:IconSelecterP x:Name="UseStrSelecter" ValueChange="UseStrSelecter_ValueChange" />
+                                        <local:IconSelecterP x:Name="DUseStrSelecter" ValueChange="DUseStrSelecter_ValueChange" />
                                     </StackPanel>
-                                    <local:IconSelecterP x:Name="BIconSelecter" ValueChange="BIconSelecter_ValueChange" />
-                                    <local:IconSelecterP x:Name="UseStrSelecter" ValueChange="UseStrSelecter_ValueChange" />
-                                    <local:IconSelecterP x:Name="DUseStrSelecter" ValueChange="DUseStrSelecter_ValueChange" />
-                                </StackPanel>
-                            </Grid>
+                                </Grid>
+                               
+                            </DockPanel>
+                            
                         </materialDesign:Card>
-                        <materialDesign:Card x:Name="ButtonAction" Height="196" Width="395" Background="{DynamicResource MaterialDesignPaper}" Margin="8,10,10,10" >
-                            <Grid>
-                                <Grid.RowDefinitions>
-                                    <RowDefinition Height="25" />
-                                    <RowDefinition Height="*" />
-                                </Grid.RowDefinitions>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                        <DockPanel>
+                            <DockPanel Margin="5,10" Background="Black" VerticalAlignment="Bottom" >
+                                <Border Width="96" Height="96" DockPanel.Dock="Left" Background="#FF5DF13B">
+                                    <WrapPanel Name="xpanel">
+
+                                    </WrapPanel>
+                                </Border>
+
+                            </DockPanel>
+                            <materialDesign:Card x:Name="ButtonAction" Height="202" Width="356" Background="{DynamicResource MaterialDesignPaper}" Margin="8,10,10,10" >
+                                <Grid>
+                                    <Grid.RowDefinitions>
+                                        <RowDefinition Height="25" />
+                                        <RowDefinition Height="*" />
+                                    </Grid.RowDefinitions>
+                                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource BtnWork}" Padding="6"/>
-                                <StackPanel Grid.Row="1" Margin="10,2">
-                                    <DockPanel>
-                                        <TextBlock Text="{StaticResource BtnConVal}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
+                                    <StackPanel Grid.Row="1" Margin="10,2">
+                                        <DockPanel>
+                                            <TextBlock Text="{StaticResource BtnCon}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
+                                            <TextBox x:Name="ConFuncText" TextChanged="ConFunc_ValueChanged"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="21" Height="28" />
 
-                                        <ComboBox x:Name="ConFunc" Margin="3" SelectionChanged="ConFunc_SelectionChanged">
+                                            <ComboBox x:Name="ConFunc" Margin="3" SelectionChanged="ConFunc_SelectionChanged">
 
-                                        </ComboBox>
-                                    </DockPanel>
-                                    <local:IconSelecterP x:Name="ConVal" ValueChange="ConVal_ValueChange"/>
-                                    <DockPanel>
-                                        <TextBlock Text="{StaticResource BtnActVal}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
-                                        <ComboBox x:Name="ActFunc" Margin="3" SelectionChanged="ActFunc_SelectionChanged">
+                                            </ComboBox>
+                                        </DockPanel>
+                                        <local:IconSelecterP x:Name="ConVal" ValueChange="ConVal_ValueChange"/>
+                                        <DockPanel>
+                                            <TextBlock Text="{StaticResource BtnAct}" Style="{StaticResource MaterialDesignBody2TextBlock}" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Margin="0,0,10,0"  TextAlignment="Right"/>
+                                            <TextBox x:Name="ActFuncText" TextChanged="ActsFunc_ValueChanged"  Background="{Binding BackColor}" VerticalAlignment="Center" Width="21" Height="28" />
 
-                                        </ComboBox>
-                                    </DockPanel>
 
-                                    <local:IconSelecterP x:Name="ActVal" ValueChange="ActVal_ValueChange" />
-                                </StackPanel>
-                            </Grid>
-                        </materialDesign:Card>
+                                            <ComboBox x:Name="ActFunc" Margin="3" SelectionChanged="ActFunc_SelectionChanged">
+
+                                            </ComboBox>
+                                        </DockPanel>
+
+                                        <local:IconSelecterP x:Name="ActVal" ValueChange="ActVal_ValueChange" />
+                                    </StackPanel>
+                                </Grid>
+                            </materialDesign:Card>
+                        </DockPanel>
+                        
                     </WrapPanel>
                 </ScrollViewer>
                 <Border x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden"  >

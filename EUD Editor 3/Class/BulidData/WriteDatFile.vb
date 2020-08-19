@@ -12,7 +12,7 @@ Partial Public Class BuildData
         sb.AppendLine("    DoActions([  # Basic DatFile Actions")
 
         '기본 Dat파일 저장
-        For DatFile = 0 To SCDatFiles.DatFiles.orders - 1
+        For DatFile = 0 To SCDatFiles.DatFiles.orders
             For Pindex = 0 To pjData.Dat.DatFileList(DatFile).ParamaterList.Count - 1
                 Dim ParamaterData As SCDatFiles.CDatFile.CParamater = pjData.Dat.DatFileList(DatFile).ParamaterList(Pindex)
 
@@ -26,7 +26,7 @@ Partial Public Class BuildData
 
 
                 For ObjectID = 0 To ParamaterData.GetValueCount - 1
-                    If (Not ParamaterData.PureData(ObjectID).Enabled) Or _
+                    If (Not ParamaterData.PureData(ObjectID).Enabled) Or
                         ParamaterData.PureData(ObjectID).IsDefault Then
                         Continue For
                     End If

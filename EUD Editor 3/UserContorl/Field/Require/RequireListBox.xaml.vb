@@ -617,9 +617,10 @@ Public Class RequireListBox
             listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
 
             listboxitem.Padding = New Thickness(-2)
+            Dim ChangeValue As Integer = ValueSelecter.Value
 
 
-            Dim tItem As New CRequireData.RequireBlock(CodeSelecter.SelectedIndex, 0)
+            Dim tItem As New CRequireData.RequireBlock(CodeSelecter.SelectedIndex, ChangeValue)
 
             Dim ListItem As New RequireListBoxItem(tItem)
 

@@ -364,6 +364,7 @@ Public Class ButtonData
 
             Try
                 ConFunc.SelectedIndex = scData.FuncConDict(SelectButton.con).Index
+                ConFuncText.Text = scData.FuncConDict(SelectButton.con).Index
                 If scData.FuncConDict(SelectButton.con).DatType <> SCDatFiles.DatFiles.None Then
                     ConVal.Visibility = Visibility.Visible
                     ConVal.Init(scData.FuncConDict(SelectButton.con).DatType, Tool.GetText("BtnConVal"), SelectButton.conval)
@@ -373,10 +374,12 @@ Public Class ButtonData
 
             Catch ex As Exception
                 ConFunc.SelectedIndex = -1
+                ConFuncText.Text = ""
                 ConVal.Visibility = Visibility.Hidden
             End Try
             Try
                 ActFunc.SelectedIndex = scData.FuncActDict(SelectButton.act).Index
+                ActFuncText.Text = scData.FuncActDict(SelectButton.act).Index
                 If scData.FuncActDict(SelectButton.act).DatType <> SCDatFiles.DatFiles.None Then
                     ActVal.Visibility = Visibility.Visible
                     ActVal.Init(scData.FuncActDict(SelectButton.act).DatType, Tool.GetText("BtnActVal"), SelectButton.actval)
@@ -385,6 +388,7 @@ Public Class ButtonData
                 End If
             Catch ex As Exception
                 ActFunc.SelectedIndex = -1
+                ActFuncText.Text = ""
                 ActVal.Visibility = Visibility.Hidden
             End Try
         Else
@@ -665,7 +669,7 @@ Public Class ButtonData
                 Else
                     ConVal.Visibility = Visibility.Hidden
                 End If
-
+                ConFuncText.Text = ConFunc.SelectedIndex
                 PreviewDraw()
             End If
         End If
@@ -688,7 +692,7 @@ Public Class ButtonData
                 Else
                     ActVal.Visibility = Visibility.Hidden
                 End If
-
+                ActFuncText.Text = ActFunc.SelectedIndex
                 PreviewDraw()
             End If
         End If
@@ -724,6 +728,18 @@ Public Class ButtonData
             If flag Then
                 ButtonListReset()
             End If
+        End If
+    End Sub
+
+    Private Sub ConFunc_ValueChanged(sender As Object, e As TextChangedEventArgs)
+        If IsNumeric(ConFuncText.Text) Then
+            ConFunc.SelectedIndex = ConFuncText.Text
+        End If
+    End Sub
+
+    Private Sub ActsFunc_ValueChanged(sender As Object, e As TextChangedEventArgs)
+        If IsNumeric(ActFuncText.Text) Then
+            ActFunc.SelectedIndex = ActFuncText.Text
         End If
     End Sub
 End Class
