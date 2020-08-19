@@ -542,8 +542,6 @@ Public Class ProjectData
                         ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index - 1)
                     ElseIf Datfile = SCDatFiles.DatFiles.ButtonData Then
                         ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
-                    Else
-                        ToolTipText = SaveData.ExtraDat.ToolTip(Datfile, index)
                     End If
                 End If
                 If Datfile <> SCDatFiles.DatFiles.units Then
@@ -552,6 +550,7 @@ Public Class ProjectData
                     End If
                 End If
             Catch ex As Exception
+                'ReturnStr = ex.ToString
             End Try
 
 

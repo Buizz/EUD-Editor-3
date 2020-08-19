@@ -93,8 +93,14 @@ Public Class CodeSelecter
                 Dim selectNode As TreeViewItem = e.NewValue
 
                 If selectNode.Items.Count = 0 Then
-                    Dim returnval() As Integer = {CurrentPage, selectNode.Tag}
-                    RaiseEvent ListSelect(returnval, e)
+                    If CurrentPage = SCDatFiles.DatFiles.stattxt Then
+                        Dim returnval() As Integer = {CurrentPage, selectNode.Tag + 1}
+                        RaiseEvent ListSelect(returnval, e)
+                    Else
+                        Dim returnval() As Integer = {CurrentPage, selectNode.Tag}
+                        RaiseEvent ListSelect(returnval, e)
+                    End If
+
                 End If
             End If
         End If
@@ -301,7 +307,19 @@ Public Class CodeSelecter
     Private Sub RefreshTreeview(StartIndex As Integer, treeviewitem As TreeViewItem)
         Dim index As Integer = treeviewitem.Tag
 
-        If index = StartIndex Then
+        Dim isSelect As Boolean
+        If CurrentPage = SCDatFiles.DatFiles.stattxt Then
+            If StartIndex > 0 Then
+                isSelect = (index = StartIndex - 1)
+            Else
+                isSelect = False
+            End If
+        Else
+            isSelect = (index = StartIndex)
+        End If
+
+
+        If isSelect Then
             'Treeview.SelectedItem = treeviewitem
             treeviewitem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
             treeviewitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
@@ -585,7 +603,7 @@ Public Class CodeSelecter
                     Dim tLabel As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Label", i) - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Icon", i)
 
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -595,7 +613,7 @@ Public Class CodeSelecter
                     Dim tSprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", i)
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", tSprite)
 
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
@@ -604,7 +622,7 @@ Public Class CodeSelecter
                 For i = 0 To SCSpriteCount - 1
                     Dim timage As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", i)
 
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(timage, Fliter.IsIcon))
@@ -612,7 +630,7 @@ Public Class CodeSelecter
             Case SCDatFiles.DatFiles.images
                 For i = 0 To SCImageCount - 1
                     Dim tooltip As String = pjData.Dat.ToolTip(pagetype, i)
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetImage(i, Fliter.IsIcon))
@@ -621,7 +639,7 @@ Public Class CodeSelecter
                 For i = 0 To SCUpgradeCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.upgrades, "Icon", i)
 
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -630,7 +648,7 @@ Public Class CodeSelecter
                 For i = 0 To SCTechCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.techdata, "Icon", i)
 
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -639,7 +657,7 @@ Public Class CodeSelecter
                 For i = 0 To SCOrderCount - 1
                     Dim tIcon As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.orders, "Highlight", i)
 
-                    Dim cname As String = pjData.CodeLabel(pagetype, i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i, True)
 
                     ObjectNames.Add(cname)
                     ObjectImages.Add(GetIcon(tIcon, Fliter.IsIcon))
@@ -665,7 +683,11 @@ Public Class CodeSelecter
                 Next
             Case SCDatFiles.DatFiles.stattxt
                 For i = 0 To SCtbltxtCount - 1
-                    Dim cname As String = pjData.Stat_txt(i)
+                    ' Dim cname As String = pjData.Stat_txt(i)
+                    Dim cname As String = pjData.CodeLabel(pagetype, i + 1, True)
+
+
+
 
                     ObjectNames.Add(cname)
                 Next
@@ -700,11 +722,11 @@ Public Class CodeSelecter
 
             Case SCDatFiles.DatFiles.ButtonData
                 For i = 0 To SCUnitCount - 1
-                    ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i))
+                    ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i, True))
                     ObjectImages.Add(GetIcon(i, Fliter.IsIcon))
                 Next
                 For i = 0 To SCButtonCount - SCUnitCount - 1
-                    ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i + SCUnitCount))
+                    ObjectNames.Add(pjData.CodeLabel(SCDatFiles.DatFiles.ButtonData, i + SCUnitCount, True))
                     ObjectImages.Add(GetIcon(0, Fliter.IsIcon))
                 Next
             Case SCDatFiles.DatFiles.Location
@@ -767,7 +789,8 @@ Public Class CodeSelecter
                             End If
                         Else
                             If Fliter.fliterText IsNot Nothing Then
-                                If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                Dim fliterObject As String = index & ObjectNames(index).ToLower
+                                If Fliter.fliterText = "" Or fliterObject.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
                                     CheckPss = True
                                 End If
                             Else
@@ -879,7 +902,9 @@ Public Class CodeSelecter
                             End If
                         Else
                             If Fliter.fliterText IsNot Nothing Then
-                                If Fliter.fliterText = "" Or ObjectNames(index).ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                                Dim fliterObject As String = index & ObjectNames(index).ToLower
+
+                                If Fliter.fliterText = "" Or fliterObject.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
                                     CheckPss = True
                                 End If
                             Else
@@ -952,13 +977,22 @@ Public Class CodeSelecter
                             End If
                     End Select
 
+                    Dim isSelect As Boolean
+
+                    If CurrentPage = SCDatFiles.DatFiles.stattxt Then
+                        isSelect = (i = tStartIndex - 1)
+                    Else
+                        isSelect = (i = tStartIndex)
+                    End If
 
                     If Fliter.fliterText IsNot Nothing Then
-                        If Fliter.fliterText = "" Or Codename.ToLower.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
-                            AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, i = tStartIndex)
+
+                        Dim fliterObject As String = i & Codename.ToLower
+                        If Fliter.fliterText = "" Or fliterObject.IndexOf(Fliter.fliterText.ToLower) >= 0 Then
+                            AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, isSelect)
                         End If
                     Else
-                        AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, i = tStartIndex)
+                        AddTreeList(CodeIndexerTree, CodeGroup, Codename, Imageborder, Fliter.IsIcon, i, isSelect)
                     End If
 
 
