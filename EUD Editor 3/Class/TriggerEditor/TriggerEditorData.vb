@@ -26,6 +26,21 @@ Public Class TriggerEditorData
         End Get
     End Property
 
+
+    Private _DotDatas As List(Of DotData)
+
+    Public ReadOnly Property DotDatas As List(Of DotData)
+        Get
+            If _DotDatas Is Nothing Then
+                _DotDatas = New List(Of DotData)
+            End If
+            Return _DotDatas
+        End Get
+    End Property
+
+
+
+
     Private _MainFile As TEFile
     Public Property MainFile As TEFile
         Get

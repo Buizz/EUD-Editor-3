@@ -14,37 +14,37 @@
             '함수 및 선언문만 가능
             'MsgBox("넣는 블럭 : " & newscr.name)
             Select Case newscr.ScriptType
-                Case ScriptBlock.EBlockType.rawcode, ScriptBlock.EBlockType.exp, ScriptBlock.EBlockType.import, ScriptBlock.EBlockType.vardefine,
+                Case ScriptBlock.EBlockType.rawcode, ScriptBlock.EBlockType.import, ScriptBlock.EBlockType.vardefine,
                      ScriptBlock.EBlockType.fundefine, ScriptBlock.EBlockType.folder, ScriptBlock.EBlockType.objectdefine
                 Case Else
-                    SnackBarDialog("선언문만 들어 갈 수 있습니다.")
+                    SnackBarDialog(Tool.GetText("TE_SnackBar1"))
                     Return False
             End Select
 
         Else
             If newscr.ScriptType = ScriptBlock.EBlockType.fundefine Then
                 If destscr.ScriptType <> ScriptBlock.EBlockType.objectmethod Or destscr.ScriptType <> ScriptBlock.EBlockType.folderaction Then
-                    SnackBarDialog("함수 선언은 외부에 할 수 있습니다.")
+                    SnackBarDialog(Tool.GetText("TE_SnackBar2"))
                     Return False
                 End If
             End If
             If newscr.ScriptType = ScriptBlock.EBlockType.objectdefine Then
-                SnackBarDialog("객체 선언은 외부에 할 수 있습니다.")
+                SnackBarDialog(Tool.GetText("TE_SnackBar3"))
                 Return False
             End If
             If newscr.ScriptType = ScriptBlock.EBlockType.import Then
-                SnackBarDialog("임포트는 외부에 할 수 있습니다.")
+                SnackBarDialog(Tool.GetText("TE_SnackBar4"))
                 Return False
             End If
             Select Case destscr.ScriptType
                 Case ScriptBlock.EBlockType.funargs
                     If Not newscr.IsArgument() Then
-                        SnackBarDialog("함수 인자만 들어 갈 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar5"))
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.switch
                     If newscr.ScriptType <> ScriptBlock.EBlockType.switchcase Then
-                        SnackBarDialog("케이스만 들어 갈 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar6"))
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.ifcondition, ScriptBlock.EBlockType.whilecondition
@@ -59,17 +59,17 @@
                         newscr.ScriptType = ScriptBlock.EBlockType.externfun Then
                         Return True
                     Else
-                        SnackBarDialog("조건이나 함수만 들어 갈 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar7"))
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.objectmethod
                     If newscr.ScriptType <> ScriptBlock.EBlockType.fundefine Then
-                        SnackBarDialog("함수만 들어 갈 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar8"))
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.objectfields
                     If newscr.ScriptType <> ScriptBlock.EBlockType.vardefine Then
-                        SnackBarDialog("변수 선언문만 들어 갈 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar9"))
                         Return False
                     End If
             End Select
@@ -77,17 +77,17 @@
                 Case ScriptBlock.EBlockType.funargblock
                     Dim pname As String = destscr.Parent.value
                     If pname = "onPluginStart" Or pname = "beforeTriggerExec" Or pname = "afterTriggerExec" Then
-                        SnackBarDialog("시작 함수에는 인자를 넣을 수 없습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar10"))
                         Return False
                     End If
 
                     If destscr.ScriptType <> ScriptBlock.EBlockType.funargs Then
-                        SnackBarDialog("함수 인자는 함수에 넣을 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar11"))
                         Return False
                     End If
                 Case ScriptBlock.EBlockType.switchcase
                     If destscr.ScriptType <> ScriptBlock.EBlockType.switch Then
-                        SnackBarDialog("케이스는 스위치에만 들어 갈 수 있습니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar12"))
                         Return False
                     End If
             End Select
@@ -97,7 +97,7 @@
                     Case ScriptBlock.EBlockType.ifcondition, ScriptBlock.EBlockType.whilecondition, ScriptBlock.EBlockType._or, ScriptBlock.EBlockType._and
                         Return True
                     Case Else
-                        SnackBarDialog("조건을 넣을 수 없는 곳입니다.")
+                        SnackBarDialog(Tool.GetText("TE_SnackBar13"))
                         Return False
                 End Select
             End If

@@ -3,7 +3,8 @@ Imports System.IO
 Imports System.Text
 
 Public Class GUIScriptManager
-    Public HighlightBrush As SolidColorBrush = Brushes.SlateBlue
+    Public HighlightBrush As SolidColorBrush = New SolidColorBrush(Color.FromRgb(232, 90, 113))
+    'Public HighlightBrush As SolidColorBrush = Brushes.SlateBlue
 
 
     Public Tabkeys As Dictionary(Of String, String)
@@ -642,6 +643,11 @@ Public Class GUIScriptManager
                                         strb.Append("))")
                                     End If
                                 End If
+                            Case "PVariable"
+                                strb.Append(sname)
+                                strb.Append("(list(")
+                                GetScriptText(schild, strb, intend, ", ")
+                                strb.Append("))")
                             Case Else
                                 strb.Append(sname)
                                 strb.Append("(")
@@ -664,6 +670,9 @@ Public Class GUIScriptManager
                         strb.Append("[")
                         GetScriptText(schild, strb, intend, "")
                         strb.Append("]")
+                    Case "!cp"
+                        strb.Append(sname)
+                        strb.Append("[getcurpl()]")
                     Case "!default"
                         strb.Append(sname)
                 End Select
@@ -790,7 +799,11 @@ Public Class GUIScriptManager
                             Case "BGM"
                                 strb.Append("<?GetBGMIndex(""" & svalue & """)?>")
                             Case Else
-                                strb.Append(svalue)
+                                If Tool.GetargList.IndexOf(sname.Trim) = -1 Then
+                                    strb.Append(svalue)
+                                Else
+                                    strb.Append("""" & svalue & """")
+                                End If
                         End Select
 
 

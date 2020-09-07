@@ -23,13 +23,13 @@ function SetSpritesDat(DatType, Index, Value, Modifier) -- SpritesDat,Sprite,Num
 	echo(str)
 end
 function SetImagesDat(DatType, Index, Value, Modifier) -- ImagesDat,Image,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
-	Image = ParseImage(Index)
+	Image = ParseImages(Index)
 	Modifier = ParseModifier(Modifier)
     str = SetDatFile("images", DatType, Image, Value, Modifier)
 	echo(str)
 end
 function SetUpgradesDat(DatType, Index, Value, Modifier) -- UpgradesDat,Upgrade,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
-	Upgrade = ParseUpgrade(Index)
+	Upgrade = ParseUpgrades(Index)
 	Modifier = ParseModifier(Modifier)
     str = SetDatFile("upgrades", DatType, Upgrade, Value, Modifier)
 	echo(str)

@@ -69,6 +69,8 @@
         TOKEN_LT '<
         TOKEN_GT '>
         TOKEN_NE '!=
+        TOKEN_DOLLAR '$
+
 
         TOKEN_OPERATOR2
 

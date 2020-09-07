@@ -273,6 +273,7 @@
     Private Sub vname_TextChanged(sender As Object, e As TextChangedEventArgs)
         If isload Then
             CrlRefresh()
+            btnRefresh()
         End If
     End Sub
 

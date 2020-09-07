@@ -49,6 +49,8 @@ Public Class CustomCompletionWindow
         If item Is Nothing Then Return
         Dim description As Object = item.Description
 
+        _toolTip.UpdateLayout()
+
         If description IsNot Nothing Then
             Dim descriptionText As String = TryCast(description, String)
 

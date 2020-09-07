@@ -255,6 +255,14 @@ Public Class GUI_VariableSelecter
 
             funclist.Items.Add(listitem)
         End If
+        If True Then
+            Dim listitem As New ListBoxItem
+
+            listitem.Content = "해당플레이어"
+            listitem.Tag = "!cp"
+
+            funclist.Items.Add(listitem)
+        End If
 
 
         funclist.Items.Add(New Separator)

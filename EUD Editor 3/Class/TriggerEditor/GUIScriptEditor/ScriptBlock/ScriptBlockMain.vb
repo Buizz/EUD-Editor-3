@@ -478,6 +478,10 @@ Public Class ScriptBlock
                         rstr = name & "[" & child(0).ValueCoder() & "]"
                         Return rstr
                     End If
+                    If value = "!cp" Then
+                        rstr = name & "[해당플레이어]"
+                        Return rstr
+                    End If
                     If value = "!default" Then
                         rstr = name & ".ptr"
                         Return rstr
@@ -539,7 +543,20 @@ Public Class ScriptBlock
                     Dim vname As String = v(0)
                     Dim vinit As String = v(1)
                     Dim vcount As String = v(2)
-                    rvalue = "for(var " & vname & " = " & vinit & "; " & vname & " < " & (vinit + vcount) & "; " & vname & "++)"
+
+                    Dim lt As String = ""
+                    If IsNumeric(vinit) And IsNumeric(vcount) Then
+                        Dim tv As Integer
+
+                        tv = vinit + vcount
+
+                        lt = tv
+                    Else
+                        lt = vinit & " + " & vcount
+                    End If
+
+
+                    rvalue = "for(var " & vname & " = " & vinit & "; " & vname & " < " & lt & "; " & vname & "++)"
                 End If
             Case "EUDLoopNewUnit", "EUDLoopUnit", "EUDLoopUnit2", "EUDLoopSprite"
                 rvalue = "foreach(" & vvalue & " : " & ForType & "())"

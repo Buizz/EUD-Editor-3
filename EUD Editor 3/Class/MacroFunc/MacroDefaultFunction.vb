@@ -295,17 +295,28 @@
 
                     If IsNumeric(Value) Then
                         Dim iValue As UInteger
-                        If Size = 1 Then
-                            iValue = Value * 1
-                        Else
-                            iValue = Value * 65536
-                        End If
+
+
+                        iValue = Value * Math.Pow(256, f)
+
+
+                        'If size = 0 Then
+                        '    iValue = Value * 1
+                        'Else
+                        '    iValue = Value * 65536
+                        'End If
                         action = String.Format("SetMemoryXEPD(EPD({0}), {1}, {2}, {3})", rOffset, Modifier, iValue, "0x" & flag)
                     Else
-                        If Size = 1 Then
+
+
+
+                        If f = 0 Then
                             action = String.Format("SetMemoryXEPD(EPD({0}), {1}, {2}, {3})", rOffset, Modifier, Value, "0x" & flag)
                         Else
-                            action = String.Format("SetMemoryXEPD(EPD({0}), {1}, {2}, {3})", rOffset, Modifier, Value & " * 65536", "0x" & flag)
+
+                            Dim p As Integer = Math.Pow(256, f)
+
+                            action = String.Format("SetMemoryXEPD(EPD({0}), {1}, {2}, {3})", rOffset, Modifier, Value & " * " & p, "0x" & flag)
                         End If
                     End If
                 Else

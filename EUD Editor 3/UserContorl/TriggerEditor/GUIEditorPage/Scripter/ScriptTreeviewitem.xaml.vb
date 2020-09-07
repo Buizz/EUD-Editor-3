@@ -25,15 +25,21 @@
 
         Select Case sb.ScriptType
             Case ScriptBlock.EBlockType.rawcode
-                tAddText(lnlines, "코드 : " & vbCrLf, Nothing)
-                tAddText(lnlines, sb.value, tescm.HighlightBrush)
+                Dim t As String = sb.value
+                If t.Split(vbCrLf).Count > 1 Then
+                    tAddText(lnlines, Tool.GetText("Code") & " : " & vbCrLf, Nothing)
+                    tAddText(lnlines, t, tescm.HighlightBrush)
+                Else
+                    tAddText(lnlines, Tool.GetText("Code") & " : ", Nothing)
+                    tAddText(lnlines, t, tescm.HighlightBrush)
+                End If
             Case ScriptBlock.EBlockType.import
                 Dim tstr() As String = sb.value.Replace(" as ", "ᗋ").Split("ᗋ")
                 Dim name As String = tstr.First.Trim
                 Dim tag As String = tstr.Last.Trim
 
 
-                tAddText(lnlines, "임포트 : ", Nothing)
+                tAddText(lnlines, Tool.GetText("Import") & " : ", Nothing)
                 tAddText(lnlines, name, tescm.HighlightBrush)
                 tAddText(lnlines, "을 ", Nothing)
                 tAddText(lnlines, tag, tescm.HighlightBrush)
@@ -110,7 +116,7 @@
                 '    tAddText(lnlines, funargs(i).value, tescm.HighlightBrush)
                 'Next
             Case ScriptBlock.EBlockType.foraction
-                textblock.Text = "액션"
+                textblock.Text = "Action"
             Case ScriptBlock.EBlockType._while
                 textblock.Text = "While"
             Case ScriptBlock.EBlockType.whilecondition
@@ -148,7 +154,7 @@
                 tAddText(lnlines, " / ", Nothing)
                 tAddText(lnlines, tail, tescm.HighlightBrush)
             Case ScriptBlock.EBlockType.folderaction
-                tAddText(lnlines, "액션", Nothing)
+                tAddText(lnlines, "Action", Nothing)
             Case ScriptBlock.EBlockType.plibfun, ScriptBlock.EBlockType.funuse, ScriptBlock.EBlockType.action, ScriptBlock.EBlockType.condition, ScriptBlock.EBlockType.externfun, ScriptBlock.EBlockType.macrofun
                 sb.FuncCoder(lnlines)
             Case ScriptBlock.EBlockType.exp

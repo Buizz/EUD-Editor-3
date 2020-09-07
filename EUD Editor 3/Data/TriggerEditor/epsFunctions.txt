@@ -1248,6 +1248,42 @@ function Never(){}
  * @Type
  * F
  * @Summary.ko-KR
+ * 로케이션의 인덱스를 반환합니다.
+ * @param.Location.ko-KR
+ * 반환할 로케이션을 정합니다.
+***/
+function $L(Location : TrgLocation) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 스위치의 인덱스를 반환합니다.
+ * @param.Switch.ko-KR
+ * 반환할 스위치를 정합니다.
+***/
+function $S(Switch : TrgSwitch) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 유닛의 인덱스를 반환합니다.
+ * @param.Unit.ko-KR
+ * 반환할 유닛을 정합니다.
+***/
+function $U(Unit: TrgUnit) { }
+
+
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
  * 퍼센트 조절
  * hitpoint, shield, energy
  * 수량 조절

@@ -448,7 +448,7 @@ Public Class CFunc
 
 
         If True Then
-            Dim fregex As New Regex("\/\*\*\*([^/]*)\*\*\*\/\s+function[\s]+([\w\d]+)\(([^{};]*)\)\s*{")
+            Dim fregex As New Regex("\/\*\*\*([^/]*)\*\*\*\/\s+function[\s]+([\w\d$]+)\(([^{};]*)\)\s*{")
 
             Dim matches As MatchCollection = fregex.Matches(str)
 

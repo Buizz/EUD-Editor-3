@@ -295,6 +295,8 @@ Public Class TEFile
     End Function
 
     Public Function ChagneType() As Boolean
+        pjData.TETempData.SaveTabitems()
+
         Select Case _FileType
             Case EFileType.CUIEps
                 Dim la As New Lexical_Analyzer
@@ -317,18 +319,26 @@ Public Class TEFile
 
                     Return True
                 Catch ex As Exception
-                    MsgBox(ex.ToString)
+                    Tool.ErrorMsgBox(Tool.GetText("TEFileChangeError"), ex.ToString)
 
                     Return False
                 End Try
             Case EFileType.GUIEps
-                Dim CUIScrEditor As New CUIScriptEditor(ScriptEditor.SType.Eps)
-                CUIScrEditor.StringText = CType(_Scripter, GUIScriptEditor).GetStringText()
+                Try
 
-                _Scripter = CUIScrEditor
+                    Dim CUIScrEditor As New CUIScriptEditor(ScriptEditor.SType.Eps)
 
-                _FileType = EFileType.CUIEps
-                Return True
+                    CUIScrEditor.StringText = CType(_Scripter, GUIScriptEditor).GetStringText()
+
+                    _Scripter = CUIScrEditor
+
+                    _FileType = EFileType.CUIEps
+                    Return True
+                Catch ex As Exception
+                    Tool.ErrorMsgBox(Tool.GetText("TEFileChangeError"), ex.ToString)
+
+                    Return False
+                End Try
         End Select
         Return False
     End Function

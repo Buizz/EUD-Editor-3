@@ -1,4 +1,4 @@
-function SetPlayerUnitsAvailable(Player, Unit, State) -- TrgPlayer,TrgUnit,TrgSwitchState/[TrgPlayer]의 [TrgUnit] 유닛 사용 가능 값을 [SwitchStateDict]합니다.
+function SetPlayerUnitsAvailable(Player, Unit, State) -- TrgPlayer,TrgUnit,TrgSwitchState/[Player]의 [Unit] 유닛 사용 가능 값을 [State]합니다.
 	Player = ParsePlayer(Player)
     Unit = ParseUnit(Unit)
     State = ParseSwitchState(State)
@@ -43,7 +43,7 @@ function SetPlayerUnitsAvailable(Player, Unit, State) -- TrgPlayer,TrgUnit,TrgSw
 		echo(string.format("bwrite(%s, %s)", Offset, Amount))
     end
 end
-function GetPlayerUnitsAvailable(Player, Unit) -- TrgPlayer,TrgUnit/[TrgPlayer]의 [TrgUnit] 유닛 사용 가능 값을 읽어옵니다.
+function GetPlayerUnitsAvailable(Player, Unit) -- TrgPlayer,TrgUnit/[Player]의 [Unit] 유닛 사용 가능 값을 읽어옵니다.
 	Player = ParsePlayer(Player)
     Unit = ParseUnit(Unit)
 

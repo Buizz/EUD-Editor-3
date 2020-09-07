@@ -9,6 +9,8 @@ Public Class Lexical_Analyzer
 
         Dim tk As New Tokenizer(str & " ")
 
+        Dim IsDollar As Boolean = False
+
 
         While (Not tk.IsEnd)
             Dim c As String = tk.NextChar
@@ -70,10 +72,20 @@ Public Class Lexical_Analyzer
                     Case "return"
                         tokenlist.Add(New Token(Token.TokenType.TOKEN_RETURN, tk))
                     Case Else
-                        tokenlist.Add(New Token(Token.TokenType.TOKEN_IDENTIFIER, tk, letter))
+                        If IsDollar Then
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_IDENTIFIER, tk, "$" & letter))
+                            IsDollar = False
+                        Else
+                            tokenlist.Add(New Token(Token.TokenType.TOKEN_IDENTIFIER, tk, letter))
+                        End If
                 End Select
             Else
                 Select Case c
+                    Case "$"
+                        IsDollar = True
+                        'tokenlist.Add(New Token(Token.TokenType.TOKEN_DOLLAR, tk))
+                    Case "("
+                        tokenlist.Add(New Token(Token.TokenType.TOKEN_LPAREN, tk))
                     Case "("
                         tokenlist.Add(New Token(Token.TokenType.TOKEN_LPAREN, tk))
                     Case ")"
@@ -86,7 +98,6 @@ Public Class Lexical_Analyzer
                         tokenlist.Add(New Token(Token.TokenType.TOKEN_LSQBRACKET, tk))
                     Case "}"
                         tokenlist.Add(New Token(Token.TokenType.TOKEN_RSQBRACKET, tk))
-
                     Case "."
                         tokenlist.Add(New Token(Token.TokenType.TOKEN_PERIOD, tk))
                     Case "?"

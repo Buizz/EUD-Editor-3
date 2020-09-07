@@ -180,6 +180,7 @@ Partial Public Class BuildData
 
 
         WriteBGMData()
+        WriteDotData()
 
         If pjData.TEData.SCArchive.IsUsed Then
             If Not ConnecterStart() Then

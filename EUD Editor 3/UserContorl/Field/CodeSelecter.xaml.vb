@@ -882,7 +882,7 @@ Public Class CodeSelecter
 
 
 
-                        If index = tStartIndex Then
+                        If index = tStartIndex + 1 Then
                             SelectItem = tListItem
                             If IsComboBox Then
                                 tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")

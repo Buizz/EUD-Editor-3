@@ -267,6 +267,8 @@ Partial Public Class CodeEditor
                 Return MacroManager.EUDScoreList
             Case "SupplyType"
                 Return MacroManager.EUDSupplyTypeList
+            Case Else
+                Return Tool.GetAutocmp(ArgumentName)
         End Select
         Return {""}
     End Function

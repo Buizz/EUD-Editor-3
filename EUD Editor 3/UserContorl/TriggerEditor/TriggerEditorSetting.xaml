@@ -47,9 +47,12 @@
              
             </TabItem>-->
 
-            <TabItem Header="{StaticResource TE_MacroDatASetting}">
-                <local:MacroFuncSetting/>
+            <TabItem Header="{StaticResource TE_DotPainter}">
+                <local:DotPainter/>
             </TabItem>
+            <!--<TabItem Header="{StaticResource TE_MacroDatASetting}">
+                <local:MacroFuncSetting/>
+            </TabItem>-->
             <TabItem Header="{StaticResource TE_BGMSetting}">
                 <local:BGMManager/>
             </TabItem>

@@ -243,6 +243,7 @@
     <Compile Include="Class\Bitmap\BitmapManager.vb" />
     <Compile Include="Class\BulidData\BulidPaths.vb" />
     <Compile Include="Class\BulidData\SCACheckSum.vb" />
+    <Compile Include="Class\BulidData\WriteDotData.vb" />
     <Compile Include="Class\BulidData\WriteBGMFile.vb" />
     <Compile Include="Class\BulidData\WriteSCAData.vb" />
     <Compile Include="Class\BulidData\WriteButtonData.vb" />
@@ -304,6 +305,8 @@
     <Compile Include="Class\TriggerEditor\BGMData.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
+    <Compile Include="Class\TriggerEditor\DotPainter\DotData.vb" />
+    <Compile Include="Class\TriggerEditor\DotPainter\DotPaint.vb" />
     <Compile Include="Class\TriggerEditor\FuncArgManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptManager.vb" />
@@ -601,6 +604,12 @@
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml.vb">
+      <DependentUpon>DotPainter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\EditDotData.xaml.vb">
+      <DependentUpon>EditDotData.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml.vb">
       <DependentUpon>SCADataList.xaml</DependentUpon>
@@ -1027,6 +1036,14 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\EditDotData.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1158,6 +1175,9 @@
     <EmbeddedResource Include="AvalonEdit\EpsHighlightingLight.xshd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <None Include="Data\Lua\TriggerEditor\CUnit.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\Sample\BadlandSample.scx">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1355,6 +1375,9 @@
     <None Include="Data\tranwire.grp">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\TriggerEditor\dotTool.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\TriggerEditor\BGMPlayer.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1450,6 +1473,9 @@
     </None>
     <Resource Include="Resources\TextEditorBackGround.png" />
     <None Include="Data\Texts\SoundList.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\CUnitOffset.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="x64\lz4X64.dll">

@@ -394,7 +394,7 @@ Public Class GUIScriptEditorUI
         If IsItemSelected() Then
             If SelectedList.Count = 0 Then
                 If Not f_DeleteItem(MainTreeview.SelectedItem) Then
-                    SnackBarDialog("지울 수 없는 아이템입니다.")
+                    SnackBarDialog(Tool.GetText("NotDeleteitem"))
                 Else
                     SetRepeatCount(1)
                 End If
@@ -414,7 +414,7 @@ Public Class GUIScriptEditorUI
                         FaileDeleteItem += 1
                     End If
                 Next
-                SnackBarDialog(Deleteitem & "개의 아이템이 지워졌습니다.")
+                SnackBarDialog(Tool.GetText("NitemDelete", Deleteitem))
                 SetRepeatCount(Deleteitem)
             End If
         End If
@@ -550,25 +550,6 @@ Public Class GUIScriptEditorUI
     Private leftCtrlDown As Boolean
     Private leftShiftDown As Boolean
     Private Sub MainTreeview_PreviewKeyDown(sender As Object, e As KeyEventArgs)
-        If leftCtrlDown Then
-            Select Case e.Key
-                Case Key.C
-                    leftCtrlDown = False
-                    CopySelectItem()
-                Case Key.X
-                    leftCtrlDown = False
-                    CutSelectItem()
-                Case Key.V
-                    PasteSelectItem()
-                Case Key.Z
-                    tUndoItem()
-                Case Key.R
-                    tRedoItem()
-            End Select
-            Return
-        End If
-
-
         Select Case e.Key
             Case Key.LeftCtrl
                 leftCtrlDown = True
@@ -581,6 +562,21 @@ Public Class GUIScriptEditorUI
             Case Key.Escape
                 tdeSelectItem()
         End Select
+        If leftCtrlDown Then
+            Select Case e.Key
+                Case Key.C
+                    CopySelectItem()
+                Case Key.X
+                    CutSelectItem()
+                Case Key.V
+                    PasteSelectItem()
+                Case Key.Z
+                    tUndoItem()
+                Case Key.R
+                    tRedoItem()
+            End Select
+            Return
+        End If
     End Sub
     Private Sub MainTreeview_PreviewKeyUp(sender As Object, e As KeyEventArgs)
         If e.Key = Key.LeftCtrl Then

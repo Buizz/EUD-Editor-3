@@ -59,6 +59,8 @@
     <sys:String x:Key="SCX Select">대상 맵 불러오기</sys:String>
     <sys:String x:Key="SCX Save Select">저장 맵 선택</sys:String>
 
+    <sys:String x:Key="IMG Fliter">이미지|*.png;*.jpeg;*.jpg;*.bmp</sys:String>
+    <sys:String x:Key="IMG Select">이미지 선택</sys:String>
 
 
 
@@ -826,6 +828,7 @@
     <sys:String x:Key="TE_CustomUserDataSetting">사용자 데이터</sys:String>
     <sys:String x:Key="TE_BGMSetting">사운드 설정</sys:String>
     <sys:String x:Key="TE_MacroDatASetting">매크로 설정</sys:String>
+    <sys:String x:Key="TE_DotPainter">DotPainter 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
 
     <sys:String x:Key="TE_AllScript">모든 코드</sys:String>
@@ -879,8 +882,6 @@
     <sys:String x:Key="plibFunc">플립</sys:String>
     <sys:String x:Key="Func">함수</sys:String>
     <sys:String x:Key="MacroFunc">매크로</sys:String>
-
-
     <sys:String x:Key="Condition">조건</sys:String>
     <sys:String x:Key="Action">액션</sys:String>
     <sys:String x:Key="Variable">객체</sys:String>
@@ -895,10 +896,30 @@
     <sys:String x:Key="Var">변수</sys:String>
     <sys:String x:Key="Label">라벨</sys:String>
     <sys:String x:Key="Code">코드</sys:String>
+    <sys:String x:Key="Import">임포트</sys:String>
 
 
     <sys:String x:Key="VarDefine">변수 정의하기</sys:String>
 
 
     <sys:String x:Key="ConnectProgramNoExist">연결 프로그램이 지정되어 있지 않습니다.</sys:String>
+
+    <sys:String x:Key="TEFileChangeError">타입 변경에 실패했습니다.</sys:String>
+    <sys:String x:Key="NotDeleteitem">지울 수 없는 아이템입니다.</sys:String>
+
+    <sys:String x:Key="NitemDelete">%S1개의 아이템이 지워졌습니다.</sys:String>
+
+    <sys:String x:Key="TE_SnackBar1">선언문만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar2">함수 선언은 외부에 할 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar3">객체 선언은 외부에 할 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar4">임포트는 외부에 할 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar5">함수 인자만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar6">케이스만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar7">조건이나 함수만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar8">함수만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar9">변수 선언문만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar10">시작 함수에는 인자를 넣을 수 없습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar11">함수 인자는 함수에 넣을 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar12">케이스는 스위치에만 들어 갈 수 있습니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar13">조건을 넣을 수 없는 곳입니다.</sys:String>
 </ResourceDictionary>

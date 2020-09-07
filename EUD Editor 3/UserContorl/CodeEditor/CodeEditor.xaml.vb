@@ -108,14 +108,16 @@ Public Class CodeEditor
         If e.Key = Key.F And isctrl Then
             SPanel.Open()
             SearchBoxOpen()
+            isctrl = False
 
         End If
         If e.Key = Key.T And isctrl Then
             TextEditorOpen()
-
+            isctrl = False
         End If
         If e.Key = Key.S And isctrl Then
-            pjData.Save()
+            'pjData.Save()
+            isctrl = False
         End If
     End Sub
 

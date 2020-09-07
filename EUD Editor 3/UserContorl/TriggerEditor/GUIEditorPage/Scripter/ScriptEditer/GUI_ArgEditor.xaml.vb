@@ -19,6 +19,17 @@
             comboxitem.Content = Tool.GetLanText(tescm.SCValueType(i))
             valuetypecb.Items.Add(comboxitem)
         Next
+
+        Dim arglist As List(Of String) = Tool.GetargList
+        For i = 0 To arglist.Count - 1
+            Dim comboxitem As New ComboBoxItem
+            comboxitem.Tag = arglist(i)
+            comboxitem.Content = Tool.GetLanText(arglist(i))
+            valuetypecb.Items.Add(comboxitem)
+        Next
+
+
+
         AddHandler ArgSelecter.ArgBtnClickEvent, AddressOf ArgSelecterEvent
         AddHandler ArgExpress.ArgBtnClickEvent, AddressOf ArgSelecterEvent
         AddHandler ArgExpress.ArgExpressRefreshEvent, AddressOf ArgExpressRefresh
@@ -144,7 +155,9 @@
 
                 Dim vindex As Integer = tescm.SCValueType.ToList.IndexOf(tvtype)
                 If vindex = -1 Then
-                    tvtype = "Number"
+                    If Tool.GetargList.IndexOf(tvtype) = -1 Then
+                        tvtype = "Number"
+                    End If
                 End If
 
                 For i = 0 To valuetypecb.Items.Count - 1

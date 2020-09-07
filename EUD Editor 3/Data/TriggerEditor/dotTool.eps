@@ -1,0 +1,220 @@
+import dotData as dD;
+
+
+const nukebeam = 232;
+const nukedot = 233;
+
+const dark = 10;
+const red = 0;
+const blue = 16;
+const green = 13;
+const white = 17;
+const deepblue = 12;
+
+const clock = 6;
+
+var temploc = 0;
+var player = 0;
+function SetLoc(loc){
+	temploc = loc;
+}
+function SetPlayer(p){
+	player = p;
+}
+var drawUnit = 0;
+function SetDrawUnit(unit){
+	drawUnit = unit;
+}
+
+var IsBack = 0;
+function dotred(){
+	SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 0, 0xFF);
+	SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 0, 0xFF00);
+	bwrite(0x663150 + drawUnit * 1 ,0);
+	CreateUnit(1, drawUnit, temploc, player);
+}
+function dotlightblue(){
+	SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 16, 0xFF);
+	SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 4096, 0xFF00);
+	bwrite(0x663150 + drawUnit * 1 ,0);
+	CreateUnit(1, drawUnit, temploc, player);
+}
+function dotlightgreen(){
+	SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 13, 0xFF);
+	SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 3328, 0xFF00);
+	bwrite(0x663150 + drawUnit * 1 ,0);
+	CreateUnit(1, drawUnit, temploc, player);
+}
+function dotclock(){
+	SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 6, 0xFF);
+	SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 1536, 0xFF00);
+	bwrite(0x663150 + drawUnit * 1 ,1);
+	CreateUnit(1, drawUnit, temploc, player);
+}
+function dotdark(){
+	SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 10, 0xFF);
+	SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 2560, 0xFF00);
+	bwrite(0x663150 + drawUnit * 1 ,2);
+	CreateUnit(1, drawUnit, temploc, player);
+}
+function dotwhite(){
+	if(IsBack == 0){
+		SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 17, 0xFF);
+		SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 4352, 0xFF00);
+		bwrite(0x663150 + drawUnit * 1 ,0);
+		CreateUnit(1, drawUnit, temploc, player);
+	}
+
+}
+function dotdeepblue(){
+	SetMemoryXEPD(EPD(0x669E28 + 232 * 1), 7, 12, 0xFF);
+	SetMemoryXEPD(EPD(0x669E28 + 233 * 1), 7, 3072, 0xFF00);
+	bwrite(0x663150 + drawUnit * 1 ,0);
+	CreateUnit(1, drawUnit, temploc, player);
+}
+function dotdarkred(){
+	dotdark();
+	dotred();
+}
+function dotblue(){
+	dotdark();
+	dotlightblue();
+}
+function dotgreen(){
+	dotdark();
+	dotlightgreen();
+}
+
+function dotbrown(){
+	dotdark();
+	dotdark();
+	dotred();
+}
+function dotindigoblue(){
+	dotdark();
+	dotdark();
+	dotlightblue();
+}
+function dotdarkgreen(){
+	dotdark();
+	dotdark();
+	dotlightgreen();
+}
+function dotpink(){
+	dotclock();
+	dotlightblue();
+}
+function dotorange(){
+	dotclock();
+	dotlightgreen();
+}
+function dotlightpink(){
+	dotclock();
+	dotwhite();
+}
+function dotlightred(){
+	dotclock();
+	dotclock();
+	dotwhite();
+}
+function dotpalered(){
+	dotclock();
+	dotdark();
+	dotwhite();
+}
+function dotmargenta(){
+	dotclock();
+	dotdeepblue();
+}
+function dotdarkpink(){
+	dotpink();
+	dotdark();
+}
+function dotlightgray(){
+	dotdark();
+	dotwhite();
+}
+function dotgray(){
+	dotdark();
+	dotdark();
+	dotwhite();
+}
+function dotdarkgray(){
+	dotdark();
+	dotdark();
+	dotdark();
+	dotwhite();
+}
+
+function drawStart(unit : TrgUnit, player : TrgPlayer, loc : TrgLocation){
+	RemoveUnit(unit, player);
+	SetDrawUnit(unit);
+	SetPlayer(player);
+	SetLoc(loc);
+}
+
+
+function draw(id,size){
+	const arr = EUDArray.cast(dD.GetData(id));
+	IsBack = arr[0];
+	const width = arr[1];
+	const height = arr[2];
+
+	const arrepd = EPD(arr)+3;
+
+	var index = 0;
+	for(var y = 0 ; y <  height ; y++){
+		for(var x = 0 ; x <  width ; x++){
+			const epd = arrepd + index;
+			if(MemoryEPD(epd, Exactly, 0)){
+				dotred();
+			}else if(MemoryEPD(epd, Exactly, 1)){
+				dotlightblue();
+			}else if(MemoryEPD(epd, Exactly, 2)){
+				dotlightgreen();
+			}else if(MemoryEPD(epd, Exactly, 3)){
+				dotdarkred();
+			}else if(MemoryEPD(epd, Exactly, 4)){
+				dotblue();
+			}else if(MemoryEPD(epd, Exactly, 5)){
+				dotgreen();
+			}else if(MemoryEPD(epd, Exactly, 6)){
+				dotbrown();
+			}else if(MemoryEPD(epd, Exactly, 7)){
+				dotindigoblue();
+			}else if(MemoryEPD(epd, Exactly, 8)){
+				dotdarkgreen();
+			}else if(MemoryEPD(epd, Exactly, 9)){
+				dotpink();
+			}else if(MemoryEPD(epd, Exactly, 10)){
+				dotorange();
+			}else if(MemoryEPD(epd, Exactly, 11)){
+				dotwhite();
+			}else if(MemoryEPD(epd, Exactly, 12)){
+				dotdeepblue();
+			}else if(MemoryEPD(epd, Exactly, 13)){
+				dotlightpink();
+			}else if(MemoryEPD(epd, Exactly, 14)){
+				dotlightred();
+			}else if(MemoryEPD(epd, Exactly, 15)){
+				dotpalered();
+			}else if(MemoryEPD(epd, Exactly, 16)){
+				dotmargenta();
+			}else if(MemoryEPD(epd, Exactly, 17)){
+				dotdarkpink();
+			}else if(MemoryEPD(epd, Exactly, 18)){
+				dotlightgray();
+			}else if(MemoryEPD(epd, Exactly, 19)){
+				dotgray();
+			}else if(MemoryEPD(epd, Exactly, 20)){
+				dotdarkgray();
+			}
+			
+			addloc(temploc, size, 0);
+			index += 1;
+		}
+		addloc(temploc, -size * width, size);
+	}	
+}
+
+

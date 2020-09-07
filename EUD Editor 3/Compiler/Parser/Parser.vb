@@ -364,6 +364,11 @@ ReLoad:
                         emdcode.Value1 = CurrentToken().value
                         ncode.Items.Add(emdcode)
                         index += 1
+                        If (CurrentToken().TType = Token.TokenType.TOKEN_SEMICOLON) Then
+                            index += 1
+                            emdcode.Value2 = "SEMI"
+                        End If
+
                     Case Token.TokenType.TOKEN_IDENTIFIER, Token.TokenType.TOKEN_NUMBER, Token.TokenType.TOKEN_STRING
                         Decoder(CodeType.CODE_EXPRESSION, ncode)
                         CheckNextToken(Token.TokenType.TOKEN_SEMICOLON)
@@ -696,6 +701,18 @@ PRIUse:
                                                     For i = 0 To tcode.Items.Count - 1
                                                         initojb.child.Add(GetScriptBlock(tcode.Items(i)))
                                                     Next
+                                                Case "PVariable"
+                                                    initojb.flag = False
+                                                    Dim ListF As CodeBlock = tcode.Items.First
+                                                    ListF = ListF.Items.First
+                                                    If IsNumeric(ListF.Value1) Then
+                                                        Throw New Exception("P변수 양식이 잘못되었습니다.")
+                                                    Else
+                                                        For i = 0 To ListF.Items.Count - 1
+                                                            initojb.child.Add(GetScriptBlock(ListF.Items(i)))
+                                                        Next
+                                                    End If
+
                                                 Case Else
                                                     For i = 0 To tcode.Items.Count - 1
                                                         initojb.child.Add(GetScriptBlock(tcode.Items(i)))
@@ -1062,7 +1079,12 @@ PRIUse:
                     Case CodeType.CODE_COMMENTLINE
                         scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "//" & cblock.Items.First.Value1, Nothing)
                     Case CodeType.CODE_MACRO
-                        scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "<?" & cblock.Value1 & "?>", Nothing)
+                        If tcode.Value2 = "SEMI" Then
+                            scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "<?" & tcode.Value1 & "?>;", Nothing)
+                        Else
+                            scritem = New ScriptBlock(ScriptBlock.EBlockType.rawcode, "rawcode", True, False, "<?" & tcode.Value1 & "?>", Nothing)
+                        End If
+
                     Case CodeType.CODE_EXPRESSION
                         scritem = GetScriptBlock(tcode)
                 End Select

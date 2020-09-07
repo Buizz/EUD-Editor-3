@@ -7,6 +7,57 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+
+
+        Private cmps As New Dictionary(Of String, List(Of String))
+        Public Sub LoadArgs()
+            For Each file As String In My.Computer.FileSystem.GetFiles(AutocmpFolderPath)
+                Dim f As New FileStream(file, FileMode.Open)
+
+                Dim argllist As New List(Of String)
+                Dim sr As New StreamReader(f)
+
+                While (Not sr.EndOfStream)
+                    argllist.Add(sr.ReadLine.Trim)
+                End While
+
+
+                Dim safefilename As String = file.Split("\").Last.Split(".").First
+
+                cmps.Add(safefilename, argllist)
+
+                sr.Close()
+                f.Close()
+            Next
+        End Sub
+
+        Public Function GetargList() As List(Of String)
+            Return cmps.Keys.ToList
+        End Function
+
+        Public Function GetAutocmp(argname As String) As String()
+            If cmps.ContainsKey(argname) Then
+                Return cmps(argname).ToArray
+            Else
+                Return {""}
+            End If
+        End Function
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
         Public Function GetFileSize(filepath As String) As ULong
             Dim fileinfo As FileInfo = My.Computer.FileSystem.GetFileInfo(filepath)
 
@@ -24,6 +75,9 @@ Namespace Tool
             End If
             Return rstr
         End Function
+
+
+        Public DotPaint As New DotPaint
 
 
 
@@ -56,7 +110,7 @@ Namespace Tool
 
         'Private MainWindow As MainWindow
         Public Sub Init()
-
+            LoadArgs()
             SaveProjectDialog = New System.Windows.Forms.SaveFileDialog
             SaveProjectDialog.Filter = GetText("SaveFliter")
 
@@ -375,6 +429,21 @@ Namespace Tool
             Return Application.Current.Resources(Text)
         End Function
 
+
+
+        Public Function GetText(Text As String, ParamArray list() As String) As String
+            Dim t As String = Application.Current.Resources(Text)
+
+            For i = 0 To list.Length - 1
+                t = t.Replace("%S" & i + 1, list(i))
+
+            Next
+            Return t
+        End Function
+
+
+
+
         Public Sub ErrorMsgBox(str As String, Optional Logstr As String = "")
             MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
 
@@ -494,6 +563,11 @@ Namespace Tool
         End Function
 
 
+        Public ReadOnly Property AutocmpFolderPath() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\Autocmp"
+            End Get
+        End Property
         Public ReadOnly Property SampleDataFolderPath() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Sample"

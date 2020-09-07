@@ -238,4 +238,9 @@ Public Class TextEditorWindow
         TextBoxRender()
     End Sub
 
+    Private Sub EditTextbox_KeyUp(sender As Object, e As KeyEventArgs)
+        If e.Key = Key.Escape Then
+            Close()
+        End If
+    End Sub
 End Class

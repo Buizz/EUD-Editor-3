@@ -84,6 +84,13 @@ Public Class GUI_VarFuncUse
             isCast = False
             flag = True
         End If
+        If scr.value = "!cp" Then
+            If scr.child.Count = 0 Then
+                scr.AddChild(New ScriptBlock(ScriptBlock.EBlockType.rawcode, "", True, False, "getcurpl()", scr.Scripter))
+            End If
+            isCast = False
+            flag = True
+        End If
         If flag Then
             Dim tb As New TextBlock
             If isCast Then
