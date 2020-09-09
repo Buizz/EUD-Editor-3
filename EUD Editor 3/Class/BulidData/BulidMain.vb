@@ -203,6 +203,8 @@ Partial Public Class BuildData
 
 
         WriteTEFile()
+
+
         If pjData.TEData.SCArchive.IsUsed Then
             WriteSCAScript()
         End If

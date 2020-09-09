@@ -33,21 +33,30 @@
             </StackPanel>
         </controls:WindowCommands>
     </controls:MetroWindow.LeftWindowCommands>
-    
-    <Grid>
+
+    <DockPanel>
+        <UniformGrid DockPanel.Dock="Top" Rows="1">
+            <Button Content="기본 플러그인 설명서" Click="Button_Click"/>
+            <Button Content="chatEvent 설명서" Click="Button_Click_1"/>
+        </UniformGrid>
+        <Grid>
             <ListBox x:Name="EdsText" MouseUp="EdsText_MouseUp" PreviewMouseLeftButtonDown="EdsText_PreviewMouseLeftButtonDown" PreviewMouseMove="EdsText_PreviewMouseMove" PreviewMouseLeftButtonUp="EdsText_PreviewMouseLeftButtonUp" ScrollViewer.HorizontalScrollBarVisibility="Auto" ScrollViewer.CanContentScroll="False">
-            <ListBox.ContextMenu>
-                <ContextMenu Opened="ContextMenu_Opened"  >
-                    <MenuItem x:Name="NewItem" Header="{StaticResource NewEdsPlugin}" Icon="{materialDesign:PackIcon Kind=FileOutline}" Click="NewItem_Click"/>
-                    <Separator/>
-                    <MenuItem x:Name="DeleteItem" Header="{StaticResource PluginDelete}" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="DeleteItem_Click"/>
-                </ContextMenu>
-            </ListBox.ContextMenu>
-        </ListBox>
+                <ListBox.ContextMenu>
+                    <ContextMenu Opened="ContextMenu_Opened"  >
+                        <MenuItem x:Name="NewItem" Header="{StaticResource NewEdsPlugin}" Icon="{materialDesign:PackIcon Kind=FileOutline}">
+
+                        </MenuItem>
+                        <Separator/>
+                        <MenuItem x:Name="DeleteItem" Header="{StaticResource PluginDelete}" Icon="{materialDesign:PackIcon Kind=Eraser}" Click="DeleteItem_Click"/>
+                    </ContextMenu>
+                </ListBox.ContextMenu>
+            </ListBox>
             <Border x:Name="DragImage"  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
 
             </Border>
-    </Grid>
+        </Grid>
+    </DockPanel>
+   
 
 
 </controls:MetroWindow>

@@ -1,4 +1,6 @@
 ﻿Public Class SCASetting
+
+    Private SCADAtas As SCADataList
     Public Sub New()
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -6,7 +8,10 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         DataContext = New SCABinding
-        MainDockPanel.Children.Add(New SCADataList)
+
+        SCADAtas = New SCADataList
+
+        MainDockPanel.Children.Add(SCADAtas)
 
     End Sub
 
@@ -15,6 +20,13 @@
         MapDetail.IsEnabled = infoCheckbox.IsChecked
         Loadcmp = True
     End Sub
+
+
+    Public Sub Refresh()
+        SCADAtas.Refresh()
+    End Sub
+
+
 
     Private Sub UseSCA_Checked(sender As Object, e As RoutedEventArgs)
         If Loadcmp Then

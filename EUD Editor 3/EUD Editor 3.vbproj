@@ -297,6 +297,7 @@
     <Compile Include="Class\DataEditCompletionData.vb" />
     <Compile Include="Class\MacroFunc\MacroDefaultFunction.vb" />
     <Compile Include="Class\MacroFunc\MacroManager.vb" />
+    <Compile Include="Class\MacroFunc\MacroPluginManager.vb" />
     <Compile Include="Class\StormLib.vb" />
     <Compile Include="Class\tblReader.vb" />
     <Compile Include="Class\tblWriter.vb" />
@@ -644,6 +645,9 @@
     <Compile Include="Window\DataEditor.xaml.vb">
       <DependentUpon>DataEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\EPSViewer.xaml.vb">
+      <DependentUpon>EPSViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\ExceptionErrorDialog.xaml.vb">
       <DependentUpon>ExceptionErrorDialog.xaml</DependentUpon>
     </Compile>
@@ -654,7 +658,7 @@
     <Compile Include="Window\PluginWindow\PluginWindow.xaml.vb">
       <DependentUpon>PluginWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Window\PluginWindow\PluginItem.xaml.vb">
+    <Compile Include="Window\PluginWindow\PlugItems\PluginItem.xaml.vb">
       <DependentUpon>PluginItem.xaml</DependentUpon>
     </Compile>
     <Compile Include="Window\SampleMapSetting.xaml.vb">
@@ -1080,6 +1084,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\EPSViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\ExceptionErrorDialog.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1092,7 +1100,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Window\PluginWindow\PluginItem.xaml">
+    <Page Include="Window\PluginWindow\PlugItems\PluginItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1176,6 +1184,15 @@
       <SubType>Designer</SubType>
     </EmbeddedResource>
     <None Include="Data\Lua\TriggerEditor\CUnit.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\chatEventTool.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\msqcTool.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\VariableTool.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Sample\BadlandSample.scx">
@@ -1476,6 +1493,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\Autocmp\CUnitOffset.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\Button.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\Key.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="x64\lz4X64.dll">

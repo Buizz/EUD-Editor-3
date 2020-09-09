@@ -20,6 +20,23 @@
     End Sub
 
 
+
+
+    Public Sub Refresh()
+        LoadCmp = False
+        StartFileCombobox.Items.Clear()
+        StartFileCombobox.Items.Add(Tool.GetText("None"))
+        StartFileCombobox.SelectedIndex = 0
+        InitStartFileCombox("", pjData.TEData.PFIles)
+
+        SCASettingTab.Refresh()
+
+
+        LoadCmp = True
+    End Sub
+
+
+
     Private Sub StartFileCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If LoadCmp Then
             pjData.SetDirty(True)
@@ -35,16 +52,12 @@
 
     Private LoadCmp As Boolean = False
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
+        LoadCmp = False
         StartFileCombobox.Items.Clear()
         StartFileCombobox.Items.Add(Tool.GetText("None"))
         StartFileCombobox.SelectedIndex = 0
         InitStartFileCombox("", pjData.TEData.PFIles)
         LoadCmp = True
-
-
-
-
-
 
 
 

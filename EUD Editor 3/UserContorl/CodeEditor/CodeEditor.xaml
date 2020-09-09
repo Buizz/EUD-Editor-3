@@ -57,13 +57,13 @@
                     Foreground="{DynamicResource MaterialDesignBody}"
                     x:Name="TextEditor" ShowLineNumbers="True"  WordWrap="True" FontFamily="D2Coding" FontSize="16">
                 <avalonEdit:TextEditor.ContextMenu>
-                    <ContextMenu>
+                    <ContextMenu Opened="ContextMenu_Opened">
                         <MenuItem Command="ApplicationCommands.Copy" />
                         <MenuItem Command="ApplicationCommands.Cut" />
                         <MenuItem Command="ApplicationCommands.Paste" />
                         <Separator/>
                         <MenuItem Header="{StaticResource SearchText}" InputGestureText="Ctrl + F" Click="MenuItem_Click"/>
-                        <MenuItem Header="{StaticResource TextEditor}" InputGestureText="Ctrl + T" Click="TextEditor_Click"/>
+                        <MenuItem x:Name="TExtEditorMenuBtn" Header="{StaticResource TextEditor}" InputGestureText="Ctrl + T" Click="TextEditor_Click"/>
                     </ContextMenu>
                 </avalonEdit:TextEditor.ContextMenu>
 

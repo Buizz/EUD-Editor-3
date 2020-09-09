@@ -22,7 +22,7 @@
                 CType(Item.Parent, TreeViewItem).Items.Remove(Item)
             End If
 
-
+            TERefreshSetting()
 
             Return True
         Catch ex As Exception

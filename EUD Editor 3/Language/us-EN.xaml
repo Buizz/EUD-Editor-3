@@ -809,7 +809,7 @@
 
     <!--트리거에디터-->
     <sys:String x:Key="NewFolder">New Folder</sys:String>
-    <sys:String x:Key="NewEpsScript">New epScript File</sys:String>
+    <sys:String x:Key="NewEpsScript">epScript</sys:String>
     <sys:String x:Key="NewPyScript">New eudplib File</sys:String>
     <sys:String x:Key="Folder">Folder</sys:String>
     <sys:String x:Key="EpsScriptFile">epScript File</sys:String>
@@ -842,6 +842,7 @@
     <sys:String x:Key="MenuExport">Export</sys:String>
     <sys:String x:Key="MenuConnect">Connect</sys:String>
     <sys:String x:Key="MenuDisConnect">Disconnect</sys:String>
+    <sys:String x:Key="MenuViewEps">View Result</sys:String>
 
     <sys:String x:Key="OpenEpsFileFliter">epScript File|*.eps</sys:String>
     <sys:String x:Key="OpenPyFileFliter">eudplib File|*.py</sys:String>
@@ -923,6 +924,23 @@
     <sys:String x:Key="TE_SnackBar11">함수 인자는 함수에 넣을 수 있습니다.</sys:String>
     <sys:String x:Key="TE_SnackBar12">케이스는 스위치에만 들어 갈 수 있습니다.</sys:String>
     <sys:String x:Key="TE_SnackBar13">조건을 넣을 수 없는 곳입니다.</sys:String>
+
+
+    <sys:String x:Key="fundefine">함수선언</sys:String>
+    <sys:String x:Key="funargblock">인자선언</sys:String>
+    <sys:String x:Key="funreturn">함수반환</sys:String>
+
+    <sys:String x:Key="objectdefine">객체선언</sys:String>
+    <sys:String x:Key="vardefine">변수선언</sys:String>
+    <sys:String x:Key="folder">폴더</sys:String>
+    <sys:String x:Key="expression">수식</sys:String>
+
+
+    <sys:String x:Key="emptytext">빈 텍스트</sys:String>
+
+    
+    <sys:String x:Key="ChatPluginSetting">ChatEvent 설정</sys:String>
+    <sys:String x:Key="MSQCPluginSetting">MSQC 설정</sys:String>
 </ResourceDictionary>
 
 

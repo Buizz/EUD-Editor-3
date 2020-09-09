@@ -102,6 +102,9 @@ Public Class CodeEditor
 
     Private isctrl As Boolean
     Private Sub UserControl_PreviewKeyDown(sender As Object, e As KeyEventArgs)
+        If TextEditor.IsReadOnly Then
+            Return
+        End If
         If e.Key = Key.LeftCtrl Then
             isctrl = True
         End If
@@ -180,5 +183,11 @@ Public Class CodeEditor
         TEditor.ShowDialog()
         TextEditor.SelectedText = TEditor.TextString
         TextEditor.IsEnabled = True
+    End Sub
+
+    Private Sub ContextMenu_Opened(sender As Object, e As RoutedEventArgs)
+        If TextEditor.IsReadOnly Then
+            TExtEditorMenuBtn.IsEnabled = False
+        End If
     End Sub
 End Class

@@ -257,6 +257,9 @@ Partial Public Class CodeEditor
 
 
     Private Sub textEditor_TextArea_TextEntered(sender As Object, e As TextCompositionEventArgs)
+        If TextEditor.IsReadOnly Then
+            Return
+        End If
         textEditor_KeyboardInput(e.Text)
     End Sub
 End Class

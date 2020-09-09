@@ -8,8 +8,9 @@ Partial Public Class BuildData
         ExtraDataEditor
         TEMainPlugin
         DataDumper
-        SCAPlugin
+        TEMSQC
         UserPlugin
+        TEChatEvent
     End Enum
 
 
@@ -22,7 +23,8 @@ Partial Public Class BuildData
             pBlocks.Add(New EdsBlockItem(EdsBlockType.ExtraDataEditor))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.DataDumper))
             pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
-            pBlocks.Add(New EdsBlockItem(EdsBlockType.SCAPlugin))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMSQC))
+            pBlocks.Add(New EdsBlockItem(EdsBlockType.TEChatEvent))
         End Sub
 
 
@@ -115,14 +117,29 @@ Partial Public Class BuildData
                         End If
                         'RequireData 쓰기
                         'sb.Append(Tool.GetRelativePath(EdsFilePath, requireFilePath) & " : 0x" & Hex(Tool.GetOffset("Vanilla") + 500) & ", copy")
-                    Case EdsBlockType.SCAPlugin
-                        If pjData.TEData.SCArchive.IsUsed Then
-                            sb.Append("[MSQC]
-MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
+                    Case EdsBlockType.TEMSQC
+                        If pjData.TEData.UseMSQC Then
+                            Dim msqccode As String = macro.GetMSQCCode
+
+                            If msqccode <> "" Or pjData.TEData.SCArchive.IsUsed Then
+                                sb.AppendLine("[MSQC]")
+                            End If
+                            sb.Append(macro.GetMSQCCode)
+                            If pjData.TEData.SCArchive.IsUsed Then
+                                sb.Append("MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
 MSQCSpecial.Exactly(2) : MSQCSpecialBuffer, 200
 MSQCSpecial.Exactly(3) : MSQCSpecialBuffer, 300
 MSQCSpecial.Exactly(4) : MSQCSpecialBuffer, 400
 MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer")
+                            End If
+                        End If
+                    Case EdsBlockType.TEChatEvent
+                        If pjData.TEData.UseChatEvent Then
+                            Dim chatcode As String = macro.GetChatEventCode
+                            If chatcode <> "" Then
+                                sb.AppendLine("[chatEvent]")
+                                sb.AppendLine(chatcode)
+                            End If
                         End If
                     Case EdsBlockType.UserPlugin
                         sb.Append(Texts)
@@ -146,8 +163,10 @@ MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer")
                         sb.AppendLine("TEMainPlugin")
                     Case EdsBlockType.DataDumper
                         sb.AppendLine("DataDumper")
-                    Case EdsBlockType.SCAPlugin
-                        sb.AppendLine("SCAPlugin")
+                    Case EdsBlockType.TEMSQC
+                        sb.AppendLine("TE MSQC")
+                    Case EdsBlockType.TEChatEvent
+                        sb.AppendLine("TE chatEvent")
                 End Select
 
 

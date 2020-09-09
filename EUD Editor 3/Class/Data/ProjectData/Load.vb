@@ -14,8 +14,10 @@ Partial Public Class ProjectData
             Dim LoadProjectDialog As New System.Windows.Forms.OpenFileDialog
             LoadProjectDialog.Filter = Tool.GetText("LoadFliter")
 
+            LoadProjectDialog.InitialDirectory = pgData.Setting(ProgramData.TSetting.OpenPath)
             If LoadProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
                 tFilename = LoadProjectDialog.FileName '파일 이름 교체
+                pgData.Setting(ProgramData.TSetting.OpenPath) = Path.GetDirectoryName(tFilename)
             Else
                 Exit Sub
             End If
@@ -56,7 +58,6 @@ Partial Public Class ProjectData
 
                 Dim mainTEFile As TEFile = _pjdata.TEData.PFIles
                 TeFrileRefresh(mainTEFile)
-
 
 
 

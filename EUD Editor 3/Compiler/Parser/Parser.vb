@@ -703,16 +703,18 @@ PRIUse:
                                                     Next
                                                 Case "PVariable"
                                                     initojb.flag = False
-                                                    Dim ListF As CodeBlock = tcode.Items.First
-                                                    ListF = ListF.Items.First
-                                                    If IsNumeric(ListF.Value1) Then
-                                                        Throw New Exception("P변수 양식이 잘못되었습니다.")
-                                                    Else
-                                                        For i = 0 To ListF.Items.Count - 1
-                                                            initojb.child.Add(GetScriptBlock(ListF.Items(i)))
-                                                        Next
-                                                    End If
 
+                                                    If (tcode.Items.Count <> 0) Then
+                                                        Dim ListF As CodeBlock = tcode.Items.First
+                                                        ListF = ListF.Items.First
+                                                        If IsNumeric(ListF.Value1) Then
+                                                            Throw New Exception("P변수 양식이 잘못되었습니다.")
+                                                        Else
+                                                            For i = 0 To ListF.Items.Count - 1
+                                                                initojb.child.Add(GetScriptBlock(ListF.Items(i)))
+                                                            Next
+                                                        End If
+                                                    End If
                                                 Case Else
                                                     For i = 0 To tcode.Items.Count - 1
                                                         initojb.child.Add(GetScriptBlock(tcode.Items(i)))

@@ -1,4 +1,7 @@
 ﻿Public Class PluginWindow
+    'https://cafe.naver.com/edac/78006
+
+    'https://cafe.naver.com/edac/78598
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         ControlBar.HotkeyInit(Me)
 
@@ -17,6 +20,34 @@
             items.Content = New PluginItem(i)
             EdsText.Items.Add(items)
         Next
+
+
+        Dim euddraftPath As String = pgData.Setting(ProgramData.TSetting.euddraft)
+        If My.Computer.FileSystem.FileExists(euddraftPath) Then
+            Dim pluginPath As String = IO.Path.GetDirectoryName(euddraftPath) & "\plugins"
+
+            NewItem.Items.Clear()
+            If True Then
+                Dim mitem As New MenuItem
+                mitem.Header = Tool.GetText("emptytext")
+                mitem.Tag = ""
+                AddHandler mitem.Click, AddressOf NewItem_Click
+
+                NewItem.Items.Add(mitem)
+            End If
+
+
+            For Each plugins As String In My.Computer.FileSystem.GetFiles(pluginPath)
+                Dim filename As String = IO.Path.GetFileNameWithoutExtension(plugins)
+
+                Dim mitem As New MenuItem
+                mitem.Header = filename
+                mitem.Tag = filename
+                AddHandler mitem.Click, AddressOf NewItem_Click
+
+                NewItem.Items.Add(mitem)
+            Next
+        End If
     End Sub
 
     Private Sub MetroWindow_Closed(sender As Object, e As EventArgs)
@@ -42,7 +73,17 @@
             InsertIndex += 1
         End If
 
-        pjData.EdsBlock.Blocks.Insert(InsertIndex, New BuildData.EdsBlock.EdsBlockItem(BuildData.EdsBlockType.UserPlugin))
+        Dim edsitem As New BuildData.EdsBlock.EdsBlockItem(BuildData.EdsBlockType.UserPlugin)
+
+
+        Dim btn As MenuItem = sender
+        Dim initText As String = btn.Tag
+        If initText <> "" Then
+            edsitem.Texts = "[" & initText & "]"
+        End If
+
+
+        pjData.EdsBlock.Blocks.Insert(InsertIndex, edsitem)
 
 
         items.Content = New PluginItem(pjData.EdsBlock.Blocks.Count - 1) 'pjData.EdsBlock.BlocksName(i) & pjData.EdsBlock.BlocksStr(i)
@@ -90,4 +131,14 @@
 
     End Sub
 
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        'https://cafe.naver.com/edac/78006
+        Process.Start("https://cafe.naver.com/edac/78006")
+    End Sub
+
+    Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
+        Process.Start("https://cafe.naver.com/edac/78598")
+
+        'https://cafe.naver.com/edac/78598
+    End Sub
 End Class

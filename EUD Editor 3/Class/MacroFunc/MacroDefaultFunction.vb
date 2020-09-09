@@ -7,6 +7,9 @@
             preDefineStr.Add(t)
         End If
     End Sub
+
+
+
     Public Sub echo(t As String)
         luaReturnstr = luaReturnstr & t
     End Sub

@@ -2,6 +2,11 @@
 
 Public Class SCADataList
 
+    Public Sub Refresh()
+        List.ItemsSource = pjData.TEData.SCArchive.CodeDatas
+        NameCombobox.Items.Clear()
+        InitStartFileCombox("", pjData.TEData.PFIles)
+    End Sub
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         AnimationInit()

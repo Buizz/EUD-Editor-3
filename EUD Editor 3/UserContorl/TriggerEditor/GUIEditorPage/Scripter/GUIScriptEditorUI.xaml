@@ -25,10 +25,14 @@
                 <materialDesign:PackIcon Kind="Redo"/>
             </Button>
             <Separator />
-            <Button x:Name="upbtn"  Click="UpSel_Click" ToolTip="위로 넣기">
+            <Button x:Name="insertPos"  Click="InsertPos_Click" ToolTip="삽입 위치 전환">
+                <materialDesign:PackIcon x:Name="insertPosIcon" Kind="ArrowExpandDown"/>
+            </Button>
+            <Separator />
+            <Button x:Name="upbtn"  Click="UpSel_Click" ToolTip="위로 이동">
                 <materialDesign:PackIcon Kind="ChevronDoubleUp"/>
             </Button>
-            <Button x:Name="downbtn" IsEnabled="False" Click="DownSel_Click" ToolTip="아래로 넣기">
+            <Button x:Name="downbtn" Click="DownSel_Click" ToolTip="아래로 이동">
                 <materialDesign:PackIcon Kind="ChevronDoubleDown"/>
             </Button>
             <Separator />

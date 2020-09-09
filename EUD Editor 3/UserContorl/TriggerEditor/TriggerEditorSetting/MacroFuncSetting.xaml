@@ -3,10 +3,40 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <Grid>
-            
-    </Grid>
+    <DockPanel x:Name="MainDockPanel">
+        <StackPanel Margin="10">
+            <Label Content="{StaticResource ChatPluginSetting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
+
+            <DockPanel Margin="5" LastChildFill="False">
+                <TextBlock Margin="4" Text="표시"/>
+                <CheckBox x:Name="ChatEvnetCB" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="ChatEvnetCB_Checked" Unchecked="ChatEvnetCB_Unchecked">
+                </CheckBox>
+            </DockPanel>
+            <UniformGrid Margin="10" Rows="4" Columns="2" Width="200" HorizontalAlignment="Left">
+                <TextBlock Margin="4" Text="Addr" HorizontalAlignment="Right"/>
+                <TextBox x:Name="AddrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="AddrTextBox_TextChanged"/>
+                <TextBlock Margin="4" Text="ptrAddr" HorizontalAlignment="Right"/>
+                <TextBox x:Name="ptrAddrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="ptrAddrTextBox_TextChanged"/>
+                <TextBlock Margin="4" Text="patternAddr" HorizontalAlignment="Right"/>
+                <TextBox x:Name="patternAddrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="patternAddrTextBox_TextChanged"/>
+                <TextBlock Margin="4" Text="lenAddr" HorizontalAlignment="Right"/>
+                <TextBox x:Name="lenAddrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="lenAddrTextBox_TextChanged"/>
+            </UniformGrid>
+
+
+            <Separator Grid.Row="3" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
+            <Label Content="{StaticResource MSQCPluginSetting}" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+            <DockPanel Margin="5" LastChildFill="False">
+                <TextBlock Margin="4" Text="표시"/>
+                <CheckBox x:Name="MSQCCB" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="MSQCCB_Checked" Unchecked="MSQCCB_Unchecked">
+                </CheckBox>
+            </DockPanel>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

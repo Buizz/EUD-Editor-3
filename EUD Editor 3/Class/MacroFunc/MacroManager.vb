@@ -61,6 +61,12 @@ Public Class MacroManager
         lua.RegisterFunction("GetSupplyOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
 
 
+        lua.RegisterFunction("AddMSQCPlugin", Me, Me.GetType().GetMethod("AddMSQCPlugin"))
+        lua.RegisterFunction("AddChatEventPlugin", Me, Me.GetType().GetMethod("AddChatEventPlugin"))
+
+
+
+
 
 
         lua.RegisterFunction("IsNumber", Me, Me.GetType().GetMethod("IsNumber"))

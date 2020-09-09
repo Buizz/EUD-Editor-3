@@ -50,6 +50,70 @@ Module WindowControl
     End Enum
 
 
+    Public Sub TERefreshSetting()
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(TriggerEditor) Then
+                Dim MainContent As Object = CType(win, TriggerEditor).MainTab
+
+                If GetTESettingWindow(MainContent) Then
+                    Exit Sub
+                End If
+
+                'If CheckTabablzControl(tTEFile, MainContent) Then
+                '    win.Activate()
+                '    Return True
+                'End If
+            End If
+        Next
+    End Sub
+    Public Function GetTESettingWindow(ParentBranch As Object) As Boolean
+        While TypeOf ParentBranch IsNot TabablzControl
+            Select Case ParentBranch.GetType
+                Case GetType(TabablzControl)
+                    Exit While
+                Case GetType(Dockablz.Branch)
+                    Dim tBranch As Dockablz.Branch = ParentBranch
+
+                    If GetTESettingWindow(ParentBranch.FirstItem) Then
+                        Return True
+                    End If
+                    If GetTESettingWindow(ParentBranch.SecondItem) Then
+                        Return True
+                    End If
+                    Return False
+                    Exit While
+                Case GetType(Dockablz.Layout)
+                    Dim tLayout As Dockablz.Layout = ParentBranch
+                    ParentBranch = tLayout.Content
+            End Select
+
+        End While
+
+        Return GetTESettinTabablzControl(ParentBranch)
+
+        Return False
+    End Function
+
+    Private Function GetTESettinTabablzControl(Control As TabablzControl) As Boolean
+        Dim tefile As TEFile = Nothing
+        Dim index As Integer
+
+        For i = 0 To Control.Items.Count - 1
+            Dim TabContent As Object = CType(Control.Items(index), TabItem).Content
+
+            If TypeOf TabContent Is TriggerEditorSetting Then
+                Dim tPage As TriggerEditorSetting = TabContent
+                tPage.Refresh()
+
+                Return True
+            End If
+            index += 1
+        Next
+
+        Return False
+    End Function
+
+
     Public Sub TECloseAllTabITem(tTEFile As TEFile)
         '우선 모든 윈도우 돌면서 조사하자
         For Each win As Window In Application.Current.Windows

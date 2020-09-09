@@ -47,6 +47,9 @@
              
             </TabItem>-->
 
+            <TabItem Header="{StaticResource TE_MacroDatASetting}">
+                <local:MacroFuncSetting/>
+            </TabItem>
             <TabItem Header="{StaticResource TE_DotPainter}">
                 <local:DotPainter/>
             </TabItem>
@@ -58,7 +61,7 @@
             </TabItem>
 
             <TabItem Header="{StaticResource TE_SCASetting}">
-                <local:SCASetting/>
+                <local:SCASetting x:Name="SCASettingTab"/>
             </TabItem>
         </dragablz:TabablzControl>
     </Grid>

@@ -24,8 +24,10 @@ Partial Public Class ProjectData
 
             Next
 
+            Tool.SaveProjectDialog.InitialDirectory = pgData.Setting(ProgramData.TSetting.SavePath)
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
                 Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
+                pgData.Setting(ProgramData.TSetting.SavePath) = Path.GetDirectoryName(Filename)
             Else
                 Return False
             End If
@@ -37,8 +39,10 @@ Partial Public Class ProjectData
 
         If Filename = "" Then ' 새파일
             Tool.SaveProjectDialog.FileName = SafeFilename
+            Tool.SaveProjectDialog.InitialDirectory = pgData.Setting(ProgramData.TSetting.SavePath)
             If Tool.SaveProjectDialog.ShowDialog() = Forms.DialogResult.OK Then
                 Filename = Tool.SaveProjectDialog.FileName '파일 이름 교체
+                pgData.Setting(ProgramData.TSetting.SavePath) = Path.GetDirectoryName(Filename)
             Else
                 Return False
             End If

@@ -319,9 +319,13 @@ Namespace Tool
 
         Public Sub CloseOtherWindow()
             For Each win As Window In Application.Current.Windows
-                If win.GetType Is GetType(DataEditor) Or win.GetType Is GetType(TriggerEditor) Or win.GetType Is GetType(PluginWindow) Then
+                'MsgBox(win.GetType.ToString)
+                If win.GetType IsNot GetType(MainWindowD) Then
                     win.Close()
                 End If
+                'If win.GetType Is GetType(DataEditor) Or win.GetType Is GetType(TriggerEditor) Or win.GetType Is GetType(PluginWindow) Then
+                '    win.Close()
+                'End If
             Next
         End Sub
 
@@ -518,7 +522,8 @@ Namespace Tool
         Public Function OpenMapSet() As Boolean
             Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
             .Filter = Tool.GetText("SCX Fliter"),
-            .Title = Tool.GetText("SCX Select")
+            .Title = Tool.GetText("SCX Select"),
+            .InitialDirectory = pgData.Setting(ProgramData.TSetting.OpenMapPath)
             }
             Dim LastOpenMapName As String = pjData.OpenMapName
             '맵이 플텍맵인지 아닌지 검사해야됨.
@@ -532,6 +537,7 @@ Namespace Tool
                 '맵이 플텍맵인지 아닌지 검사해야됨.
                 pjData.OpenMapName = opendialog.FileName
                 If pjData.IsMapLoading Then
+                    pgData.Setting(ProgramData.TSetting.OpenMapPath) = Path.GetDirectoryName(opendialog.FileName)
                     Return True
                 Else
                     pjData.OpenMapName = LastOpenMapName
@@ -545,6 +551,7 @@ Namespace Tool
             Dim savedialog As New System.Windows.Forms.SaveFileDialog With {
             .Filter = Tool.GetText("SCX Fliter"),
             .Title = Tool.GetText("SCX Save Select"),
+            .InitialDirectory = pgData.Setting(ProgramData.TSetting.SaveMapPath),
             .OverwritePrompt = False
          }
 
@@ -557,6 +564,7 @@ Namespace Tool
                 End If
 
                 pjData.SaveMapName = savedialog.FileName
+                pgData.Setting(ProgramData.TSetting.SaveMapPath) = Path.GetDirectoryName(pjData.SaveMapName)
                 Return True
             End If
             Return False

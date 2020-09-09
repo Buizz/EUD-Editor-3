@@ -644,10 +644,18 @@ Public Class GUIScriptManager
                                     End If
                                 End If
                             Case "PVariable"
+
                                 strb.Append(sname)
-                                strb.Append("(list(")
-                                GetScriptText(schild, strb, intend, ", ")
-                                strb.Append("))")
+                                strb.Append("(")
+
+                                If schild.Count <> 0 Then
+                                    strb.Append("list(")
+                                    GetScriptText(schild, strb, intend, ", ")
+                                    strb.Append(")")
+                                End If
+
+
+                                strb.Append(")")
                             Case Else
                                 strb.Append(sname)
                                 strb.Append("(")

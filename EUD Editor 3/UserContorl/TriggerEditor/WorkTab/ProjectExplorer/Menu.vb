@@ -15,6 +15,7 @@ Partial Public Class ProjectExplorer
             MenuExport.IsEnabled = True
             MenuDelete.IsEnabled = True
             MenuCut.IsEnabled = True
+            MenuepsFileView.IsEnabled = True
             MenuCopy.IsEnabled = True
             MenuConnect.IsEnabled = True
 
@@ -26,6 +27,7 @@ Partial Public Class ProjectExplorer
             MenuExport.IsEnabled = False
             MenuDelete.IsEnabled = False
             MenuCut.IsEnabled = False
+            MenuepsFileView.IsEnabled = False
             MenuCopy.IsEnabled = False
             MenuConnect.IsEnabled = False
             ToGUI.Visibility = Visibility.Collapsed
@@ -49,8 +51,10 @@ Partial Public Class ProjectExplorer
                 ToGUI.Visibility = Visibility.Collapsed
                 ToCUI.Visibility = Visibility.Collapsed
                 GUISeparator.Visibility = Visibility.Collapsed
+                MenuepsFileView.Visibility = Visibility.Collapsed
             Else
                 MenuAdd.Visibility = Visibility.Collapsed
+                MenuepsFileView.Visibility = Visibility.Visible
 
                 '커넥트확인
                 If SelectItems.Count = 1 And GetFile(LastSelectItem).FileType <> TEFile.EFileType.Setting Then
@@ -108,6 +112,7 @@ Partial Public Class ProjectExplorer
                     Separator1.Visibility = Visibility.Visible
                 End If
                 MenuCut.Visibility = Visibility.Collapsed
+                MenuepsFileView.Visibility = Visibility.Collapsed
                 MenuCopy.Visibility = Visibility.Collapsed
                 MenuRename.Visibility = Visibility.Collapsed
                 MenuExport.Visibility = Visibility.Collapsed
@@ -124,6 +129,7 @@ Partial Public Class ProjectExplorer
                     MenuOpen.Visibility = Visibility.Visible
                 End If
                 MenuCut.Visibility = Visibility.Visible
+                MenuepsFileView.Visibility = Visibility.Visible
                 MenuCopy.Visibility = Visibility.Visible
                 MenuRename.Visibility = Visibility.Visible
                 MenuExport.Visibility = Visibility.Visible
@@ -135,6 +141,7 @@ Partial Public Class ProjectExplorer
         Else
             MenuOpen.Visibility = Visibility.Collapsed
             MenuCut.Visibility = Visibility.Collapsed
+            MenuepsFileView.Visibility = Visibility.Collapsed
             MenuCopy.Visibility = Visibility.Collapsed
             MenuRename.Visibility = Visibility.Collapsed
             MenuExport.Visibility = Visibility.Collapsed
@@ -241,6 +248,7 @@ Partial Public Class ProjectExplorer
         pjData.SetDirty(True)
         SaveExpandedStatusExec()
         TabItemTool.RefreshExplorer(Me)
+        TERefreshSetting()
     End Sub
 
 
@@ -261,10 +269,12 @@ Partial Public Class ProjectExplorer
                     FileCreate(CopyItems(i).Clone)
             End Select
         Next
+        TERefreshSetting()
     End Sub
     Private Sub CutItem()
         CopyItem()
         DeleteSelectItem()
+        TERefreshSetting()
     End Sub
 
 
@@ -287,6 +297,7 @@ Partial Public Class ProjectExplorer
             ChangeToRenameMode(RenameTreeview, False)
 
             RenameTreeview = Nothing
+            TERefreshSetting()
         End If
     End Sub
     Private Sub RenameTextBox_Enter(sender As Object, e As KeyEventArgs)
@@ -295,6 +306,7 @@ Partial Public Class ProjectExplorer
                 ChangeToRenameMode(RenameTreeview, False)
 
                 RenameTreeview = Nothing
+                TERefreshSetting()
             End If
         End If
     End Sub
@@ -378,15 +390,19 @@ Partial Public Class ProjectExplorer
 
     Private Sub AddCUIEps()
         FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.CUIEps))
+        TERefreshSetting()
     End Sub
     Private Sub AddCUIPy()
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.CUIPy))
+        TERefreshSetting()
     End Sub
     Private Sub AddGUIEps()
         FileCreate(New TEFile(Tool.GetText("NewEpsScript"), TEFile.EFileType.GUIEps))
+        TERefreshSetting()
     End Sub
     Private Sub AddGUIPy()
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.GUIPy))
+        TERefreshSetting()
     End Sub
 
 
@@ -480,6 +496,17 @@ Partial Public Class ProjectExplorer
 
 
 
+        End If
+    End Sub
+
+
+    Private Sub MenuEPSView_Click(sender As Object, e As RoutedEventArgs)
+        If LastSelectItem IsNot Nothing Then
+            Dim cfile As TEFile = GetFile(LastSelectItem)
+
+            Dim win As New EPSViewer(cfile)
+
+            win.ShowDialog()
         End If
     End Sub
 End Class

@@ -166,6 +166,8 @@ Public Class GUIScriptEditor
 
     Public Overrides Function GetFileText() As String
         Dim strb As New StringBuilder
+        strb.AppendLine("import PluginVariables as msqcvar;")
+
         Dim indend As Integer = 0
 
         Dim flist As New List(Of ScriptBlock)

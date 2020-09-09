@@ -1,3 +1,65 @@
 ﻿Public Class MacroFuncSetting
+    Public Sub New()
 
+        ' 디자이너에서 이 호출이 필요합니다.
+        InitializeComponent()
+
+        ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        ChatEvnetCB.IsChecked = pjData.TEData.UseChatEvent
+        MSQCCB.IsChecked = pjData.TEData.UseMSQC
+
+
+        AddrTextBox.Text = Hex(pjData.TEData.__Addr__).ToUpper
+        ptrAddrTextBox.Text = Hex(pjData.TEData.__ptrAddr__).ToUpper
+        patternAddrTextBox.Text = Hex(pjData.TEData.__patternAddr__).ToUpper
+        lenAddrTextBox.Text = Hex(pjData.TEData.__lenAddr__).ToUpper
+    End Sub
+
+    Private Sub ChatEvnetCB_Checked(sender As Object, e As RoutedEventArgs)
+        pjData.TEData.UseChatEvent = ChatEvnetCB.IsChecked
+    End Sub
+
+    Private Sub ChatEvnetCB_Unchecked(sender As Object, e As RoutedEventArgs)
+        pjData.TEData.UseChatEvent = ChatEvnetCB.IsChecked
+    End Sub
+
+    Private Sub MSQCCB_Checked(sender As Object, e As RoutedEventArgs)
+        pjData.TEData.UseMSQC = MSQCCB.IsChecked
+    End Sub
+
+    Private Sub MSQCCB_Unchecked(sender As Object, e As RoutedEventArgs)
+        pjData.TEData.UseMSQC = MSQCCB.IsChecked
+    End Sub
+
+    Private Sub AddrTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Try
+            Dim v As UInteger = "&H" & AddrTextBox.Text
+            pjData.TEData.__Addr__ = v
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub ptrAddrTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Try
+            Dim v As UInteger = "&H" & ptrAddrTextBox.Text
+            pjData.TEData.__ptrAddr__ = v
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub patternAddrTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Try
+            Dim v As UInteger = "&H" & patternAddrTextBox.Text
+            pjData.TEData.__patternAddr__ = v
+        Catch ex As Exception
+        End Try
+    End Sub
+
+    Private Sub lenAddrTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        Try
+            Dim v As UInteger = "&H" & lenAddrTextBox.Text
+            pjData.TEData.__lenAddr__ = v
+        Catch ex As Exception
+        End Try
+    End Sub
 End Class

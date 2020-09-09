@@ -301,7 +301,6 @@ Public Class GUIScriptEditorUI
             End If
         End If
 
-        Dim time As Date = Now
         'MsgBox("시작")
         Dim sucesscount As Integer = 0
         For i = 0 To CopyItemList.Count - 1
@@ -420,6 +419,138 @@ Public Class GUIScriptEditorUI
         End If
     End Sub
 
+
+    Private Sub MoveUpItem()
+        If IsItemSelected() Then
+            If SelectedList.Count = 0 Then
+                Dim titem As TreeViewItem = MainTreeview.SelectedItem
+                Dim scr As ScriptBlock = titem.Tag
+
+
+
+                Dim tp As ItemCollection
+
+
+                If titem.Parent.GetType Is GetType(TreeViewItem) Then
+                    tp = CType(titem.Parent, TreeViewItem).Items
+                Else
+                    tp = CType(titem.Parent, TreeView).Items
+                End If
+
+
+
+
+
+                If Not scr.IsDeleteAble Then
+                    SnackBarDialog("옮길 수 없는 아이템입니다.")
+                    Return
+                End If
+
+                Dim pos As List(Of Integer) = GetTreeviewPos(titem)
+
+                Dim cpos As Integer = pos(0)
+
+                If cpos = 0 Then
+                    Return
+                End If
+
+
+
+
+
+                Dim nsb As ScriptBlock = scr.DeepCopy
+                Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
+
+
+                f_DeleteItem(titem)
+                tp.Insert(cpos - 1, ntreeview)
+
+
+                If scr.Parent Is Nothing Then
+                    MainItems.Insert(cpos - 1, nsb)
+                Else
+                    scr.Parent.InsertChild(cpos - 1, nsb)
+                End If
+                AddInsertTask(ntreeview)
+                SetRepeatCount(2)
+
+
+                ntreeview.IsSelected = True
+            Else
+                SnackBarDialog("하나의 아이템만 옮길 수 있습니다.")
+            End If
+        End If
+    End Sub
+
+
+    Private Sub MoveDownItem()
+        If IsItemSelected() Then
+            If SelectedList.Count = 0 Then
+                Dim titem As TreeViewItem = MainTreeview.SelectedItem
+                Dim scr As ScriptBlock = titem.Tag
+
+
+
+                Dim tp As ItemCollection
+
+
+                If titem.Parent.GetType Is GetType(TreeViewItem) Then
+                    tp = CType(titem.Parent, TreeViewItem).Items
+                Else
+                    tp = CType(titem.Parent, TreeView).Items
+                End If
+
+
+
+
+
+                If Not scr.IsDeleteAble Then
+                    SnackBarDialog("옮길 수 없는 아이템입니다.")
+                    Return
+                End If
+
+                Dim pos As List(Of Integer) = GetTreeviewPos(titem)
+
+                Dim cpos As Integer = pos(0)
+
+                If cpos + 1 = tp.Count Then
+                    Return
+                End If
+
+
+
+
+
+                Dim nsb As ScriptBlock = scr.DeepCopy
+                Dim ntreeview As TreeViewItem = nsb.GetTreeviewitem
+
+
+                f_DeleteItem(titem)
+                tp.Insert(cpos + 1, ntreeview)
+
+
+                If scr.Parent Is Nothing Then
+                    MainItems.Insert(cpos + 1, nsb)
+                Else
+                    scr.Parent.InsertChild(cpos + 1, nsb)
+                End If
+                AddInsertTask(ntreeview)
+                SetRepeatCount(2)
+
+
+                ntreeview.IsSelected = True
+            Else
+                SnackBarDialog("하나의 아이템만 옮길 수 있습니다.")
+            End If
+        End If
+    End Sub
+
+
+
+
+
+
+
     Private Sub EditSelectItem()
         If IsItemSelected() Then
             OpenEditWindow(MainTreeview.SelectedItem)
@@ -478,6 +609,8 @@ Public Class GUIScriptEditorUI
 
             DeleteItem.IsEnabled = False
             Deletebtn.IsEnabled = False
+            upbtn.IsEnabled = False
+            downbtn.IsEnabled = False
         Else
             '선택한 아이템이 있을 경우
             FoldUnder.IsEnabled = True
@@ -500,6 +633,8 @@ Public Class GUIScriptEditorUI
 
             DeleteItem.IsEnabled = True
             Deletebtn.IsEnabled = True
+            upbtn.IsEnabled = True
+            downbtn.IsEnabled = True
         End If
 
 
@@ -585,18 +720,7 @@ Public Class GUIScriptEditorUI
             leftShiftDown = False
         End If
     End Sub
-    Private Sub UpSel_Click(sender As Object, e As RoutedEventArgs)
-        upbtn.IsEnabled = False
-        downbtn.IsEnabled = True
 
-        selpos = 0
-    End Sub
-    Private Sub DownSel_Click(sender As Object, e As RoutedEventArgs)
-        upbtn.IsEnabled = True
-        downbtn.IsEnabled = False
-
-        selpos = 1
-    End Sub
     Private Sub DeSelectbtn_Click(sender As Object, e As RoutedEventArgs)
         tdeSelectItem()
     End Sub
@@ -742,23 +866,50 @@ Public Class GUIScriptEditorUI
     End Sub
 
     Private Sub FoldUnder_Click(sender As Object, e As RoutedEventArgs)
-        Dim tb As TreeViewItem = MainTreeview.SelectedItem
-        If tb IsNot Nothing Then
-            tb.IsExpanded = True
-            For i = 0 To tb.Items.Count - 1
-                ExapendTreeviewItem(tb.Items(i), True)
-            Next
+        If IsItemSelected() Then
+            If SelectedList.Count = 0 Then
+                Dim tb As TreeViewItem = MainTreeview.SelectedItem
+                If tb IsNot Nothing Then
+                    tb.IsExpanded = True
+                    For i = 0 To tb.Items.Count - 1
+                        ExapendTreeviewItem(tb.Items(i), True)
+                    Next
+                End If
+            Else
+                For i = 0 To SelectedList.Count - 1
+                    Dim tb As TreeViewItem = SelectedList(i)
+                    If tb IsNot Nothing Then
+                        tb.IsExpanded = True
+                        For j = 0 To tb.Items.Count - 1
+                            ExapendTreeviewItem(tb.Items(j), True)
+                        Next
+                    End If
+                Next
+            End If
         End If
-
     End Sub
 
     Private Sub UnFoldUnder_Click(sender As Object, e As RoutedEventArgs)
-        Dim tb As TreeViewItem = MainTreeview.SelectedItem
-        If tb IsNot Nothing Then
-            tb.IsExpanded = False
-            For i = 0 To tb.Items.Count - 1
-                ExapendTreeviewItem(tb.Items(i), False)
-            Next
+        If IsItemSelected() Then
+            If SelectedList.Count = 0 Then
+                Dim tb As TreeViewItem = MainTreeview.SelectedItem
+                If tb IsNot Nothing Then
+                    tb.IsExpanded = False
+                    For i = 0 To tb.Items.Count - 1
+                        ExapendTreeviewItem(tb.Items(i), True)
+                    Next
+                End If
+            Else
+                For i = 0 To SelectedList.Count - 1
+                    Dim tb As TreeViewItem = SelectedList(i)
+                    If tb IsNot Nothing Then
+                        tb.IsExpanded = False
+                        For j = 0 To tb.Items.Count - 1
+                            ExapendTreeviewItem(tb.Items(j), True)
+                        Next
+                    End If
+                Next
+            End If
         End If
     End Sub
 
@@ -767,5 +918,32 @@ Public Class GUIScriptEditorUI
         For i = 0 To titem.Items.Count - 1
             ExapendTreeviewItem(titem.Items(i), IsExapend)
         Next
+    End Sub
+
+    Private Sub InsertPos_Click(sender As Object, e As RoutedEventArgs)
+        If selpos = 0 Then
+            selpos = 1
+            insertPosIcon.Kind = PackIconKind.ArrowExpandDown
+        Else
+            selpos = 0
+            insertPosIcon.Kind = PackIconKind.ArrowExpandUp
+        End If
+    End Sub
+
+
+    Private Sub UpSel_Click(sender As Object, e As RoutedEventArgs)
+        MoveUpItem()
+
+        'upbtn.IsEnabled = False
+        'downbtn.IsEnabled = True
+
+        'selpos = 0
+    End Sub
+    Private Sub DownSel_Click(sender As Object, e As RoutedEventArgs)
+        MoveDownItem()
+        'upbtn.IsEnabled = True
+        'downbtn.IsEnabled = False
+
+        'selpos = 1
     End Sub
 End Class

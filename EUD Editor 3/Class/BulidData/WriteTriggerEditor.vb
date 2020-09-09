@@ -5,12 +5,22 @@ Partial Public Class BuildData
 
 
     Private Sub WriteTEFile()
+        macro.IsBulid = True
+
         If Not My.Computer.FileSystem.DirectoryExists(TriggerEditorPath) Then
             My.Computer.FileSystem.CreateDirectory(TriggerEditorPath)
         End If
 
 
         CreateTEFile(TriggerEditorPath, pjData.TEData.PFIles)
+
+
+        Dim filestreama As New FileStream(TriggerEditorPath & "\PluginVariables.py", FileMode.Create)
+        Dim strWriter As New StreamWriter(filestreama, Text.Encoding.UTF8)
+        strWriter.Write(macro.GetpreVarEPS)
+        strWriter.Close()
+        filestreama.Close()
+        macro.IsBulid = False
     End Sub
 
     Private Sub CreateTEFile(FolderPath As String, tTEFile As TEFile)

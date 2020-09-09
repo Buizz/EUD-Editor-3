@@ -10,6 +10,66 @@ Public Class TriggerEditorData
     End Property
 
 
+    Public UseMSQC As Boolean = True
+    Public UseChatEvent As Boolean = True
+
+
+
+
+
+    Public _Addr As UInteger = &H58D900UI
+    Public _ptrAddr As UInteger = &H58D904UI
+    Public _patternAddr As UInteger = &H58D908UI
+    Public _lenAddr As UInteger = &H58D90CUI
+
+    Public Property __Addr__ As UInteger
+        Get
+            If _Addr = 0 Then
+                Return &H58D900UI
+            Else
+                Return _Addr
+            End If
+        End Get
+        Set(value As UInteger)
+            _Addr = value
+        End Set
+    End Property
+    Public Property __ptrAddr__ As UInteger
+        Get
+            If _ptrAddr = 0 Then
+                Return &H58D904UI
+            Else
+                Return _ptrAddr
+            End If
+        End Get
+        Set(value As UInteger)
+            _ptrAddr = value
+        End Set
+    End Property
+    Public Property __patternAddr__ As UInteger
+        Get
+            If _patternAddr = 0 Then
+                Return &H58D908UI
+            Else
+                Return _patternAddr
+            End If
+        End Get
+        Set(value As UInteger)
+            _patternAddr = value
+        End Set
+    End Property
+    Public Property __lenAddr__ As UInteger
+        Get
+            If _lenAddr = 0 Then
+                Return &H58D90CUI
+            Else
+                Return _lenAddr
+            End If
+        End Get
+        Set(value As UInteger)
+            _lenAddr = value
+        End Set
+    End Property
 
 
 
