@@ -1,3 +1,8 @@
+# Beta 0.11.0.0
+-TE 매크로함수->lua함수 이름 변경
+-TE lua함수, import 트리뷰 형태로 변경
+-TE SCA전용 lua함수 추가
+
 # Beta 0.10.0.0
 -플러그인 창 편의성 수정(euddraft plugin폴더 읽기, 도움말 링크)
 -TE ChatEvent와 MSQC매크로 함수 추가
