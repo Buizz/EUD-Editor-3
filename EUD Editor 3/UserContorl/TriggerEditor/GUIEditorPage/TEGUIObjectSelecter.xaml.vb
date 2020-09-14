@@ -4,6 +4,7 @@
 
     Private Fliters As New Dictionary(Of String, String)
 
+
     Public Sub SetGUIScriptEditorUI(tScriptEditor As GUIScriptEditorUI)
         ScriptEditor = tScriptEditor
     End Sub
@@ -64,6 +65,7 @@
 
     Private LastSelectItem As ListBoxItem
     Private Sub ToolBoxList_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+
         If LastSelectItem IsNot Nothing Then
             LastSelectItem.Background = Nothing
         End If
@@ -102,6 +104,7 @@
     End Sub
 
     Public Sub ToolBoxListRefresh(ScriptGroup As String, Optional normalscr As ScriptBlock = Nothing)
+
         If LastSelectGroup <> ScriptGroup Then
             Return
         End If
@@ -109,9 +112,10 @@
 
         ToolBox.Items.Clear()
 
-
         Select Case ScriptGroup
             Case "Control"
+                ToolBox.Visibility = Visibility.Visible
+                ToolTreeviewBox.Visibility = Visibility.Collapsed
                 Dim strs() As String = {"if", "elseif", "for", "while", "switch", "switchcase", "break", "folder", "rawcode", "expression"}
                 Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType._if, ScriptBlock.EBlockType._elseif, ScriptBlock.EBlockType._for,
                     ScriptBlock.EBlockType._while, ScriptBlock.EBlockType.switch, ScriptBlock.EBlockType.switchcase,
@@ -144,6 +148,8 @@
                 Next
 
             Case "Action", "Condition", "plibFunc"
+                ToolBox.Visibility = Visibility.Visible
+                ToolTreeviewBox.Visibility = Visibility.Collapsed
                 Dim ttype As FunctionToolTip.FType
                 Dim header As ScriptBlock.EBlockType
                 Select Case ScriptGroup
@@ -210,6 +216,8 @@
                     End If
                 Next
             Case "Variable"
+                ToolBox.Visibility = Visibility.Visible
+                ToolTreeviewBox.Visibility = Visibility.Collapsed
                 Dim strs() As String = {"objectdefine", "vardefine"}
                 Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.objectdefine, ScriptBlock.EBlockType.vardefine}
                 For i = 0 To strs.Length - 1
@@ -251,6 +259,8 @@
                 '    Next
                 'End If
             Case "Func"
+                ToolBox.Visibility = Visibility.Visible
+                ToolTreeviewBox.Visibility = Visibility.Collapsed
                 Dim strs() As String = {"fundefine", "funargblock", "funreturn"}
                 Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.fundefine, ScriptBlock.EBlockType.funargblock, ScriptBlock.EBlockType.funreturn}
                 For i = 0 To strs.Length - 1
@@ -270,8 +280,15 @@
                     ToolBox.Items.Add(tlistboxitem)
                 Next
             Case "EtcBlock"
+                ToolTreeviewBox.Items.Clear()
+                ToolTreeviewBox.BeginInit()
+                ToolBox.Visibility = Visibility.Collapsed
+                ToolTreeviewBox.Visibility = Visibility.Visible
                 Dim strs() As String = {"import"}
                 Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.import}
+
+                Dim fText As String = Fliters(ScriptGroup).Trim
+
                 For i = 0 To strs.Length - 1
                     Dim keyname As String = strs(i)
 
@@ -284,52 +301,102 @@
                     End If
 
 
-                    If Fliters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
-                        Dim tlistboxitem As New ListBoxItem
+                    If fText = "" Or flitertext.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                        Dim tlistboxitem As New TreeViewItem
                         tlistboxitem.Tag = {types(i), keyname}
-                        tlistboxitem.Content = flitertext
-                        ToolBox.Items.Add(tlistboxitem)
+                        tlistboxitem.Header = flitertext
+                        ToolTreeviewBox.Items.Add(tlistboxitem)
                     End If
                 Next
-                ToolBox.Items.Add(New Separator)
+                'ToolTreeviewBox.Items.Add(New Separator)
 
                 '외부파일 돌린다.
                 'Dim CFunc As List(Of CFunc) = tescm.GetExternFunc(ScriptEditor.Script)
+                ScriptEditor.Script.ExternLoader()
+
+
 
                 For j = 0 To ScriptEditor.Script.ExternFile.Count - 1
                     Dim tcfun As CFunc = ScriptEditor.Script.ExternFile(j).Funcs
 
                     Dim namespacename As String = ScriptEditor.Script.ExternFile(j).nameSpaceName
 
+                    Dim tvitem As New TreeViewItem
+                    tvitem.Header = namespacename
+
+
                     For i = 0 To tcfun.FuncCount - 1
                         Dim keyname As String = tcfun.GetFuncName(i)
 
-                        If Fliters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
-                            Dim tlistboxitem As New ListBoxItem
+                        If fText = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                            Dim tlistboxitem As New TreeViewItem
                             tlistboxitem.Tag = {ScriptBlock.EBlockType.externfun, namespacename & "." & keyname}
-                            tlistboxitem.Content = namespacename & "." & keyname
-                            ToolBox.Items.Add(tlistboxitem)
+                            tlistboxitem.Header = namespacename & "." & keyname
+
+
+                            If fText <> "" Then
+                                tlistboxitem.IsExpanded = True
+                            End If
+
+
+                            tvitem.Items.Add(tlistboxitem)
                         End If
                     Next
+                    If tvitem.Items.Count <> 0 Then
+                        If fText <> "" Then
+                            tvitem.IsExpanded = True
+                        End If
+                        ToolTreeviewBox.Items.Add(tvitem)
+                    End If
                 Next
 
+                ToolTreeviewBox.EndInit()
 
 
             Case "MacroFunc"
+                ToolTreeviewBox.Items.Clear()
+                ToolTreeviewBox.BeginInit()
+                ToolBox.Visibility = Visibility.Collapsed
+                ToolTreeviewBox.Visibility = Visibility.Visible
+
+                Dim groupdic As New Dictionary(Of String, TreeViewItem)
                 For i = 0 To macro.FunctionList.Count - 1
+                    Dim Groupname As String = macro.FunctionList(i).LuaGroup
+
+
+                    Dim tvitem As TreeViewItem
+                    If Not groupdic.ContainsKey(Groupname) Then
+                        tvitem = New TreeViewItem
+                        tvitem.Header = Groupname
+                        groupdic.Add(Groupname, tvitem)
+                    Else
+                        tvitem = groupdic(Groupname)
+                    End If
+
+
+
                     Dim keyname As String = macro.FunctionList(i).Fname
                     If Fliters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
-                        Dim tlistboxitem As New ListBoxItem
+                        Dim tlistboxitem As New TreeViewItem
                         tlistboxitem.Tag = {ScriptBlock.EBlockType.macrofun, macro.FunctionList(i).Fname}
-                        tlistboxitem.Content = keyname
-                        ToolBox.Items.Add(tlistboxitem)
+                        tlistboxitem.Header = keyname
+                        tvitem.Items.Add(tlistboxitem)
                     End If
                 Next
+
+                For i = 0 To groupdic.Keys.Count - 1
+                    Dim tvitem As TreeViewItem = groupdic(groupdic.Keys(i))
+
+                    ToolTreeviewBox.Items.Add(tvitem)
+                Next
+                ToolTreeviewBox.EndInit()
         End Select
 
 
 
         If ScriptGroup = "Func" Then
+            ToolBox.Visibility = Visibility.Visible
+            ToolTreeviewBox.Visibility = Visibility.Collapsed
             ToolBox.Items.Add(New Separator)
 
 
@@ -384,5 +451,16 @@
     Private Sub SearchBoxTextChange(sender As Object, e As TextChangedEventArgs)
         Fliters(LastSelectGroup) = FliterText.Text
         ToolBoxListRefresh(LastSelectGroup, ScriptEditor.GetSelectScriptBlock)
+    End Sub
+
+    Private Sub ToolTreeviewBox_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
+        Dim Selectitem As TreeViewItem = ToolTreeviewBox.SelectedItem
+        If Selectitem IsNot Nothing Then
+            If Selectitem.Items.Count = 0 Then
+                Selectitem.IsSelected = False
+                'MsgBox(Selectitem.Tag)
+                RaiseEvent ItemSelect(Selectitem.Tag, e)
+            End If
+        End If
     End Sub
 End Class

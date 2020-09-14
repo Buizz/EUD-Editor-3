@@ -43,7 +43,7 @@ Public Class CUIScriptEditor
     End Function
 
     Public Overrides Function GetFileText() As String
-        Return macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText)
+        Return macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain())
     End Function
 
 

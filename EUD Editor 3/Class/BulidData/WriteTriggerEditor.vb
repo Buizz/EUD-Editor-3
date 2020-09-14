@@ -7,6 +7,7 @@ Partial Public Class BuildData
     Private Sub WriteTEFile()
         macro.IsBulid = True
 
+
         If Not My.Computer.FileSystem.DirectoryExists(TriggerEditorPath) Then
             My.Computer.FileSystem.CreateDirectory(TriggerEditorPath)
         End If

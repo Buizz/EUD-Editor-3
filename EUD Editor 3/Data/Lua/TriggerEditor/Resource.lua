@@ -1,11 +1,11 @@
-function SetResource(Player, Modifier, Amount, ResourceType) -- TrgPlayer,TrgModifier,Number,TrgResource/[Player]의 [ResourceType]을 [Amount]만큼 [Modifier]합니다.
+function SetResource(Player, Modifier, Amount, ResourceType) --일반/TrgPlayer,TrgModifier,Number,TrgResource/[Player]의 [ResourceType]을 [Amount]만큼 [Modifier]합니다.
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
     ResourceType = ParseResource(ResourceType)
     Offset = ResourceEPD(Player, ResourceType)
 	echo(string.format("SetMemoryEPD(%s, %s, %s)", Offset, Modifier, Amount))
 end
-function GetResource(Player, ResourceType) -- TrgPlayer,TrgResource/[Player]의 [ResourceType]을 읽습니다.
+function GetResource(Player, ResourceType) --일반/TrgPlayer,TrgResource/[Player]의 [ResourceType]을 읽습니다.
     Player = ParsePlayer(Player)
     Offset = ResourceEPD(Player, ResourceType)
     ResourceType = ParseResource(ResourceType)
@@ -13,7 +13,7 @@ function GetResource(Player, ResourceType) -- TrgPlayer,TrgResource/[Player]의 
     
 	echo(string.format("dwread_epd(%s)", Offset))
 end
-function ResourceEPD(Player, ResourceType) -- TrgPlayer,TrgResource/[Player]의 [Resource]의 주소를 반환합니다.
+function ResourceEPD(Player, ResourceType) --일반/TrgPlayer,TrgResource/[Player]의 [Resource]의 주소를 반환합니다.
     Player = ParsePlayer(Player)
 	ResourceType = ParseResource(ResourceType)
 

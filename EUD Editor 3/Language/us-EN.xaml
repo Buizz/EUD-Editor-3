@@ -829,7 +829,7 @@
 
     <sys:String x:Key="TE_CustomUserDataSetting">Custom User Data</sys:String>
     <sys:String x:Key="TE_BGMSetting">Setting Sound</sys:String>
-    <sys:String x:Key="TE_MacroDatASetting">Setting Macro</sys:String>
+    <sys:String x:Key="TE_MacroDatASetting">Setting Lua</sys:String>
     <sys:String x:Key="TE_DotPainter">Setting DotPainter</sys:String>
     <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
 
@@ -884,7 +884,7 @@
     <sys:String x:Key="Control">Ctrl</sys:String>
     <sys:String x:Key="plibFunc">Plib</sys:String>
     <sys:String x:Key="Func">Func</sys:String>
-    <sys:String x:Key="MacroFunc">Macro</sys:String>
+    <sys:String x:Key="MacroFunc">Lua</sys:String>
     <sys:String x:Key="Condition">Condition</sys:String>
     <sys:String x:Key="Action">Action</sys:String>
     <sys:String x:Key="Variable">Object</sys:String>

@@ -1,4 +1,4 @@
-function SetUpgrade(Upgrade, Player, Modifier, Amount) -- Upgrade,TrgPlayer,TrgModifier,Number/[Player]의 [Upgrade]의 현재값을 [Amount]만큼 [Modifier]합니다.
+function SetUpgrade(Upgrade, Player, Modifier, Amount) --업그레이드/Upgrade,TrgPlayer,TrgModifier,Number/[Player]의 [Upgrade]의 현재값을 [Amount]만큼 [Modifier]합니다.
 	Upgrade = ParseUpgrades(Upgrade)
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
@@ -39,7 +39,7 @@ function SetUpgrade(Upgrade, Player, Modifier, Amount) -- Upgrade,TrgPlayer,TrgM
 	end
 	echo(rstr)
 end
-function CurrentUpgrade(Upgrade, Player, Comparison, Amount) -- Upgrade,TrgPlayer,TrgComparison,Number/[Player]의 [Upgrade]의 현재값이 [Comparison] [Amount]인지 확인합니다.
+function CurrentUpgrade(Upgrade, Player, Comparison, Amount) --업그레이드/Upgrade,TrgPlayer,TrgComparison,Number/[Player]의 [Upgrade]의 현재값이 [Comparison] [Amount]인지 확인합니다.
 	Upgrade = ParseUpgrades(Upgrade)
 	Player = ParsePlayer(Player)
     Comparison = ParseComparison(Comparison)
@@ -80,7 +80,7 @@ function CurrentUpgrade(Upgrade, Player, Comparison, Amount) -- Upgrade,TrgPlaye
 	end
 	echo(rstr)
 end
-function GetUpgrade(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrade]의 현재값을 반환합니다.
+function GetUpgrade(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[Player]의 [Upgrade]의 현재값을 반환합니다.
 	Upgrade = ParseUpgrades(Upgrade)
 	Player = ParsePlayer(Player)
 
@@ -93,9 +93,9 @@ function GetUpgrade(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrade]�
 	end
 	echo(rstr)
 end
-function UpgradeOffset(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrade]의 현재값 주소를 반환합니다.
-	-- 58D2B0 0 ~ 45
-	-- 58F32C 46
+function UpgradeOffset(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[Player]의 [Upgrade]의 현재값 주소를 반환합니다.
+	--일반/58D2B0 0 ~ 45
+	--일반/58F32C 46
 	Upgrade = ParseUpgrades(Upgrade) + 0 
 	Player = ParsePlayer(Player)
 
@@ -116,7 +116,7 @@ function UpgradeOffset(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrad
 	end
 end
 
-function SetUpgradeMax(Upgrade, Player, Modifier, Amount) -- Upgrade,TrgPlayer,TrgModifier,Number/[Player]의 [Upgrade]의 최대값을 [Amount]만큼 [Modifier]합니다.
+function SetUpgradeMax(Upgrade, Player, Modifier, Amount) --업그레이드/Upgrade,TrgPlayer,TrgModifier,Number/[Player]의 [Upgrade]의 최대값을 [Amount]만큼 [Modifier]합니다.
 	Upgrade = ParseUpgrades(Upgrade)
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
@@ -157,7 +157,7 @@ function SetUpgradeMax(Upgrade, Player, Modifier, Amount) -- Upgrade,TrgPlayer,T
 	end
 	echo(rstr)
 end
-function CurrentUpgradeMax(Upgrade, Player, Comparison, Amount) -- Upgrade,TrgPlayer,TrgComparison,Number/[Player]의 [Upgrade]의 최대값이 [Comparison] [Amount]인지 확인합니다.
+function CurrentUpgradeMax(Upgrade, Player, Comparison, Amount) --업그레이드/Upgrade,TrgPlayer,TrgComparison,Number/[Player]의 [Upgrade]의 최대값이 [Comparison] [Amount]인지 확인합니다.
 	Upgrade = ParseUpgrades(Upgrade)
 	Player = ParsePlayer(Player)
     Comparison = ParseComparison(Comparison)
@@ -198,7 +198,7 @@ function CurrentUpgradeMax(Upgrade, Player, Comparison, Amount) -- Upgrade,TrgPl
 	end
 	echo(rstr)
 end
-function GetUpgradeMax(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrade]의 최대값을 반환합니다.
+function GetUpgradeMax(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[Player]의 [Upgrade]의 최대값을 반환합니다.
 	Upgrade = ParseUpgrades(Upgrade)
 	Player = ParsePlayer(Player)
 
@@ -211,9 +211,9 @@ function GetUpgradeMax(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrad
 	end
 	echo(rstr)
 end
-function UpgradeOffsetMax(Upgrade, Player) -- Upgrade,TrgPlayer/[Player]의 [Upgrade]의 현재값 주소를 반환합니다.
-	-- 58D088 0 ~ 45
-	-- 58F278 46
+function UpgradeOffsetMax(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[Player]의 [Upgrade]의 현재값 주소를 반환합니다.
+	--일반/58D088 0 ~ 45
+	--일반/58F278 46
 	Upgrade = ParseUpgrades(Upgrade) + 0
 	Player = ParsePlayer(Player)
 

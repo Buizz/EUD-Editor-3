@@ -13,4 +13,8 @@ Public MustInherit Class ScriptEditor
 
     Public MustOverride Function CheckConnect() As Boolean
     Public MustOverride Property ConnectFile() As String
+
+    Public Function IsMain() As Boolean
+        Return pjData.TEData.MainFile.Scripter Is Me
+    End Function
 End Class

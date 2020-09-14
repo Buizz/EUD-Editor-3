@@ -257,7 +257,9 @@ Public Class GUIScriptEditorUI
         If CopyItemList Is Nothing Then
             Return
         End If
-
+        For i = 0 To CopyItemList.Count - 1
+            Script.scrLoadRefresh(CopyItemList(i))
+        Next
 
         For i = 0 To SelectedList.Count - 1
             Dim ttbheader As ScriptTreeviewitem = SelectedList(i).Header
@@ -304,7 +306,7 @@ Public Class GUIScriptEditorUI
         'MsgBox("시작")
         Dim sucesscount As Integer = 0
         For i = 0 To CopyItemList.Count - 1
-            Dim nsb As ScriptBlock = CopyItemList(i).DeepCopy
+            Dim nsb As ScriptBlock = CopyItemList(i) '.DeepCopy
             nsb.Scripter = Me.Script
 
             If selectitem IsNot Nothing Then
@@ -348,6 +350,7 @@ Public Class GUIScriptEditorUI
         Next
         SetRepeatCount(sucesscount)
 
+        TEGUIPage.ObjectSelector.RefreshCurrentList()
 
         'MsgBox("끝  걸린시간 : " & time.Subtract(Now).Milliseconds)
 

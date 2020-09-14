@@ -369,7 +369,7 @@ Public Class ScriptBlock
 
 
     Private Sub AddText(Inline As InlineCollection, text As String, brush As Brush)
-        Dim Run As New Run(text)
+        Dim Run As New Run(text & " ")
         If brush IsNot Nothing Then
             Run.Foreground = brush
         End If

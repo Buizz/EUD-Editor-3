@@ -25,6 +25,11 @@ Partial Public Class MacroManager
         'MsgBox("빌드 시작")
         MSQCItems.Clear()
         ChatEventItems.Clear()
+
+
+        onpluginStr.Clear()
+        beforeStr.Clear()
+        afterStr.Clear()
     End Sub
     Private Sub BuildEnd()
         'MsgBox("빌드 끝")
@@ -96,6 +101,10 @@ Partial Public Class MacroManager
         Dim sb As New Text.StringBuilder
 
         sb.AppendLine("from eudplib import *")
+        If pjData.TEData.SCArchive.IsUsed Then
+            sb.AppendLine("import TriggerEditor.SCArchive as sca")
+        End If
+
         sb.AppendLine("")
         sb.AppendLine("")
 
@@ -125,6 +134,9 @@ Partial Public Class MacroManager
         Next
 
         sb.AppendLine("    EUDRegisterObjectToNamespace(""VChatIndex"", VChatIndex)")
+        If pjData.TEData.SCArchive.IsUsed Then
+            sb.AppendLine("    sca.Init()")
+        End If
         'For i = 0 To ChatEventItems.Count - 1
         '    Dim vname As String = "VChat_" & i
         '    sb.AppendLine("    EUDRegisterObjectToNamespace(""" & vname & """, " & vname & ")")

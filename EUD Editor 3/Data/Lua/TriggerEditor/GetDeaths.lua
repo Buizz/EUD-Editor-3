@@ -1,4 +1,4 @@
-function GetDeaths(Unit,Player) -- TrgUnit,TrgPlayer/[Player]의 [Unit] 데스값을 반환합니다.
+function GetDeaths(Unit,Player) --일반/TrgUnit,TrgPlayer/[Player]의 [Unit] 데스값을 반환합니다.
 	Unit = ParseUnit(Unit)
     Player = ParsePlayer(Player)
 

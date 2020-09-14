@@ -37,7 +37,7 @@ Public Class GUIScriptEditor
             scrLoadRefresh(items(i))
         Next
     End Sub
-    Private Sub scrLoadRefresh(scr As ScriptBlock)
+    Public Sub scrLoadRefresh(scr As ScriptBlock)
         scr.Scripter = Me
         For i = 0 To scr.child.Count - 1
             scr.child(i).Parent = scr
@@ -179,7 +179,9 @@ Public Class GUIScriptEditor
         GUIScriptManager.GetScriptText(flist, strb, indend, "PREDEF")
 
         GUIScriptManager.GetScriptText(items, strb, indend, "")
-        Return macro.MacroApply(strb.ToString)
+
+
+        Return macro.MacroApply(strb.ToString, IsMain())
     End Function
     Public Overrides Function GetStringText() As String
         Dim strb As New StringBuilder

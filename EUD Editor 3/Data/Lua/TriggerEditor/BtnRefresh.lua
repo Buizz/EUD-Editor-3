@@ -1,4 +1,4 @@
-function BtnRefresh() --/버튼을 다시그립니다.
+function BtnRefresh() --일반//버튼을 다시그립니다.
 	echo([[const btntemp1 = wread_epd(EPD(0x6615AA), 2);
 SetMemoryX(0x6615AA, SetTo, 0x20000, 0xFFFF0000);
 const btntemp2, btntemp3 = cunitepdread_epd(EPD(0x628438));

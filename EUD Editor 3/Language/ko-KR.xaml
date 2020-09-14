@@ -827,7 +827,7 @@
 
     <sys:String x:Key="TE_CustomUserDataSetting">사용자 데이터</sys:String>
     <sys:String x:Key="TE_BGMSetting">사운드 설정</sys:String>
-    <sys:String x:Key="TE_MacroDatASetting">매크로 설정</sys:String>
+    <sys:String x:Key="TE_MacroDatASetting">Lua 설정</sys:String>
     <sys:String x:Key="TE_DotPainter">DotPainter 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
 
@@ -882,7 +882,7 @@
     <sys:String x:Key="Control">제어</sys:String>
     <sys:String x:Key="plibFunc">플립</sys:String>
     <sys:String x:Key="Func">함수</sys:String>
-    <sys:String x:Key="MacroFunc">매크로</sys:String>
+    <sys:String x:Key="MacroFunc">Lua</sys:String>
     <sys:String x:Key="Condition">조건</sys:String>
     <sys:String x:Key="Action">액션</sys:String>
     <sys:String x:Key="Variable">객체</sys:String>

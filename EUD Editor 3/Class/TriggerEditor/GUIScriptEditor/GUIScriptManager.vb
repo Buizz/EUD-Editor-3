@@ -755,33 +755,41 @@ Public Class GUIScriptManager
                     End If
                 Else
                     If svalue = "" Then
-                        If scr.Parent.isfolder Then
-                            strb.Append(GetIntend(intend))
-                        End If
-
-                        strb.Append(sname)
-                        strb.Append("(")
-
-                        GetScriptText(schild, strb, intend, ", ")
-
-                        strb.Append(")")
-                        If isCondition Then
-                            If Not isLastValue Then
-                                If isAnd Then
-                                    strb.Append(" && ")
-                                Else
-                                    strb.Append(" || ")
-                                End If
+                        If stype = ScriptBlock.EBlockType.constVal Then
+                            If sname.Trim = "TrgString" Then
+                                strb.Append("""""")
+                            Else
+                                strb.Append("")
                             End If
                         Else
                             If scr.Parent.isfolder Then
-                                strb.Append(";")
+                                strb.Append(GetIntend(intend))
                             End If
-                        End If
+
+                            strb.Append(sname)
+                            strb.Append("(")
+
+                            GetScriptText(schild, strb, intend, ", ")
+
+                            strb.Append(")")
+                            If isCondition Then
+                                If Not isLastValue Then
+                                    If isAnd Then
+                                        strb.Append(" && ")
+                                    Else
+                                        strb.Append(" || ")
+                                    End If
+                                End If
+                            Else
+                                If scr.Parent.isfolder Then
+                                    strb.Append(";")
+                                End If
+                            End If
 
 
-                        If scr.Parent.isfolder Then
-                            strb.AppendLine("")
+                            If scr.Parent.isfolder Then
+                                strb.AppendLine("")
+                            End If
                         End If
                     Else
 

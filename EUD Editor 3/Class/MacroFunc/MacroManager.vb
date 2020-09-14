@@ -31,19 +31,30 @@ Public Class MacroManager
         End Get
     End Property
     Public Sub New()
-        lua = New Lua
+        lua = New Lua()
+
+
         FunctionList = New List(Of LuaFunction)
 
 
         lua.RegisterFunction("preDefine", Me, Me.GetType().GetMethod("preDefine"))
-        FunctionList.Add(New LuaFunction("preDefine", "값을 미리 선언합니다.", "str", "str"))
+        FunctionList.Add(New LuaFunction("preDefine", "값을 미리 선언합니다.", "내부함수", "str", "str"))
+
+        lua.RegisterFunction("onPluginText", Me, Me.GetType().GetMethod("onPluginText"))
+        FunctionList.Add(New LuaFunction("onPluginText", "메인 함수의 onPluginExec에 내용을 추가합니다.", "내부함수", "str", "str"))
+
+        lua.RegisterFunction("beforeText", Me, Me.GetType().GetMethod("beforeText"))
+        FunctionList.Add(New LuaFunction("beforeText", "메인 함수의 beforeText에 내용을 추가합니다.", "내부함수", "str", "str"))
+
+        lua.RegisterFunction("afterText", Me, Me.GetType().GetMethod("afterText"))
+        FunctionList.Add(New LuaFunction("afterText", "메인 함수의 afterText에 내용을 추가합니다.", "내부함수", "str", "str"))
 
         lua.RegisterFunction("echo", Me, Me.GetType().GetMethod("echo"))
-        FunctionList.Add(New LuaFunction("echo", "값을 반환합니다.", "str", "str"))
+        FunctionList.Add(New LuaFunction("echo", "값을 반환합니다.", "내부함수", "str", "str"))
 
 
         lua.RegisterFunction("GetBGMIndex", Me, Me.GetType().GetMethod("GetBGMIndex"))
-        FunctionList.Add(New LuaFunction("GetBGMIndex", "사운드 인덱스를 반환합니다.", "bgmname", "BGM"))
+        FunctionList.Add(New LuaFunction("GetBGMIndex", "사운드 인덱스를 반환합니다.", "내부함수", "bgmname", "BGM"))
 
         lua.RegisterFunction("ParseUnit", Me, Me.GetType().GetMethod("ParseUnit"))
         lua.RegisterFunction("ParseWeapon", Me, Me.GetType().GetMethod("ParseWeapon"))
@@ -91,7 +102,7 @@ Public Class MacroManager
                 Dim sr As New StreamReader(fs)
 
                 Dim fileText As String = sr.ReadToEnd
-                Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9, ]*)\)\s+--(.*)\/(.*)")
+                Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9, ]*)\)\s+--(.*)\/(.*)\/(.*)")
 
                 Dim matchs As MatchCollection = regex.Matches(fileText)
 
@@ -99,12 +110,13 @@ Public Class MacroManager
                 For i = 0 To matchs.Count - 1
                     Dim fname As String = matchs(i).Groups(1).Value
                     Dim args As String = matchs(i).Groups(2).Value
-                    Dim argType As String = matchs(i).Groups(3).Value
-                    Dim comment As String = matchs(i).Groups(4).Value
+                    Dim GrpupText As String = matchs(i).Groups(3).Value
+                    Dim argType As String = matchs(i).Groups(4).Value
+                    Dim comment As String = matchs(i).Groups(5).Value
 
                     'MsgBox(comment)
 
-                    FunctionList.Add(New LuaFunction(fname, comment, args, argType))
+                    FunctionList.Add(New LuaFunction(fname, comment, GrpupText, args, argType))
                 Next
 
 
@@ -124,7 +136,7 @@ Public Class MacroManager
 
 
     Public ErrorMsg As String
-    Public Function MacroApply(str As String) As String
+    Public Function MacroApply(str As String, isMain As Boolean) As String
         ErrorMsg = ""
 
         If str Is Nothing Then
@@ -162,11 +174,69 @@ Public Class MacroManager
             rstr = preDefineStr(i) & vbCrLf & rstr
         Next
 
+
+        '만약 main파일일 경우
+        If isMain Then
+            If True Then
+                Dim temp As String = ""
+
+                For i = 0 To onpluginStr.Count - 1
+                    temp = temp & vbTab & onpluginStr(i) & vbCrLf
+                Next
+
+                Dim tregex As New Regex("function\s*onPluginStart\(\s*\)\s*\{")
+                Dim tmatch As Match = tregex.Match(rstr)
+                If tmatch.Success Then
+                    Dim startindex As Integer = tmatch.Index
+                    Dim vallen As Integer = tmatch.Value.Length
+
+                    rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
+                End If
+            End If
+
+            If True Then
+                Dim temp As String = ""
+
+                For i = 0 To beforeStr.Count - 1
+                    temp = temp & vbTab & beforeStr(i) & vbCrLf
+                Next
+
+                Dim tregex As New Regex("function\s*beforeTriggerExec\(\s*\)\s*\{")
+                Dim tmatch As Match = tregex.Match(rstr)
+                If tmatch.Success Then
+                    Dim startindex As Integer = tmatch.Index
+                    Dim vallen As Integer = tmatch.Value.Length
+
+                    rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
+                End If
+            End If
+            If True Then
+                Dim temp As String = ""
+
+                For i = 0 To afterStr.Count - 1
+                    temp = temp & vbTab & afterStr(i) & vbCrLf
+                Next
+
+                Dim tregex As New Regex("function\s*afterTriggerExec\(\s*\)\s*\{")
+                Dim tmatch As Match = tregex.Match(rstr)
+                If tmatch.Success Then
+                    Dim startindex As Integer = tmatch.Index
+                    Dim vallen As Integer = tmatch.Value.Length
+
+                    rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
+                End If
+            End If
+        End If
+
+
+
+
         Return rstr
     End Function
 
 
     Public Class LuaFunction
+        Public LuaGroup As String
         Public Fname As String
         Public Fcomment As String
         Public ArgName As List(Of String)
@@ -175,13 +245,15 @@ Public Class MacroManager
         Public ArgLists As List(Of ArgBlock)
 
         Public IsCompleteFunction As Boolean = False
-        Public Sub New(_fname As String, _fcomment As String, _fargs As String, _fargtype As String)
+        Public Sub New(_fname As String, _fcomment As String, _group As String, _fargs As String, _fargtype As String)
             ArgName = New List(Of String)
             ArgType = New List(Of String)
             ArgLists = New List(Of ArgBlock)
 
             Fname = _fname.Trim
             Fcomment = _fcomment.Trim
+            LuaGroup = _group.Trim
+
 
             If _fargs.Trim <> "" Then
                 ArgName.AddRange(_fargs.Split(","))

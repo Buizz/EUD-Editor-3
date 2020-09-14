@@ -345,11 +345,15 @@ Public Class ProjectData
 
     Public ReadOnly Property GetUnitIndex(name As String) As Integer
         Get
+            Dim unitstr() As String = CodeEditor.GetArgList("TrgUnit")
             For i = 0 To SCUnitCount - 1
-                If UnitName(i) = name Then
+                If unitstr(i) = name Then
                     Return i
                 End If
             Next
+
+
+
 
             Return -1
         End Get

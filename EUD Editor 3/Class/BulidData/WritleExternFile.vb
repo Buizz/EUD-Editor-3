@@ -13,7 +13,7 @@ Partial Public Class BuildData
 
         For Each files As String In My.Computer.FileSystem.GetFiles(folderpath)
             Dim fileinfo As FileInfo = My.Computer.FileSystem.GetFileInfo(files)
-            If fileinfo.Extension = ".eps" Then
+            If fileinfo.Extension = ".eps" Or fileinfo.Extension = ".py" Then
                 My.Computer.FileSystem.CopyFile(files, copypath & "\" & fileinfo.Name, True)
             End If
         Next

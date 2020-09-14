@@ -57,9 +57,14 @@
                   materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
                   Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" TextChanged="SearchBoxTextChange"/>
             </DockPanel>
-            <ListBox x:Name="ToolBox" SelectionChanged="ToolBox_SelectionChanged">
-
-            </ListBox>
+            <Grid>
+                <ListBox x:Name="ToolBox" SelectionChanged="ToolBox_SelectionChanged">
+                </ListBox>
+                <TreeView x:Name="ToolTreeviewBox" SelectedItemChanged="ToolTreeviewBox_SelectedItemChanged" Background="{DynamicResource MaterialDesignPaper}">
+                    
+                </TreeView>
+            </Grid>
+         
         </DockPanel>
     </DockPanel>
 </UserControl>

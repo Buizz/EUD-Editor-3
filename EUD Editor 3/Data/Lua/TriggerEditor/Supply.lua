@@ -1,4 +1,4 @@
-function SetSupply(SupplyType, Player, Modifier, Amount) -- SupplyType,TrgPlayer,TrgModifier,Number/[Player]의 [SupplyType]를 [Amount]만큼 [Modifier]합니다.
+function SetSupply(SupplyType, Player, Modifier, Amount) --인구수/SupplyType,TrgPlayer,TrgModifier,Number/[Player]의 [SupplyType]를 [Amount]만큼 [Modifier]합니다.
 	ScoreType = ParseEUDScore(ScoreType)
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
@@ -8,7 +8,7 @@ function SetSupply(SupplyType, Player, Modifier, Amount) -- SupplyType,TrgPlayer
 	rstr = string.format("SetMemoryEPD(%s, %s, %s)",OffsetEPD, Modifier, Amount)
 	echo(rstr)
 end
-function CurrentSupply(SupplyType, Player, Comparison, Amount) -- SupplyType,TrgPlayer,TrgComparison,Number/[Player]의 [SupplyType]가 [Comparison] [Amount]인지 확인합니다.
+function CurrentSupply(SupplyType, Player, Comparison, Amount) --인구수/SupplyType,TrgPlayer,TrgComparison,Number/[Player]의 [SupplyType]가 [Comparison] [Amount]인지 확인합니다.
 	ScoreType = ParseEUDScore(ScoreType)
 	Player = ParsePlayer(Player)
     Comparison = ParseComparison(Comparison)
@@ -18,14 +18,14 @@ function CurrentSupply(SupplyType, Player, Comparison, Amount) -- SupplyType,Trg
 	rstr = string.format("MemoryEPD(%s, %s, %s)",OffsetEPD, Comparison, Amount)
 	echo(rstr)
 end
-function GetSupply(SupplyType, Player) -- SupplyType,TrgPlayer/[Player]의 [SupplyType] 값을 읽습니다.
+function GetSupply(SupplyType, Player) --인구수/SupplyType,TrgPlayer/[Player]의 [SupplyType] 값을 읽습니다.
 	ScoreType = ParseEUDScore(ScoreType)
 	Player = ParsePlayer(Player)
 	OffsetEPD = SupplyEPD(SupplyType, Player)
 
 	echo(string.format("dwread_epd(%s)", OffsetEPD))
 end
-function SupplyEPD(SupplyType, Player) -- SupplyType,TrgPlayer/[Player]의 [SupplyType] 주소를 반환합니다.
+function SupplyEPD(SupplyType, Player) --인구수/SupplyType,TrgPlayer/[Player]의 [SupplyType] 주소를 반환합니다.
 	ScoreType = ParseEUDScore(ScoreType)
 	Player = ParsePlayer(Player)
 	ScoreOffset = GetEUDScoreOffset(ScoreType)

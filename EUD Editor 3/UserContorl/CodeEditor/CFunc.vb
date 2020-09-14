@@ -405,6 +405,9 @@ Public Class CFunc
         End If
     End Function
     Public Sub LoadFunc(str As String, Optional StartPos As Integer = -1, Optional NameSpace_ As String = "")
+        str = str & vbCrLf
+
+
         If StartPos <> -1 Then
             str = Mid(str, 1, StartPos)
         End If

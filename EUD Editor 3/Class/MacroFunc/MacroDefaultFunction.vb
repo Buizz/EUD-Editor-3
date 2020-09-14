@@ -1,7 +1,31 @@
 ﻿Partial Public Class MacroManager
     Public luaReturnstr As String
-    Public preDefineStr As New List(Of String)
 
+
+
+    Public onpluginStr As New List(Of String)
+    Public Sub onPluginText(t As String)
+        If onpluginStr.IndexOf(t) = -1 Then
+            onpluginStr.Add(t)
+        End If
+    End Sub
+    Public beforeStr As New List(Of String)
+    Public Sub beforeText(t As String)
+        If beforeStr.IndexOf(t) = -1 Then
+            beforeStr.Add(t)
+        End If
+    End Sub
+    Public afterStr As New List(Of String)
+    Public Sub afterText(t As String)
+        If afterStr.IndexOf(t) = -1 Then
+            afterStr.Add(t)
+        End If
+    End Sub
+
+
+
+
+    Public preDefineStr As New List(Of String)
     Public Sub preDefine(t As String)
         If preDefineStr.IndexOf(t) = -1 Then
             preDefineStr.Add(t)
