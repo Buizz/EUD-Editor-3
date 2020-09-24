@@ -1,49 +1,113 @@
-function CountAtLoc(player ,units ,loc) {
+function CountAtLoc(player: TrgPlayer, unit: TrgUnit, loc: TrgLocation) {
+    // made by Artanis[M] & safhfh & Jpoker & trgk;
     var x = 0xFF;
     foreach(i : py_range(31, -1, -1)) {
-    if(x >= py_pow(2, i)) {
-    x -= py_pow(2, i);
-    if(!Bring(player, AtMost, x, units, loc + 1)) {
-    x += py_pow(2, i);
-    }
-    }
+        if (x >= py_pow(2, i)) {
+            x -= py_pow(2, i);
+            if (!Bring(player, AtMost, x, unit, loc)) {
+                x += py_pow(2, i);
+            }
+        }
     }
     return x;
-    //made by Artanis[M] & safhfh & Jpoker & trgk;
 }
-function COrderLoc(UnitPTR ,order ,loc) {
-    const locTable = EPD(0x58DC4C);
-    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
-    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
-    bwrite(UnitPTR + 0x04D, order);
-    wwrite(UnitPTR + 0x058, x / 2);
-    wwrite(UnitPTR + 0x05A, y / 2);
+
+function __LocOrderBase(
+    epd,
+    order_lsh8,
+    loc: TrgLocation,
+) {
+    const loc_epd = loc * 5;
+    DoActions(loc_epd.AddNumber(EPD(0x58DC4C)));
+
+    const x1 = dwread_epd(loc_epd);
+    DoActions(loc_epd.AddNumber(1));
+    const y1 = dwread_epd(loc_epd);
+    DoActions(loc_epd.AddNumber(1));
+    const x2 = dwread_epd(loc_epd);
+    DoActions(loc_epd.AddNumber(1));
+    const y2 = dwread_epd(loc_epd);
+
+    const x = (x1 + x2) / 2;
+    const y = (y1 + y2) << 15;  // = (y1 + y2) / 2 * 65536 
+
+    epd += 0x4D / 4;
+    SetMemoryXEPD(epd, SetTo, order_lsh8, 0xFF00);
+    epd += (0x58 - 0x4D) / 4;
+    SetMemoryEPD(epd, SetTo, y + x);
 }
-function RotateLocation(target_location ,origin_location ,angle) {
+
+function BuildProbeEPD(epd, loc: TrgLocation, building: TrgUnit) {
+    SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
+    __LocOrderBase(epd, 31 << 8, loc);
+}
+
+function BuildProbe(unitPTR, loc: TrgLocation, building: TrgUnit) {
+    BuildProbeEPD(EPD(unitPTR), loc, building);
+}
+
+function BuildDroneEPD(epd, loc: TrgLocation, building: TrgUnit) {
+    SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
+    __LocOrderBase(epd, 25 << 8, loc, building);
+}
+
+function BuildDrone(unitPTR, loc: TrgLocation, building: TrgUnit) {
+    BuildDroneEPD(EPD(unitPTR), loc, building);
+}
+
+function BuildSCVEPD(epd, loc: TrgLocation, building: TrgUnit) {
+    SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
+    __LocOrderBase(epd, 30 << 8, loc, building);
+}
+
+function BuildSCV(unitPTR, loc: TrgLocation, building: TrgUnit) {
+    BuildSCVEPD(EPD(unitPTR), loc, building);
+}
+
+function COrderLocEPD(epd, order, loc: TrgLocation) {
+    __LocOrderBase(epd, order << 8, loc);
+}
+
+function COrderLoc(unitPTR, order, loc: TrgLocation) {
+    __LocOrderBase(EPD(unitPTR), order << 8, loc);
+}
+
+function COrderUnitEPD(unitEPD, order, targetPTR) {
+    bwrite_epd(unitEPD + 0x04D / 4,  0x04D % 4, order);
+    SetMemoryEPD(unitEPD + 0x05C / 4, SetTo, targetPTR);
+}
+
+function COrderUnit(unitPTR, order, targetPTR) {
+    bwrite(unitPTR + 0x04D, order);
+    dwwrite(unitPTR + 0x05C, targetPTR);
+}
+
+function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
     const locTable = EPD(0x58DC4C);
-    const target = target_location * 5;
-    const origin = origin_location * 5;
+    const target = targetLoc * 5;
+    const origin = originLoc * 5;
     DoActions(list(
-    target.AddNumber(locTable),
-    origin.AddNumber(locTable)
+        target.AddNumber(locTable),
+        origin.AddNumber(locTable)
     ));
+
     const tx1 = dwread_epd(target);
     const ox1 = dwread_epd(origin);
     DoActions(list(
-    target.AddNumber(1),
-    origin.AddNumber(1)
+        target.AddNumber(1),
+        origin.AddNumber(1)
     ));
     const ty1 = dwread_epd(target);
     const oy1 = dwread_epd(origin);
     DoActions(list(
-    target.AddNumber(1),
-    origin.AddNumber(1)
+        target.AddNumber(1),
+        origin.AddNumber(1)
     ));
     const tx2 = dwread_epd(target);
     const ox2 = dwread_epd(origin);
     DoActions(list(
-    target.AddNumber(1),
-    origin.AddNumber(1)
+        target.AddNumber(1),
+        origin.AddNumber(1)
     ));
     const ty2 = dwread_epd(target);
     const oy2 = dwread_epd(origin);
@@ -62,379 +126,373 @@ function RotateLocation(target_location ,origin_location ,angle) {
     DoActions(target.AddNumber(-1));
     dwadd_epd(target, rx);
 }
-function RemoveStatusFlagsEPD(epd ,flags) {
-    dwsubtract_epd(epd + 0xDC / 4, flags & dwread_epd(epd + 0xDC / 4));
+
+function RemoveStatusFlagsEPD(epd, flags) {
+    epd += 0xDC / 4;
+    DoActions(SetMemoryXEPD(epd, SetTo, 0, flags));
 }
-function COrderLocEPD(UnitEPD ,order ,loc) {
-    const locTable = loc * 5;
-    DoActions(locTable.AddNumber(EPD(0x58DC4C)));
-    const x1 = dwread_epd(locTable);
-    DoActions(locTable.AddNumber(1));
-    const y1 = dwread_epd(locTable);
-    DoActions(locTable.AddNumber(1));
-    const x2 = dwread_epd(locTable);
-    DoActions(locTable.AddNumber(1));
-    const y2 = dwread_epd(locTable);
-    bwrite_epd(UnitEPD + 0x04D / 4,  0x04D % 4, order);
-    wwrite_epd(UnitEPD + 0x058 / 4,  0x058 % 4, (x1+x2) / 2);
-    wwrite_epd(UnitEPD + 0x05A / 4,  0x05A % 4, (y1+y2) / 2);
+
+function RemoveStatusFlags(unitPTR, flags) {
+    dwsubtract_epd(EPD(unitPTR) + 0xDC / 4, flags & dwread_epd(EPD(unitPTR) + 0xDC / 4));
 }
-function COrderUnit(UnitPTR ,order ,target) {
-    bwrite(UnitPTR + 0x04D, order);
-    dwwrite(UnitPTR + 0x05C, target);
-}
-function COrderUnitEPD(UnitEPD ,order ,target) {
-    bwrite_epd(UnitEPD + 0x04D / 4,  0x04D % 4, order);
-    SetMemoryEPD(UnitEPD + 0x05C / 4, SetTo, target);
-}
-function SetPColor(pnum ,color) {
+
+function SetPColor(pnum, color) {
     const pcolor_dst = 0x581D76 + 8 * pnum;
     const mcolor_dst = 0x581DD6 + pnum;
     bwrite(pcolor_dst, color);
     bwrite(mcolor_dst, color);
 }
-function SpawnCocoon(UnitPTR ,NewUnit) {
-    if(
-        wread(UnitPTR + 0x064) == 59 && 
-        bread(UnitPTR + 0x04E) == 0
-    ){
-        bwrite(UnitPTR + 0x04E, 1);
-        bwrite(UnitPTR + 0x04D, 42);
-        wwrite(UnitPTR + 0x098, NewUnit);
+
+function __SpawnBase(epd, unit: TrgUnit, newUnit: TrgUnit) {
+    if (
+        MemoryXEPD(epd + 0x64/4, Exactly, unit, 0xFFFF)
+        && MemoryXEPD(epd + 0x4E/4, Exactly, 0, 0xFF0000)
+    ) {
+        SetMemoryXEPD(epd + 0x4D/4, SetTo, (42 << 8) + (1 << 16), 0xFFFF00);
+        SetMemoryXEPD(epd + 0x98/4, SetTo, newUnit, 0xFFFF);
     }
-}
-function TrainUnit(UnitPTR ,NewUnit) {
-    wwrite(UnitPTR + 0x098, NewUnit);
-    wwrite(UnitPTR + 0x09A, NewUnit);
-    wwrite(UnitPTR + 0x09C, NewUnit);
-    wwrite(UnitPTR + 0x09E, NewUnit);
-    wwrite(UnitPTR + 0x0A0, NewUnit);
-    bwrite(UnitPTR + 0x0A6, 38);
-}
-function SpawnEgg(UnitPTR ,NewUnit) {
-    if(
-        wread(UnitPTR + 0x064) == 36 && 
-        bread(UnitPTR + 0x04E) == 0
-    ){
-        bwrite(UnitPTR + 0x04E, 1);
-        bwrite(UnitPTR + 0x04D, 42);
-        wwrite(UnitPTR + 0x098, NewUnit);
-    }
-}
-function SetUnitColor(UnitPTR ,Color) {
-    var spritePTR;
-    spritePTR = dwread(UnitPTR + 0x00C);
-    bwrite(spritePTR + 0x0A, Color);
-}
-function SetLocationToUnitEPD(Location:TrgLocation ,UnitEPD ,X ,Y) {
-    const xpos = wread_epd(UnitEPD + X / 4, 0);
-    const ypos = wread_epd(UnitEPD + Y / 4, 2);
-    setloc(Location, xpos, ypos);
-}
-function SetLocationToUnit(Location:TrgLocation ,UnitPTR ,X ,Y) {
-    const x = wread(UnitPTR + X);
-    const y = wread(UnitPTR + Y);
-    setloc(Location, x, y);
 }
 
-function SetLocation(Location:TrgLocation ,X ,Y ,Width ,Height) {
-    setloc(Location, X, Y);
-    dilateloc(Location, Width/2, Height/2);
+function SpawnCocoonEPD(epd, newUnit: TrgUnit) {
+    __SpawnBase(epd, 59, newUnit);
 }
-function EUDMoveLocation(Location:TrgLocation ,X ,Y) {
+
+function SpawnCocoon(unitPTR, newUnit: TrgUnit) {
+    __SpawnBase(EPD(unitPTR), 59, newUnit);
+}
+
+function SpawnEggEPD(epd, newUnit: TrgUnit) {
+    __SpawnBase(epd, 36, newUnit);
+}
+
+function SpawnEgg(unitPTR, newUnit: TrgUnit) {
+    __SpawnBase(EPD(unitPTR), 36, newUnit);
+}
+
+function MorphLarvaEPD(epd, newUnit: TrgUnit) {
+    if (MemoryXEPD(epd + 0x64/4, Exactly, unit, 0xFFFF)) {
+        SetMemoryXEPD(epd + 0x4D/4, SetTo, 42 << 8, 0xFFFF00);
+        SetMemoryXEPD(epd + 0x98/4, SetTo, newUnit, 0xFFFF);
+    }
+}
+
+function TrainUnitEPD(epd, newUnit: TrgUnit) {
+    const nU_and_lsh16 = newUnit * 65537;
+    epd += 0x98/4;
+    SetMemoryEPD(epd, SetTo, nU_and_lsh16);
+    epd += 1;
+    SetMemoryEPD(epd, SetTo, nU_and_lsh16);
+    epd += 1;
+    SetMemoryXEPD(epd, SetTo, newUnit, 0xFFFF);
+    epd += 1;
+    SetMemoryXEPD(epd, SetTo, 38 << 16, 0xFF0000);
+}
+
+function TrainUnit(unitPTR, newUnit: TrgUnit) {
+    TrainUnitEPD(epd, newUnit);
+}
+
+function SetUnitColorEPD(epd, color) {
+    epd += 0x0C/4;
+    const sprite = epdread_epd(epd);
+    DoActions(sprite.AddNumber(0x0A/4));
+    SetMemoryEPD(sprite, SetTo, color * 65536, 0xFF0000);
+}
+
+function SetUnitColor(unitPTR, Color) {
+    SetUnitColorEPD(EPD(unitPTR), color);
+}
+
+function SetLocationToUnitEPD(location: TrgLocation, unitEPD, CUnitOffsetX, CUnitOffsetY) {
+    if (CUnitOffsetX == CUnitOffsetY) {
+        unitEPD += CUnitOffsetX/4;
+        setloc_epd(location, unitEPD);
+    } else {
+        const x = wread_epd(unitEPD + CUnitOffsetX/4, 0);
+        const y = wread_epd(unitEPD + CUnitOffsetY/4, 2);
+        setloc(location, x, y);
+    }
+}
+
+function SetLocationToUnit(location: TrgLocation, unitPTR, CUnitOffsetX, CUnitOffsetY) {
+    SetLocationToUnitEPD(location, EPD(unitPTR), CUnitOffsetX, CUnitOffsetY);
+}
+
+function SetLocation(location: TrgLocation, X, Y, width, height) {
+    setloc(location, X, Y);
+    dilateloc(location, width/2, height/2);
+}
+
+function EUDMoveLocation(Location: TrgLocation, X, Y) {
     addloc(Location, X, Y);
 }
-function ScreenShake(x ,y ,tempLoc) {
-    if(
-        Memory(0x57F1B0, Exactly, (getcurpl()))
-    ){
-        var ScreenX = dwread_epd_safe(EPD(0x628448));
-        var ScreenY = dwread_epd_safe(EPD(0x628470));
-        ScreenX += dwrand() % (x + 1);
-        ScreenY += dwrand() % (y + 1);
-        ScreenX -= x / 2;
-        ScreenY -= y / 2;
-        SetLocation(tempLoc,ScreenX,ScreenY,0,0);
-        CenterView((64));
-        EUDMoveLocation(tempLoc,2048 - dwread_epd_safe(EPD(0x628448)),dwread_epd_safe(EPD(0x628470)) - 2048);
-        CenterView((tempLoc + 1));
+
+// Warning: This function shouldn't be called under desync condition!
+// modified from source: https://cafe.naver.com/edac/91196
+function ScreenShake(x, y, tempLoc: TrgLocation) {
+    // To prevent desync afterward, rand should run for everyone
+    const randX, randY = rand(), rand();
+    if (IsUserCP()) {
+        const SCREEN_X, SCREEN_Y = 0x628448, 0x628470;
+        const rX, rY = (randX % x) - x/2, (randY % y) - y/2;
+        const screenX = dwread(SCREEN_X);
+        const screenY = dwread(SCREEN_Y);
+        VProc(list(rX, rY), list(
+            rX.QueueAddTo(screenX),
+            rY.QueueAddTo(screenY)
+        ));
+        setloc(tempLoc, screenX, screenY);
+        CenterView(64);
+        py_exec("chkt = GetChkTokenized()");
+        py_exec("dim = chkt.getsection('DIM')");
+        const mapX = py_eval("b2i2(dim) << 4");
+        const mapY = py_eval("b2i2(dim, 2) << 4");
+        addloc(tempLoc, mapX - dwread(SCREEN_X), dwread(SCREEN_Y) - mapY);
+        CenterView(tempLoc);
     }
 }
-function hotkeyUnit(UnitPTR ,player ,hotkey ,slot) {
-    var epd = EPD(UnitPTR);
-    const targetOrderSpecial = dwread_epd(epd + 0xA5 / 4) & 0xFF00;
-    var alphaID = 0;
-    if(
-        epd == 19025
-    ){
-        alphaID = 1 + targetOrderSpecial * 8;
-    }
-    else{
-        alphaID = 1701 - (0x27821 - epd) / 0x54 + targetOrderSpecial * 8;
-    }
-    SetMemoryEPD(EPD(0x57FE60) + 216 * player + 12 * hotkey + slot, SetTo, alphaID);
-}
-function GetAngle(origin ,dest) {
-    const locTable = EPD(0x58DC4C);
-    const x1 = (dwread_epd(locTable + origin * 5) + dwread_epd(locTable + origin * 5 + 2))/2;
-    const y1 = (dwread_epd(locTable + origin * 5 + 1) + dwread_epd(locTable + origin * 5 + 3))/2;
-    const x2 = (dwread_epd(locTable + dest * 5) + dwread_epd(locTable + dest * 5 + 2))/2;
-    const y2 = (dwread_epd(locTable + dest * 5 + 1) + dwread_epd(locTable + dest * 5 + 3))/2;
-    return atan2((x2 - x1), (y1 - y2));
-}
-function hotkeyUnitEPD(epd ,player:TrgPlayer ,hotkey ,slot) {
-    const targetOrderSpecial = dwread_epd(epd + 0xA5 / 4) & 0xFF00;
-    var alphaID = 0;
-    if(
-        epd == 19025
-    ){
-        alphaID = 1 + targetOrderSpecial * 8;
-    }
-    else{
-        alphaID = 1701 - (0x27821 - epd) / 0x54 + targetOrderSpecial * 8;
+
+function hotkeyUnitEPD(epd, player: TrgPlayer, hotkey, slot) {
+    epd += 0xA5 / 4;
+    const targetOrderSpecial = maskread_epd(epd, 0xFF00);
+    const alphaID = targetOrderSpecial * 8;
+    DoActions(alphaID.AddNumber(1))
+    if (epd != 19025 + 0xA5 / 4) {
+        epd += 1700 - 0x27821 - 0xA5 / 4;  // diff
+        VProc(epd, epd.QueueAddTo(alphaID));
     }
     SetMemoryEPD(EPD(0x57FE60) + 216 * player + 12 * hotkey + slot, SetTo, alphaID);
 }
-function LocationAngle(origin ,dest) {
-    const locOrigin, locDest = origin * 5, dest * 5;
-    DoActions(list(
-    locOrigin.AddNumber(EPD(0x58DC4C)),
-    locDest.AddNumber(EPD(0x58DC4C)),
-    ));
-    
-    const x1 = dwread_epd(locOrigin);
-    const x3 = dwread_epd(locDest);
-    DoActions(list(
-    locOrigin.AddNumber(1),
-    locDest.AddNumber(1),
-    ));
-    const y1 = dwread_epd(locOrigin);
-    const y3 = dwread_epd(locDest);
-    DoActions(list(
-    locOrigin.AddNumber(1),
-    locDest.AddNumber(1),
-    ));
-    const x2 = dwread_epd(locOrigin);
-    const x4 = dwread_epd(locDest);
-    DoActions(list(
-    locOrigin.AddNumber(1),
-    locDest.AddNumber(1),
-    ));
-    const y2 = dwread_epd(locOrigin);
-    const y4 = dwread_epd(locDest);
-    
-    const ox, oy = (x1+x2)/2, (y1+y2)/2;
-    const dx, dy = (x3+x4)/2, (y3+y4)/2;
-    
-    return atan2((dx - ox), (oy - dy));
+
+function hotkeyUnit(unitPTR, player: TrgPlayer, hotkey, slot) {
+    hotkeyUnitEPD(EPD(unitPTR), player, hotkey, slot);
 }
-function LocationDistanceVal(variable ,loc1 ,loc2) {
-    const locTable = EPD(0x58DC4C);
-    const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
-    const y1 = dwread_epd(locTable + loc1 * 5 + 1) + dwread_epd(locTable + loc1 * 5 + 3);
-    const x2 = dwread_epd(locTable + loc2 * 5) + dwread_epd(locTable + loc2 * 5 + 2);
-    const y2 = dwread_epd(locTable + loc2 * 5 + 1) + dwread_epd(locTable + loc2 * 5 + 3);
-    variable = sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
-    return sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
+
+function __GetLocCoord(loc: TrgLocation) {
+    const loc_epd = loc * 5
+    DoActions(loc_epd.AddNumber(EPD(0x58DC4C)));
+    const x1 = dwread_epd(loc_epd);
+    DoActions(loc_epd.AddNumber(1));
+    const y1 = dwread_epd(loc_epd);
+    DoActions(loc_epd.AddNumber(1));
+    const x2 = dwread_epd(loc_epd);
+    DoActions(loc_epd.AddNumber(1));
+    const y2 = dwread_epd(loc_epd);
+    return x1, y1, x2, y2;
 }
-function MorphLarva(UnitPTR ,NewUnit) {
-    if(
-        wread(UnitPTR + 0x064) == 35
-    ){
-        wwrite(UnitPTR + 0x098, NewUnit);
-        bwrite(UnitPTR + 0x04E, 0);
-        bwrite(UnitPTR + 0x04D, 42);
-    }
+
+function LocationAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
+    const ox1, ox2, oy1, oy2 = __GetLocCoord(originLoc);
+    const dx1, dx2, dy1, dy2 = __GetLocCoord(destLoc);
+    const x1 = (ox1 + ox2) / 2;
+    const y1 = (oy1 + oy2) / 2;
+    const x2 = (dx1 + dx2) / 2;
+    const y2 = (dy1 + dy2) / 2;
+    return atan2(x2 - x1, y1 - y2);
 }
-function PolarLocation(loc ,length ,angle) {
+
+// GetAngle and LocationAngle functions are duplicates..
+function GetAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
+    return LocationAngle(originLoc, destLoc);
+}
+
+function LocationDistance(loc1: TrgLocation, loc2: TrgLocation) {
+    const ox1, ox2, oy1, oy2 = __GetLocCoord(loc1);
+    const dx1, dx2, dy1, dy2 = __GetLocCoord(loc2);
+    const x = dx1 + dx2 - (ox1 + ox2);
+    const y = dy1 + dy2 - (oy1 + oy2);
+    return sqrt(x*x + y*y) / 2;
+}
+
+// LocationDistanceVal actually hasn't written to variable in EE2 TE.
+function LocationDistanceVal(variable, loc1: TrgLocation, loc2: TrgLocation) {
+    return LocationDistance(loc1, loc2);
+}
+
+function PolarLocation(loc: TrgLocation, length, angle) {
     const x, y = lengthdir(length, angle);
-    const locTable = EPD(0x58DC4C) + loc * 5;
-    SetMemoryEPD(locTable, Add, x);
-    SetMemoryEPD(locTable + 2, Add, x);
-    SetMemoryEPD(locTable + 1, Add, y);
-    SetMemoryEPD(locTable + 3, Add, y);
-}
-function RemoveStatusFlags(UnitPTR ,flags) {
-    dwsubtract_epd(EPD(UnitPTR) + 0xDC / 4, flags & dwread_epd(EPD(UnitPTR) + 0xDC / 4));
+    setloc(loc, x, y);
 }
 
-function LocationDistance(loc1 ,loc2) {
-    const locTable = EPD(0x58DC4C);
-    const x1 = dwread_epd(locTable + loc1 * 5) + dwread_epd(locTable + loc1 * 5 + 2);
-    const y1 = dwread_epd(locTable + loc1 * 5 + 1) + dwread_epd(locTable + loc1 * 5 + 3);
-    const x2 = dwread_epd(locTable + loc2 * 5) + dwread_epd(locTable + loc2 * 5 + 2);
-    const y2 = dwread_epd(locTable + loc2 * 5 + 1) + dwread_epd(locTable + loc2 * 5 + 3);
-    return sqrt((x1 - x2)*(x1 - x2)+(y1-y2)*(y1-y2)) / 2;
-}
-function CheckNoneTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
-    if(
-        bread(UnitPTR + 0x04D) == SkillOrder
-    ){
-        SetLocationToUnit(TargetLoc,UnitPTR,0x058,0x05A);
-        SetLocationToUnit(UnitLoc,UnitPTR,0x028,0x02A);
-        if(
-            Range > LocationDistance(UnitLoc,TargetLoc)
-        ){
-            MoveLocation((TargetLoc + 1), (227), (AllPlayers), (TargetLoc + 1));
-            bwrite(UnitPTR + 0x04D, 1);
-            wwrite(UnitPTR + 0x010, wread(UnitPTR + 0x028));
-            wwrite(UnitPTR + 0x012, wread(UnitPTR + 0x02A));
+function CheckNoneTargetSkillEPD(
+    unitEPD,
+    range,
+    unitLoc: TrgLocation,
+    targetLoc: TrgLocation,
+    skillOrder /*Order*/
+) {
+    unitEPD += 0x4D/4;
+    if (MemoryXEPD(unitEPD, Exactly, skillOrder * 256, 0xFF00)) {
+        unitEPD += -((0x4D - 0x28)/4);
+    	const x, y = posread_epd(unitEPD);
+	    setloc(unitLoc, x, y);
+        unitEPD += (0x58 - 0x28)/4;
+	    setloc_epd(targetLoc, unitEPD);
+
+        if (range > LocationDistance(unitLoc, targetLoc)) {
+            MoveLocation(targetLoc, 227, AllPlayers, targetLoc);
+            unitEPD += -((0x58 - 0x4D)/4);
+        	SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
+            unitEPD += -((0x4D - 0x10)/4);
+            SetMemory(unitEPD, SetTo, x + y * 65536);
             return True;
         }
     }
     return False;
 }
 
-function CheckNoneTargetSkillEPD(UnitEPD ,Range ,UnitLoc:TrgLocationIndex ,TargetLoc:TrgLocationIndex ,SkillOrder /*Order*/) {
-    if(
-    	MemoryXEPD(UnitEPD + 0x13 , Exactly, SkillOrder * 256, 0xFF00)
-    ){
-    	const x, y = posread_epd(UnitEPD + 0x28/4);
-	    setloc(UnitLoc, x, y);
+function CheckNoneTargetSkill(
+    unitPTR,
+    range,
+    unitLoc: TrgLocation,
+    targetLoc: TrgLocation,
+    skillOrder /*Order*/
+) {
+    return CheckNoneTargetSkillEPD(
+        unitEPD,
+        range,
+        unitLoc,
+        targetLoc,
+        skillOrder /*Order*/
+    );
+}
 
+function SetLocationToUnitSafeEPD(location: TrgLocation, unitEPD, posX) {
+    unitEPD += posX/4;
+    setloc_epd(location, unitEPD);
+}
 
-	    setloc_epd(TargetLoc, UnitEPD + 0x058/4);
+function SetLocationToUnitSafe(location: TrgLocation, unitPTR, posX) {
+    SetLocationToUnitSafeEPD(location, EPD(unitPTR), posX);
+}
 
-
-    	//const sb = StringBuffer();
-    	//sb.print(LocationDistance(UnitLoc,TargetLoc), " X: ", x , " Y:", y);
-        if(
-            Range > LocationDistance(UnitLoc ,TargetLoc)
-        ){
-            MoveLocation(TargetLoc + 1, (227), (AllPlayers), TargetLoc + 1);
-        	SetMemoryXEPD(UnitEPD + 0x13, SetTo, 0x100, 0xFF00);
-
-
-            wwrite_epd(UnitEPD + 0x4, 0, x);
-            wwrite_epd(UnitEPD + 0x4, 2, y);
+function CheckTargetSkillEPD(
+    unitEPD,
+    range,
+    unitLoc: TrgLocation,
+    targetLoc: TrgLocation,
+    skillOrder
+) {
+    if (MemoryXEPD(unitEPD + 0x4D/4, Exactly, skillOrder * 256, 0xFF00) {
+    	const x, y = posread_epd(unitEPD + 0x28/4);
+	    setloc(unitLoc, x, y);
+        setloc_epd(targetLoc, unitEPD + 0x58/4);
+        if (range > LocationDistance(unitLoc, targetLoc)) {
+            MoveLocation(targetLoc, 227, 17, targetLoc);
+            SetMemoryXEPD(unitEPD + 0x4D/4, SetTo, 0x100, 0xFF00);
+            SetMemoryEPD(unitEPD + 0x10/4, SetTo, x + y * 65536)
             return True;
         }
     }
     return False;
 }
-function SetLocationToUnitSafe(Location ,UnitPTR ,posX) {
-    var xloc, yloc = dwbreak(dwread_epd_safe(EPD(UnitPTR + posX)))[[0, 1]];
-    SetMemory(0x58DC4C + Location * 20 + 4 * 0, SetTo, xloc);
-    SetMemory(0x58DC4C + Location * 20 + 4 * 2, SetTo, xloc);
-    SetMemory(0x58DC4C + Location * 20 + 4 * 1, SetTo, yloc);
-    SetMemory(0x58DC4C + Location * 20 + 4 * 3, SetTo, yloc);
+
+function CheckTargetSkill(
+    unitPTR,
+    range,
+    unitLoc: TrgLocation,
+    targetLoc: TrgLocation,
+    skillOrder
+) {
+    return CheckTargetSkillEPD(EPD(unitPTR), range, unitLoc, targetLoc, skillOrder);
 }
-function CheckTargetSkill(UnitPTR ,Range ,UnitLoc ,TargetLoc ,SkillOrder) {
-    if(
-        bread(UnitPTR + 0x04D) == SkillOrder
-    ){
-        SetLocationToUnitSafe(TargetLoc,UnitPTR,0x058);
-        SetLocationToUnitSafe(UnitLoc,UnitPTR,0x028);
-        if(
-            Range > LocationDistance(UnitLoc,TargetLoc)
-        ){
-            MoveLocation((TargetLoc + 1), (227), (17), (TargetLoc + 1));
-            bwrite(UnitPTR + 0x04D, 1);
-            wwrite(UnitPTR + 0x010, wread(UnitPTR + 0x028));
-            wwrite(UnitPTR + 0x012, wread(UnitPTR + 0x02A));
-            return True;
-        }
-    }
-    return False;
+
+function CBringEPD(unitEPD, location: TrgLocation, dummyUnit: TrgUnit) {
+    MoveLocation(location, dummyUnit, AllPlayers, location);
+    const unitType = unitEPD + 0x64/4;
+    const originalUnitType = wread_epd(unitType, 0);
+    SetMemoryXEPD(unitType, SetTo, dummyUnit, 0xFFFF);
+    const ret = l2v(Bring(AllPlayers, AtLeast, 1, dummyUnit, location));
+    SetMemoryXEPD(unitType, SetTo, originalUnitType, 0xFFFF);
+    return ret;
 }
-function CBring(UnitPTR ,Location ,dummyUnit) {
-    MoveLocation((Location), (dummyUnit), (AllPlayers), (Location));
-    var tUnitType = 0;
-    tUnitType = wread(UnitPTR + 0x064);
-    wwrite(UnitPTR + 0x064, dummyUnit);
-    if(
-        Bring((AllPlayers), (AtLeast), 1, (dummyUnit), (Location))
-    ){
-        wwrite(UnitPTR + 0x064, tUnitType);
-        return True;
-    }
-    wwrite(UnitPTR + 0x064, tUnitType);
-    return False;
+
+function CBring(unitPTR, location: TrgLocation, dummyUnit: TrgUnit) {
+    return CBringEPD(EPD(unitPTR, location, dummyUnit));
 }
-function BuildSCV(UnitPTR ,loc ,Building) {
-    const locTable = EPD(0x58DC4C);
-    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
-    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
-    bwrite(UnitPTR + 0x04D, 30);
-    wwrite(UnitPTR + 0x098, Building);
-    wwrite(UnitPTR + 0x058, x / 2);
-    wwrite(UnitPTR + 0x05A, y / 2);
-}
+
 function BuildResetEPD(unitEPD) {
-    SetMemoryXEPD(unitEPD + 38, SetTo, 14942436, 0xFFFFFFFF);
-    SetMemoryXEPD(unitEPD + 39, SetTo, 14942436, 0xFFFFFFFF);
-    SetMemoryXEPD(unitEPD + 40, SetTo, 228, 0xFFFF);
-    SetMemoryXEPD(unitEPD + 41, SetTo, 131072, 0xFFFF0000);
+    unitEPD += 0x98/4;
+    SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
+    unitEPD += 1;
+    SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
+    unitEPD += 1;
+    SetMemoryXEPD(unitEPD, SetTo, 228, 0xFFFF);
+    unitEPD += 1;
+    SetMemoryXEPD(unitEPD, SetTo, 2 << 16, 0xFFFF0000);
 }
+
 function BuildReset(unitPTR) {
     BuildResetEPD(EPD(unitPTR));
 }
-function BuildProbe(UnitPTR ,loc ,Building) {
-    const locTable = EPD(0x58DC4C);
-    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
-    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
-    bwrite(UnitPTR + 0x04D, 31);
-    wwrite(UnitPTR + 0x098, Building);
-    wwrite(UnitPTR + 0x058, x / 2);
-    wwrite(UnitPTR + 0x05A, y / 2);
-}
-function BuildDrone(UnitPTR ,loc ,Building) {
-    const locTable = EPD(0x58DC4C);
-    const x = dwread_epd(locTable + loc * 5) + dwread_epd(locTable + loc * 5 + 2);
-    const y = dwread_epd(locTable + loc * 5 + 1) + dwread_epd(locTable + loc * 5 + 3);
-    bwrite(UnitPTR + 0x04D, 25);
-    wwrite(UnitPTR + 0x098, Building);
-    wwrite(UnitPTR + 0x058, x / 2);
-    wwrite(UnitPTR + 0x05A, y / 2);
-}
-function BuildCheckEPD(unitEPD ,Unit) {
-    const mulUnit = Unit * 65536;
-    if(MemoryXEPD(unitEPD + 38, Exactly, Unit, 0xFFFF)){
+
+function BuildCheckEPD(unitEPD, unit: TrgUnit) {
+    unitEPD += 0x98 / 4;  // buildQueue
+    if (MemoryXEPD(unitEPD, Exactly, unit, 0xFFFF)) {
         return True;
-    } else if(MemoryXEPD(unitEPD + 38, Exactly, mulUnit, 0xFFFF0000)){
-        return True;
-    } else if(MemoryXEPD(unitEPD + 39, Exactly, Unit, 0xFFFF)){
-        return True;
-    } else if(MemoryXEPD(unitEPD + 39, Exactly, mulUnit, 0xFFFF0000)){
-        return True;
-    } else if(MemoryXEPD(unitEPD + 40, Exactly, Unit, 0xFFFF)){
-        return True;
-    } else{
-        return False;
-    };
-}
-function BuildCheck(unitPTR ,Unit) {
-    if(
-        wread(unitPTR + 0x098) == Unit || 
-        wread(unitPTR + 0x09A) == Unit || 
-        wread(unitPTR + 0x09C) == Unit || 
-        wread(unitPTR + 0x09E) == Unit || 
-        wread(unitPTR + 0x0A0) == Unit
-    ){
-        return True;
+    } else {
+        const mulUnit = unit * 65536;
+        if (MemoryXEPD(unitEPD, Exactly, mulUnit, 0xFFFF0000)) {
+            return True;
+        } else {
+            unitEPD += 1;
+            if (MemoryXEPD(unitEPD, Exactly, unit, 0xFFFF)) {
+                return True;
+            } else if (MemoryXEPD(unitEPD, Exactly, mulUnit, 0xFFFF0000)) {
+                return True;
+            } else {
+                unitEPD += 1;
+                if (MemoryXEPD(unitEPD, Exactly, unit, 0xFFFF)) {
+                    return True;
+                }
+            }
+        }
     }
     return False;
 }
-function AttackGround(attackLoc ,targetLoc ,attackUnit ,targetUnit ,player) {
-    var aunit;
-    var tunit;
-    var tunitptr;
-    aunit = epdread_epd(EPD(0x628438));
-    CreateUnit(1, (attackUnit), (attackLoc + 1), (player));
-    tunit = epdread_epd(EPD(0x628438));
-    tunitptr = dwread_epd(EPD(0x628438));
-    CreateUnit(1, (targetUnit), (targetLoc + 1), (player));
-    SetMemoryEPD(aunit + 0x05C / 4, SetTo, tunitptr);
-    bwrite_epd(aunit + 0x04D / 4,  0x04D % 4, 10);
-    wwrite_epd(aunit + 0x110 / 4,  0x110 % 4, 2);
-    wwrite_epd(tunit + 0x110 / 4,  0x110 % 4, 2);
+
+function BuildCheck(unitPTR, unit: TrgUnit) {
+    return BuildCheckEPD(EPD(unitPTR), unit);
 }
-function AddStatusFlags(UnitPTR ,flags) {
-    SetMemoryX(UnitPTR + 0xDC, SetTo, flags, flags);
+
+function AttackGround(
+    attackLoc: TrgLocation,
+    targetLoc: TrgLocation,
+    attackUnit: TrgUnit,
+    targetUnit: TrgUnit,
+    player: TrgPlayer
+) {
+    if (Memory(0x628438, Exactly, 0)) return;  // avoid EUDError when CCMU
+    const aUnit = cunitepdread_epd(EPD(0x628438))[[1]];
+    CreateUnit(1, attackUnit, attackLoc, player);
+    DoActions(aUnit.AddNumber(0x110 / 4));
+    SetMemoryEPD(aUnit, Add, 2);  // aUnit + 0x110 (CUnit::removeTimer)
+
+    if (Memory(0x628438, Exactly, 0)) return;  // avoid EUDError when CCMU
+    const tunitptr, tunit = cunitepdread_epd(EPD(0x628438));
+    CreateUnit(1, targetUnit, targetLoc, player);
+    DoActions(list(
+        tunit.AddNumber(0x110 / 4),
+        aUnit.AddNumber(-((0x110 - 0x5C) / 4))
+    ));
+    SetMemoryEPD(aUnit, SetTo, tunitptr);  // aUnit + 0x5C (CUnit::targetUnit)
+    SetMemoryEPD(tunit, Add, 2);  // tunit + 0x110 (CUnit::removeTimer)
+
+    DoActions(aUnit.AddNumber(-((0x5C - 0x4D) / 4)));
+    SetMemoryXEPD(aUnit, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
 }
-function AddStatusFlagsEPD(epd ,flags) {
-    SetMemoryXEPD(epd + 0xDC/4, SetTo, flags, flags);
+
+function AddStatusFlagsEPD(epd, flags) {
+    epd += 0xDC / 4;
+    SetMemoryXEPD(epd, SetTo, ~0, flags);
 }
-function AddSizeLocation(Location ,Width ,Height) {
-    dilateloc(Location, Width, Height);
+
+function AddStatusFlags(unitPTR, flags) {
+    unitPTR += 0xDC;
+    SetMemoryX(unitPTR, SetTo, ~0, flags);
+}
+
+
+function AddSizeLocation(location: TrgLocation, width, height) {
+    dilateloc(location, width, height);
 }
