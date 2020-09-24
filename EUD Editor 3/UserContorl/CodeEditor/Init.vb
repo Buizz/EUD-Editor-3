@@ -82,6 +82,12 @@ Partial Public Class CodeEditor
 
         AddHandler TextEditor.TextArea.PreviewKeyDown, AddressOf TextEditorPreviewKey
         AddHandler TextEditor.TextArea.PreviewKeyUp, AddressOf TextEditorPreviewKey
+
+        'AddHandler TextEditor.TextArea.KeyDown, AddressOf TextEditorPreviewKey
+        'AddHandler TextEditor.TextArea.KeyUp, AddressOf TextEditorPreviewKey
+
+
+
         AddHandler TextEditor.TextArea.TextEntering, AddressOf textEditor_TextArea_TextEntering
         AddHandler TextEditor.TextArea.TextEntered, AddressOf textEditor_TextArea_TextEntered
     End Sub
@@ -551,7 +557,6 @@ Partial Public Class CodeEditor
                     TextEditor.SelectionStart += 2
                 End If
             End If
-
         End If
 
 
@@ -576,6 +581,7 @@ Partial Public Class CodeEditor
                 completionWindowView()
             End If
         End If
+
         If e.Key = Key.Up Or e.Key = Key.Down Then
             If completionWindow Is Nothing Then
                 TooltipHide()
@@ -588,11 +594,11 @@ Partial Public Class CodeEditor
         End If
 
 
-        If e.Key = Key.Tab And e.IsUp And Not IsOpencompletionWindow Then
-            If TextEditor.SelectedText = "" Then
-                textEditor_KeyboardInput(vbTab)
-            End If
-        End If
+        'If e.Key = Key.Tab And e.IsUp And Not IsOpencompletionWindow Then
+        '    If TextEditor.SelectedText = "" Then
+        '        textEditor_KeyboardInput(vbTab)
+        '    End If
+        'End If
 
         If e.IsDown Then
             IsOpencompletionWindow = completionWindow IsNot Nothing
@@ -617,6 +623,12 @@ Partial Public Class CodeEditor
         If e.IsDown And e.Key = Key.Back Then
             AutoRemover()
         End If
+
+
+        If completionWindow IsNot Nothing Then
+            completionWindow.ToolTipLayoutRefresh()
+        End If
+
         'If completionWindow.CompletionList.ListBox.Items.Count = 0 Then
         '    completionWindow.Close()
         'End If

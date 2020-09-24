@@ -102,7 +102,7 @@ Public Class MacroManager
                 Dim sr As New StreamReader(fs)
 
                 Dim fileText As String = sr.ReadToEnd
-                Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9, ]*)\)\s+--(.*)\/(.*)\/(.*)")
+                Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9,. ]*)\)\s+--(.*)\/(.*)\/(.*)")
 
                 Dim matchs As MatchCollection = regex.Matches(fileText)
 

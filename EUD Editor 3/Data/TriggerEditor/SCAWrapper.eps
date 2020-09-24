@@ -1,5 +1,6 @@
 import TriggerEditor.SCArchive as sca;
 
+
 const s = StringBuffer();
 
 
@@ -103,4 +104,37 @@ function scaLoadTime(cmpfunc){
 	const cp = getcurpl();
 	loadTimefunc[cp] = cmpfunc;
 	loadTimestatus[cp] = 1;
+}
+
+function SetUseDefaultMessage(value){
+	//value가 1이면 기본값쓰기
+	sca.SetUseDefaultMessage(value);
+}
+
+function Year(){
+	return sca.Year;
+}
+
+function Month(){
+	return sca.Month;
+}
+
+function Day(){
+	return sca.Day;
+}
+
+function Hour(){
+	return sca.Hour;
+}
+
+function Min(){
+	return sca.Min;
+}
+
+function Week(){
+	return sca.Week;
+}
+
+function GlobalData(index){
+	return sca.GlobalData[index];
 }

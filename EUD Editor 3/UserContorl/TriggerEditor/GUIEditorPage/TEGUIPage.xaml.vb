@@ -218,14 +218,21 @@ Public Class TEGUIPage
             Dim itemh As Integer = 80
             Dim cpos As Integer = pos.Y
 
-            If (cpos + windowh) > realh Then
-                InputDialog.VerticalAlignment = VerticalAlignment.Center
-                InputDialog.HorizontalAlignment = HorizontalAlignment.Center
-                InputDialog.Margin = New Thickness(0, 0, 0, 0)
+            If realh > 300 Then
+                If (cpos + windowh) > realh Then
+                    InputDialog.VerticalAlignment = VerticalAlignment.Center
+                    InputDialog.HorizontalAlignment = HorizontalAlignment.Center
+                    InputDialog.Margin = New Thickness(0, 0, 0, 0)
+                Else
+                    InputDialog.Margin = New Thickness(ObjectSelector.ActualWidth + pos.X, cpos + itemh, 0, 0)
+                End If
             Else
-                InputDialog.Margin = New Thickness(ObjectSelector.ActualWidth + pos.X, cpos + itemh, 0, 0)
-            End If
+                InputDialog.VerticalAlignment = VerticalAlignment.Center
+                InputDialog.HorizontalAlignment = HorizontalAlignment.Left
+                InputDialog.Margin = New Thickness(ObjectSelector.ActualWidth + 100, 0, 0, 0)
 
+                'InputDialog.Margin = New Thickness(ObjectSelector.ActualWidth + pos.X, cpos + itemh, 0, 0)
+            End If
         End If
     End Sub
 

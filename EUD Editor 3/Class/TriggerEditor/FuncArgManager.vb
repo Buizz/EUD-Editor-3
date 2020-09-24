@@ -126,10 +126,14 @@
         FuncComment = luafunc.Fcomment
 
         For i = 0 To luafunc.ArgName.Count - 1
-            Dim argname As String = luafunc.ArgName(i)
+            Dim argname As String = luafunc.ArgName(i).Trim
             If argname.Length > 0 Then
                 If Mid(argname, 1, 1) = "*" Then
                     ArgStartIndex = i
+                End If
+                If argname = "..." Then
+                    ArgStartIndex = i
+                    Continue For
                 End If
             End If
 

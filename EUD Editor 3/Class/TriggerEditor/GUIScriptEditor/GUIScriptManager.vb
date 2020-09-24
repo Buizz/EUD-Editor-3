@@ -464,7 +464,11 @@ Public Class GUIScriptManager
                 strb.Append("switch")
 
                 strb.Append("(")
-                strb.Append(svalue)
+                Dim t As New List(Of ScriptBlock)
+                t.Add(sscr.VChild)
+                GetScriptText(t, strb, intend, "")
+
+                'strb.Append(svalue)
                 strb.Append(")")
                 strb.AppendLine("{")
                 intend += 1
@@ -762,7 +766,12 @@ Public Class GUIScriptManager
                                 strb.Append("")
                             End If
                         Else
-                            If scr.Parent.isfolder Then
+                            Dim isFolder As Boolean = False
+                            If scr.Parent IsNot Nothing Then
+                                isFolder = scr.Parent.isfolder
+                            End If
+
+                            If isFolder Then
                                 strb.Append(GetIntend(intend))
                             End If
 
@@ -781,13 +790,13 @@ Public Class GUIScriptManager
                                     End If
                                 End If
                             Else
-                                If scr.Parent.isfolder Then
+                                If isFolder Then
                                     strb.Append(";")
                                 End If
                             End If
 
 
-                            If scr.Parent.isfolder Then
+                            If isFolder Then
                                 strb.AppendLine("")
                             End If
                         End If

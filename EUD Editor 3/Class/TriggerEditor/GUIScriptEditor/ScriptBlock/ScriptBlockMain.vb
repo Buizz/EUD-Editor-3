@@ -77,6 +77,10 @@ Public Class ScriptBlock
     Public value As String
     Public value2 As String
 
+
+    Public VChild As ScriptBlock
+
+
     <NonSerialized>
     Public tobject As Object
 
@@ -170,7 +174,10 @@ Public Class ScriptBlock
                 AddChild(New ScriptBlock(EBlockType.whilecondition, "whilecondition", False, False, "", Scripter))
                 AddChild(New ScriptBlock(EBlockType.whileaction, "whileaction", False, False, "", Scripter))
             Case EBlockType.switch
-                value = "defaultvalue"
+                Dim tscr As New ScriptBlock(EBlockType.constVal, "Variable", False, False, "Variable", Scripter)
+                tscr.Parent = Me
+                VChild = tscr
+                'value = "defaultvalue"
                 'AddChild(New ScriptBlock(EBlockType.constVal, "defaultvalue;init", False, False, "defaultvalue;init", Scripter))
             Case EBlockType.folder
                 AddChild(New ScriptBlock(EBlockType.folderaction, "folderaction", False, False, "", Scripter))
@@ -1099,6 +1106,8 @@ Public Class ScriptBlock
         value = scr.value
         value2 = scr.value2
 
+        VChild = scr.VChild
+
         child.Clear()
         For i = 0 To scr.child.Count - 1
             AddChild(scr.child(i))
@@ -1107,8 +1116,9 @@ Public Class ScriptBlock
 
         'Public child As List(Of ScriptBlock)
 
-
-
+        If VChild IsNot Nothing Then
+            VChild.Parent = Me
+        End If
         Parent = scr.Parent
         Scripter = scr.Scripter
     End Sub

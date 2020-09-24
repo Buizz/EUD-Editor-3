@@ -304,12 +304,15 @@
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Class\TriggerEditor\BGMData.vb" />
+    <Compile Include="Class\TriggerEditor\ClassicEditor\ClassicTriggerEditor.vb" />
+    <Compile Include="Class\TriggerEditor\ClassicEditor\Trigger.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\EPSFoldingStrategy.vb" />
     <Compile Include="Class\TriggerEditor\DotPainter\DotData.vb" />
     <Compile Include="Class\TriggerEditor\DotPainter\DotPaint.vb" />
     <Compile Include="Class\TriggerEditor\FuncArgManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
+    <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptLegacy.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptManager.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock\ScriptBlockMain.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptBlock\ValFunc.vb" />
@@ -494,6 +497,18 @@
     </Compile>
     <Compile Include="UserContorl\SampleMapList.xaml.vb">
       <DependentUpon>SampleMapList.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\AddTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\CopyTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\DeleteTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\EditTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\RefershGlobalObject.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\RefreshTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPage.xaml.vb">
+      <DependentUpon>TECTPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml.vb">
+      <DependentUpon>TriggerBlock.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
       <DependentUpon>TECUIPage.xaml</DependentUpon>
@@ -900,6 +915,14 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1187,6 +1210,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\chatEventTool.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Printf.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\msqcTool.lua">
@@ -1505,6 +1531,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\Autocmp\Key.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\DateType.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\Weekend.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="x64\lz4X64.dll">

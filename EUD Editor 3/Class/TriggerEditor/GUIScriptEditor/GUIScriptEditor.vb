@@ -24,11 +24,19 @@ Public Class GUIScriptEditor
     '    }]
     '}"
 
+
+
+
+
+
     Private items As List(Of ScriptBlock)
 
     Public Sub SetItemsList(tlist As List(Of ScriptBlock))
         items = tlist
     End Sub
+
+
+
 
 
 
@@ -39,6 +47,10 @@ Public Class GUIScriptEditor
     End Sub
     Public Sub scrLoadRefresh(scr As ScriptBlock)
         scr.Scripter = Me
+        If scr.VChild IsNot Nothing Then
+            scr.VChild.Parent = scr
+        End If
+
         For i = 0 To scr.child.Count - 1
             scr.child(i).Parent = scr
             scrLoadRefresh(scr.child(i))

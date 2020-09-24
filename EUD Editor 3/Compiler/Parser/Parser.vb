@@ -1058,7 +1058,9 @@ PRIUse:
                     Case CodeType.CODE_SWITCH
                         'switch ( CODE_PRIMARY ) COMPOUNDS_ST
                         scritem = New ScriptBlock(ScriptBlock.EBlockType.switch, "switch", True, False, "", Nothing)
-                        scritem.value = tcode.Items(0).Value1
+
+                        scritem.VChild = GetScriptBlock(tcode.Items(0))
+                        'scritem.value = tcode.Items(0).Value1
 
                         Dim cbox As ScriptBlock = GetScriptBlock(tcode.Items(1))
                         For i = 0 To cbox.child.Count - 1

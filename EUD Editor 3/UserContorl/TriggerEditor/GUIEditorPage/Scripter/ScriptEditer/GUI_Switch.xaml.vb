@@ -2,33 +2,40 @@
     Public Sub CrlInit()
         '//////////////////////////////
         '초기화 식
-        Dim varlist As List(Of ScriptBlock) = tescm.GetAllVar(dotscr, p._GUIScriptEditorUI.Script)
-        Dim index As Integer = -1
-        For i = 0 To varlist.Count - 1
-            Dim cbitem As New ComboBoxItem
-            cbitem.Tag = varlist(i).value
-            cbitem.Content = varlist(i).value
+        valueEditPanel.Init(ValueSelect, dotscr, p._GUIScriptEditorUI)
+        valueEditPanel.typebtn3.Visibility = Visibility.Collapsed
 
-            ValueSelect.Items.Add(cbitem)
-        Next
+        valueEditPanel.ComboboxInit(scr.VChild)
 
-        If scr.value = "defaultvalue" Then
-            ValueSelect.Text = ""
-        Else
-            ValueSelect.Text = scr.value
-        End If
+        'ValuePreview.Text = scr.VChild.ValueCoder
+
+        'Dim varlist As List(Of ScriptBlock) = tescm.GetAllVar(dotscr, p._GUIScriptEditorUI.Script)
+        'Dim index As Integer = -1
+        'For i = 0 To varlist.Count - 1
+        '    Dim cbitem As New ComboBoxItem
+        '    cbitem.Tag = varlist(i).value
+        '    cbitem.Content = varlist(i).value
+
+        '    'ValueSelect.Items.Add(cbitem)
+        'Next
+
+        'If scr.value = "defaultvalue" Then
+        '    'ValueSelect.Text = ""
+        'Else
+        '    'ValueSelect.Text = scr.value
+        'End If
     End Sub
     Public Sub OkayAction(sender As Object, e As RoutedEventArgs)
         '//////////////////////////////
         '스크립트 갱신
-        scr.value = ValueSelect.Text
+        'scr.value = ValueSelect.Text
     End Sub
     Private Function CheckEditable() As Boolean
         '//////////////////////////////
         '확인을 누를 수 있는지 확인
-        If ValueSelect.Text.Trim = "" Then
-            Return False
-        End If
+        'If ValueSelect.Text.Trim = "" Then
+        '    Return False
+        'End If
 
         Return True
     End Function

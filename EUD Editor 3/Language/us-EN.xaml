@@ -851,7 +851,8 @@
     <sys:String x:Key="OpenPyTitle">Select eudplib File</sys:String>
 
 
-    <sys:String x:Key="MenuCNewEpsScript">[CUI] epScript File</sys:String>
+    <sys:String x:Key="MenuCNewEpsScript">클래식 트리거</sys:String>
+    <sys:String x:Key="MenuCNewEpsScript">epScript File</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib File</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript File</sys:String>
     <sys:String x:Key="MenuGNewPyScript">[GUI] eudplib File</sys:String>
@@ -941,6 +942,11 @@
     
     <sys:String x:Key="ChatPluginSetting">ChatEvent 설정</sys:String>
     <sys:String x:Key="MSQCPluginSetting">MSQC 설정</sys:String>
+    <sys:String x:Key="FuncNameUserEdit">UserEdit</sys:String>
+
+
+    
+    <sys:String x:Key="NewClassicScript">NewClassicTrigger</sys:String>
 </ResourceDictionary>
 
 

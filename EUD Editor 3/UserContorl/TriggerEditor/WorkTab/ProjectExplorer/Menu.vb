@@ -20,8 +20,8 @@ Partial Public Class ProjectExplorer
             MenuConnect.IsEnabled = True
 
 
-            ToGUI.Visibility = Visibility.Visible
-            ToCUI.Visibility = Visibility.Visible
+            'ToGUI.Visibility = Visibility.Visible
+            'ToCUI.Visibility = Visibility.Visible
         Else
             MenuOpen.IsEnabled = False
             MenuExport.IsEnabled = False
@@ -30,8 +30,8 @@ Partial Public Class ProjectExplorer
             MenuepsFileView.IsEnabled = False
             MenuCopy.IsEnabled = False
             MenuConnect.IsEnabled = False
-            ToGUI.Visibility = Visibility.Collapsed
-            ToCUI.Visibility = Visibility.Collapsed
+            'ToGUI.Visibility = Visibility.Collapsed
+            'ToCUI.Visibility = Visibility.Collapsed
         End If
 
         '마지막으로 선택한 아이템이 있을 경우
@@ -48,9 +48,9 @@ Partial Public Class ProjectExplorer
                 MenuAdd.Visibility = Visibility.Visible
                 MenuConnect.Visibility = Visibility.Collapsed
                 MenuDisConnect.Visibility = Visibility.Collapsed
-                ToGUI.Visibility = Visibility.Collapsed
-                ToCUI.Visibility = Visibility.Collapsed
-                GUISeparator.Visibility = Visibility.Collapsed
+                'ToGUI.Visibility = Visibility.Collapsed
+                'ToCUI.Visibility = Visibility.Collapsed
+                'GUISeparator.Visibility = Visibility.Collapsed
                 MenuepsFileView.Visibility = Visibility.Collapsed
             Else
                 MenuAdd.Visibility = Visibility.Collapsed
@@ -64,14 +64,15 @@ Partial Public Class ProjectExplorer
                         MenuDisConnect.Visibility = Visibility.Visible
                     Else
                         If GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIEps Or
-                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Then
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Or
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.ClassicTrigger Then
                             MenuConnect.Visibility = Visibility.Collapsed
                             MenuDisConnect.Visibility = Visibility.Collapsed
-                            ToGUI.Visibility = Visibility.Collapsed
+                            'ToGUI.Visibility = Visibility.Collapsed
                         Else
                             MenuConnect.Visibility = Visibility.Visible
                             MenuDisConnect.Visibility = Visibility.Collapsed
-                            ToCUI.Visibility = Visibility.Collapsed
+                            'ToCUI.Visibility = Visibility.Collapsed
                         End If
                     End If
                 Else
@@ -119,9 +120,9 @@ Partial Public Class ProjectExplorer
                 MenuDelete.Visibility = Visibility.Collapsed
                 Separator2.Visibility = Visibility.Collapsed
                 MenuConnect.Visibility = Visibility.Collapsed
-                ToGUI.Visibility = Visibility.Collapsed
-                ToCUI.Visibility = Visibility.Collapsed
-                GUISeparator.Visibility = Visibility.Collapsed
+                'ToGUI.Visibility = Visibility.Collapsed
+                'ToCUI.Visibility = Visibility.Collapsed
+                'GUISeparator.Visibility = Visibility.Collapsed
             Else
                 If IsFolder(LastSelectItem) And SelectItems.Count = 1 Then
                     MenuOpen.Visibility = Visibility.Collapsed
@@ -136,7 +137,7 @@ Partial Public Class ProjectExplorer
                 MenuDelete.Visibility = Visibility.Visible
                 Separator1.Visibility = Visibility.Visible
                 Separator2.Visibility = Visibility.Visible
-                GUISeparator.Visibility = Visibility.Visible
+                'GUISeparator.Visibility = Visibility.Visible
             End If
         Else
             MenuOpen.Visibility = Visibility.Collapsed
@@ -148,9 +149,9 @@ Partial Public Class ProjectExplorer
             MenuDelete.Visibility = Visibility.Collapsed
             Separator2.Visibility = Visibility.Collapsed
             MenuConnect.Visibility = Visibility.Collapsed
-            ToGUI.Visibility = Visibility.Collapsed
-            ToCUI.Visibility = Visibility.Collapsed
-            GUISeparator.Visibility = Visibility.Collapsed
+            'ToGUI.Visibility = Visibility.Collapsed
+            'ToCUI.Visibility = Visibility.Collapsed
+            'GUISeparator.Visibility = Visibility.Collapsed
         End If
     End Sub
 
@@ -203,11 +204,14 @@ Partial Public Class ProjectExplorer
 
 
         Dim tAddCUIEps As New RoutedCommand()
-        tAddCUIEps.InputGestures.Add(New KeyGesture(Key.W, ModifierKeys.Alt))
+        tAddCUIEps.InputGestures.Add(New KeyGesture(Key.T, ModifierKeys.Alt))
         CommandBindings.Add(New CommandBinding(tAddCUIEps, AddressOf AddCUIEps))
-        Dim tAddGUIEps As New RoutedCommand()
-        tAddGUIEps.InputGestures.Add(New KeyGesture(Key.W, ModifierKeys.Control))
-        CommandBindings.Add(New CommandBinding(tAddGUIEps, AddressOf AddGUIEps))
+        Dim tAddCT As New RoutedCommand()
+        tAddCT.InputGestures.Add(New KeyGesture(Key.U, ModifierKeys.Alt))
+        CommandBindings.Add(New CommandBinding(tAddCT, AddressOf AddCT))
+        'Dim tAddGUIEps As New RoutedCommand()
+        'tAddGUIEps.InputGestures.Add(New KeyGesture(Key.W, ModifierKeys.Control))
+        'CommandBindings.Add(New CommandBinding(tAddGUIEps, AddressOf AddGUIEps))
 
 
         'Dim tAddCUIPy As New RoutedCommand()

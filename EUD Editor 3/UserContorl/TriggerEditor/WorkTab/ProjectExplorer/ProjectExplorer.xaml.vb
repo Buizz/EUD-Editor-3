@@ -70,5 +70,13 @@ Public Class ProjectExplorer
         Next
     End Sub
 
+    Private Sub CT_Click(sender As Object, e As RoutedEventArgs)
+        AddCT()
+    End Sub
 
+    Private Sub AddCT()
+        'MsgBox("클래식트리거 추가")
+        FileCreate(New TEFile(Tool.GetText("NewClassicScript"), TEFile.EFileType.ClassicTrigger))
+        TERefreshSetting()
+    End Sub
 End Class

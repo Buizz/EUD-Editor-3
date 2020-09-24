@@ -64,6 +64,7 @@
                         <Separator/>
                         <MenuItem Header="{StaticResource SearchText}" InputGestureText="Ctrl + F" Click="MenuItem_Click"/>
                         <MenuItem x:Name="TExtEditorMenuBtn" Header="{StaticResource TextEditor}" InputGestureText="Ctrl + T" Click="TextEditor_Click"/>
+                        <MenuItem x:Name="GUIEditorBtn" Header="{StaticResource GUIEditorBtn}" InputGestureText="Ctrl + U" Click="GUIEditor_Click"/>
                     </ContextMenu>
                 </avalonEdit:TextEditor.ContextMenu>
 

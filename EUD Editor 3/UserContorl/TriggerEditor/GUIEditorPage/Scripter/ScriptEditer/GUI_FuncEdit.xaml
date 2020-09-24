@@ -11,17 +11,17 @@
            함수 이름
         </TextBlock>
         <DockPanel DockPanel.Dock="Top">
-            <Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>
-            <ComboBox x:Name="ttb" IsEditable="True" Margin="4,0" IsTextSearchCaseSensitive="True" SelectionChanged="ComboBox_SelectionChanged" TextBoxBase.TextChanged="ComboBox_TextChanged">
+            <!--<Border x:Name="colorbox" DockPanel.Dock="Left" Width="30"/>-->
+            <ComboBox x:Name="ttb" Margin="4,0" SelectionChanged="ComboBox_SelectionChanged">
+                <ComboBoxItem Content="{StaticResource FuncNameUserEdit}"/>
                 <ComboBoxItem Content="onPluginStart"/>
                 <ComboBoxItem Content="beforeTriggerExec"/>
                 <ComboBoxItem Content="afterTriggerExec"/>
                 <ComboBoxItem Content="constructor"/>
             </ComboBox>
-            
-
             <!--<TextBox x:Name="ttb" Margin="4,0" TextChanged="ttb_TextChanged"/>-->
         </DockPanel>
+        <TextBox x:Name="FuncNametb" DockPanel.Dock="Top" TextChanged="FuncNametb_TextChanged" Margin="4"/>
         <Label x:Name="ErrorLog" Foreground="#DDFF0000" DockPanel.Dock="Top">
 
         </Label>

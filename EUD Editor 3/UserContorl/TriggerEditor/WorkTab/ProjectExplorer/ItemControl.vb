@@ -129,6 +129,8 @@ Partial Public Class ProjectExplorer
                 Icon.Kind = PackIconKind.Application
             Case TEFile.EFileType.Setting
                 Icon.Kind = PackIconKind.SettingsOutline
+            Case TEFile.EFileType.ClassicTrigger
+                Icon.Kind = PackIconKind.FormatListCheckbox
         End Select
 
 

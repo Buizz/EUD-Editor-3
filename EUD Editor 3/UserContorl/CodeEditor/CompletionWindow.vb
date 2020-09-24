@@ -9,6 +9,23 @@ Public Class CustomCompletionWindow
     ReadOnly _completionList As CompletionList = New CompletionList()
     Public _toolTip As New ToolTip()
 
+
+    Dim lastwidth As Integer
+    Public Sub ToolTipLayoutRefresh()
+        If lastwidth <> Width Then
+            lastwidth = Width
+            If _toolTip.IsOpen Then
+                _toolTip.IsOpen = False
+                _toolTip.IsOpen = True
+            End If
+        End If
+
+
+        '_toolTip.IsOpen = False
+        '_toolTip.IsOpen = True
+    End Sub
+
+
     Public ReadOnly Property CompletionList As CompletionList
         Get
             Return _completionList
@@ -49,7 +66,10 @@ Public Class CustomCompletionWindow
         If item Is Nothing Then Return
         Dim description As Object = item.Description
 
-        _toolTip.UpdateLayout()
+
+
+        '_toolTip.UpdateLayout()
+
 
         If description IsNot Nothing Then
             Dim descriptionText As String = TryCast(description, String)
@@ -67,12 +87,18 @@ Public Class CustomCompletionWindow
         Else
             _toolTip.IsOpen = False
         End If
+
+
+        'If _toolTip.IsOpen Then
+        '    _toolTip.IsOpen = False
+        '    _toolTip.IsOpen = True
+        'End If
     End Sub
 
     Private Sub completionList_InsertionRequested(ByVal sender As Object, ByVal e As EventArgs)
-        Close()
         Dim item = CompletionList.SelectedItem
         If item IsNot Nothing Then item.Complete(Me.TextArea, New AnchorSegment(Me.TextArea.Document, Me.StartOffset, Me.EndOffset - Me.StartOffset), e)
+        Close()
     End Sub
 
     Private Sub AttachEvents()

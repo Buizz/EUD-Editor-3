@@ -12,6 +12,8 @@ Public Class TEFile
         GUIPy
 
         Setting
+
+        ClassicTrigger
     End Enum
 
 
@@ -69,6 +71,8 @@ Public Class TEFile
             Case EFileType.GUIEps, EFileType.GUIPy
                 CType(Scripter, GUIScriptEditor).ExternLoader()
                 Return ""
+            Case EFileType.ClassicTrigger
+
         End Select
 
         Return ""
@@ -110,6 +114,8 @@ Public Class TEFile
                     Return True
                 Case EFileType.GUIPy
                     Return True
+                Case EFileType.ClassicTrigger
+                    Return True
                 Case Else
                     Return False
             End Select
@@ -147,6 +153,8 @@ Public Class TEFile
                 _Scripter = New GUIScriptEditor(ScriptEditor.SType.Eps, Me)
             Case EFileType.GUIPy
                 _Scripter = New GUIScriptEditor(ScriptEditor.SType.Py, Me)
+            Case EFileType.ClassicTrigger
+                _Scripter = New ClassicTriggerEditor()
         End Select
 
 
@@ -253,6 +261,8 @@ Public Class TEFile
                     Return _FileName & ".eps"
                 Case EFileType.GUIPy
                     Return _FileName & ".py"
+                Case EFileType.ClassicTrigger
+                    Return _FileName & ".eps"
             End Select
 
 
@@ -267,7 +277,7 @@ Public Class TEFile
             Select Case _FileType
                 Case EFileType.Folder
                     returnText = "​" & Tool.GetText("Folder") & vbCrLf
-                Case EFileType.CUIEps, EFileType.GUIEps
+                Case EFileType.CUIEps, EFileType.GUIEps, EFileType.ClassicTrigger
                     returnText = Tool.GetText("EpsScriptFile") & vbCrLf
                 Case EFileType.GUIPy, EFileType.GUIEps
                     returnText = Tool.GetText("PyScriptFile") & vbCrLf

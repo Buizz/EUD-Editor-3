@@ -125,7 +125,7 @@
                 textblock.Text = "Action"
             Case ScriptBlock.EBlockType.switch
                 tAddText(lnlines, "Switch : ", Nothing)
-                tAddText(lnlines, sb.value, tescm.HighlightBrush)
+                tAddText(lnlines, sb.VChild.ValueCoder, tescm.HighlightBrush)
                 'For i = 0 To sb.child.Count - 1
                 '    If sb.child(i).name = "switchvar" Then
                 '        tAddText(lnlines, sb.child(i).value, tescm.HighlightBrush)

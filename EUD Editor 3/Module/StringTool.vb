@@ -1,5 +1,32 @@
 ﻿Namespace StringTool
     Module StringTool
+
+        Public Function CheckOldVersion(ver() As String, Optional a As Integer = Integer.MaxValue, Optional b As Integer = Integer.MaxValue, Optional c As Integer = Integer.MaxValue, Optional d As Integer = Integer.MaxValue) As Boolean
+            Dim ta As Integer = ver(0)
+            Dim tb As Integer = ver(1)
+            Dim tc As Integer = ver(2)
+            Dim td As Integer = ver(3)
+
+            Dim isOld As Boolean = True
+
+            If ta > a Then
+                isOld = False
+            End If
+            If tb > b Then
+                isOld = False
+            End If
+            If tc > c Then
+                isOld = False
+            End If
+            If td > d Then
+                isOld = False
+            End If
+
+
+            Return isOld
+        End Function
+
+
         Public Function ChangeSlash(text As String) As String
             text = text.Replace("\\", "\")
             text = text.Replace("\<", "<")

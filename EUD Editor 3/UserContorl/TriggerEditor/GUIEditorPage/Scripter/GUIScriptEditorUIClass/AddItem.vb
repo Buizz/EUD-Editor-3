@@ -166,13 +166,19 @@
         AddHandler scriptEdit.OkayBtnEvent, AddressOf OkayBtnEvent
         AddHandler scriptEdit.CancelBtnEvent, AddressOf CancelBtnEvent
 
-        If MainTreeview.SelectedItem IsNot Nothing Then
-            Dim tv As TreeViewItem = MainTreeview.SelectedItem
-
-            TEGUIPage.OpenEditWindow(scriptEdit, tv.TransformToAncestor(MainTreeview).Transform(New Point(0, 0)))
-        Else
+        If IsCreateOpen Then
             TEGUIPage.OpenEditWindow(scriptEdit, Nothing)
+        Else
+            If MainTreeview.SelectedItem IsNot Nothing Then
+                Dim tv As TreeViewItem = MainTreeview.SelectedItem
+
+                'TEGUIPage.OpenEditWindow(scriptEdit, Nothing)
+                TEGUIPage.OpenEditWindow(scriptEdit, tv.TransformToAncestor(MainTreeview).Transform(New Point(0, 0)))
+            Else
+                TEGUIPage.OpenEditWindow(scriptEdit, Nothing)
+            End If
         End If
+
         Return True
     End Function
 

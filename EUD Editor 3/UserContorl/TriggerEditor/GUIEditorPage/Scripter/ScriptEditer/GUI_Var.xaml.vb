@@ -192,6 +192,8 @@
                     If btnscr.name = "EUDArray" Or btnscr.name = "EUDVArray" Then
                         SpFlag.Visibility = Visibility.Visible
                         SpFlag.IsChecked = btnscr.flag
+                    Else
+                        SpFlag.Visibility = Visibility.Collapsed
                     End If
 
                 Case "cast"
@@ -272,7 +274,7 @@
 
     Private Sub vname_TextChanged(sender As Object, e As TextChangedEventArgs)
         If isload Then
-            CrlRefresh()
+            'CrlRefresh()
             btnRefresh()
         End If
     End Sub
@@ -289,6 +291,7 @@
     Private Sub ObjectSelect(sender As Object, e As RoutedEventArgs)
         '리스트에서 오브젝트를 선택했을 때 뜨는 창.
         If isload Then
+            'MsgBox("?")
             Dim btnscr As ScriptBlock = SelectBtn.Tag
 
             ObjectfuncLoad = False
@@ -308,6 +311,13 @@
             ObjectfuncLoad = True
             'MsgBox("오브젝트선택")
             SelectBtn.Content = CType(SelectBtn.Tag, ScriptBlock).ValueCoder
+
+            If btnscr.name = "EUDArray" Or btnscr.name = "EUDVArray" Then
+                SpFlag.Visibility = Visibility.Visible
+                SpFlag.IsChecked = btnscr.flag
+            Else
+                SpFlag.Visibility = Visibility.Collapsed
+            End If
         End If
     End Sub
 

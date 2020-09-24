@@ -26,6 +26,8 @@ Public Class CodeEditor
 
     Private Sub TextEditor_PreviewMouseDown(sender As Object, e As MouseButtonEventArgs)
         TooltipHide()
+
+
     End Sub
 
     Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
@@ -118,6 +120,10 @@ Public Class CodeEditor
             TextEditorOpen()
             isctrl = False
         End If
+        If e.Key = Key.U And isctrl Then
+            GUIEditorOpen()
+            isctrl = False
+        End If
         If e.Key = Key.S And isctrl Then
             'pjData.Save()
             isctrl = False
@@ -189,5 +195,19 @@ Public Class CodeEditor
         If TextEditor.IsReadOnly Then
             TExtEditorMenuBtn.IsEnabled = False
         End If
+    End Sub
+
+    Private Sub GUIEditor_Click(sender As Object, e As RoutedEventArgs)
+        GUIEditorOpen()
+    End Sub
+
+
+    Private Sub GUIEditorOpen()
+        TextEditor.IsEnabled = False
+        'Dim TEditor As New TextEditorWindow(TextEditor.SelectedText)
+
+        'TEditor.ShowDialog()
+        'TextEditor.SelectedText = TEditor.TextString
+        TextEditor.IsEnabled = True
     End Sub
 End Class

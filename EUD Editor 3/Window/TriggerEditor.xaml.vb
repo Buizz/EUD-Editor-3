@@ -49,6 +49,8 @@ Public Class TriggerEditor
                         Tabitem = GetTabItem(New TECUIPage(TabItems.Items(i)), TabItems.Items(i))
                     Case TEFile.EFileType.GUIEps, TEFile.EFileType.GUIPy
                         Tabitem = GetTabItem(New TEGUIPage(TabItems.Items(i)), TabItems.Items(i))
+                    Case TEFile.EFileType.ClassicTrigger
+                        Tabitem = GetTabItem(New TECTPage(TabItems.Items(i)), TabItems.Items(i))
                 End Select
 
                 'MsgBox("Load " & i)
@@ -134,6 +136,9 @@ Public Class TriggerEditor
                         ElseIf TypeOf TabItem.Content Is TEGUIPage Then
                             Dim TEGUIPage As TEGUIPage = TabItem.Content
                             TabItems.Items.Add(TEGUIPage.TEFile)
+                        ElseIf TypeOf TabItem.Content Is TECTPage Then
+                            Dim TECTPage As TECTPage = TabItem.Content
+                            TabItems.Items.Add(TECTPage.TEFile)
                         End If
                         'MsgBox("Save " & i)
                     Next
@@ -196,6 +201,8 @@ Public Class TriggerEditor
                 PlusTabItem(New TEGUIPage(tTEFile), MainTab, tTEFile)
             Case TEFile.EFileType.Setting
                 PlusTabItem(New TriggerEditorSetting(tTEFile), MainTab, tTEFile)
+            Case TEFile.EFileType.ClassicTrigger
+                PlusTabItem(New TECTPage(tTEFile), MainTab, tTEFile)
         End Select
     End Sub
 
@@ -265,6 +272,13 @@ Public Class TriggerEditor
                 End If
             ElseIf TypeOf TabContent Is TEGUIPage Then
                 Dim tPage As TEGUIPage = TabContent
+
+                If tPage.CheckTEFile(tTEFile) Then
+                    Control.SelectedIndex = i
+                    Return True
+                End If
+            ElseIf TypeOf TabContent Is TECTPage Then
+                Dim tPage As TECTPage = TabContent
 
                 If tPage.CheckTEFile(tTEFile) Then
                     Control.SelectedIndex = i

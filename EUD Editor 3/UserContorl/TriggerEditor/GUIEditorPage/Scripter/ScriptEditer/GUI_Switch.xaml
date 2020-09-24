@@ -4,12 +4,17 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
-             Width="200" Height="50">
+             MinWidth="300"
+             MinHeight="200"
+             MaxHeight="450"
+             mc:Ignorable="d" >
     <DockPanel>
-        <ComboBox x:Name="ValueSelect" IsEditable="True" Margin="4,0" SelectionChanged="ValueSelect_SelectionChanged" TextBoxBase.TextChanged="NameText_TextChanged">
+        <Border x:Name="ValueSelect" DockPanel.Dock="Right" Width="250" Margin="2,3"/>
+        <local:GUI_ArgEditor x:Name="valueEditPanel"/>
+
+            <!--<ComboBox x:Name="ValueSelect" IsEditable="True" Margin="4,0" SelectionChanged="ValueSelect_SelectionChanged" TextBoxBase.TextChanged="NameText_TextChanged">
 
         </ComboBox>
-
+        <CheckBox />-->
     </DockPanel>
 </UserControl>

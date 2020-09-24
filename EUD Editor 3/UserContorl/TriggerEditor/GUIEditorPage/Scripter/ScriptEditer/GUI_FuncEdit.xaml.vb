@@ -17,19 +17,32 @@ Public Class GUI_FuncEdit
 
         AddHandler p.OkayBtnEvent, AddressOf OkayAction
 
-        Dim colorcode As String = tescm.Tabkeys("Func")
-        colorbox.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
+        'Dim colorcode As String = tescm.Tabkeys("Func")
+        'colorbox.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
+
+        Dim funclist() As String = {"onPluginStart", "beforeTriggerExec", "afterTriggerExec", "constructor"}
+
+        Dim index As Integer = funclist.ToList.IndexOf(scr.value)
+
+        If index = -1 Then
+            ttb.SelectedIndex = 0
+            FuncNametb.Text = scr.value
+            FuncNametb.Visibility = Visibility.Visible
+            If CheckEditable() Then
+                ErrorLog.Content = ""
+                p.OkBtn.IsEnabled = True
+            Else
+                p.OkBtn.IsEnabled = False
+            End If
+        Else
+            ttb.SelectedIndex = index + 1
+            FuncNametb.Visibility = Visibility.Collapsed
+        End If
 
 
-        ttb.Text = scr.value
+
         argtip.Text = scr.GetFuncTooltip
 
-        If CheckEditable() Then
-            ErrorLog.Content = ""
-            p.OkBtn.IsEnabled = True
-        Else
-            p.OkBtn.IsEnabled = False
-        End If
 
         Dim argsb As List(Of ScriptBlock) = tescm.GetFuncArgs(scr)
         For i = 0 To argsb.Count - 1
@@ -67,22 +80,29 @@ Public Class GUI_FuncEdit
 
 
     Public Sub OkayAction(sender As Object, e As RoutedEventArgs)
-        scr.value = ttb.Text
-        scr.SetFuncTooltip(argtip.Text)
-    End Sub
-
-    Private Sub ttb_TextChanged(sender As Object, e As TextChangedEventArgs)
-        If CheckEditable() Then
-            ErrorLog.Content = ""
-            p.OkBtn.IsEnabled = True
+        If ttb.SelectedIndex = 0 Then
+            scr.value = FuncNametb.Text
+            scr.SetFuncTooltip(argtip.Text)
         Else
-            p.OkBtn.IsEnabled = False
+            scr.value = ttb.Text
+            scr.SetFuncTooltip(argtip.Text)
         End If
     End Sub
 
 
+    Private Sub FuncNametb_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If FuncNametb.Visibility = Visibility.Visible Then
+            If CheckEditable() Then
+                ErrorLog.Content = ""
+                p.OkBtn.IsEnabled = True
+            Else
+                p.OkBtn.IsEnabled = False
+            End If
+        End If
+    End Sub
+
     Private Function CheckEditable() As Boolean
-        Dim nametext As String = ttb.Text
+        Dim nametext As String = FuncNametb.Text
 
 
         If nametext.Count = 0 Then
@@ -119,12 +139,21 @@ Public Class GUI_FuncEdit
     End Function
 
     Private Sub ComboBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        If CheckEditable() Then
+        If ttb.SelectedIndex = 0 Then
+            FuncNametb.Visibility = Visibility.Visible
+            If CheckEditable() Then
+                ErrorLog.Content = ""
+                p.OkBtn.IsEnabled = True
+            Else
+                p.OkBtn.IsEnabled = False
+            End If
+        Else
+            FuncNametb.Visibility = Visibility.Collapsed
             ErrorLog.Content = ""
             p.OkBtn.IsEnabled = True
-        Else
-            p.OkBtn.IsEnabled = False
         End If
+
+
     End Sub
 
     Private Sub ComboBox_TextChanged(sender As Object, e As TextChangedEventArgs)
@@ -135,4 +164,5 @@ Public Class GUI_FuncEdit
             p.OkBtn.IsEnabled = False
         End If
     End Sub
+
 End Class

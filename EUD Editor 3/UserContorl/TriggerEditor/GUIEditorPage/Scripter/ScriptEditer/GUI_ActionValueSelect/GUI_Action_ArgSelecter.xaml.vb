@@ -479,8 +479,10 @@ Public Class GUI_Action_ArgSelecter
     Private Sub EditBtnRefresh()
         If FuncDefine.ArgStartIndex = -1 Then
             ArgRemovebtn.IsEnabled = FuncDefine.ValueCount < EditValues.Count
+            Return
         Else
-            ArgRemovebtn.IsEnabled = FuncDefine.ArgStartIndex <= EditValues.Count
+            ArgRemovebtn.IsEnabled = FuncDefine.ArgStartIndex < EditValues.Count
+            Return
         End If
 
         ArgAdderbtn.IsEnabled = (FuncDefine.ArgStartIndex <> -1)
