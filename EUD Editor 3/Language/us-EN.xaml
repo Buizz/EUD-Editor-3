@@ -23,6 +23,7 @@
     <sys:String x:Key="RegSettingCheckbox">Check if program is running</sys:String>
 
     <sys:String x:Key="UpdataSetting">Update</sys:String>
+    <sys:String x:Key="Donate">Donate</sys:String>
 
     <sys:String x:Key="CheckUpdate">CheckUpdate</sys:String>
     <sys:String x:Key="Update">Update</sys:String>

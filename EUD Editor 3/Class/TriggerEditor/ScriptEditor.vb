@@ -15,6 +15,10 @@ Public MustInherit Class ScriptEditor
     Public MustOverride Property ConnectFile() As String
 
     Public Function IsMain() As Boolean
-        Return pjData.TEData.MainFile.Scripter Is Me
+        If pjData.TEData.MainFile IsNot Nothing Then
+            Return pjData.TEData.MainFile.Scripter Is Me
+        Else
+            Return False
+        End If
     End Function
 End Class

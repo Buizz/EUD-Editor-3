@@ -188,6 +188,7 @@ Public Class TEGUIPage
 
             AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       CreateEditWindow.Visibility = Visibility.Hidden
+                                                      InputDialog.Content = Nothing
                                                   End Sub
         End If
 

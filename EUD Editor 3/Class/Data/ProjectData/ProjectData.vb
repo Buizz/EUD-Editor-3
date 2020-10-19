@@ -535,7 +535,10 @@ Public Class ProjectData
                         If pjData.IsMapLoading Then
                             ReturnStr = pjData.MapData.LocationName(index)
                         Else
-                            ReturnStr = "Location " & index
+                            ReturnStr = "Location " & index + 1
+                        End If
+                        If ReturnStr = "" Then
+                            ReturnStr = "Location " & index + 1
                         End If
                 End Select
                 Dim ToolTipText As String = ""
@@ -567,6 +570,12 @@ Public Class ProjectData
 
     Private ReadOnly Property UnitName(index As Byte) As String
         Get
+            If index > 228 Then
+                Dim aunit() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+                Return aunit(index - 229)
+            End If
+
+
             Dim RealName As String = Stat_txt(index)
             Dim DefaultName As String = scData.GetStat_txt(index)
 

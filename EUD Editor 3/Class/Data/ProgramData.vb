@@ -181,6 +181,14 @@ Public Class ProgramData
         Setting(ProgramData.TSetting.TEFontSize) = 16
 
 
+        Try
+            Dim bool As Boolean = Setting(ProgramData.TSetting.DonateMsg)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.DonateMsg) = False
+        End Try
+
+
+
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
 
@@ -223,12 +231,14 @@ Public Class ProgramData
         OpenPath = 26
         SaveMapPath = 27
         OpenMapPath = 28
+
+        DonateMsg = 29
     End Enum
     Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
     "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush", "PrimaryHueDarkBrush",
     "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush", "DefaultData", "MapEditorData",
     "EditedData", "CheckedData", "CDLanuageChange", "DataEditorTopMost", "CheckReg",
-    "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic", "TEFontSize", "SavePath", "OpenPath", "SaveMapPath", "OpenMapPath"}
+    "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic", "TEFontSize", "SavePath", "OpenPath", "SaveMapPath", "OpenMapPath", "DonateMsg"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))

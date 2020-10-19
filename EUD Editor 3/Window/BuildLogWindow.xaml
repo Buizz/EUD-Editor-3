@@ -12,6 +12,7 @@
         AllowsTransparency="True"
         Loaded="MetroWindow_Loaded"
         Unloaded="MetroWindow_Unloaded"
+        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}"  
         Title="BuildLogWindow" Height="500" Width="600" WindowStartupLocation="CenterScreen">

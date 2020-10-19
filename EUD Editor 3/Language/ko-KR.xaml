@@ -23,6 +23,7 @@
     <sys:String x:Key="RegSettingCheckbox">실행 시 확인</sys:String>
 
     <sys:String x:Key="UpdataSetting">업데이트</sys:String>
+    <sys:String x:Key="Donate">후원하기</sys:String>
 
     <sys:String x:Key="CheckUpdate">실행 시 확인</sys:String>
     <sys:String x:Key="Update">업데이트</sys:String>
@@ -948,4 +949,51 @@
 
 
     <sys:String x:Key="NewClassicScript">새ClassicTrigger파일</sys:String>
+
+
+    <!--있어도 되고 없어도 되는 부분-->
+    <sys:String x:Key="TrgArgAll">모두</sys:String>
+    <sys:String x:Key="TrgArg0">모두</sys:String>
+
+    <sys:String x:Key="TrgArgEnemy">적</sys:String>
+    <sys:String x:Key="TrgArgAlly">동맹</sys:String>
+    <sys:String x:Key="TrgArgAlliedVictory">동맹승리</sys:String>
+    <sys:String x:Key="TrgArgAtLeast">이상</sys:String>
+    <sys:String x:Key="TrgArgAtMost">이하</sys:String>
+    <sys:String x:Key="TrgArgExactly">정확히</sys:String>
+    <sys:String x:Key="TrgArgSetTo">대입</sys:String>
+    <sys:String x:Key="TrgArgAdd">덧셈</sys:String>
+    <sys:String x:Key="TrgArgSubtract">뺄셈</sys:String>
+    <sys:String x:Key="TrgArgMove">이동</sys:String>
+    <sys:String x:Key="TrgArgPatrol">정찰</sys:String>
+    <sys:String x:Key="TrgArgAttack">공격</sys:String>
+    <sys:String x:Key="TrgArgCurrentPlayer">해당플레이어</sys:String>
+    <sys:String x:Key="TrgArgFoes">적</sys:String>
+    <sys:String x:Key="TrgArgAllies">동맹</sys:String>
+    <sys:String x:Key="TrgArgNeutralPlayers">중립플레이어</sys:String>
+    <sys:String x:Key="TrgArgAllPlayers">모든플레이어</sys:String>
+    <sys:String x:Key="TrgArgForce1">세력 1</sys:String>
+    <sys:String x:Key="TrgArgForce2">세력 2</sys:String>
+    <sys:String x:Key="TrgArgForce3">세력 3</sys:String>
+    <sys:String x:Key="TrgArgForce4">세력 4</sys:String>
+    <sys:String x:Key="TrgArgNonAlliedVictoryPlayers">동맹승리 아닌 플레이어</sys:String>
+    <sys:String x:Key="TrgArgEnable">작동</sys:String>
+    <sys:String x:Key="TrgArgDisable">멈춤</sys:String>
+    <sys:String x:Key="TrgArgOre">미네랄</sys:String>
+    <sys:String x:Key="TrgArgGas">가스</sys:String>
+    <sys:String x:Key="TrgArgOreAndGas">미네랄과 가스</sys:String>
+    <sys:String x:Key="TrgArgTotal">합산점수</sys:String>
+    <sys:String x:Key="TrgArgUnits">유닛점수</sys:String>
+    <sys:String x:Key="TrgArgBuildings">건물점수</sys:String>
+    <sys:String x:Key="TrgArgUnitsAndBuildings">유닛과 건물점수</sys:String>
+    <sys:String x:Key="TrgArgKills">파괴점수</sys:String>
+    <sys:String x:Key="TrgArgRazings">생산점수</sys:String>
+    <sys:String x:Key="TrgArgKillsAndRazings">파괴와 생산점수</sys:String>
+    <sys:String x:Key="TrgArgCustom">커스텀점수</sys:String>
+    <sys:String x:Key="TrgArgSet">열림</sys:String>
+    <sys:String x:Key="TrgArgClear">닫힘</sys:String>
+    <sys:String x:Key="TrgArgToggle">전환</sys:String>
+    <sys:String x:Key="TrgArgRandom">랜덤</sys:String>
+    <sys:String x:Key="TrgArgCleared">닫힘</sys:String>
+    <!--있어도 되고 없어도 되는 부분-->
 </ResourceDictionary>

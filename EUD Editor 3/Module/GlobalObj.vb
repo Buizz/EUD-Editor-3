@@ -20,6 +20,10 @@ Module GlobalObj
     Public tescm As GUIScriptManager
     Public macro As MacroManager
 
+    Public tmanager As TriggerManager
+
+    Public TriggerArgsEdit As TriggerEditValueSelecterWindow
+
 
     Public ctheme As CustomTheme
 
@@ -105,6 +109,7 @@ Module GlobalObj
             tescm = New GUIScriptManager
             ctheme = New CustomTheme
             macro = New MacroManager
+            tmanager = New TriggerManager
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
             Application.Current.Shutdown()
@@ -120,6 +125,13 @@ Module GlobalObj
 
         Tool.Init()
 
+        Try
+            TriggerArgsEdit = New TriggerEditValueSelecterWindow
+        Catch ex As Exception
+            Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
+            Application.Current.Shutdown()
+            Return False
+        End Try
 
 
         ProjectControlBinding = New MainMenuBinding

@@ -32,7 +32,7 @@ function PreserveTrigger(){}
  * A
  * @Summary.ko-KR
  * [Time]만큼 기다립니다.(사용하지 마세요)
- *
+ * 
  * @param.Time.ko-KR
  * 기다리는 시간입니다.
 ***/
@@ -66,7 +66,7 @@ function UnpauseGame(){}
  * @Summary.ko-KR
  * [Where]에 위치하는 [Unit]의 말하는 애니메이션을 [WAVName]을 재생하면서 보여줍니다. 트랜스 미션 시간을 [Time] 만큼 [TimeModifier]합니다.
  * [Text]를 보여줍니다. [AlwaysDisplay]
- *
+ * 
  * @param.Unit.ko-KR
  * 말할 유닛의 종류를 설정합니다.
  * @param.Where.ko-KR
@@ -91,11 +91,11 @@ function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, 
  * A
  * @Summary.ko-KR
  * [WAVName]을 재생합니다.
- *
+ * 
  * @param.WAVName.ko-KR
  * 재생할 음악입니다.
 ***/
-function PlayWAV(WAVName : TrgString){}
+function PlayWAV(WAVName /*WAVName*/){}
 
 
 
@@ -104,7 +104,7 @@ function PlayWAV(WAVName : TrgString){}
  * A
  * @Summary.ko-KR
  * [Text]를 [AlwaysDisplay]의 속성으로 해당 트리거 플레이어에게 출력합니다.
- *
+ * 
  * @param.Text.ko-KR
  * 해당 플레이어에게 보여줄 텍스트입니다.
  * @param.AlwaysDisplay.ko-KR
@@ -119,7 +119,7 @@ function DisplayText(Text : TrgString, AlwaysDisplay){}
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어의 화면을 [Where]로 이동시킵니다.
- *
+ * 
  * @param.Where.ko-KR
  * 해당 플레이어가 보게 될 화면 로케이션입니다.
 ***/
@@ -132,7 +132,7 @@ function CenterView(Where : TrgLocation){}
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어의 미션 오브젝트 (F10 + J) 내용을 [Text]로  설정합니다.
- *
+ * 
  * @param.Text.ko-KR
  * 미션 오브젝트의 내용입니다.
 ***/
@@ -145,7 +145,7 @@ function SetMissionObjectives(Text : TrgString){}
  * A
  * @Summary.ko-KR
  * 스위치 [Switch]의 상태를 [State]로 설정합니다.
- *
+ * 
  * @param.Switch.ko-KR
  * 설정할 스위치입니다.
  * @param.State.ko-KR
@@ -160,7 +160,7 @@ function SetSwitch(Switch : TrgSwitch, State : TrgSwitchAction){}
  * A
  * @Summary.ko-KR
  * 카운트 타이머를 [Time]만큼 [TimeModifier]합니다.
- *
+ * 
  * @param.TimeModifier.ko-KR
  * 시간의 계산 방법을 설정합니다.
  * @param.Time.ko-KR
@@ -175,7 +175,7 @@ function SetCountdownTimer(TimeModifier : TrgModifier, Time){}
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어에게 스크립트 [Script]를 발동시킵니다. 로케이션이 필요하지 않는 스크립트만 발동됩니다.
- *
+ * 
  * @param.Script.ko-KR
  * 발동시킬 스크립트입니다. 로케이션이 필요한 스크립트는 발동되지 않습니다.
 ***/
@@ -187,8 +187,8 @@ function RunAIScript(Script : TrgAIScript){}
  * @Type
  * A
  * @Summary.ko-KR
- * 해당 트리거 플레이어에게 스크립트 [Script]를 발동시킵니다. 로케이션이 필요한 스크립트까지 발동됩니다.
- *
+ * 해당 트리거 플레이어에게 스크립트 [Script]를 발동시킵니다. [Where]에서 발동됩니다.
+ * 
  * @param.Script.ko-KR
  * 발동시킬 스크립트입니다.
  * @param.Where.ko-KR
@@ -203,7 +203,7 @@ function RunAIScriptAt(Script : TrgAIScript, Where : TrgLocation){}
  * A
  * @Summary.ko-KR
  * 현재 플레이어들이 [Unit]을 소유하고 있는 양을 순위대로 점수표에 표시합니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Unit.ko-KR
  * 순위를 매길 유닛입니다.
  * @param.Label.ko-KR
@@ -218,7 +218,7 @@ function LeaderBoardControl(Unit : TrgUnit, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * 현재 플레이어들이 [Unit]을 [Location] 안에 소유하고 있는 양을 순위대로 점수표에 표시합니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Unit.ko-KR
  * 순위를 매길 유닛입니다.
  * @param.Location.ko-KR
@@ -235,7 +235,7 @@ function LeaderBoardControlAt(Unit : TrgUnit, Location : TrgLocation, Label : Tr
  * A
  * @Summary.ko-KR
  * 현재 플레이어들이 자원 [ResourceType]을 소유하고 있는 양을 순위대로 점수표에 표시합니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.ResourceType.ko-KR
  * 순위를 매길 자원의 종류입니다
  * @param.Label.ko-KR
@@ -250,7 +250,7 @@ function LeaderBoardResources(ResourceType : TrgResource, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * 현재 플레이어들이 [Unit]을 죽인 수를 순위대로 점수표에 표시합니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Unit.ko-KR
  * 순위를 매길 유닛입니다.
  * @param.Label.ko-KR
@@ -265,7 +265,7 @@ function LeaderBoardKills(Unit : TrgUnit, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * 현재 플레이어들의 [ScoreType] 점수 상위 순위대로 점수표에 표시합니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.ScoreType.ko-KR
  * 순위를 매길 점수입니다.
  * @param.Label.ko-KR
@@ -280,7 +280,7 @@ function LeaderBoardScore(ScoreType : TrgScore, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * 맵 상에 존재하는 [Player]의 [Unit]을 전부 죽입니다. 사망 이펙트가 발생합니다.
- *
+ * 
  * @param.Player.ko-KR
  * 죽일 유닛을 소유하고 있을 플레이어입니다.
  * @param.Unit.ko-KR
@@ -295,7 +295,7 @@ function KillUnit(Unit : TrgUnit, Player : TrgPlayer){}
  * A
  * @Summary.ko-KR
  * 특정 지점 [Where]에 있는 [ForPlayer]의 유닛 [Unit]을 [Count]만큼 죽입니다. 사망 이펙트가 발생합니다.
- *
+ * 
  * @param.Where.ko-KR
  * 죽일 유닛을 인식할 로케이션입니다.
  * @param.ForPlayer.ko-KR
@@ -314,7 +314,7 @@ function KillUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : TrgL
  * A
  * @Summary.ko-KR
  * 맵 상에 존재하는 [Player]의 [Unit]을 전부 삭제합니다. 사망 이펙트가 발생하지 않습니다.
- *
+ * 
  * @param.Player.ko-KR
  * 삭제할 유닛을 소유하고 있을 플레이어입니다.
  * @param.Unit.ko-KR
@@ -329,7 +329,7 @@ function RemoveUnit(Unit : TrgUnit, Player : TrgPlayer){}
  * A
  * @Summary.ko-KR
  * 특정 지점 [Where]에 있는 [ForPlayer]의 유닛 [Unit]을 [Count]만큼 삭제합니다. 사망 이펙트가 발생하지 않습니다.
- *
+ * 
  * @param.Where.ko-KR
  * 삭제할 유닛을 인식할 로케이션입니다.
  * @param.ForPlayer.ko-KR
@@ -348,7 +348,7 @@ function RemoveUnitAt(Count : TrgCount, Unit : TrgUnit, Where : TrgLocation : Tr
  * A
  * @Summary.ko-KR
  * [Player]의 자원 [ResourceType]을 [Amount]만큼 [Modifier]합니다.
- *
+ * 
  * @param.Player.ko-KR
  * 자원이 설정될 플레이어입니다.
  * @param.ResourceType.ko-KR
@@ -367,7 +367,7 @@ function SetResources(Player : TrgPlayer, Modifier : TrgModifier, Amount, Resour
  * A
  * @Summary.ko-KR
  * [Player]의 점수 [ScoreType]를 [Amount]만큼 [Modifier]합니다.
- *
+ * 
  * @param.Player.ko-KR
  * 점수가 설정될 플레이어입니다.
  * @param.ScoreType.ko-KR
@@ -386,7 +386,7 @@ function SetScore(Player : TrgPlayer, Modifier : TrgModifier, Amount, ScoreType 
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어의 미니맵 [Where] 위치에 핑 표시를 찍습니다.
- *
+ * 
  * @param.Where.ko-KR
  * 핑을 찍을 지점입니다.
 ***/
@@ -399,10 +399,10 @@ function MinimapPing(Where : TrgLocation){}
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어의 포트레잇 창에 [Unit]이 말하는 초상화를 [Time]동안 띄웁니다.
- *
+ * 
  * @param.Unit.ko-KR
  * 포트레잇 창에 말하는 모습을 띄울 유닛입니다.
- *
+ * 
  * @param.Time.ko-KR
  * 띄울 시간입니다.
 ***/
@@ -415,7 +415,7 @@ function TalkingPortrait(Unit : TrgUnit, Time){}
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어의 모든 이펙트 사운드를 최소화합니다.
- *
+ * 
 ***/
 function MuteUnitSpeech(){}
 
@@ -426,7 +426,7 @@ function MuteUnitSpeech(){}
  * A
  * @Summary.ko-KR
  * 해당 트리거 플레이어의 최소화되었던 모든 이펙트 사운드를 다시 원상태로 복귀시킵니다.
- *
+ * 
  ***/
 function UnMuteUnitSpeech(){}
 
@@ -437,7 +437,7 @@ function UnMuteUnitSpeech(){}
  * A
  * @Summary.ko-KR
  * 컴퓨터 플레이어의 점수를 점수판에 [State]합니다.
- *
+ * 
  * @param.State.ko-KR
  * 컴퓨터 플레이어의 점수를 숨길지 보여줄지 설정합니다.
 ***/
@@ -450,7 +450,7 @@ function LeaderBoardComputerPlayers(State : TrgPropState){}
  * A
  * @Summary.ko-KR
  * [Unit]을 목표치 [Goal]에 가깝게 소유하고 있는 플레이어의 순위를 보여줍니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Goal.ko-KR
  * 목표치입니다.
  * @param.Unit.ko-KR
@@ -467,7 +467,7 @@ function LeaderBoardGoalControl(Goal, Unit : TrgUnit, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * [Unit]을 특정 지점인 [Location] 안에서 목표치 [Goal]에 가깝게 소유하고 있는 플레이어의 순위를 보여줍니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Goal.ko-KR
  * 목표치입니다.
  * @param.Unit.ko-KR
@@ -486,7 +486,7 @@ function LeaderBoardGoalControlAt(Goal, Unit : TrgUnit, Location : TrgLocation, 
  * A
  * @Summary.ko-KR
  * 목표치 [Goal]에 가깝게 자원 [ResourceType]을 보유하고 있는 플레이어의 순위를 보여줍니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Goal.ko-KR
  * 목표치입니다.
  * @param.ResourceType.ko-KR
@@ -503,7 +503,7 @@ function LeaderBoardGoalResources(Goal, ResourceType : TrgResource, Label : TrgS
  * A
  * @Summary.ko-KR
  * [Unit]을 목표치 [Goal]에 가깝게 죽인 플레이어의 순위를 보여줍니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.Unit.ko-KR
  * 순위를 매길 유닛입니다.
  * @param.Goal.ko-KR
@@ -520,7 +520,7 @@ function LeaderBoardGoalKills(Goal, Unit : TrgUnit, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * [ScoreType]를 목표치 [Goal]에 가깝게 보유한 플레이어의 순위를 보여줍니다. 이 때 점수표 옆의 텍스트는 [Label]로 지정합니다.
- *
+ * 
  * @param.ScoreType.ko-KR
  * 순위를 매길 점수입니다.
  * @param.Goal.ko-KR
@@ -537,7 +537,7 @@ function LeaderBoardGoalScore(Goal, ScoreType : TrgScore, Label : TrgString){}
  * A
  * @Summary.ko-KR
  * [DestLocation]에 있는 [Owner]의 [OnUnit] 위로 [Location](을)를 옮깁니다 
- *
+ * 
  * @param.Location.ko-KR
  * 옮길 로케이션을 정합니다
  * @param.OnUnit.ko-KR
@@ -556,7 +556,7 @@ function MoveLocation(Location : TrgLocation, OnUnit : TrgUnit, Owner : TrgPlaye
  * A
  * @Summary.ko-KR
  * [StartLocation]에 있는 [Owner]의 [UnitType]을 [Count]만큼 [DestLocation](으)로 옮깁니다
- *
+ * 
  * @param.Count.ko-KR
  * 옮길 유닛의 수를 정합니다
  * @param.UnitType.ko-KR
@@ -577,7 +577,7 @@ function MoveUnit(Count : TrgCount, UnitType : TrgUnit, Owner : TrgPlayer, Start
  * A
  * @Summary.ko-KR
  * 자원의 총합을 목표치 [Goal]에 가깝게 보유한 플레이어의 순위를 보여줍니다.
- *
+ * 
  * @param.Goal.ko-KR
  * 목표치입니다.
 ***/
@@ -590,7 +590,7 @@ function LeaderBoardGreed(Goal){}
  * A
  * @Summary.ko-KR
  * 다음에 플레이하게 될 맵을 설정합니다. 캠페인 혹은 시리즈 맵 한정 트리거이며 플레이 중인 맵의 동일한 폴더 안에 해당 맵이 있어야지만 발동됩니다.
- *
+ * 
  * @param.ScenarioName.ko-KR
  * 다음에 플레이하게 될 맵의 이름입니다.
 ***/
@@ -603,7 +603,7 @@ function SetNextScenario(ScenarioName : TrgString){}
  * A
  * @Summary.ko-KR
  * [Where]에 있는 [Owner]의 [Unit](을)를 [State]상태로 설정합니다
- *
+ * 
  * @param.State.ko-KR
  * 설정할 상태를 정합니다
  * @param.Unit.ko-KR
@@ -622,7 +622,7 @@ function SetDoodadState(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlayer,
  * A
  * @Summary.ko-KR
  * [Where]에 있는 [Owner]의 [Unit]의 무적 상태를  [State]상태로 합니다
- *
+ * 
  * @param.State.ko-KR
  * 유닛의 무적 상태를 설정합니다
  * @param.Unit.ko-KR
@@ -641,7 +641,7 @@ function SetInvincibility(State : TrgPropState, Unit : TrgUnit, Owner : TrgPlaye
  * A
  * @Summary.ko-KR
  * [Where]에 [Number]만큼 [Unit]을 [ForPlayer]의 소유로 생성합니다.
- *
+ * 
  * @param.Number.ko-KR
  * 유닛의 수량을 설정합니다.
  * @param.Unit.ko-KR
@@ -660,7 +660,7 @@ function CreateUnit(Number, Unit : TrgUnit, Where : TrgLocation, ForPlayer : Trg
  * A
  * @Summary.ko-KR
  * [Where]에 [Player]의 [Unit](을)를 [Count]만큼 [Properties](으)로 생성합니다
- *
+ * 
  * @param.Count.ko-KR
  * 생성할 유닛의 수를 정합니다
  * @param.Unit.ko-KR
@@ -681,7 +681,7 @@ function CreateUnitWithProperties(Count : TrgCount, Unit : TrgUnit, Where : TrgL
  * A
  * @Summary.ko-KR
  * [Player]소유의  [Unit](이)가 죽은 수를 [Number]만큼 [Modifier]합니다
- *
+ * 
  * @param.Player.ko-KR
  * 죽은 유닛의 수가 조정될 플레이어를 정합니다
  * @param.Modifier.ko-KR
@@ -700,7 +700,7 @@ function SetDeaths(Player : TrgPlayer, Modifier : TrgModifier, Number, Unit : Tr
  * A
  * @Summary.ko-KR
  * [StartLocation]에 있는 [Owner]소유의 [Unit]에게 [DestLocation]로 [OrderType]명령을 내립니다
- *
+ * 
  * @param.StartLocation.ko-KR
  * 명령의 시작 위치를 정합니다
  * @param.Owner.ko-KR
@@ -721,7 +721,7 @@ function Order(Unit : TrgUnit, Owner : TrgPlayer, StartLocation : TrgLocation, O
  * A
  * @Summary.ko-KR
  * 트리거의 이름을 [Text]로 정합니다
- *
+ * 
  * @param.Text.ko-KR
  * 트리거 목록에 표시될 텍스트를 정합니다
 ***/
@@ -734,7 +734,7 @@ function Comment(Text : TrgString){}
  * A
  * @Summary.ko-KR
  * [Where]에 있는 [Owner]의 [Unit](을)를 [Count]만큼 [NewOwner]에게 넘겨줍니다
- *
+ * 
  * @param.Count.ko-KR
  * 넘겨줄 유닛의 수를 정합니다
  * @param.Unit.ko-KR
@@ -755,7 +755,7 @@ function GiveUnits(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, Where : 
  * A
  * @Summary.ko-KR
  * [Where]에 있는 [Owner]의 [Unit] [Count]기의 체력을 [Percent]%로 조정합니다
- *
+ * 
  * @param.Count.ko-KR
  * 체력이 조정될 유닛의 수를 정합니다
  * @param.Unit.ko-KR
@@ -776,7 +776,7 @@ function ModifyUnitHitPoints(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer
  * A
  * @Summary.ko-KR
  * [Where]에  있는 [Owner]의 [Unit] [Count]기의 에너지(마나)를 [Percent]%로 조정합니다
- *
+ * 
  * @param.Count.ko-KR
  * 에너지가 조정될 유닛의 수를 정합니다
  * @param.Unit.ko-KR
@@ -797,7 +797,7 @@ function ModifyUnitEnergy(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, W
  * A
  * @Summary.ko-KR
  * [Where]에 있는 [Player]의 [Unit] [Count]기의 쉴드를 [Percent]%로 조정합니다
- *
+ * 
  * @param.Count.ko-KR
  * 쉴드가 조정될 유닛의 수를 정합니다
  * @param.Unit.ko-KR
@@ -818,7 +818,7 @@ function ModifyUnitShields(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, 
  * A
  * @Summary.ko-KR
  * [Where]에 있는 [Owner]의 자원[Count]개의 자원량을 [NewValue]로 설정합니다
- *
+ * 
  * @param.Count.ko-KR
  * 자원량을 수정할 자원의 갯수를 정합니다
  * @param.Owner.ko-KR
@@ -836,11 +836,11 @@ function ModifyUnitResourceAmount(Count : TrgCount, Owner : TrgPlayer, Where : T
  * @Type
  * A
  * @Summary.ko-KR
- * 최대 [Add]만큼의 격납 유닛을 특정 지점 [Location]에 존재하는 [Owner]의 [Unit] [Count]기에게 지급합니다.
- *
+ * 최대 [Add]만큼의 격납 유닛을 특정 지점 [Where]에 존재하는 [Owner]의 [Unit] [Count]기에게 지급합니다.
+ * 
  * @param.Add.ko-KR
  * 더할 격납 유닛의 갯수입니다.
- * @param.Location.ko-KR
+ * @param.Where.ko-KR
  * 격납 유닛을 더할 모체 유닛이 존재하는 로케이션입니다.
  * @param.Owner.ko-KR
  * 모체 유닛을 보유 중인 플레이어입니다.
@@ -888,7 +888,7 @@ function Draw(){}
  * A
  * @Summary.ko-KR
  * [Player](와)과의 동맹관계를 [Status](으)로 설정합니다
- *
+ * 
  * @param.Player.ko-KR
  * 동맹관계를 수정할 플레이어를 정합니다
  * @param.Status.ko-KR
@@ -903,7 +903,7 @@ function SetAllianceStatus(Player : TrgPlayer, Status : TrgAllyStatus){}
  * C
  * @Summary.ko-KR
  * 카운트 다운 타이머의 시간이 [Time]초 [Comparison]인 경우
- *
+ * 
  * @param.Comparison.ko-KR
  * 비교할 방법을 정합니다
  * @param.Time.ko-KR
@@ -918,7 +918,7 @@ function CountdownTimer(Comparison : TrgComparison, Time){}
  * C
  * @Summary.ko-KR
  * [Player](이)가 [Unit]을 [Number]기 [Comparison]보유한 경우
- *
+ * 
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
  * @param.Comparison.ko-KR
@@ -937,7 +937,7 @@ function Command(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : 
  * C
  * @Summary.ko-KR
  * [Location]에 [Player]의 [Unit](이)가 [Number][Comparison] 있을 경우
- *
+ * 
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
  * @param.Comparison.ko-KR
@@ -958,7 +958,7 @@ function Bring(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : Tr
  * C
  * @Summary.ko-KR
  * [Player](이)가 [ResourceType](을)를 [Number][Comparison] 가지고 있을 경우
- *
+ * 
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
  * @param.Comparison.ko-KR
@@ -977,7 +977,7 @@ function Accumulate(Player : TrgPlayer, Comparison : TrgComparison, Number, Reso
  * C
  * @Summary.ko-KR
  * [Player](이)가 [Unit](을)를 [Number][Comparison] 죽였을 경우
- *
+ * 
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
  * @param.Comparison.ko-KR
@@ -996,7 +996,7 @@ function Kills(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : Tr
  * C
  * @Summary.ko-KR
  * [Unit](을)를 가장 많이 보유한 경우
- *
+ * 
  * @param.Unit.ko-KR
  * 비교할 유닛을 정합니다
 ***/
@@ -1009,7 +1009,7 @@ function CommandMost(Unit : TrgUnit){}
  * C
  * @Summary.ko-KR
  * [Location]에 [Unit](을)를 가장 많이 보유한 경우
- *
+ * 
  * @param.Unit.ko-KR
  * 비교할 유닛을 정합니다
  * @param.Location.ko-KR
@@ -1024,7 +1024,7 @@ function CommandMostAt(Unit : TrgUnit, Location : TrgLocation){}
  * C
  * @Summary.ko-KR
  * [Unit](을)를 가장 많이 죽인 경우
- *
+ * 
  * @param.Unit.ko-KR
  * 비교할 유닛을 정합니다
 ***/
@@ -1037,7 +1037,7 @@ function MostKills(Unit : TrgUnit){}
  * C
  * @Summary.ko-KR
  * [ScoreType](이)가 가장 높을 경우
- *
+ * 
  * @param.ScoreType.ko-KR
  * 점수의 종류를 정합니다
 ***/
@@ -1050,7 +1050,7 @@ function HighestScore(ScoreType : TrgScore){}
  * C
  * @Summary.ko-KR
  * [ResourceType](을)를 가장 많이 보유한 경우
- *
+ * 
  * @param.ResourceType.ko-KR
  * 비교할 자원의 종류를 정합니다
 ***/
@@ -1063,7 +1063,7 @@ function MostResources(ResourceType : TrgResource){}
  * C
  * @Summary.ko-KR
  * [Switch](이)가 [State]상태인 경우
- *
+ * 
  * @param.Switch.ko-KR
  * 사용할 스위치를 정합니다
  * @param.State.ko-KR
@@ -1078,7 +1078,7 @@ function Switch(Switch : TrgSwitch, State : TrgSwitchState){}
  * C
  * @Summary.ko-KR
  * 게임이 시작된지  [Time]초 [Comparison] 지난경우
- *
+ * 
  * @param.Comparison.ko-KR
  * 비교할 방법을 정합니다
  * @param.Time.ko-KR
@@ -1093,7 +1093,7 @@ function ElapsedTime(Comparison : TrgComparison, Time){}
  * C
  * @Summary.ko-KR
  * 一个魔音？
- *
+ * 
 ***/
 function Briefing(){}
 
@@ -1104,7 +1104,7 @@ function Briefing(){}
  * C
  * @Summary.ko-KR
  * [Player]가 해당 게임 내에서 적을 [Number][Comparison] 상대하고 있을 경우
- *
+ * 
  * @param.Player.ko-KR
  * 플레이어입니다.
  * @param.Number.ko-KR
@@ -1121,7 +1121,7 @@ function Opponents(Player : TrgPlayer, Comparison : TrgComparison, Number){}
  * C
  * @Summary.ko-KR
  * [Player]의 [Unit](이)가 [Number][Comparison]죽었을 경우
- *
+ * 
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
  * @param.Comparison.ko-KR
@@ -1140,7 +1140,7 @@ function Deaths(Player : TrgPlayer, Comparison : TrgComparison, Number, Unit : T
  * C
  * @Summary.ko-KR
  * [Unit](을)를 가장 적게 보유한 경우
- *
+ * 
  * @param.Unit.ko-KR
  * 비교할 유닛을 정합니다
 ***/
@@ -1153,7 +1153,7 @@ function CommandLeast(Unit : TrgUnit){}
  * C
  * @Summary.ko-KR
  * [Location]에 [Unit](을)를 가장 적게 보유한 경우
- *
+ * 
  * @param.Location.ko-KR
  * 비교할 위치를 정합니다
  * @param.Unit.ko-KR
@@ -1168,7 +1168,7 @@ function CommandLeastAt(Unit : TrgUnit, Location : TrgLocation){}
  * C
  * @Summary.ko-KR
  * [Unit](을)를 가장 적게 죽였을 경우
- *
+ * 
  * @param.Unit.ko-KR
  * 비교할 유닛을 정합니다
 ***/
@@ -1181,7 +1181,7 @@ function LeastKills(Unit : TrgUnit){}
  * C
  * @Summary.ko-KR
  * [ScoreType](이)가 가장 낮을 경우
- *
+ * 
  * @param.ScoreType.ko-KR
  * 비교할 점수의 종류를  정합니다
 ***/
@@ -1194,7 +1194,7 @@ function LowestScore(ScoreType : TrgScore){}
  * C
  * @Summary.ko-KR
  * 보유한 [ResourceType](이)가 가장 적을 경우
- *
+ * 
  * @param.ResourceType.ko-KR
  * 비교할 자원의 종류를 정합니다
 ***/
@@ -1207,7 +1207,7 @@ function LeastResources(ResourceType : TrgResource){}
  * C
  * @Summary.ko-KR
  * [Player]의 [ScoreType](이)가 [Number] [Comparison]인 경우
- *
+ * 
  * @param.Player.ko-KR
  * 비교할 플레이어를 정합니다
  * @param.ScoreType.ko-KR
@@ -1299,7 +1299,7 @@ function UnitProperty() { }
  * F
  * @Summary.ko-KR
  * conditions가 Always인 트리거입니다. 기본적으로 preserved 되있고요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1324,7 +1324,7 @@ function DoActions(actions, preserved) { }
  * 
  * * 다른 모듈의 변수에 대입할 때 module.v = value; 하면 버그납니다.
  * 이럴 때는 SetVariables를 써야합니다. (phu54321／epScript#3 참고) 
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1336,7 +1336,7 @@ function SetVariables(srclist, dstlist, mdtlist) { }
  * F
  * @Summary.ko-KR
  * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue／onfalse가 변수여도 됩니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1348,7 +1348,7 @@ function EUDJumpIf(conditions, ontrue) { }
  * F
  * @Summary.ko-KR
  * 조건이 만족하면 EUDJump합니다. EUDJump처럼 ontrue／onfalse가 변수여도 됩니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1391,7 +1391,7 @@ function EUDSetContinuePoint() { }
  * @Summary.ko-KR
  * nextptr로 점프합니다. nextptr는 RawTrigger가 될 수 있고 RawTrigger를 가르키는
  * Forward나 EUDVariable이 될 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1426,7 +1426,7 @@ function NextTrigger() { }
  * F
  * @Summary.ko-KR
  * 오프셋을 EPD 플레이어값으로 바꿉니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1440,7 +1440,7 @@ function EPD(p) { }
  * EPD 플레이어에게서 dword／epd값을 읽는 함수입니다. 위 함수들은 언제나
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1454,7 +1454,7 @@ function dwepdread_epd(epd) { }
  * EPD 플레이어에게서 dword／epd값을 읽는 함수입니다. 위 함수들은 언제나
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1468,7 +1468,7 @@ function dwread_epd(epd) { }
  * EPD 플레이어에게서 dword／epd값을 읽는 함수입니다. 위 함수들은 언제나
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1483,7 +1483,7 @@ function epdread_epd(epd) { }
  * 값을 유지합니다. 예를 들어 dwbreak(0x12345678)\[\[2\]\]는 0x12이지만,
  * dwbreak2(0x10000000)\[\[2\]\]는 0x12000000입니다. dword의 특정 byte나 word만
  * 바꿔야 할 때 dwbreak한 결과에 다시 0x100000같은 값을 곱할 필요가 없습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1496,7 +1496,7 @@ function dwbreak(number) { }
  * @Summary.ko-KR
  * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
  * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1509,7 +1509,7 @@ function dwwrite_epd(targetplayer, value) { }
  * @Summary.ko-KR
  * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
  * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1522,7 +1522,7 @@ function dwadd_epd(targetplayer, value) { }
  * @Summary.ko-KR
  * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
  * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1534,7 +1534,7 @@ function dwsubtract_epd(targetplayer, value) { }
  * F
  * @Summary.ko-KR
  * 블록 단위로 메모리를 복사할 때 씁니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1546,7 +1546,7 @@ function repmovsd_epd(dstepdp, srcepdp, copydwn) { }
  * F
  * @Summary.ko-KR
  * 블록 단위로 메모리를 복사할 때 씁니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1558,7 +1558,7 @@ function memcpy(dst, src, copylen) { }
  * F
  * @Summary.ko-KR
  * 스트링 복사
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1588,7 +1588,7 @@ function EUDByteWriter() { }
  * F
  * @Summary.ko-KR
  * Calculate (a／／b, a%b)
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1600,7 +1600,7 @@ function div(a, b) { }
  * F
  * @Summary.ko-KR
  * Calculate a & b
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1612,7 +1612,7 @@ function bitand(a, b) { }
  * F
  * @Summary.ko-KR
  * Calculate a | b
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1624,7 +1624,7 @@ function bitor(a, b) { }
  * F
  * @Summary.ko-KR
  * Calculate ~a
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1636,7 +1636,7 @@ function bitnot(a) { }
  * F
  * @Summary.ko-KR
  * Calculate a ^ b
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1648,7 +1648,7 @@ function bitxor(a, b) { }
  * F
  * @Summary.ko-KR
  * Calculate ~(a & b)
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1660,7 +1660,7 @@ function bitnand(a, b) { }
  * F
  * @Summary.ko-KR
  * Calculate ~(a | b)
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1672,7 +1672,7 @@ function bitnor(a, b) { }
  * F
  * @Summary.ko-KR
  * Calculate ~(a ^ b)
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1684,7 +1684,7 @@ function bitnxor(a, b) { }
  * F
  * @Summary.ko-KR
  * return a << b
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1696,7 +1696,7 @@ function bitlshift(a, b) { }
  * F
  * @Summary.ko-KR
  * return a >> b
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1711,7 +1711,7 @@ function bitrshift(a, b) { }
  * .. note::
  *     dbstr_print에 변수를 넣으면 10진법으로 출력됩니다. dbstr_addptr처럼
  *     16진법으로 출력되게 하려면 hptr(숫자)를 넣으세요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1726,7 +1726,7 @@ function dbstr_print(dst, arguments) { }
  * .. note::
  *     dbstr_print에 변수를 넣으면 10진법으로 출력됩니다. dbstr_addptr처럼
  *     16진법으로 출력되게 하려면 hptr(숫자)를 넣으세요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1741,7 +1741,7 @@ function sprintf(dst, formatstring /*FormatText*/, *args) { }
  * .. note::
  *     dbstr_print에 변수를 넣으면 10진법으로 출력됩니다. dbstr_addptr처럼
  *     16진법으로 출력되게 하려면 hptr(숫자)를 넣으세요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1780,7 +1780,7 @@ function randomize() { }
  * F
  * @Summary.ko-KR
  * 랜덤 관련
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1823,7 +1823,7 @@ function getcurpl() { }
  * Current Player의 값을 읽고 쓰는 함수입니다. Current Player는 eudplib에서 항상
  * 관리하므로 0x6509B0의 값을 직접 읽는것보다 getcurpl 함수를 쓰는게 32배정도
  * 빠릅니다. _cp류 함수들과 조합해서 사용하면 좋습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1835,7 +1835,7 @@ function setcurpl(cp) { }
  * F
  * @Summary.ko-KR
  * 트리거 설명
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1851,7 +1851,7 @@ function lengthdir(length, angle) { }
  * Starcraft periodically broadcasts game packets to other player. Game
  * packets are stored to queue, and this function add data to that queue, so
  * that SC can broadcast it.
- *
+ * 
  * .. note::
  *     If packet queue is full, this function fails. This behavior is silent
  *     without any warning or error, since this behavior shouldn't happen in
@@ -1870,7 +1870,7 @@ function QueueGameCommand(data, size) { }
  * F
  * @Summary.ko-KR
  * Queue right click action to [xy].
- *
+ * 
  * @param.xy.ko-KR
  * (y * 65536) + x, where (x, y) is coordinate for right click.
  ***/
@@ -1882,7 +1882,7 @@ function QueueGameCommand_RightClick(xy) { }
  * C
  * @Summary.ko-KR
  * UDP／배틀넷 등에서만 작동합니다. 플레이어가 있는지 체크합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1894,7 +1894,7 @@ function playerexist(player: TrgPlayer) { }
  * F
  * @Summary.ko-KR
  * 파이썬3의 bytes와 str 간에 상호변환
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1906,7 +1906,7 @@ function b2u(b) { }
  * F
  * @Summary.ko-KR
  * 파이썬3의 bytes와 str 간에 상호변환
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1919,7 +1919,7 @@ function u2b(s) { }
  * @Summary.ko-KR
  * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
  * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1932,7 +1932,7 @@ function b2i1(b, index) { }
  * @Summary.ko-KR
  * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
  * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1945,7 +1945,7 @@ function b2i2(b, index) { }
  * @Summary.ko-KR
  * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
  * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1958,7 +1958,7 @@ function b2i4(b, index) { }
  * @Summary.ko-KR
  * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
  * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1971,7 +1971,7 @@ function i2b1(i) { }
  * @Summary.ko-KR
  * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
  * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1984,7 +1984,7 @@ function i2b2(i) { }
  * @Summary.ko-KR
  * int를 Little Endian으로 변환하고 역변환하는 함수입니다. b2i? 함수에서 index를
  * 통해 b의 어느 범위를 int로 변환할지 정할 수 있습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -1996,7 +1996,7 @@ function i2b4(i) { }
  * F
  * @Summary.ko-KR
  * scmdraft2 형식 텍스트를 해석합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2008,7 +2008,7 @@ function SCMD2Text(s) { }
  * F
  * @Summary.ko-KR
  * STR단락이나 .tbl파일을 해석할때 쓰면 좋아요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2020,7 +2020,7 @@ function TBL(content) { }
  * F
  * @Summary.ko-KR
  * 바이너리 데이터를 메모리에 올릴때 씁니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2032,7 +2032,7 @@ function Db(b) { }
  * F
  * @Summary.ko-KR
  * 단순 EUD 배열에 씁니다\.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2049,7 +2049,7 @@ function EUDArray(initval) { }
  *  a = RawTrigger(~)
  *  # SetNextPtr(a, ~) 로 nextptr 수정 등을 할 수 있습니다.
  *  b = Trigger(~)  # Trigger는 주소값이 없기 때문에 이런 활용은 불가능합니다
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2061,7 +2061,7 @@ function RawTrigger(prevptr, nextptr, conditions, actions) { }
  * C
  * @Summary.ko-KR
  * 오프셋의 값을 확인합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2073,7 +2073,7 @@ function Memory(dest, cmptype: TrgComparison, value) { }
  * F
  * @Summary.ko-KR
  * 메모리 값을 수정합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2086,7 +2086,7 @@ function SetMemory(dest, modtype: TrgModifier, value) { }
  * @Summary.ko-KR
  * 트리거의 nextptr값을 수정합니다. 자세한건 뻘강좌를 참고하세요.
  * http://blog.naver.com/whyask37
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2098,7 +2098,7 @@ function SetNextPtr(trg, dest) { }
  * F
  * @Summary.ko-KR
  * u2b의 utf-8버전
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2110,7 +2110,7 @@ function u2utf8(s) { }
  * F
  * @Summary.ko-KR
  * Memory랑 똑같은데 dest가 오프셋의 EPD값입니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2122,7 +2122,7 @@ function MemoryEPD(dest, cmptype: TrgComparison, value) { }
  * F
  * @Summary.ko-KR
  * EUDX 조건
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2134,7 +2134,7 @@ function DeathsX(Player: TrgPlayer, Comparison: TrgComparison, Number, Unit: Trg
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2146,7 +2146,7 @@ function MemoryX(dest, cmptype: TrgComparison, value, mask) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2158,7 +2158,7 @@ function MemoryXEPD(dest, cmptype: TrgComparison, value, mask) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2170,7 +2170,7 @@ function SetMemoryEPD(dest, modtype: TrgModifier, value) { }
  * F
  * @Summary.ko-KR
  * 아스나바보
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2182,7 +2182,7 @@ function SetDeathsX(Player: TrgPlayer, Modifier: TrgModifier, Number, Unit: TrgU
  * F
  * @Summary.ko-KR
  * 아스나바보
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2194,7 +2194,7 @@ function SetMemoryX(dest, modtype: TrgModifier, value, mask) { }
  * F
  * @Summary.ko-KR
  * 아스나바보
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2206,7 +2206,7 @@ function SetMemoryXEPD(dest, modtype: TrgModifier, value, mask) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2227,7 +2227,7 @@ function GetChkTokenized() { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2239,7 +2239,7 @@ function GetPlayerInfo(player: TrgPlayer) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2251,7 +2251,7 @@ function VProc(v, actions) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2263,7 +2263,7 @@ function EUDLightVariable(initval) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2278,7 +2278,7 @@ function EUDXVariable(initval, mask) { }
  * 
  * 예시
  * const_for_artanis = EUDVArray(4)(list(1, 2, 3, 4));
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2298,7 +2298,7 @@ function EUDVArray(size, initvals) { }
  * 
  *  a.setFunc(f_mul)  # 다른 곱셈함수(있다고 하죠)로 포인터를 설정
  *  a(1, 2)  # 2를 리턴
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2310,7 +2310,7 @@ function EUDFuncPtr(argn, retn) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2322,7 +2322,7 @@ function setloc(locID, x, y) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2334,7 +2334,7 @@ function addloc(locID, x, y) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2346,7 +2346,7 @@ function dilateloc(locID, x, y) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2358,7 +2358,7 @@ function getlocTL(locID) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2370,7 +2370,7 @@ function setloc_epd(locID, epd) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2382,7 +2382,7 @@ function wwrite_epd(epd, subp, w) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2394,7 +2394,7 @@ function bwrite_epd(epd, subp, b) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2406,7 +2406,7 @@ function wread_epd(epd, subp) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2418,7 +2418,7 @@ function bread_epd(epd, subp) { }
  * F
  * @Summary.ko-KR
  * 비트 단위로 dword를 읽고싶거나 dword를 나눌 때 쓰면 됩니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2431,7 +2431,7 @@ function flagread_epd(targetplayer) { }
  * @Summary.ko-KR
  * Current Player를 기준으로 하는 함수입니다. _epd가 붙은 함수들보다 2배 빠릅니다.
  * cpo는 Current Player를 기준으로 읽을 메모리가 얼마나 떨어져있는지를 나타냅니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2444,7 +2444,7 @@ function dwepdread_cp(cpo) { }
  * @Summary.ko-KR
  * Current Player를 기준으로 하는 함수입니다. _epd가 붙은 함수들보다 2배 빠릅니다.
  * cpo는 Current Player를 기준으로 읽을 메모리가 얼마나 떨어져있는지를 나타냅니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2457,7 +2457,7 @@ function dwread_cp(cpo) { }
  * @Summary.ko-KR
  * Current Player를 기준으로 하는 함수입니다. _epd가 붙은 함수들보다 2배 빠릅니다.
  * cpo는 Current Player를 기준으로 읽을 메모리가 얼마나 떨어져있는지를 나타냅니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2469,7 +2469,7 @@ function epdread_cp(cpo) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2481,7 +2481,7 @@ function wread_cp(cpo, subp) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2494,7 +2494,7 @@ function bread_cp(cpo, subp) { }
  * @Summary.ko-KR
  * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
  * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2507,7 +2507,7 @@ function dwwrite_cp(cpo, value) { }
  * @Summary.ko-KR
  * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
  * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2520,7 +2520,7 @@ function dwadd_cp(cpo, value) { }
  * @Summary.ko-KR
  * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
  * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2532,7 +2532,7 @@ function dwsubtract_cp(cpo, value) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2544,7 +2544,7 @@ function wwrite_cp(cpoffset, subp, w) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2556,7 +2556,7 @@ function bwrite_cp(cpoffset, subp, b) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2568,7 +2568,7 @@ function dwwrite(ptr, dw) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2580,7 +2580,7 @@ function wwrite(ptr, w) { }
  * F
  * @Summary.ko-KR
  * ^^;
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2593,7 +2593,7 @@ function bwrite(ptr, b) { }
  * @Summary.ko-KR
  * ptr 읽기함수
  * EPD 계산하느라 나눗셈해야되서 느리니까 dwread_epd쓰삼 ㅡㅡ
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2608,7 +2608,7 @@ function dwread(ptr) { }
  * EPD 계산하느라 나눗셈해야되서 느리니까 wread_epd쓰삼 ㅡㅡ
  * 근데 필요할 때도 있긴함 그래도 연속된 주소를 읽을 땐 EUDByteStream이 낫다
  * 힘들어
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2623,7 +2623,7 @@ function wread(ptr) { }
  * EPD 계산하느라 나눗셈해야되서 느리니까 bread_epd쓰삼 ㅡㅡ
  * 근데 필요할 때도 있긴함 그래도 연속된 주소를 읽을 땐 EUDByteStream이 낫다
  * 빵 아님 ㅎ
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2638,7 +2638,7 @@ function bread(ptr) { }
  * [buf2] 가 가리키는 처음 [count] 바이트의 데이터를 비교하여
  * 이들이 같다면 0 을 리턴하고
  * 다르다면 0 이 아닌 값을 리턴한다. 이 때 리턴되는 값은 아래를 참고.
- *
+ * 
  * 두 개의 메모리 블록의 관계에 따라 아래와 같이 정수 값을 리턴한다.
  * 만일 두 메모리 블록이 정확히 같다면 0 을 리턴한다.
  * 만일 두 메모리 블록이 다를 경우, [buf1] 과 [buf2] 가 가리키는 메모리 블록에서
@@ -2656,7 +2656,7 @@ function memcmp(buf1, buf2, count) { }
  * F
  * @Summary.ko-KR
  * 사용자 정의 읽기 함수를 만드는 함수
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2668,7 +2668,7 @@ function readgen_epd(mask, args) { }
  * F
  * @Summary.ko-KR
  * 사용자 정의 읽기 함수를 만드는 함수
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2680,7 +2680,7 @@ function readgen_cp(mask, args) { }
  * F
  * @Summary.ko-KR
  * [epd] 주소에서 CUnit값을 읽어서 ptr로 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2692,7 +2692,7 @@ function cunitread_epd(epd) { }
  * F
  * @Summary.ko-KR
  * CurrentPlayer+[cpoffset] 주소에서 CUnit값을 읽어서 ptr로 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2704,7 +2704,7 @@ function cunitread_cp(cpoffset) { }
  * F
  * @Summary.ko-KR
  * [epd] 주소에서 CUnit값을 읽어서 ptr, epd로 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2716,7 +2716,7 @@ function cunitepdread_epd(epd) { }
  * F
  * @Summary.ko-KR
  * CurrentPlayer+[cpoffset] 주소에서 CUnit값을 읽어서 ptr, epd로 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2728,7 +2728,7 @@ function cunitepdread_cp(cpoffset) { }
  * F
  * @Summary.ko-KR
  * [targetplayer] 주소에서 bit[mask]에 있는 비트만 읽어서 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2740,7 +2740,7 @@ function maskread_epd(targetplayer, mask) { }
  * F
  * @Summary.ko-KR
  * CurrentPlayer+[cpoffset] 주소에서 bit[mask]에 있는 비트만 읽어서 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2753,7 +2753,7 @@ function maskread_cp(cpoffset, mask) { }
  * @Summary.ko-KR
  * [epd] 주소의 Position 형태 값을 읽어 x, y로 반환합니다.
  * * Position: 맵 좌표값 (65536 * y) + x
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2766,7 +2766,7 @@ function posread_epd(epd) { }
  * @Summary.ko-KR
  * CurrentPlayer+[cpoffset] 주소의 Position 형태 값을 읽어 x, y로 반환합니다.
  * * Position: 맵 좌표값 (65536 * y) + x
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2778,7 +2778,7 @@ function posread_cp(cpoffset) { }
  * F
  * @Summary.ko-KR
  * EUDVArray를 읽는 함수. 순차탐색에 적합함.
- *
+ * 
  * Methods: seek, read
  ***/
 function EUDVArrayReader() { }
@@ -2789,7 +2789,7 @@ function EUDVArrayReader() { }
  * F
  * @Summary.ko-KR
  * 스트링 [strId]의 주소를 반환합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2810,7 +2810,7 @@ function gettextptr() { }
  * F
  * @Summary.ko-KR
  * 문자열 비교 함수. 길이 제한이 필요하면 memcmp를 쓰자.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2822,7 +2822,7 @@ function strcmp(s1, s2) { }
  * F
  * @Summary.ko-KR
  * [ptr] 주소의 스트링 길이를 가져온다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2834,7 +2834,7 @@ function strlen(ptr) { }
  * F
  * @Summary.ko-KR
  * [epd] 주소의 스트링 길이를 가져온다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2846,7 +2846,7 @@ function strlen_epd(epd) { }
  * F
  * @Summary.ko-KR
  * 문자열 안에서 문자열 검색하기
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2858,7 +2858,7 @@ function strnstr(string, substring, count) { }
  * F
  * @Summary.ko-KR
  * [ptr] 주소의 스트링을 연결합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2870,7 +2870,7 @@ function ptr2s(ptr) { }
  * F
  * @Summary.ko-KR
  * [epd] 주소의 스트링을 연결합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2882,7 +2882,7 @@ function epd2s(epd) { }
  * F
  * @Summary.ko-KR
  * 16진수 출력
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2894,7 +2894,7 @@ function hptr(value) { }
  * F
  * @Summary.ko-KR
  * [player] 번호의 기본 플레이어 색상을 가져옵니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2906,7 +2906,7 @@ function PColor(player: TrgPlayer) { }
  * F
  * @Summary.ko-KR
  * [player]의 이름을 가져옵니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2919,7 +2919,7 @@ function PName(player: TrgPlayer) { }
  * F
  * @Summary.ko-KR
  * [player]의 이름을 [formatstring /*FormatText*/]으로 [*args]의 내용들로 설정합니다.
- *
+ * 
  * @param.args.ko-KR
  * str, ptr2s, epd2s, PName, PColor
  ***/
@@ -2931,7 +2931,7 @@ function SetPNamef(player: TrgPlayer, formatstring /*FormatText*/, *args) { }
  * F
  * @Summary.ko-KR
  * stat_txt.tbl 주소를 가져옵니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -2943,7 +2943,7 @@ function GetTBLAddr(tblId) { }
  * F
  * @Summary.ko-KR
  * stat_txt.tbl 내용 작성
- *
+ * 
  * @param.offset.ko-KR
  * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
  ***/
@@ -2955,7 +2955,7 @@ function settbl(tblID, offset, args) { }
  * F
  * @Summary.ko-KR
  * stat_txt.tbl 내용 작성
- *
+ * 
  * @param.offset.ko-KR
  * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
  ***/
@@ -2967,7 +2967,7 @@ function settblf(tblID, offset, formatstring /*FormatText*/, *args) { }
  * F
  * @Summary.ko-KR
  * stat_txt.tbl 내용 작성
- *
+ * 
  * @param.offset.ko-KR
  * 텍스트 시작 위치에서 얼마나 떨어진 지점부터 작성할지
  ***/
@@ -2979,7 +2979,7 @@ function settblf2(tblID, offset, formatstring /*FormatText*/, *args) { }
  * F
  * @Summary.ko-KR
  * 해당 [tag]의 텍스트 효과 타이머를 [value]로 설정합니다.
- *
+ * 
  * @param.tag.ko-KR
  * 텍스트 효과 태그
  ***/
@@ -2992,7 +2992,7 @@ function TextFX_SetTimer(tag, modtype: TrgModifier, value) { }
  * @Summary.ko-KR
  * 해당 [tag]를 사용하는 모든 텍스트 효과를 화면에서 지웁니다.
  * 화면에 있었으면 해당하는 줄의 텍스트 포인터를 반환합니다. 없었으면 -1을 반환합니다.
- *
+ * 
  * @param.tag.ko-KR
  * 텍스트 효과 태그
  ***/
@@ -3005,7 +3005,7 @@ function TextFX_Remove(tag) { }
  * @Summary.ko-KR
  * 조건에 맞는 플레이어들을 순환합니다.
  * None을 넣으면 모두 허용합니다.
- *
+ * 
  * @param.ptype.ko-KR
  * 순환할 플레이어 타입 ("Human", "Computer", ...)
  * @param.force.ko-KR
@@ -3022,7 +3022,7 @@ function EUDLoopPlayer(ptype, force, race) { }
  * @Summary.ko-KR
  * 이중 연결 리스트를 순회합니다. header_offset은 첫 리스트 항목을 가르키는
  * 포인터고, next를 따라가다 ptr이 break_offset이 되면 LoopList가 종료됩니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3043,7 +3043,7 @@ function EUDLoopUnit() { }
  * F
  * @Summary.ko-KR
  * 새로 생성된 CUnit(구조오프셋)을 1회 돕니다. ptr, epd를 yield합니다.
- *
+ * 
  * @param.allowance.ko-KR
  * 한 트리거 주기에 사라지는 최대 유닛 수 (가스 캐는 일꾼, 벙커/수송선 탑승, etc)
  ***/
@@ -3055,7 +3055,7 @@ function EUDLoopNewUnit(allowance) { }
  * F
  * @Summary.ko-KR
  * 플레이어가 소유한 모든 CUnit(구조오프셋)을 돕니다. ptr, epd를 yield합니다.
- *
+ * 
  * @param.player.ko-KR
  * 유닛 순환할 플레이어
  ***/
@@ -3085,7 +3085,7 @@ function EUDLoopBullet() { }
  * F
  * @Summary.ko-KR
  * 유닛들을 선택합니다.
- *
+ * 
  * @param.n.ko-KR
  * 선택할 유닛 수
  * @param.ptrList.ko-KR
@@ -3126,7 +3126,7 @@ function QueueGameCommand_RestartGame() { }
  * F
  * @Summary.ko-KR
  * 방에 나갑니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3138,7 +3138,7 @@ function QueueGameCommand_LeaveGame(type_) { }
  * F
  * @Summary.ko-KR
  * 치트키 발동
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3150,7 +3150,7 @@ function QueueGameCommand_UseCheat(flags) { }
  * F
  * @Summary.ko-KR
  * 선택한 유닛들에게 유닛 생산 명령을 내립니다. 
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3180,7 +3180,7 @@ function QueueGameCommand_MergeArchon() { }
  * F
  * @Summary.ko-KR
  * 아크탄젠트 계산 (360도)
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3192,7 +3192,7 @@ function atan2(y, x) { }
  * F
  * @Summary.ko-KR
  * 제곱근을 계산합니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3206,7 +3206,7 @@ function sqrt(x) { }
  * EUD로 구현한 스택입니다.
  * 
  * Methods: push, pop, empty
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3220,7 +3220,7 @@ function EUDStack(size, basetype) { }
  * 크기 8인 EUDVArray
  * 
  * const_pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
- *
+ * 
  * @param.initval.ko-KR
  * 초기값 8개
  * const_pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
@@ -3233,7 +3233,7 @@ function PVariable(initval) { }
  * F
  * @Summary.ko-KR
  * Write byte by byte
- *
+ * 
  * Methods: writebyte, flushdword
  ***/
 function CPByteWriter() { }
@@ -3246,10 +3246,10 @@ function CPByteWriter() { }
  * store String in SetDeaths Actions, easy to concatenate.
  * 
  * Methods: Display, GetVTable, GetNextPtrMemory
- *
+ * 
  * @param.content.ko-KR
  * Constructor for CPString
- * :param content: Initial CPString content / capacity. Capacity of CPString
+ * :param content: Initial CPString content capacity. Capacity of CPString
  * is determined by size of this. If content is integer, then initial capacity
  * and content of CPString will be set to content(int) and empty string.
  * 
@@ -3264,7 +3264,7 @@ function CPString(content) { }
  * @Summary.ko-KR
  * 엄밀히 말하면 얘는 EUD함수는 아닌데 그냥 여기 둬봤어요. 각각 cond(x)가 만족하는
  * [minv, maxv]에서 최대 x와 최소 x를 구하는거에요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3277,7 +3277,7 @@ function EUDBinaryMax(cond, minv, maxv) { }
  * @Summary.ko-KR
  * 엄밀히 말하면 얘는 EUD함수는 아닌데 그냥 여기 둬봤어요. 각각 cond(x)가 만족하는
  * [minv, maxv]에서 최대 x와 최소 x를 구하는거에요.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3310,7 +3310,7 @@ function EUDLoopUnit2() { }
  * F
  * @Summary.ko-KR
  * inline_eudplib에서 함수나 클래스, 변수 등을 쓸 수 있도록 합니다.
- *
+ * 
  * @param.funcname.ko-KR
  * 전역으로 등록할 이름
  * @param.obj.ko-KR
@@ -3324,7 +3324,7 @@ function EUDRegisterObjectToNamespace(funcname, obj) { }
  * F
  * @Summary.ko-KR
  * inline_eudplib에서 함수나 클래스, 변수 등을 쓸 수 있도록 합니다.
- *
+ * 
  * @param.func.ko-KR
  * 함수
  ***/
@@ -3345,7 +3345,7 @@ function GetEUDNamespace() { }
  * F
  * @Summary.ko-KR
  * 파일을 맵 MPQ에 넣습니다. OGG 파일도 이걸로 넣을 수 있습니다.
- *
+ * 
  * @param.fname.ko-KR
  * 어떤 이름으로 삽입할지, PlayWAV할 때 쓰는 이름도 이거임.
  * @param.content.ko-KR
@@ -3359,7 +3359,7 @@ function MPQAddFile(fname, content) { }
  * F
  * @Summary.ko-KR
  * WAV 파일을 맵 MPQ에 넣습니다.
- *
+ * 
  * @param.fname.ko-KR
  * 어떤 이름으로 삽입할지, PlayWAV할 때 쓰는 이름도 이거임.
  * @param.content.ko-KR
@@ -3373,7 +3373,7 @@ function MPQAddWave(fname, content) { }
  * F
  * @Summary.ko-KR
  * 미니맵 핑을 찍습니다.
- *
+ * 
  * @param.xy.ko-KR
  * (y * 65536) + x, where (x, y) is coordinate for right click.
  ***/
@@ -3385,7 +3385,7 @@ function QueueGameCommand_MinimapPing(xy) { }
  * F
  * @Summary.ko-KR
  * 선택한 유닛들에게 우클릭 예약 명령을 내립니다.
- *
+ * 
  * @param.xy.ko-KR
  * (y * 65536) + x, where (x, y) is coordinate for right click.
  ***/
@@ -3397,7 +3397,7 @@ function QueueGameCommand_QueuedRightClick(xy) { }
  * F
  * @Summary.ko-KR
  * For optimization purpose, one may call this function directly
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3415,7 +3415,7 @@ function SetNextTrigger(trg) { }
  *         fadeIn, fadeOut, length
  * 
  * @param.content.ko-KR
- * Initial StringBuffer content / capacity.
+ * Initial StringBuffer content capacity.
  * 
  * Capacity of StringBuffer is determined by size of this.
  * If content is integer, then initial capacity and content of StringBuffer
@@ -3431,7 +3431,7 @@ function StringBuffer(content) { }
  * @Summary.ko-KR
  * 스트링 말고 stat_txt.tbl같은 곳에 텍스트 효과 넣을 때 씁니다. 설명 넣기 귀찮네요
  * 맛바빙보
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3444,7 +3444,7 @@ function TextFX_FadeIn(args, color, wait, reset, tag, encoding) { }
  * @Summary.ko-KR
  * 스트링 말고 stat_txt.tbl같은 곳에 텍스트 효과 넣을 때 씁니다. 설명 넣기 귀찮네요
  * 맛바빙보
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3458,7 +3458,7 @@ function TextFX_FadeOut(args, color, wait, reset, tag, encoding) { }
  * Current Player의 값을 읽고 쓰는 함수입니다. Current Player는 eudplib에서 항상
  * 관리하므로 0x6509B0의 값을 직접 읽는것보다 f_getcurpl 함수를 쓰는게 32배정도
  * 빠릅니다. _cp류 함수들과 조합해서 사용하면 좋습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
  ***/
@@ -3469,8 +3469,8 @@ function addcurpl(cp) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Print multiple string / number to CurrentPlayer.
- *
+ * Print multiple string number to CurrentPlayer.
+ * 
  * @param.args.ko-KR
  * Things to print
  ***/
@@ -3485,7 +3485,7 @@ function cpstr_print(*args, EOS, encoding) { }
  * 값을 유지합니다. 예를 들어 dwbreak(0x12345678)[[2]]는 0x12이지만,
  * dwbreak2(0x10000000)[[2]]는 0x12000000입니다. dword의 특정 byte나 word만
  * 바꿔야 할 때 f_dwbreak한 결과에 다시 0x100000같은 값을 곱할 필요가 없습니다.
- *
+ * 
  * @param.인자이름.ko-KR
  * 인자 설명
 ***/
@@ -3508,7 +3508,7 @@ function getgametick() { }
  * 스트링을 특정 진수(기본값: 10진법)로 변환한 정수값과, 자리수를 리턴합니다. 수로 변환할 수 없으면 0, 0
  * 을 리턴합니다. 음수도 지원되며, 선행 공백 문자를 무시합니다. radix가 0이면 0b나 0B로 시작하면 2진법, 
  * 0o나 0O로 시작하면 8진법, 0x나 0X로 시작하면 16진법으로 읽습니다.
- *
+ * 
  * @param.dst.ko-KR
  * dst: 스트링 주소. radix: 0 또는 2~36, (기본값: 10진법).
  * 
@@ -3521,7 +3521,7 @@ function parse(dst, radix=10) { }
  * F
  * @Summary.ko-KR
  * 에러 줄에 텍스트를 출력합니다.
- *
+ * 
  * @param.args.ko-KR
  * str, ptr2s, epd2s, PName, PColor
  ***/

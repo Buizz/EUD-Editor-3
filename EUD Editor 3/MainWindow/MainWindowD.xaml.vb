@@ -63,10 +63,12 @@ Public Class MainWindowD
         If UpdataCheckb Then
             Me.Visibility = Visibility.Hidden
             SettiingForm = New SettingWindows
+            SettiingForm.MainTab.IsHeaderPanelVisible = "False"
             'SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.Donate)
             SettiingForm.ShowDialog()
             Me.Visibility = Visibility.Visible
         End If
@@ -79,6 +81,8 @@ Public Class MainWindowD
         AddHandler UpdateChecker.RunWorkerCompleted, AddressOf UpdateChecker_RunWorkerCompleted
         UpdateChecker.RunWorkerAsync()
 
+
+
         If pgData.Setting(ProgramData.TSetting.CheckReg) Then
 
             If Tool.CheckexeConnect("e3s") Then
@@ -86,10 +90,12 @@ Public Class MainWindowD
                 If dialogResult = MsgBoxResult.Yes Then
                     Me.Visibility = Visibility.Hidden
                     SettiingForm = New SettingWindows
+                    SettiingForm.MainTab.IsHeaderPanelVisible = "False"
                     SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
                     'SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
                     SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
                     SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
+                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.Donate)
                     SettiingForm.ShowDialog()
 
                     Me.Visibility = Visibility.Visible
@@ -98,6 +104,24 @@ Public Class MainWindowD
                     pgData.Setting(ProgramData.TSetting.CheckReg) = False
                 End If
             End If
+        End If
+
+
+        If pgData.Setting(ProgramData.TSetting.DonateMsg) = False Then
+            Me.Visibility = Visibility.Hidden
+            SettiingForm = New SettingWindows
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
+            SettiingForm.Title = "후원해주세요!"
+            SettiingForm.MainTab.IsHeaderPanelVisible = "False"
+            SettiingForm.MinWidth = 0
+            SettiingForm.MinHeight = 0
+            SettiingForm.Width = 300
+            SettiingForm.Height = 200
+            SettiingForm.ShowDialog()
+            Me.Visibility = Visibility.Visible
         End If
     End Sub
 

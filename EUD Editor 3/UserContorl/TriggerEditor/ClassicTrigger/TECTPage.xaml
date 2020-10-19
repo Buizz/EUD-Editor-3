@@ -12,90 +12,102 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
              mc:Ignorable="d" 
+             MouseEnter="UserControl_MouseEnter"
              Loaded="UserControl_Loaded"
              Unloaded="UserControl_Unloaded"
              Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="450" d:DesignWidth="800" >
-    <DockPanel>
-        <DockPanel DockPanel.Dock="Left" Width="100" Margin="5">
-            <TextBlock Text="플레이어" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-            <ListBox x:Name="PlayerList" SelectionChanged="PlayerList_SelectionChanged">
-                <ListBoxItem Content="Player 1"/>
-                <ListBoxItem Content="Player 2"/>
-                <ListBoxItem Content="Player 3"/>
-                <ListBoxItem Content="Player 4"/>
-                <ListBoxItem Content="Player 5"/>
-                <ListBoxItem Content="Player 6"/>
-                <ListBoxItem Content="Player 7"/>
-                <ListBoxItem Content="Player 8"/>
-                <ListBoxItem Content="Force 1"/>
-                <ListBoxItem Content="Force 2"/>
-                <ListBoxItem Content="Force 3"/>
-                <ListBoxItem Content="Force 4"/>
-            </ListBox>
-        </DockPanel>
-        <Grid DockPanel.Dock="Right" Width="150" Margin="5">
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="Auto"/>
-                <RowDefinition Height="*"/>
-            </Grid.RowDefinitions>
+    <UserControl.Resources>
+        <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
+            <Style.Resources>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
+                             Color="Transparent"/>
+            </Style.Resources>
+        </Style>
+    </UserControl.Resources>
+    <Grid>
+        <DockPanel>
+            <DockPanel DockPanel.Dock="Left" Width="100" Margin="5">
+                <TextBlock Text="플레이어" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                <ListBox x:Name="PlayerList" ItemContainerStyle="{StaticResource myLBStyle}" SelectionChanged="PlayerList_SelectionChanged">
 
-            <DockPanel Grid.Row="0">
-                <TextBlock DockPanel.Dock="Top" Text="글로벌 변수" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-                <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
-                    <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
-                    <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                    <Button x:Name="GlobalDeleteBtn" Click="GlobalDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                </UniformGrid>
-                <ListBox x:Name="GlobalList" SelectionChanged="GlobalList_SelectionChanged">
                 </ListBox>
             </DockPanel>
+            <Grid DockPanel.Dock="Right" Width="150" Margin="5">
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="*"/>
+                    <RowDefinition Height="Auto"/>
+                    <RowDefinition Height="*"/>
+                </Grid.RowDefinitions>
 
-            <GridSplitter Grid.Row="1"
+                <DockPanel Grid.Row="0">
+                    <TextBlock DockPanel.Dock="Top" Text="글로벌 변수" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                    <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
+                        <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
+                        <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                        <Button x:Name="GlobalDeleteBtn" Click="GlobalDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                    </UniformGrid>
+                    <ListBox x:Name="GlobalList" SelectionChanged="GlobalList_SelectionChanged">
+                    </ListBox>
+                </DockPanel>
+
+                <GridSplitter Grid.Row="1"
                 ShowsPreview="True"
                 Height="5" 
                 HorizontalAlignment="Stretch"
                 VerticalAlignment="Center"
             />
 
-            <DockPanel Grid.Row="2">
-                <TextBlock DockPanel.Dock="Top" Text="임포트" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-                <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
-                    <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
-                    <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                    <Button x:Name="ImportDeleteBtn" Click="ImportDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                </UniformGrid>
-                <ListBox x:Name="ImportList" SelectionChanged="ImportList_SelectionChanged">
-                </ListBox>
-            </DockPanel>
-            
-        </Grid>
+                <DockPanel Grid.Row="2">
+                    <TextBlock DockPanel.Dock="Top" Text="임포트" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                    <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
+                        <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
+                        <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                        <Button x:Name="ImportDeleteBtn" Click="ImportDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                    </UniformGrid>
+                    <ListBox x:Name="ImportList" SelectionChanged="ImportList_SelectionChanged">
+                    </ListBox>
+                </DockPanel>
 
-        <DockPanel Margin="5">
-            <TextBlock DockPanel.Dock="Top" Text="트리거" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-            <DockPanel>
-                <StackPanel DockPanel.Dock="Left">
-                    <StackPanel Margin="0,0,0,21">
-                        <Button Content="새로만들기" Click="NewTriggerBtn_Click" />
-                        <Button Content="수정" />
-                        <Button Content="삭제" Click="DeleteTriggerBtn_Click"/>
-                        <Button Content="복사" />
+            </Grid>
+
+            <DockPanel Margin="5">
+                <TextBlock DockPanel.Dock="Top" Text="트리거" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                <DockPanel>
+                    <StackPanel DockPanel.Dock="Left">
+                        <StackPanel Margin="0,0,0,21">
+                            <Button Content="새로만들기" Click="NewTriggerBtn_Click" Margin="1" />
+                            <Button x:Name="TriggerEditBtn" Content="수정" Click="TriggerEditBtn_Click" Margin="1" IsEnabled="False"/>
+                        </StackPanel>
+
+                        <StackPanel Margin="0,0,0,21">
+                            <Button x:Name="TriggerCutBtn" Content="잘라내기" Click="TriggerCutBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerCopyBtn" Content="복사" Click="TriggerCopyBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerPasteBtn" Content="붙여넣기" Click="TriggerPasteBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerDeleteBtn" Content="삭제" Click="DeleteTriggerBtn_Click" Margin="1" IsEnabled="False"/>
+                        </StackPanel>
+                        
+                        <StackPanel>
+                            <Button x:Name="TriggerUpBtn" Content="올리기" Click="TriggerUpBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerDownBtn" Content="내리기" Click="TriggerDownBtn_Click" Margin="1" IsEnabled="False"/>
+                        </StackPanel>
                     </StackPanel>
 
-                    <StackPanel>
-                        <Button Content="올리기" />
-                        <Button Content="내리기" />
-                    </StackPanel>
-                </StackPanel>
-
-                    
 
 
-                <ListBox x:Name="TListBox" Background="{DynamicResource MaterialDesignToolBarBackground}">
-                    
-                </ListBox>
+
+                    <ListBox x:Name="TListBox" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended" MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
+
+                    </ListBox>
+                </DockPanel>
             </DockPanel>
         </DockPanel>
-    </DockPanel>
+
+        <Border Grid.ColumnSpan="5" x:Name="EditWindow" Background="#7F000000" Visibility="Hidden" >
+            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" VerticalAlignment="Center" HorizontalAlignment="Center">
+
+            </materialDesign:Card>
+        </Border>
+    </Grid>
+   
 </UserControl>

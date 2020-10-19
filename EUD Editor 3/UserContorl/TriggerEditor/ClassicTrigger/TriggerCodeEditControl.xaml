@@ -1,0 +1,111 @@
+﻿<UserControl x:Class="TriggerCodeEditControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <Grid>
+        <DockPanel>
+            <TextBlock x:Name="PosNode" DockPanel.Dock="Top" Text="asd"/>
+            <DockPanel DockPanel.Dock="Top" >
+                <Button Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Right" Width="Auto" Height="Auto" Click="Button_Click_1">
+                    <materialDesign:PackIcon Kind="WindowClose" Width="24" Height="24" />
+                </Button>
+
+                <Button Click="Button_Click_2" HorizontalContentAlignment="Left" FontSize="20" FontWeight="Bold" Height="36" VerticalContentAlignment="Top" Style="{StaticResource MaterialDesignFlatButton}" Padding="4">
+                    <DockPanel>
+                        <materialDesign:PackIcon Kind="EditOutline" Width="24" Height="24" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                        <TextBlock x:Name="SelectName" Text=""/>
+                    </DockPanel>
+                </Button>
+            </DockPanel>
+
+            <Grid>
+                <DockPanel>
+                    <UniformGrid  DockPanel.Dock="Bottom" Rows="1">
+                        <Button x:Name="Okay_Btn" Click="Button_Click" Content="확인" IsEnabled="False"/>
+                        <Button Click="Button_Click_1" Content="취소"/>
+                    </UniformGrid>
+
+                    <StackPanel>
+                        <WrapPanel Margin="4" x:Name="TriggerPanel">
+                            <Button Content="Player 1" Margin="4,0" Padding="0"/>
+                            <TextBlock Text="의" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <Button Content="저글링" Margin="4,0" Padding="0"/>
+                            <TextBlock Text="을 모두 파괴합니다." HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                        </WrapPanel>
+                        <StackPanel  x:Name="SummaryPanel" >
+
+                        </StackPanel>
+                    </StackPanel>
+
+                </DockPanel>
+                <DockPanel x:Name="FuncSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Visible" Margin="0" >
+                    <Button x:Name="SelectBtn" Click="Button_Click_3" DockPanel.Dock="Bottom" Content="선택" IsEnabled="False"/>
+
+                    <UniformGrid Rows="1">
+                        <DockPanel>
+                            <ListBox x:Name="CodeTypeList" SelectionChanged="CodeTypeList_SelectionChanged">
+                                <ListBoxItem Content="조건" x:Name="CListItem" Tag="C"/>
+                                <ListBoxItem Content="액션" x:Name="AListItem" Tag="A"/>
+                                <ListBoxItem Content="플립" Tag="P"/>
+                                <ListBoxItem Content="Lua" Tag="L"/>
+                                <!--<ListBoxItem Content="함수" Tag="F"/>-->
+                                <ListBoxItem Content="외부" Tag="E"/>
+                            </ListBox>
+                            <Grid>
+                                <DockPanel>
+                                    <DockPanel DockPanel.Dock="Top">
+                                        <materialDesign:PackIcon Kind="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4,0" />
+                                        <Button Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Right" Width="Auto" Height="Auto" Click="Button_Click_4">
+                                            <materialDesign:PackIcon Kind="WindowClose" Width="16" Height="16" />
+                                        </Button>
+                                        <TextBox x:Name="SearchTextBox" TextChanged="SearchTextBox_TextChanged" PreviewKeyUp="SearchTextBox_KeyDown"/>
+
+                                    </DockPanel>
+                                    <TreeView x:Name="CodeList" KeyDown="CodeList_KeyDown" SelectedItemChanged="CodeList_SelectedItemChanged" MouseDoubleClick="CodeList_MouseDoubleClick" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                                    </TreeView>
+                                </DockPanel>
+                                <Grid x:Name="LoadingGrid" Background="#66000000" Visibility="Collapsed">
+                                    <ProgressBar
+                  Style="{StaticResource MaterialDesignCircularProgressBar}" Value="0" IsIndeterminate="True" Width="30" Height="30" RenderTransformOrigin="0.5,0.5" >
+                                        <ProgressBar.RenderTransform>
+                                            <TransformGroup>
+                                                <ScaleTransform ScaleX="4" ScaleY="4"/>
+                                                <SkewTransform/>
+                                                <RotateTransform/>
+                                                <TranslateTransform/>
+                                            </TransformGroup>
+                                        </ProgressBar.RenderTransform>
+                                    </ProgressBar>
+                                </Grid>
+                            </Grid>
+           
+                           
+                        </DockPanel>
+                        <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
+                            <TextBlock TextWrapping="Wrap" Margin="4" x:Name="TriggerSummary" >
+                            </TextBlock>
+                        </Grid>
+
+                    </UniformGrid>
+                </DockPanel>
+            </Grid>
+
+        </DockPanel>
+
+        <Grid x:Name="OtherPage">
+
+
+        </Grid>
+
+
+    </Grid>
+
+
+</UserControl>

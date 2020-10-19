@@ -1,0 +1,79 @@
+﻿<Window x:Class="TriggerEditValueSelecterWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        xmlns:local="clr-namespace:EUD_Editor_3"
+        mc:Ignorable="d"
+        Deactivated="Window_Deactivated"
+        ShowInTaskbar="False"
+        AllowsTransparency="True"
+        Foreground="{DynamicResource MaterialDesignBody}" 
+        
+        Title="TriggerEditValueSelecterWindow"  Topmost="True" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
+
+    <Border x:Name="MainBorder" Padding="5">
+        <materialDesign:Card   Background="{DynamicResource MaterialDesignPaper}">
+            <DockPanel Margin="2">
+                <ComboBox x:Name="TypeList" SelectionChanged="TypeList_SelectionChanged" DockPanel.Dock="Top">
+                </ComboBox>
+                <Grid>
+                    <Grid x:Name="ListboxPanel" Visibility="Collapsed">
+                        <DockPanel>
+                            <DockPanel x:Name="FliterBox" DockPanel.Dock="Top">
+                                <materialDesign:PackIcon Kind="Search" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                <Button DockPanel.Dock="Right" Style="{StaticResource MaterialDesignToolButton}" Click="Button_Click">
+                                    <materialDesign:PackIcon Kind="WindowClose"  HorizontalAlignment="Center" VerticalAlignment="Center" />
+                                </Button>
+                                <TextBox x:Name="FliterTB" TextChanged="FliterTB_TextChanged"/>
+                            </DockPanel>
+                            <ListBox x:Name="SelectListbox" SelectionChanged="SelectListbox_SelectionChanged">
+
+                            </ListBox>
+                        </DockPanel>
+                    </Grid>
+
+
+                    <Grid x:Name="VariablePanel" Visibility="Collapsed">
+                    </Grid>
+                    <Grid x:Name="FunctionPanel" Visibility="Visible">
+                        <Button x:Name="FunctionBtn" Click="FunctionBtn_Click" Height="Auto"/>
+                    </Grid>
+
+
+                    <Grid x:Name="TrgUnitPorpertyPanel" Visibility="Collapsed">
+                        <local:TrgUnitPorperty x:Name="UPorperty"/>
+                    </Grid>
+                    
+                    
+                    <Grid x:Name="TrgStringPanel" Visibility="Collapsed">
+                        <TextBox x:Name="TrgTextBox" TextChanged="TrgTextBox_TextChanged"  AcceptsReturn="True"/>
+                    </Grid>
+
+                    <Grid x:Name="RawCodePanel" Visibility="Collapsed">
+                        <local:CodeEditor x:Name="CodeEditor" TextChange="CodeEditor_TextChange"/>
+                    </Grid>
+
+                    <Grid x:Name="CountPanel" Visibility="Collapsed">
+                        <DockPanel>
+                            <CheckBox x:Name="CountAll" Content="모두" DockPanel.Dock="Right" Checked="CountAll_Checked" Unchecked="CountAll_Unchecked"/>
+                            <TextBox x:Name="CountTB" Text="1289" TextChanged="CountTB_TextChanged"/>
+                        </DockPanel>
+                    </Grid>
+                    <Grid x:Name="NumberPanel" Visibility="Collapsed">
+                        <DockPanel>
+                            <TextBox x:Name="NumberTB" Text="1289" TextChanged="NumberTBTB_TextChanged"/>
+                        </DockPanel>
+                    </Grid>
+
+                    <Grid x:Name="CodeSelecterPanel" Visibility="Collapsed">
+                    </Grid>
+                </Grid>
+
+            </DockPanel>
+        </materialDesign:Card>
+
+    </Border>
+
+</Window>

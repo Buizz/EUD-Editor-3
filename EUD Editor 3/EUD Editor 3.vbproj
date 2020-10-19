@@ -304,6 +304,7 @@
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
     <Compile Include="Class\TriggerEditor\BGMData.vb" />
+    <Compile Include="Class\TriggerEditor\ClassicEditor\ArgValue.vb" />
     <Compile Include="Class\TriggerEditor\ClassicEditor\ClassicTriggerEditor.vb" />
     <Compile Include="Class\TriggerEditor\ClassicEditor\Trigger.vb" />
     <Compile Include="Class\TriggerEditor\CUIScriptEditor\CUIScriptEditor.vb" />
@@ -311,6 +312,7 @@
     <Compile Include="Class\TriggerEditor\DotPainter\DotData.vb" />
     <Compile Include="Class\TriggerEditor\DotPainter\DotPaint.vb" />
     <Compile Include="Class\TriggerEditor\FuncArgManager.vb" />
+    <Compile Include="Class\TriggerEditor\ClassicEditor\TriggerCodeBlock.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptLegacy.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\GUIScriptManager.vb" />
@@ -326,6 +328,7 @@
     <Compile Include="AvalonEdit\CodeEditor\CodeTextEditor.xaml.vb">
       <DependentUpon>CodeTextEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Class\TriggerEditor\TriggerFunction.vb" />
     <Compile Include="Compiler\Lexical Analyzer\Lexical Analyzer.vb" />
     <Compile Include="Compiler\Lexical Analyzer\Token.vb" />
     <Compile Include="Compiler\Lexical Analyzer\TokenizerTool.vb" />
@@ -341,6 +344,7 @@
     <Compile Include="Module\GlobalObj.vb" />
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\StringTool.vb" />
+    <Compile Include="Module\Tools\ArgManager.vb" />
     <Compile Include="Module\Tools\Tool.vb" />
     <Compile Include="Module\Tools\WindowControl.vb" />
     <Compile Include="TEST\FastTreeview.xaml.vb">
@@ -392,6 +396,9 @@
     </Compile>
     <Compile Include="UserContorl\DataEditor\ListSelecter.xaml.vb">
       <DependentUpon>ListSelecter.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\DonateControl.xaml.vb">
+      <DependentUpon>DonateControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\Field\CodeSelecter.xaml.vb">
       <DependentUpon>CodeSelecter.xaml</DependentUpon>
@@ -498,17 +505,47 @@
     <Compile Include="UserContorl\SampleMapList.xaml.vb">
       <DependentUpon>SampleMapList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\AddTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\CopyTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\DeleteTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\EditTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\RefershGlobalObject.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\Func\RefreshTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml.vb">
+      <DependentUpon>TrgUnitPorperty.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\AddTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\CopyTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\CutTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\DeleteTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\EditTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\MoveTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\PasteTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\RefershGlobalObject.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\RefreshTrigger.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\Tools.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\ImportEditControl.xaml.vb">
+      <DependentUpon>ImportEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\ListItemCodeBlock.xaml.vb">
+      <DependentUpon>ListItemCodeBlock.xaml</DependentUpon>
+    </Compile>
     <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPage.xaml.vb">
       <DependentUpon>TECTPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml.vb">
       <DependentUpon>TriggerBlock.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerCodeEditControl.xaml.vb">
+      <DependentUpon>TriggerCodeEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControl.xaml.vb">
+      <DependentUpon>TriggerEditControl.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\AddFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerCodeEditContorlFunc\ArgChange.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\CopyFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\CutFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\DeleteFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\EditFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\MoveFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\PasteFunction.vb" />
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml.vb">
+      <DependentUpon>VariableEditControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
       <DependentUpon>TECUIPage.xaml</DependentUpon>
@@ -691,6 +728,12 @@
     <Compile Include="Window\TriggerEditor.xaml.vb">
       <DependentUpon>TriggerEditor.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\TriggerEditValueSelecterWindow.xaml.vb">
+      <DependentUpon>TriggerEditValueSelecterWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Window\TriggerFuncEditWindow.xaml.vb">
+      <DependentUpon>TriggerFuncEditWindow.xaml</DependentUpon>
+    </Compile>
     <Page Include="Class\GRP\GRPImageBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -774,6 +817,10 @@
     <Page Include="UserContorl\DataEditor\ListSelecter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\DonateControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\Field\CodeSelecter.xaml">
       <SubType>Designer</SubType>
@@ -915,11 +962,35 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\ImportEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\ListItemCodeBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerCodeEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControl.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1144,6 +1215,14 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Window\TriggerEditor.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\TriggerEditValueSelecterWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Window\TriggerFuncEditWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

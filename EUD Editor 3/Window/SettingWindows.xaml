@@ -11,10 +11,10 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Title="{StaticResource Setting}" Height="500" Width="650" WindowStartupLocation="CenterScreen" MinWidth="650" MinHeight="500" Topmost="True">
+        Title="{StaticResource Setting}" Height="500" Width="650" MinHeight="500" MinWidth="650" WindowStartupLocation="CenterScreen" Topmost="True">
 
     <Grid>
-        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="6" TabStripPlacement="Left" Background="{DynamicResource MaterialDesignPaper}" >
+        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="7" Background="{DynamicResource MaterialDesignPaper}" TabStripPlacement="Left" >
             <TabItem x:Name="TabItem_ProjectSetting" Header="{StaticResource Project Setting}" >
                 <StackPanel Margin="10">
                     <Label  Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
@@ -241,6 +241,9 @@
                     </DockPanel>
 
                 </DockPanel>
+            </TabItem>
+            <TabItem x:Name="Donate" Header="{StaticResource Donate}">
+                <local:DonateControl/>
             </TabItem>
         </dragablz:TabablzControl>
 

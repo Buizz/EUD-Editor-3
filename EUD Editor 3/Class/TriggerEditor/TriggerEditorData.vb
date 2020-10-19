@@ -228,6 +228,9 @@ Public Class TriggerEditorTempData
             ElseIf TypeOf TabContent Is TEGUIPage Then
                 Dim tPage As TEGUIPage = TabContent
                 tPage.SaveData()
+            ElseIf TypeOf TabContent Is TECTPage Then
+                Dim tPage As TECTPage = TabContent
+                tPage.SaveData()
             End If
         Next
 

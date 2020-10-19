@@ -598,7 +598,6 @@ Public Class GUIScriptManager
                 'strb.Append("////")
                 Select Case svalue
                     Case "constructor"
-                        'TODO : 배열관련된것 넣어야됨
                         '// 인게임 초기화 해당 코드에서 매번 초기화합니다(전역 스코프면 게임 시작 때).
                         '// 함수 리턴값처럼 게임 안에서 정해지는 값도 넣을 수 있습니다.
                         'Const a = [getuserplayerid(), 0, 0];
@@ -824,7 +823,7 @@ Public Class GUIScriptManager
                             Case "BGM"
                                 strb.Append("<?GetBGMIndex(""" & svalue & """)?>")
                             Case Else
-                                If Tool.GetargList.IndexOf(sname.Trim) = -1 Then
+                                If Tool.GetArgTypeList.IndexOf(sname.Trim) = -1 Then
                                     strb.Append(svalue)
                                 Else
                                     strb.Append("""" & svalue & """")

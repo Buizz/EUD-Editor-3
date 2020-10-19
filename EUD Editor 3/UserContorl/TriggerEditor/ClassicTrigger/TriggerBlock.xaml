@@ -3,13 +3,31 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:local="clr-namespace:EUD_Editor_3" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
              Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="450" d:DesignWidth="800">
-    <StackPanel>
-        <TextBlock Text="조건"/>
-        <TextBlock Text="적이10만큼잡아씅ㄹ경우"/>
-        <TextBlock Text="액션"/>
-    </StackPanel>
+    <DockPanel>
+        <StackPanel x:Name="PlayerList" DockPanel.Dock="Top" Orientation="Horizontal">
+            <materialDesign:Chip IsHitTestVisible="False">
+                Player 1
+            </materialDesign:Chip>
+        </StackPanel>
+        <DockPanel DockPanel.Dock="Top">
+            <ToggleButton x:Name="TriggerEnabledCB" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="4,0,0,0"/>
+            <TextBlock x:Name="CommentTB" Text="주석" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,2,0,0" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Height="30"/>
+        </DockPanel>
+
+
+        <StackPanel x:Name="ContentPanel">
+            <TextBlock Text="조건" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+            <StackPanel x:Name="ConditionPanel" Margin="20,0,0,0">
+
+            </StackPanel>
+            <TextBlock Text="액션" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+            <StackPanel x:Name="ActionPanel" Margin="20,0,0,0">
+
+            </StackPanel>
+        </StackPanel>
+    </DockPanel>
 </UserControl>

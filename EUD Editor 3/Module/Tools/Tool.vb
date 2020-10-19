@@ -31,15 +31,28 @@ Namespace Tool
             Next
         End Sub
 
-        Public Function GetargList() As List(Of String)
+        Public Function GetArgTypeList() As List(Of String)
             Return cmps.Keys.ToList
         End Function
+
+
+        Public Function GetDefaultArgTypeList() As List(Of String)
+            Return DefaultArgList.ToList
+        End Function
+        Private DefaultArgList() As String = {"TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder",
+            "TrgPlayer", "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState",
+            "TrgAIScript", "TrgLocation", "TrgLocationIndex", "TrgSwitch", "TrgUnit", "WAVName", "BGM", "UnitsDat", "WeaponsDat", "FlingyDat",
+            "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat", "Weapon", "Flingy",
+            "Sprite", "Image", "Upgrade", "Tech", "Order", "EUDScore", "SupplyType"}
+
+
+
 
         Public Function GetAutocmp(argname As String) As String()
             If cmps.ContainsKey(argname) Then
                 Return cmps(argname).ToArray
             Else
-                Return {""}
+                Return {}
             End If
         End Function
 

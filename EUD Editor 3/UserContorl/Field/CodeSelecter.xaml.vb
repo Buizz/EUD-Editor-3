@@ -390,7 +390,7 @@ Public Class CodeSelecter
     End Sub
 
 
-    Public Sub ListReset(Optional pagetype As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0, Optional _tFlag As Integer = 0)
+    Public Sub ListReset(Optional pagetype As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0, Optional _tFlag As Integer = 0, Optional _unitFlag As Boolean = False)
         DataLoadCmp = True
         If pagetype = SCDatFiles.DatFiles.None Then
             pagetype = CurrentPage
@@ -487,7 +487,7 @@ Public Class CodeSelecter
         End Select
 
 
-        ListResetData(pagetype, StartIndex)
+        ListResetData(pagetype, StartIndex, _unitFlag)
     End Sub
     Private Function GetIcon(iconIndex As Integer, isSizeBig As Boolean) As Border
         Dim imgSource As ImageSource = scData.GetIcon(iconIndex)
@@ -578,7 +578,7 @@ Public Class CodeSelecter
         Return tborder
     End Function
 
-    Private Sub ListResetData(pagetype As SCDatFiles.DatFiles, tStartIndex As Integer)
+    Private Sub ListResetData(pagetype As SCDatFiles.DatFiles, tStartIndex As Integer, Optional _unitFlag As Boolean = False)
         StartIndex = tStartIndex
 
         '리스트에 들어갈 거는 리스트이름과 아이콘, 그룹패스뿐임.
@@ -733,9 +733,7 @@ Public Class CodeSelecter
                 For i = 0 To 254
                     Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
 
-                    If tstr <> "" Then
-                        ObjectNames.Add(tstr)
-                    End If
+                    ObjectNames.Add(tstr)
                 Next
         End Select
         Select Case Fliter.SortType
@@ -943,6 +941,41 @@ Public Class CodeSelecter
 
                     CodeIndexerList.Items.Add(tListItem)
                 End If
+                If pagetype = SCDatFiles.DatFiles.units Then
+                    If _unitFlag Then
+                        Dim aunit() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+
+                        For i = 0 To aunit.Count - 1
+                            Dim textblock As New TextBlock
+                            textblock.TextWrapping = TextWrapping.Wrap
+                            textblock.Text = aunit(i)
+                            textblock.Padding = New Thickness(15, 0, 0, 0)
+
+
+                            Dim stackpanel As New DockPanel
+                            stackpanel.Children.Add(GetIcon(0, Fliter.IsIcon))
+                            stackpanel.Children.Add(textblock)
+
+                            Dim tListItem As New ListBoxItem()
+                            tListItem.Tag = 229 + i
+                            tListItem.Content = stackpanel
+
+                            If CodeIndexerList.Items.Count = tStartIndex Then
+                                SelectItem = tListItem
+                                If IsComboBox Then
+                                    tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                                    tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                                End If
+                            End If
+
+
+                            CodeIndexerList.Items.Add(tListItem)
+                        Next
+                    End If
+                End If
+
+
+
                 CodeIndexerList.ScrollIntoView(SelectItem)
             Case ESortType.Tree
                 CodeIndexerTree.Items.Clear()

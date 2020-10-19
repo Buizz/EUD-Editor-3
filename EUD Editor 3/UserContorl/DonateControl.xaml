@@ -1,0 +1,36 @@
+﻿<UserControl x:Class="DonateControl"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Loaded="UserControl_Loaded"
+             d:DesignHeight="450" d:DesignWidth="800">
+    <StackPanel Margin="10">
+        <StackPanel Orientation="Horizontal">
+            <Button Background="#FFF96853" Foreground="#DDFFFFFF" Click="Button_Click" ToolTip="정기적으로 후원을 할 수 있는 플랫폼입니다. 언제든지 취소가 가능합니다.">
+                <WrapPanel>
+                    <materialDesign:PackIcon Kind="Patreon" />
+                    <TextBlock Text="BECOME A PATREON"/>
+                </WrapPanel>
+            </Button>
+        </StackPanel>
+
+
+        <Separator Background="#4CA0A0A0"/>
+
+
+        <Label Content="직접 후원" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+        <Label Content="카카오뱅크 이정훈 3333-09-9263239" Margin="10"/>
+
+        <Separator Background="#4CA0A0A0"/>
+
+
+        <CheckBox x:Name="Checking" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="다시 보지 않기"  Unchecked="Checking_Unchecked" Checked="Checking_Checked"/>
+
+
+
+    </StackPanel>
+</UserControl>

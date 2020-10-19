@@ -111,7 +111,7 @@ function UpgradeOffset(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[Pla
 		offset = offset + Player * Size + Upgrade
 		return offset
 	else
-		offset = string.format("0x%X + %s * %s + %s", offset, Player, Upgrade)
+		offset = string.format("0x%X + %s * %s + %s", offset, Player, Size, Upgrade)
 		return offset
 	end
 end

@@ -506,6 +506,8 @@ Partial Public Class ProjectExplorer
 
     Private Sub MenuEPSView_Click(sender As Object, e As RoutedEventArgs)
         If LastSelectItem IsNot Nothing Then
+            pjData.Save()
+            ProjectControlBinding.PropertyChangedPack()
             Dim cfile As TEFile = GetFile(LastSelectItem)
 
             Dim win As New EPSViewer(cfile)

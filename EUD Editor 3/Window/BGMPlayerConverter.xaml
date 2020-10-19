@@ -10,6 +10,7 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}"  
+        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         IsCloseButtonEnabled="False"
         mc:Ignorable="d"
         Loaded="Window_Loaded"

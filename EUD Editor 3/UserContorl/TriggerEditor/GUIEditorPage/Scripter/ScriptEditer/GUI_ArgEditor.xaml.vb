@@ -20,7 +20,7 @@
             valuetypecb.Items.Add(comboxitem)
         Next
 
-        Dim arglist As List(Of String) = Tool.GetargList
+        Dim arglist As List(Of String) = Tool.GetArgTypeList
         For i = 0 To arglist.Count - 1
             Dim comboxitem As New ComboBoxItem
             comboxitem.Tag = arglist(i)
@@ -155,7 +155,7 @@
 
                 Dim vindex As Integer = tescm.SCValueType.ToList.IndexOf(tvtype)
                 If vindex = -1 Then
-                    If Tool.GetargList.IndexOf(tvtype) = -1 Then
+                    If Tool.GetArgTypeList.IndexOf(tvtype) = -1 Then
                         tvtype = "Number"
                     End If
                 End If
@@ -199,7 +199,6 @@
             Case 2 '함수
                 functab.Visibility = Visibility.Visible
 
-                'TODO: functype 콤보박스 인덱스 셀렉트하기
 
                 Dim typename As String = ""
                 Select Case scr.ScriptType
@@ -352,7 +351,6 @@
 
 
     Public Sub VariableListSelect(sender() As Object, e As RoutedEventArgs)
-        'TODO: 받아서 값에다가 이름을 넣는 식으로 해보자
         Dim nsb As New ScriptBlock(ScriptBlock.EBlockType.varuse, sender(0), True, False, sender(1), scr.Scripter)
 
         Dim ismethod As Boolean = False
@@ -381,7 +379,6 @@
         RaiseEvent BtnRefresh("", e)
     End Sub
     Public Sub FuncListSelect(sender() As Object, e As RoutedEventArgs)
-        'TODO: 받아서 값에다가 이름을 넣는 식으로 해보자
         Dim nsb As New ScriptBlock(sender.First, sender.Last, True, False, "", scr.Scripter)
         scr.DuplicationBlock(nsb)
         ArgSelecter.CrlInit(scr)
