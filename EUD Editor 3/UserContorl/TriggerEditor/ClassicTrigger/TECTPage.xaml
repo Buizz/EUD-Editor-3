@@ -33,23 +33,51 @@
 
                 </ListBox>
             </DockPanel>
-            <Grid DockPanel.Dock="Right" Width="150" Margin="5">
+            <Grid DockPanel.Dock="Right" Width="200" Margin="5">
                 <Grid.RowDefinitions>
                     <RowDefinition Height="*"/>
                     <RowDefinition Height="Auto"/>
                     <RowDefinition Height="*"/>
                 </Grid.RowDefinitions>
 
-                <DockPanel Grid.Row="0">
-                    <TextBlock DockPanel.Dock="Top" Text="글로벌 변수" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-                    <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
-                        <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
-                        <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                        <Button x:Name="GlobalDeleteBtn" Click="GlobalDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                    </UniformGrid>
-                    <ListBox x:Name="GlobalList" SelectionChanged="GlobalList_SelectionChanged">
-                    </ListBox>
-                </DockPanel>
+                <Grid Grid.Row="0">
+                    <DockPanel >
+                        <TextBlock DockPanel.Dock="Top" Text="글로벌 변수" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                        <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
+                            <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
+                            <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                            <Button x:Name="GlobalDeleteBtn" Click="GlobalDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                        </UniformGrid>
+                        <ListBox x:Name="GlobalList" SelectionChanged="GlobalList_SelectionChanged">
+                        </ListBox>
+                    </DockPanel>
+
+                    <Border x:Name="GlobalPanel" Visibility="Visible" Background="#80000000" >
+                        <materialDesign:Card x:Name="VariableCard" Background="{DynamicResource MaterialDesignPaper}" Padding="5" VerticalAlignment="Top" Margin="4,30,4,6" >
+                            <DockPanel>
+                                <UniformGrid Rows="1" DockPanel.Dock="Bottom">
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인" x:Name="GlobalOkayBtn" Click="GlobalOkayBtn_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="취소" Click="GlobalCancelBtn_Click"/>
+                                </UniformGrid>
+
+                                <DockPanel>
+                                    <ComboBox DockPanel.Dock="Top" x:Name="ValType" materialDesign:TextFieldAssist.SuffixText="타입" SelectionChanged="ValType_SelectionChanged">
+                                        <ComboBoxItem Content="일반변수" Tag="Default"/>
+                                        <ComboBoxItem Content="상수변수" Tag="Const"/>
+                                        <ComboBoxItem Content="플레이어변수" Tag="PVariable"/>
+                                        <ComboBoxItem Content="배열" Tag="Array"/>
+                                        <ComboBoxItem Content="변수배열" Tag="VArray"/>
+                                    </ComboBox>
+                                    <TextBox DockPanel.Dock="Top" x:Name="ValName" materialDesign:HintAssist.Hint="이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" TextChanged="ValName_TextChanged"/>
+                                    <CheckBox DockPanel.Dock="Top" Content="초기값" x:Name="InitCB" Checked="InitCBChecked" Unchecked="InitCBChecked"/>
+                                    <local:CodeEditor x:Name="GlobalInitBox" DockPanel.Dock="Bottom"/>
+                                </DockPanel>
+                       
+                            </DockPanel>
+                        </materialDesign:Card>
+                    </Border>
+                </Grid>
+                
 
                 <GridSplitter Grid.Row="1"
                 ShowsPreview="True"
@@ -58,16 +86,37 @@
                 VerticalAlignment="Center"
             />
 
-                <DockPanel Grid.Row="2">
-                    <TextBlock DockPanel.Dock="Top" Text="임포트" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
-                    <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
-                        <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
-                        <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                        <Button x:Name="ImportDeleteBtn" Click="ImportDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                    </UniformGrid>
-                    <ListBox x:Name="ImportList" SelectionChanged="ImportList_SelectionChanged">
-                    </ListBox>
-                </DockPanel>
+                <Grid Grid.Row="2">
+                    <DockPanel>
+                        <TextBlock DockPanel.Dock="Top" Text="임포트" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                        <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
+                            <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
+                            <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                            <Button x:Name="ImportDeleteBtn" Click="ImportDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                        </UniformGrid>
+                        <ListBox x:Name="ImportList" SelectionChanged="ImportList_SelectionChanged">
+                        </ListBox>
+                    </DockPanel>
+                    <Border x:Name="ImportPanel" Background="#80000000"  >
+                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Padding="5" Height="125" Margin="4,30,4,0" VerticalAlignment="Top">
+                            <DockPanel>
+                                <UniformGrid Rows="1" DockPanel.Dock="Bottom">
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인" x:Name="ImportOkayBtn" Click="ImportOkayBtn_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="취소" Click="ImportCancelBtn_Click"/>
+                                </UniformGrid>
+
+                                <StackPanel>
+                                    <ComboBox IsEditable="True" materialDesign:TextFieldAssist.SuffixText="파일" x:Name="ImportCombobox" SelectionChanged="ImportCombobox_SelectionChanged">
+                             
+                                    </ComboBox>
+                                    <TextBox x:Name="ImportNameTB" materialDesign:HintAssist.Hint="이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" TextChanged="ImportNameTB_TextChanged"/>
+                                </StackPanel>
+
+                            </DockPanel>
+                        </materialDesign:Card>
+                    </Border>
+                </Grid>
+
 
             </Grid>
 

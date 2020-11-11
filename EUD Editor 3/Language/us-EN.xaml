@@ -830,7 +830,7 @@
 
     <sys:String x:Key="TE_CustomUserDataSetting">Custom User Data</sys:String>
     <sys:String x:Key="TE_BGMSetting">Setting Sound</sys:String>
-    <sys:String x:Key="TE_MacroDatASetting">Setting Lua</sys:String>
+    <sys:String x:Key="TE_MacroDatASetting">Setting Plugin</sys:String>
     <sys:String x:Key="TE_DotPainter">Setting DotPainter</sys:String>
     <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
 
@@ -852,7 +852,7 @@
     <sys:String x:Key="OpenPyTitle">Select eudplib File</sys:String>
 
 
-    <sys:String x:Key="MenuCNewEpsScript">클래식 트리거</sys:String>
+    <sys:String x:Key="MenuCNewCT">ClassicTrigger</sys:String>
     <sys:String x:Key="MenuCNewEpsScript">epScript File</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib File</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript File</sys:String>

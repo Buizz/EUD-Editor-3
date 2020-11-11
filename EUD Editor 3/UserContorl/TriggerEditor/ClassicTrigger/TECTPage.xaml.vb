@@ -74,10 +74,40 @@ Public Class TECTPage
         'TListBox.Items.Clear()
         RefreshGlobalObject()
         AnimationInit()
+        Scripter.ImportFileRefresh()
 
         PlayerListReset()
         SetPlayerListIndex(0)
         RefreshTriggerPage()
+
+        GlobalPanel.Visibility = Visibility.Collapsed
+        ImportPanel.Visibility = Visibility.Collapsed
+
+        GlobalList.Items.Clear()
+        ImportList.Items.Clear()
+
+        For i = 0 To Scripter.globalVar.Count - 1
+            Dim nlist As New ListBoxItem
+            nlist.Content = Scripter.globalVar(i).vname & ":" & Scripter.globalVar(i).vtype
+            nlist.Tag = Scripter.globalVar(i)
+
+            GlobalList.Items.Add(nlist)
+        Next
+
+
+
+        For i = 0 To Scripter.ImportFiles.Count - 1
+            Dim nlist As New ListBoxItem
+            nlist.Content = Scripter.ImportFiles(i).vname & ":" & Scripter.ImportFiles(i).vfolder
+            nlist.Tag = Scripter.ImportFiles(i)
+
+            ImportList.Items.Add(nlist)
+        Next
+
+
+
+
+
 
 
         'TListBox.Items.Clear()
@@ -85,6 +115,7 @@ Public Class TECTPage
         '    TListBox.Items.Add(GetListItem(Scripter.TriggerList(i)))
         'Next
     End Sub
+
 
 
     Private OpenStroyBoard As Storyboard
@@ -205,29 +236,26 @@ Public Class TECTPage
 
 
 
-
+    Private IsGlobalEditOpen As Boolean
     Private Sub GlobalInsertBtn_Click(sender As Object, e As RoutedEventArgs)
-        Dim nVarname As String = "var:Var" & Scripter.globalVar.Count
-        'var,pvar,array,varray
+        ValType.SelectedIndex = -1
+        ValName.Text = ""
+        InitCB.IsChecked = False
+        VariableCard.Height = 130
+        GlobalOkayBtn.IsEnabled = False
 
-
-        '편집창열기!
-
-
-        Scripter.globalVar.Add(nVarname)
-        GlobalList.Items.Add(nVarname)
-        pjData.SetDirty(True)
+        IsGlobalEditOpen = False
+        GlobalPanel.Visibility = Visibility.Visible
     End Sub
 
     Private Sub GlobalDeleteBtn_Click(sender As Object, e As RoutedEventArgs)
         If GlobalList.SelectedItem IsNot Nothing Then
-            Dim t As String = GlobalList.SelectedItem
+            Dim t As DefineVariable = CType(GlobalList.SelectedItem, ListBoxItem).Tag
             Dim datalistindex As Integer = Scripter.globalVar.IndexOf(t)
             Dim listboxindex As Integer = GlobalList.SelectedIndex
 
-
-            Scripter.globalVar.Remove(t)
-            GlobalList.Items.Remove(t)
+            Scripter.globalVar.RemoveAt(datalistindex)
+            GlobalList.Items.RemoveAt(listboxindex)
 
             If GlobalList.Items.Count > listboxindex Then
                 GlobalList.SelectedIndex = listboxindex
@@ -240,24 +268,148 @@ Public Class TECTPage
 
     Private Sub GlobalEditBtn_Click(sender As Object, e As RoutedEventArgs)
         If GlobalList.SelectedItem IsNot Nothing Then
-            Dim t As String = GlobalList.SelectedItem
+            Dim t As DefineVariable = CType(GlobalList.SelectedItem, ListBoxItem).Tag
+            Dim datalistindex As Integer = Scripter.globalVar.IndexOf(t)
+            Dim ValueData As DefineVariable = t
+
+
+
+            ValType.SelectedIndex = -1
+            For i = 0 To ValType.Items.Count - 1
+                Dim _type As String = CType(ValType.Items(i), ComboBoxItem).Tag
+                If _type = ValueData.vtype Then
+                    ValType.SelectedIndex = i
+                    Exit For
+                End If
+            Next
+            ValName.Text = ValueData.vname
+
+            If ValueData.vinit = "NULL" Then
+                GlobalInitBox.Text = ""
+                InitCB.IsChecked = False
+                VariableCard.Height = 130
+                GlobalInitBox.IsEnabled = False
+            Else
+                GlobalInitBox.IsEnabled = True
+                GlobalInitBox.Text = ValueData.vinit
+                VariableCard.Height = Double.NaN
+            End If
+
+
+
+
+            IsGlobalEditOpen = True
+            GlobalPanel.Visibility = Visibility.Visible
+        End If
+    End Sub
+    Private Sub GlobalOkayBtn_Click(sender As Object, e As RoutedEventArgs)
+        If IsGlobalEditOpen Then
+            Dim t As DefineVariable = CType(GlobalList.SelectedItem, ListBoxItem).Tag
             Dim datalistindex As Integer = Scripter.globalVar.IndexOf(t)
             Dim listboxindex As Integer = GlobalList.SelectedIndex
 
-            Dim editname As String = "var:EditVar" & Scripter.globalVar.Count
 
+            Dim _type As String = CType(ValType.SelectedItem, ComboBoxItem).Tag
+            Dim nVarname As String = ValName.Text
+            Dim nVartype As String = _type
+            Dim nVarinit As String
+
+            If InitCB.IsChecked Then
+                nVarinit = GlobalInitBox.Text
+            Else
+                nVarinit = "NULL"
+            End If
+
+
+            t.vname = nVarname
+            t.vtype = nVartype
+            t.vinit = nVarinit
 
             '편집창열기!
 
 
-            Scripter.globalVar(datalistindex) = editname
-            GlobalList.Items(listboxindex) = editname
+            Dim tlist As ListBoxItem = GlobalList.SelectedItem
+            tlist.Content = nVarname & ":" & nVartype
 
             GlobalList.SelectedIndex = listboxindex
 
             pjData.SetDirty(True)
+        Else
+            Dim _type As String = CType(ValType.SelectedItem, ComboBoxItem).Tag
+
+
+            Dim nVarname As String = ValName.Text
+            Dim nVartype As String = _type
+            Dim nVarinit As String
+
+            If InitCB.IsChecked Then
+                nVarinit = GlobalInitBox.Text
+            Else
+                nVarinit = "NULL"
+            End If
+
+            'var,pvar,array,varray
+
+
+            '편집창열기!
+
+            Dim dv As New DefineVariable(nVarname, nVartype, nVarinit, "")
+
+
+            Dim nlist As New ListBoxItem
+            nlist.Content = nVarname & ":" & nVartype
+            nlist.Tag = dv
+
+
+            Scripter.globalVar.Add(dv)
+            GlobalList.Items.Add(nlist)
+            pjData.SetDirty(True)
+        End If
+        GlobalPanel.Visibility = Visibility.Collapsed
+    End Sub
+
+    Private Sub GlobalCancelBtn_Click(sender As Object, e As RoutedEventArgs)
+        GlobalPanel.Visibility = Visibility.Collapsed
+    End Sub
+
+    Private Sub GlobalPopupBtnRefresh()
+        If ValType.SelectedIndex = -1 Then
+            GlobalOkayBtn.IsEnabled = False
+            Return
+        End If
+
+        Dim vtext As String = ValName.Text
+
+        If vtext.Trim = "" Then
+            GlobalOkayBtn.IsEnabled = False
+            Return
+        End If
+
+
+
+        GlobalOkayBtn.IsEnabled = True
+    End Sub
+
+    Private Sub InitCBChecked(sender As Object, e As RoutedEventArgs)
+        If InitCB.IsChecked Then
+            GlobalInitBox.IsEnabled = True
+            VariableCard.Height = Double.NaN
+        Else
+            InitCB.IsChecked = False
+            VariableCard.Height = 130
+            GlobalInitBox.IsEnabled = False
         End If
     End Sub
+
+
+    Private Sub ValType_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        GlobalPopupBtnRefresh()
+    End Sub
+
+    Private Sub ValName_TextChanged(sender As Object, e As TextChangedEventArgs)
+        GlobalPopupBtnRefresh()
+    End Sub
+
 
     Private Sub GlobalList_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         If GlobalList.SelectedIndex = -1 Then
@@ -269,54 +421,75 @@ Public Class TECTPage
         End If
     End Sub
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+    Private IsImportEditOpen As Boolean
     Private Sub ImportInsertBtn_Click(sender As Object, e As RoutedEventArgs)
-        Dim nVarname As String = "var:Var" & Scripter.ImportFiles.Count
-        'var,pvar,array,varray
+        RefreshImportFileLst()
+        ImportPanel.Visibility = Visibility.Visible
+        IsImportEditOpen = False
 
-
-        '편집창열기!
-
-
-        Scripter.ImportFiles.Add(nVarname)
-        ImportList.Items.Add(nVarname)
-        pjData.SetDirty(True)
+        ImportOkayBtn.IsEnabled = False
+        ImportNameTB.Text = ""
+        ImportCombobox.SelectedIndex = -1
     End Sub
+
 
     Private Sub ImportEditBtn_Click(sender As Object, e As RoutedEventArgs)
         If ImportList.SelectedItem IsNot Nothing Then
-            Dim t As String = ImportList.SelectedItem
-            Dim datalistindex As Integer = Scripter.ImportFiles.IndexOf(t)
-            Dim listboxindex As Integer = ImportList.SelectedIndex
-
-            Dim editname As String = "var:EditVar" & Scripter.ImportFiles.Count
-
-
-            '편집창열기!
+            RefreshImportFileLst()
+            IsImportEditOpen = True
+            ImportPanel.Visibility = Visibility.Visible
+            ImportOkayBtn.IsEnabled = True
 
 
-            Scripter.ImportFiles(datalistindex) = editname
-            ImportList.Items(listboxindex) = editname
-
-            ImportList.SelectedIndex = listboxindex
-            pjData.SetDirty(True)
+            Dim t As DefineImport = CType(ImportList.SelectedItem, ListBoxItem).Tag
+            ImportNameTB.Text = t.vname
+            ImportCombobox.Text = t.vfolder
         End If
     End Sub
 
+    Public Sub RefreshImportFileLst()
+        ImportCombobox.Items.Clear()
+
+        For Each efile As String In tmanager.GetImportList()
+            Dim cbitem As New ComboBoxItem
+            cbitem.Content = efile
+
+            ImportCombobox.Items.Add(cbitem)
+        Next
+
+    End Sub
+
+
     Private Sub ImportDeleteBtn_Click(sender As Object, e As RoutedEventArgs)
         If ImportList.SelectedItem IsNot Nothing Then
-            Dim t As String = ImportList.SelectedItem
+            Dim t As DefineImport = CType(ImportList.SelectedItem, ListBoxItem).Tag
             Dim datalistindex As Integer = Scripter.ImportFiles.IndexOf(t)
             Dim listboxindex As Integer = ImportList.SelectedIndex
 
 
-            Scripter.ImportFiles.Remove(t)
-            ImportList.Items.Remove(t)
+            Scripter.ImportFiles.RemoveAt(datalistindex)
+            ImportList.Items.RemoveAt(listboxindex)
 
             If ImportList.Items.Count > listboxindex Then
                 ImportList.SelectedIndex = listboxindex
             Else
                 ImportList.SelectedIndex = ImportList.Items.Count - 1
             End If
+            Scripter.ImportFileRefresh()
+
             pjData.SetDirty(True)
         End If
     End Sub
@@ -376,5 +549,79 @@ Public Class TECTPage
 
     Private Sub UserControl_MouseEnter(sender As Object, e As MouseEventArgs)
         TriggerPasteBtn.IsEnabled = IsPasteAble()
+    End Sub
+
+    Private Sub ImportOkayBtn_Click(sender As Object, e As RoutedEventArgs)
+        If IsImportEditOpen Then
+            Dim t As DefineImport = CType(ImportList.SelectedItem, ListBoxItem).Tag
+            Dim datalistindex As Integer = Scripter.ImportFiles.IndexOf(t)
+            Dim listboxindex As Integer = ImportList.SelectedIndex
+
+            Dim titem As DefineImport = Scripter.ImportFiles(datalistindex)
+
+
+            Dim editname As String = ImportNameTB.Text
+            Dim editfolder As String = ImportCombobox.Text
+
+
+            '편집창열기!
+
+
+            titem.vname = editname
+            titem.vfolder = editfolder
+
+            Dim tlistitem As ListBoxItem = ImportList.Items(listboxindex)
+            tlistitem.Content = editname & ":" & editfolder
+
+            ImportList.SelectedIndex = listboxindex
+            pjData.SetDirty(True)
+        Else
+            Dim nVarname As String = ImportNameTB.Text
+            Dim editfolder As String = ImportCombobox.Text
+            'var,pvar,array,varray
+
+
+            '편집창열기!
+            Dim tlistitems As New ListBoxItem
+            Dim nDefineImport As New DefineImport(nVarname, editfolder)
+
+            tlistitems.Content = nVarname & ":" & editfolder
+            tlistitems.Tag = nDefineImport
+
+            Scripter.ImportFiles.Add(nDefineImport)
+            ImportList.Items.Add(tlistitems)
+            pjData.SetDirty(True)
+        End If
+        Scripter.ImportFileRefresh()
+        ImportPanel.Visibility = Visibility.Collapsed
+    End Sub
+
+    Private Sub ImportCancelBtn_Click(sender As Object, e As RoutedEventArgs)
+        ImportPanel.Visibility = Visibility.Collapsed
+    End Sub
+
+    Private Sub ImportCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        ImportOkayBtnRefresh()
+    End Sub
+
+    Private Sub ImportNameTB_TextChanged(sender As Object, e As TextChangedEventArgs)
+        ImportOkayBtnRefresh()
+    End Sub
+
+    Private Sub ImportOkayBtnRefresh()
+        If ImportCombobox.Text.Trim = "" Then
+            ImportOkayBtn.IsEnabled = False
+            Return
+        End If
+
+        Dim vtext As String = ImportNameTB.Text
+
+        If vtext.Trim = "" Then
+            ImportOkayBtn.IsEnabled = False
+            Return
+        End If
+
+
+        ImportOkayBtn.IsEnabled = True
     End Sub
 End Class

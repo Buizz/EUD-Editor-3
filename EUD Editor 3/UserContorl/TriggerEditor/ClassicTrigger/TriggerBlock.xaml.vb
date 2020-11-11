@@ -3,18 +3,22 @@
 Public Class TriggerBlock
 
     Public trg As Trigger
-    Public Sub New(_trg As Trigger)
+    Private scripter As ScriptEditor
+
+    Public Sub New(_scripter As ScriptEditor, _trg As Trigger)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         trg = _trg
+        scripter = _scripter
         Refresh()
     End Sub
 
     Public Sub Refresh()
         TriggerEnabledCB.IsChecked = trg.IsEnabled
+        TriggerPreservedCB.IsChecked = trg.IsPreserved
 
         If trg.CommentStr <> "" Then
             CommentTB.Text = trg.CommentStr
@@ -26,7 +30,7 @@ Public Class TriggerBlock
 
             ConditionPanel.Children.Clear()
             For i = 0 To trg.Condition.Count - 1
-                Dim titem As New ListItemCodeBlock(trg.Condition(i))
+                Dim titem As New ListItemCodeBlock(scripter, trg.Condition(i))
                 ConditionPanel.Children.Add(titem)
             Next
             If trg.Condition.Count = 0 Then
@@ -40,7 +44,7 @@ Public Class TriggerBlock
 
             ActionPanel.Children.Clear()
             For i = 0 To trg.Actions.Count - 1
-                Dim titem As New ListItemCodeBlock(trg.Actions(i))
+                Dim titem As New ListItemCodeBlock(scripter, trg.Actions(i))
                 ActionPanel.Children.Add(titem)
             Next
             If trg.Actions.Count = 0 Then
@@ -82,5 +86,13 @@ Public Class TriggerBlock
 
     Private Sub CheckBox_Unchecked(sender As Object, e As RoutedEventArgs)
         trg.IsEnabled = False
+    End Sub
+
+    Private Sub PreservedCheckBox_Checked(sender As Object, e As RoutedEventArgs)
+        trg.IsPreserved = True
+    End Sub
+
+    Private Sub PreservedCheckBox_Unchecked(sender As Object, e As RoutedEventArgs)
+        trg.IsPreserved = False
     End Sub
 End Class

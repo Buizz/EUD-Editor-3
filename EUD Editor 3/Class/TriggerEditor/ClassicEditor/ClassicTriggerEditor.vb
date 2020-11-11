@@ -1,5 +1,7 @@
 ﻿
 
+Imports System.Text
+
 <Serializable>
 Public Class ClassicTriggerEditor
     Inherits ScriptEditor
@@ -10,11 +12,54 @@ Public Class ClassicTriggerEditor
 
 
     '임포트된 파일들 모음
-    Public ImportFiles As New List(Of String)
+    Public ImportFiles As New List(Of DefineImport)
+
+    Public Sub RefreshData()
+        ImportFileRefresh()
+    End Sub
+
+
+    Public Sub ImportFileRefresh()
+        If ImportFuncs Is Nothing Then
+            ImportFuncs = New List(Of TriggerFunction)
+        End If
+
+        If ImportVars Is Nothing Then
+            ImportVars = New List(Of DefineVariable)
+        End If
+
+
+        ImportFuncs.Clear()
+        ImportVars.Clear()
+
+        For i = 0 To ImportFiles.Count - 1
+            Dim importLink As String = ImportFiles(i).vfolder
+            Dim tTEFile As TEFile = pjData.TEData.GetTEFile(Nothing, importLink.Split("."), 0)
+
+
+            Dim tText As String = tTEFile.Scripter.GetFileText
+
+
+            ImportFuncs.AddRange(tmanager.GetListFromEpScript(tText, TriggerFunction.EFType.ExternFunc, ImportFiles(i).vname))
+            ImportVars.AddRange(tmanager.GetVariableFromEpScript(tText, ImportFiles(i).vname))
+        Next
+    End Sub
+
+    <NonSerialized>
+    Public ImportFuncs As List(Of TriggerFunction)
+
+
+
+    <NonSerialized>
+    Public ImportVars As List(Of DefineVariable)
+
+
 
 
     '글로벌 변수 모음
-    Public globalVar As New List(Of String)
+    Public globalVar As New List(Of DefineVariable)
+
+
 
 
 
@@ -30,14 +75,155 @@ Public Class ClassicTriggerEditor
     End Property
 
     Public Overrides Function GetFileText() As String
-        'Throw New NotImplementedException()
+        Dim returnStr As String = GetEpsText()
+
+        If IsMain() Then
+            returnStr = returnStr &
+"function beforeTriggerExec(){
+	ClassicTriggerExec();
+}"
+        End If
+        returnStr = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & returnStr, IsMain())
+        Return returnStr
     End Function
 
     Public Overrides Function GetStringText() As String
-        'Throw New NotImplementedException()
+        Return GetEpsText()
+    End Function
+
+    Public Function GetEpsText() As String
+        tv = 0
+        Dim sb As New StringBuilder
+        sb.AppendLine("/*================Start Import================*/")
+        For i = 0 To ImportFiles.Count - 1
+            sb.AppendLine("import " & ImportFiles(i).vfolder & " as " & ImportFiles(i).vname & ";")
+        Next
+        sb.AppendLine("/*================End Import================*/")
+
+        sb.AppendLine("/*================Start Var================*/")
+        For i = 0 To globalVar.Count - 1
+            Dim vtype As String = ""
+            Dim initv As String = globalVar(i).vinit
+            Select Case globalVar(i).vtype
+                Case "Default"
+                    vtype = "var"
+                    If initv = "NULL" Then
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & ";")
+                    Else
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = " & initv & ";")
+                    End If
+                Case "Const"
+                    vtype = "const"
+                    If initv = "NULL" Then
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = 0;")
+                    Else
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = " & initv & ";")
+                    End If
+                Case "PVariable"
+                    vtype = "const"
+                    If initv = "NULL" Then
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = PVariable();")
+                    Else
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = PVariable(list(" & initv & "));")
+                    End If
+                Case "Array"
+                    vtype = "const"
+                    If initv = "NULL" Then
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = EUDArray(10);")
+                    Else
+                        If initv.IndexOf(",") = -1 Then
+                            sb.AppendLine(vtype & " " & globalVar(i).vname & " = EUDArray(" & initv & ");")
+                        Else
+                            sb.AppendLine(vtype & " " & globalVar(i).vname & " = [" & initv & "];")
+                        End If
+                    End If
+                Case "VArray"
+                    vtype = "const"
+                    If initv = "NULL" Then
+                        sb.AppendLine(vtype & " " & globalVar(i).vname & " = EUDVArray(10)();")
+                    Else
+                        If initv.IndexOf(",") = -1 Then
+                            sb.AppendLine(vtype & " " & globalVar(i).vname & " = EUDVArray(" & initv & ")();")
+                        Else
+                            sb.AppendLine(vtype & " " & globalVar(i).vname & " = VArray(" & initv & ");")
+                        End If
+                    End If
+            End Select
+        Next
+        sb.AppendLine("/*================End Var================*/")
+
+
+
+        Dim playerTrigger As New Dictionary(Of Integer, List(Of Trigger))
+        For i = 0 To 7
+            playerTrigger.Add(i, New List(Of Trigger))
+        Next
+
+        For i = 0 To TriggerList.Count - 1
+            For p = 0 To 7
+                If TriggerList(i).PlayerEnabled(p) Then
+                    playerTrigger(p).Add(TriggerList(i))
+                End If
+            Next
+        Next
+
+
+        sb.AppendLine("function ClassicTriggerExec(){")
+        For i = 0 To 7
+            Dim tlist As List(Of Trigger) = playerTrigger(i)
+            If tlist.Count = 0 Then
+                Continue For
+            End If
+            sb.AppendLine("    /*================Start Player " & i + 1 & "================*/")
+
+            sb.AppendLine("    {")
+            sb.AppendLine("        setcurpl(" & i & ");")
+            sb.AppendLine("        const cp = " & i & ";")
+            For t = 0 To tlist.Count - 1
+                Dim trg As Trigger = tlist(t)
+                If trg.IsEnabled Then
+                    sb.Append(trg.GetTriggerCodeText(2, Me))
+                End If
+            Next
+
+            sb.AppendLine("    }")
+
+
+
+            sb.AppendLine("    /*================End Player " & i + 1 & "================*/")
+        Next
+        sb.AppendLine("}")
+
+
+        Return sb.ToString
     End Function
 
     Public Overrides Function CheckConnect() As Boolean
         Return False 'Throw New NotImplementedException()
     End Function
+End Class
+
+<Serializable>
+Public Class DefineVariable
+    Public vname As String
+    Public vgroup As String
+    Public vtype As String
+    Public vinit As String
+
+    Public Sub New(_vname As String, _vtype As String, _vinit As String, _vgroup As String)
+        vname = _vname
+        vtype = _vtype
+        vinit = _vinit
+        vgroup = _vgroup
+    End Sub
+End Class
+
+<Serializable>
+Public Class DefineImport
+    Public vname As String
+    Public vfolder As String
+    Public Sub New(_vname As String, _vfolder As String)
+        vname = _vname
+        vfolder = _vfolder
+    End Sub
 End Class

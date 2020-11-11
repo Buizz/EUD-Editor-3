@@ -13,13 +13,22 @@ Public Class TriggerCodeEditControl
 
     Public SelectTBlock As TriggerCodeBlock
 
+    Private IsLoadCmp As Boolean = False
+
     Public Sub CloseEdit()
         Me.Visibility = Visibility.Collapsed
     End Sub
 
+
+    Private MainScriptEditor As ScriptEditor
+
     Private tLoc As String
-    Public Sub OpenEdit(OType As OpenType, Optional Loc As String = "", Optional TBlock As TriggerCodeBlock = Nothing)
+    Public Sub OpenEdit(_ScriptEditor As ScriptEditor, OType As OpenType, Optional Loc As String = "", Optional TBlock As TriggerCodeBlock = Nothing)
+        IsLoadCmp = False
         Me.Visibility = Visibility.Visible
+        MainScriptEditor = _ScriptEditor
+
+        Dim tf As TriggerFunction
 
 
 
@@ -39,10 +48,17 @@ Public Class TriggerCodeEditControl
             SelectName.Text = ""
             Okay_Btn.IsEnabled = False
         Else
+            tf = TBlock.GetCodeFunction(MainScriptEditor)
+            If tf Is Nothing Then
+                CloseEdit()
+                Return
+            End If
+
+
             Okay_Btn.IsEnabled = True
             FuncSelecter.Visibility = Visibility.Collapsed
             SelectTBlock = TBlock
-            SelectName.Text = TBlock.GetCodeFunction.FName
+            SelectName.Text = tf.FName
             FuncRefresh()
         End If
 
@@ -72,7 +88,7 @@ Public Class TriggerCodeEditControl
 
 
 
-
+        IsLoadCmp = True
     End Sub
 
 
@@ -87,10 +103,13 @@ Public Class TriggerCodeEditControl
     End Sub
 
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
-        If FuncSelecter.Visibility = Visibility.Collapsed Then
-            FuncSelecter.Visibility = Visibility.Visible
-        Else
-            FuncSelecter.Visibility = Visibility.Collapsed
+        If SelectTBlock.FName <> "" Then
+            If FuncSelecter.Visibility = Visibility.Collapsed Then
+                FuncSelecter.Visibility = Visibility.Visible
+            Else
+                SelectName.Text = SelectTBlock.FName
+                FuncSelecter.Visibility = Visibility.Collapsed
+            End If
         End If
     End Sub
 
@@ -101,6 +120,8 @@ Public Class TriggerCodeEditControl
     End Sub
 
     Private bg As BackgroundWorker
+
+    Private CurrentPageType As TriggerFunction.EFType
     Private Sub ListRefresh()
         CodeList.Items.Clear()
 
@@ -140,48 +161,51 @@ Public Class TriggerCodeEditControl
 
 
 
-        Dim TList As List(Of TriggerFunction) = tmanager.GetTriggerList(SelType)
+        Dim TList As List(Of TriggerFunction) = tmanager.GetTriggerList(SelType, MainScriptEditor)
 
-
+        CurrentPageType = SelType
         bg = New BackgroundWorker
         AddHandler bg.DoWork, Sub(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
                                   For i = 0 To TList.Count - 1
                                       Dim index As Integer = i
                                       Dispatcher.BeginInvoke(DispatcherPriority.Input,
                                    New Action(Sub()
-                                                  Dim itemColl As ItemCollection
-                                                  If TList(index).FGruop <> "" Then
-                                                      '그룹이 있을 경우
-                                                      itemColl = GetCodeListGroup(TList(index).FGruop).Items
-                                                  Else
-                                                      itemColl = CodeList.Items
-                                                  End If
+                                                  If CurrentPageType = SelType Then
+                                                      Dim itemColl As ItemCollection
+                                                      If TList(index).FGruop <> "" Then
+                                                          '그룹이 있을 경우
+                                                          itemColl = GetCodeListGroup(TList(index).FGruop).Items
+                                                      Else
+                                                          itemColl = CodeList.Items
+                                                      End If
 
 
-                                                  Dim tnode As New TreeViewItem
-                                                  tnode.Style = Application.Current.Resources("ShortTreeViewItem")
-                                                  tnode.Background = Application.Current.Resources("MaterialDesignPaper")
-                                                  tnode.Foreground = Application.Current.Resources("MaterialDesignBody")
+                                                      Dim tnode As New TreeViewItem
+                                                      tnode.Style = Application.Current.Resources("ShortTreeViewItem")
+                                                      tnode.Background = Application.Current.Resources("MaterialDesignPaper")
+                                                      tnode.Foreground = Application.Current.Resources("MaterialDesignBody")
 
-                                                  tnode.Header = TList(index).FName
-                                                  tnode.Tag = TList(index)
+                                                      tnode.Header = TList(index).FName
+                                                      tnode.Tag = TList(index)
 
-                                                  itemColl.Add(tnode)
+                                                      itemColl.Add(tnode)
 
 
 
-                                                  'SelectTBlock이랑 비교해야됨
-                                                  If SelectTBlock IsNot Nothing Then
-                                                      Dim t As TriggerFunction = SelectTBlock.GetCodeFunction
-                                                      If t IsNot Nothing Then
-                                                          If t.FName = TList(index).FName Then
-                                                              tnode.IsSelected = True
+                                                      'SelectTBlock이랑 비교해야됨
+                                                      If SelectTBlock IsNot Nothing Then
+                                                          Dim t As TriggerFunction = SelectTBlock.GetCodeFunction(MainScriptEditor)
+                                                          If t IsNot Nothing Then
+                                                              If t.FName = TList(index).FName Then
+                                                                  tnode.IsSelected = True
+                                                              End If
                                                           End If
                                                       End If
                                                   End If
                                               End Sub))
                                   Next
                               End Sub
+
 
         bg.RunWorkerAsync()
     End Sub
@@ -275,7 +299,10 @@ Public Class TriggerCodeEditControl
 
     Private Sub CodeList_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
         TriggerSummary.Text = ""
-        SelectName.Text = ""
+        If IsLoadCmp Then
+            SelectName.Text = ""
+        End If
+
         If CodeList.SelectedItem IsNot Nothing Then
             If CType(CodeList.SelectedItem, TreeViewItem).Items.Count = 0 Then
                 SelectBtn.IsEnabled = True
@@ -360,7 +387,7 @@ Public Class TriggerCodeEditControl
         FuncSelecter.Visibility = Visibility.Collapsed
 
         SelectTBlock.SetFunction(CType(CodeList.SelectedItem, TreeViewItem).Tag)
-        SelectTBlock.Refresh()
+        SelectTBlock.Refresh(MainScriptEditor)
         '코드를 선택
         FuncRefresh()
         BtnRefresh()

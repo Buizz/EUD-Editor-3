@@ -93,7 +93,7 @@ Partial Public Class TriggerEditControl
 
             Dim NCode As TriggerCodeBlock = trg.DeepCopy
             Dim tt As New ListBoxItem
-            tt.Content = New ListItemCodeBlock(NCode)
+            tt.Content = New ListItemCodeBlock(scripter, NCode)
 
 
             pjData.SetDirty(True)

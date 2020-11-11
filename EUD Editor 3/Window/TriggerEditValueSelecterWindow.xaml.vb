@@ -24,6 +24,8 @@ Public Class TriggerEditValueSelecterWindow
         TrgUnitPorpertyPanel.Visibility = Visibility.Collapsed
         VariablePanel.Visibility = Visibility.Collapsed
         FunctionPanel.Visibility = Visibility.Collapsed
+        FormatStringPanel.Visibility = Visibility.Collapsed
+        ArgumentStringPanel.Visibility = Visibility.Collapsed
     End Sub
 
     Private Sub CloseP()
@@ -43,6 +45,8 @@ Public Class TriggerEditValueSelecterWindow
             IsActivity = False
         End If
     End Sub
+
+
     Private Sub Window_Deactivated(sender As Object, e As EventArgs)
         CloseP()
     End Sub
@@ -123,15 +127,16 @@ Public Class TriggerEditValueSelecterWindow
     End Sub
 
 
+    Private scripter As ScriptEditor
     Private IsFirstOpen As Boolean = True
 
     Private LoadCmp As Boolean = False
     Private FunctionAddPanel As Grid
     Private Loc As String
-    Public Sub Open(_tCode As TriggerCodeBlock, _ArgIndex As Integer, StartPos As Point, _FunctionAddPanel As Grid, Optional _Loc As String = "", Optional ButtonHeight As Integer = 0)
+    Public Sub Open(_scripter As ScriptEditor, _tCode As TriggerCodeBlock, _ArgIndex As Integer, StartPos As Point, _FunctionAddPanel As Grid, Optional _Loc As String = "", Optional ButtonHeight As Integer = 0)
         Loc = _Loc
 
-
+        scripter = _scripter
         LoadCmp = False
         LastSelectType = "EMPTYSTRING"
         tCode = _tCode
@@ -274,6 +279,63 @@ Public Class TriggerEditValueSelecterWindow
 
 
                 VariablePanel.Visibility = Visibility.Visible
+
+                VariableTreeview.Items.Clear()
+
+                Dim cEditor As ClassicTriggerEditor = scripter
+
+
+                Dim localTreeitem As New TreeViewItem
+                localTreeitem.Background = Application.Current.Resources("MaterialDesignPaper")
+                localTreeitem.Foreground = Application.Current.Resources("MaterialDesignBody")
+
+                localTreeitem.Header = "전역변수"
+                For i = 0 To cEditor.globalVar.Count - 1
+                    Dim tnode As New TreeViewItem
+                    tnode.Style = Application.Current.Resources("ShortTreeViewItem")
+                    tnode.Background = Application.Current.Resources("MaterialDesignPaper")
+                    tnode.Foreground = Application.Current.Resources("MaterialDesignBody")
+                    tnode.Tag = cEditor.globalVar(i)
+                    tnode.Header = cEditor.globalVar(i).vname
+
+
+                    localTreeitem.Items.Add(tnode)
+                Next
+                VariableTreeview.Items.Add(localTreeitem)
+
+
+                Dim tdic As New Dictionary(Of String, TreeViewItem)
+                For i = 0 To cEditor.ImportVars.Count - 1
+                    Dim vgroup As String = cEditor.ImportVars(i).vgroup
+                    Dim vname As String = cEditor.ImportVars(i).vname
+
+                    Dim pnode As TreeViewItem
+                    If tdic.ContainsKey(vgroup) Then
+                        pnode = tdic(vgroup)
+                    Else
+                        pnode = New TreeViewItem
+                        pnode.Header = vgroup
+                        tdic.Add(vgroup, pnode)
+                    End If
+
+
+                    Dim tnode As New TreeViewItem
+                    tnode.Style = Application.Current.Resources("ShortTreeViewItem")
+                    tnode.Background = Application.Current.Resources("MaterialDesignPaper")
+                    tnode.Foreground = Application.Current.Resources("MaterialDesignBody")
+                    tnode.Tag = cEditor.ImportVars(i)
+                    tnode.Header = vname
+
+
+
+                    pnode.Items.Add(tnode)
+                Next
+
+                For i = 0 To tdic.Values.Count - 1
+                    VariableTreeview.Items.Add(tdic.Values.ToArray(i))
+                Next
+
+
             Case "Function"
                 Width = 250
                 Height = 100
@@ -386,7 +448,7 @@ Public Class TriggerEditValueSelecterWindow
 
                 ListboxPanel.Visibility = Visibility.Visible
 
-            Case "TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation", "TrgLocation", "TrgLocationIndex"
+            Case "TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation", "TrgLocation"
                 Width = 250
                 Height = 340
 
@@ -438,7 +500,44 @@ Public Class TriggerEditValueSelecterWindow
 
                     CodeSelecterPanel.Children.Add(cCodeSelecter)
                 End If
+            Case "FormatString"
+                Width = 350
+                Height = 200
+                If tCode.Args(ArgIndex).IsInit Then
+                    tCode.Args(ArgIndex).ValueString = ""
+                    tCode.Args(ArgIndex).IsArgNumber = False
+                    tCode.Args(ArgIndex).IsLangageable = False
+                    tCode.Args(ArgIndex).IsQuotation = False
+                End If
+                FormatStringTB.Text = tCode.Args(ArgIndex).ValueString
 
+                FormatStringPanel.Visibility = Visibility.Visible
+            Case "Arguments"
+                Width = 350
+                Height = 200
+                If tCode.Args(ArgIndex).IsInit Then
+                    tCode.Args(ArgIndex).ValueString = ""
+                    tCode.Args(ArgIndex).IsArgNumber = False
+                    tCode.Args(ArgIndex).IsLangageable = False
+                    tCode.Args(ArgIndex).IsQuotation = False
+                End If
+                Arguments.Text = tCode.Args(ArgIndex).ValueString
+
+                ArgumentStringPanel.Visibility = Visibility.Visible
+            Case "Tbl"
+                '사용자 정의 Arg임
+                Width = 250
+                Height = 340
+
+                If tCode.Args(ArgIndex).IsInit Then
+                    tCode.Args(ArgIndex).IsArgNumber = True
+                    tCode.Args(ArgIndex).IsLangageable = False
+                    tCode.Args(ArgIndex).IsQuotation = True
+
+                End If
+
+                ListReset()
+                ListboxPanel.Visibility = Visibility.Visible
             Case Else
                 '사용자 정의 Arg임
                 Width = 250
@@ -563,6 +662,7 @@ Public Class TriggerEditValueSelecterWindow
                 Dim item As ListBoxItem = SelectListbox.SelectedItem
 
                 tCode.Args(ArgIndex).ValueString = item.Tag
+                tCode.Args(ArgIndex).ValueNumber = SelectListbox.SelectedIndex
                 tCode.Args(ArgIndex).IsInit = False
                 ChangeComplete()
                 CloseP()
@@ -622,9 +722,9 @@ Public Class TriggerEditValueSelecterWindow
 
 
             If Arg.CodeBlock IsNot Nothing Then
-                nTriggerCodeEditControl.OpenEdit(TriggerCodeEditControl.OpenType.Func, Loc:=Loc, TBlock:=Arg.CodeBlock.DeepCopy)
+                nTriggerCodeEditControl.OpenEdit(scripter, TriggerCodeEditControl.OpenType.Func, Loc:=Loc, TBlock:=Arg.CodeBlock.DeepCopy)
             Else
-                nTriggerCodeEditControl.OpenEdit(TriggerCodeEditControl.OpenType.Func, Loc:=Loc)
+                nTriggerCodeEditControl.OpenEdit(scripter, TriggerCodeEditControl.OpenType.Func, Loc:=Loc)
             End If
 
 
@@ -636,6 +736,65 @@ Public Class TriggerEditValueSelecterWindow
 
         'TriggerFuncEditWindow.ShowDialog()
     End Sub
+
+    Private Sub VariableTreeview_SelectedItemChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Object))
+        If LoadCmp Then
+            If VariableTreeview.SelectedItem IsNot Nothing Then
+                Dim tnode As TreeViewItem = VariableTreeview.SelectedItem
+
+                If tnode.Tag Is Nothing Then
+                    Return
+                End If
+
+                Dim vDefine As DefineVariable = tnode.Tag
+                If vDefine.vgroup = "" Then
+                    tCode.Args(ArgIndex).ValueString = vDefine.vname
+                Else
+                    tCode.Args(ArgIndex).ValueString = vDefine.vgroup & "." & vDefine.vname
+                End If
+                tCode.Args(ArgIndex).IsInit = False
+
+
+                ChangeComplete()
+                CloseP()
+            End If
+        End If
+
+
+    End Sub
+
+    Private Sub FormatStringTB_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If LoadCmp Then
+            tCode.Args(ArgIndex).ValueString = FormatStringTB.Text
+            tCode.Args(ArgIndex).IsInit = False
+            ChangeComplete()
+        End If
+    End Sub
+
+    Private Sub FormatStringOpenClick(sender As Object, e As RoutedEventArgs)
+        Dim tEditor As New TextEditorWindow(FormatStringTB.Text)
+
+        IsActivity = False
+        tEditor.ShowDialog()
+        IsActivity = True
+        FormatStringTB.Text = tEditor.TextString
+    End Sub
+
+
+    Private Sub ArgumentCodeEditor_TextChange(sender As Object, e As RoutedEventArgs)
+        If LoadCmp Then
+            tCode.Args(ArgIndex).ValueString = Arguments.Text
+            tCode.Args(ArgIndex).IsInit = False
+            ChangeComplete()
+        End If
+    End Sub
+
+
+
+
+
+
+
 
     '{"TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder",
     '        "TrgPlayer", "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState",

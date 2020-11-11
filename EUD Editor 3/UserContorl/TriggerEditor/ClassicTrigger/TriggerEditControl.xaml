@@ -9,7 +9,7 @@
              mc:Ignorable="d"
              Background="{DynamicResource MaterialDesignPaper}" 
              Foreground="{DynamicResource MaterialDesignBody}"
-             Height="400" Width="600"
+             Height="450" Width="700"
              MouseEnter="UserControl_MouseEnter">
     <UserControl.Resources>
         <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
@@ -27,9 +27,15 @@
             </UniformGrid>
 
             <DockPanel>
-                <materialDesign:ColorZone  Mode="PrimaryMid" DockPanel.Dock="Top">
+                <materialDesign:ColorZone  Mode="PrimaryDark" DockPanel.Dock="Top">
                     <DockPanel>
-                        <ToggleButton Style="{StaticResource MaterialDesignSwitchDarkToggleButton}" x:Name="IsTriggerEnabled" Margin="4,0,0,0" Checked="IsTriggerEnabled_Checked" Unchecked="IsTriggerEnabled_Unchecked"/>
+                        <ToggleButton Style="{StaticResource MaterialDesignSwitchToggleButton}" x:Name="IsTriggerEnabled" Margin="4,0,0,0" Checked="IsTriggerEnabled_Checked" Unchecked="IsTriggerEnabled_Unchecked"/>
+                        <Button Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Right" Width="Auto" Height="Auto" Click="Button_Click_1">
+                            <materialDesign:PackIcon Kind="WindowClose" Width="24" Height="24" />
+                        </Button>
+                        <CheckBox x:Name="IsPreservedCB" Checked="IsPreservedCB_Checked" Unchecked="IsPreservedCB_Checked" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignCheckBox}">
+                            무한 반복 트리거
+                        </CheckBox>
                         <TextBox x:Name="CommentTB" materialDesign:HintAssist.Hint="주석을 입력하세요." MinWidth="200" Margin="10,5,0,5"/>
                     </DockPanel>
                 </materialDesign:ColorZone>

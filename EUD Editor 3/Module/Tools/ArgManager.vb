@@ -201,6 +201,14 @@
                     End If
                 End If
                 Return strs.ToArray
+            Case "Tbl"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCtbltxtCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.stattxt, i))
+                Next
+
+                Return strs.ToArray
             Case "Weapon"
                 Dim strs As New List(Of String)
                 '스트링

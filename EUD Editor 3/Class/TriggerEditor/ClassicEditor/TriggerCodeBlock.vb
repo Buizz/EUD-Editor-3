@@ -7,15 +7,59 @@ Public Class TriggerCodeBlock
     Public CName As String = "TriggerCodeBlock"
 
 
-    Public Function GetCodeText() As String
-        'TODO:코드화 시킬때
+    Public Function GetCodeText(intend As Integer, _scripter As ScriptEditor, Optional IsLuaCode As Boolean = False) As String
+        Dim tfun As TriggerFunction = GetCodeFunction(_scripter)
+        If tfun Is Nothing Then
+            Return ""
+        End If
+        Dim ispace As String = ""
+        For i = 0 To (intend * 4) - 1
+            ispace = ispace & " "
+        Next
+
+        Dim firstCode As Boolean = False
+
+        Dim rstr As String = ""
+        If Not IsLuaCode Then
+            '루아코드 바깥
+            If FType = TriggerFunction.EFType.Lua Then
+                rstr = "<?"
+                firstCode = True
+                IsLuaCode = True
+            End If
+        End If
+
+
+        If FType = TriggerFunction.EFType.ExternFunc Then
+            rstr = rstr & FGroup & "." & FName & "("
+        Else
+            rstr = rstr & FName & "("
+        End If
+        For i = 0 To Args.Count - 1
+            If i <> 0 Then
+                rstr = rstr & ", "
+            End If
+            rstr = rstr & Args(i).GetCodeText(_scripter, IsLuaCode)
+        Next
+
+
+
+        rstr = rstr & ")"
+        If firstCode Then
+            rstr = rstr & "?>"
+        End If
+
+
+
+
+        Return ispace & rstr
     End Function
 
 
 
     <NonSerialized>
     Public LoadedArgString As List(Of String)
-    Public Sub LoadArgText()
+    Public Sub LoadArgText(_scripter As ScriptEditor)
         'ArgText를 미리 불러온다.
         If LoadedArgString Is Nothing Then
             LoadedArgString = New List(Of String)
@@ -23,7 +67,7 @@ Public Class TriggerCodeBlock
 
         LoadedArgString.Clear()
 
-        Dim tfun As TriggerFunction = GetCodeFunction()
+        Dim tfun As TriggerFunction = GetCodeFunction(_scripter)
         For i = 0 To Args.Count - 1
             If Args(i).IsInit Then
                 '초기값일 경우 타입과 이름을 가져온다.
@@ -31,32 +75,8 @@ Public Class TriggerCodeBlock
 
                 LoadedArgString.Add(v)
             Else
-                Dim v As String
-                'TODO:타입에 따라 출력을 다르게 한다.
-                If Args(i).ValueType = "Variable" Then
-                    v = "변수:" & Args(i).ValueString
-                ElseIf Args(i).ValueType = "Function" Then
-                    If Args(i).CodeBlock Is Nothing Then
-                        v = "함수지정"
-                    Else
-                        v = "함수:" & Args(i).CodeBlock.FName
-                    End If
-                Else
-                    If Args(i).IsArgNumber Then
-                        v = "ID:" & Args(i).ValueNumber & " " & Args(i).ValueString
-                    Else
-                        If Args(i).IsLangageable Then
-                            Dim lanstr As String = Tool.GetLanText("TrgArg" & Args(i).ValueString)
-                            If lanstr = "TrgArg" & Args(i).ValueString Then
-                                v = Args(i).ValueString
-                            Else
-                                v = lanstr
-                            End If
-                        Else
-                            v = Args(i).ValueString
-                        End If
-                    End If
-                End If
+                Dim v As String = Args(i).GetEditorText
+
 
 
 
@@ -76,6 +96,9 @@ Public Class TriggerCodeBlock
 
 
 
+
+
+
     <NonSerialized>
     Private IsLockedFunction As Boolean = False
 
@@ -83,14 +106,16 @@ Public Class TriggerCodeBlock
     Private LockedFunction As TriggerFunction
 
 
-    Public Function GetCodeFunction() As TriggerFunction
+    Public Function GetCodeFunction(_scripter As ScriptEditor) As TriggerFunction
         If Not IsLockedFunction Then
-            For Each item As TriggerFunction In tmanager.GetTriggerList(FType)
+            For Each item As TriggerFunction In tmanager.GetTriggerList(FType, _scripter)
                 If item.FName = FName Then
                     If item.FType = TriggerFunction.EFType.Action Or item.FType = TriggerFunction.EFType.Condition Or
                         item.FType = TriggerFunction.EFType.Lua Or item.FType = TriggerFunction.EFType.Plib Then
                         IsLockedFunction = True
                         LockedFunction = item
+                    Else
+                        IsLockedFunction = False
                     End If
 
                     Return item
@@ -108,6 +133,7 @@ Public Class TriggerCodeBlock
 
     Public FType As TriggerFunction.EFType
     Public FName As String
+    Public FGroup As String
 
     '값도 들어있어야됨.
 
@@ -131,9 +157,10 @@ Public Class TriggerCodeBlock
         '함수를 지정
         FName = tfun.FName
         FType = tfun.FType
+        FGroup = tfun.FGruop
     End Sub
 
-    Public Sub Refresh()
+    Public Sub Refresh(_scripter As ScriptEditor)
         'GetCodeFunction
         '코드를 완전 초기화
         If Args Is Nothing Then
@@ -142,7 +169,7 @@ Public Class TriggerCodeBlock
 
         Args.Clear()
 
-        Dim tfun As TriggerFunction = GetCodeFunction()
+        Dim tfun As TriggerFunction = GetCodeFunction(_scripter)
 
         If tfun IsNot Nothing Then
             For i = 0 To tfun.Args.Count - 1
@@ -168,10 +195,16 @@ Public Class TriggerCodeBlock
 
         toTrg.FName = Me.FName
         toTrg.FType = Me.FType
+        toTrg.FGroup = Me.FGroup
+        toTrg.IsLockedFunction = False
 
+
+        toTrg.Args.Clear()
 
         For i = 0 To Me.Args.Count - 1
-            Args(i).CopyTo(toTrg.Args(i))
+            toTrg.Args.Add(Args(i).DeepCopy)
+
+            'Args(i).CopyTo(toTrg.Args(i))
         Next
     End Sub
 

@@ -1,10 +1,11 @@
 ﻿Imports System.IO
+Imports System.Text
 Imports System.Text.RegularExpressions
 
 Public Class TriggerManager
     'TE에 관련된 트리거를 관리하는 클래스
     Public HighlightBrush As SolidColorBrush = New SolidColorBrush(Color.FromRgb(232, 90, 113))
-    Public Function GetTriggerList(ftype As TriggerFunction.EFType) As List(Of TriggerFunction)
+    Public Function GetTriggerList(ftype As TriggerFunction.EFType, Scripter As ScriptEditor) As List(Of TriggerFunction)
         Select Case ftype
             Case TriggerFunction.EFType.Action
                 Return ActionList
@@ -18,8 +19,60 @@ Public Class TriggerManager
                 'TODO:UserFunc 만들어야됨
             Case TriggerFunction.EFType.ExternFunc
                 'TODO:UserFunc ExternFunc만들어야됨
+
+                If Scripter.GetType Is GetType(ClassicTriggerEditor) Then
+                    Return CType(Scripter, ClassicTriggerEditor).ImportFuncs
+                End If
         End Select
+        Return Nothing
     End Function
+
+
+    Public DefaultTEFiles As New Dictionary(Of String, TEFile)
+
+
+
+
+
+
+    Public Function GetImportList() As String()
+        Dim rstrlist As New List(Of String)
+
+
+        For i = 0 To DefaultTEFiles.Keys.Count - 1
+            rstrlist.Add("TriggerEditor." & DefaultTEFiles.Keys(i))
+        Next
+
+
+
+        If pjData IsNot Nothing Then
+            GetFiles(pjData.TEData.PFIles, "NULL", rstrlist)
+        End If
+
+        Return rstrlist.ToArray
+    End Function
+    Private Sub GetFiles(tdata As TEFile, fname As String, rstrlist As List(Of String))
+        If fname = "NULL" Then
+            fname = ""
+        ElseIf fname = "" Then
+            fname = tdata.FileName
+        Else
+            fname = fname & "." & tdata.FileName
+        End If
+
+
+        If tdata.IsFile Then
+            '파일 일 경우
+            rstrlist.Add(fname)
+        Else
+            For i = 0 To tdata.FileCount - 1
+                GetFiles(tdata.Files(i), fname, rstrlist)
+            Next
+            For i = 0 To tdata.FolderCount - 1
+                GetFiles(tdata.Folders(i), fname, rstrlist)
+            Next
+        End If
+    End Sub
 
 
 
@@ -28,6 +81,9 @@ Public Class TriggerManager
     Private ConditionList As New List(Of TriggerFunction)
     Private PlibList As New List(Of TriggerFunction)
     Private LuaList As New List(Of TriggerFunction)
+
+
+
 
 
     Public Sub New()
@@ -81,47 +137,227 @@ Public Class TriggerManager
                     PlibList.Add(funclist(i))
             End Select
         Next
+
+        '기본 TEFile로드
+        Dim folderpath As String = BuildData.GetTriggerEditorFolderPath
+
+        For Each files As String In My.Computer.FileSystem.GetFiles(folderpath)
+            Dim fileinfo As FileInfo = My.Computer.FileSystem.GetFileInfo(files)
+
+            If fileinfo.Extension <> ".eps" Then
+                Continue For
+            End If
+
+            Dim filename As String = fileinfo.Name.Split(".").First
+
+            fs = New IO.FileStream(files, FileMode.Open)
+            sr = New IO.StreamReader(fs)
+
+            Dim str As String = sr.ReadToEnd
+
+
+            sr.Close()
+            fs.Close()
+
+
+
+            Dim tfile As New TEFile(filename, TEFile.EFileType.CUIEps)
+            CType(tfile.Scripter, CUIScriptEditor).StringText = str
+
+            DefaultTEFiles.Add(filename, tfile)
+        Next
     End Sub
 
 
+    Public Function GetVariableFromEpScript(EpScript As String, Optional _Group As String = "") As List(Of DefineVariable)
+        Dim rVars As New List(Of DefineVariable)
 
-    Public Function GetListFromEpScript(EpScript As String) As List(Of TriggerFunction)
+        Dim sr As New StringReader(EpScript)
+        Dim ci As Integer = -1
+        Dim c As Char
+
+        Dim st As New Stack
+
+
+        Dim sb As New StringBuilder
+        While True
+            ci = sr.Read()
+            If ci = -1 Then
+                Exit While
+            End If
+
+            c = ChrW(ci)
+
+
+            Select Case c
+                Case "("
+                    st.Push(c)
+                Case "{"
+                    st.Push(c)
+                Case "["
+                    st.Push(c)
+            End Select
+            If st.Count = 0 Then
+                sb.Append(c)
+            End If
+            Select Case c
+                Case ")"
+                    If st.Peek = "(" Then
+                        st.Pop()
+                    Else
+                        '오류
+                        Exit While
+                    End If
+                Case "}"
+                    If st.Peek = "{" Then
+                        st.Pop()
+                    Else
+                        '오류
+                        Exit While
+                    End If
+                Case "]"
+                    If st.Peek = "[" Then
+                        st.Pop()
+                    Else
+                        '오류
+                        Exit While
+                    End If
+            End Select
+        End While
+
+        sr.Close()
+
+        Dim tstr As String = sb.ToString
+
+        Dim varregex As New Regex("var\s+([\w\d_]+)")
+        Dim constvaregex As New Regex("const\s+([\w\d_]+)")
+
+
+        Dim matches As MatchCollection
+        matches = varregex.Matches(tstr)
+        For i = 0 To matches.Count - 1
+            Dim varname As String = matches(i).Groups(1).Value
+
+            Dim vDefine As New DefineVariable(varname, "", "", _Group)
+            rVars.Add(vDefine)
+        Next
+
+        matches = constvaregex.Matches(tstr)
+        For i = 0 To matches.Count - 1
+            Dim varname As String = matches(i).Groups(1).Value
+
+            Dim vDefine As New DefineVariable(varname, "", "", _Group)
+            rVars.Add(vDefine)
+        Next
+
+
+
+
+
+
+        Return rVars
+    End Function
+
+
+
+    Public Function GetListFromEpScript(EpScript As String, Optional _FType As TriggerFunction.EFType = TriggerFunction.EFType.None, Optional _Group As String = "") As List(Of TriggerFunction)
+        Dim sr As New StringReader(EpScript)
+        Dim ci As Integer = -1
+        Dim c As Char
+
+        Dim st As New Stack
+
+
+        Dim sb As New StringBuilder
+        While True
+            ci = sr.Read()
+            If ci = -1 Then
+                Exit While
+            End If
+
+            c = ChrW(ci)
+
+
+            Select Case c
+                Case "{"
+                    st.Push(c)
+                    'sb.Append(c)
+            End Select
+            If st.Count = 0 Then
+                sb.Append(c)
+            End If
+            Select Case c
+                Case "}"
+                    If st.Peek = "{" Then
+                        st.Pop()
+                        'sb.Append(c)
+                    Else
+                        '오류
+                        Exit While
+                    End If
+            End Select
+        End While
+
+        sr.Close()
+
+        EpScript = sb.ToString
+
+
+
         Dim rFunc As New List(Of TriggerFunction)
 
 
-        Dim tooltipregex As New Regex("(\/\*\*\*[^\/]*\*\*\*\/\s+)function\s+([\w_]+)\(([\/\*\w\,_\:\s]*)\)\s*[^\;]")
-        Dim normalregex As New Regex("function\s+([\w_]+)\(([\/\*\w\,_\:\s]*)\)\s*[^\;]")
+        Dim tooltipregex As New Regex("(\/\*\*\*[^\/]*\*\*\*\/\s+)function\s+([\w_]+)\(([\/\*\w\,_\:\s]*)\)[^\;]")
+        Dim normalregex As New Regex("function\s+([\w_]+)\(([\/\*\w\,_\:\s]*)\)[^\;]")
 
 
         Dim matches As MatchCollection
         matches = tooltipregex.Matches(EpScript)
-        For i = 0 To matches.Count - 1
+        For i = matches.Count - 1 To 0 Step -1
             Dim tooltips As String = matches(i).Groups(1).Value
             Dim funcname As String = matches(i).Groups(2).Value
             Dim args As String = matches(i).Groups(3).Value
 
             Dim tfun As TriggerFunction = TriggerFunction.GetFunctionFromStr(tooltips, funcname, args)
+            If _FType <> TriggerFunction.EFType.None Then
+                tfun.FType = _FType
+            End If
+            If _Group <> "" Then
+                tfun.FGruop = _Group
+            End If
+
+
 
             If tfun IsNot Nothing Then
                 tfun.SetArgComment()
                 rFunc.Add(tfun)
             End If
+
+            EpScript = Mid(EpScript, 1, matches(i).Index) & Mid(EpScript, matches(i).Index + matches(i).Length)
         Next
 
         matches = normalregex.Matches(EpScript)
-        For i = 0 To matches.Count - 1
+        For i = matches.Count - 1 To 0 Step -1
             Dim tooltips As String = ""
             Dim funcname As String = matches(i).Groups(1).Value
             Dim args As String = matches(i).Groups(2).Value
 
             Dim tfun As TriggerFunction = TriggerFunction.GetFunctionFromStr(tooltips, funcname, args)
+            If _FType <> TriggerFunction.EFType.None Then
+                tfun.FType = _FType
+            End If
+            If _Group <> "" Then
+                tfun.FGruop = _Group
+            End If
 
             If tfun IsNot Nothing Then
                 rFunc.Add(tfun)
             End If
         Next
 
-
+        rFunc.Sort(Function(x As TriggerFunction, y As TriggerFunction)
+                       Return x.FName.CompareTo(y.FName)
+                   End Function)
 
         Return rFunc
     End Function
@@ -288,6 +524,7 @@ Public Class TriggerFunction
         UserFunc
         ExternFunc
         Args
+        None
     End Enum
 
     Public FType As EFType

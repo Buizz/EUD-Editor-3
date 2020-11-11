@@ -14,7 +14,7 @@
         EditWindow.Visibility = Visibility.Visible
 
         OpenStroyBoard.Begin(Me)
-        Dim TrigEditctrl As New TriggerEditControl(NTrigger)
+        Dim TrigEditctrl As New TriggerEditControl(Scripter, NTrigger)
         InputDialog.Content = TrigEditctrl
 
 
@@ -85,7 +85,7 @@
 
 
     Public Function GetListItem(trg As Trigger) As ListBoxItem
-        Dim nTrg As New TriggerBlock(trg)
+        Dim nTrg As New TriggerBlock(Scripter, trg)
 
 
         Dim Listitem As New ListBoxItem

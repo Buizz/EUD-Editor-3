@@ -5,6 +5,27 @@
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        MouseLocationCB.Items.Clear()
+
+        Dim loclist As List(Of String) = GetArgList("TrgLocation").ToList
+        loclist.Insert(0, "없음")
+
+        For i = 0 To loclist.Count - 1
+            Dim cbitem As New ComboBoxItem
+            cbitem.Content = loclist(i)
+            cbitem.Tag = loclist(i)
+
+            MouseLocationCB.Items.Add(cbitem)
+
+            If loclist(i) = pjData.TEData.MouseLocation Then
+                MouseLocationCB.SelectedIndex = i
+            End If
+        Next
+        If MouseLocationCB.SelectedIndex = -1 Then
+            MouseLocationCB.SelectedIndex = 0
+        End If
+
+
         ChatEvnetCB.IsChecked = pjData.TEData.UseChatEvent
         MSQCCB.IsChecked = pjData.TEData.UseMSQC
 
@@ -14,6 +35,8 @@
         patternAddrTextBox.Text = Hex(pjData.TEData.__patternAddr__).ToUpper
         lenAddrTextBox.Text = Hex(pjData.TEData.__lenAddr__).ToUpper
     End Sub
+
+
 
     Private Sub ChatEvnetCB_Checked(sender As Object, e As RoutedEventArgs)
         pjData.TEData.UseChatEvent = ChatEvnetCB.IsChecked
@@ -61,5 +84,13 @@
             pjData.TEData.__lenAddr__ = v
         Catch ex As Exception
         End Try
+    End Sub
+
+    Private Sub MouseLocationCB_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If MouseLocationCB.SelectedIndex = 0 Then
+            pjData.TEData.MouseLocation = ""
+        Else
+            pjData.TEData.MouseLocation = CType(MouseLocationCB.SelectedItem, ComboBoxItem).Tag
+        End If
     End Sub
 End Class

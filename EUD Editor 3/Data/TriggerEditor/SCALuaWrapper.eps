@@ -1,0 +1,168 @@
+import TriggerEditor.SCArchive as sca;
+
+
+const s = StringBuffer();
+
+
+const loadstatus = PVariable();
+const loadslot = PVariable();
+
+const savestatus = PVariable();
+const saveslot = PVariable();
+
+const loadglobalstatus = PVariable();
+
+const loadTimestatus = PVariable();
+
+
+
+function IsLoadComplete(){
+	const cp = getcurpl();
+	if (loadstatus[cp] == 2){
+		loadstatus[cp] = 0;
+		return true;
+	}
+	return false;
+}
+
+function IsSaveComplete(){
+	const cp = getcurpl();
+	if (savestatus[cp] == 2){
+		savestatus[cp] = 0;
+		return true;
+	}
+	return false;
+}
+
+function IsGlobalLoadComplete(){
+	const cp = getcurpl();
+	if (loadglobalstatus[cp] == 2){
+		loadglobalstatus[cp] = 0;
+		return true;
+	}
+	return false;
+}
+
+function IsTimeLoadComplete(){
+	const cp = getcurpl();
+	if (loadTimestatus[cp] == 2){
+		loadTimestatus[cp] = 0;
+		return true;
+	}
+	return false;
+}
+
+
+
+
+
+
+
+function Exec(){
+	foreach(cp : EUDLoopPlayer("Human",None,None)){
+		setcurpl(cp);
+		sca.Exec();
+		
+		//연결 됨
+		if (sca.ConnectStatus() == 1){
+			
+			//로드 진행
+			if (loadstatus[cp] == 1){
+				if(sca.GetLastMessage() == 4){
+					loadstatus[cp] = 2;
+					sca.ResetLastMessage();
+				}else{
+					if (sca.CommandStatus() == 0){
+						sca.LoadData(loadslot[cp]);
+					}
+				}
+			}else if (savestatus[cp] == 1){
+				if(sca.GetLastMessage() == 6){
+					savestatus[cp] = 2;
+					sca.ResetLastMessage();
+				}else{
+					if (sca.CommandStatus() == 0){
+						sca.SaveData(saveslot[cp]);
+					}
+				}
+			}else if (loadglobalstatus[cp] == 1){
+				if(sca.GetGlobalDataLoadMessage() == 1){
+					loadglobalstatus[cp] = 2;
+					sca.ResetGlobalDataLoadMessage();
+				}else{
+					if (sca.CommandStatus() == 0){
+						sca.LoadGlobalData();
+					}
+				}
+			}else if (loadTimestatus[cp] == 1){
+				if(sca.GetTimeLoadMessage() == 1){
+					loadTimestatus[cp] = 2;
+					sca.ResetDateTimeMessage();
+				}else{
+					if (sca.CommandStatus() == 0){
+						sca.LoadTime();
+					}
+				}
+			}
+			
+			
+			
+		}
+	
+	}
+}
+
+function scaLoad(slot){
+	const cp = getcurpl();
+	loadstatus[cp] = 1;
+	loadslot[cp] = slot;
+}
+
+function scaSave(slot){
+	const cp = getcurpl();
+	savestatus[cp] = 1;
+	saveslot[cp] = slot;
+}
+
+function scaLoadGlobal(){
+	const cp = getcurpl();
+	loadglobalstatus[cp] = 1;
+}
+
+function scaLoadTime(){
+	const cp = getcurpl();
+	loadTimestatus[cp] = 1;
+}
+
+function SetUseDefaultMessage(value){
+	//value가 1이면 기본값쓰기
+	sca.SetUseDefaultMessage(value);
+}
+
+function Year(){
+	return sca.Year;
+}
+
+function Month(){
+	return sca.Month;
+}
+
+function Day(){
+	return sca.Day;
+}
+
+function Hour(){
+	return sca.Hour;
+}
+
+function Min(){
+	return sca.Min;
+}
+
+function Week(){
+	return sca.Week;
+}
+
+function GlobalData(index){
+	return sca.GlobalData[index];
+}

@@ -24,6 +24,6 @@
 
 
 
-        TriggerCodeEdit.OpenEdit(openType)
+        TriggerCodeEdit.OpenEdit(scripter, openType)
     End Sub
 End Class

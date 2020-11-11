@@ -1,21 +1,21 @@
 ﻿Partial Public Class BuildData
 #Region "Paths"
-    Public ReadOnly Property GetSCArchiveeps() As String
+    Public Shared ReadOnly Property GetSCArchiveeps() As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\SCArchive.eps"
         End Get
     End Property
-    Public ReadOnly Property GetSCATooleps() As String
+    Public Shared ReadOnly Property GetSCATooleps() As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\SCATool.eps"
         End Get
     End Property
-    Public ReadOnly Property GetBGMTooleps() As String
+    Public Shared ReadOnly Property GetBGMTooleps() As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor\BGMPlayer.eps"
         End Get
     End Property
-    Public ReadOnly Property GetTriggerEditorFolderPath() As String
+    Public Shared ReadOnly Property GetTriggerEditorFolderPath() As String
         Get
             Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\TriggerEditor"
         End Get

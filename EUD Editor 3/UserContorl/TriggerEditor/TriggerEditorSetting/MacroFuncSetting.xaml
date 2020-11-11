@@ -37,6 +37,10 @@
                 <CheckBox x:Name="MSQCCB" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="MSQCCB_Checked" Unchecked="MSQCCB_Unchecked">
                 </CheckBox>
             </DockPanel>
+            <TextBlock Margin="4" Text="마우스 로케이션 설정"/>
+            <ComboBox x:Name="MouseLocationCB" SelectionChanged="MouseLocationCB_SelectionChanged">
+                
+            </ComboBox>
         </StackPanel>
     </DockPanel>
 </UserControl>

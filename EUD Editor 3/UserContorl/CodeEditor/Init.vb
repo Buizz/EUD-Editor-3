@@ -503,6 +503,8 @@ Partial Public Class CodeEditor
             Else
                 Return
             End If
+        Else
+            completionWindow.ToolTipLayoutRefresh()
         End If
     End Sub
 
@@ -559,6 +561,9 @@ Partial Public Class CodeEditor
             End If
         End If
 
+        If completionWindow IsNot Nothing Then
+            completionWindow.ToolTipLayoutRefresh()
+        End If
 
 
         'If completionWindow.CompletionList.ListBox.Items.Count = 0 Then

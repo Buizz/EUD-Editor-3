@@ -8,12 +8,12 @@
 
                                    'Dim ArgChanger As New TriggerEditValueSelecterWindow(tCode, argIndex, pos)
                                    AddHandler TriggerArgsEdit.ValueChange, Sub(_sender As Object, _e As RoutedEventArgs)
-                                                                               tCode.LoadArgText()
+                                                                               tCode.LoadArgText(MainScriptEditor)
 
                                                                                tBtn.Content = tCode.LoadedArgString(argIndex)
                                                                                BtnRefresh()
                                                                            End Sub
-                                   TriggerArgsEdit.Open(tCode, argIndex, pos, OtherPage, _Loc:=tLoc & SelectTBlock.FName & "->", ButtonHeight:=tBtn.Height)
+                                   Tool.OpenArgWindow(MainScriptEditor, tCode, argIndex, pos, OtherPage, _Loc:=tLoc & SelectTBlock.FName & "->", ButtonHeight:=tBtn.Height)
                                End Sub
         Return tBtn
     End Function
@@ -24,7 +24,7 @@
         SummaryPanel.Children.Clear()
 
         '함수를 재정렬하여 쓴다.
-        Dim t As TriggerFunction = SelectTBlock.GetCodeFunction
+        Dim t As TriggerFunction = SelectTBlock.GetCodeFunction(MainScriptEditor)
         Dim isCmpTrigger As Boolean
         Dim IsEmpty As Boolean = False
 
@@ -37,7 +37,7 @@
             isCmpTrigger = t.IsCmpTrigger
         End If
 
-        SelectTBlock.LoadArgText()
+        SelectTBlock.LoadArgText(MainScriptEditor)
 
         If isCmpTrigger Then
             If t.SortArgList.Count = 0 Then

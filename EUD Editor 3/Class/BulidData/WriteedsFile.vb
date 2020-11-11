@@ -121,16 +121,20 @@ Partial Public Class BuildData
                         If pjData.TEData.UseMSQC Then
                             Dim msqccode As String = macro.GetMSQCCode
 
-                            If msqccode <> "" Or pjData.TEData.SCArchive.IsUsed Then
-                                sb.AppendLine("[MSQC]")
-                            End If
-                            sb.Append(macro.GetMSQCCode)
                             If pjData.TEData.SCArchive.IsUsed Then
-                                sb.Append("MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
+                                msqccode = msqccode & "MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
 MSQCSpecial.Exactly(2) : MSQCSpecialBuffer, 200
 MSQCSpecial.Exactly(3) : MSQCSpecialBuffer, 300
 MSQCSpecial.Exactly(4) : MSQCSpecialBuffer, 400
-MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer")
+MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer" & vbCrLf
+                            End If
+                            If pjData.TEData.MouseLocation <> "" Then
+                                msqccode = msqccode & "mouse : " & pjData.TEData.MouseLocation & vbCrLf
+                            End If
+
+                            If msqccode <> "" Then
+                                sb.AppendLine("[MSQC]")
+                                sb.Append(msqccode)
                             End If
                         End If
                     Case EdsBlockType.TEChatEvent

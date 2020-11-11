@@ -115,6 +115,15 @@ Partial Public Class CodeEditor
                         AnotherCharCount += 1
                     End If
             End Select
+
+            If IsNumeric(MidStr) Then
+                If index = 0 Then
+                    Return
+                End If
+            End If
+
+
+
             If GetFuncName And Not IsFunctionSpace Then
                 If MidStr <> "(" Then
                     FuncName = MidStr & FuncName

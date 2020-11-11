@@ -828,7 +828,7 @@
 
     <sys:String x:Key="TE_CustomUserDataSetting">사용자 데이터</sys:String>
     <sys:String x:Key="TE_BGMSetting">사운드 설정</sys:String>
-    <sys:String x:Key="TE_MacroDatASetting">Lua 설정</sys:String>
+    <sys:String x:Key="TE_MacroDatASetting">플러그인 설정</sys:String>
     <sys:String x:Key="TE_DotPainter">DotPainter 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
 

@@ -9,6 +9,7 @@ Partial Public Class ProjectData
             _pjdata = New ProjectData
             _pjdata.NewFIle()
             _pjdata.InitData()
+            _pjdata.InitSetting()
         Else
             Dim tFilename As String
             Dim LoadProjectDialog As New System.Windows.Forms.OpenFileDialog

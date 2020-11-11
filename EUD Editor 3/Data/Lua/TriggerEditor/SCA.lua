@@ -1,56 +1,73 @@
-function SCALoad(Slot, CompleteFunc) --SCA/Number,Function/[Slot] 슬롯의 데이터를 불러옵니다. 불러오기가 완료되면 [CompleteFunc]를 호출합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+function SCALoad(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 불러옵니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 
 
-	local funcname = string.match(CompleteFunc, "%a+")
-		
-	echo("scaWrapper.scaLoad(".. Slot .. ", EUDFuncPtr(0, 0)(f_" .. funcname .. "))")
+	echo("scalua.scaLoad(".. Slot .. ")")
 end
 
-function SCASave(Slot, CompleteFunc) --SCA/Number,Function/[Slot] 슬롯의 데이터를 저장합니다. 저장이 완료되면 [CompleteFunc]를 호출합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+function SCASave(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 저장합니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 
 
-	local funcname = string.match(CompleteFunc, "%a+")
-		
-	echo("scaWrapper.scaSave(".. Slot .. ", EUDFuncPtr(0, 0)(f_" .. funcname .. "))")
+	echo("scalua.scaSave(".. Slot .. ")")
 end
 
-function SCALoadTime(CompleteFunc) --SCA/Function/시간 정보를 불러옵니다. 불러오기가 완료되면 [CompleteFunc]를 호출합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+function SCALoadTime() --SCA//시간 정보를 불러옵니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 
 
-	local funcname = string.match(CompleteFunc, "%a+")
-		
-	echo("scaWrapper.scaLoadTime(EUDFuncPtr(0, 0)(f_" .. funcname .. "))")
+	echo("scalua.scaLoadTime()")
 end
 
-function SCALoadGlobalData(CompleteFunc) --SCA/Function/글로벌 변수를 불러옵니다. 불러오기가 완료되면 [CompleteFunc]를 호출합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+function SCALoadGlobalData() --SCA//글로벌 변수를 불러옵니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 
 
-	local funcname = string.match(CompleteFunc, "%a+")
-		
-	echo("scaWrapper.scaLoadGlobal(EUDFuncPtr(0, 0)(f_" .. funcname .. "))")
+	echo("scalua.scaLoadGlobal()")
 end
+
+function IsLoadComplete() --SCA//불러오기 완료를 확인합니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	echo("scalua.IsLoadComplete()")
+end
+
+function IsSaveComplete() --SCA//저장 완료를 확인합니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	echo("scalua.IsSaveComplete()")
+end
+
+function IsGlobalLoadComplete() --SCA//글로벌 변수의 불러오기 완료를 확인합니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	echo("scalua.IsGlobalLoadComplete()")
+end
+
+function IsTimeLoadComplete() --SCA//시간 정보의 불러오기 완료를 확인합니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	echo("scalua.IsTimeLoadComplete()")
+end
+
+
+
+
+
 
 function SCAGetGlobalData(Index) --SCA/Number,TrgComparison,Number/[Index]번 글로벌 데이터의 값을 반환합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 
-	echo("scaWrapper.GlobalData(" .. Index .. ")")
+	echo("scalua.GlobalData(" .. Index .. ")")
 end
 
 function SCAGlobalData(Index,Comparison,Value) --SCA/Number,TrgComparison,Number/[Index]번 글로벌 데이터의 값이 [Comparison] [Value]인지 판단합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 	
     Comparison = ParseComparison(Comparison)
-	Variable = "scaWrapper.GlobalData(" .. Index .. ")"
+	Variable = "scalua.GlobalData(" .. Index .. ")"
 	if Comparison == 0 then
 		str = Variable .. " >= " .. Value
 
@@ -67,43 +84,43 @@ function SCAGlobalData(Index,Comparison,Value) --SCA/Number,TrgComparison,Number
 end
 
 function SCAGetTime(DateType) --SCA/DateType/[DateType]을 반환합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 
 	Variable = ""
 	if DateType == "Year" then
-		Variable = "scaWrapper.Year()"
+		Variable = "scalua.Year()"
 	elseif DateType == "Month" then
-		Variable = "scaWrapper.Month()"
+		Variable = "scalua.Month()"
 	elseif DateType == "Day" then
-		Variable = "scaWrapper.Day()"
+		Variable = "scalua.Day()"
 	elseif DateType == "Hour" then
-		Variable = "scaWrapper.Hour()"
+		Variable = "scalua.Hour()"
 	elseif DateType == "Min" then
-		Variable = "scaWrapper.Min()"
+		Variable = "scalua.Min()"
 	elseif DateType == "Week" then
-		Variable = "scaWrapper.Week()"
+		Variable = "scalua.Week()"
 	end
 	echo(Variable)
 end
 function SCATime(DateType,Comparison,Value) --SCA/DateType,TrgComparison,Number/[DateType]이 [Comparison] [Value]인지 판단합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 	
     Comparison = ParseComparison(Comparison)
 	Variable = ""
 	if DateType == "Year" then
-		Variable = "scaWrapper.Year()"
+		Variable = "scalua.Year()"
 	elseif DateType == "Month" then
-		Variable = "scaWrapper.Month()"
+		Variable = "scalua.Month()"
 	elseif DateType == "Day" then
-		Variable = "scaWrapper.Day()"
+		Variable = "scalua.Day()"
 	elseif DateType == "Hour" then
-		Variable = "scaWrapper.Hour()"
+		Variable = "scalua.Hour()"
 	elseif DateType == "Min" then
-		Variable = "scaWrapper.Min()"
+		Variable = "scalua.Min()"
 	elseif DateType == "Week" then
-		Variable = "scaWrapper.Week()"
+		Variable = "scalua.Week()"
 	end
 
 	if Comparison == 0 then
@@ -119,10 +136,10 @@ function SCATime(DateType,Comparison,Value) --SCA/DateType,TrgComparison,Number/
 	end
 end
 function SCAWeek(Weekend) --SCA/Weekend/현재 날짜가 [Weekend]인지 확인합니다.
-	preDefine("import TriggerEditor.SCAWrapper as scaWrapper;")
-	beforeText("scaWrapper.Exec();")
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
 	
-	Variable = "scaWrapper.Week()"
+	Variable = "scalua.Week()"
 	weekend = {
 		["월요일"] = 0,
 		["화요일"] = 1,

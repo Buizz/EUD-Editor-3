@@ -85,7 +85,7 @@ function GetPlayerAlliances(Player, DestPlayer) --동맹/TrgPlayer,TrgPlayer/[Pl
 
 	echo(rstr)
 end
-function PlayerAlliancesEPD(Player) --동맹/TrgPlayer/[Player]의 시야 오프셋을 반환합니다.
+function PlayerAlliancesEPD(Player) --동맹/TrgPlayer/[Player]의 동맹 오프셋을 반환합니다.
 	Player = ParsePlayer(Player)
 
 	if IsNumber(Player) then
@@ -94,7 +94,7 @@ function PlayerAlliancesEPD(Player) --동맹/TrgPlayer/[Player]의 시야 오프
 		return string.format("EPD(0x%X) + %s * 3", 0x58D634 ,Player) 
 	end
 end
-function PlayerAlliances(Player) --동맹/TrgPlayer/[Player]의 시야 오프셋을 반환합니다.
+function PlayerAlliances(Player) --동맹/TrgPlayer/[Player]의 동맹 오프셋을 반환합니다.
 	Player = ParsePlayer(Player)
 
 	if IsNumber(Player) then

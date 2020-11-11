@@ -14,6 +14,7 @@ Public Class TriggerEditorData
     Public UseChatEvent As Boolean = True
 
 
+    Public MouseLocation As String
 
 
 
@@ -97,6 +98,52 @@ Public Class TriggerEditorData
             Return _DotDatas
         End Get
     End Property
+
+
+
+    Public Function GetTEFile(cTEFile As TEFile, Link() As String, LinkIndex As Integer) As TEFile
+        Dim tTEFile As TEFile = Nothing
+
+        If Link(0) = "TriggerEditor" Then
+            Dim fname As String = Link(1)
+            Return tmanager.DefaultTEFiles(fname)
+        End If
+
+
+        If cTEFile Is Nothing Then
+            cTEFile = ProjectFile
+        End If
+
+        If cTEFile.IsFile Then
+            If cTEFile.FileName = Link(LinkIndex) Then
+                '해당 파일일 경우
+                Return cTEFile
+            End If
+        Else
+            For i = 0 To cTEFile.FolderCount - 1
+                Dim fName As String = cTEFile.Folders(i).FileName
+
+                If fName = Link(LinkIndex) Then
+                    '해당 폴더일 경우
+                    tTEFile = GetTEFile(cTEFile.Folders(i), Link, LinkIndex + 1)
+                    Exit For
+                End If
+            Next
+            For i = 0 To cTEFile.FileCount - 1
+                Dim fName As String = cTEFile.Files(i).FileName
+
+                If fName = Link(LinkIndex) Then
+                    '해당 폴더일 경우
+                    Return cTEFile.Files(i)
+                End If
+            Next
+        End If
+
+
+
+
+        Return tTEFile
+    End Function
 
 
 

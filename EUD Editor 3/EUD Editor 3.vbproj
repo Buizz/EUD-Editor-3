@@ -266,6 +266,7 @@
     <Compile Include="Class\Data\CButtonData.vb" />
     <Compile Include="Class\Data\CRequireData.vb" />
     <Compile Include="Class\Data\ProjectData\Init.vb" />
+    <Compile Include="Class\Data\ProjectData\InitSetting.vb" />
     <Compile Include="Class\Data\ProjectData\Load.vb" />
     <Compile Include="Class\Data\ProjectData\SavableData.vb" />
     <Compile Include="Class\Data\ProjectData\Save.vb" />
@@ -1291,7 +1292,10 @@
     <None Include="Data\Lua\TriggerEditor\chatEventTool.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\Lua\TriggerEditor\Printf.lua">
+    <None Include="Data\Lua\TriggerEditor\Player.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\TextTool.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\msqcTool.lua">
@@ -1507,6 +1511,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\SCArchive.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\SCALuaWrapper.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\SCAWrapper.eps">

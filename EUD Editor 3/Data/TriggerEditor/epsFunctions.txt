@@ -796,7 +796,7 @@ function ModifyUnitEnergy(Count : TrgCount, Unit : TrgUnit, Owner : TrgPlayer, W
  * @Type
  * A
  * @Summary.ko-KR
- * [Where]에 있는 [Player]의 [Unit] [Count]기의 쉴드를 [Percent]%로 조정합니다
+ * [Where]에 있는 [Owner]의 [Unit] [Count]기의 쉴드를 [Percent]%로 조정합니다
  * 
  * @param.Count.ko-KR
  * 쉴드가 조정될 유닛의 수를 정합니다

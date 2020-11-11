@@ -7,6 +7,20 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+        Public Sub OpenArgWindow(_scripter As ScriptEditor, _tCode As TriggerCodeBlock, _ArgIndex As Integer, StartPos As Point, _FunctionAddPanel As Grid, Optional _Loc As String = "", Optional ButtonHeight As Integer = 0)
+
+            Try
+                TriggerArgsEdit.Open(_scripter, _tCode, _ArgIndex, StartPos, _FunctionAddPanel, _Loc, ButtonHeight)
+            Catch ex As Exception
+                TriggerArgsEdit = New TriggerEditValueSelecterWindow
+
+                TriggerArgsEdit.Open(_scripter, _tCode, _ArgIndex, StartPos, _FunctionAddPanel, _Loc, ButtonHeight)
+            End Try
+        End Sub
+
+
+
+
 
 
         Private cmps As New Dictionary(Of String, List(Of String))
@@ -41,7 +55,7 @@ Namespace Tool
         End Function
         Private DefaultArgList() As String = {"TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder",
             "TrgPlayer", "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState",
-            "TrgAIScript", "TrgLocation", "TrgLocationIndex", "TrgSwitch", "TrgUnit", "WAVName", "BGM", "UnitsDat", "WeaponsDat", "FlingyDat",
+            "TrgAIScript", "TrgLocation", "TrgSwitch", "TrgUnit", "WAVName", "BGM", "FormatString", "Arguments", "Tbl", "UnitsDat", "WeaponsDat", "FlingyDat",
             "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat", "Weapon", "Flingy",
             "Sprite", "Image", "Upgrade", "Tech", "Order", "EUDScore", "SupplyType"}
 

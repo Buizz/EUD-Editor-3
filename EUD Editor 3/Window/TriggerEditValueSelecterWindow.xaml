@@ -36,8 +36,9 @@
 
 
                     <Grid x:Name="VariablePanel" Visibility="Collapsed">
+                        <TreeView x:Name="VariableTreeview" SelectedItemChanged="VariableTreeview_SelectedItemChanged" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}"/>
                     </Grid>
-                    <Grid x:Name="FunctionPanel" Visibility="Visible">
+                    <Grid x:Name="FunctionPanel" Visibility="Collapsed">
                         <Button x:Name="FunctionBtn" Click="FunctionBtn_Click" Height="Auto"/>
                     </Grid>
 
@@ -67,6 +68,19 @@
                         </DockPanel>
                     </Grid>
 
+                    <Grid x:Name="FormatStringPanel" Visibility="Collapsed">
+                        <DockPanel>
+                            <Button DockPanel.Dock="Top" Content="큰 창에서 수정" Click="FormatStringOpenClick"/>
+                            <TextBox x:Name="FormatStringTB" AcceptsReturn="True" TextChanged="FormatStringTB_TextChanged"/>
+                        </DockPanel>
+                    </Grid>
+
+                    <Grid x:Name="ArgumentStringPanel" Visibility="Visible">
+                        <DockPanel>
+                            <local:CodeEditor x:Name="Arguments" DockPanel.Dock="Bottom" TextChange="ArgumentCodeEditor_TextChange"/>
+                        </DockPanel>
+                    </Grid>
+                    
                     <Grid x:Name="CodeSelecterPanel" Visibility="Collapsed">
                     </Grid>
                 </Grid>

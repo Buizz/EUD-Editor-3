@@ -20,7 +20,7 @@
             EditWindow.Visibility = Visibility.Visible
 
             OpenStroyBoard.Begin(Me)
-            Dim TrigEditctrl As New TriggerEditControl(trg)
+            Dim TrigEditctrl As New TriggerEditControl(Scripter, edittrg)
             InputDialog.Content = TrigEditctrl
 
 

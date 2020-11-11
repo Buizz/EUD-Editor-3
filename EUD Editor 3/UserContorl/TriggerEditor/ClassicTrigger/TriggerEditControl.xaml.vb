@@ -3,15 +3,16 @@
     Public Event CancelBtnEvent As RoutedEventHandler
 
     Private ptrg As Trigger
+    Private scripter As ScriptEditor
 
-
-
-    Public Sub New(trg As Trigger)
+    Private IsLoad As Boolean = False
+    Public Sub New(_scripter As ScriptEditor, trg As Trigger)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
+        scripter = _scripter
         ptrg = trg
         CommentTB.Text = ptrg.CommentStr
 
@@ -26,7 +27,7 @@
 
         For i = 0 To ptrg.Condition.Count - 1
             Dim listitem As New ListBoxItem
-            listitem.Content = New ListItemCodeBlock(ptrg.Condition(i))
+            listitem.Content = New ListItemCodeBlock(scripter, ptrg.Condition(i))
 
             cList.Items.Add(listitem)
         Next
@@ -34,11 +35,14 @@
 
         For i = 0 To ptrg.Actions.Count - 1
             Dim listitem As New ListBoxItem
-            listitem.Content = New ListItemCodeBlock(ptrg.Actions(i))
+            listitem.Content = New ListItemCodeBlock(scripter, ptrg.Actions(i))
 
             aList.Items.Add(listitem)
         Next
         IsTriggerEnabled.IsChecked = ptrg.IsEnabled
+
+        IsPreservedCB.IsChecked = ptrg.IsPreserved
+        IsLoad = True
     End Sub
     Public Sub TriggerCodeEditOkayEvent(sender As TriggerCodeBlock, e As RoutedEventArgs)
         'Okay가 옴
@@ -66,7 +70,7 @@
 
 
             Dim listitem As New ListBoxItem
-            listitem.Content = New ListItemCodeBlock(tCodeBlock)
+            listitem.Content = New ListItemCodeBlock(scripter, tCodeBlock)
 
             ttriglist.Insert(LastSelectListBoxIndex, tCodeBlock)
             tlist.Items.Insert(LastSelectListBoxIndex, listitem)
@@ -223,5 +227,11 @@
 
     Private Sub ListDouble_Click(sender As Object, e As MouseButtonEventArgs)
         EditFunc()
+    End Sub
+
+    Private Sub IsPreservedCB_Checked(sender As Object, e As RoutedEventArgs)
+        If IsLoad Then
+            ptrg.IsPreserved = IsPreservedCB.IsChecked
+        End If
     End Sub
 End Class

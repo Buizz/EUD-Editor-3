@@ -1,4 +1,7 @@
-﻿<Serializable>
+﻿Imports System.IO
+Imports System.Runtime.Serialization.Formatters.Binary
+
+<Serializable>
 Public Class ArgValue
     Public DefaultType As String
     Public ValueType As String
@@ -30,6 +33,85 @@ Public Class ArgValue
         IsQuotation = False
     End Sub
 
+
+    Public Function GetCodeText(_scripter As ScriptEditor, isLuaCover As Boolean) As String
+        Dim v As String
+        If ValueType = "Variable" Then
+            v = ValueString
+            If isLuaCover Then
+                v = """" & v & """"
+            End If
+        ElseIf ValueType = "Function" Then
+            If CodeBlock Is Nothing Then
+                '함수지정 안됨
+                v = "함수를지정하지않았습니다."
+            Else
+                '함수
+                v = CodeBlock.GetCodeText(0, _scripter, isLuaCover)
+                If isLuaCover Then
+                    If CodeBlock.FType <> TriggerFunction.EFType.Lua Then
+                        v = """" & v & """"
+                    End If
+                End If
+            End If
+        Else
+            If IsArgNumber Then
+                If ValueType = "TrgLocation" Then
+                    v = ValueNumber + 1
+                Else
+                    v = ValueNumber
+                End If
+            Else
+                v = ValueString
+
+                If ValueType = "TrgString" Or ValueType = "FormatString" Then
+                    v = """" & v & """"
+                ElseIf isLuaCover Then
+                    v = """" & v & """"
+                End If
+            End If
+        End If
+
+        If isLuaCover Then
+            v = v.Replace("\", "\\")
+        End If
+
+        Return v
+    End Function
+
+    Public Function GetEditorText() As String
+        Dim v As String
+        If ValueType = "Variable" Then
+            v = "변수:" & ValueString
+        ElseIf ValueType = "Function" Then
+            If CodeBlock Is Nothing Then
+                v = "함수지정"
+            Else
+                v = "함수:" & CodeBlock.FName
+            End If
+        Else
+            If IsArgNumber Then
+                v = "ID:" & ValueNumber & " " & ValueString
+            Else
+                If IsLangageable Then
+                    Dim lanstr As String = Tool.GetLanText("TrgArg" & ValueString)
+                    If lanstr = "TrgArg" & ValueString Then
+                        v = ValueString
+                    Else
+                        v = lanstr
+                    End If
+                Else
+                    v = ValueString
+                End If
+            End If
+        End If
+
+        Return v
+    End Function
+
+
+
+
     Public Sub CopyTo(toArg As ArgValue)
         '해당 트리거의 내용을 toTrg에 넣는다.
 
@@ -52,6 +134,21 @@ Public Class ArgValue
             toArg.CodeBlock = Nothing
         End If
     End Sub
+    Public Function DeepCopy() As ArgValue
+        Dim stream As MemoryStream = New MemoryStream()
+
+
+        Dim formatter As BinaryFormatter = New BinaryFormatter()
+
+        formatter.Serialize(stream, Me)
+        stream.Position = 0
+
+        Dim rScriptBlock As ArgValue = formatter.Deserialize(stream)
+
+
+        Return rScriptBlock
+    End Function
+
 
     Public CodeBlock As TriggerCodeBlock
 End Class

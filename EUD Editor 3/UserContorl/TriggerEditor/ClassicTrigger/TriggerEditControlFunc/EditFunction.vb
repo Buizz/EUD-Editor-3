@@ -17,15 +17,16 @@
             openType = TriggerCodeEditControl.OpenType.Action
         End If
 
-        IsEditOpen = True
         If tlist.SelectedIndex <> -1 Then
             LastSelectListBoxIndex = tlist.SelectedIndex
         Else
-            LastSelectListBoxIndex = tlist.Items.Count
+            Return
+            'LastSelectListBoxIndex = tlist.Items.Count
         End If
 
+        IsEditOpen = True
 
         Dim editTrg As TriggerCodeBlock = ttriglist(LastSelectListBoxIndex).DeepCopy
-        TriggerCodeEdit.OpenEdit(openType, TBlock:=editTrg)
+        TriggerCodeEdit.OpenEdit(scripter, openType, TBlock:=editTrg)
     End Sub
 End Class

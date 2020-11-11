@@ -217,6 +217,9 @@ Module WindowControl
             ElseIf TypeOf TabContent Is TEGUIPage Then
                 Dim tPage As TEGUIPage = TabContent
                 tefile = tPage.TEFile
+            ElseIf TypeOf TabContent Is TECTPage Then
+                Dim tPage As TECTPage = TabContent
+                tefile = tPage.TEFile
             End If
 
 

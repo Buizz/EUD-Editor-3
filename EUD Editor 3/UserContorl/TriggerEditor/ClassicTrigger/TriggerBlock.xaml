@@ -15,6 +15,7 @@
         </StackPanel>
         <DockPanel DockPanel.Dock="Top">
             <ToggleButton x:Name="TriggerEnabledCB" HorizontalAlignment="Center" VerticalAlignment="Center" Checked="CheckBox_Checked" Unchecked="CheckBox_Unchecked" Style="{StaticResource MaterialDesignSwitchToggleButton}" Margin="4,0,0,0"/>
+            <CheckBox x:Name="TriggerPreservedCB" HorizontalAlignment="Center" Content="무한 반복 트리거" VerticalAlignment="Center" Checked="PreservedCheckBox_Checked" Unchecked="PreservedCheckBox_Unchecked" Margin="4,0"/>
             <TextBlock x:Name="CommentTB" Text="주석" HorizontalAlignment="Left" VerticalAlignment="Center" Margin="10,2,0,0" Style="{StaticResource MaterialDesignHeadline6TextBlock}" Height="30"/>
         </DockPanel>
 
