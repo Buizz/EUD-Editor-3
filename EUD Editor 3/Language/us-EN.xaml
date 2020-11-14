@@ -142,7 +142,7 @@
     <sys:String x:Key="Rename">Rename</sys:String>
 
     <sys:String x:Key="Save">Save</sys:String>
-    <sys:String x:Key="InsertEdd">Run as Edd</sys:String>
+    <sys:String x:Key="InsertEdd">Run as .edd</sys:String>
 
     <sys:String x:Key="SaveAs">Save As</sys:String>
     <!--RequireMenu-->
