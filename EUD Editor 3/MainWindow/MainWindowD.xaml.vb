@@ -25,6 +25,22 @@ Public Class MainWindowD
                                                                     BuildLog.ShowDialog()
                                                                 End Sub))
     End Sub
+    Public Sub ErrorHandleStart(BuildLog As String, ErrorLog As String)
+        Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
+                                                                    ErrorHandle(BuildLog, ErrorLog)
+                                                                End Sub))
+    End Sub
+    Public Sub ErrorHandleCloseStart()
+        Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
+                                                                    ErrorHandleClose()
+                                                                End Sub))
+    End Sub
+
+
+
+
+
+
 
     Private Sub BackgroundWorker1_DoWork(ByVal sender As System.Object, ByVal e As System.ComponentModel.DoWorkEventArgs)
         ProgramLoad()
@@ -91,6 +107,7 @@ Public Class MainWindowD
                     Me.Visibility = Visibility.Hidden
                     SettiingForm = New SettingWindows
                     SettiingForm.MainTab.IsHeaderPanelVisible = "False"
+                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.TabItem_ProjectSetting)
                     SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
                     'SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
                     SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
@@ -110,6 +127,7 @@ Public Class MainWindowD
         If pgData.Setting(ProgramData.TSetting.DonateMsg) = False Then
             Me.Visibility = Visibility.Hidden
             SettiingForm = New SettingWindows
+            SettiingForm.MainTab.RemoveFromSource(SettiingForm.TabItem_ProjectSetting)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)

@@ -346,6 +346,7 @@
     <Compile Include="Class\Data\ProgramData.vb" />
     <Compile Include="Module\StringTool.vb" />
     <Compile Include="Module\Tools\ArgManager.vb" />
+    <Compile Include="Module\Tools\BuildErrorHandling.vb" />
     <Compile Include="Module\Tools\Tool.vb" />
     <Compile Include="Module\Tools\WindowControl.vb" />
     <Compile Include="TEST\FastTreeview.xaml.vb">
@@ -1292,6 +1293,9 @@
     <None Include="Data\Lua\TriggerEditor\chatEventTool.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\Lua\TriggerEditor\Wait.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\Lua\TriggerEditor\Player.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1623,6 +1627,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\Autocmp\Weekend.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\timeline.py">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="x64\lz4X64.dll">

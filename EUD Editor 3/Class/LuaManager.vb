@@ -104,13 +104,18 @@ Public Class LuaManager
 
         RegFunction("SetDat", "setdat", "<1>function <0>setdat(datfile, param , objectid, value)" & vbCrLf & "Dat데이터를 수정합니다.",
                     {"datfile", "param", "objectid", "value"})
-
         RegFunction("GetDat", "getdat", "<1>function <0>getdat(datfile, param , objectid)" & vbCrLf & "Dat데이터를 읽어옵니다.",
                     {"datfile", "param", "objectid"})
-
         RegFunction("ResetDat", "resetdat", "<1>function <0>resetdat(datfile, param , objectid)" & vbCrLf & "Dat데이터를 초기화 합니다.",
                     {"datfile", "param", "objectid"})
 
+
+        RegFunction("SetTbl", "settbl", "<1>function <0>settbl(tblid, value)" & vbCrLf & "Tbl을 수정합니다.",
+                    {"tblid", "value"})
+        RegFunction("GetTbl", "gettbl", "<1>function <0>gettbl(tblid)" & vbCrLf & "Tbl을 읽어옵니다.",
+                    {"tblid"})
+        RegFunction("ResetTbl", "resettbl", "<1>function <0>resettbl(tblid)" & vbCrLf & "Tbl을 초기화 합니다.",
+                    {"tblid"})
 
 
 
@@ -212,6 +217,18 @@ Public Class LuaManager
         End If
         Return Datfile
     End Function
+
+
+    Public Sub SetTbl(ObjectId As Integer, Value As String)
+        pjData.BindingManager.StatTxtBinding(ObjectId).Value = Value
+    End Sub
+    Public Function GetTbl(ObjectId As Integer) As String
+        Return pjData.BindingManager.StatTxtBinding(ObjectId).Value
+    End Function
+    Public Sub ResetTbl(ObjectId As Integer)
+        pjData.BindingManager.StatTxtBinding(ObjectId).DataReset()
+    End Sub
+
 
 
 

@@ -92,7 +92,6 @@ Public Class ClassicTriggerEditor
     End Function
 
     Public Function GetEpsText() As String
-        tv = 0
         Dim sb As New StringBuilder
         sb.AppendLine("/*================Start Import================*/")
         For i = 0 To ImportFiles.Count - 1

@@ -45,7 +45,19 @@
     </Window.Resources>
     <DockPanel>
         <DockPanel>
-            <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" VerticalContentAlignment="Stretch">
+            <Expander x:Name="ErrorListExpander" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Header="오류 목록" Foreground="{DynamicResource MaterialDesignBody}">
+                <ListView x:Name="ErrorList" MaxHeight="250">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Line}" Header="줄" />
+                            <GridViewColumn DisplayMemberBinding="{Binding File}" Header="파일" />
+                            <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="설명"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Expander>
+
+            <Expander Name="CodeExpander" ExpandDirection="Right"  DockPanel.Dock="Left" VerticalContentAlignment="Stretch">
                 <Expander.Header>
                     <TextBlock
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
