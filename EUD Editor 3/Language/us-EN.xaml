@@ -943,7 +943,7 @@
     <sys:String x:Key="MSQCPluginSetting">MSQC Settings</sys:String>
     <sys:String x:Key="FuncNameUserEdit">UserEdit</sys:String>
 
-
+    <sys:String x:Key="GUIEditorBtn">GUI Editor</sys:String>
     
     <sys:String x:Key="NewClassicScript">NewClassicTrigger</sys:String>
 
