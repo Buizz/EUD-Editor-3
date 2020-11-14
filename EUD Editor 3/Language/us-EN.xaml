@@ -689,7 +689,7 @@
     <sys:String x:Key="sprites_Sel.Circle Offset_ToolTip">This indicates the top and bottom position of the selection circle that appears when the sprite is selected. The larger the size, the lower the selection circle.</sys:String>
 
 
-    <sys:String x:Key="images_GRP File_ToolTip">Display that current image refer to GRP files. Is not work</sys:String>
+    <sys:String x:Key="images_GRP File_ToolTip">GRP file which is referenced by the image, does not work</sys:String>
     <sys:String x:Key="images_Gfx Turns_ToolTip">Check that current image is enable to left and right inversion.</sys:String>
     <sys:String x:Key="images_Clickable_ToolTip">Check that current image unit is enable to click.</sys:String>
     <sys:String x:Key="images_Use Full Iscript_ToolTip">Check that current image is refer to Iscript and active all script contents.</sys:String>
