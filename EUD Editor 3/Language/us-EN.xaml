@@ -871,7 +871,7 @@
 
 
 
-    <sys:String x:Key="MatchCaseText">Case sendsitive</sys:String>
+    <sys:String x:Key="MatchCaseText">Case sensitive</sys:String>
     <sys:String x:Key="MatchWholeWordsText">Match any word</sys:String>
     <sys:String x:Key="UseRegexText">Use regular expressions</sys:String>
     <sys:String x:Key="FindNextText">Find Next (F3)</sys:String>
