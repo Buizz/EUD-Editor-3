@@ -9,6 +9,18 @@ Public Class Trigger
 
 
 
+    <NonSerialized>
+    Public StartLine As Integer = -1
+    <NonSerialized>
+    Public EndLine As Integer = -1
+
+
+
+
+
+
+
+
     '플레이어
     Public PlayerEnabled(7) As Boolean
 

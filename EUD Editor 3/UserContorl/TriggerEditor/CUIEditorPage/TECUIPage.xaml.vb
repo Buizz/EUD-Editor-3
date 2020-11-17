@@ -21,7 +21,7 @@
 
 
 
-    Public Sub New(tTEFile As TEFile)
+    Public Sub New(tTEFile As TEFile, Optional highLightLine As Integer = -1)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
@@ -30,6 +30,10 @@
         PTEFile = tTEFile
         TextEditor.Init(tTEFile)
         TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
+
+        If highLightLine > -1 Then
+            TextEditor.LineHightLight(highLightLine)
+        End If
     End Sub
 
 

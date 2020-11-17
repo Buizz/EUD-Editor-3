@@ -888,7 +888,7 @@
     <sys:String x:Key="MacroFunc">Lua</sys:String>
     <sys:String x:Key="Condition">Condition</sys:String>
     <sys:String x:Key="Action">Action</sys:String>
-    <sys:String x:Key="Variable">Object</sys:String>
+    <sys:String x:Key="Object">Object</sys:String>
     <sys:String x:Key="Value">Value</sys:String>
     <sys:String x:Key="EtcBlock">Import</sys:String>
 
@@ -990,4 +990,135 @@
     <sys:String x:Key="TrgArgToggle">Toggle</sys:String>
     <sys:String x:Key="TrgArgRandom">Ranomize</sys:String>
     <sys:String x:Key="TrgArgCleared">Cleared</sys:String>
+
+
+
+    <sys:String x:Key="Explorer">Explorer</sys:String>
+    <sys:String x:Key="ErrorList">Error List</sys:String>
+    <sys:String x:Key="Location">Location</sys:String>
+    <sys:String x:Key="File">File</sys:String>
+    <sys:String x:Key="Description">Description</sys:String>
+
+    <sys:String x:Key="Name">Name</sys:String>
+    <sys:String x:Key="Address">File</sys:String>
+    <sys:String x:Key="Len">Len</sys:String>
+    <sys:String x:Key="Size">Size</sys:String>
+    <sys:String x:Key="Compression">Compression</sys:String>
+    <sys:String x:Key="Samplerate">Samplerate</sys:String>
+    <sys:String x:Key="Bitrate">Bitrate</sys:String>
+
+    <sys:String x:Key="Type">Type</sys:String>
+    <sys:String x:Key="DataSet">Data Setting</sys:String>
+
+    <sys:String x:Key="Variable">Variable</sys:String>
+    <sys:String x:Key="Death">Death</sys:String>
+    <sys:String x:Key="Array">Array</sys:String>
+    <sys:String x:Key="NameSpace">NameSpace</sys:String>
+
+    <sys:String x:Key="Default">Default</sys:String>
+
+    <sys:String x:Key="BGMList">Sound List</sys:String>
+
+
+    <sys:String x:Key="Visible">Visible</sys:String>
+    <sys:String x:Key="Use">Enable</sys:String>
+    <sys:String x:Key="MouseLocSetting">Mouse Loc Setting</sys:String>
+
+
+    <sys:String x:Key="TestMode">TestMode</sys:String>
+    <sys:String x:Key="MultiPlayMode">MultiPlayMode</sys:String>
+    <sys:String x:Key="FreePlayMode">FreePlayMode</sys:String>
+
+
+    <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
+    <sys:String x:Key="MapSetting">맵 설정</sys:String>
+    <sys:String x:Key="BattleTag">배틀코드</sys:String>
+
+    <sys:String x:Key="PassWord">비밀번호</sys:String>
+    <sys:String x:Key="Identificationnumber">고유 식별 번호</sys:String>
+    <sys:String x:Key="SeverID">서버 아이디</sys:String>
+
+
+    <sys:String x:Key="DatabaseName">데이터베이스 이름</sys:String>
+    <sys:String x:Key="SecondName">하위이름</sys:String>
+    <sys:String x:Key="MapInfor">맵 정보</sys:String>
+
+    <sys:String x:Key="InforUpdate">정보 갱신</sys:String>
+
+    <sys:String x:Key="DataSetting">데이터 설정</sys:String>
+
+    <sys:String x:Key="ViewUnEnabled">맵 비공개</sys:String>
+    <sys:String x:Key="ViewEnabled">맵 공개</sys:String>
+
+    <sys:String x:Key="MapName">맵 이름</sys:String>
+    <sys:String x:Key="MapNameHint">다운로드 페이지에서 보이는 이름입니다.</sys:String>
+
+    <sys:String x:Key="MakerEmail">제작자 이메일</sys:String>
+    <sys:String x:Key="MakerEmailHint">신고 기능 이용 시 내용을 수신 받을 수 있습니다.</sys:String>
+
+    <sys:String x:Key="MapTag">맵 태그</sys:String>
+    <sys:String x:Key="MapTagHint">다운로드 페이지에서 볼 수 있는 태그입니다.</sys:String>
+
+    <sys:String x:Key="MapInforLink">맵 정보 링크</sys:String>
+    <sys:String x:Key="MapInforLinkHint">다운로드 페이지에서 볼 수 있는 링크입니다.</sys:String>
+
+    <sys:String x:Key="MapImageLink">맵 이미지 링크</sys:String>
+    <sys:String x:Key="MapImageLinkHint">다운로드 페이지에서 볼 수 있는 이미지 링크입니다.</sys:String>
+
+    <sys:String x:Key="MapDescription">맵 설명</sys:String>
+    <sys:String x:Key="MapDescriptionHint">다운로드 페이지에서 보이는 설명입니다.</sys:String>
+
+    <sys:String x:Key="BufferSize">버퍼 사이즈</sys:String>
+    <sys:String x:Key="BufferSizeHint">유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다.</sys:String>
+
+
+    <sys:String x:Key="CT_Player">Player</sys:String>
+    <sys:String x:Key="CT_Condition">Condition</sys:String>
+    <sys:String x:Key="CT_Action">Action</sys:String>
+    <sys:String x:Key="CT_Trigger">Trigger</sys:String>
+    <sys:String x:Key="CT_GlobalVar">Global Variable</sys:String>
+    <sys:String x:Key="CT_Import">Import</sys:String>
+
+    <sys:String x:Key="CT_NewCond">New Condition</sys:String>
+    <sys:String x:Key="CT_NewAct">New Action</sys:String>
+    <sys:String x:Key="CT_New">New</sys:String>
+    <sys:String x:Key="CT_Edit">Edit</sys:String>
+    <sys:String x:Key="CT_Cut">Cut</sys:String>
+    <sys:String x:Key="CT_Copy">Copy</sys:String>
+    <sys:String x:Key="CT_Paste">Paste</sys:String>
+    <sys:String x:Key="CT_Delete">Delete</sys:String>
+    <sys:String x:Key="CT_Up">Up</sys:String>
+    <sys:String x:Key="CT_Down">Down</sys:String>
+    <sys:String x:Key="CT_Add">Add</sys:String>
+
+
+    <sys:String x:Key="CT_VarName">Name</sys:String>
+    <sys:String x:Key="CT_VarType">Type</sys:String>
+    <sys:String x:Key="CT_VarInit">Init</sys:String>
+
+
+    <sys:String x:Key="CT_DefaultVar">Var</sys:String>
+    <sys:String x:Key="CT_ConstVar">Const</sys:String>
+    <sys:String x:Key="CT_PVariable">PVar</sys:String>
+    <sys:String x:Key="CT_Array">Array</sys:String>
+    <sys:String x:Key="CT_VArray">VArray</sys:String>
+
+
+
+    <sys:String x:Key="CT_ImportName">Name</sys:String>
+    <sys:String x:Key="CT_ImportFile">File</sys:String>
+
+
+    <sys:String x:Key="CT_Preserved">Preserved Trigger</sys:String>
+    <sys:String x:Key="CT_Comment">Enter Comment</sys:String>
+
+
+
+    <sys:String x:Key="CT_Plib">Plib</sys:String>
+    <sys:String x:Key="CT_Lua">Lua</sys:String>
+    <sys:String x:Key="CT_Extern">Extern</sys:String>
+
+
+
+    <sys:String x:Key="CT_Select">Select</sys:String>
 </ResourceDictionary>

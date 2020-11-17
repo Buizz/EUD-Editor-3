@@ -14,6 +14,33 @@ Public Class TECTPage
     End Function
 
 
+    Public Sub SelectList(index As Integer)
+        If index = -1 Then
+            Return
+        End If
+        Dim trg As Trigger = Scripter.TriggerList(index)
+
+        For i = 0 To 7
+            If trg.PlayerEnabled(i) = True Then
+                SetPlayerListIndex(i)
+                Exit For
+            End If
+        Next
+
+        For i = 0 To TListBox.Items.Count - 1
+            Dim litem As ListBoxItem = TListBox.Items(i)
+            Dim tblock As TriggerBlock = litem.Content
+
+            If trg Is tblock.trg Then
+                TListBox.SelectedIndex = i
+                EditTrigger()
+                Return
+            End If
+        Next
+    End Sub
+
+
+
     Public Sub PlayerListReset()
 
         Dim PlayerFlag(7) As Boolean
@@ -198,7 +225,7 @@ Public Class TECTPage
 
         'InputDialog
     End Sub
-    Public Sub New(tTEFile As TEFile)
+    Public Sub New(tTEFile As TEFile, Optional SelectTrig As Integer = -1)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
@@ -210,6 +237,7 @@ Public Class TECTPage
         'TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
 
         Init()
+        SelectList(SelectTrig)
     End Sub
 
 

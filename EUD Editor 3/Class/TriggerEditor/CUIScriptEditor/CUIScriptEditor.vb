@@ -42,8 +42,13 @@ Public Class CUIScriptEditor
         Return StringText
     End Function
 
+    <NonSerialized>
+    Public LastBulidText As String
+
     Public Overrides Function GetFileText() As String
-        Return macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain())
+        Dim rStr As String = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain())
+        LastBulidText = rStr
+        Return rStr
     End Function
 
 

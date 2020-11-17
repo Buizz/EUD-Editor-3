@@ -8,7 +8,7 @@
         MouseLocationCB.Items.Clear()
 
         Dim loclist As List(Of String) = GetArgList("TrgLocation").ToList
-        loclist.Insert(0, "없음")
+        loclist.Insert(0, Tool.GetLanText("None"))
 
         For i = 0 To loclist.Count - 1
             Dim cbitem As New ComboBoxItem

@@ -16,7 +16,7 @@
     <DockPanel x:Name="MainDockPanel">
         <StackPanel Margin="10" DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
-                <Label Content="사용"/>
+                <Label Content="{StaticResource Use}"/>
                 <CheckBox x:Name="UseSCA" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
                     <CheckBox.IsChecked>
                         <Binding
@@ -31,15 +31,15 @@
                 </Label>
             </StackPanel>
             <ComboBox  HorizontalAlignment="Left" Width="200" SelectedIndex="{Binding SCATestMode, NotifyOnValidationError=True, UpdateSourceTrigger=PropertyChanged}" materialDesign:HintAssist.Hint="제작 모드" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
-                <ComboBoxItem Content="테스트 모드"/>
-                <ComboBoxItem Content="멀티 모드"/>
-                <ComboBoxItem Content="자유 모드"/>
+                <ComboBoxItem Content="{StaticResource TestMode}"/>
+                <ComboBoxItem Content="{StaticResource MultiPlayMode}"/>
+                <ComboBoxItem Content="{StaticResource FreePlayMode}"/>
             </ComboBox>
-            <Expander x:Name="mapSettingex" HorizontalAlignment="Stretch" Header="맵 설정">
+            <Expander x:Name="mapSettingex" HorizontalAlignment="Stretch" Header="{StaticResource MapSetting}">
                 <StackPanel>
-                    <Label Content="SCA 로그인 정보" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                    <Label Content="{StaticResource SCALoginInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="MakerBattleTag"  MinWidth="120" materialDesign:HintAssist.Hint="배틀코드" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
+                        <TextBox x:Name="MakerBattleTag"  MinWidth="120" materialDesign:HintAssist.Hint="{StaticResource BattleTag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
                             <TextBox.Text>
                                 <Binding
                                             Path="BattleTag"
@@ -53,7 +53,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="UMSPassWord"  MinWidth="130" materialDesign:HintAssist.Hint="비밀번호" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
+                        <TextBox x:Name="UMSPassWord"  MinWidth="130" materialDesign:HintAssist.Hint="{StaticResource PassWord}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
                             <TextBox.Text>
                                 <Binding
                                             Path="Password"
@@ -71,11 +71,11 @@
                     
 
                     <Separator Background="#4CA0A0A0"/>
-                    <Label  Content="고유 식별 번호" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
+                    <Label Content="{StaticResource Identificationnumber}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
 
                     <StackPanel Orientation="Horizontal" Margin="5">
 
-                        <TextBox x:Name="MakerID" MinWidth="140" Grid.Column="1" materialDesign:HintAssist.Hint="서버 아이디" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
+                        <TextBox x:Name="MakerID" MinWidth="140" Grid.Column="1" materialDesign:HintAssist.Hint="{StaticResource SeverID}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
                             <TextBox.Text>
                                 <Binding
                                             Path="UserName"
@@ -89,7 +89,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="UseMapName"  MinWidth="200" Grid.Column="0" materialDesign:HintAssist.Hint="데이터베이스 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
+                        <TextBox x:Name="UseMapName"  MinWidth="200" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource DatabaseName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
                             <TextBox.Text>
                                 <Binding
                                             Path="MapName"
@@ -103,7 +103,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="subtitle"  MinWidth="200" Grid.Column="0" materialDesign:HintAssist.Hint="하위 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
+                        <TextBox x:Name="subtitle"  MinWidth="200" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource SecondName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" >
                             <TextBox.Text>
                                 <Binding
                                             Path="SubTitle"
@@ -120,11 +120,9 @@
                     </StackPanel>
                     <Separator Background="#4CA0A0A0"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                        <Label  Content="맵 정보" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
-                        <CheckBox
-                            x:Name="infoCheckbox"
-                            Style="{StaticResource MaterialDesignCheckBox}" Checked="CheckBox_Checked" Unchecked="infoCheckbox_Unchecked">
-                            정보 갱신
+                        <Label  Content="{StaticResource MapInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
+                        <CheckBox x:Name="infoCheckbox"
+                            Style="{StaticResource MaterialDesignCheckBox}" Checked="CheckBox_Checked" Unchecked="infoCheckbox_Unchecked" Content="{StaticResource InforUpdate}">
                             <CheckBox.IsChecked>
                                 <Binding
                                             Path="updateinfo"
@@ -137,7 +135,7 @@
 
                     <StackPanel x:Name="MapDetail">
                         <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBox x:Name="Maptitle" Grid.Column="0" MinWidth="150" ToolTip="다운로드 페이지에서 보이는 이름입니다." materialDesign:HintAssist.Hint="맵 이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
+                            <TextBox x:Name="Maptitle" Grid.Column="0" MinWidth="150" ToolTip="{StaticResource MapNameHint}" materialDesign:HintAssist.Hint="{StaticResource MapName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
                                 <TextBox.Text>
                                     <Binding
                                             Path="MapTitle"
@@ -151,7 +149,7 @@
                                 </TextBox.Text>
                             </TextBox>
 
-                            <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="신고 기능 이용 시 내용을 수신 받을 수 있습니다." materialDesign:HintAssist.Hint="제작자 이메일" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                            <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="{StaticResource MakerEmailHint}" materialDesign:HintAssist.Hint="{StaticResource MakerEmail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                                 <TextBox.Text>
                                     <Binding
                                             Path="MakerEmail"
@@ -165,7 +163,7 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-                            <Label VerticalAlignment="Center">맵 비공개</Label>
+                            <Label VerticalAlignment="Center" Content="{StaticResource ViewUnEnabled}"/>
                             <CheckBox x:Name="ViewPublic" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
                                 <CheckBox.IsChecked>
                                     <Binding
@@ -175,9 +173,9 @@
                                     </Binding>
                                 </CheckBox.IsChecked>
                             </CheckBox>
-                            <Label VerticalAlignment="Center">맵 공개</Label>
+                            <Label VerticalAlignment="Center" Content="{StaticResource ViewEnabled}"/>
                         </StackPanel>
-                        <TextBox x:Name="MapTags" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 태그입니다." materialDesign:HintAssist.Hint="맵 태그" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                        <TextBox x:Name="MapTags" MinWidth="150" ToolTip="{StaticResource MapTagHint}" materialDesign:HintAssist.Hint="{StaticResource MapTag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                             <TextBox.Text>
                                 <Binding
                                             Path="MapTags"
@@ -185,7 +183,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="MapLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 링크입니다." materialDesign:HintAssist.Hint="맵 정보 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                        <TextBox x:Name="MapLink" MinWidth="150" ToolTip="{StaticResource MapInforLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapInforLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                             <TextBox.Text>
                                 <Binding
                                             Path="DownLink"
@@ -193,7 +191,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="ImageLink" MinWidth="150" ToolTip="다운로드 페이지에서 볼 수 있는 이미지 링크입니다." materialDesign:HintAssist.Hint="맵 이미지 링크" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                        <TextBox x:Name="ImageLink" MinWidth="150" ToolTip="{StaticResource MapImageLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapImageLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                             <TextBox.Text>
                                 <Binding
                                             Path="ImageLink"
@@ -202,7 +200,7 @@
                             </TextBox.Text>
                         </TextBox>
 
-                        <TextBox x:Name="Mapdes" AcceptsReturn="True" ToolTip="다운로드 페이지에서 보이는 설명입니다." materialDesign:HintAssist.Hint="맵 설명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" VerticalContentAlignment="Top" Height="100">
+                        <TextBox x:Name="Mapdes" AcceptsReturn="True" ToolTip="{StaticResource MapDescriptionHint}" materialDesign:HintAssist.Hint="{StaticResource MapDescription}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" VerticalContentAlignment="Top" Height="100">
                             <TextBox.Text>
                                 <Binding
                                             Path="MapDes"
@@ -221,9 +219,9 @@
                 </StackPanel>
             </Expander>
 
-            <Label  Content="데이터 설정" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+            <Label  Content="{StaticResource DataSetting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <DockPanel>
-                <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="버퍼 사이즈" ToolTip="유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다." Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
+                <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource BufferSize}" ToolTip="{StaticResource BufferSizeHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
                     <TextBox.Text>
                         <Binding
                                             Path="DataSize"
