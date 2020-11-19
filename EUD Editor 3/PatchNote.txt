@@ -1,9 +1,8 @@
-# Beta 0.12.1.0
--TE 클래식 대기하기 추가
--DataEditor TBL수정 함수 
-
-# Beta 0.12.0.0
+# Beta 0.12.2.0
 -TE 클래식 추가
+-TE 클래식 대기하기 추가
+-TE 클래식 잔 버그 수정
+-DataEditor TBL수정 함수 
 
 # Beta 0.11.0.0
 -TE 매크로함수->lua함수 이름 변경
