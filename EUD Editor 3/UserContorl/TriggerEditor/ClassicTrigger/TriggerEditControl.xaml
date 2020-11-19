@@ -38,17 +38,32 @@
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="3">
-                    <TabItem Header="{StaticResource CT_Player}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
-                        <WrapPanel x:Name="PlayerTab" Orientation="Vertical" >
-                            <CheckBox Content="Player 1" Tag="0" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 2" Tag="1" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 3" Tag="2" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 4" Tag="3" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 5" Tag="4" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 6" Tag="5" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 7" Tag="6" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 8" Tag="7" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                        </WrapPanel>
+                    <TabItem Header="{StaticResource CT_TriggerSetting}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Left" Margin="10">
+                                <Label Content="{StaticResource CT_Player}" DockPanel.Dock="Top"/>
+                                <WrapPanel x:Name="PlayerTab" Orientation="Vertical" >
+                                    <CheckBox Content="Player 1" Tag="0" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 2" Tag="1" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 3" Tag="2" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 4" Tag="3" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 5" Tag="4" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 6" Tag="5" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 7" Tag="6" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 8" Tag="7" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                </WrapPanel>
+                            </DockPanel>
+                            <DockPanel Margin="10">
+                                <StackPanel DockPanel.Dock="Top">
+                                    <CheckBox x:Name="IsCodeOnly" Content="{StaticResource CT_OnlyCode}" Checked="IsCodeOnly_Checked" Unchecked="IsCodeOnly_Checked"/>
+                                </StackPanel>
+                                <DockPanel DockPanel.Dock="Top">
+                                    <Label Content="{StaticResource CT_CodeText}" DockPanel.Dock="Top"/>
+                                    <local:CodeEditor x:Name="CodeText" Margin="10" TextChange="CodeText_TextChange"/>
+                                </DockPanel>
+                            </DockPanel>
+
+                        </DockPanel>
                     </TabItem>
                     <TabItem Header="{StaticResource CT_Condition}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
                         <DockPanel>

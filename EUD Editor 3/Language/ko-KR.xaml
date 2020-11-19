@@ -1077,6 +1077,7 @@
     <sys:String x:Key="BufferSizeHint">유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다.</sys:String>
 
 
+    <sys:String x:Key="CT_TriggerSetting">트리거 설정</sys:String>
     <sys:String x:Key="CT_Player">플레이어</sys:String>
     <sys:String x:Key="CT_Condition">조건</sys:String>
     <sys:String x:Key="CT_Action">액션</sys:String>
@@ -1126,4 +1127,13 @@
 
 
     <sys:String x:Key="CT_Select">선택</sys:String>
+
+
+    <sys:String x:Key="CT_OnlyCode">코드만 출력</sys:String>
+    <sys:String x:Key="CT_CodeText">트리거 코드</sys:String>
+    
+    
+    
+    <sys:String x:Key="DirectDonate">직접후원</sys:String>
+    <sys:String x:Key="ViewDonateWindow">다시 보지 않기</sys:String>
 </ResourceDictionary>

@@ -465,7 +465,11 @@ Public Class TriggerEditValueSelecterWindow
                 If Dic.ContainsKey(aType) Then
                     '포함되어 있을 경우 새로 만들지 않는다.
                     cCodeSelecter = Dic(aType)
-                    cCodeSelecter.Refresh(tCode.Args(ArgIndex).ValueNumber)
+                    Dim initValue As Integer = tCode.Args(ArgIndex).ValueNumber
+                    If tCode.Args(ArgIndex).IsInit Then
+                        initValue = -1
+                    End If
+                    cCodeSelecter.Refresh(initValue)
 
 
                     cCodeSelecter.Visibility = Visibility.Visible
@@ -495,6 +499,11 @@ Public Class TriggerEditValueSelecterWindow
                     DatFileType = aTypeEnumList(aTypeStrList.ToList.IndexOf(aType))
 
                     Dim initValue As Integer = tCode.Args(ArgIndex).ValueNumber
+                    If tCode.Args(ArgIndex).IsInit Then
+                        initValue = -1
+                    End If
+
+
 
                     cCodeSelecter.ListReset(DatFileType, _StartIndex:=initValue, combobox:=True, _unitFlag:=True)
                     Dic.Add(aType, cCodeSelecter)

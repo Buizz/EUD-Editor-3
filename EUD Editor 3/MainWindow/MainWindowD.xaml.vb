@@ -132,7 +132,7 @@ Public Class MainWindowD
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
             SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
-            SettiingForm.Title = "후원해주세요!"
+            SettiingForm.Title = Tool.GetText("Donate")
             SettiingForm.MainTab.IsHeaderPanelVisible = "False"
             SettiingForm.MinWidth = 0
             SettiingForm.MinHeight = 0
