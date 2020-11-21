@@ -248,6 +248,7 @@
     <sys:String x:Key="LogClear">로그 지우기</sys:String>
 
 
+    <sys:String x:Key="MuteSound">음소거</sys:String>
     <sys:String x:Key="TopMost">항상 위</sys:String>
     <sys:String x:Key="TopMostOption">항상 위로 켜짐</sys:String>
     <sys:String x:Key="Transparency">투명도</sys:String>
@@ -305,6 +306,14 @@
     <sys:String x:Key="UnitSize">유닛 크기</sys:String>
     <sys:String x:Key="UnitCreateSize">건설 크기</sys:String>
     <sys:String x:Key="UnitAddonPos">애드온 위치</sys:String>
+
+
+    <sys:String x:Key="WeaponAttack">타격정보</sys:String>
+    <sys:String x:Key="WeaponRange">사거리</sys:String>
+    <sys:String x:Key="WeaponBullet">투사체</sys:String>
+    <sys:String x:Key="WeaponSplash">스플래쉬 범위</sys:String>
+    <sys:String x:Key="WeaponDisplay">무기 화면 정보</sys:String>
+
 
     <sys:String x:Key="FlingyInfor">비행정보</sys:String>
     <sys:String x:Key="SpriteInfor">스프라이트 정보</sys:String>
@@ -767,6 +776,12 @@
     <sys:String x:Key="RequireText">(Must have...)|Or|Current unit is...|Must have...|Must have add-on|Is not lifted off|Is lifted off|Is not training or morphing|Is not constructing add-on|Is not researching|Is not upgrading|Is not constructing|Does not have add-on attached|Does not have nydus canal's exit|Has hangar space|Must be researched|Does not have loaded nuke|Is not burrowed|Can attack|Can set rally point|Can move|Has weapon|Is worker|Is flying building|Is transport|Is powerup|Is Subunit|Has spidermines|Is hero and enabled|Can hold position|Allow on hallucinations|Upgrade Lv-1 Require...|Upgrade_Lv-2 Require...|Upgrade_Lv-3+ Require...|Grey|Blank|Must be Brood War|Is researched...|Is burrowed|조건 분기</sys:String>
     <sys:String x:Key="RequireSubListEnd">==End of Sublist==</sys:String>
 
+
+    <sys:String x:Key="FG_Size">용량</sys:String>
+    <sys:String x:Key="FG_BatchSetting">일괄 설정</sys:String>
+
+    <sys:String x:Key="FG_Requirement">요구사항</sys:String>
+
     <sys:String x:Key="FG_DefaultUse">기본값</sys:String>
     <sys:String x:Key="FG_DontUse">사용안함</sys:String>
     <sys:String x:Key="FG_AlwaysUse">무조건허용</sys:String>
@@ -1136,4 +1151,14 @@
     
     <sys:String x:Key="DirectDonate">직접후원</sys:String>
     <sys:String x:Key="ViewDonateWindow">다시 보지 않기</sys:String>
+
+
+    <sys:String x:Key="ArgFuncSelect">함수 선택하기</sys:String>
+    <sys:String x:Key="ArgGlobal">전역 변수</sys:String>
+    
+    
+    <sys:String x:Key="ArgDefault">기본값</sys:String>
+    <sys:String x:Key="ArgVariable">변수</sys:String>
+    <sys:String x:Key="ArgFunction">함수</sys:String>
+    <sys:String x:Key="ArgUserCode">사용자 코드</sys:String>
 </ResourceDictionary>

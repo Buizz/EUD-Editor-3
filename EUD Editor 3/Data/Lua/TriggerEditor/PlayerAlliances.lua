@@ -1,3 +1,23 @@
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]이 보는 [DestPlayer]와의 동맹 관계를 [AllyStatus]로 설정합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+@param.DestPlayer.TrgPlayer
+@param.AllyStatus.TrgAllyStatus
+
+
+@Language.us-EN
+@Summary
+[Player]이 보는 [DestPlayer]와의 동맹 관계를 [AllyStatus]로 설정합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+@param.DestPlayer.TrgPlayer
+@param.AllyStatus.TrgAllyStatus
+]================================]
 function SetPlayerAlliances(Player, DestPlayer, AllyStatus) --동맹/TrgPlayer,TrgPlayer,TrgAllyStatus/[Player]이 보는 [DestPlayer]와의 동맹 관계를 [AllyStatus]로 설정합니다.
 	Player = ParsePlayer(Player)
 	DestPlayer = ParsePlayer(DestPlayer)
@@ -33,6 +53,27 @@ function SetPlayerAlliances(Player, DestPlayer, AllyStatus) --동맹/TrgPlayer,T
 
 	echo(rstr)
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]이 보는 [DestPlayer]와의 동맹 관계가 [AllyStatus]인지 확인합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+@param.DestPlayer.TrgPlayer
+@param.AllyStatus.TrgAllyStatus
+
+
+@Language.us-EN
+@Summary
+[Player]이 보는 [DestPlayer]와의 동맹 관계가 [AllyStatus]인지 확인합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+@param.DestPlayer.TrgPlayer
+@param.AllyStatus.TrgAllyStatus
+]================================]
 function CurrentPlayerAlliances(Player, DestPlayer, AllyStatus) --동맹/TrgPlayer,TrgPlayer,TrgAllyStatus/[Player]이 보는 [DestPlayer]와의 동맹 관계가 [AllyStatus]인지 확인합니다.
 	Player = ParsePlayer(Player)
 	DestPlayer = ParsePlayer(DestPlayer)
@@ -67,6 +108,25 @@ function CurrentPlayerAlliances(Player, DestPlayer, AllyStatus) --동맹/TrgPlay
 
 	echo(rstr)
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]이 보는 [DestPlayer]와의 동맹 관계를 반환합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+@param.DestPlayer.TrgPlayer
+
+
+@Language.us-EN
+@Summary
+[Player]이 보는 [DestPlayer]와의 동맹 관계를 반환합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+@param.DestPlayer.TrgPlayer
+]================================]
 function GetPlayerAlliances(Player, DestPlayer) --동맹/TrgPlayer,TrgPlayer/[Player]이 보는 [DestPlayer]와의 동맹 관계를 반환합니다.
 	Player = ParsePlayer(Player)
 	DestPlayer = ParsePlayer(DestPlayer)
@@ -85,6 +145,23 @@ function GetPlayerAlliances(Player, DestPlayer) --동맹/TrgPlayer,TrgPlayer/[Pl
 
 	echo(rstr)
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]의 동맹 오프셋을 반환합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+
+
+@Language.us-EN
+@Summary
+[Player]의 동맹 오프셋을 반환합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+]================================]
 function PlayerAlliancesEPD(Player) --동맹/TrgPlayer/[Player]의 동맹 오프셋을 반환합니다.
 	Player = ParsePlayer(Player)
 
@@ -94,6 +171,23 @@ function PlayerAlliancesEPD(Player) --동맹/TrgPlayer/[Player]의 동맹 오프
 		return string.format("EPD(0x%X) + %s * 3", 0x58D634 ,Player) 
 	end
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]의 동맹 오프셋을 반환합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+
+
+@Language.us-EN
+@Summary
+[Player]의 동맹 오프셋을 반환합니다.
+@Group
+동맹
+@param.Player.TrgPlayer
+]================================]
 function PlayerAlliances(Player) --동맹/TrgPlayer/[Player]의 동맹 오프셋을 반환합니다.
 	Player = ParsePlayer(Player)
 

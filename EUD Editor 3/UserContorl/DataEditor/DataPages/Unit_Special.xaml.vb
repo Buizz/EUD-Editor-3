@@ -16,13 +16,13 @@
 
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
 
-        SAF.Init(DatFiles, ObjectID, SAF.Tag, 135)
 
         IFE.Init(DatFiles, ObjectID, IFE.Tag)
         S1.Init(DatFiles, ObjectID, S1.Tag)
         S2.Init(DatFiles, ObjectID, S2.Tag)
 
-        UDM.Init(DatFiles, ObjectID, UDM.Tag, 75)
+        SAF.Init(DatFiles, ObjectID, SAF.Tag, 135, 8)
+        UDM.Init(DatFiles, ObjectID, UDM.Tag, 75, 4)
         'test.Text = pjData.Dat.Data(SCDatFiles.DatFiles.units, test.Tag, ObjectID)
     End Sub
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)

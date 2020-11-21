@@ -44,7 +44,7 @@ Public Class ArgValue
         ElseIf ValueType = "Function" Then
             If CodeBlock Is Nothing Then
                 '함수지정 안됨
-                v = "함수를지정하지않았습니다."
+                v = "FuncNoSelect"
             Else
                 '함수
                 v = CodeBlock.GetCodeText(0, _scripter, isLuaCover)
@@ -67,7 +67,12 @@ Public Class ArgValue
                 If ValueType = "TrgString" Or ValueType = "FormatString" Then
                     v = """" & v & """"
                 ElseIf isLuaCover Then
-                    v = """" & v & """"
+                    Dim tlist() As String = {"TrgAllyStatus", "TrgComparison", "TrgModifier", "TrgOrder",
+        "TrgPlayer", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState"}
+
+                    If tlist.ToList.IndexOf(ValueType) = -1 Then
+                        v = """" & v & """"
+                    End If
                 End If
             End If
         End If

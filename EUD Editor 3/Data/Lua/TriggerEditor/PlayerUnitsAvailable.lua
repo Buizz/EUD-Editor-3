@@ -1,3 +1,23 @@
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]의 [Unit] 유닛 사용 가능 값을 [State]합니다.
+@Group
+플레이어
+@param.Player.TrgPlayer
+@param.Unit.TrgUnit
+@param.State.TrgSwitchState
+
+
+@Language.us-EN
+@Summary
+[Player]의 [Unit] 유닛 사용 가능 값을 [State]합니다.
+@Group
+플레이어
+@param.Player.TrgPlayer
+@param.Unit.TrgUnit
+@param.State.TrgSwitchState
+]================================]
 function SetPlayerUnitsAvailable(Player, Unit, State) --일반/TrgPlayer,TrgUnit,TrgSwitchState/[Player]의 [Unit] 유닛 사용 가능 값을 [State]합니다.
 	Player = ParsePlayer(Player)
     Unit = ParseUnit(Unit)
@@ -43,6 +63,25 @@ function SetPlayerUnitsAvailable(Player, Unit, State) --일반/TrgPlayer,TrgUnit
 		echo(string.format("bwrite(%s, %s)", Offset, Amount))
     end
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]의 [Unit] 유닛 사용 가능 값을 읽어옵니다.
+@Group
+플레이어
+@param.Player.TrgPlayer
+@param.Unit.TrgUnit
+
+
+@Language.us-EN
+@Summary
+[Player]의 [Unit] 유닛 사용 가능 값을 읽어옵니다.
+@Group
+플레이어
+@param.Player.TrgPlayer
+@param.Unit.TrgUnit
+]================================]
 function GetPlayerUnitsAvailable(Player, Unit) --일반/TrgPlayer,TrgUnit/[Player]의 [Unit] 유닛 사용 가능 값을 읽어옵니다.
 	Player = ParsePlayer(Player)
     Unit = ParseUnit(Unit)
@@ -51,6 +90,21 @@ function GetPlayerUnitsAvailable(Player, Unit) --일반/TrgPlayer,TrgUnit/[Playe
 
 	echo(string.format("bread(%s)", Offset))
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+플레이어 유닛 사용 가능 오프셋을 가져옵니다.
+@Group
+플레이어
+
+
+@Language.us-EN
+@Summary
+플레이어 유닛 사용 가능 오프셋을 가져옵니다.
+@Group
+플레이어
+]================================]
 function PlayerUnitsAvailableOffset() --일반//플레이어 유닛 사용 가능 오프셋을 가져옵니다.
 	return "0x57F27C"
 end

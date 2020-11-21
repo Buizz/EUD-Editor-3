@@ -19,75 +19,75 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="178" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitGraphicinfor}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:IconSelecter x:Name="GRP" Tag="Graphics" HorizontalAlignment="Left" VerticalAlignment="Top" Width="552" ValueChange="TValueChange" />
-                            <local:IconSelecter x:Name="CA" Tag="Construction Animation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="552" ValueChange="TValueChange" />
-                            <local:IconSelecter x:Name="POR" Tag="Portrait" HorizontalAlignment="Left" VerticalAlignment="Top" Width="552" />
+                            <StackPanel Margin="10">
+                                <local:IconSelecter x:Name="GRP" Tag="Graphics" HorizontalAlignment="Left" VerticalAlignment="Top" Width="552" ValueChange="TValueChange" />
+                                <local:IconSelecter x:Name="CA" Tag="Construction Animation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="552" ValueChange="TValueChange" />
+                                <local:IconSelecter x:Name="POR" Tag="Portrait" HorizontalAlignment="Left" VerticalAlignment="Top" Width="552" />
 
-                            <local:ComboxSelecter x:Name="EL" Tag="Elevation Level" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" />
+                                <StackPanel Orientation="Horizontal">
+                                    <local:ComboxSelecter x:Name="EL" Tag="Elevation Level" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" />
+                                    <local:ComboxSelecter x:Name="UD" Tag="Unit Direction" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" ValueChange="TValueChange"/>
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <StackPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              FontSize="14" Text="{StaticResource UnitSize}" Padding="6,6,6,0"/>
+                            <StackPanel Margin="10,0">
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="USL" Tag="Unit Size Left" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
+                                    <local:InputField x:Name="USR" Tag="Unit Size Right" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="USU" Tag="Unit Size Up" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange" />
+                                    <local:InputField x:Name="USD" Tag="Unit Size Down" HorizontalAlignment="Left" VerticalAlignment="Top"   ValueChange="TValueChange"/>
+                                </StackPanel>
+                            </StackPanel>
+            
 
-                            <local:ComboxSelecter x:Name="UD" Tag="Unit Direction" HorizontalAlignment="Left" VerticalAlignment="Top" Width="150" ValueChange="TValueChange"/>
 
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="208" Width="190" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              FontSize="14" Text="{StaticResource UnitCreateSize}" Padding="6,6,6,0"/>
+                            <StackPanel Orientation="Horizontal" Margin="10,0">
+                                <local:InputField x:Name="SPBW" Tag="StarEdit Placement Box Width" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
+                                <local:InputField x:Name="SPBH" Tag="StarEdit Placement Box Height" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
+                            </StackPanel>
 
-                    <WrapPanel Grid.Row="1" >
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14" Text="{StaticResource UnitSize}"  Width="148" Padding="6,6,6,0"/>
-                        <WrapPanel Margin="10,0">
-                            <local:InputField x:Name="USL" Tag="Unit Size Left" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
-                            <local:InputField x:Name="USR" Tag="Unit Size Right" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
-                            <local:InputField x:Name="USU" Tag="Unit Size Up" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange" />
-                            <local:InputField x:Name="USD" Tag="Unit Size Down" HorizontalAlignment="Left" VerticalAlignment="Top"   ValueChange="TValueChange"/>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                              FontSize="14" Text="{StaticResource UnitAddonPos}" Padding="6,6,6,0"/>
+                            <StackPanel Orientation="Horizontal" Margin="10,0">
+                                <local:InputField x:Name="AHXP" Tag="Addon Horizontal (X) Position" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange" />
+                                <local:InputField x:Name="AVYP" Tag="Addon Vertical (Y) Position" HorizontalAlignment="Left" VerticalAlignment="Top"   ValueChange="TValueChange"/>
 
-                        </WrapPanel>
-                  
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14" Text="{StaticResource UnitCreateSize}" Width="148" Padding="6,0"/>
-                        <WrapPanel Margin="10,0">
-                            <local:InputField x:Name="SPBW" Tag="StarEdit Placement Box Width" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
-                            <local:InputField x:Name="SPBH" Tag="StarEdit Placement Box Height" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
+                            </StackPanel>
 
-                        </WrapPanel>
-                 
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14" Text="{StaticResource UnitAddonPos}"  Width="148" Padding="6,0"/>
-                        <WrapPanel Margin="10,0">
-                            <local:InputField x:Name="AHXP" Tag="Addon Horizontal (X) Position" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange" />
-                            <local:InputField x:Name="AVYP" Tag="Addon Vertical (Y) Position" HorizontalAlignment="Left" VerticalAlignment="Top"   ValueChange="TValueChange"/>
 
-                        </WrapPanel>
-                    
-
-                    </WrapPanel>
-                </materialDesign:Card>
-                <materialDesign:Card Height="209" Width="209" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <local:GRPImageBox x:Name="GRPImages" Width="208" Height="208"/>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="145" Width="145" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <local:GRPImageBox x:Name="GRPImage2" Width="145" Height="145"/>
-                    </Grid>
-                </materialDesign:Card>
-
-            </WrapPanel>
+                        </StackPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <Grid>
+                            <local:GRPImageBox x:Name="GRPImages" Width="208" Height="208"/>
+                        </Grid>
+                    </materialDesign:Card>
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <Grid>
+                            <local:GRPImageBox x:Name="GRPImage2" Width="145" Height="145"/>
+                        </Grid>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
-
-
     </Grid>
 </UserControl>

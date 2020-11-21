@@ -5,7 +5,7 @@
 
     Private DatCommand As DatCommand
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, ItemWidth As Integer)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, ItemWidth As Integer, Optional itemCount As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
@@ -30,7 +30,7 @@
 
             Dim tcheckBox As New CheckBox
             tcheckBox.Content = itmes(i)
-            tcheckBox.Width = RelaWidth
+            tcheckBox.MinWidth = RelaWidth
             tcheckBox.Foreground = Application.Current.Resources("MaterialDesignBody")
 
             tBorder.DataContext = DB.GetFlagBinding(i)
@@ -47,6 +47,11 @@
 
             CheckboxList.Children.Add(tBorder)
         Next
+        If itemCount <> 0 Then
+            CheckboxList.Height = itemCount * 18
+        End If
+
+
         DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
 
 

@@ -436,9 +436,6 @@ local AIScriptDict = {
     ["Brood Wars Zerg 10 - Town F"] = 1177567834,
 }
 
-
-
-
 local function EncodeConst(d, s)
     local val = d[s]
     if val == nil then
@@ -448,62 +445,194 @@ local function EncodeConst(d, s)
     end
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeAllyStatus(s)
     return EncodeConst(AllyStatusDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeComparison(s)
     return EncodeConst(ComparisonDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeModifier(s)
     return EncodeConst(ModifierDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeOrder(s)
     return EncodeConst(OrderDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodePlayer(s)
     return EncodeConst(PlayerDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodePropState(s)
     return EncodeConst(PropStateDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeResource(s)
     return EncodeConst(ResourceDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeScore(s)
     return EncodeConst(ScoreDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeSwitchAction(s)
     return EncodeConst(SwitchActionDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeSwitchState(s)
     return EncodeConst(SwitchStateDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeAIScript(s)
     return EncodeConst(AIScriptDict, s)
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+@Group
+내부함수
 
+
+@Language.us-EN
+@Summary
+@Group
+내부함수
+]================================]
 function EncodeCount(s)
     if s == All then
         return 0

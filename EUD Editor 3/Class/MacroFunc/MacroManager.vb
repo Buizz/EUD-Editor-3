@@ -69,7 +69,7 @@ Public Class MacroManager
         lua.RegisterFunction("ParseEUDScore", Me, Me.GetType().GetMethod("ParseEUDScore"))
         lua.RegisterFunction("ParseSupplyType", Me, Me.GetType().GetMethod("ParseSupplyType"))
         lua.RegisterFunction("GetEUDScoreOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
-        lua.RegisterFunction("GetSupplyOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
+        lua.RegisterFunction("GetSupplyOffset", Me, Me.GetType().GetMethod("GetSupplyOffset"))
 
 
         lua.RegisterFunction("AddMSQCPlugin", Me, Me.GetType().GetMethod("AddMSQCPlugin"))
@@ -102,21 +102,47 @@ Public Class MacroManager
                 Dim sr As New StreamReader(fs)
 
                 Dim fileText As String = sr.ReadToEnd
-                Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9,. ]*)\)\s+--(.*)\/(.*)\/(.*)")
+                'Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9,. ]*)\)\s+--(.*)\/(.*)\/(.*)")
 
-                Dim matchs As MatchCollection = regex.Matches(fileText)
+                'Dim matchs As MatchCollection = regex.Matches(fileText)
 
-                'MsgBox(files & vbCrLf & matchs.Count)
-                For i = 0 To matchs.Count - 1
-                    Dim fname As String = matchs(i).Groups(1).Value
-                    Dim args As String = matchs(i).Groups(2).Value
-                    Dim GrpupText As String = matchs(i).Groups(3).Value
-                    Dim argType As String = matchs(i).Groups(4).Value
-                    Dim comment As String = matchs(i).Groups(5).Value
+                ''MsgBox(files & vbCrLf & matchs.Count)
+                'For i = 0 To matchs.Count - 1
+                '    Dim fname As String = matchs(i).Groups(1).Value
+                '    Dim args As String = matchs(i).Groups(2).Value
+                '    Dim GrpupText As String = matchs(i).Groups(3).Value
+                '    Dim argType As String = matchs(i).Groups(4).Value
+                '    Dim comment As String = matchs(i).Groups(5).Value
 
-                    'MsgBox(comment)
+                '    'MsgBox(comment)
 
-                    FunctionList.Add(New LuaFunction(fname, comment, GrpupText, args, argType))
+                '    FunctionList.Add(New LuaFunction(fname, comment, GrpupText, args, argType))
+                'Next
+
+
+                Dim tooltipregex As New Regex("--\[================================\[\s([^=]*)\s\]================================\]\s+function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9,. ]*)\)")
+                Dim normalregex As New Regex("^function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9,. ]*)\)")
+
+
+                Dim matches As MatchCollection
+                matches = tooltipregex.Matches(fileText)
+                For i = matches.Count - 1 To 0 Step -1
+                    Dim tooltips As String = matches(i).Groups(1).Value
+                    Dim funcname As String = matches(i).Groups(2).Value
+                    Dim args As String = matches(i).Groups(3).Value
+
+                    FunctionList.Add(New LuaFunction(funcname, args, tooltips))
+
+                    fileText = Mid(fileText, 1, matches(i).Index) & Mid(fileText, matches(i).Index + matches(i).Length)
+                Next
+
+                matches = normalregex.Matches(fileText)
+                For i = matches.Count - 1 To 0 Step -1
+                    Dim tooltips As String = ""
+                    Dim funcname As String = matches(i).Groups(1).Value
+                    Dim args As String = matches(i).Groups(2).Value
+
+                    FunctionList.Add(New LuaFunction(funcname, args, tooltips))
                 Next
 
 
@@ -236,19 +262,180 @@ Public Class MacroManager
 
 
     Public Class LuaFunction
-        Public LuaGroup As String
-        Public Fname As String
-        Public Fcomment As String
+        Public LuaGroup As String = ""
+        Public Fname As String = ""
+        Public Fcomment As String = ""
         Public ArgName As List(Of String)
         Public ArgType As List(Of String)
+        Public ArgSummary As List(Of String)
 
         Public ArgLists As List(Of ArgBlock)
 
         Public IsCompleteFunction As Boolean = False
+
+
+
+        Public Sub New(_fname As String, _fargs As String, _tooltip As String)
+            ArgName = New List(Of String)
+            ArgType = New List(Of String)
+            ArgLists = New List(Of ArgBlock)
+            ArgSummary = New List(Of String)
+
+
+
+            Fname = _fname.Trim
+
+            If _fargs.Trim <> "" Then
+                Dim _t() As String = _fargs.Split(",")
+                For i = 0 To _t.Count - 1
+                    Dim targ As String = _t(i).Trim
+
+                    ArgName.Add(targ)
+                    ArgSummary.Add(targ)
+                    ArgType.Add(targ)
+                Next
+            End If
+
+
+            Dim cLan As String = pgData.Setting(ProgramData.TSetting.Language)
+
+
+            Dim tooltips() As String = _tooltip.Split(vbCrLf)
+
+            Dim CollectLan As Boolean = False
+
+            Dim commandType As Integer = 0
+            Dim tparam As String = ""
+            Dim targtype As String = ""
+
+
+            Dim LastMsg As String = ""
+            For i = 0 To tooltips.Count - 1
+                Dim line As String = tooltips(i).Trim
+
+                If line.Count = 0 Then
+                    Continue For
+                End If
+
+                If line(0) = "@" Then
+                    '커맨드
+
+                    Dim commands() As String = line.Split(".")
+
+                    Select Case commands.First
+                        Case "@Language"
+                            LastMsg = ""
+                            commandType = 0
+                            Dim tLan As String = commands(1)
+                            If tLan = cLan Then
+                                CollectLan = True
+                            End If
+                        Case "@Summary"
+                            LastMsg = ""
+                            If CollectLan Then
+                                commandType = 1
+                            End If
+                        Case "@Group"
+                            LastMsg = ""
+                            If CollectLan Then
+                                commandType = 2
+                            End If
+
+                        Case "@param"
+                            LastMsg = ""
+                            If CollectLan Then
+                                commandType = 3
+                                tparam = commands(1)
+                                targtype = commands(2)
+                                Dim argindex As Integer = ArgName.IndexOf(tparam)
+                                ArgType(argindex) = targtype
+                                ArgSummary(argindex) = ""
+                            End If
+                    End Select
+
+
+                    Continue For
+                End If
+                LastMsg = LastMsg & line & vbCrLf
+                Select Case commandType
+                    Case 1
+                        Fcomment = LastMsg.Trim
+                    Case 2
+                        LuaGroup = LastMsg.Trim
+                    Case 3
+                        Dim argindex As Integer = ArgName.IndexOf(tparam)
+                        ArgType(argindex) = targtype
+                        ArgSummary(argindex) = LastMsg.Trim
+                End Select
+            Next
+
+            '@Language.ko-KR
+            '@Summary
+            '채팅 [Chat]를 인식합니다.
+            '@Group
+            '채팅인식
+            '@param.Player.TrgPlayer
+            '대상 플레이어입니다.
+            '@param.Chat.TrgString
+            '인식할 채팅입니다.
+
+
+
+
+            'Fcomment = _fcomment.Trim
+            'LuaGroup = _group.Trim
+
+
+
+
+            Dim tstr As String = Fcomment
+            Dim vcount As Integer = 0
+            If tstr IsNot Nothing Then
+                For i = 0 To ArgName.Count - 1
+                    If tstr.IndexOf("[" & ArgName(i).Trim & "]") <> -1 Then
+                        tstr = tstr.Replace("[" & ArgName(i).Trim & "]", "*$" & i & "*")
+
+
+                        vcount += 1
+                    End If
+                Next
+            End If
+
+
+            If vcount = ArgName.Count Then
+                IsCompleteFunction = True
+            Else
+                Return
+            End If
+
+            If tstr IsNot Nothing Then
+                Dim tstrlist() As String = tstr.Split("*")
+                For i = 0 To tstrlist.Count - 1
+                    If tstrlist(i).Trim <> "" Then
+                        If tstrlist(i)(0) = "$" Then
+                            '숫자
+                            Dim n As String = Mid(tstrlist(i), 2, tstrlist(i).Length - 1)
+
+                            If IsNumeric(n) Then
+                                ArgLists.Add(New ArgBlock(ArgBlock.BlockType.Arg, n, ""))
+                            Else
+                                ArgLists.Add(New ArgBlock(ArgBlock.BlockType.Label, -1, tstrlist(i)))
+                            End If
+                        Else
+                            '문자
+                            ArgLists.Add(New ArgBlock(ArgBlock.BlockType.Label, -1, tstrlist(i)))
+                        End If
+                    End If
+                Next
+            End If
+        End Sub
+
+
         Public Sub New(_fname As String, _fcomment As String, _group As String, _fargs As String, _fargtype As String)
             ArgName = New List(Of String)
             ArgType = New List(Of String)
             ArgLists = New List(Of ArgBlock)
+            ArgSummary = New List(Of String)
 
             Fname = _fname.Trim
             Fcomment = _fcomment.Trim
@@ -262,6 +449,7 @@ Public Class MacroManager
 
             If _fargtype.Trim <> "" Then
                 ArgType.AddRange(_fargtype.Split(","))
+                ArgSummary.AddRange(_fargtype.Split(","))
             End If
 
 

@@ -116,9 +116,8 @@ Partial Public Class ProjectData
                 Dim tPage As TEGUIPage = TabContent
 
                 tPage.RefreshData()
-            ElseIf TypeOf TabContent Is ClassicTriggerEditor Then
-                Dim tPage As ClassicTriggerEditor = TabContent
-
+            ElseIf TypeOf TabContent Is TECTPage Then
+                Dim tPage As TECTPage = TabContent
                 tPage.RefreshData()
             End If
         Next

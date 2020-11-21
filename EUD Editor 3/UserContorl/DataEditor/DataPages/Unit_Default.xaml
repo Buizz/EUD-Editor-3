@@ -21,129 +21,115 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="148" Width="358" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitBionic}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="HP2" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:BoolSelecter x:Name="SE" Tag="Shield Enable" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top" Width="330"/>
-                            <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="148" Width="212" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="HP" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:InputField x:Name="HP2" Tag="Hit Points" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:InputField x:Name="SA" Tag="Shield Amount" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:BoolSelecter x:Name="SE" Tag="Shield Enable" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:IconSelecter x:Name="AU" Tag="Armor Upgrade" HorizontalAlignment="Left" VerticalAlignment="Top" Width="330"/>
+                                </StackPanel>
+                                <local:InputField x:Name="AM" Tag="Armor" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitCreate}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
-
-                            <local:InputField x:Name="MC" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="VC" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="BT" Tag="Build Time" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:BoolSelecter x:Name="BUF" Tag="Broodwar Unit Flag" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                            <local:InputField x:Name="BS" Tag="Build Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="DS" Tag="Destroy Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-
-                <materialDesign:Card Height="112" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="MC" Tag="Mineral Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:BoolSelecter x:Name="BUF" Tag="Broodwar Unit Flag" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="VC" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:InputField x:Name="BS" Tag="Build Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="BT" Tag="Build Time" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:InputField x:Name="DS" Tag="Destroy Score" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Grid.Column="0" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitWeapon}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10"  >
-                            <local:IconSelecter x:Name="GW" Width="480" Tag="Ground Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="MGH" Tag="Max Ground Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:IconSelecter x:Name="AW" Width="480" Tag="Air Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="MAH" Tag="Max Air Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="117" Width="180" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <StackPanel Orientation="Horizontal">
+                                    <local:IconSelecter x:Name="GW" Width="480" Tag="Ground Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:InputField x:Name="MGH" Tag="Max Ground Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:IconSelecter x:Name="AW" Width="480" Tag="Air Weapon" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                    <local:InputField x:Name="MAH" Tag="Max Air Hits" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Grid.Column="0" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitSupply}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
-
-                            <local:InputField x:Name="SR" Tag="Supply Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="SP" Tag="Supply Provided" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-    
-                        </WrapPanel>
-
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="117" Width="170" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <local:InputField x:Name="SR" Tag="Supply Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <local:InputField x:Name="SP" Tag="Supply Provided" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Column="1" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitEntrance}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
-
-                           <local:InputField x:Name="SPR" Tag="Space Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:InputField x:Name="SPP" Tag="Space Provided" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-
-                        </WrapPanel>
-
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="117" Width="200" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <local:InputField x:Name="SPR" Tag="Space Required" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                <local:InputField x:Name="SPP" Tag="Space Provided" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Grid.Column="2" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitOthers}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10"   >
-                            <local:InputField x:Name="SIR" Tag="Sight Range" HorizontalAlignment="Left" VerticalAlignment="Top"/>
-                            <local:InputField x:Name="TAR" Tag="Target Acquisition Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
-                            <local:ComboxSelecter x:Name="US" Tag="Unit Size" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <StackPanel Margin="10">
 
-                        </WrapPanel>
+                                <StackPanel Orientation="Horizontal">
+                                    <local:InputField x:Name="SIR" Tag="Sight Range" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                    <local:InputField x:Name="TAR" Tag="Target Acquisition Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                                </StackPanel>
+                                <local:ComboxSelecter x:Name="US" Tag="Unit Size" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
 
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

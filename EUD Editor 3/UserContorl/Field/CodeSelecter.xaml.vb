@@ -431,6 +431,7 @@ Public Class CodeSelecter
                         Fliter.SetFliter(ESortType.n123)
                     End If
 
+                    L_IsEditBtn.Visibility = Visibility.Collapsed
                     BtnsortTree.Visibility = Visibility.Collapsed
                 Case SCDatFiles.DatFiles.Location
                     If Fliter.SortType = ESortType.Tree Then

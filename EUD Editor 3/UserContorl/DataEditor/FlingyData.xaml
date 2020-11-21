@@ -22,35 +22,26 @@
             </Grid.RowDefinitions>
             <local:NameBar x:Name="NameBar"/>
             <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="290" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                        <Grid>
-                            <Grid.RowDefinitions>
-                                <RowDefinition Height="25" />
-                                <RowDefinition Height="*" />
-                            </Grid.RowDefinitions>
+                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
                             <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
-                                  DockPanel.Dock="Left" FontSize="14"
+                                  DockPanel.Dock="Top" FontSize="14"
                                   Text="{StaticResource FlingyInfor}" Padding="6"/>
-                            <WrapPanel Grid.Row="1" Margin="10,2">
-
-                                
-                                <DockPanel>
-                                    <WrapPanel>
-                                        <local:IconSelecter x:Name="SP" Tag="Sprite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" ValueChange="SP_ValueChange" />
-                                        <local:InputField x:Name="SPEED" Tag="Speed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                        <local:InputField x:Name="AC" Tag="Acceleration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                        <local:InputField x:Name="HD" Tag="Halt Distance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                        <local:InputField x:Name="TR" Tag="Turn Radius" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                        <local:ComboxSelecter x:Name="MC" Tag="Movement Control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                        <local:InputField x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
-                                    </WrapPanel>
-                                    <local:GRPImageBox x:Name="GRPImageBox" Width="256" Height="256"/>
-                                </DockPanel>
-                                
-                            </WrapPanel>
-                        </Grid>
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <StackPanel>
+                                    <local:IconSelecter x:Name="SP" Tag="Sprite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" ValueChange="SP_ValueChange" />
+                                    <local:InputField x:Name="SPEED" Tag="Speed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="AC" Tag="Acceleration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="HD" Tag="Halt Distance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="TR" Tag="Turn Radius" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:ComboxSelecter x:Name="MC" Tag="Movement Control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                </StackPanel>
+                                <local:GRPImageBox x:Name="GRPImageBox" Width="256" Height="256"/>
+                            </StackPanel>
+                        </DockPanel>
                     </materialDesign:Card>
                 </WrapPanel>
             </ScrollViewer>

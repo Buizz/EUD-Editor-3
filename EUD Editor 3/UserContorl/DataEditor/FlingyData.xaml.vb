@@ -16,13 +16,15 @@
 
         NameBar.Init(ObjectID, DatFiles, 0)
 
-        SP.Init(DatFiles, ObjectID, SP.Tag, 100)
-        SPEED.Init(DatFiles, ObjectID, SPEED.Tag, InputField.SFlag.None, 100)
-        AC.Init(DatFiles, ObjectID, AC.Tag, InputField.SFlag.None, 100)
-        HD.Init(DatFiles, ObjectID, HD.Tag, InputField.SFlag.None, 100)
-        TR.Init(DatFiles, ObjectID, TR.Tag, InputField.SFlag.None, 100)
-        MC.Init(DatFiles, ObjectID, MC.Tag, 100)
-        UN.Init(DatFiles, ObjectID, UN.Tag, InputField.SFlag.None, 100)
+        SP.Init(DatFiles, ObjectID, SP.Tag)
+        SPEED.Init(DatFiles, ObjectID, SPEED.Tag, InputField.SFlag.None)
+        AC.Init(DatFiles, ObjectID, AC.Tag, InputField.SFlag.None)
+        HD.Init(DatFiles, ObjectID, HD.Tag, InputField.SFlag.None)
+        TR.Init(DatFiles, ObjectID, TR.Tag, InputField.SFlag.None)
+        MC.Init(DatFiles, ObjectID, MC.Tag)
+        UN.Init(DatFiles, ObjectID, UN.Tag, InputField.SFlag.None)
+
+
 
         Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", ObjectID)
         Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)

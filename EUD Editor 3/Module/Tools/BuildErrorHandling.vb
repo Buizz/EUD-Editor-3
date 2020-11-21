@@ -107,6 +107,9 @@ Module BuildErrorHandling
 
                             While OrgLines(i).Trim <> BuildLines(bline).Trim
                                 bline += 1
+                                If BuildLines.Count <= bline Then
+                                    Exit While
+                                End If
                             End While
                             e = bline + 1
                             If s <= _Line And _Line <= e Then

@@ -12,7 +12,7 @@
         DataContext = pjData
         ObjectID = tObjectID
 
-        UsedCodeList.Init(DatFiles, ObjectID)
+        UsedCodeList.Init(DatFiles, ObjectID + 1)
 
         NameBar.Init(ObjectID, DatFiles, 0)
 
@@ -79,7 +79,7 @@
     Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
         ObjectID = tObjectID
 
-        UsedCodeList.ReLoad(DatFiles, ObjectID)
+        UsedCodeList.ReLoad(DatFiles, ObjectID + 1)
 
         NameBar.ReLoad(ObjectID, DatFiles, 0)
 

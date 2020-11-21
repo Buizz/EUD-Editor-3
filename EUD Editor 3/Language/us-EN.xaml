@@ -248,6 +248,7 @@
     <sys:String x:Key="LogClear">Clear log</sys:String>
 
 
+    <sys:String x:Key="MuteSound">MuteSound</sys:String>
     <sys:String x:Key="TopMost">Always on top</sys:String>
     <sys:String x:Key="TopMostOption">Opened always on top</sys:String>
     <sys:String x:Key="Transparency">transparency</sys:String>
@@ -269,10 +270,10 @@
     <sys:String x:Key="FliterEdit">View modified things</sys:String>
 
     <sys:String x:Key="DefaultInfor">Default</sys:String>
-    <sys:String x:Key="UpgradeRequir">Research requirements</sys:String>
-    <sys:String x:Key="TechUseRequir">Requirements for use</sys:String>
-    <sys:String x:Key="TechReserachRequir">Research requirements</sys:String>
-    <sys:String x:Key="OrderRequir">Order Requirements</sys:String>
+    <sys:String x:Key="UpgradeRequir">Required</sys:String>
+    <sys:String x:Key="TechUseRequir">Use Required</sys:String>
+    <sys:String x:Key="TechReserachRequir">Required</sys:String>
+    <sys:String x:Key="OrderRequir">Required</sys:String>
 
     <sys:String x:Key="UnitDefault">Default</sys:String>
     <sys:String x:Key="UnitSpecial">Advanced</sys:String>
@@ -281,8 +282,8 @@
     <sys:String x:Key="UnitMapEdit">Edit</sys:String>
     <sys:String x:Key="UnitAIOrder">AI Order</sys:String>
 
-    <sys:String x:Key="UnitInfor">Screen Information</sys:String>
-    <sys:String x:Key="UnitRequir">Creating requirements</sys:String>
+    <sys:String x:Key="UnitInfor">Display</sys:String>
+    <sys:String x:Key="UnitRequir">Required</sys:String>
     <sys:String x:Key="UnitWireFrame">Wireframe</sys:String>
 
     <sys:String x:Key="UnitBionic">Unit bionic information</sys:String>
@@ -305,6 +306,14 @@
     <sys:String x:Key="UnitSize">Unit size</sys:String>
     <sys:String x:Key="UnitCreateSize">Create Size</sys:String>
     <sys:String x:Key="UnitAddonPos">Addon location</sys:String>
+
+    
+    <sys:String x:Key="WeaponAttack">Target</sys:String>
+    <sys:String x:Key="WeaponRange">Range</sys:String>
+    <sys:String x:Key="WeaponBullet">Bullet</sys:String>
+    <sys:String x:Key="WeaponSplash">Splash</sys:String>
+    <sys:String x:Key="WeaponDisplay">Display</sys:String>
+
 
     <sys:String x:Key="FlingyInfor">Flight information</sys:String>
     <sys:String x:Key="SpriteInfor">Sprite Information</sys:String>
@@ -401,7 +410,7 @@
     <sys:String x:Key="units_AI Internal_V">"Ignore Strategic Sucide missions" AI.|Will not become "Guard" status</sys:String>
 
     <sys:String x:Key="units_Special Ability Flags">Special Ability Flags</sys:String>
-    <sys:String x:Key="units_Special Ability Flags_V">Building|Addon|Air Unit|Accumulate resources|Subunit1|Fly able buildings|Hero|HP Auto heal|Normal Image|Clocking|1 Egg 2 Unit|Single Individual|Resource Storage(Return)|Resource Collect Building|Robotic|detector|Bionic|Required creeps|Unused|Required pylons|Burrow Able Unit|Skill units|Infinity Clock|Able to have items|Ignore a check for population|Middle Overlay|Large Ovelay|Target Direction Auto attack|Reation to fight|Complately Invincibility|Mechanic unit|Create units</sys:String>
+    <sys:String x:Key="units_Special Ability Flags_V">Building|Addon|Air Unit|Accumulate resources|Subunit1|Fly able buildings|Hero|HP Auto heal|Normal Image|Clocking|1 Egg 2 Unit|Single Individual|Resource Storage(Return)|Resource Collect Building|Robotic|detector|Bionic|Required creeps|Unused|Required pylons|Burrow Able Unit|Skill units|Permanent Clocking|Able to have items|Ignore a check for population|Middle Overlay|Large Ovelay|Target Direction Auto attack|Reation to fight|Complately Invincibility|Mechanic unit|Create units</sys:String>
 
     <sys:String x:Key="units_Target Acquisition Range">Acquisition Range</sys:String>
     <sys:String x:Key="units_Sight Range">Sight Range</sys:String>
@@ -409,7 +418,7 @@
     <sys:String x:Key="units_Unit Size">Unit size</sys:String>
     <sys:String x:Key="units_Unit Size_V">Independent size|Small|Middle|Large</sys:String>
     <sys:String x:Key="units_Armor">Armor strength</sys:String>
-    <sys:String x:Key="units_Right-click Action">Movements when mouse right clicked</sys:String>
+    <sys:String x:Key="units_Right-click Action">RClick order</sys:String>
     <sys:String x:Key="units_Right-click Action_V">Order Invalid / Auto Attack|Default Movement / Normal  Attack|Normal Movement / Invalid Attack|Invalid movement / Default Attack|Accumulate resource|Accumulate resource / Repair|None</sys:String>
 
     <sys:String x:Key="units_Ready Sound">Waitting</sys:String>
@@ -476,8 +485,8 @@
     <sys:String x:Key="weapons_Damage Bonus">+</sys:String>
     <sys:String x:Key="weapons_Weapon Cooldown">Cooldown</sys:String>
     <sys:String x:Key="weapons_Damage Factor">Factor</sys:String>
-    <sys:String x:Key="weapons_Attack Angle">Attack A</sys:String>
-    <sys:String x:Key="weapons_Launch Spin">Launch A</sys:String>
+    <sys:String x:Key="weapons_Attack Angle">Attack°</sys:String>
+    <sys:String x:Key="weapons_Launch Spin">Launch°</sys:String>
     <sys:String x:Key="weapons_Forward Offset">Forward</sys:String>
     <sys:String x:Key="weapons_Upward Offset">Upward</sys:String>
     <sys:String x:Key="weapons_Target Error Message">Error message</sys:String>
@@ -769,6 +778,11 @@
     <sys:String x:Key="RequireSubListEnd">End Upgrade Require</sys:String>
 
 
+    <sys:String x:Key="FG_Size">Memory</sys:String>
+    <sys:String x:Key="FG_BatchSetting">Batch setting</sys:String>
+
+    <sys:String x:Key="FG_Requirement">Requirements</sys:String>
+    
     <sys:String x:Key="FG_DefaultUse">Default</sys:String>
     <sys:String x:Key="FG_DontUse">Don’t Use</sys:String>
     <sys:String x:Key="FG_AlwaysUse">Always Use</sys:String>
@@ -1129,5 +1143,15 @@
 
 
     <sys:String x:Key="DirectDonate">DirectDonate</sys:String>
-    <sys:String x:Key="ViewDonateWindow">Not seeing again</sys:String>
+    <sys:String x:Key="ViewDonateWindow">Do not show again</sys:String>
+
+
+    <sys:String x:Key="ArgFuncSelect">Function Select</sys:String>
+    <sys:String x:Key="ArgGlobal">Global Variable</sys:String>
+
+
+    <sys:String x:Key="ArgDefault">Default</sys:String>
+    <sys:String x:Key="ArgVariable">Variable</sys:String>
+    <sys:String x:Key="ArgFunction">Function</sys:String>
+    <sys:String x:Key="ArgUserCode">UserCode</sys:String>
 </ResourceDictionary>

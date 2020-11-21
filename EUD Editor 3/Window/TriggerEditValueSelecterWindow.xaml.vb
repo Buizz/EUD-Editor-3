@@ -65,7 +65,7 @@ Public Class TriggerEditValueSelecterWindow
         MaxHeight = 0
         MinHeight = 0
 
-        Dim tHeader() As String = {"기본값", "변수", "함수", "사용자코드"}
+        Dim tHeader() As String = {Tool.GetText("ArgDefault"), Tool.GetText("ArgVariable"), Tool.GetText("ArgFunction"), Tool.GetText("ArgUserCode")}
         Dim tTag() As String = {"Default", "Variable", "Function", "RawCode"}
 
         For i = 0 To tHeader.Count - 1
@@ -155,7 +155,7 @@ Public Class TriggerEditValueSelecterWindow
         Dim cArgType As String = _tCode.Args(ArgIndex).ValueType
         Dim cDefaultArgType As String = _tCode.Args(ArgIndex).DefaultType
 
-        CType(TypeList.Items(0), ComboBoxItem).Content = "기본값(" & cDefaultArgType & ")"
+        CType(TypeList.Items(0), ComboBoxItem).Content = Tool.GetText("ArgDefault") & "(" & cDefaultArgType & ")"
 
         Dim LastIndex As Integer
         If cArgType = cDefaultArgType Then
@@ -287,7 +287,7 @@ Public Class TriggerEditValueSelecterWindow
                 localTreeitem.Background = Application.Current.Resources("MaterialDesignPaper")
                 localTreeitem.Foreground = Application.Current.Resources("MaterialDesignBody")
 
-                localTreeitem.Header = "전역변수"
+                localTreeitem.Header = Tool.GetText("ArgGlobal")
                 For i = 0 To cEditor.globalVar.Count - 1
                     Dim tnode As New TreeViewItem
                     tnode.Style = Application.Current.Resources("ShortTreeViewItem")
@@ -345,7 +345,7 @@ Public Class TriggerEditValueSelecterWindow
 
 
                 If tCode.Args(ArgIndex).CodeBlock Is Nothing Then
-                    FunctionBtn.Content = "함수 선택하기"
+                    FunctionBtn.Content = Tool.GetText("ArgFuncSelect")
                 Else
                     FunctionBtn.Content = tCode.Args(ArgIndex).CodeBlock.FName
                 End If

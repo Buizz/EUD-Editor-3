@@ -13,6 +13,12 @@ Public Class TECTPage
         Return (tTEfile Is PTEFile)
     End Function
 
+    Public Sub RefreshData()
+        Scripter.RefreshData()
+    End Sub
+
+
+
 
     Public Sub SelectList(index As Integer)
         If index = -1 Then
