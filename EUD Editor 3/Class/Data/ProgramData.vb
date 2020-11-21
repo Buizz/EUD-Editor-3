@@ -187,6 +187,11 @@ Public Class ProgramData
             Setting(ProgramData.TSetting.DonateMsg) = False
         End Try
 
+        Try
+            Dim bool As Boolean = Setting(ProgramData.TSetting.MuteSound)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.MuteSound) = True
+        End Try
 
 
         IsCompilng = False
