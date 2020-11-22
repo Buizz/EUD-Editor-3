@@ -220,7 +220,7 @@ Public Class LuaManager
 
 
     Public Sub SetTbl(ObjectId As Integer, Value As String)
-        pjData.BindingManager.StatTxtBinding(ObjectId + 1).Value = Value
+        pjData.BindingManager.StatTxtBinding(ObjectId - 1).Value = Value
     End Sub
     Public Function GetTbl(ObjectId As Integer) As String
         Return pjData.BindingManager.StatTxtBinding(ObjectId - 1).Value

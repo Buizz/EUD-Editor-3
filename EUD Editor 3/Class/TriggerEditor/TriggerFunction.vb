@@ -451,6 +451,13 @@ Public Class TriggerFunction
 
                 Case "@Summary"
                     lan = tstrtype.Last
+                    If lan <> pgData.Setting(ProgramData.TSetting.Language) Then
+                        IsType = False
+                        IsSummary = False
+                        IsParam = False
+                        IsGroup = False
+                        Continue For
+                    End If
 
                     IsType = False
                     IsSummary = True
@@ -460,7 +467,13 @@ Public Class TriggerFunction
                     rTrg.FSummary = ""
                 Case "@param"
                     lan = tstrtype.Last
-
+                    If lan <> pgData.Setting(ProgramData.TSetting.Language) Then
+                        IsType = False
+                        IsSummary = False
+                        IsParam = False
+                        IsGroup = False
+                        Continue For
+                    End If
                     IsType = False
                     IsSummary = False
                     IsParam = True

@@ -217,20 +217,23 @@ Public Class ConsoleTextbox
         If e.Key = Key.RightShift Then
             RightShiftDown = True
         End If
-        If e.Key = Key.Up Then
-            LastCommandChange = False
-            If LastCommandIndex > 0 Then
-                LastCommandIndex -= 1
-                ConsoleText.Text = LastCommand(LastCommandIndex)
+        If RightShiftDown Then
+            If e.Key = Key.Up Then
+                LastCommandChange = False
+                If LastCommandIndex > 0 Then
+                    LastCommandIndex -= 1
+                    ConsoleText.Text = LastCommand(LastCommandIndex)
+                End If
+            End If
+            If e.Key = Key.Down Then
+                LastCommandChange = False
+                If LastCommandIndex < LastCommand.Count - 1 Then
+                    LastCommandIndex += 1
+                    ConsoleText.Text = LastCommand(LastCommandIndex)
+                End If
             End If
         End If
-        If e.Key = Key.Down Then
-            LastCommandChange = False
-            If LastCommandIndex < LastCommand.Count - 1 Then
-                LastCommandIndex += 1
-                ConsoleText.Text = LastCommand(LastCommandIndex)
-            End If
-        End If
+
 
         If e.Key = Key.Return Then
             If RightShiftDown Then
