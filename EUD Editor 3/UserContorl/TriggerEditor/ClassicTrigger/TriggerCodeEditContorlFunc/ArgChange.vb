@@ -2,18 +2,23 @@
     Private Function NewArgBtn(argIndex As Integer, tCode As TriggerCodeBlock) As Button
         Dim tBtn As New Button
 
+
+        tBtn.Tag = argIndex
         tBtn.Content = tCode.LoadedArgString(argIndex)
+
+        Dim targindex As Integer = argIndex
         AddHandler tBtn.Click, Sub(sender As Button, e As RoutedEventArgs)
                                    Dim pos As Point = tBtn.PointToScreen(New Point(0, 0))
+                                   'TriggerArgsIndex = targindex
 
                                    'Dim ArgChanger As New TriggerEditValueSelecterWindow(tCode, argIndex, pos)
                                    AddHandler TriggerArgsEdit.ValueChange, Sub(_sender As Object, _e As RoutedEventArgs)
                                                                                tCode.LoadArgText(MainScriptEditor)
 
-                                                                               tBtn.Content = tCode.LoadedArgString(argIndex)
+                                                                               tBtn.Content = tCode.LoadedArgString(targindex)
                                                                                BtnRefresh()
                                                                            End Sub
-                                   Tool.OpenArgWindow(MainScriptEditor, tCode, argIndex, pos, OtherPage, _Loc:=tLoc & SelectTBlock.FName & "->", ButtonHeight:=tBtn.Height)
+                                   Tool.OpenArgWindow(MainScriptEditor, tCode, targindex, pos, OtherPage, _Loc:=tLoc & SelectTBlock.FName & "->", ButtonHeight:=tBtn.Height)
                                End Sub
         Return tBtn
     End Function

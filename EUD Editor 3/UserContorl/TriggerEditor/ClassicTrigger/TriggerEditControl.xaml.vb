@@ -42,6 +42,11 @@
         IsTriggerEnabled.IsChecked = ptrg.IsEnabled
 
         IsPreservedCB.IsChecked = ptrg.IsPreserved
+
+        IsCodeOnly.IsChecked = ptrg.IsOnlyCode
+        CodeText.Text = ptrg.CodeText
+
+
         IsLoad = True
     End Sub
     Public Sub TriggerCodeEditOkayEvent(sender As TriggerCodeBlock, e As RoutedEventArgs)
@@ -232,6 +237,18 @@
     Private Sub IsPreservedCB_Checked(sender As Object, e As RoutedEventArgs)
         If IsLoad Then
             ptrg.IsPreserved = IsPreservedCB.IsChecked
+        End If
+    End Sub
+
+    Private Sub IsCodeOnly_Checked(sender As Object, e As RoutedEventArgs)
+        If IsLoad Then
+            ptrg.IsOnlyCode = IsCodeOnly.IsChecked
+        End If
+    End Sub
+
+    Private Sub CodeText_TextChange(sender As Object, e As RoutedEventArgs)
+        If IsLoad Then
+            ptrg.CodeText = CodeText.Text
         End If
     End Sub
 End Class

@@ -23,13 +23,13 @@
                 <GridView>
                     <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding TagName}"
-                        Header="이름" />
+                        Header="{StaticResource Name}" />
                     <GridViewColumn Width="70"
                         DisplayMemberBinding="{Binding ECodeType}"
-                        Header="종류" />
+                        Header="{StaticResource Type}" />
                     <GridViewColumn Width="200"
                         DisplayMemberBinding="{Binding Value}"
-                        Header="값" />
+                        Header="{StaticResource Value}" />
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>
@@ -45,11 +45,8 @@
         Mode="PrimaryDark"
         Grid.Row="1"
         Effect="{DynamicResource MaterialDesignShadowDepth5}">
-            <TextBlock
-          Margin="16">
-                데이터 설정
-            </TextBlock>
-        </materialDesign:ColorZone>
+            <TextBlock Margin="16" Text="{StaticResource DataSet}"/>
+            </materialDesign:ColorZone>
         <Button
         Style="{StaticResource MaterialDesignFloatingActionMiniAccentButton}"
         Click="Button_Click"
@@ -72,7 +69,7 @@
                     </Grid.RowDefinitions>
                     <StackPanel Margin="18">
                         <DockPanel Margin="5">
-                            <Label Content="이름" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                            <Label Content="{StaticResource Name}" HorizontalAlignment="Center" VerticalAlignment="Center"  />
                             <TextBox x:Name="DataName" Margin="10,0,0,0" TextChanged="DataName_TextChanged" >
                             </TextBox>
                         </DockPanel>
@@ -83,16 +80,16 @@
            
 
                         <DockPanel Margin="5">
-                            <Label Content="종류" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                            <Label Content="{StaticResource Type}" HorizontalAlignment="Center" VerticalAlignment="Center"  />
                             <ComboBox x:Name="TypeCB" Margin="10,0,0,0" SelectionChanged="TypeCB_SelectionChanged">
-                                <ComboBoxItem Content="변수"/>
-                                <ComboBoxItem Content="데스값"/>
-                                <ComboBoxItem Content="배열"/>
+                                <ComboBoxItem Content="{StaticResource Variable}"/>
+                                <ComboBoxItem Content="{StaticResource Death}"/>
+                                <ComboBoxItem Content="{StaticResource Array}"/>
                             </ComboBox>
                         </DockPanel>
                         <local:IconSelecterP x:Name="ValueSelecter"/>
                         <DockPanel x:Name="VariableField" >
-                            <ComboBox DockPanel.Dock="Left" x:Name="NameCombobox" materialDesign:HintAssist.Hint="네임스페이스" Width="200"
+                            <ComboBox DockPanel.Dock="Left" x:Name="NameCombobox" materialDesign:HintAssist.Hint="{StaticResource NameSpace}" Width="200"
                                 SelectionChanged="NameCombobox_SelectionChanged"
                                 Style="{StaticResource MaterialDesignFloatingHintComboBox}">
                             </ComboBox>

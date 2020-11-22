@@ -16,12 +16,12 @@
 
         NameBar.Init(ObjectID, DatFiles, 0)
 
-        IFI.Init(DatFiles, ObjectID, IFI.Tag, 100)
-        IV.Init(DatFiles, ObjectID, IV.Tag, 100)
+        IFI.Init(DatFiles, ObjectID, IFI.Tag)
+        IV.Init(DatFiles, ObjectID, IV.Tag)
 
-        SCI.Init(DatFiles, ObjectID, SCI.Tag, 100)
-        SCO.Init(DatFiles, ObjectID, SCO.Tag, InputField.SFlag.None, 100)
-        HB.Init(DatFiles, ObjectID, HB.Tag, InputField.SFlag.None, 100)
+        SCI.Init(DatFiles, ObjectID, SCI.Tag)
+        SCO.Init(DatFiles, ObjectID, SCO.Tag, InputField.SFlag.None)
+        HB.Init(DatFiles, ObjectID, HB.Tag, InputField.SFlag.None)
 
         Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", ObjectID)
 

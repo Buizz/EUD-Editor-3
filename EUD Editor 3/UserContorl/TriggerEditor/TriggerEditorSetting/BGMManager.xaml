@@ -35,25 +35,25 @@
                         </GridViewColumn>
                         <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding BGMName}"
-                        Header="이름" />
+                        Header="{StaticResource Name}" />
                         <GridViewColumn Width="200"
                         DisplayMemberBinding="{Binding BGMPath}"
-                        Header="주소" />
+                        Header="{StaticResource Address}" />
                         <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding BGMLen}"
-                        Header="길이" />
+                        Header="{StaticResource Len}" />
                         <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding BGMOrgSizestr}"
-                        Header="용량" />
+                        Header="{StaticResource Size}" />
                         <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding BGMCompressionSizestr}"
-                        Header="압축용량" />
+                        Header="{StaticResource Compression}" />
                         <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding BGMSampleRateStr}"
-                        Header="샘플레이트" />
+                        Header="{StaticResource Samplerate}" />
                         <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding BGMBitRateStr}"
-                        Header="비트레이트" />
+                        Header="{StaticResource Bitrate}" />
                     </GridView>
                     
                 </ListView.View>
@@ -68,9 +68,7 @@
             </ListView>
             <materialDesign:ColorZone Mode="PrimaryDark" Grid.Row="1" Effect="{DynamicResource MaterialDesignShadowDepth5}">
                 <StackPanel Orientation="Horizontal">
-                    <TextBlock Margin="16">
-                BGM 목록
-                    </TextBlock>
+                    <TextBlock Margin="16" Text="{StaticResource BGMList}"/>
                     <Button Style="{StaticResource MaterialDesignFloatingActionMiniLightButton}" Height="22" Width="22" Click="BGMStop">
                         <materialDesign:PackIcon Kind="StopCircleOutline" Height="18" Width="18" />
                     </Button>
@@ -101,24 +99,24 @@
                     <StackPanel Margin="18">
                         <StackPanel x:Name="DefailtInfo">
                             <DockPanel Margin="5">
-                                <Label Content="이름" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                <Label Content="{StaticResource Name}" HorizontalAlignment="Center" VerticalAlignment="Center"  />
                                 <TextBox x:Name="BGMName" Margin="10,0,0,0"  TextChanged="BGMName_TextChanged">
                                 </TextBox>
                             </DockPanel>
                             <DockPanel Margin="5">
-                                <Label Content="주소" HorizontalAlignment="Center" VerticalAlignment="Center"  />
-                                <Button DockPanel.Dock="Right" Content="찾기" Click="BGMPath_Click"/>
+                                <Label Content="{StaticResource Address}" HorizontalAlignment="Center" VerticalAlignment="Center"  />
+                                <Button DockPanel.Dock="Right" Content="{StaticResource Find}" Click="BGMPath_Click"/>
                                 <TextBlock x:Name="BGMPath" Margin="10,0,0,0" VerticalAlignment="Center"  />
                             </DockPanel>
                         </StackPanel>
               
                         <DockPanel Margin="5">
                             <UniformGrid Columns="2">
-                                <ComboBox x:Name="SampleRateCombobox" materialDesign:HintAssist.Hint="샘플레이트"
+                                <ComboBox x:Name="SampleRateCombobox" materialDesign:HintAssist.Hint="{StaticResource Samplerate}"
                                           MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}"
                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                           SelectionChanged="SampleRateCombobox_SelectionChanged">
-                                    <ComboBoxItem Content="기본" Tag="-1"/>
+                                    <ComboBoxItem Content="{StaticResource Default}" Tag="-1"/>
                                     <ComboBoxItem Content="44,100 Hz" Tag="44100"/>
                                     <ComboBoxItem Content="32,000 Hz" Tag="32000"/>
                                     <ComboBoxItem Content="22,050 Hz" Tag="22050"/>
@@ -126,11 +124,11 @@
                                     <ComboBoxItem Content="11,025 Hz" Tag="11025"/>
                                     <ComboBoxItem Content="8,000 Hz" Tag="8000"/>
                                 </ComboBox>
-                                <ComboBox x:Name="BitRateCombobox" materialDesign:HintAssist.Hint="비트레이트"
+                                <ComboBox x:Name="BitRateCombobox" materialDesign:HintAssist.Hint="{StaticResource Bitrate}"
                                           MinWidth="72" Margin="16 0 0 0" ItemsSource="{Binding LongListToTestComboVirtualization}"
                                           Style="{StaticResource MaterialDesignFloatingHintComboBox}"
                                           SelectionChanged="BitRateCombobox_SelectionChanged">
-                                    <ComboBoxItem Content="기본" Tag="-1"/>
+                                    <ComboBoxItem Content="{StaticResource Default}" Tag="-1"/>
                                     <ComboBoxItem Content="256kbps" Tag="256"/>
                                     <ComboBoxItem Content="196kbps" Tag="196"/>
                                     <ComboBoxItem Content="128kbps" Tag="128"/>

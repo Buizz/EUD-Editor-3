@@ -58,40 +58,90 @@ Public Class TriggerCodeBlock
 
 
     <NonSerialized>
-    Public LoadedArgString As List(Of String)
+    Public _LoadedArgString As List(Of String)
+    Public ReadOnly Property LoadedArgString(Index As Integer) As String
+        Get
+            If Index >= _LoadedArgString.Count Then
+                Return "NULL"
+            End If
+
+
+            Return _LoadedArgString(Index)
+        End Get
+    End Property
+
+
+
     Public Sub LoadArgText(_scripter As ScriptEditor)
         'ArgText를 미리 불러온다.
-        If LoadedArgString Is Nothing Then
-            LoadedArgString = New List(Of String)
+        If _LoadedArgString Is Nothing Then
+            _LoadedArgString = New List(Of String)
         End If
 
-        LoadedArgString.Clear()
+        _LoadedArgString.Clear()
 
         Dim tfun As TriggerFunction = GetCodeFunction(_scripter)
-        For i = 0 To Args.Count - 1
-            If Args(i).IsInit Then
-                '초기값일 경우 타입과 이름을 가져온다.
-                Dim v As String = tfun.Args(i).AName
-
-                LoadedArgString.Add(v)
-            Else
-                Dim v As String = Args(i).GetEditorText
-
-
-
-
-
-                'If Args(i).IsArgNumber Then
-                '    v = Args(i).ValueNumber & "숫자"
-                'Else
-                '    v = Args(i).ValueString & "텍스트"
-                'End If
+        If tfun IsNot Nothing Then
+            If tfun.Args.Count <> Args.Count Then
+                '함수 인자 횟수 조절
+                If tfun.Args.Count < Args.Count Then
+                    '인자가 더 많음
+                    For i = tfun.Args.Count To Args.Count - 1
+                        Args.RemoveAt(Args.Count - 1)
+                    Next
+                Else
+                    '인자가 더 적음
+                    For i = Args.Count To tfun.Args.Count - 1
+                        Dim tArg As New ArgValue(tfun.Args(i).AType)
 
 
 
-                LoadedArgString.Add(v)
+                        Args.Add(tArg)
+                    Next
+                End If
             End If
-        Next
+
+
+
+            For i = 0 To Args.Count - 1
+                If Args(i).IsInit Then
+                    '초기값일 경우 타입과 이름을 가져온다.
+                    Dim v As String = tfun.Args(i).AName
+
+                    _LoadedArgString.Add(v)
+                Else
+                    Dim v As String = Args(i).GetEditorText
+
+                    'If Args(i).IsArgNumber Then
+                    '    v = Args(i).ValueNumber & "숫자"
+                    'Else
+                    '    v = Args(i).ValueString & "텍스트"
+                    'End If
+
+                    _LoadedArgString.Add(v)
+                End If
+            Next
+        Else
+            For i = 0 To Args.Count - 1
+                If Args(i).IsInit Then
+                    '초기값일 경우 타입과 이름을 가져온다.
+                    Dim v As String = Args(i).ValueType
+
+                    _LoadedArgString.Add(v)
+                Else
+                    Dim v As String = Args(i).GetEditorText
+
+                    'If Args(i).IsArgNumber Then
+                    '    v = Args(i).ValueNumber & "숫자"
+                    'Else
+                    '    v = Args(i).ValueString & "텍스트"
+                    'End If
+
+                    _LoadedArgString.Add(v)
+                End If
+            Next
+        End If
+
     End Sub
 
 

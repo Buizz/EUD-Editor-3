@@ -21,10 +21,10 @@
         <local:NameBar x:Name="NameBar"/>
         <ToolBarTray x:Name="toolBarTray"  Grid.Row="1" >
             <ToolBar ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}">
-                <TextBlock Text="용량" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
+                <TextBlock Text="{StaticResource FG_Size}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
                 <ProgressBar x:Name="ReqCapacity" Value="{Binding ReqCapacity}" Width="70" Height="10" />
                 <TextBlock x:Name="ReqCapacityText" Text="{Binding ReqCapacityText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Text="일괄 설정" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
+                <TextBlock Text="{StaticResource FG_BatchSetting}" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
 
                 <Button ToolTip="{StaticResource FG_DefaultUseToolTip}" Padding="16,4" Click="Button_Click" Content="{StaticResource FG_DefaultUse}"/>
                 <Button ToolTip="{StaticResource FG_DontUseToolTip}" Padding="16,4" Click="Button_Click_1" Content="{StaticResource FG_DontUse}"/>
@@ -43,7 +43,7 @@
                     <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
-                              Text="요구사항" Padding="6"/>
+                              Text="{StaticResource FG_Requirement}" Padding="6"/>
                     <local:RequireListBox x:Name="RequireListbox"  Grid.Row="1" Margin="10"/>
                 </Grid>
             </materialDesign:Card>

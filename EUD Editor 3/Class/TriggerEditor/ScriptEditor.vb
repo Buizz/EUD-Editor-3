@@ -7,8 +7,6 @@ Public MustInherit Class ScriptEditor
     Protected ScriptType As SType
 
 
-    Public tv As Integer
-
 
 
     Public MustOverride Function GetFileText() As String

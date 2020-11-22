@@ -22,8 +22,8 @@
     <Grid>
         <DockPanel>
             <UniformGrid  DockPanel.Dock="Bottom" Rows="1">
-                <Button x:Name="OkayBtn" Click="Button_Click" Content="확인" IsEnabled="False" />
-                <Button Click="Button_Click_1" Content="취소"/>
+                <Button x:Name="OkayBtn" Click="Button_Click" Content="{StaticResource Okay}" IsEnabled="False" />
+                <Button Click="Button_Click_1" Content="{StaticResource Cancel}"/>
             </UniformGrid>
 
             <DockPanel>
@@ -33,53 +33,66 @@
                         <Button Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Right" Width="Auto" Height="Auto" Click="Button_Click_1">
                             <materialDesign:PackIcon Kind="WindowClose" Width="24" Height="24" />
                         </Button>
-                        <CheckBox x:Name="IsPreservedCB" Checked="IsPreservedCB_Checked" Unchecked="IsPreservedCB_Checked" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignCheckBox}">
-                            무한 반복 트리거
-                        </CheckBox>
-                        <TextBox x:Name="CommentTB" materialDesign:HintAssist.Hint="주석을 입력하세요." MinWidth="200" Margin="10,5,0,5"/>
+                        <CheckBox x:Name="IsPreservedCB" Content="{StaticResource CT_Preserved}" Checked="IsPreservedCB_Checked" Unchecked="IsPreservedCB_Checked" DockPanel.Dock="Right" Style="{StaticResource MaterialDesignCheckBox}"/>
+                        <TextBox x:Name="CommentTB" materialDesign:HintAssist.Hint="{StaticResource CT_Comment}" MinWidth="200" Margin="10,5,0,5"/>
                     </DockPanel>
                 </materialDesign:ColorZone>
                 <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="3">
-                    <TabItem Header="플레이어" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
-                        <WrapPanel x:Name="PlayerTab" Orientation="Vertical" >
-                            <CheckBox Content="Player 1" Tag="0" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 2" Tag="1" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 3" Tag="2" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 4" Tag="3" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 5" Tag="4" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 6" Tag="5" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 7" Tag="6" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                            <CheckBox Content="Player 8" Tag="7" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
-                        </WrapPanel>
+                    <TabItem Header="{StaticResource CT_TriggerSetting}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                        <DockPanel>
+                            <DockPanel DockPanel.Dock="Left" Margin="10">
+                                <Label Content="{StaticResource CT_Player}" DockPanel.Dock="Top"/>
+                                <WrapPanel x:Name="PlayerTab" Orientation="Vertical" >
+                                    <CheckBox Content="Player 1" Tag="0" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 2" Tag="1" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 3" Tag="2" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 4" Tag="3" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 5" Tag="4" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 6" Tag="5" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 7" Tag="6" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                    <CheckBox Content="Player 8" Tag="7" Checked="PlayerCheck" Unchecked="PlayerCheck"/>
+                                </WrapPanel>
+                            </DockPanel>
+                            <DockPanel Margin="10">
+                                <StackPanel DockPanel.Dock="Top">
+                                    <CheckBox x:Name="IsCodeOnly" Content="{StaticResource CT_OnlyCode}" Checked="IsCodeOnly_Checked" Unchecked="IsCodeOnly_Checked"/>
+                                </StackPanel>
+                                <DockPanel DockPanel.Dock="Top">
+                                    <Label Content="{StaticResource CT_CodeText}" DockPanel.Dock="Top"/>
+                                    <local:CodeEditor x:Name="CodeText" Margin="10" TextChange="CodeText_TextChange"/>
+                                </DockPanel>
+                            </DockPanel>
+
+                        </DockPanel>
                     </TabItem>
-                    <TabItem Header="조건" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                    <TabItem Header="{StaticResource CT_Condition}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
                         <DockPanel>
                             <StackPanel DockPanel.Dock="Right">
-                                <Button x:Name="cNew" Click="New_Click" Content="새 조건" Margin="1"/>
-                                <Button x:Name="cEdit" Click="Edit_Click" Content="편집" IsEnabled="False"  Margin="1,1,1,10"/>
-                                <Button x:Name="cCut" Click="Cut_Click" Content="잘라내기" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="cCopy" Click="Copy_Click" Content="복사" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="cPaste" Click="Paste_Click" Content="붙여넣기" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="cDelete" Click="Delete_Click" Content="삭제" IsEnabled="False" Margin="1,1,1,10"/>
-                                <Button x:Name="cUp" Click="Up_Click" Content="올리기" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="cDown" Click="Down_Click" Content="내리기" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="cNew" Click="New_Click" Content="{StaticResource CT_NewCond}" Margin="1"/>
+                                <Button x:Name="cEdit" Click="Edit_Click" Content="{StaticResource CT_Edit}" IsEnabled="False"  Margin="1,1,1,10"/>
+                                <Button x:Name="cCut" Click="Cut_Click" Content="{StaticResource CT_Cut}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="cCopy" Click="Copy_Click" Content="{StaticResource CT_Copy}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="cPaste" Click="Paste_Click" Content="{StaticResource CT_Paste}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="cDelete" Click="Delete_Click" Content="{StaticResource CT_Delete}" IsEnabled="False" Margin="1,1,1,10"/>
+                                <Button x:Name="cUp" Click="Up_Click" Content="{StaticResource CT_Up}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="cDown" Click="Down_Click" Content="{StaticResource CT_Down}" IsEnabled="False" Margin="1"/>
                             </StackPanel>
                             <ListBox ItemContainerStyle="{StaticResource myLBStyle}" x:Name="cList" SelectionChanged="List_SelectionChanged" MouseDoubleClick="ListDouble_Click" SelectionMode="Extended" Background="{DynamicResource MaterialDesignToolBarBackground}" Margin="0,4">
 
                             </ListBox>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="액션" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                    <TabItem Header="{StaticResource CT_Action}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
                         <DockPanel>
                             <StackPanel DockPanel.Dock="Right">
-                                <Button x:Name="aNew" Click="New_Click" Content="새 액션"  Margin="1"/>
-                                <Button x:Name="aEdit" Click="Edit_Click" Content="편집" IsEnabled="False"  Margin="1,1,1,10"/>
-                                <Button x:Name="aCut" Click="Cut_Click" Content="잘라내기" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="aCopy" Click="Copy_Click" Content="복사" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="aPaste" Click="Paste_Click" Content="붙여넣기" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="aDelete" Click="Delete_Click" Content="삭제" IsEnabled="False" Margin="1,1,1,10"/>
-                                <Button x:Name="aUp" Click="Up_Click" Content="올리기" IsEnabled="False" Margin="1"/>
-                                <Button x:Name="aDown" Click="Down_Click" Content="내리기" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="aNew" Click="New_Click" Content="{StaticResource CT_NewAct}"  Margin="1"/>
+                                <Button x:Name="aEdit" Click="Edit_Click" Content="{StaticResource CT_Edit}" IsEnabled="False"  Margin="1,1,1,10"/>
+                                <Button x:Name="aCut" Click="Cut_Click" Content="{StaticResource CT_Cut}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="aCopy" Click="Copy_Click" Content="{StaticResource CT_Copy}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="aPaste" Click="Paste_Click" Content="{StaticResource CT_Paste}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="aDelete" Click="Delete_Click" Content="{StaticResource CT_Delete}" IsEnabled="False" Margin="1,1,1,10"/>
+                                <Button x:Name="aUp" Click="Up_Click" Content="{StaticResource CT_Up}" IsEnabled="False" Margin="1"/>
+                                <Button x:Name="aDown" Click="Down_Click" Content="{StaticResource CT_Down}" IsEnabled="False" Margin="1"/>
                             </StackPanel>
                             <ListBox ItemContainerStyle="{StaticResource myLBStyle}" x:Name="aList" SelectionChanged="List_SelectionChanged" MouseDoubleClick="ListDouble_Click" SelectionMode="Extended" Background="{DynamicResource MaterialDesignToolBarBackground}" Margin="0,4">
 

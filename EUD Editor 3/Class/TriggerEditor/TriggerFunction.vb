@@ -114,7 +114,7 @@ Public Class TriggerManager
             nTF.FType = TriggerFunction.EFType.Lua
 
             For j = 0 To func.ArgName.Count - 1
-                nTF.Args.Add(New TriggerFunction.Arg(func.ArgName(j), "", func.ArgType(j)))
+                nTF.Args.Add(New TriggerFunction.Arg(func.ArgName(j), func.ArgSummary(j), func.ArgType(j)))
             Next
 
             nTF.SetArgComment()
@@ -261,6 +261,8 @@ Public Class TriggerManager
 
 
     Public Function GetListFromEpScript(EpScript As String, Optional _FType As TriggerFunction.EFType = TriggerFunction.EFType.None, Optional _Group As String = "") As List(Of TriggerFunction)
+        EpScript = vbCrLf & EpScript & vbCrLf
+
         Dim sr As New StringReader(EpScript)
         Dim ci As Integer = -1
         Dim c As Char

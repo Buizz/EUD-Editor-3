@@ -29,7 +29,7 @@
 
             Dim tcheckBox As New CheckBox
             tcheckBox.Content = itmes(i)
-            tcheckBox.Width = RelaWidth
+            tcheckBox.MinWidth = RelaWidth
             tcheckBox.Foreground = Application.Current.Resources("MaterialDesignBody")
 
             tBorder.DataContext = DB.GetFlagBinding(i)

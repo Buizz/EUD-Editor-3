@@ -130,7 +130,7 @@ Partial Public Class ProjectExplorer
                     MenuOpen.Visibility = Visibility.Visible
                 End If
                 MenuCut.Visibility = Visibility.Visible
-                MenuepsFileView.Visibility = Visibility.Visible
+                'MenuepsFileView.Visibility = Visibility.Visible
                 MenuCopy.Visibility = Visibility.Visible
                 MenuRename.Visibility = Visibility.Visible
                 MenuExport.Visibility = Visibility.Visible

@@ -251,7 +251,6 @@ Partial Public Class BuildData
         Tool.RefreshMainWindow()
 
         If isSucces Then
-
             If pjData.TEData.SCArchive.IsUsed Then
                 'If Not isFreezeUse Then
                 '    If Not WriteSCADataFile() Then
@@ -344,16 +343,17 @@ Partial Public Class BuildData
                     If eudplibShutDown Then
                         MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
                     Else
-                        GetMainWindow.LogTextBoxView(StandardOutput & vbCrLf & StandardError, True)
-                    End If
+                        GetMainWindow.LogTextBoxView(StandardOutput & vbCrLf & "=============================================================" & vbCrLf & StandardError, True)
 
+                        GetMainWindow.ErrorHandleStart(StandardOutput, StandardError)
+                    End If
                     Return False
                 Else
                     '빌드 성공했을 경우
                     If pjData.ViewLog Then
                         GetMainWindow.LogTextBoxView(StandardOutput, False)
                     End If
-
+                    GetMainWindow.ErrorHandleCloseStart()
                 End If
             Else
                 While Not eudplibprocess.HasExited

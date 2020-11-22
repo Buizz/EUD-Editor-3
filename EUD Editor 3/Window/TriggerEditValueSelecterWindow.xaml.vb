@@ -65,7 +65,7 @@ Public Class TriggerEditValueSelecterWindow
         MaxHeight = 0
         MinHeight = 0
 
-        Dim tHeader() As String = {"기본값", "변수", "함수", "사용자코드"}
+        Dim tHeader() As String = {Tool.GetText("ArgDefault"), Tool.GetText("ArgVariable"), Tool.GetText("ArgFunction"), Tool.GetText("ArgUserCode")}
         Dim tTag() As String = {"Default", "Variable", "Function", "RawCode"}
 
         For i = 0 To tHeader.Count - 1
@@ -155,7 +155,7 @@ Public Class TriggerEditValueSelecterWindow
         Dim cArgType As String = _tCode.Args(ArgIndex).ValueType
         Dim cDefaultArgType As String = _tCode.Args(ArgIndex).DefaultType
 
-        CType(TypeList.Items(0), ComboBoxItem).Content = "기본값(" & cDefaultArgType & ")"
+        CType(TypeList.Items(0), ComboBoxItem).Content = Tool.GetText("ArgDefault") & "(" & cDefaultArgType & ")"
 
         Dim LastIndex As Integer
         If cArgType = cDefaultArgType Then
@@ -259,11 +259,10 @@ Public Class TriggerEditValueSelecterWindow
             Case "RawCode"
                 Width = 300
                 Height = 200
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = False
-                End If
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
 
 
                 CodeEditor.Text = tCode.Args(ArgIndex).ValueString
@@ -271,11 +270,10 @@ Public Class TriggerEditValueSelecterWindow
             Case "Variable"
                 Width = 250
                 Height = 340
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = False
-                End If
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
 
 
                 VariablePanel.Visibility = Visibility.Visible
@@ -289,7 +287,7 @@ Public Class TriggerEditValueSelecterWindow
                 localTreeitem.Background = Application.Current.Resources("MaterialDesignPaper")
                 localTreeitem.Foreground = Application.Current.Resources("MaterialDesignBody")
 
-                localTreeitem.Header = "전역변수"
+                localTreeitem.Header = Tool.GetText("ArgGlobal")
                 For i = 0 To cEditor.globalVar.Count - 1
                     Dim tnode As New TreeViewItem
                     tnode.Style = Application.Current.Resources("ShortTreeViewItem")
@@ -339,15 +337,15 @@ Public Class TriggerEditValueSelecterWindow
             Case "Function"
                 Width = 250
                 Height = 100
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = False
-                End If
+
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
 
 
                 If tCode.Args(ArgIndex).CodeBlock Is Nothing Then
-                    FunctionBtn.Content = "함수 선택하기"
+                    FunctionBtn.Content = Tool.GetText("ArgFuncSelect")
                 Else
                     FunctionBtn.Content = tCode.Args(ArgIndex).CodeBlock.FName
                 End If
@@ -357,11 +355,10 @@ Public Class TriggerEditValueSelecterWindow
             Case "TrgString"
                 Width = 400
                 Height = 300
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = True
-                End If
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = True
 
 
                 TrgTextBox.Text = tCode.Args(ArgIndex).ValueString
@@ -371,10 +368,12 @@ Public Class TriggerEditValueSelecterWindow
                 Height = 70
                 If tCode.Args(ArgIndex).IsInit Then
                     tCode.Args(ArgIndex).ValueString = 0
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = True
-                    tCode.Args(ArgIndex).IsQuotation = False
                 End If
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
+
 
                 NumberTB.Text = tCode.Args(ArgIndex).ValueString
 
@@ -384,10 +383,14 @@ Public Class TriggerEditValueSelecterWindow
                 Height = 70
                 If tCode.Args(ArgIndex).IsInit Then
                     tCode.Args(ArgIndex).ValueString = 1
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = True
-                    tCode.Args(ArgIndex).IsQuotation = False
                 End If
+
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = True
+                tCode.Args(ArgIndex).IsQuotation = False
+
+
 
                 Dim v As String = tCode.Args(ArgIndex).ValueString
                 If v = "All" Then
@@ -404,11 +407,11 @@ Public Class TriggerEditValueSelecterWindow
             Case "TrgProperty"
                 Width = 400
                 Height = 260
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = False
-                End If
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
+
 
                 UPorperty.ResetValue(tCode.Args(ArgIndex).ValueString)
 
@@ -420,20 +423,17 @@ Public Class TriggerEditValueSelecterWindow
                  "TrgSwitchAction", "TrgSwitchState"
                 FliterTB.Text = ""
 
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = True
 
-                    Select Case aType
-                        Case "WAVName", "BGM", "EUDScore", "SupplyType", "UnitsDat",
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = True
+                Select Case aType
+                    Case "WAVName", "BGM", "EUDScore", "SupplyType", "UnitsDat",
                      "WeaponsDat", "FlingyDat", "SpritesDat", "ImagesDat",
                      "UpgradesDat", "TechdataDat", "OrdersDat", "TrgAIScript", "TrgSwitch"
-                            tCode.Args(ArgIndex).IsQuotation = True
-                        Case Else
-                            tCode.Args(ArgIndex).IsQuotation = False
-                    End Select
-
-                End If
+                        tCode.Args(ArgIndex).IsQuotation = True
+                    Case Else
+                        tCode.Args(ArgIndex).IsQuotation = False
+                End Select
 
 
 
@@ -454,17 +454,22 @@ Public Class TriggerEditValueSelecterWindow
 
                 CodeSelecterPanel.Visibility = Visibility.Visible
 
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = True
-                    tCode.Args(ArgIndex).IsLangageable = True
-                    tCode.Args(ArgIndex).IsQuotation = False
-                End If
+
+                tCode.Args(ArgIndex).IsArgNumber = True
+                tCode.Args(ArgIndex).IsLangageable = True
+                tCode.Args(ArgIndex).IsQuotation = False
+
+
 
                 Dim cCodeSelecter As CodeSelecter
                 If Dic.ContainsKey(aType) Then
                     '포함되어 있을 경우 새로 만들지 않는다.
                     cCodeSelecter = Dic(aType)
-                    cCodeSelecter.Refresh(tCode.Args(ArgIndex).ValueNumber)
+                    Dim initValue As Integer = tCode.Args(ArgIndex).ValueNumber
+                    If tCode.Args(ArgIndex).IsInit Then
+                        initValue = -1
+                    End If
+                    cCodeSelecter.Refresh(initValue)
 
 
                     cCodeSelecter.Visibility = Visibility.Visible
@@ -494,6 +499,11 @@ Public Class TriggerEditValueSelecterWindow
                     DatFileType = aTypeEnumList(aTypeStrList.ToList.IndexOf(aType))
 
                     Dim initValue As Integer = tCode.Args(ArgIndex).ValueNumber
+                    If tCode.Args(ArgIndex).IsInit Then
+                        initValue = -1
+                    End If
+
+
 
                     cCodeSelecter.ListReset(DatFileType, _StartIndex:=initValue, combobox:=True, _unitFlag:=True)
                     Dic.Add(aType, cCodeSelecter)
@@ -505,10 +515,14 @@ Public Class TriggerEditValueSelecterWindow
                 Height = 200
                 If tCode.Args(ArgIndex).IsInit Then
                     tCode.Args(ArgIndex).ValueString = ""
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = False
                 End If
+
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
+
+
                 FormatStringTB.Text = tCode.Args(ArgIndex).ValueString
 
                 FormatStringPanel.Visibility = Visibility.Visible
@@ -517,10 +531,14 @@ Public Class TriggerEditValueSelecterWindow
                 Height = 200
                 If tCode.Args(ArgIndex).IsInit Then
                     tCode.Args(ArgIndex).ValueString = ""
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = False
                 End If
+
+
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = False
+
+
                 Arguments.Text = tCode.Args(ArgIndex).ValueString
 
                 ArgumentStringPanel.Visibility = Visibility.Visible
@@ -543,12 +561,11 @@ Public Class TriggerEditValueSelecterWindow
                 Width = 250
                 Height = 340
 
-                If tCode.Args(ArgIndex).IsInit Then
-                    tCode.Args(ArgIndex).IsArgNumber = False
-                    tCode.Args(ArgIndex).IsLangageable = False
-                    tCode.Args(ArgIndex).IsQuotation = True
 
-                End If
+                tCode.Args(ArgIndex).IsArgNumber = False
+                tCode.Args(ArgIndex).IsLangageable = False
+                tCode.Args(ArgIndex).IsQuotation = True
+
 
                 ListReset()
                 ListboxPanel.Visibility = Visibility.Visible

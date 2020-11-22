@@ -16,7 +16,7 @@
 
         NameBar.Init(ObjectID, SCDatFiles.DatFiles.units, UnitDatPage)
 
-        SAF.Init(DatFiles, ObjectID, SAF.Tag, 180)
+        SAF.Init(DatFiles, ObjectID, SAF.Tag, 180, 8)
 
         SGF.Init(DatFiles, ObjectID, SGF.Tag, 130)
         RS.Init(DatFiles, ObjectID, RS.Tag)

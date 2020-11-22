@@ -23,6 +23,7 @@ Module GlobalObj
     Public tmanager As TriggerManager
 
     Public TriggerArgsEdit As TriggerEditValueSelecterWindow
+    Public TriggerArgsIndex As Integer
 
 
     Public ctheme As CustomTheme

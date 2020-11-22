@@ -430,12 +430,13 @@ Namespace Tool
 
 
         Public Sub PlaySoundFromMPQ(filename As String)
+            If Not pgData.Setting(ProgramData.TSetting.MuteSound) Then
+                Dim bytes() As Byte = LoadDataFromMPQ(filename)
 
-            Dim bytes() As Byte = LoadDataFromMPQ(filename)
 
-
-            Dim sp As New SoundPlayer(New IO.MemoryStream(bytes))
-            sp.Play()
+                Dim sp As New SoundPlayer(New IO.MemoryStream(bytes))
+                sp.Play()
+            End If
         End Sub
 
         Public Sub PlaySoundFromMPQIndex(soundindex As Integer)

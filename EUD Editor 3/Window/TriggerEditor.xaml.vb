@@ -188,21 +188,24 @@ Public Class TriggerEditor
     'End Function
 
 
-    Public Sub OpenTabItem(tTEFile As TEFile)
+    Public Sub OpenTabItem(tTEFile As TEFile, Optional LineHighlight As String = "")
         '모든 Winddow및 TEControl을 뒤져서 중복으로 켜져있는지 확인 후
         '중복되어 있으면 해당 파일을 Activate시킨다.
-
+        Dim Line As Integer = -1
+        If IsNumeric(LineHighlight) Then
+            Line = LineHighlight
+        End If
 
 
         Select Case tTEFile.FileType
             Case TEFile.EFileType.CUIEps, TEFile.EFileType.CUIPy
-                PlusTabItem(New TECUIPage(tTEFile), MainTab, tTEFile)
+                PlusTabItem(New TECUIPage(tTEFile, Line), MainTab, tTEFile, Line)
             Case TEFile.EFileType.GUIEps, TEFile.EFileType.GUIPy
                 PlusTabItem(New TEGUIPage(tTEFile), MainTab, tTEFile)
             Case TEFile.EFileType.Setting
                 PlusTabItem(New TriggerEditorSetting(tTEFile), MainTab, tTEFile)
             Case TEFile.EFileType.ClassicTrigger
-                PlusTabItem(New TECTPage(tTEFile), MainTab, tTEFile)
+                PlusTabItem(New TECTPage(tTEFile, Line), MainTab, tTEFile, Line)
         End Select
     End Sub
 
@@ -211,14 +214,14 @@ Public Class TriggerEditor
 
 
 
-    Private Function CheckActvateTab(tTEFile As TEFile) As Boolean
+    Private Function CheckActvateTab(tTEFile As TEFile, Optional SelectLine As Integer = -1) As Boolean
         '우선 모든 윈도우 돌면서 조사하자
         For Each win As Window In Application.Current.Windows
             If win.GetType Is GetType(TriggerEditor) Then
                 Dim MainContent As Object = CType(win, TriggerEditor).MainTab
 
 
-                If CheckBranch(tTEFile, MainContent) Then
+                If CheckBranch(tTEFile, MainContent, SelectLine) Then
                     win.Activate()
                     Return True
                 End If
@@ -233,7 +236,7 @@ Public Class TriggerEditor
         Next
         Return False
     End Function
-    Private Function CheckBranch(tTEFile As TEFile, ParentBranch As Object) As Boolean
+    Private Function CheckBranch(tTEFile As TEFile, ParentBranch As Object, SelectLine As Integer) As Boolean
         '우선 모든 윈도우 돌면서 조사하자
         While TypeOf ParentBranch IsNot TabablzControl
             Select Case ParentBranch.GetType
@@ -242,10 +245,10 @@ Public Class TriggerEditor
                 Case GetType(Dockablz.Branch)
                     Dim tBranch As Dockablz.Branch = ParentBranch
 
-                    If CheckBranch(tTEFile, ParentBranch.FirstItem) Then
+                    If CheckBranch(tTEFile, ParentBranch.FirstItem, SelectLine) Then
                         Return True
                     End If
-                    If CheckBranch(tTEFile, ParentBranch.SecondItem) Then
+                    If CheckBranch(tTEFile, ParentBranch.SecondItem, SelectLine) Then
                         Return True
                     End If
                     Return False
@@ -255,11 +258,11 @@ Public Class TriggerEditor
                     ParentBranch = tLayout.Content
             End Select
         End While
-        Return CheckTabablzControl(tTEFile, ParentBranch)
+        Return CheckTabablzControl(tTEFile, ParentBranch, SelectLine)
 
         Return False
     End Function
-    Private Function CheckTabablzControl(tTEFile As TEFile, Control As TabablzControl) As Boolean
+    Private Function CheckTabablzControl(tTEFile As TEFile, Control As TabablzControl, SelectLine As Integer) As Boolean
         For i = 0 To Control.Items.Count - 1
             Dim TabContent As Object = CType(Control.Items(i), TabItem).Content
 
@@ -268,6 +271,7 @@ Public Class TriggerEditor
 
                 If tPage.CheckTEFile(tTEFile) Then
                     Control.SelectedIndex = i
+                    tPage.TextEditor.LineHightLight(SelectLine)
                     Return True
                 End If
             ElseIf TypeOf TabContent Is TEGUIPage Then
@@ -282,6 +286,7 @@ Public Class TriggerEditor
 
                 If tPage.CheckTEFile(tTEFile) Then
                     Control.SelectedIndex = i
+                    tPage.SelectList(SelectLine)
                     Return True
                 End If
             ElseIf TypeOf TabContent Is TriggerEditorSetting Then
@@ -304,9 +309,9 @@ Public Class TriggerEditor
 
 
 
-    Private Sub PlusTabItem(tTEFileControl As UserControl, MainTab As Dockablz.Layout, tTEFile As TEFile)
+    Private Sub PlusTabItem(tTEFileControl As UserControl, MainTab As Dockablz.Layout, tTEFile As TEFile, Optional SelectLine As Integer = -1)
         'MsgBox(tTEFile.FileName)
-        If CheckActvateTab(tTEFile) Then
+        If CheckActvateTab(tTEFile, SelectLine) Then
             Exit Sub
         End If
 
@@ -328,8 +333,8 @@ Public Class TriggerEditor
 
         Dim Tabitem As TabItem = GetTabItem(tTEFileControl, tTEFile)
 
-        TabContent.Items.Add(TabItem)
-        TabContent.SelectedItem = TabItem
+        TabContent.Items.Add(Tabitem)
+        TabContent.SelectedItem = Tabitem
     End Sub
     Private Function GetTabItem(tTEFileControl As UserControl, tTEFile As TEFile) As TabItem
         Dim TabItem As New TabItem
@@ -351,5 +356,13 @@ Public Class TriggerEditor
     Private Sub MetroWindow_Closed(sender As Object, e As EventArgs)
         pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost) = Me.Topmost
         CloseToolWindow()
+    End Sub
+
+    Private Sub ErrorList_MouseDoubleClick(sender As Object, e As MouseButtonEventArgs)
+        If ErrorList.SelectedItem IsNot Nothing Then
+            Dim eitem As ErrorItem = ErrorList.SelectedItem
+
+            OpenTabItem(eitem.TargetTEFile, eitem.Line)
+        End If
     End Sub
 End Class

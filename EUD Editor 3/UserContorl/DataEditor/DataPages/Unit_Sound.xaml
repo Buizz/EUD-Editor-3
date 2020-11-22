@@ -20,33 +20,30 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="287" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Height="287" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitSound}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:IconSelecter x:Name="RS" Tag="Ready Sound" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                            <StackPanel Margin="10">
+                                <local:IconSelecter x:Name="RS" Tag="Ready Sound" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
 
-                            <local:IconSelecter x:Name="YSS" Tag="Yes Sound Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
-                            <local:IconSelecter x:Name="YSE" Tag="Yes Sound End" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                                <local:IconSelecter x:Name="YSS" Tag="Yes Sound Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                                <local:IconSelecter x:Name="YSE" Tag="Yes Sound End" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
 
-                            <local:IconSelecter x:Name="WSS" Tag="What Sound Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
-                            <local:IconSelecter x:Name="WSE" Tag="What Sound End" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                                <local:IconSelecter x:Name="WSS" Tag="What Sound Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                                <local:IconSelecter x:Name="WSE" Tag="What Sound End" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
 
-                            <local:IconSelecter x:Name="PSS" Tag="Piss Sound Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
-                            <local:IconSelecter x:Name="PSE" Tag="Piss Sound End" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
+                                <local:IconSelecter x:Name="PSS" Tag="Piss Sound Start" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                                <local:IconSelecter x:Name="PSE" Tag="Piss Sound End" HorizontalAlignment="Left" VerticalAlignment="Top" Width="534" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

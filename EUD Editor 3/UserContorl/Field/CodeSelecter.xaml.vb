@@ -343,6 +343,7 @@ Public Class CodeSelecter
 
     Public Sub Refresh(tStartIndex As Integer, Optional tFlag As Integer = 0)
         Flag = tFlag
+        LastSelectIndex = tStartIndex
         StartIndex = tStartIndex
         Select Case Fliter.SortType
             Case ESortType.Tree
@@ -362,7 +363,6 @@ Public Class CodeSelecter
                 Else
                     Listbox = CodeIndexerList
                 End If
-
                 For i = 0 To Listbox.Items.Count - 1
                     Dim Listboxitem As ListBoxItem = Listbox.Items(i)
                     Dim index As Integer = Listboxitem.Tag
@@ -431,6 +431,7 @@ Public Class CodeSelecter
                         Fliter.SetFliter(ESortType.n123)
                     End If
 
+                    L_IsEditBtn.Visibility = Visibility.Collapsed
                     BtnsortTree.Visibility = Visibility.Collapsed
                 Case SCDatFiles.DatFiles.Location
                     If Fliter.SortType = ESortType.Tree Then

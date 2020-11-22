@@ -1,4 +1,4 @@
-﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="clr-namespace:EUD_Editor_3"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
@@ -9,7 +9,7 @@
     <sys:String x:Key="HDGraphic">Remastered</sys:String>
     <sys:String x:Key="CarbotGraphic">CarbotGraphic</sys:String>
 
-    <sys:String x:Key="DataLoading">Data is loading for run...</sys:String>
+    <sys:String x:Key="DataLoading">Loading data...</sys:String>
     <sys:String x:Key="RegistryConnect">Extension is not connected. Do you want to reconnect it?</sys:String>
 
     <sys:String x:Key="Setting">Setting</sys:String>
@@ -18,17 +18,17 @@
     <sys:String x:Key="SaveMap">Save Map</sys:String>
     <sys:String x:Key="Find">Find</sys:String>
 
-    <sys:String x:Key="RegSetting">Connect extention</sys:String>
-    <sys:String x:Key="RegSettingBtn">Connect</sys:String>
+    <sys:String x:Key="RegSetting">Register EUD Editor file extension</sys:String>
+    <sys:String x:Key="RegSettingBtn">Apply</sys:String>
     <sys:String x:Key="RegSettingCheckbox">Check if program is running</sys:String>
 
     <sys:String x:Key="UpdataSetting">Update</sys:String>
     <sys:String x:Key="Donate">Donate</sys:String>
 
-    <sys:String x:Key="CheckUpdate">CheckUpdate</sys:String>
+    <sys:String x:Key="CheckUpdate">Check for updates automatically</sys:String>
     <sys:String x:Key="Update">Update</sys:String>
-    <sys:String x:Key="LastVersion">This is latest version..</sys:String>
-    <sys:String x:Key="NotFoundServer">Server is not responding.</sys:String>
+    <sys:String x:Key="LastVersion">You are using the latest version of EUD Editor.</sys:String>
+    <sys:String x:Key="NotFoundServer">The server is not responding.</sys:String>
 
     <sys:String x:Key="TempFileLoc">Temp file location</sys:String>
     <sys:String x:Key="TempFileLoc0">Data Folder</sys:String>
@@ -36,7 +36,7 @@
     <sys:String x:Key="TempFileLoc2">Save file folder</sys:String>
     <sys:String x:Key="TempFileLoc3">Custom</sys:String>
 
-    <sys:String x:Key="TEFontSize">Font Size</sys:String>
+    <sys:String x:Key="TEFontSize">Font size</sys:String>
 
 
     <sys:String x:Key="TBLChange">Use tbl custom</sys:String>
@@ -65,18 +65,18 @@
 
 
 
-    <sys:String x:Key="ToolTip Setting">Program setting(Ctrl + E)</sys:String>
-    <sys:String x:Key="ToolTip NewFile">New project(Ctrl + Shift + N)</sys:String>
-    <sys:String x:Key="ToolTip OpenFile">Open project(Ctrl + O)</sys:String>
-    <sys:String x:Key="ToolTip SaveFile">Save project(Ctrl + S)</sys:String>
-    <sys:String x:Key="ToolTip CloseFile">Close project</sys:String>
+    <sys:String x:Key="ToolTip Setting">Program Settings (Ctrl + E)</sys:String>
+    <sys:String x:Key="ToolTip NewFile">New Project (Ctrl + Shift + N)</sys:String>
+    <sys:String x:Key="ToolTip OpenFile">Open Project (Ctrl + O)</sys:String>
+    <sys:String x:Key="ToolTip SaveFile">Save Project (Ctrl + S)</sys:String>
+    <sys:String x:Key="ToolTip CloseFile">Close Project</sys:String>
 
-    <sys:String x:Key="ToolTip OpenMapEditor">Open as map editor(Ctrl + W)</sys:String>
-    <sys:String x:Key="ToolTip Compile">Build(Ctrl + B)</sys:String>
+    <sys:String x:Key="ToolTip OpenMapEditor">Open in Map Editor (Ctrl + W)</sys:String>
+    <sys:String x:Key="ToolTip Compile">Build (Ctrl + B)</sys:String>
 
-    <sys:String x:Key="ToolTip DE">Data editor(Ctrl + D)</sys:String>
-    <sys:String x:Key="ToolTip TE">Trigger editor #(Ctrl + T)</sys:String>
-    <sys:String x:Key="ToolTip Plugin">Plugin settings(Ctrl + P)</sys:String>
+    <sys:String x:Key="ToolTip DE">Data Editor (Ctrl + D)</sys:String>
+    <sys:String x:Key="ToolTip TE">Trigger Editor (Ctrl + T)</sys:String>
+    <sys:String x:Key="ToolTip Plugin">Plugin Settings (Ctrl + P)</sys:String>
 
 
 
@@ -99,7 +99,7 @@
 
 
 
-    <sys:String x:Key="NoName">No title</sys:String>
+    <sys:String x:Key="NoName">Untitled</sys:String>
     <sys:String x:Key="None">None</sys:String>
     <sys:String x:Key="NotUse">X</sys:String>
 
@@ -108,7 +108,7 @@
     <sys:String x:Key="Light">Light</sys:String>
     <sys:String x:Key="Dark">Dark</sys:String>
     <sys:String x:Key="Normal">Default</sys:String>
-    <sys:String x:Key="Main Colour">Main Colour</sys:String>
+    <sys:String x:Key="Main Colour">Main Color</sys:String>
 
 
     <sys:String x:Key="Background Colour">Background</sys:String>
@@ -120,10 +120,10 @@
 
     <sys:String x:Key="Code Lan">Code language</sys:String>
     <sys:String x:Key="Code CEng">English</sys:String>
-    <sys:String x:Key="Code CKor-Eng">Korean(transliteration)</sys:String>
-    <sys:String x:Key="Code CKor-Kor">Korean(Complete translation)</sys:String>
+    <sys:String x:Key="Code CKor-Eng">Korean (transliteration)</sys:String>
+    <sys:String x:Key="Code CKor-Kor">Korean (Complete translation)</sys:String>
 
-    <sys:String x:Key="Code CTbl">Save modified text</sys:String>
+    <sys:String x:Key="Code CTbl">Automatically Save Changes</sys:String>
 
 
     <!--ContextMenu-->
@@ -139,10 +139,10 @@
     <sys:String x:Key="PagePaste">Paste page</sys:String>
     <sys:String x:Key="PageReset">Reset page</sys:String>
     <sys:String x:Key="CoverWrite">Paste</sys:String>
-    <sys:String x:Key="Rename">Change name</sys:String>
+    <sys:String x:Key="Rename">Rename</sys:String>
 
     <sys:String x:Key="Save">Save</sys:String>
-    <sys:String x:Key="InsertEdd">Run as Edd</sys:String>
+    <sys:String x:Key="InsertEdd">Run as .edd</sys:String>
 
     <sys:String x:Key="SaveAs">Save As</sys:String>
     <!--RequireMenu-->
@@ -167,12 +167,12 @@
     <sys:String x:Key="Group">Group</sys:String>
     <sys:String x:Key="ToolTip">TooTip</sys:String>
 
-    <sys:String x:Key="ColseSaveMsg">Do you want to save modified detail?</sys:String>
+    <sys:String x:Key="ColseSaveMsg">Do you want to save these changes?</sys:String>
 
 
 
     <sys:String x:Key="ErrorMsgbox">Error</sys:String>
-    <sys:String x:Key="Error MapOpen">Error has occured as opening a map.</sys:String>
+    <sys:String x:Key="Error MapOpen">An error has occured while opening the map.</sys:String>
 
 
     <sys:String x:Key="Error SaveFileOpen">Save file is incorrect.</sys:String>
@@ -184,7 +184,7 @@
     <sys:String x:Key="Error ProgramInit Fail">Problem has occured when resetting program data.</sys:String>
     <sys:String x:Key="Error TriggerScript Init Fail">Problem has occured when resetting TriggerScript Editor.</sys:String>
     <sys:String x:Key="Error LoadStarCraftData Fail">Problem has occured when resetting starcraft data.</sys:String>
-    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve" >Reading Casc data has been failed.&#13;Starcraft version may not be the latest.</sys:String>
+    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve">Reading Casc data has been failed.&#13;Starcraft version may not be the latest.</sys:String>
     <sys:String x:Key="Error NotExistMPQ">Casc file is not selected. Therefore, Graphics file cannot be loaded also.</sys:String>
     <sys:String x:Key="Error NotExistMPQ reset">Casc file is not selected. Do you want to select files?</sys:String>
 
@@ -223,7 +223,7 @@
     <sys:String x:Key="Error SCANresponDB">DB is not responding.</sys:String>
     <sys:String x:Key="Error SCAUnKnow">Unknown error has occurred.</sys:String>
     <sys:String x:Key="Error SCA">SCArchive Error : Compile has failed.</sys:String>
-    <sys:String x:Key="Error SCA Freeze">To use SCArchive and freeze를, prompt option must be used.</sys:String>
+    <sys:String x:Key="Error SCA Freeze">To use SCArchive and freeze, prompt option must be used.</sys:String>
 
 
     <sys:String x:Key="Compile">Compiling...</sys:String>
@@ -248,6 +248,7 @@
     <sys:String x:Key="LogClear">Clear log</sys:String>
 
 
+    <sys:String x:Key="MuteSound">MuteSound</sys:String>
     <sys:String x:Key="TopMost">Always on top</sys:String>
     <sys:String x:Key="TopMostOption">Opened always on top</sys:String>
     <sys:String x:Key="Transparency">transparency</sys:String>
@@ -269,10 +270,10 @@
     <sys:String x:Key="FliterEdit">View modified things</sys:String>
 
     <sys:String x:Key="DefaultInfor">Default</sys:String>
-    <sys:String x:Key="UpgradeRequir">Research requirements</sys:String>
-    <sys:String x:Key="TechUseRequir">Requirements for use</sys:String>
-    <sys:String x:Key="TechReserachRequir">Research requirements</sys:String>
-    <sys:String x:Key="OrderRequir">Order Requirements</sys:String>
+    <sys:String x:Key="UpgradeRequir">Required</sys:String>
+    <sys:String x:Key="TechUseRequir">Use Required</sys:String>
+    <sys:String x:Key="TechReserachRequir">Required</sys:String>
+    <sys:String x:Key="OrderRequir">Required</sys:String>
 
     <sys:String x:Key="UnitDefault">Default</sys:String>
     <sys:String x:Key="UnitSpecial">Advanced</sys:String>
@@ -281,8 +282,8 @@
     <sys:String x:Key="UnitMapEdit">Edit</sys:String>
     <sys:String x:Key="UnitAIOrder">AI Order</sys:String>
 
-    <sys:String x:Key="UnitInfor">Screen Information</sys:String>
-    <sys:String x:Key="UnitRequir">Creating requirements</sys:String>
+    <sys:String x:Key="UnitInfor">Display</sys:String>
+    <sys:String x:Key="UnitRequir">Required</sys:String>
     <sys:String x:Key="UnitWireFrame">Wireframe</sys:String>
 
     <sys:String x:Key="UnitBionic">Unit bionic information</sys:String>
@@ -305,6 +306,14 @@
     <sys:String x:Key="UnitSize">Unit size</sys:String>
     <sys:String x:Key="UnitCreateSize">Create Size</sys:String>
     <sys:String x:Key="UnitAddonPos">Addon location</sys:String>
+
+    
+    <sys:String x:Key="WeaponAttack">Target</sys:String>
+    <sys:String x:Key="WeaponRange">Range</sys:String>
+    <sys:String x:Key="WeaponBullet">Bullet</sys:String>
+    <sys:String x:Key="WeaponSplash">Splash</sys:String>
+    <sys:String x:Key="WeaponDisplay">Display</sys:String>
+
 
     <sys:String x:Key="FlingyInfor">Flight information</sys:String>
     <sys:String x:Key="SpriteInfor">Sprite Information</sys:String>
@@ -401,7 +410,7 @@
     <sys:String x:Key="units_AI Internal_V">"Ignore Strategic Sucide missions" AI.|Will not become "Guard" status</sys:String>
 
     <sys:String x:Key="units_Special Ability Flags">Special Ability Flags</sys:String>
-    <sys:String x:Key="units_Special Ability Flags_V">Building|Addon|Air Unit|Accumulate resources|Subunit1|Fly able buildings|Hero|HP Auto heal|Normal Image|Clocking|1 Egg 2 Unit|Single Individual|Resource Storage(Return)|Resource Collect Building|Robotic|detector|Bionic|Required creeps|Unused|Required pylons|Burrow Able Unit|Skill units|Infinity Clock|Able to have items|Ignore a check for population|Middle Overlay|Large Ovelay|Target Direction Auto attack|Reation to fight|Complately Invincibility|Mechanic unit|Create units</sys:String>
+    <sys:String x:Key="units_Special Ability Flags_V">Building|Addon|Air Unit|Accumulate resources|Subunit1|Fly able buildings|Hero|HP Auto heal|Normal Image|Clocking|1 Egg 2 Unit|Single Individual|Resource Storage(Return)|Resource Collect Building|Robotic|detector|Bionic|Required creeps|Unused|Required pylons|Burrow Able Unit|Skill units|Permanent Clocking|Able to have items|Ignore a check for population|Middle Overlay|Large Ovelay|Target Direction Auto attack|Reation to fight|Complately Invincibility|Mechanic unit|Create units</sys:String>
 
     <sys:String x:Key="units_Target Acquisition Range">Acquisition Range</sys:String>
     <sys:String x:Key="units_Sight Range">Sight Range</sys:String>
@@ -409,7 +418,7 @@
     <sys:String x:Key="units_Unit Size">Unit size</sys:String>
     <sys:String x:Key="units_Unit Size_V">Independent size|Small|Middle|Large</sys:String>
     <sys:String x:Key="units_Armor">Armor strength</sys:String>
-    <sys:String x:Key="units_Right-click Action">Movements when mouse right clicked</sys:String>
+    <sys:String x:Key="units_Right-click Action">RClick order</sys:String>
     <sys:String x:Key="units_Right-click Action_V">Order Invalid / Auto Attack|Default Movement / Normal  Attack|Normal Movement / Invalid Attack|Invalid movement / Default Attack|Accumulate resource|Accumulate resource / Repair|None</sys:String>
 
     <sys:String x:Key="units_Ready Sound">Waitting</sys:String>
@@ -476,8 +485,8 @@
     <sys:String x:Key="weapons_Damage Bonus">+</sys:String>
     <sys:String x:Key="weapons_Weapon Cooldown">Cooldown</sys:String>
     <sys:String x:Key="weapons_Damage Factor">Factor</sys:String>
-    <sys:String x:Key="weapons_Attack Angle">Attack A</sys:String>
-    <sys:String x:Key="weapons_Launch Spin">Launch A</sys:String>
+    <sys:String x:Key="weapons_Attack Angle">Attack°</sys:String>
+    <sys:String x:Key="weapons_Launch Spin">Launch°</sys:String>
     <sys:String x:Key="weapons_Forward Offset">Forward</sys:String>
     <sys:String x:Key="weapons_Upward Offset">Upward</sys:String>
     <sys:String x:Key="weapons_Target Error Message">Error message</sys:String>
@@ -527,19 +536,19 @@
 
 
     <sys:String x:Key="upgrades_Mineral Cost Base">Mineral</sys:String>
-    <sys:String x:Key="upgrades_Mineral Cost Factor">미네랄</sys:String>
-    <sys:String x:Key="upgrades_Vespene Cost Base">가스</sys:String>
-    <sys:String x:Key="upgrades_Vespene Cost Factor">가스</sys:String>
-    <sys:String x:Key="upgrades_Research Time Base">시간</sys:String>
-    <sys:String x:Key="upgrades_Research Time Factor">시간</sys:String>
-    <sys:String x:Key="upgrades_Unknown6">알수없음</sys:String>
+    <sys:String x:Key="upgrades_Mineral Cost Factor">Mineral</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Base">Gas</sys:String>
+    <sys:String x:Key="upgrades_Vespene Cost Factor">Gas</sys:String>
+    <sys:String x:Key="upgrades_Research Time Base">Time base</sys:String>
+    <sys:String x:Key="upgrades_Research Time Factor">Time factor</sys:String>
+    <sys:String x:Key="upgrades_Unknown6">Unknown</sys:String>
     <sys:String x:Key="upgrades_Icon">Icon</sys:String>
     <sys:String x:Key="upgrades_Label">Name</sys:String>
     <sys:String x:Key="upgrades_Race">Brood</sys:String>
     <sys:String x:Key="upgrades_Race_V">Zerg|Terran|Protoss|All</sys:String>
 
     <sys:String x:Key="upgrades_Max. Repeats">Number of steps</sys:String>
-    <sys:String x:Key="upgrades_Broodwar Flag">Broodwar</sys:String>
+    <sys:String x:Key="upgrades_Broodwar Flag">BroodWar</sys:String>
 
 
 
@@ -681,15 +690,15 @@
     <sys:String x:Key="flingy_Movement Control_ToolTip">해당 비행정보(외형)을 제어하는 형태를 의미합니다. 0 : Flingy.dat 해당 비행정보가 위에서 설정 가능한 최고속도, 가속도, 멈추는 거리 등을 따르게 합니다. 1 : 무기 형태 해당 비행정보가 위에서 설정한 사항들을 따르지만 일부는 Iscript에서 적용시킨 사항을 따르게 합니다. 2 : Iscript.bin 이미지 탭에서 설정해 둔 IscriptID의 스크립트 내부에서 설정한 속도를 따르게 합니다. 위에서 설정한 것들은 무시합니다.</sys:String>
 
 
-    <sys:String x:Key="sprites_Image File_ToolTip">해당 스프라이트가 참조하는 이미지를 의미합니다. 확인을 누를 경우 해당하는 이미지 탭으로 넘어갑니다.</sys:String>
-    <sys:String x:Key="sprites_Health Bar_ToolTip">해당 스프라이트를 선택하였을 경우 나타나는 체력바의 크기를 나타냅니다.</sys:String>
-    <sys:String x:Key="sprites_Unknown2_ToolTip">활용되지 않는 데이터입니다.</sys:String>
-    <sys:String x:Key="sprites_Is Visible_ToolTip">해당 스프라이트가 맵 상에 표시되는 지의 여부를 선택합니다.</sys:String>
-    <sys:String x:Key="sprites_Sel.Circle Image_ToolTip">해당 스프라이트를 선택하였을 때 나타나는 선택원의 이미지를 나타냅니다. 크기와 형태에 따라 다릅니다.</sys:String>
-    <sys:String x:Key="sprites_Sel.Circle Offset_ToolTip">해당 스프라이트를 선택하였을 때 나타나는 선택원의 위아래 위치를 나타냅니다. 크기가 클 수록 선택원이 아래로 내려갑니다.</sys:String>
+    <sys:String x:Key="sprites_Image File_ToolTip">The image referenced by the sprite. Clicking OK will take you to the appropriate image tab.</sys:String>
+    <sys:String x:Key="sprites_Health Bar_ToolTip">This is the size of the health bar that appears when the sprite is selected.</sys:String>
+    <sys:String x:Key="sprites_Unknown2_ToolTip">This data is not used.</sys:String>
+    <sys:String x:Key="sprites_Is Visible_ToolTip">Whether the sprite is visible in-game.</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Image_ToolTip">Displays the image of the selection circle that appears when the sprite is selected. It depends on the size and shape.</sys:String>
+    <sys:String x:Key="sprites_Sel.Circle Offset_ToolTip">This indicates the top and bottom position of the selection circle that appears when the sprite is selected. The larger the size, the lower the selection circle.</sys:String>
 
 
-    <sys:String x:Key="images_GRP File_ToolTip">Display that current image refer to GRP files. Is not work</sys:String>
+    <sys:String x:Key="images_GRP File_ToolTip">GRP file which is referenced by the image, does not work</sys:String>
     <sys:String x:Key="images_Gfx Turns_ToolTip">Check that current image is enable to left and right inversion.</sys:String>
     <sys:String x:Key="images_Clickable_ToolTip">Check that current image unit is enable to click.</sys:String>
     <sys:String x:Key="images_Use Full Iscript_ToolTip">Check that current image is refer to Iscript and active all script contents.</sys:String>
@@ -769,6 +778,11 @@
     <sys:String x:Key="RequireSubListEnd">End Upgrade Require</sys:String>
 
 
+    <sys:String x:Key="FG_Size">Memory</sys:String>
+    <sys:String x:Key="FG_BatchSetting">Batch setting</sys:String>
+
+    <sys:String x:Key="FG_Requirement">Requirements</sys:String>
+    
     <sys:String x:Key="FG_DefaultUse">Default</sys:String>
     <sys:String x:Key="FG_DontUse">Don’t Use</sys:String>
     <sys:String x:Key="FG_AlwaysUse">Always Use</sys:String>
@@ -871,17 +885,16 @@
 
 
 
-    <sys:String x:Key="MatchCaseText">Case sendsitive</sys:String>
-    <sys:String x:Key="MatchWholeWordsText">모든 단어와 일치</sys:String>
-    <sys:String x:Key="UseRegexText">정규 표현식 사용</sys:String>
+    <sys:String x:Key="MatchCaseText">Case sensitive</sys:String>
+    <sys:String x:Key="MatchWholeWordsText">Match any word</sys:String>
+    <sys:String x:Key="UseRegexText">Use regular expressions</sys:String>
     <sys:String x:Key="FindNextText">Find Next (F3)</sys:String>
-    <sys:String x:Key="FindPreviousText">Find Prev(Shift+F3)</sys:String>
+    <sys:String x:Key="FindPreviousText">Find Prev (Shift+F3)</sys:String>
     <sys:String x:Key="ErrorText">Error!</sys:String>
-    <sys:String x:Key="NoMatchesFoundText">일치하는 결과가 없습니다!</sys:String>
+    <sys:String x:Key="NoMatchesFoundText">No match results!</sys:String>
 
-
-    <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
-    <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
+    <sys:String x:Key="Invalide2s">Invalid e2s file!</sys:String>
+     <sys:String x:Key="LodingError">An error occurred while loading $S0$.</sys:String>
 
     <sys:String x:Key="Control">Ctrl</sys:String>
     <sys:String x:Key="plibFunc">Plib</sys:String>
@@ -889,14 +902,14 @@
     <sys:String x:Key="MacroFunc">Lua</sys:String>
     <sys:String x:Key="Condition">Condition</sys:String>
     <sys:String x:Key="Action">Action</sys:String>
-    <sys:String x:Key="Variable">Object</sys:String>
+    <sys:String x:Key="Object">Object</sys:String>
     <sys:String x:Key="Value">Value</sys:String>
     <sys:String x:Key="EtcBlock">Import</sys:String>
 
 
-    <sys:String x:Key="wireframe_wire">선택 시 나타나는 와이어 프레임입니다.</sys:String>
-    <sys:String x:Key="wireframe_grp">부대 선택 시 나타나는 와이어 프레임입니다.</sys:String>
-    <sys:String x:Key="wireframe_tran">탑승 시 나타나는 와이어 프레임입니다.</sys:String>
+    <sys:String x:Key="wireframe_wire">This is the wireframe that appears for selected units.</sys:String>
+     <sys:String x:Key="wireframe_grp">This is the wireframe that appears when selecting multiple units.</sys:String>
+     <sys:String x:Key="wireframe_tran">This is the wireframe that appears in a transport.</sys:String>
 
     <sys:String x:Key="Var">Variable</sys:String>
     <sys:String x:Key="Label">Label</sys:String>
@@ -904,54 +917,241 @@
     <sys:String x:Key="Import">Import</sys:String>
 
 
-    <sys:String x:Key="VarDefine">변수 정의하기</sys:String>
+    <sys:String x:Key="VarDefine">Defining variables</sys:String>
 
-    <sys:String x:Key="ConnectProgramNoExist">연결 프로그램이 지정되어 있지 않습니다.</sys:String>
+     <sys:String x:Key="ConnectProgramNoExist">Could not connect to program</sys:String>
 
-    <sys:String x:Key="TEFileChangeError">타입 변경에 실패했습니다.</sys:String>
-    <sys:String x:Key="NotDeleteitem">지울 수 없는 아이템입니다.</sys:String>
+     <sys:String x:Key="TEFileChangeError">Type change failed.</sys:String>
+     <sys:String x:Key="NotDeleteitem">This item cannot be deleted.</sys:String>
 
-    <sys:String x:Key="NitemDelete">%S1개의 아이템이 지워졌습니다.</sys:String>
+     <sys:String x:Key="NitemDelete">%S1 items have been deleted.</sys:String>
 
-    <sys:String x:Key="TE_SnackBar1">선언문만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar2">함수 선언은 외부에 할 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar3">객체 선언은 외부에 할 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar4">임포트는 외부에 할 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar5">함수 인자만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar6">케이스만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar7">조건이나 함수만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar8">함수만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar9">변수 선언문만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar10">시작 함수에는 인자를 넣을 수 없습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar11">함수 인자는 함수에 넣을 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar12">케이스는 스위치에만 들어 갈 수 있습니다.</sys:String>
-    <sys:String x:Key="TE_SnackBar13">조건을 넣을 수 없는 곳입니다.</sys:String>
+    <sys:String x:Key="TE_SnackBar1">Can only contain declarations.</sys:String>
+    <sys:String x:Key="TE_SnackBar2">Function declaration can be done externally.</sys:String>
+    <sys:String x:Key="TE_SnackBar3">Object declaration can be done externally.</sys:String>
+    <sys:String x:Key="TE_SnackBar4">Import can be externally.</sys:String>
+    <sys:String x:Key="TE_SnackBar5">Only function arguments are allowed.</sys:String>
+    <sys:String x:Key="TE_SnackBar6">You can only enter the case.</sys:String>
+    <sys:String x:Key="TE_SnackBar7">Can only contain conditions or functions.</sys:String>
+    <sys:String x:Key="TE_SnackBar8">Only functions can be entered.</sys:String>
+    <sys:String x:Key="TE_SnackBar9">Can only contain variable declarations.</sys:String>
+    <sys:String x:Key="TE_SnackBar10">You cannot put arguments in the start function.</sys:String>
+    <sys:String x:Key="TE_SnackBar11">Function arguments can be put into functions.</sys:String>
+    <sys:String x:Key="TE_SnackBar12">The case can only fit into the switch.</sys:String>
+    <sys:String x:Key="TE_SnackBar13">This is where conditions cannot be entered.</sys:String>
+
+    <sys:String x:Key="fundefine">Function declaration</sys:String>
+    <sys:String x:Key="funargblock">Argument</sys:String>
+    <sys:String x:Key="funreturn">Function return</sys:String>
+
+    <sys:String x:Key="objectdefine">Object declaration</sys:String>
+    <sys:String x:Key="vardefine">Variable declaration</sys:String>
+    <sys:String x:Key="folder">Folder</sys:String>
+    <sys:String x:Key="expression">Expression</sys:String>
 
 
-    <sys:String x:Key="fundefine">함수선언</sys:String>
-    <sys:String x:Key="funargblock">인자선언</sys:String>
-    <sys:String x:Key="funreturn">함수반환</sys:String>
-
-    <sys:String x:Key="objectdefine">객체선언</sys:String>
-    <sys:String x:Key="vardefine">변수선언</sys:String>
-    <sys:String x:Key="folder">폴더</sys:String>
-    <sys:String x:Key="expression">수식</sys:String>
-
-
-    <sys:String x:Key="emptytext">빈 텍스트</sys:String>
+    <sys:String x:Key="emptytext">Blank text</sys:String>
 
     
-    <sys:String x:Key="ChatPluginSetting">ChatEvent 설정</sys:String>
-    <sys:String x:Key="MSQCPluginSetting">MSQC 설정</sys:String>
+    <sys:String x:Key="ChatPluginSetting">ChatEvent Settings</sys:String>
+    <sys:String x:Key="MSQCPluginSetting">MSQC Settings</sys:String>
     <sys:String x:Key="FuncNameUserEdit">UserEdit</sys:String>
 
-
+    <sys:String x:Key="GUIEditorBtn">GUI Editor</sys:String>
     
     <sys:String x:Key="NewClassicScript">NewClassicTrigger</sys:String>
+
+    <sys:String x:Key="TrgArgAll">All</sys:String>
+    <sys:String x:Key="TrgArg0">All</sys:String>
+
+    <sys:String x:Key="TrgArgEnemy">Enemy</sys:String>
+    <sys:String x:Key="TrgArgAlly">Ally</sys:String>
+    <sys:String x:Key="TrgArgAlliedVictory">Allied victory</sys:String>
+    <sys:String x:Key="TrgArgAtLeast">At least</sys:String>
+    <sys:String x:Key="TrgArgAtMost">At most</sys:String>
+    <sys:String x:Key="TrgArgExactly">Exactly</sys:String>
+    <sys:String x:Key="TrgArgSetTo">Set to</sys:String>
+    <sys:String x:Key="TrgArgAdd">Add</sys:String>
+    <sys:String x:Key="TrgArgSubtract">Subtract</sys:String>
+    <sys:String x:Key="TrgArgMove">Move</sys:String>
+    <sys:String x:Key="TrgArgPatrol">Patrol</sys:String>
+    <sys:String x:Key="TrgArgAttack">Attack</sys:String>
+    <sys:String x:Key="TrgArgCurrentPlayer">CurrentPlayer</sys:String>
+    <sys:String x:Key="TrgArgFoes">Foes</sys:String>
+    <sys:String x:Key="TrgArgAllies">Allies</sys:String>
+    <sys:String x:Key="TrgArgNeutralPlayers">Neutral Players</sys:String>
+    <sys:String x:Key="TrgArgAllPlayers">All Players</sys:String>
+    <sys:String x:Key="TrgArgForce1">Force1</sys:String>
+    <sys:String x:Key="TrgArgForce2">Force2</sys:String>
+    <sys:String x:Key="TrgArgForce3">Force3</sys:String>
+    <sys:String x:Key="TrgArgForce4">Force4</sys:String>
+    <sys:String x:Key="TrgArgNonAlliedVictoryPlayers">Non Allied Victory Players</sys:String>
+    <sys:String x:Key="TrgArgEnable">Enable</sys:String>
+    <sys:String x:Key="TrgArgDisable">Disable</sys:String>
+    <sys:String x:Key="TrgArgOre">Ore</sys:String>
+    <sys:String x:Key="TrgArgGas">Gas</sys:String>
+    <sys:String x:Key="TrgArgOreAndGas">OreAndGas</sys:String>
+    <sys:String x:Key="TrgArgTotal">Total</sys:String>
+    <sys:String x:Key="TrgArgUnits">Units</sys:String>
+    <sys:String x:Key="TrgArgBuildings">Buildings</sys:String>
+    <sys:String x:Key="TrgArgUnitsAndBuildings">Units and buildings</sys:String>
+    <sys:String x:Key="TrgArgKills">Kills</sys:String>
+    <sys:String x:Key="TrgArgRazings">Razings</sys:String>
+    <sys:String x:Key="TrgArgKillsAndRazings">Kills and razings</sys:String>
+    <sys:String x:Key="TrgArgCustom">Custom</sys:String>
+    <sys:String x:Key="TrgArgSet">Set</sys:String>
+    <sys:String x:Key="TrgArgClear">Clear</sys:String>
+    <sys:String x:Key="TrgArgToggle">Toggle</sys:String>
+    <sys:String x:Key="TrgArgRandom">Ranomize</sys:String>
+    <sys:String x:Key="TrgArgCleared">Cleared</sys:String>
+
+
+
+    <sys:String x:Key="Explorer">Explorer</sys:String>
+    <sys:String x:Key="ErrorList">Error List</sys:String>
+    <sys:String x:Key="Location">Location</sys:String>
+    <sys:String x:Key="File">File</sys:String>
+    <sys:String x:Key="Description">Description</sys:String>
+
+    <sys:String x:Key="Name">Name</sys:String>
+    <sys:String x:Key="Address">File</sys:String>
+    <sys:String x:Key="Len">Len</sys:String>
+    <sys:String x:Key="Size">Size</sys:String>
+    <sys:String x:Key="Compression">Compression</sys:String>
+    <sys:String x:Key="Samplerate">Samplerate</sys:String>
+    <sys:String x:Key="Bitrate">Bitrate</sys:String>
+
+    <sys:String x:Key="Type">Type</sys:String>
+    <sys:String x:Key="DataSet">Data Setting</sys:String>
+
+    <sys:String x:Key="Variable">Variable</sys:String>
+    <sys:String x:Key="Death">Death</sys:String>
+    <sys:String x:Key="Array">Array</sys:String>
+    <sys:String x:Key="NameSpace">NameSpace</sys:String>
+
+    <sys:String x:Key="Default">Default</sys:String>
+
+    <sys:String x:Key="BGMList">Sound List</sys:String>
+
+
+    <sys:String x:Key="Visible">Visible</sys:String>
+    <sys:String x:Key="Use">Enable</sys:String>
+    <sys:String x:Key="MouseLocSetting">Mouse Loc Setting</sys:String>
+
+
+    <sys:String x:Key="TestMode">TestMode</sys:String>
+    <sys:String x:Key="MultiPlayMode">MultiPlayMode</sys:String>
+    <sys:String x:Key="FreePlayMode">FreePlayMode</sys:String>
+
+
+    <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
+    <sys:String x:Key="MapSetting">맵 설정</sys:String>
+    <sys:String x:Key="BattleTag">배틀코드</sys:String>
+
+    <sys:String x:Key="PassWord">비밀번호</sys:String>
+    <sys:String x:Key="Identificationnumber">고유 식별 번호</sys:String>
+    <sys:String x:Key="SeverID">서버 아이디</sys:String>
+
+
+    <sys:String x:Key="DatabaseName">데이터베이스 이름</sys:String>
+    <sys:String x:Key="SecondName">하위이름</sys:String>
+    <sys:String x:Key="MapInfor">맵 정보</sys:String>
+
+    <sys:String x:Key="InforUpdate">정보 갱신</sys:String>
+
+    <sys:String x:Key="DataSetting">데이터 설정</sys:String>
+
+    <sys:String x:Key="ViewUnEnabled">맵 비공개</sys:String>
+    <sys:String x:Key="ViewEnabled">맵 공개</sys:String>
+
+    <sys:String x:Key="MapName">맵 이름</sys:String>
+    <sys:String x:Key="MapNameHint">다운로드 페이지에서 보이는 이름입니다.</sys:String>
+
+    <sys:String x:Key="MakerEmail">제작자 이메일</sys:String>
+    <sys:String x:Key="MakerEmailHint">신고 기능 이용 시 내용을 수신 받을 수 있습니다.</sys:String>
+
+    <sys:String x:Key="MapTag">맵 태그</sys:String>
+    <sys:String x:Key="MapTagHint">다운로드 페이지에서 볼 수 있는 태그입니다.</sys:String>
+
+    <sys:String x:Key="MapInforLink">맵 정보 링크</sys:String>
+    <sys:String x:Key="MapInforLinkHint">다운로드 페이지에서 볼 수 있는 링크입니다.</sys:String>
+
+    <sys:String x:Key="MapImageLink">맵 이미지 링크</sys:String>
+    <sys:String x:Key="MapImageLinkHint">다운로드 페이지에서 볼 수 있는 이미지 링크입니다.</sys:String>
+
+    <sys:String x:Key="MapDescription">맵 설명</sys:String>
+    <sys:String x:Key="MapDescriptionHint">다운로드 페이지에서 보이는 설명입니다.</sys:String>
+
+    <sys:String x:Key="BufferSize">버퍼 사이즈</sys:String>
+    <sys:String x:Key="BufferSizeHint">유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다.</sys:String>
+
+
+    <sys:String x:Key="CT_TriggerSetting">Setting</sys:String>
+    <sys:String x:Key="CT_Player">Player</sys:String>
+    <sys:String x:Key="CT_Condition">Condition</sys:String>
+    <sys:String x:Key="CT_Action">Action</sys:String>
+    <sys:String x:Key="CT_Trigger">Trigger</sys:String>
+    <sys:String x:Key="CT_GlobalVar">Global Variable</sys:String>
+    <sys:String x:Key="CT_Import">Import</sys:String>
+
+    <sys:String x:Key="CT_NewCond">New Condition</sys:String>
+    <sys:String x:Key="CT_NewAct">New Action</sys:String>
+    <sys:String x:Key="CT_New">New</sys:String>
+    <sys:String x:Key="CT_Edit">Edit</sys:String>
+    <sys:String x:Key="CT_Cut">Cut</sys:String>
+    <sys:String x:Key="CT_Copy">Copy</sys:String>
+    <sys:String x:Key="CT_Paste">Paste</sys:String>
+    <sys:String x:Key="CT_Delete">Delete</sys:String>
+    <sys:String x:Key="CT_Up">Up</sys:String>
+    <sys:String x:Key="CT_Down">Down</sys:String>
+    <sys:String x:Key="CT_Add">Add</sys:String>
+
+
+    <sys:String x:Key="CT_VarName">Name</sys:String>
+    <sys:String x:Key="CT_VarType">Type</sys:String>
+    <sys:String x:Key="CT_VarInit">Init</sys:String>
+
+
+    <sys:String x:Key="CT_DefaultVar">Var</sys:String>
+    <sys:String x:Key="CT_ConstVar">Const</sys:String>
+    <sys:String x:Key="CT_PVariable">PVar</sys:String>
+    <sys:String x:Key="CT_Array">Array</sys:String>
+    <sys:String x:Key="CT_VArray">VArray</sys:String>
+
+
+
+    <sys:String x:Key="CT_ImportName">Name</sys:String>
+    <sys:String x:Key="CT_ImportFile">File</sys:String>
+
+
+    <sys:String x:Key="CT_Preserved">Preserved Trigger</sys:String>
+    <sys:String x:Key="CT_Comment">Enter Comment</sys:String>
+
+
+
+    <sys:String x:Key="CT_Plib">Plib</sys:String>
+    <sys:String x:Key="CT_Lua">Lua</sys:String>
+    <sys:String x:Key="CT_Extern">Extern</sys:String>
+
+
+
+    <sys:String x:Key="CT_Select">Select</sys:String>
+
+
+    <sys:String x:Key="CT_OnlyCode">OnlyCode</sys:String>
+    <sys:String x:Key="CT_CodeText">Trigger Code</sys:String>
+
+
+    <sys:String x:Key="DirectDonate">DirectDonate</sys:String>
+    <sys:String x:Key="ViewDonateWindow">Do not show again</sys:String>
+
+
+    <sys:String x:Key="ArgFuncSelect">Function Select</sys:String>
+    <sys:String x:Key="ArgGlobal">Global Variable</sys:String>
+
+
+    <sys:String x:Key="ArgDefault">Default</sys:String>
+    <sys:String x:Key="ArgVariable">Variable</sys:String>
+    <sys:String x:Key="ArgFunction">Function</sys:String>
+    <sys:String x:Key="ArgUserCode">UserCode</sys:String>
 </ResourceDictionary>
-
-
-
-
-
-

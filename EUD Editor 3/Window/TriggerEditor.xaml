@@ -45,11 +45,23 @@
     </Window.Resources>
     <DockPanel>
         <DockPanel>
-            <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" VerticalContentAlignment="Stretch">
+            <Expander x:Name="ErrorListExpander" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Header="{StaticResource ErrorList}" Foreground="{DynamicResource MaterialDesignBody}">
+                <ListView x:Name="ErrorList" MaxHeight="250" MouseDoubleClick="ErrorList_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+                    <ListView.View>
+                        <GridView>
+                            <GridViewColumn DisplayMemberBinding="{Binding Line}" Header="{StaticResource Location}" />
+                            <GridViewColumn DisplayMemberBinding="{Binding File}" Header="{StaticResource File}" Width="100"/>
+                            <GridViewColumn DisplayMemberBinding="{Binding Description}" Header="{StaticResource Description}" Width="800"/>
+                        </GridView>
+                    </ListView.View>
+                </ListView>
+            </Expander>
+
+            <Expander Name="CodeExpander" ExpandDirection="Right"  DockPanel.Dock="Left" VerticalContentAlignment="Stretch">
                 <Expander.Header>
                     <TextBlock
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
-                    Text="탐색기"
+                    Text="{StaticResource Explorer}"
                     RenderTransformOrigin=".5,.5">
                         <TextBlock.LayoutTransform>
                             <RotateTransform

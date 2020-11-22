@@ -19,30 +19,27 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="334" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitAIOrder}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:IconSelecter x:Name="CAI" Tag="Comp AI Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
-                            <local:IconSelecter x:Name="HAI" Tag="Human AI Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540"/>
-                            <local:IconSelecter x:Name="RTI" Tag="Return to Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
-                            <local:IconSelecter x:Name="AU" Tag="Attack Unit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
-                            <local:IconSelecter x:Name="AM" Tag="Attack Move" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
-                            <local:ComboxSelecter x:Name="RCA" Tag="Right-click Action" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" />
-                            <local:FlagSelecter x:Name="AI" Tag="AI Internal" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
+                            <StackPanel Margin="10">
+                                <local:IconSelecter x:Name="CAI" Tag="Comp AI Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
+                                <local:IconSelecter x:Name="HAI" Tag="Human AI Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540"/>
+                                <local:IconSelecter x:Name="RTI" Tag="Return to Idle" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
+                                <local:IconSelecter x:Name="AU" Tag="Attack Unit" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
+                                <local:IconSelecter x:Name="AM" Tag="Attack Move" HorizontalAlignment="Left" VerticalAlignment="Top" Width="540" />
+                                <local:ComboxSelecter x:Name="RCA" Tag="Right-click Action" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" />
+                                <local:FlagSelecter x:Name="AI" Tag="AI Internal" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

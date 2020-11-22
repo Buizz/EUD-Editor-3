@@ -12,7 +12,7 @@ Public Class TEGUIPage
         Return (tTEfile Is PTEFile)
     End Function
 
-    Public Sub New(tTEFile As TEFile)
+    Public Sub New(tTEFile As TEFile, Optional SelectTrigIndex As Integer = -1)
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 

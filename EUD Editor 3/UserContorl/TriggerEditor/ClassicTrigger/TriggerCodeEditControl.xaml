@@ -28,16 +28,12 @@
             <Grid>
                 <DockPanel>
                     <UniformGrid  DockPanel.Dock="Bottom" Rows="1">
-                        <Button x:Name="Okay_Btn" Click="Button_Click" Content="확인" IsEnabled="False"/>
-                        <Button Click="Button_Click_1" Content="취소"/>
+                        <Button x:Name="Okay_Btn" Click="Button_Click" Content="{StaticResource Okay}" IsEnabled="False"/>
+                        <Button Click="Button_Click_1" Content="{StaticResource Cancel}"/>
                     </UniformGrid>
 
                     <StackPanel>
                         <WrapPanel Margin="4" x:Name="TriggerPanel">
-                            <Button Content="Player 1" Margin="4,0" Padding="0"/>
-                            <TextBlock Text="의" HorizontalAlignment="Center" VerticalAlignment="Center"/>
-                            <Button Content="저글링" Margin="4,0" Padding="0"/>
-                            <TextBlock Text="을 모두 파괴합니다." HorizontalAlignment="Center" VerticalAlignment="Center"/>
                         </WrapPanel>
                         <StackPanel  x:Name="SummaryPanel" >
 
@@ -46,17 +42,17 @@
 
                 </DockPanel>
                 <DockPanel x:Name="FuncSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Visible" Margin="0" >
-                    <Button x:Name="SelectBtn" Click="Button_Click_3" DockPanel.Dock="Bottom" Content="선택" IsEnabled="False"/>
+                    <Button x:Name="SelectBtn" Click="Button_Click_3" DockPanel.Dock="Bottom" Content="{StaticResource CT_Select}" IsEnabled="False"/>
 
                     <UniformGrid Rows="1">
                         <DockPanel>
                             <ListBox x:Name="CodeTypeList" SelectionChanged="CodeTypeList_SelectionChanged">
-                                <ListBoxItem Content="조건" x:Name="CListItem" Tag="C"/>
-                                <ListBoxItem Content="액션" x:Name="AListItem" Tag="A"/>
-                                <ListBoxItem Content="플립" Tag="P"/>
-                                <ListBoxItem Content="Lua" Tag="L"/>
+                                <ListBoxItem Content="{StaticResource CT_Condition}" x:Name="CListItem" Tag="C"/>
+                                <ListBoxItem Content="{StaticResource CT_Action}" x:Name="AListItem" Tag="A"/>
+                                <ListBoxItem Content="{StaticResource CT_Plib}" Tag="P"/>
+                                <ListBoxItem Content="{StaticResource CT_Lua}" Tag="L"/>
                                 <!--<ListBoxItem Content="함수" Tag="F"/>-->
-                                <ListBoxItem Content="외부" Tag="E"/>
+                                <ListBoxItem Content="{StaticResource CT_Extern}" Tag="E"/>
                             </ListBox>
                             <Grid>
                                 <DockPanel>

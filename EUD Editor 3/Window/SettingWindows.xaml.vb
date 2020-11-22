@@ -31,6 +31,7 @@ Public Class SettingWindows
         TopMostforce.IsChecked = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
         TopMostTEforce.IsChecked = pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost)
         TopMostPluginforce.IsChecked = pgData.Setting(ProgramData.TSetting.PluginSettingTopMost)
+        Mute.IsChecked = pgData.Setting(ProgramData.TSetting.MuteSound)
 
 
         Dim fsize As Integer = pgData.Setting(ProgramData.TSetting.TEFontSize)
@@ -504,6 +505,10 @@ Public Class SettingWindows
         End If
         Me.Visibility = Visibility.Visible
         'MsgBox("ㅎㅇ")
+    End Sub
+
+    Private Sub Mute_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.MuteSound) = Mute.IsChecked
     End Sub
 
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged

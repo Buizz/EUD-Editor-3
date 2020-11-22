@@ -203,6 +203,7 @@
                     <StackPanel Margin="5" Orientation="Horizontal">
                         <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
                         <CheckBox x:Name="TopMostforce" Checked="TopMostforce_Checked"  Unchecked="TopMostforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="Mute" Checked="Mute_Checked"  Unchecked="Mute_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource MuteSound}" Margin="0,0,20,0"/>
 
                     </StackPanel>
 

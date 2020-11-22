@@ -91,8 +91,23 @@ Public Class ClassicTriggerEditor
         Return GetEpsText()
     End Function
 
+
+
+    Public Function GetLine(bLine As Integer) As Integer
+        For i = 0 To TriggerList.Count - 1
+            Dim trg As Trigger = TriggerList(i)
+            If trg.StartLine <= bLine And bLine < trg.EndLine Then
+                Return i
+            End If
+        Next
+        Return -1
+    End Function
+
+
+
+
+
     Public Function GetEpsText() As String
-        tv = 0
         Dim sb As New StringBuilder
         sb.AppendLine("/*================Start Import================*/")
         For i = 0 To ImportFiles.Count - 1
@@ -162,6 +177,8 @@ Public Class ClassicTriggerEditor
         For i = 0 To TriggerList.Count - 1
             For p = 0 To 7
                 If TriggerList(i).PlayerEnabled(p) Then
+                    TriggerList(i).StartLine = -1
+                    TriggerList(i).EndLine = -1
                     playerTrigger(p).Add(TriggerList(i))
                 End If
             Next
@@ -169,28 +186,36 @@ Public Class ClassicTriggerEditor
 
 
         sb.AppendLine("function ClassicTriggerExec(){")
-        For i = 0 To 7
-            Dim tlist As List(Of Trigger) = playerTrigger(i)
+        For player = 0 To 7
+            Dim tlist As List(Of Trigger) = playerTrigger(player)
             If tlist.Count = 0 Then
                 Continue For
             End If
-            sb.AppendLine("    /*================Start Player " & i + 1 & "================*/")
+            sb.AppendLine("    /*================Start Player " & player + 1 & "================*/")
+
+
 
             sb.AppendLine("    {")
-            sb.AppendLine("        setcurpl(" & i & ");")
-            sb.AppendLine("        const cp = " & i & ";")
+            sb.AppendLine("        setcurpl(" & player & ");")
+            sb.AppendLine("        const cp = " & player & ";")
             For t = 0 To tlist.Count - 1
+                Dim StartLine As Integer = sb.ToString.Split(vbCrLf).Length
                 Dim trg As Trigger = tlist(t)
                 If trg.IsEnabled Then
                     sb.Append(trg.GetTriggerCodeText(2, Me))
                 End If
-            Next
+                Dim EndLine As Integer = sb.ToString.Split(vbCrLf).Length
 
+                If trg.StartLine = -1 Then
+                    trg.StartLine = StartLine
+                    trg.EndLine = EndLine
+                End If
+            Next
             sb.AppendLine("    }")
 
 
 
-            sb.AppendLine("    /*================End Player " & i + 1 & "================*/")
+            sb.AppendLine("    /*================End Player " & player + 1 & "================*/")
         Next
         sb.AppendLine("}")
 

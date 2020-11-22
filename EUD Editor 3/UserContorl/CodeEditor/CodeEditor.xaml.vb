@@ -24,10 +24,46 @@ Public Class CodeEditor
         InitTextEditor()
     End Sub
 
+
+    Public Sub LineHightLight(Line As Integer)
+        If Line = -1 Then
+            Return
+        End If
+
+        Dim t As String = Text
+
+
+
+
+
+        Dim sStart As Integer
+        Dim sEnd As Integer
+        Dim sLen As Integer
+
+        Dim linestart As Integer = 0
+        For i = 1 To Line
+            sStart = linestart
+            linestart = t.IndexOf(vbCrLf, linestart)
+            sEnd = linestart
+            linestart += 1
+        Next
+        If sEnd = -1 Then
+            sLen = t.Length - sStart
+        Else
+            sLen = sEnd - sStart + 1
+        End If
+
+
+        TextEditor.SelectionStart = sStart + 1
+        TextEditor.SelectionLength = sLen - 1
+
+
+    End Sub
+
+
+
     Private Sub TextEditor_PreviewMouseDown(sender As Object, e As MouseButtonEventArgs)
         TooltipHide()
-
-
     End Sub
 
     Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)

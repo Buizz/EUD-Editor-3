@@ -248,6 +248,7 @@
     <sys:String x:Key="LogClear">로그 지우기</sys:String>
 
 
+    <sys:String x:Key="MuteSound">음소거</sys:String>
     <sys:String x:Key="TopMost">항상 위</sys:String>
     <sys:String x:Key="TopMostOption">항상 위로 켜짐</sys:String>
     <sys:String x:Key="Transparency">투명도</sys:String>
@@ -305,6 +306,14 @@
     <sys:String x:Key="UnitSize">유닛 크기</sys:String>
     <sys:String x:Key="UnitCreateSize">건설 크기</sys:String>
     <sys:String x:Key="UnitAddonPos">애드온 위치</sys:String>
+
+
+    <sys:String x:Key="WeaponAttack">타격정보</sys:String>
+    <sys:String x:Key="WeaponRange">사거리</sys:String>
+    <sys:String x:Key="WeaponBullet">투사체</sys:String>
+    <sys:String x:Key="WeaponSplash">스플래쉬 범위</sys:String>
+    <sys:String x:Key="WeaponDisplay">무기 화면 정보</sys:String>
+
 
     <sys:String x:Key="FlingyInfor">비행정보</sys:String>
     <sys:String x:Key="SpriteInfor">스프라이트 정보</sys:String>
@@ -767,6 +776,12 @@
     <sys:String x:Key="RequireText">(Must have...)|Or|Current unit is...|Must have...|Must have add-on|Is not lifted off|Is lifted off|Is not training or morphing|Is not constructing add-on|Is not researching|Is not upgrading|Is not constructing|Does not have add-on attached|Does not have nydus canal's exit|Has hangar space|Must be researched|Does not have loaded nuke|Is not burrowed|Can attack|Can set rally point|Can move|Has weapon|Is worker|Is flying building|Is transport|Is powerup|Is Subunit|Has spidermines|Is hero and enabled|Can hold position|Allow on hallucinations|Upgrade Lv-1 Require...|Upgrade_Lv-2 Require...|Upgrade_Lv-3+ Require...|Grey|Blank|Must be Brood War|Is researched...|Is burrowed|조건 분기</sys:String>
     <sys:String x:Key="RequireSubListEnd">==End of Sublist==</sys:String>
 
+
+    <sys:String x:Key="FG_Size">용량</sys:String>
+    <sys:String x:Key="FG_BatchSetting">일괄 설정</sys:String>
+
+    <sys:String x:Key="FG_Requirement">요구사항</sys:String>
+
     <sys:String x:Key="FG_DefaultUse">기본값</sys:String>
     <sys:String x:Key="FG_DontUse">사용안함</sys:String>
     <sys:String x:Key="FG_AlwaysUse">무조건허용</sys:String>
@@ -887,7 +902,7 @@
     <sys:String x:Key="MacroFunc">Lua</sys:String>
     <sys:String x:Key="Condition">조건</sys:String>
     <sys:String x:Key="Action">액션</sys:String>
-    <sys:String x:Key="Variable">객체</sys:String>
+    <sys:String x:Key="Object">객체</sys:String>
     <sys:String x:Key="Value">값</sys:String>
     <sys:String x:Key="EtcBlock">추가</sys:String>
 
@@ -951,7 +966,6 @@
     <sys:String x:Key="NewClassicScript">새ClassicTrigger파일</sys:String>
 
 
-    <!--있어도 되고 없어도 되는 부분-->
     <sys:String x:Key="TrgArgAll">모두</sys:String>
     <sys:String x:Key="TrgArg0">모두</sys:String>
 
@@ -995,5 +1009,156 @@
     <sys:String x:Key="TrgArgToggle">전환</sys:String>
     <sys:String x:Key="TrgArgRandom">랜덤</sys:String>
     <sys:String x:Key="TrgArgCleared">닫힘</sys:String>
-    <!--있어도 되고 없어도 되는 부분-->
+
+
+
+
+    <sys:String x:Key="Explorer">탐색기</sys:String>
+    <sys:String x:Key="ErrorList">오류 목록</sys:String>
+    <sys:String x:Key="Location">위치</sys:String>
+    <sys:String x:Key="File">파일</sys:String>
+    <sys:String x:Key="Description">설명</sys:String>
+
+    <sys:String x:Key="Name">이름</sys:String>
+    <sys:String x:Key="Address">주소</sys:String>
+    <sys:String x:Key="Len">길이</sys:String>
+    <sys:String x:Key="Size">용량</sys:String>
+    <sys:String x:Key="Compression">압축용량</sys:String>
+    <sys:String x:Key="Samplerate">샘플레이트</sys:String>
+    <sys:String x:Key="Bitrate">비트레이트</sys:String>
+
+    <sys:String x:Key="Type">종류</sys:String>
+    <sys:String x:Key="DataSet">데이터 설정</sys:String>
+
+    <sys:String x:Key="Variable">변수</sys:String>
+    <sys:String x:Key="Death">데스값</sys:String>
+    <sys:String x:Key="Array">배열</sys:String>
+    <sys:String x:Key="NameSpace">네임스페이스</sys:String>
+
+    <sys:String x:Key="Default">기본</sys:String>
+    
+    <sys:String x:Key="BGMList">BGM 목록</sys:String>
+
+
+    <sys:String x:Key="Visible">표시</sys:String>
+    <sys:String x:Key="Use">사용</sys:String>
+    <sys:String x:Key="MouseLocSetting">마우스 로케이션 설정</sys:String>
+
+
+    <sys:String x:Key="TestMode">테스트 모드</sys:String>
+    <sys:String x:Key="MultiPlayMode">멀티 모드</sys:String>
+    <sys:String x:Key="FreePlayMode">자유 모드</sys:String>
+
+
+    <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
+    <sys:String x:Key="MapSetting">맵 설정</sys:String>
+    <sys:String x:Key="BattleTag">배틀코드</sys:String>
+
+    <sys:String x:Key="PassWord">비밀번호</sys:String>
+    <sys:String x:Key="Identificationnumber">고유 식별 번호</sys:String>
+    <sys:String x:Key="SeverID">서버 아이디</sys:String>
+
+
+    <sys:String x:Key="DatabaseName">데이터베이스 이름</sys:String>
+    <sys:String x:Key="SecondName">하위이름</sys:String>
+    <sys:String x:Key="MapInfor">맵 정보</sys:String>
+
+    <sys:String x:Key="InforUpdate">정보 갱신</sys:String>
+
+    <sys:String x:Key="DataSetting">데이터 설정</sys:String>
+
+    <sys:String x:Key="ViewUnEnabled">맵 비공개</sys:String>
+    <sys:String x:Key="ViewEnabled">맵 공개</sys:String>
+
+    <sys:String x:Key="MapName">맵 이름</sys:String>
+    <sys:String x:Key="MapNameHint">다운로드 페이지에서 보이는 이름입니다.</sys:String>
+
+    <sys:String x:Key="MakerEmail">제작자 이메일</sys:String>
+    <sys:String x:Key="MakerEmailHint">신고 기능 이용 시 내용을 수신 받을 수 있습니다.</sys:String>
+
+    <sys:String x:Key="MapTag">맵 태그</sys:String>
+    <sys:String x:Key="MapTagHint">다운로드 페이지에서 볼 수 있는 태그입니다.</sys:String>
+
+    <sys:String x:Key="MapInforLink">맵 정보 링크</sys:String>
+    <sys:String x:Key="MapInforLinkHint">다운로드 페이지에서 볼 수 있는 링크입니다.</sys:String>
+
+    <sys:String x:Key="MapImageLink">맵 이미지 링크</sys:String>
+    <sys:String x:Key="MapImageLinkHint">다운로드 페이지에서 볼 수 있는 이미지 링크입니다.</sys:String>
+
+    <sys:String x:Key="MapDescription">맵 설명</sys:String>
+    <sys:String x:Key="MapDescriptionHint">다운로드 페이지에서 보이는 설명입니다.</sys:String>
+
+    <sys:String x:Key="BufferSize">버퍼 사이즈</sys:String>
+    <sys:String x:Key="BufferSizeHint">유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다.</sys:String>
+
+
+    <sys:String x:Key="CT_TriggerSetting">트리거 설정</sys:String>
+    <sys:String x:Key="CT_Player">플레이어</sys:String>
+    <sys:String x:Key="CT_Condition">조건</sys:String>
+    <sys:String x:Key="CT_Action">액션</sys:String>
+    <sys:String x:Key="CT_Trigger">트리거</sys:String>
+    <sys:String x:Key="CT_GlobalVar">글로벌 변수</sys:String>
+    <sys:String x:Key="CT_Import">임포트</sys:String>
+
+    <sys:String x:Key="CT_NewCond">새 조건</sys:String>
+    <sys:String x:Key="CT_NewAct">새 액션</sys:String>
+    <sys:String x:Key="CT_New">새로만들기</sys:String>
+    <sys:String x:Key="CT_Edit">수정</sys:String>
+    <sys:String x:Key="CT_Cut">잘라내기</sys:String>
+    <sys:String x:Key="CT_Copy">복사</sys:String>
+    <sys:String x:Key="CT_Paste">붙여넣기</sys:String>
+    <sys:String x:Key="CT_Delete">삭제</sys:String>
+    <sys:String x:Key="CT_Up">올리기</sys:String>
+    <sys:String x:Key="CT_Down">내리기</sys:String>
+    <sys:String x:Key="CT_Add">추가</sys:String>
+
+
+    <sys:String x:Key="CT_VarName">이름</sys:String>
+    <sys:String x:Key="CT_VarType">타입</sys:String>
+    <sys:String x:Key="CT_VarInit">초기값</sys:String>
+
+
+    <sys:String x:Key="CT_DefaultVar">일반변수</sys:String>
+    <sys:String x:Key="CT_ConstVar">상수변수</sys:String>
+    <sys:String x:Key="CT_PVariable">플레이어변수</sys:String>
+    <sys:String x:Key="CT_Array">배열</sys:String>
+    <sys:String x:Key="CT_VArray">변수배열</sys:String>
+
+
+
+    <sys:String x:Key="CT_ImportName">이름</sys:String>
+    <sys:String x:Key="CT_ImportFile">파일</sys:String>
+
+
+    <sys:String x:Key="CT_Preserved">무한 반복 트리거</sys:String>
+    <sys:String x:Key="CT_Comment">주석을 입력하세요.</sys:String>
+
+
+
+    <sys:String x:Key="CT_Plib">플립</sys:String>
+    <sys:String x:Key="CT_Lua">Lua</sys:String>
+    <sys:String x:Key="CT_Extern">외부</sys:String>
+
+
+
+    <sys:String x:Key="CT_Select">선택</sys:String>
+
+
+    <sys:String x:Key="CT_OnlyCode">코드만 출력</sys:String>
+    <sys:String x:Key="CT_CodeText">트리거 코드</sys:String>
+    
+    
+    
+    <sys:String x:Key="DirectDonate">직접후원</sys:String>
+    <sys:String x:Key="ViewDonateWindow">다시 보지 않기</sys:String>
+
+
+    <sys:String x:Key="ArgFuncSelect">함수 선택하기</sys:String>
+    <sys:String x:Key="ArgGlobal">전역 변수</sys:String>
+    
+    
+    <sys:String x:Key="ArgDefault">기본값</sys:String>
+    <sys:String x:Key="ArgVariable">변수</sys:String>
+    <sys:String x:Key="ArgFunction">함수</sys:String>
+    <sys:String x:Key="ArgUserCode">사용자 코드</sys:String>
 </ResourceDictionary>

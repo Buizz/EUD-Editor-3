@@ -1,3 +1,21 @@
+--[================================[
+@Language.ko-KR
+@Summary
+[Player]의 [Number]번 선택유닛 오프셋을 반환합니다.
+@Group
+일반
+@param.Player.TrgPlayer
+@param.Number.Number
+
+
+@Language.us-EN
+@Summary
+[Player]의 [Number]번 선택유닛 오프셋을 반환합니다.
+@Group
+일반
+@param.Player.TrgPlayer
+@param.Number.Number
+]================================]
 function SeletionEPD(Player, Number) --일반/TrgPlayer,Number/[Player]의 [Number]번 선택유닛 오프셋을 반환합니다.
 	Player = ParsePlayer(Player)
 	if IsNumber(Player) then

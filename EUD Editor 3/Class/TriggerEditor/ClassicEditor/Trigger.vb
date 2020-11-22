@@ -9,6 +9,22 @@ Public Class Trigger
 
 
 
+    <NonSerialized>
+    Public StartLine As Integer = -1
+    <NonSerialized>
+    Public EndLine As Integer = -1
+
+
+
+
+    Public CodeText As String
+
+
+    Public IsOnlyCode As Boolean = False
+
+
+
+
     '플레이어
     Public PlayerEnabled(7) As Boolean
 
@@ -29,89 +45,134 @@ Public Class Trigger
     Public Function GetTriggerCodeText(intend As Integer, _scripter As ScriptEditor) As String
         Dim sb As New StringBuilder
 
-        Dim tstart As Integer
+        Dim thash As String = "PreserveFlag"
+
+        Dim tstart As Integer = 0
         Dim ispace As String = ""
         For i = 0 To (intend * 4) - 1
             ispace = ispace & " "
         Next
 
-        tstart = 0
 
-        Dim rv As New Random
-
-        Dim thash As String = "t" & _scripter.tv
-        If Not IsPreserved Then
-            sb.AppendLine(ispace & "static var " & thash & " = 0;")
-        End If
-
-
-        If Condition.Count = 0 And IsPreserved Then
-            sb.AppendLine(ispace & "{")
-        Else
-            sb.AppendLine(ispace & "if (")
-            If Not IsPreserved Then
-                sb.Append(ispace & "    " & thash & " == 0")
-                tstart += 1
-            End If
-
-            For i = 0 To Condition.Count - 1
-                Dim rstr As String = Condition(i).GetCodeText(intend + 1, _scripter)
-                If tstart <> 0 Then
-                    rstr = " && " & vbCrLf & rstr
-                End If
-                If rstr <> "" Then
-                    sb.Append(rstr)
-                    tstart += 1
-                End If
-            Next
-            sb.AppendLine()
-            sb.AppendLine(ispace & "){")
-        End If
-
-
+        Dim IsWaitable As Boolean = False
         For i = 0 To Actions.Count - 1
-            Dim rstr As String = Actions(i).GetCodeText(intend + 1, _scripter) & ";"
-            sb.AppendLine(rstr)
+            If Actions(i).FType = TriggerFunction.EFType.Lua And Actions(i).FName = "Wait" Then
+                IsWaitable = True
+                Exit For
+            End If
         Next
-        If Not IsPreserved Then
-            sb.AppendLine(ispace & "    " & thash & " = 1;")
+
+        If Not IsOnlyCode Then
+            sb.AppendLine(ispace & "{")
         End If
 
-        sb.AppendLine(ispace & "}")
+
+        sb.AppendLine(CodeText)
 
 
-        _scripter.tv += 1
+        If Not IsOnlyCode Then
+            If IsWaitable Then
 
-        'sb.AppendLine(ispace & "Trigger(")
-        'sb.AppendLine(ispace & "    conditions = list(")
-        'For i = 0 To Condition.Count - 1
-        '    Dim rstr As String = Condition(i).GetCodeText(intend + 2, _scripter)
-        '    If tstart <> 0 Then
-        '        rstr = "," & vbCrLf & rstr
-        '    End If
-        '    If rstr <> "" Then
-        '        sb.Append(rstr)
-        '        tstart += 1
-        '    End If
-        'Next
-        'sb.AppendLine()
-        'tstart = 0
-        'sb.AppendLine(ispace & "    ),")
-        'sb.AppendLine(ispace & "    actions = list(")
-        'For i = 0 To Actions.Count - 1
-        '    Dim rstr As String = Actions(i).GetCodeText(intend + 2, _scripter)
-        '    If tstart <> 0 Then
-        '        rstr = "," & vbCrLf & rstr
-        '    End If
-        '    If rstr <> "" Then
-        '        sb.Append(rstr)
-        '        tstart += 1
-        '    End If
-        'Next
-        'sb.AppendLine()
-        'sb.AppendLine(ispace & "    ),")
-        'sb.AppendLine(ispace & "    preserved = " & IsPreserved)
-        'sb.AppendLine(ispace & ");")
+                If Not IsPreserved Then
+                    sb.AppendLine(ispace & "    static var " & thash & " = 0;")
+                End If
+                sb.AppendLine(ispace & "    <? WaitStart()?>")
+
+
+
+                If Not IsPreserved Then
+                    sb.AppendLine(ispace & "    if (" & thash & " == 0){")
+                End If
+                sb.AppendLine(ispace & "    <? WaitConditionStart()?>")
+
+
+                Dim conText As String = ""
+                For i = 0 To Condition.Count - 1
+                    Dim rstr As String = Condition(i).GetCodeText(intend + 2, _scripter)
+                    If tstart <> 0 Then
+                        rstr = " && " & vbCrLf & rstr
+                    End If
+                    If rstr <> "" Then
+                        conText = conText & rstr
+                        tstart += 1
+                    End If
+                Next
+                If conText = "" Then
+                    conText = ispace & "        Always()"
+                End If
+                sb.AppendLine(conText)
+
+
+                sb.AppendLine(ispace & "    <? WaitConditionEnd()?>")
+                sb.AppendLine(ispace & "    <? WaitActionStart()?>")
+
+
+                For i = 0 To Actions.Count - 1
+                    Dim rstr As String = Actions(i).GetCodeText(intend + 2, _scripter) & ";"
+                    sb.AppendLine(rstr)
+                Next
+                If Not IsPreserved Then
+                    sb.AppendLine(ispace & "        " & thash & " = 1;")
+                End If
+
+
+                sb.AppendLine(ispace & "    <? WaitActionEnd()?>")
+                sb.AppendLine(ispace & "    <? WaitEnd()?>")
+
+                If Not IsPreserved Then
+                    sb.AppendLine(ispace & "    }")
+                End If
+
+
+
+            Else
+
+                If Not IsPreserved Then
+                    sb.AppendLine(ispace & "    static var " & thash & " = 0;")
+                End If
+                If Not (Condition.Count = 0 And IsPreserved) Then
+                    sb.AppendLine(ispace & "    if (")
+                    If Not IsPreserved Then
+                        sb.Append(ispace & "        " & thash & " == 0")
+                        tstart += 1
+                    End If
+
+                    For i = 0 To Condition.Count - 1
+                        Dim rstr As String = Condition(i).GetCodeText(intend + 2, _scripter)
+                        If tstart <> 0 Then
+                            rstr = " && " & vbCrLf & rstr
+                        End If
+                        If rstr <> "" Then
+                            sb.Append(rstr)
+                            tstart += 1
+                        End If
+                    Next
+                    sb.AppendLine()
+                    sb.AppendLine(ispace & "    ){")
+                End If
+                For i = 0 To Actions.Count - 1
+                    Dim rstr As String = Actions(i).GetCodeText(intend + 2, _scripter) & ";"
+                    sb.AppendLine(rstr)
+                Next
+                If Not IsPreserved Then
+                    sb.AppendLine(ispace & "        " & thash & " = 1;")
+                End If
+
+                If Not (Condition.Count = 0 And IsPreserved) Then
+                    sb.AppendLine(ispace & "    }")
+                End If
+            End If
+        End If
+
+
+        If Not IsOnlyCode Then
+            sb.AppendLine(ispace & "}")
+        End If
+
+
+
+
+
 
         Return sb.ToString
     End Function
@@ -126,6 +187,8 @@ Public Class Trigger
 
         toTrg.IsPreserved = IsPreserved
         toTrg.IsEnabled = IsEnabled
+        toTrg.IsOnlyCode = IsOnlyCode
+        toTrg.CodeText = CodeText
         For i = 0 To PlayerEnabled.Count - 1
             toTrg.PlayerEnabled(i) = PlayerEnabled(i)
         Next

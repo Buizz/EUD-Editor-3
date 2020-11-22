@@ -21,61 +21,49 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-
-
-
-                <materialDesign:Card Height="240" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitSpecialAbilityFlag}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:FlagSelecter x:Name="SAF" Tag="Special Ability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            <StackPanel Margin="10">
+                                <local:FlagSelecter x:Name="SAF" Tag="Special Ability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
 
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="152" Width="400" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitSpecialOthers}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
-                            <local:IconSelecter x:Name="IFE" Tag="Infestation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" />
-                            <local:IconSelecter x:Name="S1" Tag="Subunit 1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370"/>
-                            <local:IconSelecter x:Name="S2" Tag="Subunit 2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370"/>
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="152" Width="169" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <local:IconSelecter x:Name="IFE" Tag="Infestation" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370" />
+                                <local:IconSelecter x:Name="S1" Tag="Subunit 1" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370"/>
+                                <local:IconSelecter x:Name="S2" Tag="Subunit 2" HorizontalAlignment="Left" VerticalAlignment="Top" Width="370"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitMovementFlag}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10" Orientation="Vertical"  >
-                            <local:FlagSelecter x:Name="UDM" Tag="Unknown (old Movement)" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
+                            <StackPanel Margin="10">
+                                <local:FlagSelecter x:Name="UDM" Tag="Unknown (old Movement)" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>

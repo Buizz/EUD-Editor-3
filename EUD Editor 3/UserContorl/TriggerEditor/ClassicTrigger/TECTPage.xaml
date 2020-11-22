@@ -28,7 +28,7 @@
     <Grid>
         <DockPanel>
             <DockPanel DockPanel.Dock="Left" Width="100" Margin="5">
-                <TextBlock Text="플레이어" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                <TextBlock Text="{StaticResource CT_Player}" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                 <ListBox x:Name="PlayerList" ItemContainerStyle="{StaticResource myLBStyle}" SelectionChanged="PlayerList_SelectionChanged">
 
                 </ListBox>
@@ -42,11 +42,11 @@
 
                 <Grid Grid.Row="0">
                     <DockPanel >
-                        <TextBlock DockPanel.Dock="Top" Text="글로벌 변수" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                        <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_GlobalVar}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                         <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
-                            <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
-                            <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                            <Button x:Name="GlobalDeleteBtn" Click="GlobalDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                            <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="{StaticResource CT_Add}" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
+                            <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="{StaticResource CT_Edit}" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                            <Button x:Name="GlobalDeleteBtn" Click="GlobalDeleteBtn_Click" Content="{StaticResource CT_Delete}" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
                         </UniformGrid>
                         <ListBox x:Name="GlobalList" SelectionChanged="GlobalList_SelectionChanged">
                         </ListBox>
@@ -56,28 +56,28 @@
                         <materialDesign:Card x:Name="VariableCard" Background="{DynamicResource MaterialDesignPaper}" Padding="5" VerticalAlignment="Top" Margin="4,30,4,6" >
                             <DockPanel>
                                 <UniformGrid Rows="1" DockPanel.Dock="Bottom">
-                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인" x:Name="GlobalOkayBtn" Click="GlobalOkayBtn_Click"/>
-                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="취소" Click="GlobalCancelBtn_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Okay}" x:Name="GlobalOkayBtn" Click="GlobalOkayBtn_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Cancel}" Click="GlobalCancelBtn_Click"/>
                                 </UniformGrid>
 
                                 <DockPanel>
-                                    <ComboBox DockPanel.Dock="Top" x:Name="ValType" materialDesign:TextFieldAssist.SuffixText="타입" SelectionChanged="ValType_SelectionChanged">
-                                        <ComboBoxItem Content="일반변수" Tag="Default"/>
-                                        <ComboBoxItem Content="상수변수" Tag="Const"/>
-                                        <ComboBoxItem Content="플레이어변수" Tag="PVariable"/>
-                                        <ComboBoxItem Content="배열" Tag="Array"/>
-                                        <ComboBoxItem Content="변수배열" Tag="VArray"/>
+                                    <ComboBox DockPanel.Dock="Top" x:Name="ValType" materialDesign:TextFieldAssist.SuffixText="{StaticResource CT_VarType}" SelectionChanged="ValType_SelectionChanged">
+                                        <ComboBoxItem Content="{StaticResource CT_DefaultVar}" Tag="Default"/>
+                                        <ComboBoxItem Content="{StaticResource CT_ConstVar}" Tag="Const"/>
+                                        <ComboBoxItem Content="{StaticResource CT_PVariable}" Tag="PVariable"/>
+                                        <ComboBoxItem Content="{StaticResource CT_Array}" Tag="Array"/>
+                                        <ComboBoxItem Content="{StaticResource CT_VArray}" Tag="VArray"/>
                                     </ComboBox>
-                                    <TextBox DockPanel.Dock="Top" x:Name="ValName" materialDesign:HintAssist.Hint="이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" TextChanged="ValName_TextChanged"/>
-                                    <CheckBox DockPanel.Dock="Top" Content="초기값" x:Name="InitCB" Checked="InitCBChecked" Unchecked="InitCBChecked"/>
+                                    <TextBox DockPanel.Dock="Top" x:Name="ValName" materialDesign:HintAssist.Hint="{StaticResource CT_VarName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" TextChanged="ValName_TextChanged"/>
+                                    <CheckBox DockPanel.Dock="Top" Content="{StaticResource CT_VarInit}" x:Name="InitCB" Checked="InitCBChecked" Unchecked="InitCBChecked"/>
                                     <local:CodeEditor x:Name="GlobalInitBox" DockPanel.Dock="Bottom"/>
                                 </DockPanel>
-                       
+
                             </DockPanel>
                         </materialDesign:Card>
                     </Border>
                 </Grid>
-                
+
 
                 <GridSplitter Grid.Row="1"
                 ShowsPreview="True"
@@ -88,11 +88,11 @@
 
                 <Grid Grid.Row="2">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" Text="임포트" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                        <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_Import}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                         <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
-                            <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="추가" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
-                            <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="수정" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
-                            <Button x:Name="ImportDeleteBtn" Click="ImportDeleteBtn_Click" Content="삭제" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                            <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="{StaticResource CT_Add}" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
+                            <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="{StaticResource CT_Edit}" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
+                            <Button x:Name="ImportDeleteBtn" Click="ImportDeleteBtn_Click" Content="{StaticResource CT_Delete}" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
                         </UniformGrid>
                         <ListBox x:Name="ImportList" SelectionChanged="ImportList_SelectionChanged">
                         </ListBox>
@@ -101,15 +101,15 @@
                         <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Padding="5" Height="125" Margin="4,30,4,0" VerticalAlignment="Top">
                             <DockPanel>
                                 <UniformGrid Rows="1" DockPanel.Dock="Bottom">
-                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="확인" x:Name="ImportOkayBtn" Click="ImportOkayBtn_Click"/>
-                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="취소" Click="ImportCancelBtn_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Okay}" x:Name="ImportOkayBtn" Click="ImportOkayBtn_Click"/>
+                                    <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Cancel}" Click="ImportCancelBtn_Click"/>
                                 </UniformGrid>
 
                                 <StackPanel>
-                                    <ComboBox IsEditable="True" materialDesign:TextFieldAssist.SuffixText="파일" x:Name="ImportCombobox" SelectionChanged="ImportCombobox_SelectionChanged">
-                             
+                                    <ComboBox IsEditable="True" materialDesign:TextFieldAssist.SuffixText="{StaticResource CT_ImportFile}" x:Name="ImportCombobox" SelectionChanged="ImportCombobox_SelectionChanged">
+
                                     </ComboBox>
-                                    <TextBox x:Name="ImportNameTB" materialDesign:HintAssist.Hint="이름" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" TextChanged="ImportNameTB_TextChanged"/>
+                                    <TextBox x:Name="ImportNameTB" materialDesign:HintAssist.Hint="{StaticResource CT_ImportName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" TextChanged="ImportNameTB_TextChanged"/>
                                 </StackPanel>
 
                             </DockPanel>
@@ -121,31 +121,31 @@
             </Grid>
 
             <DockPanel Margin="5">
-                <TextBlock DockPanel.Dock="Top" Text="트리거" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_Trigger}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                 <DockPanel>
                     <StackPanel DockPanel.Dock="Left">
                         <StackPanel Margin="0,0,0,21">
-                            <Button Content="새로만들기" Click="NewTriggerBtn_Click" Margin="1" />
-                            <Button x:Name="TriggerEditBtn" Content="수정" Click="TriggerEditBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button Content="{StaticResource CT_New}" Click="NewTriggerBtn_Click" Margin="1" />
+                            <Button x:Name="TriggerEditBtn" Content="{StaticResource CT_Edit}" Click="TriggerEditBtn_Click" Margin="1" IsEnabled="False"/>
                         </StackPanel>
 
                         <StackPanel Margin="0,0,0,21">
-                            <Button x:Name="TriggerCutBtn" Content="잘라내기" Click="TriggerCutBtn_Click" Margin="1" IsEnabled="False"/>
-                            <Button x:Name="TriggerCopyBtn" Content="복사" Click="TriggerCopyBtn_Click" Margin="1" IsEnabled="False"/>
-                            <Button x:Name="TriggerPasteBtn" Content="붙여넣기" Click="TriggerPasteBtn_Click" Margin="1" IsEnabled="False"/>
-                            <Button x:Name="TriggerDeleteBtn" Content="삭제" Click="DeleteTriggerBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerCutBtn" Content="{StaticResource CT_Cut}" Click="TriggerCutBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerCopyBtn" Content="{StaticResource CT_Copy}" Click="TriggerCopyBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerPasteBtn" Content="{StaticResource CT_Paste}" Click="TriggerPasteBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerDeleteBtn" Content="{StaticResource CT_Delete}" Click="DeleteTriggerBtn_Click" Margin="1" IsEnabled="False"/>
                         </StackPanel>
-                        
+
                         <StackPanel>
-                            <Button x:Name="TriggerUpBtn" Content="올리기" Click="TriggerUpBtn_Click" Margin="1" IsEnabled="False"/>
-                            <Button x:Name="TriggerDownBtn" Content="내리기" Click="TriggerDownBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerUpBtn" Content="{StaticResource CT_Up}" Click="TriggerUpBtn_Click" Margin="1" IsEnabled="False"/>
+                            <Button x:Name="TriggerDownBtn" Content="{StaticResource CT_Down}" Click="TriggerDownBtn_Click" Margin="1" IsEnabled="False"/>
                         </StackPanel>
                     </StackPanel>
 
 
 
 
-                    <ListBox x:Name="TListBox" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended" MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
+                    <ListBox x:Name="TListBox" ScrollViewer.CanContentScroll="False" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended" MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
 
                     </ListBox>
                 </DockPanel>
@@ -158,5 +158,5 @@
             </materialDesign:Card>
         </Border>
     </Grid>
-   
+
 </UserControl>

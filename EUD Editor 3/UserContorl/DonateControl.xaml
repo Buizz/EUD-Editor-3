@@ -22,13 +22,13 @@
         <Separator Background="#4CA0A0A0"/>
 
 
-        <Label Content="직접 후원" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+        <Label Content="{StaticResource DirectDonate}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
         <Label Content="카카오뱅크 이정훈 3333-09-9263239" Margin="10"/>
 
         <Separator Background="#4CA0A0A0"/>
 
 
-        <CheckBox x:Name="Checking" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="다시 보지 않기"  Unchecked="Checking_Unchecked" Checked="Checking_Checked"/>
+        <CheckBox x:Name="Checking" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource ViewDonateWindow}"  Unchecked="Checking_Unchecked" Checked="Checking_Checked"/>
 
 
 

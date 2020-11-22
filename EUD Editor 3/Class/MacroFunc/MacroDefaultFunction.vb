@@ -202,10 +202,10 @@
     End Function
 
 
-    Public Function GetEUDScoreOffset(index As Integer) As String
+    Public Function GetEUDScoreOffset(index As String) As String
         Return EUDScoreOffsetList(index)
     End Function
-    Public Function GetSupplyOffset(index As Integer) As String
+    Public Function GetSupplyOffset(index As String) As String
         Return EUDSupplyTypeOffsetList(index)
     End Function
 

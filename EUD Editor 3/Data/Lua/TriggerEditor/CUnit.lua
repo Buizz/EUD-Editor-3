@@ -1,14 +1,93 @@
-function SetNextUnitPtr(ptr) --구조오프셋/Variable/[ptr]에 다음에 생성될 유닛의 주소를 반환합니다
+--[================================[
+@Language.ko-KR
+@Summary
+[ptr]에 다음에 생성될 유닛의 주소를 반환합니다
+@Group
+구조오프셋
+@param.ptr.Variable
+ptr이 저장될 변수입니다.
+
+
+@Language.us-EN
+@Summary
+[ptr]에 다음에 생성될 유닛의 주소를 반환합니다
+@Group
+구조오프셋
+@param.ptr.Variable
+ptr이 저장될 변수입니다.
+]================================]
+function SetNextUnitPtr(ptr)
     echo(ptr .. " = dwread_epd(EPD(0x628438))")
 end
-function SetNextUnitEpd(epd) --구조오프셋/Variable/[epd]에 다음에 생성될 유닛의 EPD를 반환합니다
+
+--[================================[
+@Language.ko-KR
+@Summary
+[epd]에 다음에 생성될 유닛의 EPD를 반환합니다
+@Group
+구조오프셋
+@param.epd.Variable
+epd가 저장될 변수입니다.
+
+
+@Language.us-EN
+@Summary
+[epd]에 다음에 생성될 유닛의 EPD를 반환합니다
+@Group
+구조오프셋
+@param.epd.Variable
+epd가 저장될 변수입니다.
+]================================]
+function SetNextUnitEpd(epd)
     echo(epd .. " = epdread_epd(EPD(0x628438))")
 end
-function SetNextUnitPtrEpd(ptr, epd) --구조오프셋/Variable,Variable/[ptr]에 다음에 생성될 유닛의 PTR을, [epd]에 EPD를 반환합니다
+
+--[================================[
+@Language.ko-KR
+@Summary
+[ptr]에 다음에 생성될 유닛의 PTR을, [epd]에 EPD를 반환합니다
+@Group
+구조오프셋
+@param.ptr.Variable
+ptr가 저장될 변수입니다.
+@param.epd.Variable
+epd가 저장될 변수입니다.
+
+
+@Language.us-EN
+@Summary
+[ptr]에 다음에 생성될 유닛의 PTR을, [epd]에 EPD를 반환합니다
+@Group
+구조오프셋
+@param.ptr.Variable
+ptr가 저장될 변수입니다.
+@param.epd.Variable
+epd가 저장될 변수입니다.
+]================================]
+function SetNextUnitPtrEpd(ptr, epd)
     echo(ptr .. "," .. epd .. " = dwepdread_epd(EPD(0x628438))")
 end
 
-function GetCUnitOffset(Offset) --구조오프셋/CUnitOffset/Offset의 주소와 크기를 반환합니다.
+
+--[================================[
+@Language.ko-KR
+@Summary
+Offset의 주소와 크기를 반환합니다.
+@Group
+구조오프셋
+@param.Offset.CUnitOffset
+CUint의 주소의 이름입니다.
+
+
+@Language.us-EN
+@Summary
+Offset의 주소와 크기를 반환합니다.
+@Group
+구조오프셋
+@param.Offset.CUnitOffset
+CUint의 주소의 이름입니다.
+]================================]
+function GetCUnitOffset(Offset)
 	t = {
 		["prev"]={0x000,4},
 		["next"]={0x004,4},
@@ -222,7 +301,37 @@ function GetCUnitOffset(Offset) --구조오프셋/CUnitOffset/Offset의 주소�
 	return t[Offset]
 end
 
-function SetCUnitptr(ptr, Offset, Value, Modifier) --구조오프셋/Variable,CUnitOffset,Number,TrgModifier/[ptr]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+--[================================[
+@Language.ko-KR
+@Summary
+[ptr]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+@Group
+구조오프셋
+@param.ptr.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Modifier.TrgModifier
+연산할 방식입니다.
+
+
+@Language.us-EN
+@Summary
+[ptr]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+@Group
+구조오프셋
+@param.ptr.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Modifier.TrgModifier
+연산할 방식입니다.
+]================================]
+function SetCUnitptr(ptr, Offset, Value, Modifier)
 	Modifier = ParseModifier(Modifier)
 	table = GetCUnitOffset(Offset)
 	address = table[1]
@@ -248,6 +357,37 @@ function SetCUnitptr(ptr, Offset, Value, Modifier) --구조오프셋/Variable,CU
 	outstr = "SetMemoryX(" .. ptr .. " + " .. rd .. ", " .. Modifier ..", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
+
+--[================================[
+@Language.ko-KR
+@Summary
+[epd]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+@Group
+구조오프셋
+@param.epd.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Modifier.TrgModifier
+연산할 방식입니다.
+
+
+@Language.us-EN
+@Summary
+[epd]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+@Group
+구조오프셋
+@param.epd.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Modifier.TrgModifier
+연산할 방식입니다.
+]================================]
 function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CUnitOffset,Number,TrgModifier/[epd]의 [Offset]을 [Value]만큼 [Modifier]합니다.
 	Modifier = ParseModifier(Modifier)
 	table = GetCUnitOffset(Offset)
@@ -274,7 +414,38 @@ function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CU
 	outstr = "SetMemoryXEPD(" .. epd .. " + " .. rd .. ", " .. Modifier ..", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
-function CUnitptr(ptr, Offset, Value, Comparison) --구조오프셋/Variable,CUnitOffset,Number,TrgComparison/[ptr]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+
+--[================================[
+@Language.ko-KR
+@Summary
+[ptr]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+@Group
+구조오프셋
+@param.ptr.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Comparison.TrgModifier
+비교 방식입니다.
+
+
+@Language.us-EN
+@Summary
+[ptr]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+@Group
+구조오프셋
+@param.ptr.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Comparison.TrgModifier
+비교 방식입니다.
+]================================]
+function CUnitptr(ptr, Offset, Value, Comparison)
 	Comparison = ParseComparison(Comparison)
 	table = GetCUnitOffset(Offset)
 	address = table[1]
@@ -300,7 +471,38 @@ function CUnitptr(ptr, Offset, Value, Comparison) --구조오프셋/Variable,CUn
 	outstr = "MemoryX(" .. ptr .. " + " .. rd .. ", " .. Comparison ..", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
-function CUnitepd(epd, Offset, Value, Comparison) --구조오프셋/Variable,CUnitOffset,Number,TrgComparison/[epd]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+
+--[================================[
+@Language.ko-KR
+@Summary
+[epd]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+@Group
+구조오프셋
+@param.epd.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Comparison.TrgModifier
+비교 방식입니다.
+
+
+@Language.us-EN
+@Summary
+[epd]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+@Group
+구조오프셋
+@param.epd.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+변경할 항목입니다.
+@param.Value.Number
+값입니다.
+@param.Comparison.TrgModifier
+비교 방식입니다.
+]================================]
+function CUnitepd(epd, Offset, Value, Comparison)
 	Comparison = ParseComparison(Comparison)
 	table = GetCUnitOffset(Offset)
 	address = table[1]

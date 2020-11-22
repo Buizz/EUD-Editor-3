@@ -4,8 +4,12 @@
 
         Select Case ArgumentDefien
             Case "datfile"
-                For DatFiles = 0 To Datfilesname.Count - 1
-                    data.Add(New DataEditCompletionData(Datfilesname(DatFiles), Tool.TextColorBlock(Datfilesname(DatFiles)), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
+                Dim DatFileList() As String = {"units", "weapons", "flingy", "sprites", "images", "upgrades", "techdata", "orders",
+                    "wireframe", "buttonSet", "statusinfor"}
+
+
+                For DatFiles = 0 To DatFileList.Count - 1
+                    data.Add(New DataEditCompletionData(DatFileList(DatFiles), Tool.TextColorBlock(DatFileList(DatFiles)), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
                 Next
                 For i = 0 To LuaManager.Functions.Count - 1
                     data.Add(New DataEditCompletionData(LuaManager.Functions(i), LuaManager.ToolTips(i), ConsoleText, DataEditCompletionData.EIconType.Funcname))
@@ -44,6 +48,15 @@
                 Dim fvalue As String = GetnumArgument(str, 0)
 
 
+                For i = 0 To LuaManager.Functions.Count - 1
+                    data.Add(New DataEditCompletionData(LuaManager.Functions(i), LuaManager.ToolTips(i), ConsoleText, DataEditCompletionData.EIconType.Funcname))
+                Next
+            Case "tblid"
+                For i = 0 To SCtbltxtCount - 1
+                    Dim tstr As String = pjData.BindingManager.StatTxtBinding(i).Value
+
+                    data.Add(New DataEditCompletionData(tstr, Tool.TextColorBlock(tstr), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
+                Next
                 For i = 0 To LuaManager.Functions.Count - 1
                     data.Add(New DataEditCompletionData(LuaManager.Functions(i), LuaManager.ToolTips(i), ConsoleText, DataEditCompletionData.EIconType.Funcname))
                 Next

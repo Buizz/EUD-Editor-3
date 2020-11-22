@@ -19,57 +19,47 @@
         </Grid.RowDefinitions>
         <local:NameBar x:Name="NameBar"/>
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
-            <WrapPanel MaxWidth="610" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                <materialDesign:Card Height="240" Width="388" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+            <StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitStarEditFlag}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:FlagSelecter x:Name="SAF" Tag="Staredit Availability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="240" Width="182" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <local:FlagSelecter x:Name="SAF" Tag="Staredit Availability Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitGroupFlag}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:FlagSelecter x:Name="SGF" Tag="Staredit Group Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-                <materialDesign:Card Height="140" Width="590" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                    <Grid>
-                        <Grid.RowDefinitions>
-                            <RowDefinition Height="25" />
-                            <RowDefinition Height="*" />
-                        </Grid.RowDefinitions>
-                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <StackPanel Margin="10">
+                                <local:FlagSelecter x:Name="SGF" Tag="Staredit Group Flags" HorizontalAlignment="Left" VerticalAlignment="Top" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal">
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
-                              DockPanel.Dock="Left" FontSize="14"
+                              DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitString}" Padding="6"/>
-                        <WrapPanel Grid.Row="1" Margin="10">
-                            <local:IconSelecter x:Name="RS" Tag="Rank/Sublabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="538" />
-                            <local:IconSelecter x:Name="NameLabel" Tag="UnitName" HorizontalAlignment="Left" VerticalAlignment="Top" Width="538" />
-
-                        </WrapPanel>
-                    </Grid>
-                </materialDesign:Card>
-            </WrapPanel>
+                            <StackPanel Margin="10">
+                                <local:IconSelecter x:Name="RS" Tag="Rank/Sublabel" HorizontalAlignment="Left" VerticalAlignment="Top" Width="538" />
+                                <local:IconSelecter x:Name="NameLabel" Tag="UnitName" HorizontalAlignment="Left" VerticalAlignment="Top" Width="538" />
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </StackPanel>
+               
+            </StackPanel>
         </ScrollViewer>
     </Grid>
 </UserControl>
