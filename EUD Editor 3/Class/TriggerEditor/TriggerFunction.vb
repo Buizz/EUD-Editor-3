@@ -91,12 +91,17 @@ Public Class TriggerManager
         Dim sr As New StreamReader(fs)
 
         Dim funclist As List(Of TriggerFunction) = Nothing
+
+
         Try
             funclist = GetListFromEpScript(sr.ReadToEnd)
         Catch ex As Exception
-            MsgBox("기본 함수 초기화 실패")
+            MsgBox("LoadFail epsFunctions.txt" & vbCrLf & ex.ToString)
+            sr.Close()
+            fs.Close()
             Return
         End Try
+
         sr.Close()
         fs.Close()
 
@@ -543,10 +548,10 @@ Public Class TriggerFunction
     End Enum
 
     Public FType As EFType
-    Public FSummary As String
-    Public FName As String
+    Public FSummary As String = ""
+    Public FName As String = ""
 
-    Public FGruop As String
+    Public FGruop As String = ""
 
     Public ReadOnly Property IsVariableArgument As Boolean
         Get
@@ -584,6 +589,8 @@ Public Class TriggerFunction
         SortArgList.Clear()
 
         Dim tsummary As String = FSummary
+
+
         IsCmpTrigger = False
         Dim iscmp As Boolean = False
 
