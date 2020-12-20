@@ -500,16 +500,6 @@ Public Class TriggerFunction
 
 
                 Case Else
-                    If lan = pgData.Setting(ProgramData.TSetting.Language) Then
-                        If IsSummary Then
-                            rTrg.FSummary = rTrg.FSummary & tstr
-                        ElseIf IsParam Then
-                            Dim targ As Arg = rTrg.GetArg(paramName)
-                            If targ IsNot Nothing Then
-                                targ.ASummary = targ.ASummary & tstr
-                            End If
-                        End If
-                    End If
                     If IsType Then
                         Select Case tstr
                             Case "F"
@@ -521,6 +511,17 @@ Public Class TriggerFunction
                         End Select
                     ElseIf IsGroup Then
                         rTrg.FGruop = tstr
+                    End If
+
+                    If lan = pgData.Setting(ProgramData.TSetting.Language) Then
+                        If IsSummary Then
+                            rTrg.FSummary = rTrg.FSummary & tstr
+                        ElseIf IsParam Then
+                            Dim targ As Arg = rTrg.GetArg(paramName)
+                            If targ IsNot Nothing Then
+                                targ.ASummary = targ.ASummary & tstr
+                            End If
+                        End If
                     End If
             End Select
         Next

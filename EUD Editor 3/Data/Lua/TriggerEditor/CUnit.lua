@@ -418,7 +418,7 @@ end
 --[================================[
 @Language.ko-KR
 @Summary
-[ptr]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+[ptr]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
 @Group
 구조오프셋
 @param.ptr.Variable
@@ -427,13 +427,13 @@ end
 변경할 항목입니다.
 @param.Value.Number
 값입니다.
-@param.Comparison.TrgModifier
+@param.Comparison.TrgComparison
 비교 방식입니다.
 
 
 @Language.us-EN
 @Summary
-[ptr]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+[ptr]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
 @Group
 구조오프셋
 @param.ptr.Variable
@@ -442,7 +442,7 @@ end
 변경할 항목입니다.
 @param.Value.Number
 값입니다.
-@param.Comparison.TrgModifier
+@param.Comparison.TrgComparison
 비교 방식입니다.
 ]================================]
 function CUnitptr(ptr, Offset, Value, Comparison)
@@ -475,7 +475,7 @@ end
 --[================================[
 @Language.ko-KR
 @Summary
-[epd]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+[epd]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
 @Group
 구조오프셋
 @param.epd.Variable
@@ -484,13 +484,13 @@ end
 변경할 항목입니다.
 @param.Value.Number
 값입니다.
-@param.Comparison.TrgModifier
+@param.Comparison.TrgComparison
 비교 방식입니다.
 
 
 @Language.us-EN
 @Summary
-[epd]의 [Offset]가 [Comparison] [Value]인지 확인합니다.
+[epd]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
 @Group
 구조오프셋
 @param.epd.Variable
@@ -499,7 +499,7 @@ end
 변경할 항목입니다.
 @param.Value.Number
 값입니다.
-@param.Comparison.TrgModifier
+@param.Comparison.TrgComparison
 비교 방식입니다.
 ]================================]
 function CUnitepd(epd, Offset, Value, Comparison)

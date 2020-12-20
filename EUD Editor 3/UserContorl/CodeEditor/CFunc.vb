@@ -122,7 +122,17 @@ Public Class FunctionToolTip
                                     FristParam = True
                                     Continue For
                                 End If
+                            Else
+                                ReadStatus = ReadStatus.None
+                                Continue For
                             End If
+                        End If
+                    End If
+                    If LineStr.IndexOf("@Summary.") = 0 Then
+                        Dim ParamSplitter() As String = LineStr.Split(".")
+                        If ParamSplitter.Last <> Lanstr Then
+                            ReadStatus = ReadStatus.None
+                            Continue For
                         End If
                     End If
             End Select

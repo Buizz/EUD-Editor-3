@@ -177,6 +177,7 @@ Partial Public Class ProjectExplorer
 
 
             If openFileDialog.ShowDialog = Forms.DialogResult.OK Then
+                TECloseTabITem(GetFile(LastSelectItem))
                 GetFile(LastSelectItem).Scripter.ConnectFile = openFileDialog.FileName
             End If
         End If

@@ -275,12 +275,29 @@ Public Class TriggerEditValueSelecterWindow
                 tCode.Args(ArgIndex).IsLangageable = False
                 tCode.Args(ArgIndex).IsQuotation = False
 
-
+                VariableCodeEditor.Text = tCode.Args(ArgIndex).ValueString2
                 VariablePanel.Visibility = Visibility.Visible
 
                 VariableTreeview.Items.Clear()
 
                 Dim cEditor As ClassicTriggerEditor = scripter
+
+
+
+                If True Then
+                    Dim cpTreeitem As New TreeViewItem
+                    cpTreeitem.Style = Application.Current.Resources("ShortTreeViewItem")
+                    cpTreeitem.Background = Application.Current.Resources("MaterialDesignPaper")
+                    cpTreeitem.Foreground = Application.Current.Resources("MaterialDesignBody")
+                    Dim tcpdv As New DefineVariable("cp", "Const", "", "")
+
+                    cpTreeitem.Tag = tcpdv
+                    cpTreeitem.Header = Tool.GetText("CurrentPlayer")
+
+
+                    VariableTreeview.Items.Add(cpTreeitem)
+                End If
+
 
 
                 Dim localTreeitem As New TreeViewItem
@@ -770,7 +787,18 @@ Public Class TriggerEditValueSelecterWindow
                     tCode.Args(ArgIndex).ValueString = vDefine.vgroup & "." & vDefine.vname
                 End If
                 tCode.Args(ArgIndex).IsInit = False
-
+                Select Case vDefine.vtype
+                    Case "PVariable"
+                        tCode.Args(ArgIndex).ValueString2 = "[cp]"
+                    Case "Array"
+                        tCode.Args(ArgIndex).ValueString2 = "[0]"
+                    Case "VArray"
+                        tCode.Args(ArgIndex).ValueString2 = "[0]"
+                    Case "Const"
+                        tCode.Args(ArgIndex).ValueString2 = ""
+                    Case "Default"
+                        tCode.Args(ArgIndex).ValueString2 = ""
+                End Select
 
                 ChangeComplete()
                 CloseP()
@@ -801,6 +829,14 @@ Public Class TriggerEditValueSelecterWindow
     Private Sub ArgumentCodeEditor_TextChange(sender As Object, e As RoutedEventArgs)
         If LoadCmp Then
             tCode.Args(ArgIndex).ValueString = Arguments.Text
+            tCode.Args(ArgIndex).IsInit = False
+            ChangeComplete()
+        End If
+    End Sub
+
+    Private Sub VariableCodeEditor_TextChange(sender As Object, e As RoutedEventArgs)
+        If LoadCmp Then
+            tCode.Args(ArgIndex).ValueString2 = VariableCodeEditor.Text
             tCode.Args(ArgIndex).IsInit = False
             ChangeComplete()
         End If

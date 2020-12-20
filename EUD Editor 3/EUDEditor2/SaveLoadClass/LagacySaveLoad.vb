@@ -95,11 +95,16 @@ Public Class LagacySaveLoad
                             k = temp(2)
                             If temp(3) <> 0 Then
                                 Dim mapdata As Long = 0
-                                If Not pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault Then
-                                    mapdata = pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                If pjData.IsMapLoading Then
+                                    If Not pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault Then
+                                        mapdata = pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                    Else
+                                        mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                    End If
                                 Else
                                     mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
                                 End If
+
 
 
 

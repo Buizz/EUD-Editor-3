@@ -36,7 +36,10 @@
 
 
                     <Grid x:Name="VariablePanel" Visibility="Collapsed">
-                        <TreeView x:Name="VariableTreeview" SelectedItemChanged="VariableTreeview_SelectedItemChanged" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}"/>
+                        <DockPanel>
+                            <local:CodeEditor x:Name="VariableCodeEditor" TextChange="VariableCodeEditor_TextChange" DockPanel.Dock="Top" Height="24"/>
+                            <TreeView x:Name="VariableTreeview" SelectedItemChanged="VariableTreeview_SelectedItemChanged" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}"/>
+                        </DockPanel>
                     </Grid>
                     <Grid x:Name="FunctionPanel" Visibility="Collapsed">
                         <Button x:Name="FunctionBtn" Click="FunctionBtn_Click" Height="Auto"/>

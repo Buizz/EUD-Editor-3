@@ -402,7 +402,6 @@ Public Class SettingWindows
 
     Private Sub ExeConnectbtn_Click(sender As Object, e As RoutedEventArgs)
         Dim argument As String = ""
-
         If e3scb.IsChecked Then
             If argument = "" Then
                 argument = "e3s"

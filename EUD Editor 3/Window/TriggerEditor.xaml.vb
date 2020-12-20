@@ -38,6 +38,11 @@ Public Class TriggerEditor
             tTabablzControl.InterTabController.Height = 0
             tTabablzControl.InterTabController.Partition = "QuickStart"
 
+
+
+
+
+
             Dim ttBorder As New Border
             ttBorder.Height = 40
             tTabablzControl.HeaderPrefixContent = ttBorder

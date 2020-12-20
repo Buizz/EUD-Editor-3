@@ -81,6 +81,8 @@ Public Class CUIScriptEditor
             If My.Computer.FileSystem.FileExists(pjData.Filename) Then
                 _ConnectRelativeFile = Tool.GetRelativePath(pjData.Filename, value)
             End If
+
+
         End Set
     End Property
 End Class

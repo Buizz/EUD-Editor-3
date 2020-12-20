@@ -1155,6 +1155,7 @@
 
     <sys:String x:Key="ArgFuncSelect">함수 선택하기</sys:String>
     <sys:String x:Key="ArgGlobal">전역 변수</sys:String>
+    <sys:String x:Key="CurrentPlayer">해당플레이어</sys:String>
     
     
     <sys:String x:Key="ArgDefault">기본값</sys:String>

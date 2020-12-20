@@ -1148,6 +1148,7 @@
 
     <sys:String x:Key="ArgFuncSelect">Function Select</sys:String>
     <sys:String x:Key="ArgGlobal">Global Variable</sys:String>
+    <sys:String x:Key="CurrentPlayer">CurrentPlayer</sys:String>
 
 
     <sys:String x:Key="ArgDefault">Default</sys:String>

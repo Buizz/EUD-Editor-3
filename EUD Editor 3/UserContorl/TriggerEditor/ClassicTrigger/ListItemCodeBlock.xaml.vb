@@ -28,7 +28,7 @@
             Dim ttb As New Label
             ttb.Foreground = tmanager.HighlightBrush
             ttb.Content = _tcode.FName & vbCrLf & "존재하지 않거나 참조할 수 없는 함수입니다.  "
-
+            ttb.VerticalAlignment = VerticalAlignment.Center
 
             Wrap.Children.Add(ttb)
 
@@ -46,7 +46,7 @@
             If t.SortArgList.Count = 0 Then
                 Dim ttb As New Label
                 ttb.VerticalContentAlignment = VerticalAlignment.Center
-
+                ttb.VerticalAlignment = VerticalAlignment.Center
                 If Not IsEmpty Then
                     If t.FSummary = "" Then
                         ttb.Content = t.FName
@@ -66,6 +66,7 @@
                         Dim tindex As Integer = TriggerFunction.GetArgIndex(tstr)
 
                         Dim ttb As New Label
+                        ttb.VerticalAlignment = VerticalAlignment.Center
                         ttb.Foreground = tmanager.HighlightBrush
 
                         ttb.Content = _tcode.LoadedArgString(tindex)
@@ -114,6 +115,7 @@
             For i = 0 To _tcode.Args.Count - 1
                 'Arg텍스트
                 Dim ttb As New Label
+                ttb.VerticalAlignment = VerticalAlignment.Center
                 ttb.Foreground = tmanager.HighlightBrush
 
                 ttb.Content = _tcode.LoadedArgString(i)
@@ -125,6 +127,7 @@
         If Wrap.Children.Count = 0 Then
             If t IsNot Nothing Then
                 Dim ttb As New Label
+                ttb.VerticalAlignment = VerticalAlignment.Center
                 ttb.Content = t.FName
 
                 Wrap.Children.Add(ttb)

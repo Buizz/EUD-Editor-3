@@ -6,6 +6,7 @@ Public Class ArgValue
     Public DefaultType As String
     Public ValueType As String
     Public ValueString As String
+    Public ValueString2 As String
     Public ValueNumber As Long
 
     '코드로 출력될대 Number이나 String에 있는 값을 출력한다.
@@ -37,7 +38,7 @@ Public Class ArgValue
     Public Function GetCodeText(_scripter As ScriptEditor, isLuaCover As Boolean) As String
         Dim v As String
         If ValueType = "Variable" Then
-            v = ValueString
+            v = ValueString & ValueString2
             If isLuaCover Then
                 v = """" & v & """"
             End If
@@ -87,7 +88,7 @@ Public Class ArgValue
     Public Function GetEditorText() As String
         Dim v As String
         If ValueType = "Variable" Then
-            v = "변수:" & ValueString
+            v = "변수:" & ValueString & ValueString2
         ElseIf ValueType = "Function" Then
             If CodeBlock Is Nothing Then
                 v = "함수지정"
@@ -123,6 +124,7 @@ Public Class ArgValue
         toArg.DefaultType = DefaultType
         toArg.ValueType = ValueType
         toArg.ValueString = ValueString
+        toArg.ValueString2 = ValueString2
         toArg.ValueNumber = ValueNumber
         toArg.IsArgNumber = IsArgNumber
         toArg.IsLangageable = IsLangageable
