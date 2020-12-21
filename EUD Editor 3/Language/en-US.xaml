@@ -3,16 +3,16 @@
     xmlns:local="clr-namespace:EUD_Editor_3"
     xmlns:sys="clr-namespace:System;assembly=mscorlib">
     <sys:String x:Key="Language">Language</sys:String>
-    <sys:String x:Key="Graphic">Graphic</sys:String>
+    <sys:String x:Key="Graphic">Graphics</sys:String>
     <sys:String x:Key="NoGraphic">Not loaded</sys:String>
     <sys:String x:Key="SDGraphic">Original</sys:String>
     <sys:String x:Key="HDGraphic">Remastered</sys:String>
     <sys:String x:Key="CarbotGraphic">CarbotGraphic</sys:String>
 
     <sys:String x:Key="DataLoading">Loading data...</sys:String>
-    <sys:String x:Key="RegistryConnect">Extension is not connected. Do you want to reconnect it?</sys:String>
+    <sys:String x:Key="RegistryConnect">Do you want to associate EUD Editor 3 with .e3s files? (Recommended)</sys:String>
 
-    <sys:String x:Key="Setting">Setting</sys:String>
+    <sys:String x:Key="Setting">Program Settings</sys:String>
     <sys:String x:Key="SampleSelect">Sample Map Select</sys:String>
     <sys:String x:Key="OpenMap">Open Map</sys:String>
     <sys:String x:Key="SaveMap">Save Map</sys:String>
@@ -53,8 +53,8 @@
     <sys:String x:Key="DatEdit Setting">Data Editor</sys:String>
     <sys:String x:Key="TE Setting">Trigger Editor</sys:String>
     <sys:String x:Key="Plugin Setting">Plugin</sys:String>
-    <sys:String x:Key="StarExeFile Select">Select Starcraft run file</sys:String>
-    <sys:String x:Key="euddraftExe Select">Select euddraft run fil</sys:String>
+    <sys:String x:Key="StarExeFile Select">Select Starcraft Launcher</sys:String>
+    <sys:String x:Key="euddraftExe Select">Select euddraft executable</sys:String>
     <sys:String x:Key="SCX Fliter">Starcraft map file|*.scx</sys:String>
     <sys:String x:Key="BGM Fliter">Sound File|*.ogg;*.wav;*.mp3</sys:String>
     <sys:String x:Key="SCX Select">Open target map</sys:String>
@@ -87,10 +87,10 @@
 
 
 
-    <sys:String x:Key="StarExeFile">Starcraft run file</sys:String>
-    <sys:String x:Key="euddraftExe">euddraft run file</sys:String>
-    <sys:String x:Key="euddraftVersion1">Current version :</sys:String>
-    <sys:String x:Key="euddraftVersion2">Recommended version :</sys:String>
+    <sys:String x:Key="StarExeFile">Path to StarCraft launcher</sys:String>
+    <sys:String x:Key="euddraftExe">Path to euddraft executable</sys:String>
+    <sys:String x:Key="euddraftVersion1">Current version:</sys:String>
+    <sys:String x:Key="euddraftVersion2">Recommended version:</sys:String>
 
     <!--<sys:String x:Key="SaveFliter">EUD Editor 3 Save file|*.e3s</sys:String>-->
     <sys:String x:Key="SaveFliter">EUD Editor 3 Save file|*.e3s|EUD Editor 2 Save file|*.e2s</sys:String>
@@ -177,15 +177,15 @@
 
     <sys:String x:Key="Error SaveFileOpen">Save file is incorrect.</sys:String>
 
-    <sys:String x:Key="Error OpenMap is not SaveMap">Connected map’s name and saved map’s name must not be same within each other.</sys:String>
-    <sys:String x:Key="Error OpenMap is not exist reset">There’s no connected map. Do you want to Select maps?</sys:String>
+    <sys:String x:Key="Error OpenMap is not SaveMap">Connected map's name and saved map's name must not be same within each other.</sys:String>
+    <sys:String x:Key="Error OpenMap is not exist reset">There's no connected map. Do you want to Select a map to connect?</sys:String>
     <sys:String x:Key="Error SaveMap is not exist reset">Saved map cannot be created. Do you want to select maps?</sys:String>
     <sys:String x:Key="Error SettingSave Fail">Saving program settings has been failed.</sys:String>
     <sys:String x:Key="Error ProgramInit Fail">Problem has occured when resetting program data.</sys:String>
-    <sys:String x:Key="Error TriggerScript Init Fail">Problem has occured when resetting TriggerScript Editor.</sys:String>
-    <sys:String x:Key="Error LoadStarCraftData Fail">Problem has occured when resetting starcraft data.</sys:String>
-    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve">Reading Casc data has been failed.&#13;Starcraft version may not be the latest.</sys:String>
-    <sys:String x:Key="Error NotExistMPQ">Casc file is not selected. Therefore, Graphics file cannot be loaded also.</sys:String>
+    <sys:String x:Key="Error TriggerScript Init Fail">A wroblem has occured when resetting TriggerScript Editor.</sys:String>
+    <sys:String x:Key="Error LoadStarCraftData Fail">A problem has occured when resetting StarCraft data.</sys:String>
+    <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve">Reading Casc data has been failed.&#13;Your Starcraft version may not be up to date.</sys:String>
+    <sys:String x:Key="Error NotExistMPQ">Could not load graphics from StartCraft. Please update the path to your StarCraft Launcher in Program Settings</sys:String>
     <sys:String x:Key="Error NotExistMPQ reset">Casc file is not selected. Do you want to select files?</sys:String>
 
     <sys:String x:Key="Error OpenMap is not exist!">Connected map is not valid. Map cannot be opened.</sys:String>
@@ -248,9 +248,9 @@
     <sys:String x:Key="LogClear">Clear log</sys:String>
 
 
-    <sys:String x:Key="MuteSound">MuteSound</sys:String>
+    <sys:String x:Key="MuteSound">Mute sound</sys:String>
     <sys:String x:Key="TopMost">Always on top</sys:String>
-    <sys:String x:Key="TopMostOption">Opened always on top</sys:String>
+    <sys:String x:Key="TopMostOption">Always open on top</sys:String>
     <sys:String x:Key="Transparency">transparency</sys:String>
 
     <sys:String x:Key="CommandExpander">Command Prompt</sys:String>
