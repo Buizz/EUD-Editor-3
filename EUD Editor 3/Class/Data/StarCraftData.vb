@@ -675,6 +675,21 @@ Public Class StarCraftData
                 Dim bf As Runtime.Serialization.Formatters.Binary.BinaryFormatter = New Runtime.Serialization.Formatters.Binary.BinaryFormatter()
                 _GRPData = bf.Deserialize(stm)
                 stm.Close()
+
+                'Dim bw As BinaryWriter = New BinaryWriter(New FileStream(System.AppDomain.CurrentDomain.BaseDirectory & "\TESTGRP", FileMode.Create))
+                'For index = 0 To 999
+                '    If (CType(_GRPData.GetGrp(index, 1), SDGRP).oldgrp IsNot Nothing) Then
+                '        bw.Write(CType(_GRPData.GetGrp(index, 1), SDGRP).oldgrp.grpWidth)
+                '        bw.Write(CType(_GRPData.GetGrp(index, 1), SDGRP).oldgrp.grpHeight)
+                '    Else
+                '        bw.Write(0)
+                '        bw.Write(0)
+                '    End If
+
+                'Next
+
+                'bw.Close()
+
                 Return True
             End If
         Catch ex As Exception

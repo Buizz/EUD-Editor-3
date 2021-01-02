@@ -4107,6 +4107,16 @@ function dwbreak2(number) { }
 
 /***
  * @Type
+ * C
+ * @Summary.ko-KR
+ * 비공유 플레이어 조건입니다.
+ ***/
+function IsUserCP() { }
+
+
+
+/***
+ * @Type
  * F
  * @Summary.ko-KR
  * 현재 게임 틱을 읽어옵니다.

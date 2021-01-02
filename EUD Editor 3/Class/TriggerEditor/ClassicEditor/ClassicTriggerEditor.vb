@@ -195,6 +195,7 @@ Public Class ClassicTriggerEditor
 
 
 
+            sb.AppendLine("    if (playerexist(" & player & "))")
             sb.AppendLine("    {")
             sb.AppendLine("        setcurpl(" & player & ");")
             sb.AppendLine("        const cp = " & player & ";")
