@@ -1,5 +1,7 @@
-# Beta 0.12.3.2
+# Beta 0.12.3.3
 -영문번역 추가(Thanks to Milestone)
+-영문 윈도우에서 초기 에러 수정(by Milestone)
+-TE클래식 플레이어 없어도 실행되는 오류
 -TE변수 수정 기능 추가
 
 # Beta 0.12.3.1
