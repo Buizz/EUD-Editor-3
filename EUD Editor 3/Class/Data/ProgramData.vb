@@ -55,10 +55,13 @@ Public Class ProgramData
     End Sub
     Public Sub SetLanguage(LanName As String)
         Dim dict As New ResourceDictionary()
-        dict.Source = New Uri("Language\" & LanName & ".xaml", UriKind.Relative)
-
+        'Load the Language file corresponding to the user's OS, default to en-US
+        Try
+            dict.Source = New Uri("Language\" & LanName & ".xaml", UriKind.Relative)
+        Catch ex As Exception
+            dict.Source = New Uri("Language\en-US.xaml", UriKind.Relative)
+        End Try
         Application.Current.Resources.MergedDictionaries.Add(dict)
-
         Setting(ProgramData.TSetting.Language) = LanName
     End Sub
 

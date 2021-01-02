@@ -1,3 +1,7 @@
+# Beta 0.12.3.2
+-영문번역 추가(Thanks to Milestone)
+-TE변수 수정 기능 추가
+
 # Beta 0.12.3.1
 -TE 클래식 추가
 -TE 클래식 대기하기 추가
