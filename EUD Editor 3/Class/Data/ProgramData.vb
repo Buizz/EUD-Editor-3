@@ -60,6 +60,7 @@ Public Class ProgramData
             dict.Source = New Uri("Language\" & LanName & ".xaml", UriKind.Relative)
         Catch ex As Exception
             dict.Source = New Uri("Language\en-US.xaml", UriKind.Relative)
+            LanName = "en-US"
         End Try
         Application.Current.Resources.MergedDictionaries.Add(dict)
         Setting(ProgramData.TSetting.Language) = LanName

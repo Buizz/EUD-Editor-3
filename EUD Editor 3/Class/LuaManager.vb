@@ -226,7 +226,7 @@ Public Class LuaManager
         Return pjData.BindingManager.StatTxtBinding(ObjectId - 1).Value
     End Function
     Public Sub ResetTbl(ObjectId As Integer)
-        pjData.BindingManager.StatTxtBinding(ObjectId).DataReset()
+        pjData.BindingManager.StatTxtBinding(ObjectId - 1).DataReset()
     End Sub
 
 

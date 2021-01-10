@@ -3,10 +3,10 @@
 
     Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.units
 
-    Public Property ObjectID As Integer
+    Public Property ObjectID As Long
 
 
-    Public Sub New(tObjectID As Integer)
+    Public Sub New(tObjectID As Long)
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
@@ -42,7 +42,7 @@
         GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Unit, ObjectID)
         GRPImage2.Init(CAnim, 13)
     End Sub
-    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Integer)
+    Public Sub ReLoad(DatFiles As SCDatFiles.DatFiles, tObjectID As Long)
         ObjectID = tObjectID
 
         NameBar.ReLoad(ObjectID, DatFiles, UnitDatPage)
@@ -79,7 +79,7 @@
         Dim Sprite As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.flingy, "Sprite", Flingy)
         Dim ImageID As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.sprites, "Image File", Sprite)
 
-        Dim CAnim As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Construction Animation", ObjectID)
+        Dim CAnim As Long = pjData.Dat.Data(SCDatFiles.DatFiles.units, "Construction Animation", ObjectID)
         GRPImages.Init(ImageID, 0, GRPImageBox.BoxType.Unit, ObjectID)
         GRPImage2.Init(CAnim, 13)
     End Sub

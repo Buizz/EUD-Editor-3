@@ -2,7 +2,7 @@
 
 Public Class IconSelecter
     Private DatFile As SCDatFiles.DatFiles
-    Private ObjectID As Integer
+    Private ObjectID As Long
     Private Parameter As String
 
     Private DatCommand As DatCommand
@@ -11,7 +11,7 @@ Public Class IconSelecter
 
 
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional TextWidth As Integer = 0)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Long, _Parameter As String, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
@@ -113,7 +113,7 @@ Public Class IconSelecter
                     btn.Content = pjData.Stat_txt(ObjectID)
                     btn.ContextMenu = Nothing
 
-                    Dim strindex As Integer = 0
+                    Dim strindex As Long = 0
                     If pjData.IsMapLoading Then
                         strindex = pjData.MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", ObjectID)
                     End If
@@ -199,7 +199,7 @@ Public Class IconSelecter
 
 
     End Sub
-    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String)
+    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Long, _Parameter As String)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
@@ -301,7 +301,7 @@ Public Class IconSelecter
                     Field.ReLoad(DatFile, ObjectID, Parameter)
                     IconBox.Visibility = Visibility.Collapsed
                     btn.Content = pjData.Stat_txt(ObjectID)
-                    Dim strindex As Integer = 0
+                    Dim strindex As Long = 0
                     If pjData.IsMapLoading Then
                         strindex = pjData.MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", ObjectID)
                     End If
@@ -382,7 +382,7 @@ Public Class IconSelecter
                     'CodeList.SetFliter(CodeSelecter.ESortType.n123)
                     Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.wireframe
 
-                    Dim flag As Integer
+                    Dim flag As Long
 
                     Dim value As Long
                     If Parameter = "wire" Then
@@ -455,7 +455,7 @@ Public Class IconSelecter
 
     Private Sub btnMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
         If Parameter <> "UnitName" Then
-            Dim ChangeValue As Integer = e.Delta / 100
+            Dim ChangeValue As Long = e.Delta / 100
             Select Case DatFile
                 Case SCDatFiles.DatFiles.wireframe, SCDatFiles.DatFiles.ButtonSet
                     pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID).Value += ChangeValue
@@ -474,13 +474,13 @@ Public Class IconSelecter
             Select Case DatFile
                 Case SCDatFiles.DatFiles.ButtonSet
                     Dim valueType As SCDatFiles.DatFiles = SCDatFiles.DatFiles.ButtonData
-                    Dim value As Integer = pjData.ExtraDat.ButtonSet(ObjectID)
+                    Dim value As Long = pjData.ExtraDat.ButtonSet(ObjectID)
                     If CheckOverFlow(valueType, value) Then
                         TabItemTool.WindowTabItem(valueType, value)
                     End If
                 Case Else
                     Dim valueType As SCDatFiles.DatFiles = pjData.Dat.ParamInfo(DatFile, Parameter, SCDatFiles.EParamInfo.ValueType)
-                    Dim value As Integer = pjData.Dat.Data(DatFile, Parameter, ObjectID)
+                    Dim value As Long = pjData.Dat.Data(DatFile, Parameter, ObjectID)
                     If CheckOverFlow(valueType, value) Then
                         If valueType = SCDatFiles.DatFiles.stattxt Then
                             value -= 1

@@ -251,11 +251,11 @@
 
 
 
-    Public ReadOnly Property DatBinding(key As SCDatFiles.DatFiles, name As String, index As Integer) As DatBinding
+    Public ReadOnly Property DatBinding(key As SCDatFiles.DatFiles, name As String, index As Long) As DatBinding
         Get
             If pjData.Dat.CheckParamExist(key, name) Then
-                Dim ValueStart As Integer = pjData.Dat.ParamInfo(key, name, SCDatFiles.EParamInfo.VarStart)
-                Dim RealIndex As Integer = index - ValueStart
+                Dim ValueStart As Long = pjData.Dat.ParamInfo(key, name, SCDatFiles.EParamInfo.VarStart)
+                Dim RealIndex As Long = index - ValueStart
                 If RealIndex >= 0 And DataBindings(key)(DataParamKeys(key)(name)).Count > RealIndex Then
                     Return DataBindings(key)(DataParamKeys(key)(name))(RealIndex)
                 Else

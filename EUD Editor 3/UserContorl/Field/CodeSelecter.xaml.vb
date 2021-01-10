@@ -401,9 +401,15 @@ Public Class CodeSelecter
 
         Flag = _tFlag
 
-        LastSelectIndex = -1
         IsComboBox = combobox
         StartIndex = _StartIndex
+
+
+
+        LastSelectIndex = -1
+
+
+
         If Not IsFirstLoad Then
             IsFirstLoad = True
             If SCDatFiles.CheckValidDat(CurrentPage) Or CurrentPage = SCDatFiles.DatFiles.stattxt Then

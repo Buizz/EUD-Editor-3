@@ -380,8 +380,15 @@ Public Class DataManager
                         pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Status", ObjectID).DataReset()
                         pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Display", ObjectID).DataReset()
                         pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "wire", ObjectID).DataReset()
-                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "grp", ObjectID).DataReset()
-                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "tran", ObjectID).DataReset()
+
+                        If SCGrpWireCount > ObjectID Then
+                            pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "grp", ObjectID).DataReset()
+                        End If
+                        If SCGrpTranCount > ObjectID Then
+                            pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, "tran", ObjectID).DataReset()
+                        End If
+
+
                         pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, "ButtonSet", ObjectID).DataReset()
 
                         pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, "Joint", ObjectID).PPropertyChangedPack()

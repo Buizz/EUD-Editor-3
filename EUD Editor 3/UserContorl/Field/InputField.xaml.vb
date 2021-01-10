@@ -1,6 +1,6 @@
 ﻿Public Class InputField
     Private DatFile As SCDatFiles.DatFiles
-    Private ObjectID As Integer
+    Private ObjectID As Long
     Private Parameter As String
 
     Private DatCommand As DatCommand
@@ -16,7 +16,7 @@
         FLAG
     End Enum
 
-    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
+    Public Sub ReLoad(_DatFile As SCDatFiles.DatFiles, _ObjectID As Long, _Parameter As String, Optional _SFlag As SFlag = SFlag.None)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
@@ -88,7 +88,7 @@
                 Else
                     Dim binding As New Binding()
                     binding.Mode = BindingMode.OneWay
-                    ValueText.SetBinding(TextBox.TextProperty, Binding)
+                    ValueText.SetBinding(TextBox.TextProperty, binding)
                     ValueText.Text = Application.Current.Resources("NotUse")
                     ValueText.IsEnabled = False
                     Exit Sub
@@ -184,7 +184,7 @@
     End Sub
 
 
-    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Integer, _Parameter As String, Optional _SFlag As SFlag = SFlag.None, Optional TextWidth As Integer = 0)
+    Public Sub Init(_DatFile As SCDatFiles.DatFiles, _ObjectID As Long, _Parameter As String, Optional _SFlag As SFlag = SFlag.None, Optional TextWidth As Integer = 0)
         DatFile = _DatFile
         ObjectID = _ObjectID
         Parameter = _Parameter
@@ -263,8 +263,8 @@
                 Else
                     Dim binding As New Binding()
                     Me.DataContext = pjData.BindingManager.NomalBinding(DatFile, Parameter)
-                    Binding.Mode = BindingMode.OneWay
-                    ValueText.SetBinding(TextBox.TextProperty, Binding)
+                    binding.Mode = BindingMode.OneWay
+                    ValueText.SetBinding(TextBox.TextProperty, binding)
                     ValueText.Text = Application.Current.Resources("NotUse")
                     ValueText.IsEnabled = False
                     Exit Sub
@@ -409,7 +409,7 @@
     End Sub
 
     Private Sub TextBoxMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles ValueText.MouseWheel
-        Dim ChangeValue As Integer = e.Delta / 100
+        Dim ChangeValue As Long = e.Delta / 100
         Select Case SpecialFlag
             Case SFlag.HP
                 ChangeValue *= 256
@@ -429,7 +429,7 @@
 
 
     Private Sub TextboxPreviewKeyDown(sender As Object, e As KeyEventArgs) Handles ValueText.PreviewKeyDown
-        Dim ChangeValue As Integer = 1
+        Dim ChangeValue As Long = 1
         Select Case SpecialFlag
             Case SFlag.HP
                 ChangeValue *= 256

@@ -48,7 +48,11 @@ Public Class SDGRP
 
     Public Overrides Function DrawGRP(frame As Integer) As BitmapSource
         If framebitmap Is Nothing Then
-            ReDim framebitmap(framedata.Count - 1)
+            If framedata IsNot Nothing Then
+                ReDim framebitmap(framedata.Count - 1)
+            Else
+                ReDim framebitmap(0)
+            End If
         End If
 
         frame = frame Mod maxframe

@@ -289,6 +289,10 @@ Public Class ButtonData
 
         If SelectBtnIndex <> -1 Then
             Dim loc As Integer = ButtonSet.ButtonS(SelectBtnIndex).GetPosindex - 1
+            If (loc >= 9) Then
+                Return
+            End If
+
 
             images(loc).Source = ButtonSet.ButtonS(SelectBtnIndex).GetIcon
             borders(loc).Opacity = 0.5

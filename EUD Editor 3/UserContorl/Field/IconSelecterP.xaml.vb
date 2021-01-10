@@ -127,6 +127,10 @@ Public Class IconSelecterP
     Private Sub ValueText_TextChanged(sender As Object, e As TextChangedEventArgs)
         If IsNumeric(ValueText.Text) Then
             pValue = ValueText.Text
+            If pValue >= 65536 Then
+                pValue = 65535
+                ValueText.Text = 65535
+            End If
             RaiseEvent ValueChange(Me, e)
             ValueRefresh()
         End If
@@ -138,9 +142,11 @@ Public Class IconSelecterP
                 btn.Content = pjData.CodeLabel(DatFile, pValue, True)
             Else
                 btn.Content = Tool.GetText("None")
+                Return
             End If
         Else
             btn.Content = Tool.GetText("None")
+            Return
         End If
 
         Dim isIcon As Boolean = False

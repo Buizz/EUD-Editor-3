@@ -118,7 +118,7 @@ Public Class SCDatFiles
             Return DatfileDic(key).GetParamValue(paramName, index)
         End Get
     End Property
-    Public Property Data(key As DatFiles, paramName As String, index As Integer) As Long
+    Public Property Data(key As DatFiles, paramName As String, index As Long) As Long
         Get
             Return DatfileDic(key).GetParamData(paramName, index)
         End Get
@@ -207,13 +207,13 @@ Public Class SCDatFiles
         End Property
 
 
-        Public ReadOnly Property GetParamValue(name As String, index As Integer) As CParamater.Value
+        Public ReadOnly Property GetParamValue(name As String, index As Long) As CParamater.Value
             Get
                 Return ParamDic(name).GetValue(index)
             End Get
         End Property
 
-        Public Property GetParamData(name As String, index As Integer) As Long
+        Public Property GetParamData(name As String, index As Long) As Long
             Get
                 Return ParamDic(name).Data(index)
             End Get
@@ -296,7 +296,7 @@ Public Class SCDatFiles
 
             '만약 잘못된 수를 불러올 경우 안전장치 추가해야됨
             '꼮!!!!!!!!!!!!!! 일단 지금은 바쁘니까 넘어간다.
-            Public Property Data(index As Integer) As Long
+            Public Property Data(index As Long) As Long
                 Get
                     index -= VarStart
                     If index < Values.Count Then
@@ -320,9 +320,9 @@ Public Class SCDatFiles
 
                 End Set
             End Property
-            Public ReadOnly Property GetValue(index As Integer) As Value
+            Public ReadOnly Property GetValue(index As Long) As Value
                 Get
-                    Dim realIndex As Integer = index - VarStart
+                    Dim realIndex As Long = index - VarStart
 
                     If Values.Count > realIndex And realIndex >= 0 Then
                         Return Values(realIndex)
@@ -331,16 +331,16 @@ Public Class SCDatFiles
                     End If
                 End Get
             End Property
-            Public ReadOnly Property PureData(index As Integer) As Value
+            Public ReadOnly Property PureData(index As Long) As Value
                 Get
-                    Dim realIndex As Integer = index
+                    Dim realIndex As Long = index
 
                     Return Values(realIndex)
                 End Get
             End Property
 
 
-            Public Sub New(_FIleName As String, sr As StreamReader, br As BinaryReader, prcount As Integer, encount As Integer, IsProjectData As Boolean, IsBindingData As Boolean)
+            Public Sub New(_FIleName As String, sr As StreamReader, br As BinaryReader, prcount As Long, encount As Long, IsProjectData As Boolean, IsBindingData As Boolean)
                 FIleName = _FIleName
                 VarEnd = encount - 1
                 While Not sr.EndOfStream

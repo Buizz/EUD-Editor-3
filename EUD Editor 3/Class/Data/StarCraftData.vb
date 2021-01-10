@@ -21,6 +21,7 @@ Public Module SCConst
 
     Public SCMenCount As Byte = 106
     Public SCGrpWireCount As Byte = 131
+    Public SCGrpTranCount As Byte = 106
     Public ASCIICount As UShort = 127
 
 
