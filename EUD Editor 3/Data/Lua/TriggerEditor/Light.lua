@@ -8,7 +8,7 @@
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 화면 밝기를 [Amount]만큼 [Modifier]합니다.
 @Group
@@ -30,7 +30,7 @@ end
 시스템
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 화면 밝기의 값을 읽습니다.
 @Group
@@ -49,7 +49,7 @@ end
 시스템
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 화면 밝기의 주소를 반환합니다.
 @Group

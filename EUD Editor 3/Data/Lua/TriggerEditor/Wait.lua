@@ -8,7 +8,7 @@ waittime = 0
 @param.Time.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 프레임 [Time]만큼 기다립니다.
 @Group
@@ -28,7 +28,7 @@ end
 대기하기
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 대기하기의 시작 부분입니다.
 @Group
@@ -47,7 +47,7 @@ end
 대기하기
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 대기하기 조건 부의 시작 부분입니다.
 @Group
@@ -65,7 +65,7 @@ end
 대기하기
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 대기하기 조건 부의 끝 부분입니다.
 @Group
@@ -83,7 +83,7 @@ end
 대기하기
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 대기하기 액션 부의 시작 부분입니다.
 @Group
@@ -101,7 +101,7 @@ end
 대기하기
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 대기하기 액션 부의 끝 부분입니다.
 @Group
@@ -119,7 +119,7 @@ end
 대기하기
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 대기하기의 끝 부분입니다.
 @Group

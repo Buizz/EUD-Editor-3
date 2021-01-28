@@ -9,7 +9,7 @@
 @param.AllyStatus.TrgAllyStatus
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]이 보는 [DestPlayer]와의 동맹 관계를 [AllyStatus]로 설정합니다.
 @Group
@@ -65,7 +65,7 @@ end
 @param.AllyStatus.TrgAllyStatus
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]이 보는 [DestPlayer]와의 동맹 관계가 [AllyStatus]인지 확인합니다.
 @Group
@@ -119,7 +119,7 @@ end
 @param.DestPlayer.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]이 보는 [DestPlayer]와의 동맹 관계를 반환합니다.
 @Group
@@ -155,7 +155,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 동맹 오프셋을 반환합니다.
 @Group
@@ -181,7 +181,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 동맹 오프셋을 반환합니다.
 @Group

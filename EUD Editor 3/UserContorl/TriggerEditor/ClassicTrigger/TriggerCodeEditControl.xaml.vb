@@ -384,6 +384,9 @@ Public Class TriggerCodeEditControl
 
 
     Private Sub FunctionSelectBtnClick()
+        If SelectBtn.IsEnabled = False Then
+            Return
+        End If
         FuncSelecter.Visibility = Visibility.Collapsed
 
         SelectTBlock.SetFunction(CType(CodeList.SelectedItem, TreeViewItem).Tag)

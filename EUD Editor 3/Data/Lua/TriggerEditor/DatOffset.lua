@@ -8,7 +8,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -31,7 +31,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -54,7 +54,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -77,7 +77,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -100,7 +100,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -123,7 +123,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -146,7 +146,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group
@@ -169,7 +169,7 @@ DatFile
 파라미터입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DatType]의 주소를 반환합니다
 @Group

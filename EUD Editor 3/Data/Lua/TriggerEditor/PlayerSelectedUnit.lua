@@ -8,7 +8,7 @@
 @param.Number.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Number]번 선택유닛 오프셋을 반환합니다.
 @Group

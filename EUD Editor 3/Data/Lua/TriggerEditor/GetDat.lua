@@ -10,7 +10,7 @@ DatFile
 대상 유닛입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -38,7 +38,7 @@ DatFile
 대상 무기입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -66,7 +66,7 @@ DatFile
 대상 비행정보입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -94,7 +94,7 @@ DatFile
 대상 스프라이트입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -123,7 +123,7 @@ DatFile
 대상 이미지입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -151,7 +151,7 @@ DatFile
 대상 업그레이드입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -179,7 +179,7 @@ DatFile
 대상 기술입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group
@@ -207,7 +207,7 @@ DatFile
 대상 명령입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType] 값을 반환합니다.
 @Group

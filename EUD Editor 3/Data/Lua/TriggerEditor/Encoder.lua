@@ -452,7 +452,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -468,7 +468,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -484,7 +484,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -500,7 +500,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -516,7 +516,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -532,7 +532,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -548,7 +548,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -564,7 +564,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -580,7 +580,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -596,7 +596,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -612,7 +612,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수
@@ -628,7 +628,7 @@ end
 내부함수
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 @Group
 내부함수

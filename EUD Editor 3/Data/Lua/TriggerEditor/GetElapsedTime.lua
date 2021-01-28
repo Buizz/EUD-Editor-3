@@ -6,7 +6,7 @@
 시스템
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 게임 진행 시간을 반환합니다.
 @Group
@@ -24,7 +24,7 @@ end
 시스템
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 게임 진행 시간 주소를 반환합니다.
 @Group

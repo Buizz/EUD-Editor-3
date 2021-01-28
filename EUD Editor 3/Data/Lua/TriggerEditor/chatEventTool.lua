@@ -10,7 +10,7 @@
 인식할 채팅입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 채팅[Chat]을 인식합니다.
 @Group
@@ -46,7 +46,7 @@ end
 끝 부분입니다. 비어있으면 아무 내용이나 가능합니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 채팅[Start],[Mid],[End]를 인식합니다.
 @Group

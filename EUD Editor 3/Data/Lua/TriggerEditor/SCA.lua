@@ -7,7 +7,7 @@ SCA
 @param.Slot.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Slot] 슬롯의 데이터를 불러옵니다.
 @Group
@@ -31,7 +31,7 @@ SCA
 @param.Slot.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Slot] 슬롯의 데이터를 저장합니다.
 @Group
@@ -54,7 +54,7 @@ end
 SCA
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 시간 정보를 불러옵니다.
 @Group
@@ -76,7 +76,7 @@ end
 SCA
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 글로벌 변수를 불러옵니다.
 @Group
@@ -98,7 +98,7 @@ end
 SCA
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 불러오기 완료를 확인합니다.
 @Group
@@ -117,7 +117,7 @@ end
 SCA
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 저장 완료를 확인합니다.
 @Group
@@ -136,7 +136,7 @@ end
 SCA
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 글로벌 변수의 불러오기 완료를 확인합니다.
 @Group
@@ -155,7 +155,7 @@ end
 SCA
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 시간 정보의 불러오기 완료를 확인합니다.
 @Group
@@ -181,7 +181,7 @@ SCA
 @param.Index.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]번 글로벌 데이터의 값을 반환합니다.
 @Group
@@ -206,7 +206,7 @@ SCA
 @param.Value.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]번 글로벌 데이터의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -245,7 +245,7 @@ SCA
 @param.DateType.DateType
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DateType]을 반환합니다.
 @Group
@@ -284,7 +284,7 @@ SCA
 @param.Value.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [DateType]이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -335,7 +335,7 @@ SCA
 @param.Weekend.Weekend
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 현재 날짜가 [Weekend]인지 확인합니다.
 @Group

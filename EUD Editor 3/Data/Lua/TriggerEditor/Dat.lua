@@ -14,7 +14,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -51,7 +51,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -88,7 +88,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -125,7 +125,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -162,7 +162,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -199,7 +199,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -236,7 +236,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group
@@ -273,7 +273,7 @@ DatFile
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
 @Group

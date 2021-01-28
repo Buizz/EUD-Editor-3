@@ -10,7 +10,7 @@
 대상 플레이어입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Unit] 데스값을 반환합니다.
 @Group

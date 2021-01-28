@@ -9,7 +9,7 @@
 @param.Args.Arguments
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 아이디를 [ID][Args]로 변경합니다.
 @Group
@@ -39,7 +39,7 @@ end
 @param.ID.TrgString
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 아이디가 [ID]인지 확인합니다.
 @Group

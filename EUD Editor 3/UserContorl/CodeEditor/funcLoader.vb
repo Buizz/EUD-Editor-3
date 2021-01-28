@@ -356,7 +356,7 @@ Partial Public Class CodeEditor
 
                         If tstr <> "" Then
                             Dim tb As New TextBox
-                            tb.Text = "[" & i & "] " & tstr
+                            tb.Text = "[" & (i + 1) & "] " & tstr
 
                             data.Add(New TECompletionData(0, """" & tstr & """", """" & tstr & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
                         End If

@@ -10,7 +10,7 @@
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [SupplyType]를 [Amount]만큼 [Modifier]합니다.
 @Group
@@ -42,7 +42,7 @@ end
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [SupplyType]가 [Comparison] [Amount]인지 확인합니다.
 @Group
@@ -72,7 +72,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [SupplyType] 값을 읽습니다.
 @Group
@@ -97,7 +97,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [SupplyType] 주소를 반환합니다.
 @Group

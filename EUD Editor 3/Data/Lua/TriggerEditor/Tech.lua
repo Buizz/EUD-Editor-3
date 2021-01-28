@@ -10,7 +10,7 @@
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 현재값을 [Amount]만큼 [Modifier]합니다.
 @Group
@@ -74,7 +74,7 @@ end
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 현재값이 [Comparison] [Amount]인지 확인합니다.
 @Group
@@ -136,7 +136,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 현재값을 반환합니다.
 @Group
@@ -168,7 +168,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 현재값 주소를 반환합니다.
 @Group
@@ -211,7 +211,7 @@ end
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 최대값을 [Amount]만큼 [Modifier]합니다.
 @Group
@@ -275,7 +275,7 @@ end
 @param.Amount.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 최대값이 [Comparison] [Amount]인지 확인합니다.
 @Group
@@ -337,7 +337,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 최대값을 반환합니다.
 @Group
@@ -369,7 +369,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Tech]의 현재값 주소를 반환합니다.
 @Group

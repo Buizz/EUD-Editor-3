@@ -10,7 +10,7 @@
 @param.ResourceType.TrgResource
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [ResourceType]을 [Amount]만큼 [Modifier]합니다.
 @Group
@@ -38,7 +38,7 @@ end
 @param.ResourceType.TrgResource
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [ResourceType]을 읽습니다.
 @Group
@@ -65,7 +65,7 @@ end
 @param.ResourceType.TrgResource
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Resource]의 주소를 반환합니다.
 @Group

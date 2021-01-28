@@ -9,7 +9,7 @@
 @param.State.TrgSwitchState
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]에게 [DestPlayer]의 시야를 [State]합니다.
 @Group
@@ -52,7 +52,7 @@ end
 @param.DestPlayer.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]가 [DestPlayer]를 볼 수 있는지 확인합니다.
 @Group
@@ -86,7 +86,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 시야 오프셋을 반환합니다.
 @Group

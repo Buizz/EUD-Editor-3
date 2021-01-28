@@ -10,7 +10,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -39,7 +39,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -68,7 +68,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -97,7 +97,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -126,7 +126,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -155,7 +155,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -184,7 +184,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group
@@ -213,7 +213,7 @@ DatFile
 @param.Modifier.TrgModifier
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 @Group

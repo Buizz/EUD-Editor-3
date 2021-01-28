@@ -97,7 +97,11 @@ Public Class ArgValue
             End If
         Else
             If IsArgNumber Then
-                v = "ID:" & ValueNumber & " " & ValueString
+                If ValueType = "TrgLocation" Then
+                    v = "ID:" & (ValueNumber + 1) & " " & ValueString
+                Else
+                    v = "ID:" & ValueNumber & " " & ValueString
+                End If
             Else
                 If IsLangageable Then
                     Dim lanstr As String = Tool.GetLanText("TrgArg" & ValueString)

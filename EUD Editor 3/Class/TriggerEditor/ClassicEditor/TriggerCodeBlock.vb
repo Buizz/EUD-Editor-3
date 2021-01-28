@@ -27,24 +27,65 @@ Public Class TriggerCodeBlock
                 firstCode = True
                 IsLuaCode = True
             End If
-        End If
-
-
-        If FType = TriggerFunction.EFType.ExternFunc Then
-            rstr = rstr & FGroup & "." & FName & "("
         Else
-            rstr = rstr & FName & "("
-        End If
-        For i = 0 To Args.Count - 1
-            If i <> 0 Then
-                rstr = rstr & ", "
+            If FType <> TriggerFunction.EFType.Lua Then
+                IsLuaCode = False
             End If
-            rstr = rstr & Args(i).GetCodeText(_scripter, IsLuaCode)
-        Next
+        End If
+
+        Dim SystemFunc As Boolean = False
+
+        If (FType = TriggerFunction.EFType.Action Or FType = TriggerFunction.EFType.Condition) And FName = "RawCode" Then
+            SystemFunc = True
+            rstr = rstr & Args(0).GetCodeText(_scripter, IsLuaCode)
+        End If
+
+
+        If FType = TriggerFunction.EFType.Condition And FName = "Var" Then
+            SystemFunc = True
+            rstr = rstr & Args(0).GetCodeText(_scripter, IsLuaCode)
+            Select Case Args(1).GetCodeText(_scripter, IsLuaCode)
+                Case "Exactly"
+                    rstr = rstr & " == "
+                Case "AtLeast"
+                    rstr = rstr & " >= "
+                Case "AtMost"
+                    rstr = rstr & " <= "
+            End Select
+            rstr = rstr & Args(2).GetCodeText(_scripter, IsLuaCode)
+        End If
+
+        If FType = TriggerFunction.EFType.Action And FName = "SetVar" Then
+            SystemFunc = True
+            rstr = rstr & Args(0).GetCodeText(_scripter, IsLuaCode)
+            Select Case Args(1).GetCodeText(_scripter, IsLuaCode)
+                Case "SetTo"
+                    rstr = rstr & " = "
+                Case "Add"
+                    rstr = rstr & " += "
+                Case "Subtract"
+                    rstr = rstr & " -= "
+            End Select
+            rstr = rstr & Args(2).GetCodeText(_scripter, IsLuaCode)
+        End If
+
+        If Not SystemFunc Then
+            If FType = TriggerFunction.EFType.ExternFunc Then
+                rstr = rstr & FGroup & "." & FName & "("
+            Else
+                rstr = rstr & FName & "("
+            End If
+            For i = 0 To Args.Count - 1
+                If i <> 0 Then
+                    rstr = rstr & ", "
+                End If
+                rstr = rstr & Args(i).GetCodeText(_scripter, IsLuaCode)
+            Next
+            rstr = rstr & ")"
+        End If
 
 
 
-        rstr = rstr & ")"
         If firstCode Then
             rstr = rstr & "?>"
         End If

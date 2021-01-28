@@ -6,7 +6,7 @@ EUDTurbo를 사용합니다.
 일반
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 EUDTurbo를 사용합니다.
 @Group

@@ -14,7 +14,7 @@
 대상 플레이어입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Unit]의 완료된 유닛보유수를 [Amount]만큼 [Modifier]합니다.
 @Group
@@ -50,7 +50,7 @@ end
 대상 플레이어입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Unit]의 완료된 유닛보유수를 반환합니다.
 @Group
@@ -78,7 +78,7 @@ end
 @param.Player.TrgPlayer
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Unit]의 완료된 유닛보유수의 주소를 반환합니다.
 @Group

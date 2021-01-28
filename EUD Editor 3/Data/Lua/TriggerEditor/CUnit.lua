@@ -8,7 +8,7 @@
 ptr이 저장될 변수입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [ptr]에 다음에 생성될 유닛의 주소를 반환합니다
 @Group
@@ -30,7 +30,7 @@ end
 epd가 저장될 변수입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [epd]에 다음에 생성될 유닛의 EPD를 반환합니다
 @Group
@@ -54,7 +54,7 @@ ptr가 저장될 변수입니다.
 epd가 저장될 변수입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [ptr]에 다음에 생성될 유닛의 PTR을, [epd]에 EPD를 반환합니다
 @Group
@@ -79,7 +79,7 @@ Offset의 주소와 크기를 반환합니다.
 CUint의 주소의 이름입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 Offset의 주소와 크기를 반환합니다.
 @Group
@@ -301,6 +301,89 @@ function GetCUnitOffset(Offset)
 	return t[Offset]
 end
 
+
+
+--[================================[
+@Language.ko-KR
+@Summary
+[ptr]의 [Offset]을 읽어옵니다.
+@Group
+구조오프셋
+@param.ptr.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+읽어올 항목입니다.
+
+
+@Language.en-US
+@Summary
+[ptr]의 [Offset]을 읽어옵니다.
+@Group
+구조오프셋
+@param.ptr.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+읽어올 항목입니다.
+]================================]
+function GetCUnitptr(ptr, Offset)
+	table = GetCUnitOffset(Offset)
+	address = table[1]
+	size = table[2]
+	
+	rd = math.floor(address / 4) * 4
+	if size == 1 then
+		outstr = "bread_epd(EPD(" .. rd ..") + EPD(" .. ptr .. "), " .. rd % 4 .. ")"
+	elseif size == 2 then
+		outstr = "wread_epd(EPD(" .. rd ..") + EPD(" .. ptr .. "), " .. rd % 4 .. ")"
+	elseif size == 4 then
+		outstr = "dwread_epd(EPD(" .. rd ..") + EPD(" .. ptr .. "))"
+	end
+	echo(outstr)
+	--return outstr
+end
+
+
+--[================================[
+@Language.ko-KR
+@Summary
+[epd]의 [Offset]을 읽어옵니다.
+@Group
+구조오프셋
+@param.epd.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+읽어올 항목입니다.
+
+
+@Language.en-US
+@Summary
+[epd]의 [Offset]을 읽어옵니다.
+@Group
+구조오프셋
+@param.epd.Variable
+대상 유닛입니다.
+@param.Offset.CUnitOffset
+읽어올 항목입니다.
+]================================]
+function GetCUnitepd(epd, Offset)
+	table = GetCUnitOffset(Offset)
+	address = table[1]
+	size = table[2]
+	
+	rd = math.floor(address / 4) * 4
+	if size == 1 then
+		outstr = "bread_epd(EPD(" .. rd ..") + " .. epd .. ", " .. rd % 4 .. ")"
+	elseif size == 2 then
+		outstr = "wread_epd(EPD(" .. rd ..") + " .. epd .. ", " .. rd % 4 .. ")"
+	elseif size == 4 then
+		outstr = "dwread_epd(EPD(" .. rd ..") + " .. epd .. ")"
+	end
+	echo(outstr)
+	--return outstr
+end
+
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -317,7 +400,7 @@ end
 연산할 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [ptr]의 [Offset]을 [Value]만큼 [Modifier]합니다.
 @Group
@@ -374,7 +457,7 @@ end
 연산할 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [epd]의 [Offset]을 [Value]만큼 [Modifier]합니다.
 @Group
@@ -431,7 +514,7 @@ end
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [ptr]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
 @Group
@@ -488,7 +571,7 @@ end
 비교 방식입니다.
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [epd]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
 @Group

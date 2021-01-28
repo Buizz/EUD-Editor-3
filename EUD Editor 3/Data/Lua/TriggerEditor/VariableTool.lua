@@ -9,7 +9,7 @@
 @param.Value.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Variable]을 [Value]으로 [Modifier]합니다.
 @Group
@@ -54,7 +54,7 @@ end
 @param.Value.Number
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Variable]이 [Comparison][Value]인지 판단합니다.
 @Group

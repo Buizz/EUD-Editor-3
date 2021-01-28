@@ -465,7 +465,7 @@ Public Class TriggerEditValueSelecterWindow
 
                 ListboxPanel.Visibility = Visibility.Visible
 
-            Case "TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation", "TrgLocation"
+            Case "TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation"
                 Width = 250
                 Height = 340
 

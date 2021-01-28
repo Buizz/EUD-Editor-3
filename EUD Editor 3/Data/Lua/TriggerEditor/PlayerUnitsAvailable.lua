@@ -9,7 +9,7 @@
 @param.State.TrgSwitchState
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Unit] 유닛 사용 가능 값을 [State]합니다.
 @Group
@@ -74,7 +74,7 @@ end
 @param.Unit.TrgUnit
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 [Player]의 [Unit] 유닛 사용 가능 값을 읽어옵니다.
 @Group
@@ -99,7 +99,7 @@ end
 플레이어
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 플레이어 유닛 사용 가능 오프셋을 가져옵니다.
 @Group

@@ -6,7 +6,7 @@
 일반
 
 
-@Language.us-EN
+@Language.en-US
 @Summary
 버튼을 다시그립니다.
 @Group
