@@ -75,6 +75,8 @@ Public Class TriggerCodeBlock
             Else
                 rstr = rstr & FName & "("
             End If
+
+
             For i = 0 To Args.Count - 1
                 If i <> 0 Then
                     rstr = rstr & ", "

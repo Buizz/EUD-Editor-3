@@ -64,6 +64,9 @@ Public Class ArgValue
                 End If
             Else
                 v = ValueString
+                If ValueType = "TrgProperty" Then
+                    v = "UnitProperty(" & v & ")"
+                End If
 
                 If ValueType = "TrgString" Or ValueType = "FormatString" Then
                     v = """" & v & """"
