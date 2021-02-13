@@ -18,11 +18,32 @@ Public Class tblWriter
             header(i) = fs.Position
 
 
-            Dim rgx As New Regex("<[^>\\]*(?:\\.[^>\\]*)*>", RegexOptions.IgnoreCase)
+            'Dim rgx As New Regex("<[^>\\]*(?:\\.[^>\\]*)*>", RegexOptions.IgnoreCase)
             Dim tempstr As String = StrExecuter(tblStrings(i))
+            tempstr = StringTool.ChangeSlash(tempstr)
+
+            Dim en As Text.Encoding = Text.Encoding.GetEncoding(949, New Text.EncoderExceptionFallback(), New Text.DecoderExceptionFallback())
 
 
-            bw.Write(Text.Encoding.Default.GetBytes(StringTool.ChangeSlash(tempstr)))
+            Try
+                Dim barray() As Byte
+                barray = en.GetBytes(tempstr)
+                bw.Write(barray)
+            Catch ex As Text.EncoderFallbackException
+                bw.Write(Text.Encoding.UTF8.GetBytes(tempstr))
+                bw.Write(CByte(&HE2))
+                bw.Write(CByte(&H80))
+                bw.Write(CByte(&H89))
+            End Try
+
+
+
+            'bw.Write(CByte(&HE2))
+            'bw.Write(CByte(&H80))
+            'bw.Write(CByte(&H89))
+            'bw.Write(Text.Encoding.UTF8.GetBytes(StringTool.ChangeSlash(tempstr)))
+
+
             bw.Write(CByte(0))
         Next
 
