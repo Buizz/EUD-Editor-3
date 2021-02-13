@@ -1,2 +1,2 @@
-0.12.3.4
-https://github.com/Buizz/EUD-Editor-3/releases/download/0.12.3.4/EUD.Editor.3.0.12.3.4.zip
+0.12.3.5
+https://github.com/Buizz/EUD-Editor-3/releases/download/0.12.3.5/EUD.Editor.3.0.12.3.5.zip
