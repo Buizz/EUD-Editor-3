@@ -194,7 +194,7 @@ function TechOffset(Tech, Player) --테크/Tech,TrgPlayer/[Player]의 [Tech]의 
 		offset = offset + Player * Size + Tech
 		return offset
 	else
-		offset = string.format("0x%X + %s * %s + %s", offset, Player, Tech)
+		offset = string.format("0x%X + %s * %s + %s", offset, Player, Size, Tech)
 		return offset
 	end
 end
