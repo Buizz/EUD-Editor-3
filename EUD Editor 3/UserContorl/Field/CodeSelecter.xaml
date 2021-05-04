@@ -9,7 +9,7 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-              Background="{DynamicResource MaterialDesignPaper}" d:DesignWidth="353" d:DesignHeight="184">
+              Background="{DynamicResource MaterialDesignPaper}" d:DesignWidth="250" d:DesignHeight="350">
 
     <UserControl.Resources>
         <ContextMenu x:Key="OnlyOpenWindon" Opened="ContextMenu_Opened">

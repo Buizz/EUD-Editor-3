@@ -89,6 +89,7 @@ function Exec(){
 				if(sca.GetGlobalDataLoadMessage() == 1){
 					loadglobalstatus[cp] = 2;
 					sca.ResetGlobalDataLoadMessage();
+					sca.ResetLastMessage();
 				}else{
 					if (sca.CommandStatus() == 0){
 						sca.LoadGlobalData();
@@ -98,6 +99,7 @@ function Exec(){
 				if(sca.GetTimeLoadMessage() == 1){
 					loadTimestatus[cp] = 2;
 					sca.ResetDateTimeMessage();
+					sca.ResetLastMessage();
 				}else{
 					if (sca.CommandStatus() == 0){
 						sca.LoadTime();

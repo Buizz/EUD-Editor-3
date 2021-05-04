@@ -1,7 +1,9 @@
 ﻿Public Class PluginWindow
     'https://cafe.naver.com/edac/78006
-
     'https://cafe.naver.com/edac/78598
+
+
+
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         ControlBar.HotkeyInit(Me)
 
@@ -11,6 +13,12 @@
 
         For i = 0 To pjData.EdsBlock.Blocks.Count - 1
             Dim items As New ListBoxItem
+
+            AddHandler items.MouseMove, New MouseEventHandler(Sub(s As Object, ee As MouseEventArgs)
+                                                                  Hoverindex = EdsText.Items.IndexOf(s)
+                                                              End Sub)
+
+
             items.HorizontalContentAlignment = HorizontalAlignment.Stretch
             items.VerticalContentAlignment = VerticalAlignment.Stretch
 

@@ -5,7 +5,7 @@ Public Class CodeSelecter
     Private Templat As ItemsPanelTemplate = New ItemsPanelTemplate()
 
 
-    Private Flag As Integer
+    Private WireFrameFlag As Integer
 
     Private IsFirstLoad As Boolean = False
     Private IsComboBox As Boolean
@@ -304,6 +304,8 @@ Public Class CodeSelecter
         Fliter.SetFliter(tfliter)
     End Sub
 
+
+    '트리뷰를 다시 설정합니다.
     Private Sub RefreshTreeview(StartIndex As Integer, treeviewitem As TreeViewItem)
         Dim index As Integer = treeviewitem.Tag
 
@@ -341,8 +343,9 @@ Public Class CodeSelecter
         Next
     End Sub
 
+    '리스트를 다시 설정합니다.
     Public Sub Refresh(tStartIndex As Integer, Optional tFlag As Integer = 0)
-        Flag = tFlag
+        WireFrameFlag = tFlag
         LastSelectIndex = tStartIndex
         StartIndex = tStartIndex
         Select Case Fliter.SortType
@@ -389,7 +392,7 @@ Public Class CodeSelecter
         End Select
     End Sub
 
-
+    '리스트를 새로 생성합니다.
     Public Sub ListReset(Optional pagetype As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional combobox As Boolean = True, Optional _StartIndex As Integer = 0, Optional _tFlag As Integer = 0, Optional _unitFlag As Boolean = False)
         DataLoadCmp = True
         If pagetype = SCDatFiles.DatFiles.None Then
@@ -399,7 +402,7 @@ Public Class CodeSelecter
         End If
 
 
-        Flag = _tFlag
+        WireFrameFlag = _tFlag
 
         IsComboBox = combobox
         StartIndex = _StartIndex
@@ -494,8 +497,10 @@ Public Class CodeSelecter
         End Select
 
 
-        ListResetData(pagetype, StartIndex, _unitFlag)
+        ListCreateData(pagetype, StartIndex, _unitFlag)
     End Sub
+
+
     Private Function GetIcon(iconIndex As Integer, isSizeBig As Boolean) As Border
         Dim imgSource As ImageSource = scData.GetIcon(iconIndex)
         Dim bitmap As New Image
@@ -521,6 +526,7 @@ Public Class CodeSelecter
 
         Return tborder
     End Function
+
     Private Function GetImage(grpIndex As Integer, isSizeBig As Boolean) As Border
         Dim imgSource As ImageSource = scData.GetGRPImage(grpIndex, 12)
         Dim bitmap As New Image
@@ -550,7 +556,7 @@ Public Class CodeSelecter
     Private Function GetWireFrame(grpIndex As Integer, isSizeBig As Boolean) As Border
         Dim imgSource As ImageSource
 
-        Select Case Flag
+        Select Case WireFrameFlag
             Case 1
                 imgSource = scData.GetWireFrame(grpIndex)
             Case 2
@@ -585,7 +591,9 @@ Public Class CodeSelecter
         Return tborder
     End Function
 
-    Private Sub ListResetData(pagetype As SCDatFiles.DatFiles, tStartIndex As Integer, Optional _unitFlag As Boolean = False)
+
+    '리스트의 데이터를 다시 설정합니다.
+    Private Sub ListCreateData(pagetype As SCDatFiles.DatFiles, tStartIndex As Integer, Optional IsTriggerUnit As Boolean = False)
         StartIndex = tStartIndex
 
         '리스트에 들어갈 거는 리스트이름과 아이콘, 그룹패스뿐임.
@@ -708,7 +716,7 @@ Public Class CodeSelecter
                 Next
 
             Case SCDatFiles.DatFiles.wireframe
-                Select Case Flag
+                Select Case WireFrameFlag
                     Case 1
                         For i = 0 To SCUnitCount - 1
                             ObjectNames.Add(pjData.CodeLabel(pagetype, i))
@@ -949,7 +957,7 @@ Public Class CodeSelecter
                     CodeIndexerList.Items.Add(tListItem)
                 End If
                 If pagetype = SCDatFiles.DatFiles.units Then
-                    If _unitFlag Then
+                    If IsTriggerUnit Then
                         Dim aunit() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
 
                         For i = 0 To aunit.Count - 1
@@ -1259,21 +1267,21 @@ Public Class CodeSelecter
         Fliter.IsIcon = L_IconBtn.IsSelected
         Fliter.IsEdit = L_IsEditBtn.IsSelected
 
-        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
+        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, WireFrameFlag)
     End Sub
 
 
     Private Sub FliterKeyDown(sender As Object, e As KeyEventArgs)
         If (e.Key = Key.Return) Then
             Fliter.fliterText = FliterText.Text
-            ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
+            ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, WireFrameFlag)
         End If
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         FliterText.Text = ""
         Fliter.fliterText = ""
-        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
+        ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, WireFrameFlag)
     End Sub
 
 
@@ -1282,13 +1290,13 @@ Public Class CodeSelecter
             Select Case SortListBox.SelectedIndex
                 Case 0
                     SetFliter(ESortType.n123)
-                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
+                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, WireFrameFlag)
                 Case 1
                     SetFliter(ESortType.ABC)
-                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
+                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, WireFrameFlag)
                 Case 2
                     SetFliter(ESortType.Tree)
-                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, Flag)
+                    ListReset(SCDatFiles.DatFiles.None, IsComboBox, StartIndex, WireFrameFlag)
                 Case -1
                     LoadCmp = False
                     SortListBox.SelectedIndex = Fliter.SortType

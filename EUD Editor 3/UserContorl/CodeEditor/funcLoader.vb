@@ -734,7 +734,7 @@ Partial Public Class CodeEditor
         "if", "in", "local", "nil", "not", "or", "repeat", "return", "then", "true", "until", "while"}
 
     Private KeyWords() As String = {"object", "static", "once", "if", "else", "while", "for", "function", "foreach",
-        "return", "true", "True", "false", "False", "switch", "case", "break", "var", "const", "import", "as"}
+        "return", "true", "True", "false", "False", "switch", "case", "break", "var", "const", "import", "as", "continue"}
 
 
     Private StarKeyWords() As String = {"hitpoint", "shield", "energy", "resource", "hanger", "cloaked", "burrowed", "intransit", "hallucinated", "invincible"}

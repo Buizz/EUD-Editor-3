@@ -1,22 +1,78 @@
 ﻿Partial Class PluginWindow
+    Private Hoverindex As Integer
+
+
     Private DragSelectindex As Integer
     Private DragSelectItem As ListBoxItem
     Private DragSelctData As BuildData.EdsBlock.EdsBlockItem
-    Private IsClick As Boolean
+    Private IsDrag As Boolean
     Private DragPos As Point
     Private IsTopSelect As Boolean
 
     Private Sub EdsText_PreviewMouseLeftButtonDown(sender As Object, e As MouseButtonEventArgs)
         DragImage.Margin = New Thickness(e.GetPosition(EdsText).X, e.GetPosition(EdsText).Y, 0, 0)
 
-        IsClick = True
+        If Not IsDrag Then
+            IsDrag = True
+            If DragSelectItem Is Nothing Then
+                If EdsText.SelectedItem IsNot Nothing Then '드래그 아이템이 지정되어 있지 않을 경우
+                    If e.GetPosition(EdsText.Items(Hoverindex)).Y < 25 Then
+                        DragSelectindex = Hoverindex
+                        DragSelectItem = EdsText.Items(Hoverindex)
+                        DragSelctData = pjData.EdsBlock.Blocks(DragSelectindex)
+                        DragImage.Width = DragSelectItem.ActualWidth
+                        DragImage.Height = DragSelectItem.ActualHeight
+
+                        Dim listboxitem As New ListBoxItem
+                        listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
+                        listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
+
+                        listboxitem.Padding = New Thickness(-2)
+
+                        'Dim ListItem As New RequireListBoxItem(RequireList(DragSelectindex))
+
+                        listboxitem.Content = New PluginItem(DragSelectindex)
 
 
+                        'listboxitem.Content = ListItem
+
+                        DragImage.Child = listboxitem
+                    End If
 
 
+                    'If e.GetPosition(EdsText.SelectedItem).Y < 25 Then
+                    '    DragSelectindex = EdsText.SelectedIndex
+                    '    DragSelectItem = EdsText.SelectedItem
+                    '    DragSelctData = pjData.EdsBlock.Blocks(DragSelectindex)
+                    '    DragImage.Width = DragSelectItem.ActualWidth
+                    '    DragImage.Height = DragSelectItem.ActualHeight
+
+                    '    Dim listboxitem As New ListBoxItem
+                    '    listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
+                    '    listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
+
+                    '    listboxitem.Padding = New Thickness(-2)
+
+                    '    'Dim ListItem As New RequireListBoxItem(RequireList(DragSelectindex))
+
+                    '    listboxitem.Content = New PluginItem(DragSelectindex)
+
+
+                    '    'listboxitem.Content = ListItem
+
+                    '    DragImage.Child = listboxitem
+                    'End If
+                End If
+            End If
+        End If
     End Sub
 
     Private Sub EdsText_PreviewMouseMove(sender As Object, e As MouseEventArgs)
+        'If e.LeftButton = MouseButtonState.Released Then
+        '    IsDrag = False
+        'End If
+
+
         For i = 0 To EdsText.Items.Count - 1
             DSelectBorder(i)
         Next
@@ -37,36 +93,10 @@
 
 
 
-        If IsClick Then '만약 클릭 중 일경우
+        If IsDrag Then '만약 클릭 중 일경우
             '아이템이 선택 중일 경우. 그 아이템을 드래그 아이템으로 지정.
-            If DragSelectItem Is Nothing Then
-                If EdsText.SelectedItem IsNot Nothing Then '드래그 아이템이 지정되어 있지 않을 경우
-                    If e.GetPosition(EdsText.SelectedItem).Y < 25 Then
-                        DragSelectindex = EdsText.SelectedIndex
-                        DragSelectItem = EdsText.SelectedItem
-                        DragSelctData = pjData.EdsBlock.Blocks(DragSelectindex)
-                        DragImage.Width = DragSelectItem.ActualWidth
-                        DragImage.Height = DragSelectItem.ActualHeight
-
-                        Dim listboxitem As New ListBoxItem
-                        listboxitem.HorizontalContentAlignment = HorizontalAlignment.Stretch
-                        listboxitem.VerticalContentAlignment = VerticalAlignment.Stretch
-
-                        listboxitem.Padding = New Thickness(-2)
-
-                        'Dim ListItem As New RequireListBoxItem(RequireList(DragSelectindex))
-
-                        listboxitem.Content = New PluginItem(DragSelectindex)
-
-
-                        'listboxitem.Content = ListItem
-
-                        DragImage.Child = listboxitem
-                    Else
-                        IsClick = False
-                    End If
-                End If
-            Else '드래그 중
+            If DragSelectItem IsNot Nothing Then
+                '드래그 중
                 DragImage.Visibility = Visibility.Visible
                 DragImage.Margin = New Thickness(e.GetPosition(EdsText).X + 5, e.GetPosition(EdsText).Y + 5, 0, 0)
 
@@ -89,7 +119,7 @@
     End Sub
 
     Private Sub EdsText_PreviewMouseLeftButtonUp(sender As Object, e As MouseButtonEventArgs)
-        IsClick = False
+        IsDrag = False
         DragImage.Visibility = Visibility.Collapsed
 
         If DragSelectItem Is Nothing Then

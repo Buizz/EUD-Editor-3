@@ -12,8 +12,8 @@ Partial Public Class BuildData
         Dim buffer As Byte()
 
 
-        br.ReadUInt32() '이름
-        br.ReadUInt32() '헤더길이
+        Dim t1 As UInteger = br.ReadUInt32() '이름
+        Dim t2 As UInteger = br.ReadUInt32() '헤더길이
         Dim fileSize As UInteger = br.ReadUInt32() 'mpq길이
 
 

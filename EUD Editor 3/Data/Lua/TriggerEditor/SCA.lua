@@ -348,16 +348,18 @@ function SCAWeek(Weekend) --SCA/Weekend/현재 날짜가 [Weekend]인지 확인�
 	
 	Variable = "scalua.Week()"
 	weekend = {
-		["월요일"] = 0,
-		["화요일"] = 1,
-		["수요일"] = 2,
-		["목요일"] = 3,
-		["금요일"] = 4,
-		["토요일"] = 5,
-		["일요일"] = 6
+		["Monday"] = 0,
+		["Tuesday"] = 1,
+		["Wednesday"] = 2,
+		["Thursday"] = 3,
+		["Friday"] = 4,
+		["Saturday"] = 5,
+		["Sunday"] = 6
 	}
+	echo(Weekend)
+	echo(weekend[Weekend])
 
-	weekval = weekend[Weekend]
-	str = Variable .. " == " .. weekval
-	echo(str)
+	--_weekval = weekend[Weekend]
+	--str = Variable .. " == " .. _weekval
+	--echo(str)
 end
