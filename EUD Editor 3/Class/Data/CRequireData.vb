@@ -157,6 +157,7 @@ Public Class CRequireData
                     For i = 0 To OrigRequireDatas(index).ReauireBlock.Count - 1
                         RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigRequireDatas(index).ReauireBlock(i).opCode, OrigRequireDatas(index).ReauireBlock(i).Value))
                     Next
+                    RequireDatas(index).ResetStartPos()
 
                 Case RequireUse.DontUse
                     RequireDatas(index).ReauireBlock.Clear()
@@ -190,6 +191,7 @@ Public Class CRequireData
     Public Class RequireObject
         Private Datfile As SCDatFiles.DatFiles
         Private CodeNum As Integer
+        Private _IsZeroStart As Boolean = False
         Private _StartPos As UShort
         Private _UseStatus As RequireUse
         Public Property UseStatus As RequireUse
@@ -229,11 +231,19 @@ Public Class CRequireData
             End Set
         End Property
 
+        Public Sub ResetStartPos()
+            If _IsZeroStart Then
+                _StartPos = 0
+            End If
+        End Sub
 
         Public Sub New(tCodeNum As Integer, tDatfile As SCDatFiles.DatFiles, Codes As List(Of UShort), tStartPos As UShort)
             Datfile = tDatfile
             CodeNum = tCodeNum
             _StartPos = tStartPos
+            If _StartPos = 0 Then
+                _IsZeroStart = True
+            End If
 
             _UseStatus = RequireUse.DefaultUse
             ReauireBlocks = New List(Of RequireBlock)
@@ -269,6 +279,9 @@ Public Class CRequireData
             Datfile = tDatfile
             CodeNum = tCodeNum
             _StartPos = tStartPos
+            If _StartPos = 0 Then
+                _IsZeroStart = True
+            End If
 
             _UseStatus = RequireUse.DefaultUse
             ReauireBlocks = New List(Of RequireBlock)
