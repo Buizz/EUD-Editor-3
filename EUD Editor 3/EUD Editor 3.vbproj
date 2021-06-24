@@ -8,7 +8,7 @@
     <OutputType>WinExe</OutputType>
     <RootNamespace>EUD_Editor_3</RootNamespace>
     <AssemblyName>EUD Editor 3</AssemblyName>
-    <TargetFrameworkVersion>v4.5</TargetFrameworkVersion>
+    <TargetFrameworkVersion>v4.8</TargetFrameworkVersion>
     <MyType>Custom</MyType>
     <PublishUrl>publish\</PublishUrl>
     <Install>true</Install>

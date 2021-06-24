@@ -8,9 +8,9 @@
 
 @Language.en-US
 @Summary
-버튼을 다시그립니다.
+Refresh the button.
 @Group
-일반
+Basic
 ]================================]
 function BtnRefresh()
 	echo([[const btntemp1 = wread_epd(EPD(0x6615AA), 2);

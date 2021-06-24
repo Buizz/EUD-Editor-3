@@ -896,6 +896,7 @@
     <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
     <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
 
+    <sys:String x:Key="Comment">주석</sys:String>
     <sys:String x:Key="Control">제어</sys:String>
     <sys:String x:Key="plibFunc">플립</sys:String>
     <sys:String x:Key="Func">함수</sys:String>
@@ -1146,9 +1147,10 @@
 
     <sys:String x:Key="CT_OnlyCode">코드만 출력</sys:String>
     <sys:String x:Key="CT_CodeText">트리거 코드</sys:String>
-    
-    
-    
+
+    <sys:String x:Key="CT_ActionNotExist">액션이 없습니다.</sys:String>
+    <sys:String x:Key="CT_ConditionNotExist">조건이 없습니다.</sys:String>
+
     <sys:String x:Key="DirectDonate">직접후원</sys:String>
     <sys:String x:Key="ViewDonateWindow">다시 보지 않기</sys:String>
 

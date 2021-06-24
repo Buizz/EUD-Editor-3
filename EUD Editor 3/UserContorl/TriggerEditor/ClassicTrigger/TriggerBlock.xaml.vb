@@ -35,7 +35,7 @@ Public Class TriggerBlock
             Next
             If trg.Condition.Count = 0 Then
                 Dim tlabel As New Label
-                tlabel.Content = "조건이 없습니다."
+                tlabel.Content = Tool.GetLanText("CT_ConditionNotExist")
 
                 ConditionPanel.Children.Add(tlabel)
             End If
@@ -49,7 +49,7 @@ Public Class TriggerBlock
             Next
             If trg.Actions.Count = 0 Then
                 Dim tlabel As New Label
-                tlabel.Content = "액션이 없습니다."
+                tlabel.Content = Tool.GetLanText("CT_ActionNotExist")
 
                 ActionPanel.Children.Add(tlabel)
             End If

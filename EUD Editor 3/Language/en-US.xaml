@@ -898,6 +898,7 @@
     <sys:String x:Key="Invalide2s">Invalid e2s file!</sys:String>
      <sys:String x:Key="LodingError">An error occurred while loading $S0$.</sys:String>
 
+    <sys:String x:Key="Comment">Comment</sys:String>
     <sys:String x:Key="Control">Ctrl</sys:String>
     <sys:String x:Key="plibFunc">Plib</sys:String>
     <sys:String x:Key="Func">Func</sys:String>
@@ -1143,6 +1144,8 @@
     <sys:String x:Key="CT_OnlyCode">OnlyCode</sys:String>
     <sys:String x:Key="CT_CodeText">Trigger Code</sys:String>
 
+    <sys:String x:Key="CT_ActionNotExist">No action.</sys:String>
+    <sys:String x:Key="CT_ConditionNotExist">No condition.</sys:String>
 
     <sys:String x:Key="DirectDonate">DirectDonate</sys:String>
     <sys:String x:Key="ViewDonateWindow">Do not show again</sys:String>

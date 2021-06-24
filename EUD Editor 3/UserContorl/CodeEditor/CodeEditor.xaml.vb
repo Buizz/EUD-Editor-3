@@ -34,8 +34,6 @@ Public Class CodeEditor
 
 
 
-
-
         Dim sStart As Integer
         Dim sEnd As Integer
         Dim sLen As Integer
