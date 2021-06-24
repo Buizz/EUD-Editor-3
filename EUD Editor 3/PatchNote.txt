@@ -1,3 +1,7 @@
+# Beta 0.12.5.0
+-다국어 처리
+-TE클래식 Play WAV함수 버그 수정
+
 # Beta 0.12.4.0
 -scaWrapper 코드 수정
 
