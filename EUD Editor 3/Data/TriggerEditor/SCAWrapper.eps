@@ -55,6 +55,7 @@ function Exec(){
 					const p = EUDFuncPtr(1,0)(loadglobalfunc[cp]);
 					p(cp);
 					sca.ResetGlobalDataLoadMessage();
+					sca.ResetLastMessage();
 				}else{
 					if (sca.CommandStatus() == 0){
 						sca.LoadGlobalData();
@@ -66,6 +67,7 @@ function Exec(){
 					const p = EUDFuncPtr(1,0)(loadTimefunc[cp]);
 					p(cp);
 					sca.ResetDateTimeMessage();
+					sca.ResetLastMessage();
 				}else{
 					if (sca.CommandStatus() == 0){
 						sca.LoadTime();
