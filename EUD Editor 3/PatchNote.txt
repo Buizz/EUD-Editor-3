@@ -1,8 +1,9 @@
-# Beta 0.12.5.2
+# Beta 0.12.5.3
 -다국어 처리
 -TE클래식 WAV Switch 문자열로 안되던 버그 수정
 -요구사항 버그 수정
 -SCA 먹통 버그 수정
+-스위치 버그 수정, scaWrapper 코드 수정
 
 # Beta 0.12.4.0
 -scaWrapper 코드 수정
