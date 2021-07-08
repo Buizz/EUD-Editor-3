@@ -12,6 +12,8 @@
                                    'TriggerArgsIndex = targindex
 
                                    'Dim ArgChanger As New TriggerEditValueSelecterWindow(tCode, argIndex, pos)
+
+
                                    AddHandler TriggerArgsEdit.ValueChange, Sub(_sender As Object, _e As RoutedEventArgs)
                                                                                tCode.LoadArgText(MainScriptEditor)
 

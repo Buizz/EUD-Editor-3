@@ -128,6 +128,8 @@ Module GlobalObj
 
         Try
             TriggerArgsEdit = New TriggerEditValueSelecterWindow
+            'TriggerArgsEdit.Show()
+            'TriggerArgsEdit.Visibility = Visibility.Collapsed
         Catch ex As Exception
             Tool.ErrorMsgBox(Tool.GetText("Error ProgramInit Fail"), ex.ToString)
             Application.Current.Shutdown()

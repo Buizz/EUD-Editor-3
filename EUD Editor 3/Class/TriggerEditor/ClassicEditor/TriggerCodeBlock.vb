@@ -51,6 +51,8 @@ Public Class TriggerCodeBlock
                     rstr = rstr & " >= "
                 Case "AtMost"
                     rstr = rstr & " <= "
+                Case Else
+                    rstr = rstr & Args(1).GetCodeText(_scripter, IsLuaCode)
             End Select
             rstr = rstr & Args(2).GetCodeText(_scripter, IsLuaCode)
         End If
@@ -65,6 +67,8 @@ Public Class TriggerCodeBlock
                     rstr = rstr & " += "
                 Case "Subtract"
                     rstr = rstr & " -= "
+                Case Else
+                    rstr = rstr & Args(1).GetCodeText(_scripter, IsLuaCode)
             End Select
             rstr = rstr & Args(2).GetCodeText(_scripter, IsLuaCode)
         End If

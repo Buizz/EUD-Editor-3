@@ -25,6 +25,10 @@ Public Class TriggerCodeEditControl
     Private tLoc As String
     Public Sub OpenEdit(_ScriptEditor As ScriptEditor, OType As OpenType, Optional Loc As String = "", Optional TBlock As TriggerCodeBlock = Nothing)
         IsLoadCmp = False
+
+        Tool.ArgWindowInit()
+
+
         Me.Visibility = Visibility.Visible
         MainScriptEditor = _ScriptEditor
 

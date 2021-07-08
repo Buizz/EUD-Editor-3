@@ -21,7 +21,14 @@ Public Class TriggerManager
                 'TODO:UserFunc ExternFunc만들어야됨
 
                 If Scripter.GetType Is GetType(ClassicTriggerEditor) Then
-                    Return CType(Scripter, ClassicTriggerEditor).ImportFuncs
+                    Dim t As List(Of TriggerFunction) = CType(Scripter, ClassicTriggerEditor).ImportFuncs
+
+                    If t Is Nothing Then
+                        CType(Scripter, ClassicTriggerEditor).ImportFileRefresh()
+                        t = CType(Scripter, ClassicTriggerEditor).ImportFuncs
+                    End If
+
+                    Return t
                 End If
         End Select
         Return Nothing

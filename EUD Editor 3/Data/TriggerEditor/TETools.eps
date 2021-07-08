@@ -1,3 +1,18 @@
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]에 존재하는 [player]의 [unit]을 반환합니다.
+ *
+ * @param.player.ko-KR
+ * 유닛의 소유 플레이어입니다.
+ *
+ * @param.unit.ko-KR
+ * 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 로케이션입니다.
+***/
 function CountAtLoc(player: TrgPlayer, unit: TrgUnit, loc: TrgLocation) {
     // made by Artanis[M] & safhfh & Jpoker & trgk;
     var x = 0xFF;
@@ -15,7 +30,7 @@ function CountAtLoc(player: TrgPlayer, unit: TrgUnit, loc: TrgLocation) {
 function __LocOrderBase(
     epd,
     order_lsh8,
-    loc: TrgLocation,
+    loc: TrgLocation
 ) {
     const loc_epd = loc * 5;
     DoActions(loc_epd.AddNumber(EPD(0x58DC4C)));
@@ -170,7 +185,7 @@ function SpawnEgg(unitPTR, newUnit: TrgUnit) {
 }
 
 function MorphLarvaEPD(epd, newUnit: TrgUnit) {
-    if (MemoryXEPD(epd + 0x64/4, Exactly, unit, 0xFFFF)) {
+    if (MemoryXEPD(epd + 0x64/4, Exactly, newUnit, 0xFFFF)) {
         SetMemoryXEPD(epd + 0x4D/4, SetTo, 42 << 8, 0xFFFF00);
         SetMemoryXEPD(epd + 0x98/4, SetTo, newUnit, 0xFFFF);
     }
@@ -189,7 +204,7 @@ function TrainUnitEPD(epd, newUnit: TrgUnit) {
 }
 
 function TrainUnit(unitPTR, newUnit: TrgUnit) {
-    TrainUnitEPD(epd, newUnit);
+    TrainUnitEPD(EPD(unitPTR), newUnit);
 }
 
 function SetUnitColorEPD(epd, color) {
@@ -199,7 +214,7 @@ function SetUnitColorEPD(epd, color) {
     SetMemoryEPD(sprite, SetTo, color * 65536, 0xFF0000);
 }
 
-function SetUnitColor(unitPTR, Color) {
+function SetUnitColor(unitPTR, color) {
     SetUnitColorEPD(EPD(unitPTR), color);
 }
 
@@ -256,7 +271,7 @@ function hotkeyUnitEPD(epd, player: TrgPlayer, hotkey, slot) {
     epd += 0xA5 / 4;
     const targetOrderSpecial = maskread_epd(epd, 0xFF00);
     const alphaID = targetOrderSpecial * 8;
-    DoActions(alphaID.AddNumber(1))
+    DoActions(alphaID.AddNumber(1));
     if (epd != 19025 + 0xA5 / 4) {
         epd += 1700 - 0x27821 - 0xA5 / 4;  // diff
         VProc(epd, epd.QueueAddTo(alphaID));
@@ -269,7 +284,7 @@ function hotkeyUnit(unitPTR, player: TrgPlayer, hotkey, slot) {
 }
 
 function __GetLocCoord(loc: TrgLocation) {
-    const loc_epd = loc * 5
+    const loc_epd = loc * 5;
     DoActions(loc_epd.AddNumber(EPD(0x58DC4C)));
     const x1 = dwread_epd(loc_epd);
     DoActions(loc_epd.AddNumber(1));
@@ -349,7 +364,7 @@ function CheckNoneTargetSkill(
     skillOrder /*Order*/
 ) {
     return CheckNoneTargetSkillEPD(
-        unitEPD,
+        EPD(unitPTR),
         range,
         unitLoc,
         targetLoc,
@@ -373,14 +388,14 @@ function CheckTargetSkillEPD(
     targetLoc: TrgLocation,
     skillOrder
 ) {
-    if (MemoryXEPD(unitEPD + 0x4D/4, Exactly, skillOrder * 256, 0xFF00) {
+    if (MemoryXEPD(unitEPD + 0x4D/4, Exactly, skillOrder * 256, 0xFF00)) {
     	const x, y = posread_epd(unitEPD + 0x28/4);
 	    setloc(unitLoc, x, y);
         setloc_epd(targetLoc, unitEPD + 0x58/4);
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, 17, targetLoc);
             SetMemoryXEPD(unitEPD + 0x4D/4, SetTo, 0x100, 0xFF00);
-            SetMemoryEPD(unitEPD + 0x10/4, SetTo, x + y * 65536)
+            SetMemoryEPD(unitEPD + 0x10/4, SetTo, x + y * 65536);
             return True;
         }
     }

@@ -329,6 +329,8 @@ Public Class MacroManager
                             Dim tLan As String = commands(1)
                             If tLan = cLan Then
                                 CollectLan = True
+                            Else
+                                CollectLan = False
                             End If
                         Case "@Summary"
                             LastMsg = ""

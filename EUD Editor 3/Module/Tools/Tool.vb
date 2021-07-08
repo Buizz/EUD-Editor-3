@@ -7,15 +7,28 @@ Imports Newtonsoft.Json
 
 Namespace Tool
     Module Tool
+
+
+        Public Sub ArgWindowInit()
+            'Try
+            '    TriggerArgsEdit.Visibility = Visibility.Visible
+            '    TriggerArgsEdit.Visibility = Visibility.Collapsed
+            'Catch ex As Exception
+            '    TriggerArgsEdit = New TriggerEditValueSelecterWindow
+            '    TriggerArgsEdit.Visibility = Visibility.Visible
+            '    TriggerArgsEdit.Visibility = Visibility.Collapsed
+            'End Try
+        End Sub
+
         Public Sub OpenArgWindow(_scripter As ScriptEditor, _tCode As TriggerCodeBlock, _ArgIndex As Integer, StartPos As Point, _FunctionAddPanel As Grid, Optional _Loc As String = "", Optional ButtonHeight As Integer = 0)
 
-            Try
-                TriggerArgsEdit.Open(_scripter, _tCode, _ArgIndex, StartPos, _FunctionAddPanel, _Loc, ButtonHeight)
-            Catch ex As Exception
-                TriggerArgsEdit = New TriggerEditValueSelecterWindow
+            TriggerArgsEdit.Open(_scripter, _tCode, _ArgIndex, StartPos, _FunctionAddPanel, _Loc, ButtonHeight)
+            'Try
+            'Catch ex As Exception
+            '    TriggerArgsEdit = New TriggerEditValueSelecterWindow
 
-                TriggerArgsEdit.Open(_scripter, _tCode, _ArgIndex, StartPos, _FunctionAddPanel, _Loc, ButtonHeight)
-            End Try
+            '    TriggerArgsEdit.Open(_scripter, _tCode, _ArgIndex, StartPos, _FunctionAddPanel, _Loc, ButtonHeight)
+            'End Try
         End Sub
 
 

@@ -225,7 +225,12 @@ Partial Public Class BuildData
                 If Not pjData.ExtraDat.DefaultWireFrame(i) Then
                     Dim offsetName As String = "WireOffset"
 
-                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.WireFrame(i)))
+                    Dim newframe As Byte = pjData.ExtraDat.WireFrame(i)
+                    If newframe >= grpframecount Then
+                        Continue For
+                    End If
+
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(newframe))
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
@@ -261,7 +266,12 @@ Partial Public Class BuildData
                 If Not pjData.ExtraDat.DefaultGrpFrame(i) Then
                     Dim offsetName As String = "GrpOffset"
 
-                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.GrpFrame(i)))
+                    Dim newframe As Byte = pjData.ExtraDat.GrpFrame(i)
+                    If newframe >= grpframecount Then
+                        Continue For
+                    End If
+
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(newframe))
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256
@@ -296,7 +306,12 @@ Partial Public Class BuildData
                 If Not pjData.ExtraDat.DefaultTranFrame(i) Then
                     Dim offsetName As String = "tranOffset"
 
-                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(pjData.ExtraDat.TranFrame(i)))
+                    Dim newframe As Byte = pjData.ExtraDat.TranFrame(i)
+                    If newframe >= grpframecount Then
+                        Continue For
+                    End If
+
+                    Dim bytes() As Byte = BitConverter.GetBytes(grpdata(newframe))
 
 
                     Dim v1 As UShort = bytes(0) + bytes(1) * 256

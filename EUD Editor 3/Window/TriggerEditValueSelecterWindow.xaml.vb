@@ -133,6 +133,13 @@ Public Class TriggerEditValueSelecterWindow
     Private LoadCmp As Boolean = False
     Private FunctionAddPanel As Grid
     Private Loc As String
+
+    Public Sub Init()
+
+    End Sub
+
+
+
     Public Sub Open(_scripter As ScriptEditor, _tCode As TriggerCodeBlock, _ArgIndex As Integer, StartPos As Point, _FunctionAddPanel As Grid, Optional _Loc As String = "", Optional ButtonHeight As Integer = 0)
         Loc = _Loc
 
@@ -840,6 +847,10 @@ Public Class TriggerEditValueSelecterWindow
             tCode.Args(ArgIndex).IsInit = False
             ChangeComplete()
         End If
+    End Sub
+
+    Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
+        e.Cancel = True
     End Sub
 
 
