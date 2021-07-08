@@ -1,3 +1,14 @@
+function KeyParse(Key)
+	index = string.find("NUMPAD*NUMPAD+NUMPAD-NUMPAD.NUMPAD/*+-./=,`[]\\'", Key)
+	if index ~= nii then
+		Key = "SP" .. index
+	end
+
+	return Key
+end
+
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -20,7 +31,7 @@
 ]================================]
 function KeyDown(Player, Key)
 	Player = ParsePlayer(Player)
-	keyarray = "VKeyDown_" .. Key
+	keyarray = "VKeyDown_" .. KeyParse(Key)
 	--AddMSQCPlugin("NotTyping ; KeyDown(" .. Key .. ") : " .. keyarray .. ", 1")
 	AddMSQCPlugin(Key, keyarray, "KeyDown", "NotTyping")
 
@@ -50,7 +61,7 @@ end
 ]================================]
 function KeyUp(Player, Key)
 	Player = ParsePlayer(Player)
-	keyarray = "VKeyUp_" .. Key
+	keyarray = "VKeyUp_" .. KeyParse(Key)
 	--AddMSQCPlugin("NotTyping ; KeyDown(" .. Key .. ") : " .. keyarray .. ", 1")
 	AddMSQCPlugin(Key, keyarray, "KeyUp", "NotTyping")
 
@@ -80,7 +91,7 @@ end
 ]================================]
 function KeyPress(Player, Key)
 	Player = ParsePlayer(Player)
-	keyarray = "VKeyPress_" .. Key
+	keyarray = "VKeyPress_" .. KeyParse(Key)
 	--AddMSQCPlugin("NotTyping ; KeyDown(" .. Key .. ") : " .. keyarray .. ", 1")
 	AddMSQCPlugin(Key, keyarray, "KeyPress", "NotTyping")
 
