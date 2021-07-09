@@ -189,6 +189,7 @@ function UpgradeOffset(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[Pla
 	else
 		offset = 0x58F32C
 		Size = 20
+		Upgrade = Upgrade - 46
 	end
 	if IsNumber(Player) then
 		offset = offset + Player * Size + Upgrade

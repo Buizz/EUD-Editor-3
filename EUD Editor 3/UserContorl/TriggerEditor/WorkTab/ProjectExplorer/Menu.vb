@@ -1,4 +1,5 @@
 ﻿Imports System.Windows.Threading
+Imports Microsoft.WindowsAPICodePack.Dialogs
 
 Partial Public Class ProjectExplorer
     Private RenameTreeview As TreeViewItem
@@ -479,28 +480,45 @@ Partial Public Class ProjectExplorer
     End Sub
 
     Private Sub MenuExport_Click(sender As Object, e As RoutedEventArgs)
-        Dim SaveDialog As New Forms.FolderBrowserDialog()
-        'SaveDialog.Title = Tool.GetText("OpenEpsTitle")
-        'SaveDialog.Filter = Tool.GetText("OpenEpsFileFliter")
-        'SaveDialog.FileName = GetFile(SelectItems(0)).FileName
-
-        If SaveDialog.ShowDialog = Forms.DialogResult.OK Then
+        Dim dialog As New CommonOpenFileDialog
+        dialog.InitialDirectory = ""
+        dialog.IsFolderPicker = True
+        If dialog.ShowDialog() = CommonFileDialogResult.Ok Then
             For i = 0 To SelectItems.Count - 1
-                If GetFile(SelectItems(i)).FileType = TEFile.EFileType.CUIEps Or GetFile(SelectItems(i)).FileType = TEFile.EFileType.GUIEps Then
-                    Dim fs As New System.IO.FileStream(SaveDialog.SelectedPath & "\" & GetFile(SelectItems(i)).FileName & ".eps", IO.FileMode.Create)
-                    Dim sw As New System.IO.StreamWriter(fs)
+                ExportFile(GetFile(SelectItems(i)), dialog.FileName)
 
+                If GetFile(SelectItems(i)).FileType = TEFile.EFileType.CUIEps Or GetFile(SelectItems(i)).FileType = TEFile.EFileType.ClassicTrigger Then
+                    Dim fs As New System.IO.FileStream(dialog.FileName & "\" & GetFile(SelectItems(i)).FileName & ".eps", IO.FileMode.Create)
+                    Dim sw As New System.IO.StreamWriter(fs)
                     sw.Write(GetFile(SelectItems(i)).Scripter.GetStringText())
 
                     sw.Close()
                     fs.Close()
-
-
                 End If
             Next
+        End If
+    End Sub
 
+    Private Sub ExportFile(teFile As TEFile, folder As String)
+        If teFile.FileType = TEFile.EFileType.CUIEps Or teFile.FileType = TEFile.EFileType.ClassicTrigger Then
+            Dim fs As New System.IO.FileStream(folder & "\" & teFile.FileName & ".eps", IO.FileMode.Create)
+            Dim sw As New System.IO.StreamWriter(fs)
+            sw.Write(teFile.Scripter.GetStringText())
+            sw.Close()
+            fs.Close()
+        ElseIf teFile.FileType = TEFile.EFileType.Folder Then
+            Dim foldername As String = folder & "\" & teFile.FileName
 
+            If Not IO.Directory.Exists(foldername) Then
+                IO.Directory.CreateDirectory(foldername)
+            End If
 
+            For index = 0 To teFile.FolderCount - 1
+                ExportFile(teFile.Folders(index), foldername)
+            Next
+            For index = 0 To teFile.FileCount - 1
+                ExportFile(teFile.Files(index), foldername)
+            Next
         End If
     End Sub
 

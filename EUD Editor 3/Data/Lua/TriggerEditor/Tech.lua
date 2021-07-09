@@ -189,6 +189,7 @@ function TechOffset(Tech, Player) --테크/Tech,TrgPlayer/[Player]의 [Tech]의 
 	else
 		offset = 0x58F140
 		Size = 20
+		Tech = Tech - 24
 	end
 	if IsNumber(Player) then
 		offset = offset + Player * Size + Tech

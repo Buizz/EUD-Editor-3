@@ -349,7 +349,7 @@ function CheckNoneTargetSkillEPD(
             unitEPD += -((0x58 - 0x4D)/4);
         	SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
             unitEPD += -((0x4D - 0x10)/4);
-            SetMemory(unitEPD, SetTo, x + y * 65536);
+            SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
             return True;
         }
     }
