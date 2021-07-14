@@ -1,6 +1,6 @@
 /***
  * @Type
- * A
+ * F
  * @Summary.ko-KR
  * [loc]에 존재하는 [player]의 [unit]을 반환합니다.
  *
@@ -716,7 +716,7 @@ function __GetLocCoord(loc: TrgLocation) {
 
 /***
  * @Type
- * A
+ * F
  * @Summary.ko-KR
  * [originLoc]로부터 [destLoc]의 동경을 구합니다.  
  *
@@ -743,7 +743,7 @@ function GetAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
 
 /***
  * @Type
- * A
+ * F
  * @Summary.ko-KR
  * [loc1]로부터 [loc2]가 떨어진 거리를 구합니다.  
  *
@@ -788,7 +788,7 @@ function PolarLocation(loc: TrgLocation, length, angle) {
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
  * [unitLoc][unitEPD]가 범위 [range]안에서 지면에 [targetLoc][skillOrder]을 사용한 것을 감지합니다. 
  *
@@ -836,7 +836,7 @@ function CheckNoneTargetSkillEPD(
 
 /***
  * @Type
- * A
+ * C
  * @Summary.ko-KR
  * [unitLoc][unitPTR]가 범위 [range]안에서 지면에 [targetLoc][skillOrder]을 사용한 것을 감지합니다. 
  *
@@ -871,11 +871,44 @@ function CheckNoneTargetSkill(
     );
 }
 
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [location]을 [unitEPD]에게 구조오프셋 [posX]으로 부착합니다.
+ *
+ * @param.location.ko-KR
+ * 유닛에게 부착될 로케이션입니다.
+ *
+ * @param.unitEPD.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.posX.ko-KR
+ * 부착될 위치를 결정하는 구조오프셋입니다.
+***/
 function SetLocationToUnitSafeEPD(location: TrgLocation, unitEPD, posX) {
     unitEPD += posX/4;
     setloc_epd(location, unitEPD);
 }
 
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [location]을 [unitPTR]에게 구조오프셋 [posX]으로 부착합니다.
+ *
+ * @param.location.ko-KR
+ * 유닛에게 부착될 로케이션입니다.
+ *
+ * @param.unitPTR.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.posX.ko-KR
+ * 부착될 위치를 결정하는 구조오프셋입니다.
+***/
 function SetLocationToUnitSafe(location: TrgLocation, unitPTR, posX) {
     SetLocationToUnitSafeEPD(location, EPD(unitPTR), posX);
 }
@@ -953,6 +986,21 @@ function CheckTargetSkill(
     return CheckTargetSkillEPD(EPD(unitPTR), range, unitLoc, targetLoc, skillOrder);
 }
 
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [unitEPD]가 [location]에 존재하는지 판단합니다. [dummyUnit]
+ *
+ * @param.unitEPD.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.location.ko-KR
+ * 대상 로케이션입니다.
+ *
+ * @param.dummyUnit.ko-KR
+ * Bring을 위해 잠시 변경할 유닛ID입니다. 사용하지 않는 UnitID를 사용하세요.
+***/
 function CBringEPD(unitEPD, location: TrgLocation, dummyUnit: TrgUnit) {
     MoveLocation(location, dummyUnit, AllPlayers, location);
     const unitType = unitEPD + 0x64/4;
@@ -963,10 +1011,34 @@ function CBringEPD(unitEPD, location: TrgLocation, dummyUnit: TrgUnit) {
     return ret;
 }
 
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [unitPTR]가 [location]에 존재하는지 판단합니다. [dummyUnit]
+ *
+ * @param.unitPTR.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.location.ko-KR
+ * 대상 로케이션입니다.
+ *
+ * @param.dummyUnit.ko-KR
+ * Bring을 위해 잠시 변경할 유닛ID입니다. 사용하지 않는 UnitID를 사용하세요.
+***/
 function CBring(unitPTR, location: TrgLocation, dummyUnit: TrgUnit) {
     return CBringEPD(EPD(unitPTR, location, dummyUnit));
 }
 
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [unitEPD]의 생산대기열을 초기화합니다.
+ *
+ * @param.unitEPD.ko-KR
+ * 대상 유닛입니다.
+***/
 function BuildResetEPD(unitEPD) {
     unitEPD += 0x98/4;
     SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
@@ -978,10 +1050,31 @@ function BuildResetEPD(unitEPD) {
     SetMemoryXEPD(unitEPD, SetTo, 2 << 16, 0xFFFF0000);
 }
 
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [unitPTR]의 생산대기열을 초기화합니다.
+ *
+ * @param.unitPTR.ko-KR
+ * 대상 유닛입니다.
+***/
 function BuildReset(unitPTR) {
     BuildResetEPD(EPD(unitPTR));
 }
 
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [unitEPD]가 [unit]을 생산중인지 확인합니다..
+ *
+ * @param.unitEPD.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.unit.ko-KR
+ * 확인할 유닛입니다.
+***/
 function BuildCheckEPD(unitEPD, unit: TrgUnit) {
     unitEPD += 0x98 / 4;  // buildQueue
     if (MemoryXEPD(unitEPD, Exactly, unit, 0xFFFF)) {
@@ -1007,10 +1100,43 @@ function BuildCheckEPD(unitEPD, unit: TrgUnit) {
     return False;
 }
 
+/***
+ * @Type
+ * C
+ * @Summary.ko-KR
+ * [unitPTR]가 [unit]을 생산중인지 확인합니다..
+ *
+ * @param.unitPTR.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.unit.ko-KR
+ * 확인할 유닛입니다.
+***/
 function BuildCheck(unitPTR, unit: TrgUnit) {
     return BuildCheckEPD(EPD(unitPTR), unit);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [player]의 [attackLoc]에서 [attackUnit]이 생산되어 [targetLoc]에서 생산된 [targetUnit]을 공격합니다.
+ *
+ * @param.player.ko-KR
+ * 대상 플레이어입니다.
+ *
+ * @param.attackLoc.ko-KR
+ * 공격 유닛이 생산될 로케이션입니다.
+ *
+ * @param.targetLoc.ko-KR
+ * 피격 유닛이 생산될 로케이션입니다.
+ *
+ * @param.attackUnit.ko-KR
+ * 공격 유닛입니다.
+ *
+ * @param.targetUnit.ko-KR
+ * 피격 유닛입니다.
+***/
 function AttackGround(
     attackLoc: TrgLocation,
     targetLoc: TrgLocation,
@@ -1038,17 +1164,55 @@ function AttackGround(
     SetMemoryXEPD(aUnit, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [epd]의 상태 [flags]를 활성화합니다.
+ *
+ * @param.epd.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.flags.ko-KR
+ * 활성화할 상태입니다.
+***/
 function AddStatusFlagsEPD(epd, flags) {
     epd += 0xDC / 4;
     SetMemoryXEPD(epd, SetTo, ~0, flags);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [unitPTR]의 상태 [flags]를 활성화합니다.
+ *
+ * @param.unitPTR.ko-KR
+ * 대상 유닛입니다.
+ *
+ * @param.flags.ko-KR
+ * 활성화할 상태입니다.
+***/
 function AddStatusFlags(unitPTR, flags) {
     unitPTR += 0xDC;
     SetMemoryX(unitPTR, SetTo, ~0, flags);
 }
 
-
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [location]의 넓이를 ([width], [height])만큼 넓힙니다.
+ *
+ * @param.location.ko-KR
+ * 대상 로케이션입니다.
+ *
+ * @param.width.ko-KR
+ * 늘어날 넓이입니다.
+ *
+ * @param.height.ko-KR
+ * 늘어날 높이입니다.
+***/
 function AddSizeLocation(location: TrgLocation, width, height) {
     dilateloc(location, width, height);
 }
