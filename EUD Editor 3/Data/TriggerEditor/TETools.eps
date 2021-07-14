@@ -52,51 +52,217 @@ function __LocOrderBase(
     SetMemoryEPD(epd, SetTo, y + x);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [epd]가 프로토스 방식으로 [building]을 짓습니다.(Working모션이 필요하지 않습니다)  
+ *
+ * @param.epd.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.building.ko-KR
+ * 지을 건물입니다.
+***/
 function BuildProbeEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
     __LocOrderBase(epd, 31 << 8, loc);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [ptr]가 프로토스 방식으로 [building]을 짓습니다.(Working모션이 필요하지 않습니다)  
+ *
+ * @param.ptr.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.building.ko-KR
+ * 지을 건물입니다.
+***/
 function BuildProbe(unitPTR, loc: TrgLocation, building: TrgUnit) {
     BuildProbeEPD(EPD(unitPTR), loc, building);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [epd]가 저그 방식으로 [building]을 짓습니다.(Working모션이 필요하지 않습니다)  
+ *
+ * @param.epd.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.building.ko-KR
+ * 지을 건물입니다.
+***/
 function BuildDroneEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
     __LocOrderBase(epd, 25 << 8, loc, building);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [ptr]가 저그 방식으로 [building]을 짓습니다.(Working모션이 필요하지 않습니다)  
+ *
+ * @param.ptr.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.building.ko-KR
+ * 지을 건물입니다.
+***/
 function BuildDrone(unitPTR, loc: TrgLocation, building: TrgUnit) {
     BuildDroneEPD(EPD(unitPTR), loc, building);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [epd]가 테란 방식으로 [building]을 짓습니다.(Working모션이 필요합니다)  
+ *
+ * @param.epd.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.building.ko-KR
+ * 지을 건물입니다.
+***/
 function BuildSCVEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
     __LocOrderBase(epd, 30 << 8, loc, building);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [ptr]가 테란 방식으로 [building]을 짓습니다.(Working모션이 필요합니다)  
+ *
+ * @param.epd.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.building.ko-KR
+ * 지을 건물입니다.
+***/
 function BuildSCV(unitPTR, loc: TrgLocation, building: TrgUnit) {
     BuildSCVEPD(EPD(unitPTR), loc, building);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [epd]가 [order]을 수행합니다.  
+ *
+ * @param.epd.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.order.ko-KR
+ * 수행할 명령입니다.
+***/
 function COrderLocEPD(epd, order, loc: TrgLocation) {
     __LocOrderBase(epd, order << 8, loc);
 }
 
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [unitPTR]가 [order]을 수행합니다.  
+ *
+ * @param.unitPTR.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.loc.ko-KR
+ * 명령을 내릴 위치입니다.
+ *
+ * @param.order.ko-KR
+ * 수행할 명령입니다.
+***/
 function COrderLoc(unitPTR, order, loc: TrgLocation) {
     __LocOrderBase(EPD(unitPTR), order << 8, loc);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 대상 [targetPTR]에게 [unitEPD]가 [order]을 수행합니다.  
+ *
+ * @param.unitEPD.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.targetPTR.ko-KR
+ * 명령의 대상이 될 유닛입니다.
+ *
+ * @param.order.ko-KR
+ * 수행할 명령입니다.
+***/
 function COrderUnitEPD(unitEPD, order, targetPTR) {
     bwrite_epd(unitEPD + 0x04D / 4,  0x04D % 4, order);
     SetMemoryEPD(unitEPD + 0x05C / 4, SetTo, targetPTR);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 대상 [targetPTR]에게 [unitPTR]가 [order]을 수행합니다.  
+ *
+ * @param.unitPTR.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.targetPTR.ko-KR
+ * 명령의 대상이 될 유닛입니다.
+ *
+ * @param.order.ko-KR
+ * 수행할 명령입니다.
+***/
 function COrderUnit(unitPTR, order, targetPTR) {
     bwrite(unitPTR + 0x04D, order);
     dwwrite(unitPTR + 0x05C, targetPTR);
 }
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [originLoc]를 중심으로 [targetLoc]을 [angle]만큼 회전합니다. 
+ *
+ * @param.targetLoc.ko-KR
+ * 회전 시킬 로케이션입니다.
+ *
+ * @param.originLoc.ko-KR
+ * 중심이 되는 로케이션입니다.
+ *
+ * @param.angle.ko-KR
+ * 회전할 각도입니다.
+***/
 function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
     const locTable = EPD(0x58DC4C);
     const target = targetLoc * 5;
