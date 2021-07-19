@@ -48,7 +48,7 @@ function __LocOrderBase(
 
     epd += 0x4D / 4;
     SetMemoryXEPD(epd, SetTo, order_lsh8, 0xFF00);
-    epd += (0x58 - 0x4D) / 4;
+    epd += (0x58 - 0x4C) / 4;
     SetMemoryEPD(epd, SetTo, y + x);
 }
 
@@ -824,7 +824,7 @@ function CheckNoneTargetSkillEPD(
 
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, AllPlayers, targetLoc);
-            unitEPD += -((0x58 - 0x4D)/4);
+            unitEPD += -((0x58 - 0x4C)/4);
         	SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
             unitEPD += -((0x4D - 0x10)/4);
             SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
@@ -1160,7 +1160,7 @@ function AttackGround(
     SetMemoryEPD(aUnit, SetTo, tunitptr);  // aUnit + 0x5C (CUnit::targetUnit)
     SetMemoryEPD(tunit, Add, 2);  // tunit + 0x110 (CUnit::removeTimer)
 
-    DoActions(aUnit.AddNumber(-((0x5C - 0x4D) / 4)));
+    DoActions(aUnit.AddNumber(-((0x5C - 0x4C) / 4)));
     SetMemoryXEPD(aUnit, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
 }
 
