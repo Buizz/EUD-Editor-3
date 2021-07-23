@@ -321,7 +321,7 @@ function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
 ***/
 function RemoveStatusFlagsEPD(epd, flags) {
     epd += 0xDC / 4;
-    DoActions(SetMemoryXEPD(epd, SetTo, 0, flags));
+    SetMemoryXEPD(epd, SetTo, 0, flags);
 }
 
 /***
@@ -358,7 +358,7 @@ function SetPColor(Player: TrgPlayer, Color) {
     Player -= 0x581DD6;
     Player += Player;
     Player += EPD(0x581D76);
-    bwrite_epd(Player, 0, Color)
+    bwrite_epd(Player, 2, Color)
 }
 
 function __SpawnBase(epd, unit: TrgUnit, newUnit: TrgUnit) {
@@ -468,14 +468,20 @@ function MorphLarvaEPD(epd, newUnit: TrgUnit) {
 ***/
 function TrainUnitEPD(epd, newUnit: TrgUnit) {
     const nU_and_lsh16 = newUnit * 65537;
-    epd += 0x98/4;
-    SetMemoryEPD(epd, SetTo, nU_and_lsh16);
-    epd += 1;
-    SetMemoryEPD(epd, SetTo, nU_and_lsh16);
-    epd += 1;
-    SetMemoryXEPD(epd, SetTo, newUnit, 0xFFFF);
-    epd += 1;
-    SetMemoryXEPD(epd, SetTo, 38 << 16, 0xFF0000);
+    VProc(epd, list(
+        epd.AddNumber(0x98/4),
+        epd.SetDest(EPD(0x6509B0)),
+    ));
+    DoActions(
+        SetDeaths(CurrentPlayer, SetTo, nU_and_lsh16, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeaths(CurrentPlayer, SetTo, nU_and_lsh16, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, newUnit, 0, 0xFFFF),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, 38 << 16, 0, 0xFF0000),
+    );
+    setcurpl2cpcache();
 }
 
 /***
@@ -826,7 +832,7 @@ function CheckNoneTargetSkillEPD(
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, AllPlayers, targetLoc);
             unitEPD += -((0x58 - 0x4C)/4);
-        	SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
+            SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
             unitEPD += -((0x4D - 0x10)/4);
             SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
             return True;
