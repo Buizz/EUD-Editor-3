@@ -108,7 +108,7 @@ function BuildProbe(unitPTR, loc: TrgLocation, building: TrgUnit) {
 ***/
 function BuildDroneEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
-    __LocOrderBase(epd, 25 << 8, loc, building);
+    __LocOrderBase(epd, 25 << 8, loc);
 }
 
 /***
@@ -147,7 +147,7 @@ function BuildDrone(unitPTR, loc: TrgLocation, building: TrgUnit) {
 ***/
 function BuildSCVEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
-    __LocOrderBase(epd, 30 << 8, loc, building);
+    __LocOrderBase(epd, 30 << 8, loc);
 }
 
 /***
