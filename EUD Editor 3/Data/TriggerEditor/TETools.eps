@@ -224,8 +224,8 @@ function COrderLoc(unitPTR, order, loc: TrgLocation) {
  * 수행할 명령입니다.
 ***/
 function COrderUnitEPD(unitEPD, order, targetPTR) {
-    bwrite_epd(unitEPD + 0x04D / 4,  0x04D % 4, order);
-    SetMemoryEPD(unitEPD + 0x05C / 4, SetTo, targetPTR);
+    bwrite_epd(unitEPD + 0x4D / 4,  1, order);
+    SetMemoryEPD(unitEPD + 0x5C / 4, SetTo, targetPTR);
 }
 
 /***
@@ -244,8 +244,7 @@ function COrderUnitEPD(unitEPD, order, targetPTR) {
  * 수행할 명령입니다.
 ***/
 function COrderUnit(unitPTR, order, targetPTR) {
-    bwrite(unitPTR + 0x04D, order);
-    dwwrite(unitPTR + 0x05C, targetPTR);
+    COrderUnitEPD(EPD(unitPTR), order, targetPTR);
 }
 
 /***
@@ -293,11 +292,11 @@ function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
     const ty2 = dwread_epd(target);
     const oy2 = dwread_epd(origin);
     
-    const tx, ty = (tx1+tx2)/2, (ty1+ty2)/2;
-    const ox, oy = (ox1+ox2)/2, (oy1+oy2)/2;
+    const tx, ty = (tx1+tx2), (ty1+ty2);
+    const ox, oy = (ox1+ox2), (oy1+oy2);
     const dx, dy = tx-ox, ty-oy;
     const theta = atan2(dy, dx);
-    const x, y = lengthdir(sqrt(dx*dx+dy*dy), theta+angle);
+    const x, y = lengthdir(sqrt(dx*dx+dy*dy)/2, theta+angle);
     const rx, ry = x-dx, y-dy;
     dwadd_epd(target, ry);
     DoActions(target.AddNumber(-1));
@@ -338,7 +337,7 @@ function RemoveStatusFlagsEPD(epd, flags) {
  * 제거할 상태입니다.
 ***/
 function RemoveStatusFlags(unitPTR, flags) {
-    dwsubtract_epd(EPD(unitPTR) + 0xDC / 4, flags & dwread_epd(EPD(unitPTR) + 0xDC / 4));
+    RemoveStatusFlagsEPD(EPD(unitPTR), flags);
 }
 
 /***
@@ -353,11 +352,13 @@ function RemoveStatusFlags(unitPTR, flags) {
  * @param.Color.ko-KR
  * 변경될 색상입니다.
 ***/
-function SetPColor(Player : TrgPlayer, Color) {
-    const pcolor_dst = 0x581D76 + 8 * Player;
-    const mcolor_dst = 0x581DD6 + Player;
-    bwrite(pcolor_dst, Color);
-    bwrite(mcolor_dst, Color);
+function SetPColor(Player: TrgPlayer, Color) {
+    Player += 0x581DD6;
+    bwrite(Player, Color);
+    Player -= 0x581DD6;
+    Player += Player;
+    Player += EPD(0x581D76);
+    bwrite_epd(Player, 0, Color)
 }
 
 function __SpawnBase(epd, unit: TrgUnit, newUnit: TrgUnit) {
@@ -509,7 +510,7 @@ function SetUnitColorEPD(epd, color) {
     epd += 0x0C/4;
     const sprite = epdread_epd(epd);
     DoActions(sprite.AddNumber(0x0A/4));
-    SetMemoryEPD(sprite, SetTo, color * 65536, 0xFF0000);
+    SetMemoryXEPD(sprite, SetTo, color * 65536, 0xFF0000);
 }
 
 /***
@@ -729,10 +730,10 @@ function __GetLocCoord(loc: TrgLocation) {
 function LocationAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
     const ox1, ox2, oy1, oy2 = __GetLocCoord(originLoc);
     const dx1, dx2, dy1, dy2 = __GetLocCoord(destLoc);
-    const x1 = (ox1 + ox2) / 2;
-    const y1 = (oy1 + oy2) / 2;
-    const x2 = (dx1 + dx2) / 2;
-    const y2 = (dy1 + dy2) / 2;
+    const x1 = ox1 + ox2;
+    const y1 = oy1 + oy2;
+    const x2 = dx1 + dx2;
+    const y2 = dy1 + dy2;
     return atan2(x2 - x1, y1 - y2);
 }
 
@@ -783,7 +784,7 @@ function LocationDistanceVal(variable, loc1: TrgLocation, loc2: TrgLocation) {
 ***/
 function PolarLocation(loc: TrgLocation, length, angle) {
     const x, y = lengthdir(length, angle);
-    setloc(loc, x, y);
+    addloc(loc, x, y);
 }
 
 /***
@@ -1040,14 +1041,19 @@ function CBring(unitPTR, location: TrgLocation, dummyUnit: TrgUnit) {
  * 대상 유닛입니다.
 ***/
 function BuildResetEPD(unitEPD) {
-    unitEPD += 0x98/4;
-    SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
-    unitEPD += 1;
-    SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
-    unitEPD += 1;
-    SetMemoryXEPD(unitEPD, SetTo, 228, 0xFFFF);
-    unitEPD += 1;
-    SetMemoryXEPD(unitEPD, SetTo, 2 << 16, 0xFFFF0000);
+    VProc(unitEPD, list(
+        unitEPD.AddNumber(0x98/4),
+        unitEPD.SetDest(EPD(0x6509B0)),
+    ));
+    setcurpl2cpcache(actions=list(
+        SetDeaths(CurrentPlayer, SetTo, 0xE400E4, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeaths(CurrentPlayer, SetTo, 0xE400E4, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, 228, 0, 0xFFFF),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, 2 << 16, 0, 0xFFFF0000),
+    ));
 }
 
 /***
@@ -1161,7 +1167,7 @@ function AttackGround(
     SetMemoryEPD(tunit, Add, 2);  // tunit + 0x110 (CUnit::removeTimer)
 
     DoActions(aUnit.AddNumber(-((0x5C - 0x4C) / 4)));
-    SetMemoryXEPD(aUnit, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
+    SetMemoryXEPD(aUnit, SetTo, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
 }
 
 /***
