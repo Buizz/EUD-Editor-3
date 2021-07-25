@@ -452,10 +452,26 @@ function SpawnEgg(unitPTR, newUnit: TrgUnit) {
  * 태어날 유닛입니다.
 ***/
 function MorphLarvaEPD(epd, newUnit: TrgUnit) {
-    if (MemoryXEPD(epd + 0x64/4, Exactly, newUnit, 0xFFFF)) {
+    if (MemoryXEPD(epd + 0x64/4, Exactly, 35, 0xFFFF)) {
         SetMemoryXEPD(epd + 0x4D/4, SetTo, 42 << 8, 0xFFFF00);
         SetMemoryXEPD(epd + 0x98/4, SetTo, newUnit, 0xFFFF);
     }
+}
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [unitPTR]를 [newUnit]으로 Larva변태 시킵니다.  
+ *
+ * @param.unitPTR.ko-KR
+ * 변태할 유닛입니다.
+ *
+ * @param.newUnit.ko-KR
+ * 태어날 유닛입니다.
+***/
+function MorphLarva(unitPTR, newUnit: TrgUnit) {
+    MorphLarvaEPD(EPD(unitPTR), newUnit);
 }
 
 /***
@@ -828,10 +844,10 @@ function CheckNoneTargetSkillEPD(
     unitEPD += 0x4D/4;
     if (MemoryXEPD(unitEPD, Exactly, skillOrder * 256, 0xFF00)) {
         unitEPD += -((0x4D - 0x28)/4);
-    	const x, y = posread_epd(unitEPD);
-	    setloc(unitLoc, x, y);
+        const x, y = posread_epd(unitEPD);
+        setloc(unitLoc, x, y);
         unitEPD += (0x58 - 0x28)/4;
-	    setloc_epd(targetLoc, unitEPD);
+        setloc_epd(targetLoc, unitEPD);
 
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, AllPlayers, targetLoc);
@@ -953,8 +969,8 @@ function CheckTargetSkillEPD(
     skillOrder
 ) {
     if (MemoryXEPD(unitEPD + 0x4D/4, Exactly, skillOrder * 256, 0xFF00)) {
-    	const x, y = posread_epd(unitEPD + 0x28/4);
-	    setloc(unitLoc, x, y);
+        const x, y = posread_epd(unitEPD + 0x28/4);
+        setloc(unitLoc, x, y);
         setloc_epd(targetLoc, unitEPD + 0x58/4);
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, 17, targetLoc);
@@ -1038,7 +1054,7 @@ function CBringEPD(unitEPD, location: TrgLocation, dummyUnit: TrgUnit) {
  * Bring을 위해 잠시 변경할 유닛ID입니다. 사용하지 않는 UnitID를 사용하세요.
 ***/
 function CBring(unitPTR, location: TrgLocation, dummyUnit: TrgUnit) {
-    return CBringEPD(EPD(unitPTR, location, dummyUnit));
+    return CBringEPD(EPD(unitPTR), location, dummyUnit);
 }
 
 /***
