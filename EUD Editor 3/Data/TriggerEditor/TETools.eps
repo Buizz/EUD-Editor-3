@@ -353,12 +353,16 @@ function RemoveStatusFlags(unitPTR, flags) {
  * 변경될 색상입니다.
 ***/
 function SetPColor(Player: TrgPlayer, Color) {
-    Player += 0x581DD6;
+    DoActions(Player.AddNumber(0x581DD6));
     bwrite(Player, Color);
-    Player -= 0x581DD6;
-    Player += Player;
-    Player += EPD(0x581D76);
-    bwrite_epd(Player, 2, Color)
+    //   2 × Player + EPD(0x581D76) = Minimap Color EPD
+    // = 2 ×(Player + 0x581DD6) + 0x3F4F_A2D8
+    // = 2×((Player + 0x581DD6) + 0x1FA7_D16C)
+    VProc(Player, list(
+        Player.AddNumber(0x1FA7D16C),
+        Player.QueueAddTo(Player),
+    ));
+    bwrite_epd(Player, 2, Color);
 }
 
 function __SpawnBase(epd, unit: TrgUnit, newUnit: TrgUnit) {
@@ -472,7 +476,7 @@ function TrainUnitEPD(epd, newUnit: TrgUnit) {
         epd.AddNumber(0x98/4),
         epd.SetDest(EPD(0x6509B0)),
     ));
-    DoActions(
+    DoActions(list(
         SetDeaths(CurrentPlayer, SetTo, nU_and_lsh16, 0),
         SetMemory(0x6509B0, Add, 1),
         SetDeaths(CurrentPlayer, SetTo, nU_and_lsh16, 0),
@@ -480,7 +484,7 @@ function TrainUnitEPD(epd, newUnit: TrgUnit) {
         SetDeathsX(CurrentPlayer, SetTo, newUnit, 0, 0xFFFF),
         SetMemory(0x6509B0, Add, 1),
         SetDeathsX(CurrentPlayer, SetTo, 38 << 16, 0, 0xFF0000),
-    );
+    ));
     setcurpl2cpcache();
 }
 
