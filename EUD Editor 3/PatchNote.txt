@@ -1,3 +1,7 @@
+# Beta 0.12.6.2
+-TETools 버그 수정
+-스트링 수정 마지막 번호 Null참조 오류 수정
+
 # Beta 0.12.6.1
 -WireFrame Index초과 버그 수정
 -TE외부 함수 초기화 실패 오류 수정
