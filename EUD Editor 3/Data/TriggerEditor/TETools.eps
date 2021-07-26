@@ -48,7 +48,7 @@ function __LocOrderBase(
 
     epd += 0x4D / 4;
     SetMemoryXEPD(epd, SetTo, order_lsh8, 0xFF00);
-    epd += (0x58 - 0x4D) / 4;
+    epd += (0x58 - 0x4C) / 4;
     SetMemoryEPD(epd, SetTo, y + x);
 }
 
@@ -108,7 +108,7 @@ function BuildProbe(unitPTR, loc: TrgLocation, building: TrgUnit) {
 ***/
 function BuildDroneEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
-    __LocOrderBase(epd, 25 << 8, loc, building);
+    __LocOrderBase(epd, 25 << 8, loc);
 }
 
 /***
@@ -147,7 +147,7 @@ function BuildDrone(unitPTR, loc: TrgLocation, building: TrgUnit) {
 ***/
 function BuildSCVEPD(epd, loc: TrgLocation, building: TrgUnit) {
     SetMemoryXEPD(epd + 0x98 / 4, SetTo, building, 0xFFFF);
-    __LocOrderBase(epd, 30 << 8, loc, building);
+    __LocOrderBase(epd, 30 << 8, loc);
 }
 
 /***
@@ -224,8 +224,8 @@ function COrderLoc(unitPTR, order, loc: TrgLocation) {
  * 수행할 명령입니다.
 ***/
 function COrderUnitEPD(unitEPD, order, targetPTR) {
-    bwrite_epd(unitEPD + 0x04D / 4,  0x04D % 4, order);
-    SetMemoryEPD(unitEPD + 0x05C / 4, SetTo, targetPTR);
+    bwrite_epd(unitEPD + 0x4D / 4,  1, order);
+    SetMemoryEPD(unitEPD + 0x5C / 4, SetTo, targetPTR);
 }
 
 /***
@@ -244,8 +244,7 @@ function COrderUnitEPD(unitEPD, order, targetPTR) {
  * 수행할 명령입니다.
 ***/
 function COrderUnit(unitPTR, order, targetPTR) {
-    bwrite(unitPTR + 0x04D, order);
-    dwwrite(unitPTR + 0x05C, targetPTR);
+    COrderUnitEPD(EPD(unitPTR), order, targetPTR);
 }
 
 /***
@@ -293,11 +292,11 @@ function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
     const ty2 = dwread_epd(target);
     const oy2 = dwread_epd(origin);
     
-    const tx, ty = (tx1+tx2)/2, (ty1+ty2)/2;
-    const ox, oy = (ox1+ox2)/2, (oy1+oy2)/2;
+    const tx, ty = (tx1+tx2), (ty1+ty2);
+    const ox, oy = (ox1+ox2), (oy1+oy2);
     const dx, dy = tx-ox, ty-oy;
     const theta = atan2(dy, dx);
-    const x, y = lengthdir(sqrt(dx*dx+dy*dy), theta+angle);
+    const x, y = lengthdir(sqrt(dx*dx+dy*dy)/2, theta+angle);
     const rx, ry = x-dx, y-dy;
     dwadd_epd(target, ry);
     DoActions(target.AddNumber(-1));
@@ -322,7 +321,7 @@ function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
 ***/
 function RemoveStatusFlagsEPD(epd, flags) {
     epd += 0xDC / 4;
-    DoActions(SetMemoryXEPD(epd, SetTo, 0, flags));
+    SetMemoryXEPD(epd, SetTo, 0, flags);
 }
 
 /***
@@ -338,7 +337,7 @@ function RemoveStatusFlagsEPD(epd, flags) {
  * 제거할 상태입니다.
 ***/
 function RemoveStatusFlags(unitPTR, flags) {
-    dwsubtract_epd(EPD(unitPTR) + 0xDC / 4, flags & dwread_epd(EPD(unitPTR) + 0xDC / 4));
+    RemoveStatusFlagsEPD(EPD(unitPTR), flags);
 }
 
 /***
@@ -353,11 +352,17 @@ function RemoveStatusFlags(unitPTR, flags) {
  * @param.Color.ko-KR
  * 변경될 색상입니다.
 ***/
-function SetPColor(Player : TrgPlayer, Color) {
-    const pcolor_dst = 0x581D76 + 8 * Player;
-    const mcolor_dst = 0x581DD6 + Player;
-    bwrite(pcolor_dst, Color);
-    bwrite(mcolor_dst, Color);
+function SetPColor(Player: TrgPlayer, Color) {
+    DoActions(Player.AddNumber(0x581DD6));
+    bwrite(Player, Color);
+    //   2 × Player + EPD(0x581D76) = Minimap Color EPD
+    // = 2 ×(Player + 0x581DD6) + 0x3F4F_A2D8
+    // = 2×((Player + 0x581DD6) + 0x1FA7_D16C)
+    VProc(Player, list(
+        Player.AddNumber(0x1FA7D16C),
+        Player.QueueAddTo(Player),
+    ));
+    bwrite_epd(Player, 2, Color);
 }
 
 function __SpawnBase(epd, unit: TrgUnit, newUnit: TrgUnit) {
@@ -447,10 +452,26 @@ function SpawnEgg(unitPTR, newUnit: TrgUnit) {
  * 태어날 유닛입니다.
 ***/
 function MorphLarvaEPD(epd, newUnit: TrgUnit) {
-    if (MemoryXEPD(epd + 0x64/4, Exactly, newUnit, 0xFFFF)) {
+    if (MemoryXEPD(epd + 0x64/4, Exactly, 35, 0xFFFF)) {
         SetMemoryXEPD(epd + 0x4D/4, SetTo, 42 << 8, 0xFFFF00);
         SetMemoryXEPD(epd + 0x98/4, SetTo, newUnit, 0xFFFF);
     }
+}
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [unitPTR]를 [newUnit]으로 Larva변태 시킵니다.  
+ *
+ * @param.unitPTR.ko-KR
+ * 변태할 유닛입니다.
+ *
+ * @param.newUnit.ko-KR
+ * 태어날 유닛입니다.
+***/
+function MorphLarva(unitPTR, newUnit: TrgUnit) {
+    MorphLarvaEPD(EPD(unitPTR), newUnit);
 }
 
 /***
@@ -467,14 +488,20 @@ function MorphLarvaEPD(epd, newUnit: TrgUnit) {
 ***/
 function TrainUnitEPD(epd, newUnit: TrgUnit) {
     const nU_and_lsh16 = newUnit * 65537;
-    epd += 0x98/4;
-    SetMemoryEPD(epd, SetTo, nU_and_lsh16);
-    epd += 1;
-    SetMemoryEPD(epd, SetTo, nU_and_lsh16);
-    epd += 1;
-    SetMemoryXEPD(epd, SetTo, newUnit, 0xFFFF);
-    epd += 1;
-    SetMemoryXEPD(epd, SetTo, 38 << 16, 0xFF0000);
+    VProc(epd, list(
+        epd.AddNumber(0x98/4),
+        epd.SetDest(EPD(0x6509B0)),
+    ));
+    DoActions(list(
+        SetDeaths(CurrentPlayer, SetTo, nU_and_lsh16, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeaths(CurrentPlayer, SetTo, nU_and_lsh16, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, newUnit, 0, 0xFFFF),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, 38 << 16, 0, 0xFF0000),
+    ));
+    setcurpl2cpcache();
 }
 
 /***
@@ -509,7 +536,7 @@ function SetUnitColorEPD(epd, color) {
     epd += 0x0C/4;
     const sprite = epdread_epd(epd);
     DoActions(sprite.AddNumber(0x0A/4));
-    SetMemoryEPD(sprite, SetTo, color * 65536, 0xFF0000);
+    SetMemoryXEPD(sprite, SetTo, color * 65536, 0xFF0000);
 }
 
 /***
@@ -729,10 +756,10 @@ function __GetLocCoord(loc: TrgLocation) {
 function LocationAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
     const ox1, ox2, oy1, oy2 = __GetLocCoord(originLoc);
     const dx1, dx2, dy1, dy2 = __GetLocCoord(destLoc);
-    const x1 = (ox1 + ox2) / 2;
-    const y1 = (oy1 + oy2) / 2;
-    const x2 = (dx1 + dx2) / 2;
-    const y2 = (dy1 + dy2) / 2;
+    const x1 = ox1 + ox2;
+    const y1 = oy1 + oy2;
+    const x2 = dx1 + dx2;
+    const y2 = dy1 + dy2;
     return atan2(x2 - x1, y1 - y2);
 }
 
@@ -783,7 +810,7 @@ function LocationDistanceVal(variable, loc1: TrgLocation, loc2: TrgLocation) {
 ***/
 function PolarLocation(loc: TrgLocation, length, angle) {
     const x, y = lengthdir(length, angle);
-    setloc(loc, x, y);
+    addloc(loc, x, y);
 }
 
 /***
@@ -817,15 +844,15 @@ function CheckNoneTargetSkillEPD(
     unitEPD += 0x4D/4;
     if (MemoryXEPD(unitEPD, Exactly, skillOrder * 256, 0xFF00)) {
         unitEPD += -((0x4D - 0x28)/4);
-    	const x, y = posread_epd(unitEPD);
-	    setloc(unitLoc, x, y);
+        const x, y = posread_epd(unitEPD);
+        setloc(unitLoc, x, y);
         unitEPD += (0x58 - 0x28)/4;
-	    setloc_epd(targetLoc, unitEPD);
+        setloc_epd(targetLoc, unitEPD);
 
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, AllPlayers, targetLoc);
-            unitEPD += -((0x58 - 0x4D)/4);
-        	SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
+            unitEPD += -((0x58 - 0x4C)/4);
+            SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
             unitEPD += -((0x4D - 0x10)/4);
             SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
             return True;
@@ -942,8 +969,8 @@ function CheckTargetSkillEPD(
     skillOrder
 ) {
     if (MemoryXEPD(unitEPD + 0x4D/4, Exactly, skillOrder * 256, 0xFF00)) {
-    	const x, y = posread_epd(unitEPD + 0x28/4);
-	    setloc(unitLoc, x, y);
+        const x, y = posread_epd(unitEPD + 0x28/4);
+        setloc(unitLoc, x, y);
         setloc_epd(targetLoc, unitEPD + 0x58/4);
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, 17, targetLoc);
@@ -1027,7 +1054,7 @@ function CBringEPD(unitEPD, location: TrgLocation, dummyUnit: TrgUnit) {
  * Bring을 위해 잠시 변경할 유닛ID입니다. 사용하지 않는 UnitID를 사용하세요.
 ***/
 function CBring(unitPTR, location: TrgLocation, dummyUnit: TrgUnit) {
-    return CBringEPD(EPD(unitPTR, location, dummyUnit));
+    return CBringEPD(EPD(unitPTR), location, dummyUnit);
 }
 
 /***
@@ -1040,14 +1067,19 @@ function CBring(unitPTR, location: TrgLocation, dummyUnit: TrgUnit) {
  * 대상 유닛입니다.
 ***/
 function BuildResetEPD(unitEPD) {
-    unitEPD += 0x98/4;
-    SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
-    unitEPD += 1;
-    SetMemoryEPD(unitEPD, SetTo, 0xE400E4);
-    unitEPD += 1;
-    SetMemoryXEPD(unitEPD, SetTo, 228, 0xFFFF);
-    unitEPD += 1;
-    SetMemoryXEPD(unitEPD, SetTo, 2 << 16, 0xFFFF0000);
+    VProc(unitEPD, list(
+        unitEPD.AddNumber(0x98/4),
+        unitEPD.SetDest(EPD(0x6509B0)),
+    ));
+    setcurpl2cpcache(actions=list(
+        SetDeaths(CurrentPlayer, SetTo, 0xE400E4, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeaths(CurrentPlayer, SetTo, 0xE400E4, 0),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, 228, 0, 0xFFFF),
+        SetMemory(0x6509B0, Add, 1),
+        SetDeathsX(CurrentPlayer, SetTo, 2 << 16, 0, 0xFFFF0000),
+    ));
 }
 
 /***
@@ -1160,8 +1192,8 @@ function AttackGround(
     SetMemoryEPD(aUnit, SetTo, tunitptr);  // aUnit + 0x5C (CUnit::targetUnit)
     SetMemoryEPD(tunit, Add, 2);  // tunit + 0x110 (CUnit::removeTimer)
 
-    DoActions(aUnit.AddNumber(-((0x5C - 0x4D) / 4)));
-    SetMemoryXEPD(aUnit, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
+    DoActions(aUnit.AddNumber(-((0x5C - 0x4C) / 4)));
+    SetMemoryXEPD(aUnit, SetTo, 0xA00, 0xFF00);  // order[10]=attack, 0x4D (CUnit::order)
 }
 
 /***
