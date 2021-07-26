@@ -144,7 +144,7 @@
             Next
         Next
         _CodeConnecter.Add(SCDatFiles.DatFiles.stattxt, New List(Of CodeConnecter))
-        For i = 0 To SCtbltxtCount - 1
+        For i = 0 To SCtbltxtCount
             _CodeConnecter(SCDatFiles.DatFiles.stattxt).Add(New CodeConnecter(SCDatFiles.DatFiles.stattxt, i))
         Next
 
