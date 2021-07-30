@@ -1,3 +1,19 @@
+--[================================[
+@Language.ko-KR
+@Summary
+[Key]를 안전한 문자로 변경합니다.
+@Group
+키인식
+@param.Key.Key
+
+
+@Language.en-US
+@Summary
+[Key]를 안전한 문자로 변경합니다.
+@Group
+키인식
+@param.Key.Key
+]================================]
 function KeyParse(Key)
 	index = string.find("NUMPAD*NUMPAD+NUMPAD-NUMPAD.NUMPAD/*+-./=,`[]\\'", Key)
 	if index ~= nii then
