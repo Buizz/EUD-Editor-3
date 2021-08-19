@@ -17,7 +17,7 @@ var MSQCValue = 0;
 
 const MSQCSpecialBuffer = PVariable();
 const MSQCBuffer = PVariable();
-const mappath = Db(260 + 8 * 4 + 28 + 8);
+const mappath = Db(632); //(8 + 2 + 7 + 65) * 4 = 328
 function Init(){
 	EUDRegisterObjectToNamespace("MSQCSpecial", MSQCSpecial);
 	EUDRegisterObjectToNamespace("MSQCSpecialBuffer", MSQCSpecialBuffer);
@@ -34,13 +34,18 @@ function Init(){
 	dwwrite_epd(EPD(mappath) + 6, 3074824624);
     dwwrite_epd(EPD(mappath) + 7, 3414833178);
 
-
     dwwrite_epd(EPD(mappath) + 8, 0xFFFFFFFF);
-    dwwrite_epd(EPD(mappath) + 9, 0x00000001);
-    f_repmovsd_epd(EPD(mappath) + 10, EPD(0x57EEE8) + 9 * getuserplayerid(), 7);
+    dwwrite_epd(EPD(mappath) + 9, 0x00000002);
+    //0~39
 
+    f_repmovsd_epd(EPD(mappath) + 10, EPD(0x57EEE8) + 9 * getuserplayerid(), 7);
+    //40~67
 
 	f_repmovsd_epd(EPD(mappath) + 17, EPD(0x57FD3C), 65);
+    //68~327
+
+
+    //352~607
 }
 
 
