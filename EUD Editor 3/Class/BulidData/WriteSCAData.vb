@@ -299,6 +299,7 @@ Partial Public Class BuildData
         '저장시 메모리에 tagNum을 적는다. 리턴값으로는 전진한 만큼을 기록한다.
         sb.AppendLine("function SaveDataWriteValue(tagNum, BaseAddress, index){")
         sb.AppendLine("    const cp = getcurpl();")
+        sb.AppendLine("    var rvalue = 0;")
         sb.AppendLine("    switch(tagNum){")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
@@ -328,6 +329,7 @@ Partial Public Class BuildData
                     sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
                     sb.AppendLine("        for(var i = 0 ; i < alen ; i ++){")
                     sb.AppendLine("            const objValue = " & arrayname & "[alen * cp + i];")
+                    sb.AppendLine("            rvalue += objValue;")
                     sb.AppendLine("            if(objValue != 0){")
                     sb.AppendLine("                if (objValue > 0xFFFF){")
                     sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x3000 + tagNum);")
@@ -352,6 +354,7 @@ Partial Public Class BuildData
 
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable, StarCraftArchive.CodeData.CodeType.Deaths
+                    sb.AppendLine("        rvalue += objValue;")
                     sb.AppendLine("        if(objValue != 0){")
                     sb.AppendLine("            if (objValue > 0xFFFF){")
                     sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x1000 + tagNum);")
@@ -373,7 +376,7 @@ Partial Public Class BuildData
         Next
         sb.AppendLine("    }")
         sb.AppendLine("    ")
-        sb.AppendLine("    return index;")
+        sb.AppendLine("    return index, rvalue;")
         sb.AppendLine("}")
         sb.AppendLine("")
         sb.AppendLine("")
