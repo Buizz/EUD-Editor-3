@@ -1,6 +1,8 @@
+# Beta 0.12.8.0
+-SCA 코드 일부 수정
+
 # Beta 0.12.7.0
 -SCA2 지원
-
 
 # Beta 0.12.6.3
 -TETools Lua Player부분 
