@@ -30,7 +30,7 @@
         MSQCCB.IsChecked = pjData.TEData.UseMSQC
 
 
-        AddrTextBox.Text = Hex(pjData.TEData.__Addr__).ToUpper
+        addrTextBox.Text = Hex(pjData.TEData.__addr__).ToUpper
         ptrAddrTextBox.Text = Hex(pjData.TEData.__ptrAddr__).ToUpper
         patternAddrTextBox.Text = Hex(pjData.TEData.__patternAddr__).ToUpper
         lenAddrTextBox.Text = Hex(pjData.TEData.__lenAddr__).ToUpper
@@ -54,10 +54,10 @@
         pjData.TEData.UseMSQC = MSQCCB.IsChecked
     End Sub
 
-    Private Sub AddrTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
+    Private Sub addrTextBox_TextChanged(sender As Object, e As TextChangedEventArgs)
         Try
-            Dim v As UInteger = "&H" & AddrTextBox.Text
-            pjData.TEData.__Addr__ = v
+            Dim v As UInteger = "&H" & addrTextBox.Text
+            pjData.TEData.__addr__ = v
         Catch ex As Exception
         End Try
     End Sub
