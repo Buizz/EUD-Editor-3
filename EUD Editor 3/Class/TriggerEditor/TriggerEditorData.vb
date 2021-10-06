@@ -18,21 +18,21 @@ Public Class TriggerEditorData
 
 
 
-    Public _Addr As UInteger = &H58D900UI
+    Public _addr As UInteger = &H58D900UI
     Public _ptrAddr As UInteger = &H58D904UI
     Public _patternAddr As UInteger = &H58D908UI
     Public _lenAddr As UInteger = &H58D90CUI
 
-    Public Property __Addr__ As UInteger
+    Public Property __addr__ As UInteger
         Get
-            If _Addr = 0 Then
+            If _addr = 0 Then
                 Return &H58D900UI
             Else
-                Return _Addr
+                Return _addr
             End If
         End Get
         Set(value As UInteger)
-            _Addr = value
+            _addr = value
         End Set
     End Property
     Public Property __ptrAddr__ As UInteger
