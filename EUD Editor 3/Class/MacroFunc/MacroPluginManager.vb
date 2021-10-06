@@ -64,7 +64,7 @@ Partial Public Class MacroManager
             If IsPattern Then
                 rstr = rstr & "0x" & Hex(pjData.TEData.__patternAddr__).ToUpper & ", Exactly, " & i + 2 & " : " & vname & ", " & i + 1 & vbCrLf
             Else
-                rstr = rstr & "0x" & Hex(pjData.TEData.__Addr__).ToUpper & ", Exactly, " & i + 2 & " : " & vname & ", " & i + 1 & vbCrLf
+                rstr = rstr & "0x" & Hex(pjData.TEData.__addr__).ToUpper & ", Exactly, " & i + 2 & " : " & vname & ", " & i + 1 & vbCrLf
             End If
         Next
 
@@ -81,7 +81,7 @@ Partial Public Class MacroManager
     Public Function GetChatEventCode() As String
         Dim rstr As String = ""
 
-        rstr = rstr & "__Addr__ : 0x" & Hex(pjData.TEData.__Addr__).ToUpper & vbCrLf
+        rstr = rstr & "__addr__ : 0x" & Hex(pjData.TEData.__addr__).ToUpper & vbCrLf
         rstr = rstr & "__ptrAddr__ : 0x" & Hex(pjData.TEData.__ptrAddr__).ToUpper & vbCrLf
         rstr = rstr & "__patternAddr__ : 0x" & Hex(pjData.TEData.__patternAddr__).ToUpper & vbCrLf
         rstr = rstr & "__lenAddr__ : 0x" & Hex(pjData.TEData.__lenAddr__).ToUpper & vbCrLf
