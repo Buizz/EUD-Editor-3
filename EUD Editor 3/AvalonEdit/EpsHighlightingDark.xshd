@@ -134,6 +134,13 @@
       <Word>&lt;</Word>
       <Word>&gt;</Word>
       <Word>!=</Word>
+      <Word>!</Word>
+      <Word>~</Word>
+      <Word>%</Word>
+      <Word>^</Word>
+      <Word>&</Word>
+      <Word>?</Word>
+      <Word>|</Word>
     </Keywords>
     
 
