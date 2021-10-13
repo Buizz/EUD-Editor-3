@@ -148,13 +148,12 @@ function UnpauseGame(){}
  * A
  * @Summary.ko-KR
  * [Where]에 위치하는 [Unit]의 말하는 애니메이션을 [WAVName]을 재생하면서 보여줍니다. 트랜스 미션 시간을 [Time] 만큼 [TimeModifier]합니다.
- * [Text]를 보여줍니다. [AlwaysDisplay]
+ * [Text]를 보여줍니다.
  * @Summary.en-US
  * Send transmission to current player from [Unit] at '[Where]'.
  * Play '[WAVName]'.
  * Modify transmission duration: [TimeModifier] [Time] milliseconds.
  * Display the following text: [Text]
- * [AlwaysDisplay].
  * 
  * @param.Unit.ko-KR
  * 말할 유닛의 종류를 설정합니다.
@@ -169,7 +168,7 @@ function UnpauseGame(){}
  * @param.Text.ko-KR
  * 보여줄 텍스트입니다.
  * @param.AlwaysDisplay.ko-KR
- * 4 : 항상 보여줌
+ * (생략 가능) 4 : 항상 보여줌
  * 
  * @param.Unit.en-US
  * 말할 유닛의 종류를 설정합니다.
@@ -184,9 +183,9 @@ function UnpauseGame(){}
  * @param.Text.en-US
  * 보여줄 텍스트입니다.
  * @param.AlwaysDisplay.en-US
- * 4 : 항상 보여줌
+ * (생략 가능) 4 : 항상 보여줌
 ***/
-function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, TimeModifier : TrgModifier, Time, Text : TrgString, AlwaysDisplay){}
+function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, TimeModifier : TrgModifier, Time, Text : TrgString){}
 
 
 
@@ -212,22 +211,22 @@ function PlayWAV(WAVName /*WAVName*/){}
  * @Type
  * A
  * @Summary.ko-KR
- * [Text]를 [AlwaysDisplay]의 속성으로 해당 트리거 플레이어에게 출력합니다.
+ * [Text]를 해당 플레이어에게 출력합니다.
  * @Summary.en-US
  * Display for current player:
- * [Text] on [AlwaysDisplay]
+ * [Text]
  * 
  * @param.Text.ko-KR
  * 해당 플레이어에게 보여줄 텍스트입니다.
  * @param.AlwaysDisplay.ko-KR
- * 4 : 항상 보여줌
+ * (생략 가능) 4 : 항상 보여줌
  * 
  * @param.Text.en-US
  * 해당 플레이어에게 보여줄 텍스트입니다.
  * @param.AlwaysDisplay.en-US
- * 4 : 항상 보여줌
+ * (생략 가능) 4 : 항상 보여줌
 ***/
-function DisplayText(Text : TrgString, AlwaysDisplay){}
+function DisplayText(Text : TrgString){}
 
 
 
