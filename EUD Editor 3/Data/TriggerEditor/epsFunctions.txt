@@ -2107,10 +2107,10 @@ function NextTrigger() { }
  * @Type
  * F
  * @Summary.ko-KR
- * 오프셋을 EPD 플레이어값으로 바꿉니다.
+ * 오프셋 [p]을 EPD 플레이어값으로 바꿉니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.p.ko-KR
+ * 오프셋입니다.
  ***/
 function EPD(p) { }
 
@@ -2123,8 +2123,8 @@ function EPD(p) { }
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.epd.ko-KR
+ * EPD입니다.
  ***/
 function dwepdread_epd(epd) { }
 
@@ -2137,8 +2137,8 @@ function dwepdread_epd(epd) { }
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.epd.ko-KR
+ * EPD입니다.
  ***/
 function dwread_epd(epd) { }
 
@@ -2151,8 +2151,8 @@ function dwread_epd(epd) { }
  * dword랑 epd를 동시에 읽기 때문에 포인터를 읽을때는 dwepdread 함수를 활용해
  * dword랑 epd값을 동시에 읽는게 효율적입니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.epd.ko-KR
+ * EPD입니다.
  ***/
 function epdread_epd(epd) { }
 
@@ -2176,11 +2176,12 @@ function dwbreak(number) { }
  * @Type
  * F
  * @Summary.ko-KR
- * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
- * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ * EPD[targetplayer]를 [value]로 대입합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.targetplayer.ko-KR
+ * EPD값입니다.
+ * @param.value.ko-KR
+ * 대입할 값입니다.
  ***/
 function dwwrite_epd(targetplayer, value) { }
 
@@ -2189,11 +2190,12 @@ function dwwrite_epd(targetplayer, value) { }
  * @Type
  * F
  * @Summary.ko-KR
- * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
- * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ * EPD[targetplayer]를 [value]만큼 덧셈합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.targetplayer.ko-KR
+ * EPD값입니다.
+ * @param.value.ko-KR
+ * 더할 값입니다.
  ***/
 function dwadd_epd(targetplayer, value) { }
 
@@ -2202,11 +2204,12 @@ function dwadd_epd(targetplayer, value) { }
  * @Type
  * F
  * @Summary.ko-KR
- * read 대신 write, add, subtract를 합니다. 당연히 read류 함수보다 32배정도
- * 빠릅니다. 단순 SetMemory랑 속도가 똑같습니다.
+ * EPD[targetplayer]를 [value]만큼 뺍니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.targetplayer.ko-KR
+ * EPD값입니다.
+ * @param.value.ko-KR
+ * 뺄 값입니다.
  ***/
 function dwsubtract_epd(targetplayer, value) { }
 
@@ -2215,10 +2218,14 @@ function dwsubtract_epd(targetplayer, value) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 블록 단위로 메모리를 복사할 때 씁니다.
+ * [srcepdp]에서 [copydwn]만큼의 데이터를 [dstepdp]로 복사합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.dstepdp.ko-KR
+ * 대상 위치입니다. EPD값입니다.
+ * @param.srcepdp.ko-KR
+ * 복사 값 위치입니다. EPD값입니다.
+ * @param.copydwn.ko-KR
+ * 복사할 길이 입니다. 1당 4바이트의 길이를 가집니다.
  ***/
 function repmovsd_epd(dstepdp, srcepdp, copydwn) { }
 
@@ -2227,10 +2234,14 @@ function repmovsd_epd(dstepdp, srcepdp, copydwn) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 블록 단위로 메모리를 복사할 때 씁니다.
+ * [src]에서 [copylen]만큼의 데이터를 [dst]로 복사합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.dstepdp.ko-KR
+ * 대상 위치입니다.
+ * @param.srcepdp.ko-KR
+ * 복사 값 위치입니다.
+ * @param.copydwn.ko-KR
+ * 복사할 길이 입니다.
  ***/
 function memcpy(dst, src, copylen) { }
 
@@ -2239,10 +2250,12 @@ function memcpy(dst, src, copylen) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 스트링 복사
+ * [src]에 있는 스트링을 [dst]로 복사합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.dst.ko-KR
+ * 대상 위치입니다.
+ * @param.src.ko-KR
+ * 복사할 스트링입니다.
  ***/
 function strcpy(dst, src) { }
 
@@ -2281,10 +2294,12 @@ function div(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate a & b
+ * [a] & [b]를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
+ * @param.b.ko-KR
+ * 피연산자
  ***/
 function bitand(a, b) { }
 
@@ -2293,10 +2308,12 @@ function bitand(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate a | b
+ * [a] | [b]를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
+ * @param.b.ko-KR
+ * 피연산자
  ***/
 function bitor(a, b) { }
 
@@ -2305,10 +2322,10 @@ function bitor(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate ~a
+ * ~[a]를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
  ***/
 function bitnot(a) { }
 
@@ -2317,10 +2334,12 @@ function bitnot(a) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate a ^ b
+ * [a] ^ [b]를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
+ * @param.b.ko-KR
+ * 피연산자
  ***/
 function bitxor(a, b) { }
 
@@ -2329,10 +2348,12 @@ function bitxor(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate ~(a & b)
+ * ~([a] & [b])를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
+ * @param.b.ko-KR
+ * 피연산자
  ***/
 function bitnand(a, b) { }
 
@@ -2341,10 +2362,12 @@ function bitnand(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate ~(a | b)
+ * ~([a] | [b])를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
+ * @param.b.ko-KR
+ * 피연산자
  ***/
 function bitnor(a, b) { }
 
@@ -2353,10 +2376,12 @@ function bitnor(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Calculate ~(a ^ b)
+ * ~([a] ^ [b])를 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 피연산자
+ * @param.b.ko-KR
+ * 피연산자
  ***/
 function bitnxor(a, b) { }
 
@@ -2365,10 +2390,12 @@ function bitnxor(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * return a << b
+ * [a] << [b] 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 대상 값입니다.
+ * @param.b.ko-KR
+ * 왼쪽으로 Shift될 칸 수 입니다.
  ***/
 function bitlshift(a, b) { }
 
@@ -2377,10 +2404,12 @@ function bitlshift(a, b) { }
  * @Type
  * F
  * @Summary.ko-KR
- * return a >> b
+ * [a] << [b] 계산합니다.
  * 
- * @param.인자이름.ko-KR
- * 인자 설명
+ * @param.a.ko-KR
+ * 대상 값입니다.
+ * @param.b.ko-KR
+ * 오른쪽으로 Shift될 칸 수 입니다.
  ***/
 function bitrshift(a, b) { }
 
@@ -2434,7 +2463,7 @@ function sprintf_cp(formatstring /*FormatText*/, *args) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 랜덤 관련
+ * 랜덤한 값을 반환합니다.
  ***/
 function rand() { }
 
@@ -2443,7 +2472,7 @@ function rand() { }
  * @Type
  * F
  * @Summary.ko-KR
- * 랜덤 관련
+ * 랜덤한 값을 반환합니다.
  ***/
 function dwrand() { }
 
@@ -2452,7 +2481,7 @@ function dwrand() { }
  * @Type
  * F
  * @Summary.ko-KR
- * 랜덤 관련
+ * RandomSeed를 재설정합니다.
  ***/
 function randomize() { }
 
