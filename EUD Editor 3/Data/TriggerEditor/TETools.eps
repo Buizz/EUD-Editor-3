@@ -754,8 +754,8 @@ function __GetLocCoord(loc: TrgLocation) {
  * 각도를 구할 목표 로케이션입니다.
 ***/
 function LocationAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
-    const ox1, ox2, oy1, oy2 = __GetLocCoord(originLoc);
-    const dx1, dx2, dy1, dy2 = __GetLocCoord(destLoc);
+    const ox1, oy1, ox2, oy2 = __GetLocCoord(originLoc);
+    const dx1, dy1, dx2, dy2 = __GetLocCoord(destLoc);
     const x1 = ox1 + ox2;
     const y1 = oy1 + oy2;
     const x2 = dx1 + dx2;
@@ -781,8 +781,8 @@ function GetAngle(originLoc: TrgLocation, destLoc: TrgLocation) {
  * 거리를 구할 목표 로케이션입니다.
 ***/
 function LocationDistance(loc1: TrgLocation, loc2: TrgLocation) {
-    const ox1, ox2, oy1, oy2 = __GetLocCoord(loc1);
-    const dx1, dx2, dy1, dy2 = __GetLocCoord(loc2);
+    const ox1, oy1, ox2, oy2 = __GetLocCoord(loc1);
+    const dx1, dy1, dx2, dy2 = __GetLocCoord(loc2);
     const x = dx1 + dx2 - (ox1 + ox2);
     const y = dy1 + dy2 - (oy1 + oy2);
     return sqrt(x*x + y*y) / 2;
