@@ -696,14 +696,15 @@ function ScreenShake(x, y, tempLoc: TrgLocation) {
 ***/
 function hotkeyUnitEPD(epd, player: TrgPlayer, hotkey, slot) {
     epd += 0xA5 / 4;
-    const targetOrderSpecial = maskread_epd(epd, 0xFF00);
-    const alphaID = targetOrderSpecial * 8;
-    DoActions(alphaID.AddNumber(1));
-    if (epd != 19025 + 0xA5 / 4) {
-        epd += 1700 - 0x27821 - 0xA5 / 4;  // diff
-        VProc(epd, epd.QueueAddTo(alphaID));
+    const tosread_epd = readgen_epd(0xFF00, list(0, py_eval('lambda x: 8*x')));
+    const alphaID = tosread_epd(epd);
+    if (epd == 19025 + 0xA5/4) {
+        DoActions(alphaID.AddNumber(1));
+    } else {
+        const diff = 1701 - (161866 - epd) / 84;
+        VProc(diff, diff.QueueAddTo(alphaID));
     }
-    SetMemoryEPD(EPD(0x57FE60) + 216 * player + 12 * hotkey + slot, SetTo, alphaID);
+    SetDeaths(EPD(0x57FE60) + 216 * player + slot, SetTo, alphaID, hotkey);
 }
 
 /***
