@@ -56,9 +56,9 @@ function PrintfAt(Buffer, Line, Text, Args) --텍스트출력/TrgString,Number,F
 	preDefine("const " .. Buffer .. " = StringBuffer();")
 		
 	if Args == "" then
-		stext = Buffer .. ".printf(" .. Line .. ", \"" .. Text .. "\")"
+		stext = Buffer .. ".printfAt(" .. Line .. ", \"" .. Text .. "\")"
 	else
-		stext = Buffer .. ".printf(" .. Line .. ", \"" .. Text .. "\", " .. Args .. ")"
+		stext = Buffer .. ".printfAt(" .. Line .. ", \"" .. Text .. "\", " .. Args .. ")"
 	end
 
 	echo(stext)

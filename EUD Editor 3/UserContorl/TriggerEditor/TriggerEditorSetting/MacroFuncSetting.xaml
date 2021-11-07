@@ -19,8 +19,8 @@
                 </CheckBox>
             </DockPanel>
             <UniformGrid Margin="10" Rows="4" Columns="2" Width="200" HorizontalAlignment="Left">
-                <TextBlock Margin="4" Text="Addr" HorizontalAlignment="Right"/>
-                <TextBox x:Name="AddrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="AddrTextBox_TextChanged"/>
+                <TextBlock Margin="4" Text="addr" HorizontalAlignment="Right"/>
+                <TextBox x:Name="addrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="addrTextBox_TextChanged"/>
                 <TextBlock Margin="4" Text="ptrAddr" HorizontalAlignment="Right"/>
                 <TextBox x:Name="ptrAddrTextBox" Grid.Row="2" Grid.Column="1" Margin="10,0" Width="100" TextChanged="ptrAddrTextBox_TextChanged"/>
                 <TextBlock Margin="4" Text="patternAddr" HorizontalAlignment="Right"/>
