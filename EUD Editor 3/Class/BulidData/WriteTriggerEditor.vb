@@ -35,14 +35,18 @@ Partial Public Class BuildData
             '    End If
             'End If
 
+            Try
+                Dim fs As New FileStream(filePath, FileMode.Create)
+                Dim sw As New StreamWriter(fs)
 
-            Dim fs As New FileStream(filePath, FileMode.Create)
-            Dim sw As New StreamWriter(fs)
+                sw.Write(tTEFile.Files(i).Scripter.GetFileText)
 
-            sw.Write(tTEFile.Files(i).Scripter.GetFileText)
+                sw.Close()
+                fs.Close()
+            Catch ex As Exception
 
-            sw.Close()
-            fs.Close()
+            End Try
+
         Next
 
         For i = 0 To tTEFile.FolderCount - 1

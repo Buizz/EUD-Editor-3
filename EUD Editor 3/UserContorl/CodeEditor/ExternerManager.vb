@@ -208,6 +208,7 @@ Public Class ExternFile
             Funcs.Init()
         End Try
 
+
         'Try
         '    MsgBox("데이터 불러오기 : " & TEFile.FileName)
         'Catch ex As Exception

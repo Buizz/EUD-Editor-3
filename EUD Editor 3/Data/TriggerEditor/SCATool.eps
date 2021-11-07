@@ -35,7 +35,7 @@ function Init(){
     dwwrite_epd(EPD(mappath) + 7, 3414833178);
 
     dwwrite_epd(EPD(mappath) + 8, 0xFFFFFFFF);
-    dwwrite_epd(EPD(mappath) + 9, 0x00000003);
+    dwwrite_epd(EPD(mappath) + 9, 0x00000004);
     //0~39
 
     f_repmovsd_epd(EPD(mappath) + 10, EPD(0x57EEE8) + 9 * getuserplayerid(), 7);
@@ -62,6 +62,7 @@ const SCALastMessage = PVariable();
 7 = 런처와 먼저 연결하세요
 8 = 다른 작업 중입니다.
 9 = 작업 실패
+10 = 명령 실행
 */
 
 var LastTick;
@@ -538,6 +539,8 @@ function PlayerExec() {
                     }
                 }
                 break;
+            case 5:
+                break;
         }
     } else {
         if (MSQCSpecialBuffer[CP] == 100) {
@@ -640,6 +643,39 @@ function DataSave(Slot) {
         if (SCAUseUserMessage == 1) {
             PlayWAV("sound\\Misc\\PError.WAV");
             f_eprintln("\x08데이터를 저장하기 위해선 SCArchive와 연결되어야 합니다.");
+        }
+    }
+}
+
+
+
+function BanPlayer() {
+    const CP = getcurpl();
+
+    if (ConnectStatus[CP] == 1) {
+        if (SCACommand[CP] == 0) {
+            BaseAddrEPD[CP] = EPD(scf.ws) + scf.EntryPointLength + CommandLength / 4;
+
+            SCALastMessage[CP] = 10;
+            if (SCAUseUserMessage == 1) {
+                PlayWAV("sound\\glue\\swishin.wav");
+            }
+            SCACommand[CP] = 5;
+            const orderAddrEPD = EPD(scf.ws) + scf.EntryPointLength;
+            bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
+            MSQCBuffer[CP] = 0;
+        } else {
+            SCALastMessage[CP] = 8;
+            if (SCAUseUserMessage == 1) {
+                PlayWAV("sound\\Misc\\PError.WAV");
+                f_eprintln("\x08현재 다른 작업중입니다.");
+            }
+        }
+    } else {
+        SCALastMessage[CP] = 7;
+        if (SCAUseUserMessage == 1) {
+            PlayWAV("sound\\Misc\\PError.WAV");
+            f_eprintln("\x08명령을 실행하기 위해선 SCArchive와 연결되어야 합니다.");
         }
     }
 }

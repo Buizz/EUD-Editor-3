@@ -509,7 +509,7 @@ Partial Public Class BuildData
         Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)
         Dim sw As New StreamWriter(fs)
 
-        Dim checkstring As String = httpRequest("encrypt", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(Sb.ToString))
+        Dim checkstring As String = httpRequest("encrypt256", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(Sb.ToString))
         sw.Write(checkstring)
 
 

@@ -200,7 +200,9 @@ Public Class TriggerEditor
         If IsNumeric(LineHighlight) Then
             Line = LineHighlight
         End If
-
+        If tTEFile Is Nothing Then
+            Return
+        End If
 
         Select Case tTEFile.FileType
             Case TEFile.EFileType.CUIEps, TEFile.EFileType.CUIPy
