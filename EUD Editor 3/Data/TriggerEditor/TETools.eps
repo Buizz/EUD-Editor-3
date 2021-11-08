@@ -969,14 +969,22 @@ function CheckTargetSkillEPD(
     targetLoc: TrgLocation,
     skillOrder
 ) {
-    if (MemoryXEPD(unitEPD + 0x4D/4, Exactly, skillOrder * 256, 0xFF00)) {
-        const x, y = posread_epd(unitEPD + 0x28/4);
+    unitEPD += 19;  // 0x4D orderID
+    if (MemoryXEPD(unitEPD, Exactly, skillOrder * 256, 0xFF00)) {
+        unitEPD += 3;  // 0x58 orderTarget
+        if (MemoryEPD(unitEPD, Exactly, 0)) return False;
+        const target = cunitepdread_epd(unitEPD)[[1]];
+        unitEPD -= 12;  // 0x28 position
+        const x, y = posread_epd(unitEPD);
         setloc(unitLoc, x, y);
-        setloc_epd(targetLoc, unitEPD + 0x58/4);
+        target += 10;  // 0x28 position
+        setloc_epd(targetLoc, target);
         if (range > LocationDistance(unitLoc, targetLoc)) {
             MoveLocation(targetLoc, 227, 17, targetLoc);
-            SetMemoryXEPD(unitEPD + 0x4D/4, SetTo, 0x100, 0xFF00);
-            SetMemoryEPD(unitEPD + 0x10/4, SetTo, x + y * 65536);
+            unitEPD -= 6;  // 0x10
+            SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
+            unitEPD += 9;  // 0x4D orderID
+            SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
             return True;
         }
     }
