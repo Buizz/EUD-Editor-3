@@ -1576,6 +1576,8 @@
   <ItemGroup>
     <Folder Include="Class\Binding\CodeName\" />
     <Folder Include="Data\Lua\DataEditor\" />
+    <Folder Include="x64\" />
+    <Folder Include="x86\" />
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Icon\file.png" />
@@ -1662,12 +1664,6 @@
     </None>
     <Resource Include="Windows Logo.png" />
     <Resource Include="license.txt" />
-    <Content Include="x64\lz4X64.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
-    <Content Include="x86\lz4X86.dll">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Content>
     <Resource Include="Version.txt" />
     <EmbeddedResource Include="Data\Texts\GRPfile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
