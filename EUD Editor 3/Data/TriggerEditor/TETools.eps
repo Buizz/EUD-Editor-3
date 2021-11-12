@@ -971,17 +971,20 @@ function CheckTargetSkillEPD(
 ) {
     unitEPD += 19;  // 0x4D orderID
     if (MemoryXEPD(unitEPD, Exactly, skillOrder * 256, 0xFF00)) {
-        unitEPD += 3;  // 0x58 orderTarget
+        unitEPD += 4;  // 0x5C orderTargetUnit
         if (MemoryEPD(unitEPD, Exactly, 0)) return False;
-        const target = cunitepdread_epd(unitEPD)[[1]];
+        unitEPD -= 1;  // 0x58 orderTargetPos
+        const tx, ty = posread_epd(unitEPD);
         unitEPD -= 12;  // 0x28 position
         const x, y = posread_epd(unitEPD);
-        setloc(unitLoc, x, y);
-        target += 10;  // 0x28 position
-        setloc_epd(targetLoc, target);
-        if (range > LocationDistance(unitLoc, targetLoc)) {
-            MoveLocation(targetLoc, 227, 17, targetLoc);
-            unitEPD -= 6;  // 0x10
+        const dx, dy = tx - x, ty - y;
+        if (dx*dx + dy*dy < range*range) {
+            setloc(unitLoc, x, y);
+            setloc(targetLoc, tx, ty);
+            DoActions(list(
+                unitEPD.SubtractNumber(6),  // 0x10 moveTarget
+                RemoveUnitAt(1, 101, 255, P9),
+            ));
             SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
             unitEPD += 9;  // 0x4D orderID
             SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
