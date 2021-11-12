@@ -973,7 +973,7 @@ function CheckTargetSkillEPD(
     if (MemoryXEPD(unitEPD, Exactly, skillOrder * 256, 0xFF00)) {
         unitEPD += 3;  // 0x58 orderTarget
         if (MemoryEPD(unitEPD, Exactly, 0)) return False;
-        const target = cunitepdread_epd(unitEPD)[[1]];
+        var target = cunitepdread_epd(unitEPD)[[1]];
         unitEPD -= 12;  // 0x28 position
         const x, y = posread_epd(unitEPD);
         setloc(unitLoc, x, y);
