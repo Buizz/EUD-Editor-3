@@ -983,7 +983,7 @@ function CheckTargetSkillEPD(
             setloc(targetLoc, tx, ty);
             DoActions(list(
                 unitEPD.SubtractNumber(6),  // 0x10 moveTarget
-                RemoveUnitAt(1, "Map Revealer", 255, P9),
+                RemoveUnitAt(1, 101, 255, P9),
             ));
             SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
             unitEPD += 9;  // 0x4D orderID
