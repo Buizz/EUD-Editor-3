@@ -472,7 +472,7 @@ Public Class TriggerEditValueSelecterWindow
 
                 ListboxPanel.Visibility = Visibility.Visible
 
-            Case "TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation"
+            Case "TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation", "TrgLocationIndex"
                 Width = 250
                 Height = 340
 
@@ -488,6 +488,11 @@ Public Class TriggerEditValueSelecterWindow
                 Dim cCodeSelecter As CodeSelecter
                 If Dic.ContainsKey(aType) Then
                     '포함되어 있을 경우 새로 만들지 않는다.
+                    For Each a In Dic.Values
+                        a.Visibility = Visibility.Collapsed
+                    Next
+
+
                     cCodeSelecter = Dic(aType)
                     Dim initValue As Integer = tCode.Args(ArgIndex).ValueNumber
                     If tCode.Args(ArgIndex).IsInit Then
@@ -504,7 +509,8 @@ Public Class TriggerEditValueSelecterWindow
                     Dim aTypeStrList() As String = {"TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation", "TrgLocationIndex"}
                     Dim aTypeEnumList() As SCDatFiles.DatFiles = {SCDatFiles.DatFiles.units, SCDatFiles.DatFiles.weapons, SCDatFiles.DatFiles.flingy, SCDatFiles.DatFiles.sprites,
                         SCDatFiles.DatFiles.images, SCDatFiles.DatFiles.upgrades, SCDatFiles.DatFiles.techdata, SCDatFiles.DatFiles.orders, SCDatFiles.DatFiles.images, SCDatFiles.DatFiles.Location,
-                    SCDatFiles.DatFiles.Location}
+                        SCDatFiles.DatFiles.Location
+                    }
 
 
 
@@ -632,7 +638,7 @@ Public Class TriggerEditValueSelecterWindow
                 Dim listbox As New ListBoxItem
 
                 listbox.Content = lanstr
-                listbox.Tag = arglist(i)
+                listbox.Tag = {arglist(i), +i}
 
                 SelectListbox.Items.Add(listbox)
             Else
@@ -640,7 +646,7 @@ Public Class TriggerEditValueSelecterWindow
                     Dim listbox As New ListBoxItem
 
                     listbox.Content = lanstr
-                    listbox.Tag = arglist(i)
+                    listbox.Tag = {arglist(i), +i}
 
                     SelectListbox.Items.Add(listbox)
                 End If
@@ -702,8 +708,10 @@ Public Class TriggerEditValueSelecterWindow
             If SelectListbox.SelectedItem IsNot Nothing Then
                 Dim item As ListBoxItem = SelectListbox.SelectedItem
 
-                tCode.Args(ArgIndex).ValueString = item.Tag
-                tCode.Args(ArgIndex).ValueNumber = SelectListbox.SelectedIndex
+                Dim datas() As Object = item.Tag
+
+                tCode.Args(ArgIndex).ValueString = datas(0)
+                tCode.Args(ArgIndex).ValueNumber = datas(1)
                 tCode.Args(ArgIndex).IsInit = False
                 ChangeComplete()
                 CloseP()

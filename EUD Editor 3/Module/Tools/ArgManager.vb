@@ -160,13 +160,15 @@
                 Return strs.ToArray
             Case "WAVName"
                 Dim strs As New List(Of String)
-                For i = 0 To pjData.MapData.WavCount - 1
-                    Dim tstr As String
-                    If pjData.IsMapLoading Then
+                If pjData.IsMapLoading Then
+                    For i = 0 To pjData.MapData.WavCount - 1
+                        Dim tstr As String
                         tstr = pjData.MapData.WavIndex(i)
                         strs.Add(tstr)
-                    End If
-                Next
+                    Next
+                End If
+
+
 
                 For i = 0 To scData.Sound_Count - 1
                     strs.Add(scData.SoundName(i))

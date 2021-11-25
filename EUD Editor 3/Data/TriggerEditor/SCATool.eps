@@ -648,8 +648,11 @@ function DataSave(Slot) {
 }
 
 
-
-function BanPlayer() {
+/*
+0 = 벤만 실행
+1 = 벤 이후 스타크래프트 강제종료
+*/
+function BanPlayer(BanType) {
     const CP = getcurpl();
 
     if (ConnectStatus[CP] == 1) {
@@ -663,6 +666,7 @@ function BanPlayer() {
             SCACommand[CP] = 5;
             const orderAddrEPD = EPD(scf.ws) + scf.EntryPointLength;
             bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
+            bwrite_epd(orderAddrEPD, 3, BanType);
             MSQCBuffer[CP] = 0;
         } else {
             SCALastMessage[CP] = 8;
