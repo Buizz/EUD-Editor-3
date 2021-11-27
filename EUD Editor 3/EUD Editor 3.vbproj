@@ -1781,6 +1781,9 @@
     <None Include="Data\ROOT.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\TriggerEditor\Autocmp\SCABanType.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <Content Include="HotKeyManagement.WPF.4.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />
     <Content Include="Microsoft.DwayneNeed.Win32.dll" />

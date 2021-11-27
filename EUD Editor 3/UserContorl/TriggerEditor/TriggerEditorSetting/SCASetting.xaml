@@ -39,7 +39,7 @@
                 <StackPanel>
                     <Label Content="{StaticResource SCALoginInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal">
-                        <TextBox x:Name="MakerBattleTag"  MinWidth="120" materialDesign:HintAssist.Hint="{StaticResource BattleTag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
+                        <TextBox x:Name="MakerBattleTag"  MinWidth="170" materialDesign:HintAssist.Hint="{StaticResource SCAEmail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
                             <TextBox.Text>
                                 <Binding
                                             Path="BattleTag"
@@ -67,6 +67,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
+                        <Button Content="{StaticResource SCAHomepage}" Click="Button_Click"/>
                     </StackPanel>
                     
 

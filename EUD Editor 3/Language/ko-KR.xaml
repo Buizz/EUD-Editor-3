@@ -1051,6 +1051,8 @@
     <sys:String x:Key="FreePlayMode">자유 모드</sys:String>
 
 
+    <sys:String x:Key="SCAHomepage">사이트 바로가기</sys:String>
+    
     <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
     <sys:String x:Key="MapSetting">맵 설정</sys:String>
     <sys:String x:Key="BattleTag">배틀코드</sys:String>
@@ -1074,6 +1076,7 @@
     <sys:String x:Key="MapName">맵 이름</sys:String>
     <sys:String x:Key="MapNameHint">다운로드 페이지에서 보이는 이름입니다.</sys:String>
 
+    <sys:String x:Key="SCAEmail">SCA 이메일</sys:String>
     <sys:String x:Key="MakerEmail">제작자 이메일</sys:String>
     <sys:String x:Key="MakerEmailHint">신고 기능 이용 시 내용을 수신 받을 수 있습니다.</sys:String>
 

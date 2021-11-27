@@ -1046,7 +1046,8 @@
     <sys:String x:Key="MultiPlayMode">Multi Player Mode</sys:String>
     <sys:String x:Key="FreePlayMode">Free Play Mode</sys:String>
 
-
+    <sys:String x:Key="SCAHomepage">Site Link</sys:String>
+    
     <sys:String x:Key="SCALoginInfor">SCA Login Info</sys:String>
     <sys:String x:Key="MapSetting">Map Settings</sys:String>
     <sys:String x:Key="BattleTag">Battle Tag</sys:String>
@@ -1070,6 +1071,7 @@
     <sys:String x:Key="MapName">MapName</sys:String>
     <sys:String x:Key="MapNameHint">This is the name displayed on the download page.</sys:String>
 
+    <sys:String x:Key="SCAEmail">SCALogin Email</sys:String>
     <sys:String x:Key="MakerEmail">MakerEmail</sys:String>
     <sys:String x:Key="MakerEmailHint">You can receive content when using the report function.</sys:String>
 

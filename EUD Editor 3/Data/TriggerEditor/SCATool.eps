@@ -540,6 +540,21 @@ function PlayerExec() {
                 }
                 break;
             case 5:
+                //밴
+                {
+                    const LauncherStatus = bread_epd(orderAddrEPD, 3);
+                    if(LauncherStatus == 2){
+                        //방을 가른다
+                        if (IsUserCP()) {
+	                        for(var i = 0 ; i < 229 ; i ++){
+		                        CreateUnit(1 ,i ,1 ,CurrentPlayer);
+	                        }
+                        }
+                    }
+                }
+                break;
+            case 6:
+                //프로시져
                 break;
         }
     } else {
@@ -665,8 +680,13 @@ function BanPlayer(BanType) {
             }
             SCACommand[CP] = 5;
             const orderAddrEPD = EPD(scf.ws) + scf.EntryPointLength;
-            bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
-            bwrite_epd(orderAddrEPD, 3, BanType);
+
+            if (IsUserCP()) {
+                bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
+                bwrite_epd(orderAddrEPD, 3, BanType);
+            }
+
+
             MSQCBuffer[CP] = 0;
         } else {
             SCALastMessage[CP] = 8;

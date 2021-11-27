@@ -69,4 +69,8 @@
             MapDetail.IsEnabled = infoCheckbox.IsChecked
         End If
     End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        Process.Start("https://scarchive.kr/")
+    End Sub
 End Class

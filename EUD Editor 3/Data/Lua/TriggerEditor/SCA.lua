@@ -46,6 +46,38 @@ function SCASave(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 저장합니�
 	echo("scalua.scaSave(".. Slot .. ")")
 end
 
+
+
+
+--[================================[
+@Language.ko-KR
+@Summary
+해당플레이어를 [BanType]으로 유즈맵에서 차단합니다.
+@Group
+SCA
+@param.BanType.SCABanType
+
+
+@Language.en-US
+@Summary
+해당플레이어를 [BanType]으로 유즈맵에서 차단합니다.
+@Group
+SCA
+@param.BanType.SCABanType
+]================================]
+function SCABan(BanType)
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
+	
+	bancode = {
+		["OnlyBan"] = 0,
+		["BanWithExit"] = 1
+	}
+	echo("scalua.scaBan(" + bancode[BanType] + ")")
+end
+
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -329,7 +361,7 @@ end
 --[================================[
 @Language.ko-KR
 @Summary
-현재 날짜가 [Weekend]인지 확인합니다.
+현재 요일이 [Weekend]인지 확인합니다.
 @Group
 SCA
 @param.Weekend.Weekend
@@ -337,12 +369,12 @@ SCA
 
 @Language.en-US
 @Summary
-현재 날짜가 [Weekend]인지 확인합니다.
+현재 요일이 [Weekend]인지 확인합니다.
 @Group
 SCA
 @param.Weekend.Weekend
 ]================================]
-function SCAWeek(Weekend) --SCA/Weekend/현재 날짜가 [Weekend]인지 확인합니다.
+function SCAWeek(Weekend) --SCA/Weekend/현재 요일이 [Weekend]인지 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	beforeText("scalua.Exec();")
 	
@@ -356,10 +388,12 @@ function SCAWeek(Weekend) --SCA/Weekend/현재 날짜가 [Weekend]인지 확인�
 		["Saturday"] = 5,
 		["Sunday"] = 6
 	}
-	echo(Weekend)
+	echo(Variable .. " == ")
 	echo(weekend[Weekend])
 
 	--_weekval = weekend[Weekend]
 	--str = Variable .. " == " .. _weekval
 	--echo(str)
 end
+
+
