@@ -33,6 +33,19 @@ Public Class SCABinding
         End Set
     End Property
 
+    Public Property UseOldBattleTag() As Boolean
+        Get
+            Return pjData.TEData.SCArchive.IsUseOldBattleTag
+        End Get
+        Set(value As Boolean)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.IsUseOldBattleTag = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
+
+
     Public Property SCATestMode() As Integer
         Get
             Return CInt(pjData.TEData.SCArchive.TestMode)
@@ -53,6 +66,21 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
+
+
+    Public Property SCAEmail() As String
+        Get
+            Return pjData.TEData.SCArchive.SCAEmail
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.SCAEmail = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
+
+
 
     Public Property DataSize() As String
         Get

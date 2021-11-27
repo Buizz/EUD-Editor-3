@@ -8,10 +8,6 @@ Partial Public Class BuildData
 
 
     Public Sub GetEntryPoint()
-        Dim MakerBattleTag As String = pjData.TEData.SCArchive.MakerBattleTag
-        Dim MakerServerName As String = pjData.TEData.SCArchive.MakerServerName
-        Dim MapName As String = pjData.TEData.SCArchive.MapName
-
         Dim rnd As New Random()
         ReDim EntryPoint(7)
         For i = 0 To 7
@@ -99,10 +95,16 @@ Partial Public Class BuildData
         '$maplink = $_POST['maplink'];
         '$mapinfor = $_POST['mapinfor'];
 
+        Dim mapCode As String = GetMapCode()
+
+
+        If (mapCode = "") Then
+            Return False
+        End If
         Dim senddata As String = ""
-        senddata = "mapcode=" & WebUtility.UrlEncode(GetMapCode()) & "&"
+        senddata = "mapcode=" & WebUtility.UrlEncode(mapCode) & "&"
         senddata = senddata & "subtitle=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SubTitle) & "&"
-        senddata = senddata & "bt=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerBattleTag) & "&"
+        senddata = senddata & "bt=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SCAEmail) & "&"
         senddata = senddata & "pw=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.PassWord) & "&"
 
         Dim tagsdata As String = ""
@@ -429,7 +431,25 @@ Partial Public Class BuildData
 
 
     Public Function GetMapCode() As String
-        Dim MakerBattleTag As String = pjData.TEData.SCArchive.MakerBattleTag
+        'Dim senddata As String = ""
+        'senddata = "email=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerBattleTag) & "&"
+        'senddata = senddata & "pw=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.PassWord)
+
+        'Dim respon As String = httpRequest("getbattleTag", senddata)
+
+        'If respon = "NOACCOUNT" Then
+        '    MsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다.", MsgBoxStyle.Critical)
+        '    Return ""
+        'End If
+        Dim MakerBattleTag As String
+
+        If pjData.TEData.SCArchive.IsUseOldBattleTag Then
+            MakerBattleTag = pjData.TEData.SCArchive.MakerBattleTag
+        Else
+            MakerBattleTag = pjData.TEData.SCArchive.SCAEmail
+        End If
+
+
         Dim MakerServerName As String = pjData.TEData.SCArchive.MakerServerName
         Dim MapName As String = pjData.TEData.SCArchive.MapName
         'MsgBox(MakerBattleTag & MakerServerName & MapName)

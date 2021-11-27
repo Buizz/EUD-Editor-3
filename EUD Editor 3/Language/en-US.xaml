@@ -1062,6 +1062,7 @@
     <sys:String x:Key="MapInfor">Map Info</sys:String>
 
     <sys:String x:Key="InforUpdate">Update Info</sys:String>
+    <sys:String x:Key="OldBattleTag">(Old)UseBattleTag</sys:String>
 
     <sys:String x:Key="DataSetting">Data Setting</sys:String>
 

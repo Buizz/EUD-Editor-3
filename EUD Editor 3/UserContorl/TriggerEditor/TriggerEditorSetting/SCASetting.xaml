@@ -20,9 +20,9 @@
                 <CheckBox x:Name="UseSCA" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
                     <CheckBox.IsChecked>
                         <Binding
-                                            Path="SCAUse"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
+                                Path="SCAUse"
+                                ValidatesOnDataErrors="True"
+                                UpdateSourceTrigger="PropertyChanged">
                         </Binding>
                     </CheckBox.IsChecked>
                 </CheckBox>
@@ -37,12 +37,14 @@
             </ComboBox>
             <Expander x:Name="mapSettingex" HorizontalAlignment="Stretch" Header="{StaticResource MapSetting}">
                 <StackPanel>
+                    <Button Content="{StaticResource SCAHomepage}" Click="Button_Click"/>
+
                     <Label Content="{StaticResource SCALoginInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="MakerBattleTag"  MinWidth="170" materialDesign:HintAssist.Hint="{StaticResource SCAEmail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
                             <TextBox.Text>
                                 <Binding
-                                            Path="BattleTag"
+                                            Path="SCAEmail"
                                             ValidatesOnDataErrors="True"
                                             UpdateSourceTrigger="PropertyChanged">
 
@@ -67,7 +69,29 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <Button Content="{StaticResource SCAHomepage}" Click="Button_Click"/>
+
+
+                        <CheckBox x:Name="OldUseCheckbox"
+                            Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource OldBattleTag}">
+                            <CheckBox.IsChecked>
+                                <Binding
+                                            Path="UseOldBattleTag"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </CheckBox.IsChecked>
+                        </CheckBox>
+                        <TextBox x:Name="OldBattleTag"  MinWidth="170" materialDesign:HintAssist.Hint="{StaticResource BattleTag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5"
+                                 IsEnabled="{Binding Path=IsChecked, ElementName=OldUseCheckbox}">
+                            <TextBox.Text>
+                                <Binding
+                                            Path="BattleTag"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+
+
                     </StackPanel>
                     
 

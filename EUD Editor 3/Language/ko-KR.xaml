@@ -1061,12 +1061,12 @@
     <sys:String x:Key="Identificationnumber">고유 식별 번호</sys:String>
     <sys:String x:Key="SeverID">서버 아이디</sys:String>
 
-
     <sys:String x:Key="DatabaseName">데이터베이스 이름</sys:String>
     <sys:String x:Key="SecondName">하위이름</sys:String>
     <sys:String x:Key="MapInfor">맵 정보</sys:String>
 
     <sys:String x:Key="InforUpdate">정보 갱신</sys:String>
+    <sys:String x:Key="OldBattleTag">(구)배틀태그 사용</sys:String>
 
     <sys:String x:Key="DataSetting">데이터 설정</sys:String>
 

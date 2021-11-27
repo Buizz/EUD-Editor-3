@@ -69,6 +69,30 @@ Public Class StarCraftArchive
     End Property
 
 
+    Private _SCAEmail As String
+    Public Property SCAEmail As String
+        Get
+            Return _SCAEmail
+        End Get
+        Set(value As String)
+            _SCAEmail = value
+        End Set
+    End Property
+
+
+
+    Private _IsUseOldBattleTag As Boolean
+    Public Property IsUseOldBattleTag As Boolean
+        Get
+            Return _IsUseOldBattleTag
+        End Get
+        Set(value As Boolean)
+            _IsUseOldBattleTag = value
+        End Set
+    End Property
+
+
+
     Private _MakerEmail As String
     Public Property MakerEmail As String
         Get
