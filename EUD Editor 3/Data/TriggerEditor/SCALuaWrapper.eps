@@ -63,10 +63,10 @@ function Exec(){
 		setcurpl(cp);
 		sca.Exec();
 		
-		//¿¬°á µÊ
+		//ì—°ê²° ë¨
 		if (sca.ConnectStatus() == 1){
 			
-			//·Îµå ÁøÇà
+			//ë¡œë“œ ì§„í–‰
 			if (loadstatus[cp] == 1){
 				if(sca.GetLastMessage() == 4){
 					loadstatus[cp] = 2;
@@ -142,8 +142,12 @@ function scaLoadTime(){
 }
 
 function SetUseDefaultMessage(value){
-	//value°¡ 1ÀÌ¸é ±âº»°ª¾²±â
+	//valueê°€ 1ì´ë©´ ê¸°ë³¸ê°’ì“°ê¸°
 	sca.SetUseDefaultMessage(value);
+}
+
+function Timestamp(){
+	return sca.Timestamp;
 }
 
 function Year(){
