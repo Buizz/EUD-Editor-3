@@ -152,14 +152,21 @@ function LoadDataRead(dataLen) {
             // 날짜  YYYM D H M W
             const BaseAddres = LoadAddrEPD[CP];
 
-            const aYM = dwread_epd(BaseAddres);
-            SetVariables(sca.Year, aYM / 0x10);
-            SetVariables(sca.Month, aYM % 0x10);
-
-            SetVariables(sca.Day, bread_epd(BaseAddres + 1, 3));
-            SetVariables(sca.Hour, bread_epd(BaseAddres + 1, 2));
-            SetVariables(sca.Min, bread_epd(BaseAddres + 1, 1));
-            SetVariables(sca.Week, bread_epd(BaseAddres + 1, 0));
+            const year, month = div(dwread_epd(BaseAddres), 0x10);
+	    DoActions(BaseAddres.AddNumber(1));
+	    const day = bread_epd(BaseAddres, 3);
+	    const hour = bread_epd(BaseAddres, 2);
+	    const minute = bread_epd(BaseAddres, 1);
+	    const week = bread_epd(BaseAddres, 0);
+	    
+	    // Calculate timestamp: Epoch from 00:00 Jan 1, 2020.
+	    const tm_year = year - 1950;
+	    const timestamp = minute + hour*60 + (day-1)*1440 + (month-1)*43200
+	    	+ (tm_year-70)*525600 + ((tm_year-69)/4)*1440
+		- ((tm_year-1)/100)*1440 + ((tm_year+299)/400)*1440;
+	    
+	    const scaVars = sca.Timestamp, sca.Year, sca.Month, sca.Day, sca.Hour, sca.Min, sca.Week;
+	    SetVariables(scaVars, list(timestamp, year, month, day, hour, minute, week));
 
             DateLoadStatus[CP] = 1;
             break;

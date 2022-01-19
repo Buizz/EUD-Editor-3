@@ -301,6 +301,8 @@ function SCAGetTime(DateType) --SCA/DateType/[DateType]을 반환합니다.
 		Variable = "scalua.Min()"
 	elseif DateType == "Week" then
 		Variable = "scalua.Week()"
+	elseif DateType == "Timestamp" then
+		Variable = "scalua.Timestamp()"
 	end
 	echo(Variable)
 end
@@ -343,6 +345,8 @@ function SCATime(DateType,Comparison,Value) --SCA/DateType,TrgComparison,Number/
 		Variable = "scalua.Min()"
 	elseif DateType == "Week" then
 		Variable = "scalua.Week()"
+	elseif DateType == "Timestamp" then
+		Variable = "scalua.Timestamp()"
 	end
 
 	if Comparison == 0 then
