@@ -110,6 +110,9 @@ Public Class TextEditorWindow
                     Case &H13 '가운대
                         Inlines = CenterTextBox.Inlines
                     Case Else
+                        If ColorTable.Count < colorcode Then
+                            Continue For
+                        End If
                         defaultBrush = New SolidColorBrush(ColorTable(colorcode))
                 End Select
             Next

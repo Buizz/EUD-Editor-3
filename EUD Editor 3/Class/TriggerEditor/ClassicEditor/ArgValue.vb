@@ -82,7 +82,9 @@ Public Class ArgValue
         End If
 
         If isLuaCover Then
+            v = v.Replace("\""", "♈")
             v = v.Replace("\", "\\")
+            v = v.Replace("♈", "\""")
         End If
 
         Return v

@@ -4,11 +4,12 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EUD_Editor_3"
+        
         mc:Ignorable="d"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}" 
         Topmost="True"
-        Title="TextEditor" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Width="1048" Height="591"  >
+        Title="TextEditor" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Width="1048" Height="591" FontFamily="Arial"  >
     <DockPanel>
 
         <DockPanel DockPanel.Dock="Left" Width="200">
