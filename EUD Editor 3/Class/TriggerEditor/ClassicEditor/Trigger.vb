@@ -1,10 +1,12 @@
 ﻿
+Imports System.ComponentModel
 Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
 Imports System.Text
 
 <Serializable>
 Public Class Trigger
+    Implements INotifyPropertyChanged
     Public CName As String = "Trigger"
 
 
@@ -30,6 +32,29 @@ Public Class Trigger
 
     '플레이어
     Public PlayerEnabled(7) As Boolean
+
+
+
+
+
+    Public ReadOnly Property _IsEnabled As System.Windows.Visibility
+        Get
+            If IsEnabled Then
+                Return System.Windows.Visibility.Collapsed
+            Else
+                Return System.Windows.Visibility.Visible
+            End If
+        End Get
+    End Property
+    Public ReadOnly Property _IsPreserved As System.Windows.Visibility
+        Get
+            If IsPreserved Then
+                Return System.Windows.Visibility.Visible
+            Else
+                Return System.Windows.Visibility.Collapsed
+            End If
+        End Get
+    End Property
 
 
     '트리거의 별칭(주석)
@@ -69,6 +94,10 @@ Public Class Trigger
                 End If
             Next
 
+            If rstr = "" Then
+                rstr = "조건이 없습니다."
+            End If
+
             Return rstr
         End Get
     End Property
@@ -86,6 +115,10 @@ Public Class Trigger
                 End If
             Next
 
+            If rstr = "" Then
+                rstr = "액션이 없습니다."
+            End If
+
             Return rstr
         End Get
     End Property
@@ -99,6 +132,31 @@ Public Class Trigger
 
     Public Condition As New List(Of TriggerCodeBlock)
     Public Actions As New List(Of TriggerCodeBlock)
+
+
+    <NonSerialized>
+    Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
+
+
+
+    Public Sub PropertyChangeAll()
+        OnPropertyChanged("_IsEnabled")
+        OnPropertyChanged("_IsPreserved")
+        OnPropertyChanged("CommentString")
+        OnPropertyChanged("HaveComment")
+        OnPropertyChanged("NotHaveComment")
+        OnPropertyChanged("ConditionString")
+        OnPropertyChanged("ActionsString")
+    End Sub
+
+
+
+    Private Sub OnPropertyChanged(info As String)
+        RaiseEvent PropertyChanged(Me, New PropertyChangedEventArgs(info))
+    End Sub
+
+
+
 
 
     Public Function GetTriggerCodeText(intend As Integer, _scripter As ScriptEditor) As String
@@ -253,7 +311,7 @@ Public Class Trigger
         Next
 
         toTrg.CommentString = CommentString
-
+        toTrg.parentscripter = parentscripter
 
         toTrg.Condition.Clear()
         toTrg.Actions.Clear()
@@ -279,7 +337,7 @@ Public Class Trigger
         stream.Position = 0
 
         Dim rScriptBlock As Trigger = formatter.Deserialize(stream)
-
+        rScriptBlock.parentscripter = parentscripter
 
         Return rScriptBlock
     End Function

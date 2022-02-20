@@ -171,19 +171,19 @@ Public Class TECTPage
 
 
             Dim myHeightAnimation As DoubleAnimation = New DoubleAnimation()
-            myHeightAnimation.From = 0.5
+            myHeightAnimation.From = 0.9
             myHeightAnimation.To = 1.0
-            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
+            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
             Dim myWidthAnimation As DoubleAnimation = New DoubleAnimation()
-            myWidthAnimation.From = 0.5
+            myWidthAnimation.From = 0.9
             myWidthAnimation.To = 1.0
-            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
+            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
             Dim myOpacityAnimation As DoubleAnimation = New DoubleAnimation()
             myOpacityAnimation.From = 0.0
             myOpacityAnimation.To = 1.0
-            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
+            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
             OpenStroyBoard = New Storyboard()
             OpenStroyBoard.Children.Add(myOpacityAnimation)
@@ -206,18 +206,18 @@ Public Class TECTPage
 
             Dim myHeightAnimation As DoubleAnimation = New DoubleAnimation()
             myHeightAnimation.From = 1.0
-            myHeightAnimation.To = 0.5
-            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
+            myHeightAnimation.To = 0.9
+            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
             Dim myWidthAnimation As DoubleAnimation = New DoubleAnimation()
             myWidthAnimation.From = 1.0
-            myWidthAnimation.To = 0.5
-            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
+            myWidthAnimation.To = 0.9
+            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
             Dim myOpacityAnimation As DoubleAnimation = New DoubleAnimation()
             myOpacityAnimation.From = 1.0
             myOpacityAnimation.To = 0.0
-            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
+            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
             CloseStroyBoard = New Storyboard()
             CloseStroyBoard.Children.Add(myOpacityAnimation)

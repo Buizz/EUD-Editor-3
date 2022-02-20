@@ -65,6 +65,7 @@
 
 
                                                       pjData.SetDirty(True)
+                                                      trg.PropertyChangeAll()
                                                       'InputDialog.Content = Nothing
                                                       'EditWindow.Visibility = Visibility.Hidden
                                                       CloseStroyBoard.Begin(Me)

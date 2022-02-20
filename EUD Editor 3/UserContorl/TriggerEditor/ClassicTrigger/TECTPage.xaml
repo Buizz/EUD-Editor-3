@@ -151,9 +151,12 @@
                         <ListBox.ItemTemplate>
                             <DataTemplate>
                                 <junglecontrols:LazyControl>
-                                    <Border Width="{Binding ElementName=TListBox,Path=ActualWidth}" Background="#19C8C8C8" BorderBrush="#7F000000" BorderThickness="1" Margin="-8,-4">
+                                    <Border Width="{Binding ElementName=TListBox,Path=ActualWidth}" Background="#19C8C8C8" BorderThickness="1" Margin="-4,-2,-6,-2">
                                         <StackPanel Orientation="Vertical">
-                                            <TextBlock Text="무한반복" Margin="8,0,0,0"/>
+                                            <StackPanel Orientation="Horizontal">
+                                                <TextBlock Text="사용안함" Visibility="{Binding _IsEnabled}" Foreground="Red"/>
+                                                <TextBlock Text="무한반복트리거" Visibility="{Binding _IsPreserved}"/>
+                                            </StackPanel>
                                             <DockPanel Visibility="{Binding HaveComment}" Margin="8">
                                                 <TextBlock Text="{Binding CommentString}"/>
                                             </DockPanel>
