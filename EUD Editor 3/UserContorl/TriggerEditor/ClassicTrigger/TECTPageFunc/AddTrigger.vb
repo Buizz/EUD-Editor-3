@@ -40,7 +40,7 @@
                                                   Dim CurrentPage As Integer = GetPlayerListIndex()
 
 
-                                                  Scripter.TriggerList.Add(NTrigger)
+                                                  Scripter.TriggerListCollection.Add(NTrigger)
 
                                                   For i = 0 To NTrigger.PlayerEnabled.Count - 1
                                                       If NTrigger.PlayerEnabled(i) Then

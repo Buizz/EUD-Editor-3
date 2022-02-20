@@ -10,7 +10,7 @@
              xmlns:wpf="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:system="clr-namespace:System;assembly=mscorlib"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit" xmlns:junglecontrols="clr-namespace:JungleControls;assembly=JungleControls"
              mc:Ignorable="d" 
              MouseEnter="UserControl_MouseEnter"
              Loaded="UserControl_Loaded"
@@ -145,8 +145,29 @@
 
 
 
-                    <ListBox x:Name="TListBox" ScrollViewer.CanContentScroll="False" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended" MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
+                    <ListBox x:Name="TListBox" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended"
+                             MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
 
+                        <ListBox.ItemTemplate>
+                            <DataTemplate>
+                                <junglecontrols:LazyControl>
+                                    <Border Width="{Binding ElementName=TListBox,Path=ActualWidth}" Background="#19C8C8C8" BorderBrush="#7F000000" BorderThickness="1" Margin="-8,-4">
+                                        <StackPanel Orientation="Vertical">
+                                            <TextBlock Text="무한반복" Margin="8,0,0,0"/>
+                                            <DockPanel Visibility="{Binding HaveComment}" Margin="8">
+                                                <TextBlock Text="{Binding CommentString}"/>
+                                            </DockPanel>
+                                            <StackPanel Margin="8" Visibility="{Binding NotHaveComment}">
+                                                <TextBlock Text="조건" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                                                <TextBlock Text="{Binding ConditionString}" Margin="8,0,0,0"/>
+                                                <TextBlock Text="액션" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                                                <TextBlock Text="{Binding ActionsString}" Margin="8,0,0,0"/>
+                                            </StackPanel>
+                                        </StackPanel>
+                                    </Border>
+                                </junglecontrols:LazyControl>
+                            </DataTemplate>
+                        </ListBox.ItemTemplate>
                     </ListBox>
                 </DockPanel>
             </DockPanel>

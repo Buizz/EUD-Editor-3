@@ -193,6 +193,87 @@ Public Class TriggerCodeBlock
 
 
 
+    Public Function GetEditorText(_scripter As ScriptEditor) As String
+        Dim rstr As String = ""
+
+        '함수를 재정렬하여 쓴다.
+        Dim t As TriggerFunction = GetCodeFunction(_scripter)
+        Dim isCmpTrigger As Boolean
+        Dim IsEmpty As Boolean = False
+
+        If t Is Nothing Then
+            rstr = rstr & FName & vbCrLf & "존재하지 않거나 참조할 수 없는 함수입니다."
+
+            '없는 함수
+            '그냥 인자들만 출력시킨다.
+            isCmpTrigger = False
+            IsEmpty = True
+        Else
+            isCmpTrigger = t.IsCmpTrigger
+        End If
+
+        LoadArgText(_scripter)
+
+        If isCmpTrigger Then
+            If t.SortArgList.Count = 0 Then
+                If Not IsEmpty Then
+                    If t.FSummary = "" Then
+                        rstr = rstr & t.FName
+                    Else
+                        rstr = rstr & t.FSummary
+                    End If
+                End If
+            Else
+                '트리거
+                For i = 0 To t.SortArgList.Count - 1
+                    Dim tstr As String = t.SortArgList(i)
+
+                    If TriggerFunction.IsArg(tstr) Then
+                        'Arg텍스트
+                        Dim tindex As Integer = TriggerFunction.GetArgIndex(tstr)
+
+                        rstr = rstr & "[" & LoadedArgString(tindex) & "]"
+                    Else
+                        rstr = rstr & tstr
+                    End If
+                Next
+            End If
+
+
+        Else
+            '인자들만 나열
+            If True Then
+                '설명
+                If t IsNot Nothing Then
+                    If t.FSummary <> "" Then
+                        If Not IsEmpty Then
+                            rstr = rstr & t.FSummary
+                        End If
+
+                    Else
+                        If Not IsEmpty Then
+                            rstr = rstr & t.FName
+                        End If
+                    End If
+                End If
+            End If
+
+            '인자들을 나열한다.
+            For i = 0 To Args.Count - 1
+                'Arg텍스트
+                rstr = rstr & "[" & LoadedArgString(i) & "]"
+            Next
+        End If
+
+        If rstr = "" Then
+            If t IsNot Nothing Then
+                rstr = rstr & t.FName
+            End If
+        End If
+
+        Return rstr
+    End Function
+
 
 
 

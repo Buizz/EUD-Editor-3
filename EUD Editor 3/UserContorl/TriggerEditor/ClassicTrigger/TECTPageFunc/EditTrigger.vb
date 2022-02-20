@@ -7,7 +7,7 @@
     Public Sub EditTrigger()
         If TListBox.SelectedItem IsNot Nothing Then
 
-            Dim trg As Trigger = GetTrg(TListBox.SelectedItem)
+            Dim trg As Trigger = TListBox.SelectedItem
             Dim listboxindex As Integer = TListBox.SelectedIndex
 
 
@@ -41,7 +41,7 @@
 
                                                       edittrg.CopyTo(trg)
                                                       'trg를 수정한다.
-                                                      GetTrgBlock(TListBox.SelectedItem).Refresh()
+                                                      'GetTrgBlock(TListBox.SelectedItem).Refresh()
 
                                                       PlayerListReset()
 
@@ -52,7 +52,7 @@
                                                               If trg.PlayerEnabled(i) Then
                                                                   If CurrentPage <> i Then
                                                                       PlayerList.SelectedIndex = i
-                                                                      RefreshTriggerPage()
+                                                                      'RefreshTriggerPage()
                                                                   End If
                                                                   Exit For
                                                               End If

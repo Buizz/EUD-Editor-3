@@ -8,8 +8,21 @@
 
         Dim targindex As Integer = argIndex
         AddHandler tBtn.Click, Sub(sender As Button, e As RoutedEventArgs)
-                                   Dim pos As Point = tBtn.PointToScreen(New Point(0, 0))
+                                   'Dim pos As Point = tBtn.TransformToAncestor(tBtn).Transform(New Point(0, 0))
+
+
+
+                                   'Dim pos As Point = tBtn.TranslatePoint(New Point(0, 0), Me.Parent)
+
+
                                    'TriggerArgsIndex = targindex
+
+                                   Dim factor As Double = System.Windows.PresentationSource.FromVisual(tBtn).CompositionTarget.TransformToDevice.M11
+
+
+                                   Dim pos As Point = tBtn.PointToScreen(New Point(0, 0))
+                                   pos = New Point(pos.X / factor, pos.Y / factor)
+
 
                                    'Dim ArgChanger As New TriggerEditValueSelecterWindow(tCode, argIndex, pos)
 

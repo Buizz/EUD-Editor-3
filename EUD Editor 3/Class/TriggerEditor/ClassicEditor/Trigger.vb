@@ -10,6 +10,9 @@ Public Class Trigger
 
 
     <NonSerialized>
+    Public parentscripter As ScriptEditor
+
+    <NonSerialized>
     Public StartLine As Integer = -1
     <NonSerialized>
     Public EndLine As Integer = -1
@@ -30,7 +33,63 @@ Public Class Trigger
 
 
     '트리거의 별칭(주석)
-    Public CommentStr As String
+    Public Property CommentString As String
+
+
+    Public ReadOnly Property HaveComment As System.Windows.Visibility
+        Get
+            If String.IsNullOrEmpty(CommentString) Then
+                Return System.Windows.Visibility.Collapsed
+            Else
+                Return System.Windows.Visibility.Visible
+            End If
+        End Get
+    End Property
+
+    Public ReadOnly Property NotHaveComment As System.Windows.Visibility
+        Get
+            If String.IsNullOrEmpty(CommentString) Then
+                Return System.Windows.Visibility.Visible
+            Else
+                Return System.Windows.Visibility.Collapsed
+            End If
+        End Get
+    End Property
+
+
+    Public ReadOnly Property ConditionString As String
+        Get
+            Dim rstr As String = ""
+
+            For Each item In Condition
+                If rstr <> "" Then
+                    rstr = rstr & vbCrLf & item.GetEditorText(parentscripter)
+                Else
+                    rstr = rstr & item.GetEditorText(parentscripter)
+                End If
+            Next
+
+            Return rstr
+        End Get
+    End Property
+
+
+    Public ReadOnly Property ActionsString As String
+        Get
+            Dim rstr As String = ""
+
+            For Each item In Actions
+                If rstr <> "" Then
+                    rstr = rstr & vbCrLf & item.GetEditorText(parentscripter)
+                Else
+                    rstr = rstr & item.GetEditorText(parentscripter)
+                End If
+            Next
+
+            Return rstr
+        End Get
+    End Property
+
 
 
     Public IsEnabled As Boolean = True
@@ -193,7 +252,7 @@ Public Class Trigger
             toTrg.PlayerEnabled(i) = PlayerEnabled(i)
         Next
 
-        toTrg.CommentStr = CommentStr
+        toTrg.CommentString = CommentString
 
 
         toTrg.Condition.Clear()

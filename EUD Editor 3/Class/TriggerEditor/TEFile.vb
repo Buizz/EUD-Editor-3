@@ -124,7 +124,10 @@ Public Class TEFile
 
     Public Sub LoadInit()
         If FileType = EFileType.GUIEps Then
-            CType(Scripter, GUIScriptEditor).LoadInit
+            CType(Scripter, GUIScriptEditor).LoadInit()
+
+        ElseIf FileType = EFileType.ClassicTrigger Then
+            CType(Scripter, ClassicTriggerEditor).LoadInit()
         Else
             For i = 0 To FileCount - 1
                 Files(i).LoadInit()

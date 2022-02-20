@@ -47,7 +47,7 @@ function SetUpgrade(Upgrade, Player, Modifier, Amount) --업그레이드/Upgrade
     	if IsNumber(Amount) then
     		rstr = string.format("SetMemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Modifier, Amount * math.pow(256, Mod), Mask)
     	else
-			rstr = string.format("MemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Modifier, Amount .. " * " .. math.pow(256, Mod), Mask)
+			rstr = string.format("MemoryXEPD(EPD(0x%X), %s, %s, %s)", ROffset, Modifier, Amount .. " * " .. math.pow(256, Mod), Mask)
     	end
 
 	else

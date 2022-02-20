@@ -55,7 +55,7 @@ Partial Public Class TECTPage
         Dim InsertPos As Integer = -1
 
         If TListBox.SelectedIndex <> -1 Then
-            Dim SelectList As New List(Of ListBoxItem)
+            Dim SelectList As New List(Of Trigger)
             For Each sitem In TListBox.SelectedItems
                 SelectList.Add(sitem)
             Next
@@ -67,8 +67,9 @@ Partial Public Class TECTPage
         End If
 
 
-        TListBox.SelectedIndex = -1
+        'TListBox.SelectedIndex = -1
 
+        'TListBox.SelectedItems.Clear()
 
 
         PlayerListReset()
@@ -89,32 +90,42 @@ Partial Public Class TECTPage
 
 
 
-            Dim cp As Integer = GetPlayerListIndex()
+            'Dim cp As Integer = GetPlayerListIndex()
 
-            Dim ViewPlayer As Boolean = trg.PlayerEnabled(cp)
+
+
+            'Dim ViewPlayer As Boolean
+            'If cp = -1 Then
+            '    ViewPlayer = False
+            'Else
+            '    ViewPlayer = trg.PlayerEnabled(cp)
+            'End If
+
+
             '플레이어가 해당 페이지에 있는지 없는지 여부
 
 
 
 
             Dim NTrigger As Trigger = trg.DeepCopy
-            Dim tt As ListBoxItem = GetListItem(NTrigger)
+            'Dim tt As ListBoxItem = GetListItem(NTrigger)
             pjData.SetDirty(True)
 
             If InsertPos = -1 Then
-                Scripter.TriggerList.Add(NTrigger)
+                Scripter.TriggerListCollection.Add(NTrigger)
 
-                If ViewPlayer Then
-                    TListBox.Items.Add(tt)
-                End If
+                'If ViewPlayer Then
+                '    TListBox.Items.Add(tt)
+                'End If
             Else
-                Scripter.TriggerList.Insert(InsertPos + 1, NTrigger)
+                Scripter.TriggerListCollection.Insert(InsertPos + 1, NTrigger)
 
-                If ViewPlayer Then
-                    TListBox.Items.Insert(InsertPos + 1, tt)
-                End If
+                'If ViewPlayer Then
+                '    TListBox.Items.Insert(InsertPos + 1, tt)
+                'End If
             End If
-            tt.IsSelected = True
+            TListBox.SelectedItems.Add(NTrigger)
+
         Next
 
 

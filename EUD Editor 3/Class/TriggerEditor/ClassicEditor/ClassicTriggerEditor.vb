@@ -1,5 +1,6 @@
 ﻿
 
+Imports System.Collections.ObjectModel
 Imports System.Text
 
 <Serializable>
@@ -7,8 +8,14 @@ Public Class ClassicTriggerEditor
     Inherits ScriptEditor
 
 
+
+
     '모든 트리거가 모여있음
-    Public TriggerList As New List(Of Trigger)
+    Public TriggerListCollection As New ObservableCollection(Of Trigger)
+
+
+    '모든 트리거가 모여있음
+    Public TriggerList As List(Of Trigger)
 
 
     '임포트된 파일들 모음
@@ -16,6 +23,24 @@ Public Class ClassicTriggerEditor
 
     Public Sub RefreshData()
         ImportFileRefresh()
+    End Sub
+
+
+    Public Sub LoadInit()
+        If TriggerListCollection Is Nothing Then
+            TriggerListCollection = New ObservableCollection(Of Trigger)
+            '아무것도 없을 경우 구버전이므로 콜랙션으로 업데이트 해준다.
+            For Each item In TriggerList
+                TriggerListCollection.Add(item)
+            Next
+
+
+            TriggerList = Nothing
+        End If
+
+        For Each item In TriggerListCollection
+            item.parentscripter = Me
+        Next
     End Sub
 
 

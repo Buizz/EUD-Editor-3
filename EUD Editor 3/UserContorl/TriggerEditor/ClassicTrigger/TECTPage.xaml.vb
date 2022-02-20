@@ -46,19 +46,22 @@ Public Class TECTPage
     End Sub
 
 
-
+    Dim IsPlayerListChange As Boolean = False
     Public Sub PlayerListReset()
 
         Dim PlayerFlag(7) As Boolean
         Dim TriggerCount(7) As Integer
 
         Dim LastSelect As Integer = GetPlayerListIndex()
+
+        'PlayerList_SelectionChanged
+        IsPlayerListChange = True
         PlayerList.Items.Clear()
 
-        For i = 0 To Scripter.TriggerList.Count - 1
-            For j = 0 To Scripter.TriggerList(i).PlayerEnabled.Count - 1
-                If Scripter.TriggerList(i).PlayerEnabled(j) Then
-                    PlayerFlag(j) = Scripter.TriggerList(i).PlayerEnabled(j)
+        For i = 0 To Scripter.TriggerListCollection.Count - 1
+            For j = 0 To Scripter.TriggerListCollection(i).PlayerEnabled.Count - 1
+                If Scripter.TriggerListCollection(i).PlayerEnabled(j) Then
+                    PlayerFlag(j) = Scripter.TriggerListCollection(i).PlayerEnabled(j)
                     TriggerCount(j) += 1
                 End If
             Next
@@ -78,6 +81,7 @@ Public Class TECTPage
         Next
 
         SetPlayerListIndex(LastSelect)
+        IsPlayerListChange = False
     End Sub
     Public Function GetPlayerListIndex() As Integer
         If PlayerList.SelectedItem IsNot Nothing Then
@@ -98,6 +102,7 @@ Public Class TECTPage
             End If
         Next
         If PlayerList.Items.Count <> 0 Then
+            IsPlayerListChange = False
             PlayerList.SelectedIndex = 0
         End If
     End Sub
@@ -111,7 +116,10 @@ Public Class TECTPage
 
         PlayerListReset()
         SetPlayerListIndex(0)
+
+        '트리거 리셋하는 페이지
         RefreshTriggerPage()
+
 
         GlobalPanel.Visibility = Visibility.Collapsed
         ImportPanel.Visibility = Visibility.Collapsed
@@ -165,17 +173,17 @@ Public Class TECTPage
             Dim myHeightAnimation As DoubleAnimation = New DoubleAnimation()
             myHeightAnimation.From = 0.5
             myHeightAnimation.To = 1.0
-            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
+            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
 
             Dim myWidthAnimation As DoubleAnimation = New DoubleAnimation()
             myWidthAnimation.From = 0.5
             myWidthAnimation.To = 1.0
-            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
+            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
 
             Dim myOpacityAnimation As DoubleAnimation = New DoubleAnimation()
             myOpacityAnimation.From = 0.0
             myOpacityAnimation.To = 1.0
-            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
+            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
 
             OpenStroyBoard = New Storyboard()
             OpenStroyBoard.Children.Add(myOpacityAnimation)
@@ -199,17 +207,17 @@ Public Class TECTPage
             Dim myHeightAnimation As DoubleAnimation = New DoubleAnimation()
             myHeightAnimation.From = 1.0
             myHeightAnimation.To = 0.5
-            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
+            myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
 
             Dim myWidthAnimation As DoubleAnimation = New DoubleAnimation()
             myWidthAnimation.From = 1.0
             myWidthAnimation.To = 0.5
-            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
+            myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
 
             Dim myOpacityAnimation As DoubleAnimation = New DoubleAnimation()
             myOpacityAnimation.From = 1.0
             myOpacityAnimation.To = 0.0
-            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
+            myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(50))
 
             CloseStroyBoard = New Storyboard()
             CloseStroyBoard.Children.Add(myOpacityAnimation)
@@ -265,6 +273,10 @@ Public Class TECTPage
     End Sub
 
     Private Sub PlayerList_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If IsPlayerListChange Then
+            Return
+        End If
+        RefershPlayerFliter()
         RefreshTriggerPage()
     End Sub
 

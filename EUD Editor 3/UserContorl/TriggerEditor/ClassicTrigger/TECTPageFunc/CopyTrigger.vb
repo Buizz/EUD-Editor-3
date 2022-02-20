@@ -10,7 +10,7 @@ Partial Public Class TECTPage
         '바로 복사해서 붙여넣는다.
 
         If TListBox.SelectedItem IsNot Nothing Then
-            Dim SelectList As New List(Of ListBoxItem)
+            Dim SelectList As New List(Of Trigger)
             For Each sitem In TListBox.SelectedItems
                 SelectList.Add(sitem)
             Next
@@ -22,7 +22,7 @@ Partial Public Class TECTPage
 
             Dim Triggers As New List(Of Trigger)
             For i = 0 To SelectList.Count - 1
-                Triggers.Add(GetTrg(SelectList(i)))
+                Triggers.Add(SelectList(i))
             Next
 
 

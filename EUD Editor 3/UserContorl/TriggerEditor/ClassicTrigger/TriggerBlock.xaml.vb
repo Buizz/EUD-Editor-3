@@ -20,8 +20,8 @@ Public Class TriggerBlock
         TriggerEnabledCB.IsChecked = trg.IsEnabled
         TriggerPreservedCB.IsChecked = trg.IsPreserved
 
-        If trg.CommentStr <> "" Then
-            CommentTB.Text = trg.CommentStr
+        If trg.CommentString <> "" Then
+            CommentTB.Text = trg.CommentString
             CommentTB.Visibility = Visibility.Visible
             ContentPanel.Visibility = Visibility.Collapsed
         Else

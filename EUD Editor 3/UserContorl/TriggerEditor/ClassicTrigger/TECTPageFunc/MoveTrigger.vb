@@ -1,34 +1,35 @@
 ﻿Partial Public Class TECTPage
-    Private Sub MoveItem(Item As ListBoxItem, MoveCount As Integer)
-        Dim trg As Trigger = GetTrg(Item)
+    Private Sub MoveItem(Item As Trigger, MoveCount As Integer)
+        Dim trg As Trigger = Item
 
         Dim cindex As Integer = TListBox.Items.IndexOf(Item)
-        Dim ctriggerindex As Integer = Scripter.TriggerList.IndexOf(trg)
+        Dim ctriggerindex As Integer = Scripter.TriggerListCollection.IndexOf(trg)
 
 
         Dim cTargetindex As Integer = cindex + MoveCount
-        Dim Targettrg As Trigger = GetTrg(TListBox.Items(cTargetindex))
-        Dim cTargettriggerindex As Integer = Scripter.TriggerList.IndexOf(Targettrg)
+        Dim Targettrg As Trigger = TListBox.Items(cTargetindex)
+        Dim cTargettriggerindex As Integer = Scripter.TriggerListCollection.IndexOf(Targettrg)
 
 
 
 
 
 
-        TListBox.Items.RemoveAt(cindex)
-        Scripter.TriggerList.RemoveAt(ctriggerindex)
+        'TListBox.Items.RemoveAt(cindex)
+        Scripter.TriggerListCollection.RemoveAt(ctriggerindex)
 
 
-        TListBox.Items.Insert(cTargetindex, Item)
-        Scripter.TriggerList.Insert(cTargettriggerindex, trg)
+        'TListBox.Items.Insert(cTargetindex, Item)
+        Scripter.TriggerListCollection.Insert(cTargettriggerindex, trg)
 
-        Item.IsSelected = True
+        TListBox.SelectedItems.Add(Item)
+        'Item.IsSelected = True
     End Sub
 
 
     Private Sub TriggerUpBtn_Click(sender As Object, e As RoutedEventArgs)
         If TListBox.SelectedItem IsNot Nothing Then
-            Dim SelectList As New List(Of ListBoxItem)
+            Dim SelectList As New List(Of Trigger)
             For Each sitem In TListBox.SelectedItems
                 SelectList.Add(sitem)
             Next
@@ -65,7 +66,7 @@
 
     Private Sub TriggerDownBtn_Click(sender As Object, e As RoutedEventArgs)
         If TListBox.SelectedItem IsNot Nothing Then
-            Dim SelectList As New List(Of ListBoxItem)
+            Dim SelectList As New List(Of Trigger)
             For Each sitem In TListBox.SelectedItems
                 SelectList.Add(sitem)
             Next

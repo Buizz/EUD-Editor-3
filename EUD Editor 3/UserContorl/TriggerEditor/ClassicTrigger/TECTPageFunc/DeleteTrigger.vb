@@ -8,7 +8,7 @@
             pjData.SetDirty(True)
             Dim listboxindex As Integer = TListBox.SelectedIndex
 
-            Dim SelectedItems As New List(Of ListBoxItem)
+            Dim SelectedItems As New List(Of Trigger)
 
             For Each sitem In TListBox.SelectedItems
                 SelectedItems.Add(sitem)
@@ -16,10 +16,10 @@
 
 
             For Each sitem In SelectedItems
-                Dim trg As Trigger = GetTrg(sitem)
+                Dim trg As Trigger = sitem
 
-                Scripter.TriggerList.Remove(trg)
-                TListBox.Items.Remove(sitem)
+                Scripter.TriggerListCollection.Remove(trg)
+                'TListBox.Items.Remove(sitem)
             Next
 
 
