@@ -119,8 +119,8 @@ Public Class ClassicTriggerEditor
 
 
     Public Function GetLine(bLine As Integer) As Integer
-        For i = 0 To TriggerList.Count - 1
-            Dim trg As Trigger = TriggerList(i)
+        For i = 0 To TriggerListCollection.Count - 1
+            Dim trg As Trigger = TriggerListCollection(i)
             If trg.StartLine <= bLine And bLine < trg.EndLine Then
                 Return i
             End If
@@ -199,12 +199,12 @@ Public Class ClassicTriggerEditor
             playerTrigger.Add(i, New List(Of Trigger))
         Next
 
-        For i = 0 To TriggerList.Count - 1
+        For i = 0 To TriggerListCollection.Count - 1
             For p = 0 To 7
-                If TriggerList(i).PlayerEnabled(p) Then
-                    TriggerList(i).StartLine = -1
-                    TriggerList(i).EndLine = -1
-                    playerTrigger(p).Add(TriggerList(i))
+                If TriggerListCollection(i).PlayerEnabled(p) Then
+                    TriggerListCollection(i).StartLine = -1
+                    TriggerListCollection(i).EndLine = -1
+                    playerTrigger(p).Add(TriggerListCollection(i))
                 End If
             Next
         Next

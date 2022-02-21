@@ -24,7 +24,7 @@ Public Class TECTPage
         If index = -1 Then
             Return
         End If
-        Dim trg As Trigger = Scripter.TriggerList(index)
+        Dim trg As Trigger = Scripter.TriggerListCollection(index)
 
         For i = 0 To 7
             If trg.PlayerEnabled(i) = True Then
@@ -34,10 +34,9 @@ Public Class TECTPage
         Next
 
         For i = 0 To TListBox.Items.Count - 1
-            Dim litem As ListBoxItem = TListBox.Items(i)
-            Dim tblock As TriggerBlock = litem.Content
+            Dim litem As Trigger = TListBox.Items(i)
 
-            If trg Is tblock.trg Then
+            If trg Is litem Then
                 TListBox.SelectedIndex = i
                 EditTrigger()
                 Return
