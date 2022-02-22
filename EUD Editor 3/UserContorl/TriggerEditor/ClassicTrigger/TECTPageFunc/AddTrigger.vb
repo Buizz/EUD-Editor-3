@@ -42,18 +42,18 @@
 
                                                   Scripter.TriggerListCollection.Add(NTrigger)
 
-                                                  For i = 0 To NTrigger.PlayerEnabled.Count - 1
-                                                      If NTrigger.PlayerEnabled(i) Then
-                                                          If CurrentPage <> i Then
-                                                              SetPlayerListIndex(i)
-                                                              RefreshTriggerPage()
-                                                          Else
-                                                              TListBox.Items.Add(GetListItem(NTrigger))
-                                                              TListBox.SelectedIndex = TListBox.Items.Count - 1
-                                                          End If
-                                                          Exit For
-                                                      End If
-                                                  Next
+                                                  'For i = 0 To NTrigger.PlayerEnabled.Count - 1
+                                                  '    If NTrigger.PlayerEnabled(i) Then
+                                                  '        If CurrentPage <> i Then
+                                                  '            SetPlayerListIndex(i)
+                                                  '            RefreshTriggerPage()
+                                                  '        Else
+                                                  '            TListBox.Items.Add(GetListItem(NTrigger))
+                                                  '            TListBox.SelectedIndex = TListBox.Items.Count - 1
+                                                  '        End If
+                                                  '        Exit For
+                                                  '    End If
+                                                  'Next
 
 
 
