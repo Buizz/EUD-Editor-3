@@ -14,7 +14,7 @@
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         scripter = _scripter
         ptrg = trg
-        CommentTB.Text = ptrg.CommentString
+        CommentTB.Text = ptrg.CommentStringProperty
 
         For Each cb As CheckBox In PlayerTab.Children
             Dim cbtag As Integer = cb.Tag
@@ -85,7 +85,7 @@
 
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        ptrg.CommentString = CommentTB.Text
+        ptrg.CommentStringProperty = CommentTB.Text
 
 
         RaiseEvent OkayBtnEvent(sender, e)

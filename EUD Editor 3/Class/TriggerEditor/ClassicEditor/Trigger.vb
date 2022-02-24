@@ -58,12 +58,24 @@ Public Class Trigger
 
 
     '트리거의 별칭(주석)
-    Public Property CommentString As String
+    Public Property CommentStringProperty As String
+        Get
+            Return CommentString
+        End Get
+        Set(value As String)
+            CommentString = value
+        End Set
+    End Property
+
+
+
+    Public CommentString As String
+
 
 
     Public ReadOnly Property HaveComment As System.Windows.Visibility
         Get
-            If String.IsNullOrEmpty(CommentString) Then
+            If String.IsNullOrEmpty(CommentStringProperty) Then
                 Return System.Windows.Visibility.Collapsed
             Else
                 Return System.Windows.Visibility.Visible
@@ -73,7 +85,7 @@ Public Class Trigger
 
     Public ReadOnly Property NotHaveComment As System.Windows.Visibility
         Get
-            If String.IsNullOrEmpty(CommentString) Then
+            If String.IsNullOrEmpty(CommentStringProperty) Then
                 Return System.Windows.Visibility.Visible
             Else
                 Return System.Windows.Visibility.Collapsed
@@ -142,7 +154,7 @@ Public Class Trigger
     Public Sub PropertyChangeAll()
         OnPropertyChanged("_IsEnabled")
         OnPropertyChanged("_IsPreserved")
-        OnPropertyChanged("CommentString")
+        OnPropertyChanged("CommentStringProperty")
         OnPropertyChanged("HaveComment")
         OnPropertyChanged("NotHaveComment")
         OnPropertyChanged("ConditionString")
@@ -310,7 +322,7 @@ Public Class Trigger
             toTrg.PlayerEnabled(i) = PlayerEnabled(i)
         Next
 
-        toTrg.CommentString = CommentString
+        toTrg.CommentStringProperty = CommentStringProperty
         toTrg.parentscripter = parentscripter
 
         toTrg.Condition.Clear()
