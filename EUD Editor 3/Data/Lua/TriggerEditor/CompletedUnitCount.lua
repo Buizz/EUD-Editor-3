@@ -32,10 +32,10 @@ function SetCompletedUnitCount(Unit, Player, Modifier, Amount)
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
     Unit = ParseUnit(Unit)
-    OffsetEPD = CompletedUnitCountEPD(Unit, Player)
+    OffsetEPD = CompletedUnitCountEPD(0, Player)
 
 
-	echo(string.format("SetMemoryEPD(%s, %s, %s)", OffsetEPD, Modifier, Amount))
+	echo(string.format("SetDeaths(%s, %s, %s, %s)", OffsetEPD, Modifier, Amount, Unit))
 end
 
 --[================================[
