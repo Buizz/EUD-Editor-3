@@ -26,6 +26,18 @@ P9 = {__trg_magic="trgconst"}
 P10 = {__trg_magic="trgconst"}
 P11 = {__trg_magic="trgconst"}
 P12 = {__trg_magic="trgconst"}
+Player1 = {__trg_magic="trgconst"}
+Player2 = {__trg_magic="trgconst"}
+Player3 = {__trg_magic="trgconst"}
+Player4 = {__trg_magic="trgconst"}
+Player5 = {__trg_magic="trgconst"}
+Player6 = {__trg_magic="trgconst"}
+Player7 = {__trg_magic="trgconst"}
+Player8 = {__trg_magic="trgconst"}
+Player9 = {__trg_magic="trgconst"}
+Player10 = {__trg_magic="trgconst"}
+Player11 = {__trg_magic="trgconst"}
+Player12 = {__trg_magic="trgconst"}
 CurrentPlayer = {__trg_magic="trgconst"}
 Foes = {__trg_magic="trgconst"}
 Allies = {__trg_magic="trgconst"}
@@ -93,6 +105,18 @@ local PlayerDict = {
     [P11] =  10,
     [P12] =  11,
     [CurrentPlayer] =  "getcurpl()",
+    [Player1] =  0,
+    [Player2] =  1,
+    [Player3] =  2,
+    [Player4] =  3,
+    [Player5] =  4,
+    [Player6] =  5,
+    [Player7] =  6,
+    [Player8] =  7,
+    [Player9] =  8,
+    [Player10] =  9,
+    [Player11] =  10,
+    [Player12] =  11,
     [Foes] =  14,
     [Allies] =  15,
     [NeutralPlayers] =  16,
