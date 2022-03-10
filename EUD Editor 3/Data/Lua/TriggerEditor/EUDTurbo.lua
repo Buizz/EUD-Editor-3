@@ -13,5 +13,5 @@ EUDTurbo를 사용합니다.
 일반
 ]================================]
 function EUDTurbo()
-	echo("SetMemoryEPD(EPD(0x6509A0), SetTo, 0)")
+	echo("dwwrite(0x6509A0, 0)")
 end
