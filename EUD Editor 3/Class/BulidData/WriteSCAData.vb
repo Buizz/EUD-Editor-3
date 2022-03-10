@@ -183,43 +183,41 @@ Partial Public Class BuildData
             sb.AppendLine("import " & NameSapces(i) & " as n" & i & ";")
         Next
         sb.AppendLine("")
-        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");//workspace")
+        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");  // workspace")
         'sb.AppendLine("const ws = 0x58F44A;")
-        sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";//EntryPointLength")
-        sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";//DataBufferSize")
-        sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";//ObjectCount")
+        sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";  // EntryPointLength")
+        sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";  // DataBufferSize")
+        sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";  // ObjectCount")
 
 
         sb.AppendLine("")
-        sb.AppendLine("function Init(){")
+        sb.AppendLine("function Init() {")
         sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
         sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', py_open('scadatafile', 'rb').read());")
-        sb.AppendLine("    //EntryPoint")
+        sb.AppendLine("    DoActions(list(  // EntryPoint")
         For i = 0 To EntryPoint.Count - 1
-            'sb.AppendLine("    dwwrite_epd(EPD(ws) + " & i & ", " & 98761234 & ");")
-            sb.AppendLine("    dwwrite_epd(EPD(ws) + " & i & ", " & EntryPoint(i) & ");")
+            sb.AppendLine("        SetMemory(ws + " & 4*i & ", SetTo, " & EntryPoint(i) & "),")
         Next
 
-        sb.AppendLine("    ")
+        sb.AppendLine("    ));")
         sb.AppendLine("}")
         sb.AppendLine("")
-        sb.AppendLine("")
-        sb.AppendLine("function Exec(){")
+        sb.AppendLine("function Exec() {")
         sb.AppendLine("    Init();")
-
-        'sb.AppendLine("    const s = StringBuffer();")
-        'sb.AppendLine("    s.print(""asf"", dwread_epd(EPD(ws) + EntryPointLength));")
         sb.AppendLine("}")
         sb.AppendLine("")
-        sb.AppendLine("")
 
-        sb.AppendLine("function ResetValue(tagNum, index){")
+        sb.AppendLine("function ResetValue(tagNum, index) {")
         sb.AppendLine("    const cp = getcurpl();")
-        sb.AppendLine("    switch(tagNum){")
+        sb.AppendLine("    const ResetArray = function(alen, epd) {")
+        sb.AppendLine("        for (var i = 0 ; i < alen ; i++) {")
+        sb.AppendLine("            dwwrite_epd(epd + i, 0);")
+        sb.AppendLine("        }")
+        sb.AppendLine("    };")
+        sb.AppendLine("    switch (tagNum) {")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
-            sb.AppendLine("    {")
 
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable
@@ -228,11 +226,9 @@ Partial Public Class BuildData
                     names = names.Split(".").First
                     names = names.Replace("\", ".")
                     sb.AppendLine("        n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[cp] = 0;")
-                    sb.AppendLine("        break;")
                 Case StarCraftArchive.CodeData.CodeType.Deaths
                     '데스값 p, Setto, 0, Unit
                     sb.AppendLine("        SetDeaths(CurrentPlayer, SetTo, 0, " & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & ");")
-                    sb.AppendLine("        break;")
                 Case StarCraftArchive.CodeData.CodeType.Array
                     '배열
                     Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
@@ -242,31 +238,26 @@ Partial Public Class BuildData
                     Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
 
                     sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
-                    sb.AppendLine("        for(var i = 0 ; i < alen; i++){")
-                    sb.AppendLine("            " & arrayname & "[alen * cp + i] = 0;")
-                    sb.AppendLine("        }")
+                    sb.AppendLine("        const aepd = alen * cp + EPD(" & arrayname & ");")
+                    sb.AppendLine("        ResetArray(alen, aepd);")
 
-                    sb.AppendLine("        break;")
             End Select
-
-            sb.AppendLine("    }")
+            sb.AppendLine("        break;")
         Next
 
         sb.AppendLine("    }")
         sb.AppendLine("}")
 
         sb.AppendLine("")
-        sb.AppendLine("")
-        sb.AppendLine("function SaveValue(tagNum, Value, index){")
+        sb.AppendLine("function SaveValue(tagNum, Value, index) {")
         sb.AppendLine("    const cp = getcurpl();")
 
 
 
-        sb.AppendLine("    switch(tagNum){")
+        sb.AppendLine("    switch (tagNum) {")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
-            sb.AppendLine("    {")
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable
                     '변수
@@ -274,11 +265,9 @@ Partial Public Class BuildData
                     names = names.Split(".").First
                     names = names.Replace("\", ".")
                     sb.AppendLine("        n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName & "[cp] = Value;")
-                    sb.AppendLine("        break;")
                 Case StarCraftArchive.CodeData.CodeType.Deaths
                     '데스값 p, Setto, 0, Unit
                     sb.AppendLine("        SetDeaths(CurrentPlayer, SetTo, Value, " & pjData.TEData.SCArchive.CodeDatas(i).ValueIndex & ");")
-                    sb.AppendLine("        break;")
                 Case StarCraftArchive.CodeData.CodeType.Array
                     '배열
                     Dim names As String = pjData.TEData.SCArchive.CodeDatas(i).NameSpaceName
@@ -289,24 +278,73 @@ Partial Public Class BuildData
 
                     sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
                     sb.AppendLine("        " & arrayname & "[alen * cp + index] = Value;")
-                    sb.AppendLine("        break;")
             End Select
-            sb.AppendLine("    }")
+            sb.AppendLine("        break;")
         Next
 
         sb.AppendLine("    }")
         sb.AppendLine("}")
         sb.AppendLine("")
-        sb.AppendLine("")
         '저장시 메모리에 tagNum을 적는다. 리턴값으로는 전진한 만큼을 기록한다.
-        sb.AppendLine("function SaveDataWriteValue(tagNum, BaseAddress, index){")
+        sb.AppendLine("function SaveDataWriteValue(tagNum, BaseAddress, index) {")
         sb.AppendLine("    const cp = getcurpl();")
-        sb.AppendLine("    var rvalue = 0;")
-        sb.AppendLine("    switch(tagNum){")
+        sb.AppendLine("    const indexQ = BaseAddress + index / 2;")
+        sb.AppendLine("    var indexR, rvalue = 0, 0;")
+        sb.AppendLine("    Trigger(index.ExactlyX(1, 1), indexR.SetNumber(2));")
+        sb.AppendLine("    const AdvanceIndex = function() {")
+        sb.AppendLine("        SetVariables(list(index, indexR), list(1, 2), list(Add, Add));")
+        sb.AppendLine("        Trigger(indexR.AtLeast(4), list(indexR.SetNumber(0), indexQ.AddNumber(1)));")
+        sb.AppendLine("    };")
+        sb.AppendLine("")
+        sb.AppendLine("    const SaveArray = function(alen, epd) {")
+        sb.AppendLine("        for (var i = 0 ; i < alen ; i++) {")
+        sb.AppendLine("            const objValue = dwread_epd(epd + i);")
+        sb.AppendLine("            EUDContinueIf(objValue == 0);")
+        sb.AppendLine("            rvalue += objValue;")
+        sb.AppendLine("            if (objValue > 0xFFFF) {")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, 0x3000 + tagNum);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, i);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("                const objQ, objR = div(objValue, 0x10000);")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, objQ);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, objR);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("            } else {")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, 0x4000 + tagNum);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, i);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("                wwrite_epd(indexQ, indexR, objValue);")
+        sb.AppendLine("                AdvanceIndex();")
+        sb.AppendLine("            }")
+        sb.AppendLine("        }")
+        sb.AppendLine("    };")
+        sb.AppendLine("")
+        sb.AppendLine("    const SaveDCV = function(objValue) {")
+        sb.AppendLine("        if (objValue == 0) return;")
+        sb.AppendLine("        rvalue += objValue;")
+        sb.AppendLine("        if (objValue > 0xFFFF) {")
+        sb.AppendLine("            wwrite_epd(indexQ, indexR, 0x1000 + tagNum);")
+        sb.AppendLine("            AdvanceIndex();")
+        sb.AppendLine("            const objQ, objR = div(objValue, 0x10000);")
+        sb.AppendLine("            wwrite_epd(indexQ, indexR, objQ);")
+        sb.AppendLine("            AdvanceIndex();")
+        sb.AppendLine("            wwrite_epd(indexQ, indexR, objR);")
+        sb.AppendLine("            AdvanceIndex();")
+        sb.AppendLine("        } else {")
+        sb.AppendLine("            wwrite_epd(indexQ, indexR, 0x2000 + tagNum);")
+        sb.AppendLine("            AdvanceIndex();")
+        sb.AppendLine("            wwrite_epd(indexQ, indexR, objValue);")
+        sb.AppendLine("            AdvanceIndex();")
+        sb.AppendLine("         }")
+        sb.AppendLine("    };")
+        sb.AppendLine("")
+        sb.AppendLine("    switch (tagNum) {")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             sb.AppendLine("    case " & i & ":")
-            sb.AppendLine("        {")
 
 
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
@@ -329,58 +367,18 @@ Partial Public Class BuildData
                     Dim arrayname As String = "n" & NameSapces.IndexOf(names) & "." & pjData.TEData.SCArchive.CodeDatas(i).ValueName
 
                     sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
-                    sb.AppendLine("        for(var i = 0 ; i < alen ; i ++){")
-                    sb.AppendLine("            const objValue = " & arrayname & "[alen * cp + i];")
-                    sb.AppendLine("            rvalue += objValue;")
-                    sb.AppendLine("            if(objValue != 0){")
-                    sb.AppendLine("                if (objValue > 0xFFFF){")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x3000 + tagNum);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, i);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue / 0x10000);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue % 0x10000);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                 }else{")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x4000 + tagNum);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, i);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                    wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue);")
-                    sb.AppendLine("                    index++;")
-                    sb.AppendLine("                 }")
-                    sb.AppendLine("            }")
-                    sb.AppendLine("        }")
+                    sb.AppendLine("        SaveArray(alen, alen * cp + EPD(" & arrayname & "));")
             End Select
 
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable, StarCraftArchive.CodeData.CodeType.Deaths
-                    sb.AppendLine("        rvalue += objValue;")
-                    sb.AppendLine("        if(objValue != 0){")
-                    sb.AppendLine("            if (objValue > 0xFFFF){")
-                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x1000 + tagNum);")
-                    sb.AppendLine("                index++;")
-                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue / 0x10000);")
-                    sb.AppendLine("                index++;")
-                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue % 0x10000);")
-                    sb.AppendLine("                index++;")
-                    sb.AppendLine("             }else{")
-                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, 0x2000 + tagNum);")
-                    sb.AppendLine("                index++;")
-                    sb.AppendLine("                wwrite_epd(BaseAddress + index / 2, (index % 2) * 2, objValue);")
-                    sb.AppendLine("                index++;")
-                    sb.AppendLine("             }")
-                    sb.AppendLine("         }")
+                    sb.AppendLine("        SaveDCV(objValue);")
             End Select
-            sb.AppendLine("        }")
             sb.AppendLine("        break;")
         Next
         sb.AppendLine("    }")
-        sb.AppendLine("    ")
         sb.AppendLine("    return index, rvalue;")
         sb.AppendLine("}")
-        sb.AppendLine("")
         sb.AppendLine("")
         '
         sb.AppendLine("function LoadDataReadValue(BaseAddress, i){")
@@ -411,7 +409,7 @@ Partial Public Class BuildData
         sb.AppendLine("   			i++;")
         sb.AppendLine("   			const value2 = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
         sb.AppendLine("   			value = value1 * 0x10000 + value2;")
-        sb.AppendLine("   		}else if (spec == 4){")
+        sb.AppendLine("   		} else if (spec == 4){")
         sb.AppendLine("   			//2바이트 지정")
         sb.AppendLine("   			i++;")
         sb.AppendLine("   			vindex = wread_epd(BaseAddress + i / 2, (i % 2) * 2);")
