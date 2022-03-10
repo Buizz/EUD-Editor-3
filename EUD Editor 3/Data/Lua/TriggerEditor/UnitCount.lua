@@ -24,10 +24,10 @@ function SetUnitCount(Unit, Player, Modifier, Amount) --일반/TrgUnit,TrgPlayer
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
     Unit = ParseUnit(Unit)
-    OffsetEPD = UnitCountEPD(Unit, Player)
+    OffsetEPD = UnitCountEPD(0, Player)
 
 
-	echo(string.format("SetMemoryEPD(%s, %s, %s)", OffsetEPD, Modifier, Amount))
+	echo(string.format("SetDeaths(%s, %s, %s, %s)", OffsetEPD, Modifier, Amount, Unit))
 end
 
 --[================================[
