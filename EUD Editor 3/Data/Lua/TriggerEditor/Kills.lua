@@ -32,10 +32,10 @@ function SetKills(Player, Modifier, Amount, Unit) --일반/TrgPlayer,TrgModifier
 	Player = ParsePlayer(Player)
     Modifier = ParseModifier(Modifier)
     Unit = ParseUnit(Unit)
-    OffsetEPD = KillsEPD(Unit, Player)
+    OffsetEPD = KillsEPD(0, Player)
 
 
-	echo(string.format("SetMemoryEPD(%s, %s, %s)", OffsetEPD, Modifier, Amount))
+	echo(string.format("SetDeaths(%s, %s, %s, %s)", OffsetEPD, Modifier, Amount, Unit))
 end
 
 --[================================[

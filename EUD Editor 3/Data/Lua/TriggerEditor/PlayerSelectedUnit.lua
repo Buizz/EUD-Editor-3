@@ -21,6 +21,6 @@ function SeletionEPD(Player, Number) --일반/TrgPlayer,Number/[Player]의 [Numb
 	if IsNumber(Player) then
 		return string.format("EPD(0x%X) + %s", 0x6284E8 + 0x30 * Player, Number) 
 	else
-		return string.format("EPD(0x%X) + %s * 0xC + %s", 0x6284E8 ,Player, Number) 
+		return string.format("EPD(0x%X) + %s + %s * 0xC", 0x6284E8, Number, Player)
 	end
 end

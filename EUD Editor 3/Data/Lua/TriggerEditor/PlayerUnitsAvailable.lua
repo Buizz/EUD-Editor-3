@@ -24,13 +24,7 @@ function SetPlayerUnitsAvailable(Player, Unit, State) --일반/TrgPlayer,TrgUnit
     State = ParseSwitchState(State)
 
     if IsNumber(Unit) and IsNumber(Player) then
-    	Offset = PlayerUnitsAvailableOffset()
-
-    	rOffset =  Player * 57
-
-    	Mod = Unit % 4
-    	Unit = Unit - Mod
-    	Unit = Unit / 4
+		Offset = 0x57F27C + Unit + Player * 228
 
  		if State == 2 then
     		Amount = "0x01010101"
@@ -38,19 +32,11 @@ function SetPlayerUnitsAvailable(Player, Unit, State) --일반/TrgPlayer,TrgUnit
     		Amount = "0x0"
     	end
 
-    	if Mod == 0 then
-    		Mask = "0xFF"
-    	elseif Mod == 1 then
-    		Mask = "0xFF00"
-    	elseif Mod == 2 then
-    		Mask = "0xFF0000"
-    	elseif Mod == 3 then
-    		Mask = "0xFF000000"
-    	end
+		Mod = Unit % 4
+		Mask = "0xFF"
+		for i = 1, Mod do Mask = Mask .. "00" end
 
-
-
-    	rstr = string.format("SetMemoryXEPD(EPD(0x%X) + %s + %s, SetTo, %s, %s)", Offset, rOffset, Unit, Amount, Mask)
+		rstr = string.format("SetMemoryX(0x%X, SetTo, %s, %s)", Offset, Amount, Mask)
     	echo(rstr)
     else
     	if State == 2 then
@@ -59,7 +45,7 @@ function SetPlayerUnitsAvailable(Player, Unit, State) --일반/TrgPlayer,TrgUnit
     		Amount = 0
     	end
 
-	    Offset = string.format("%s + %s * 228 + %s", PlayerUnitsAvailableOffset(), Player, Unit)
+		Offset = string.format("%s + %s + %s * 228", PlayerUnitsAvailableOffset(), Unit, Player)
 		echo(string.format("bwrite(%s, %s)", Offset, Amount))
     end
 end
@@ -86,7 +72,7 @@ function GetPlayerUnitsAvailable(Player, Unit) --일반/TrgPlayer,TrgUnit/[Playe
 	Player = ParsePlayer(Player)
     Unit = ParseUnit(Unit)
 
-    Offset = string.format("%s + %s * 228 + %s", PlayerUnitsAvailableOffset(), Player, Unit)
+	Offset = string.format("%s + %s + %s * 228", PlayerUnitsAvailableOffset(), Unit, Player)
 
 	echo(string.format("bread(%s)", Offset))
 end
