@@ -17,7 +17,7 @@ ptr이 저장될 변수입니다.
 ptr이 저장될 변수입니다.
 ]================================]
 function SetNextUnitPtr(ptr)
-    echo(ptr .. " = dwread_epd(EPD(0x628438))")
+    echo(ptr .. " = cunitread_epd(EPD(0x628438))")
 end
 
 --[================================[
@@ -39,7 +39,7 @@ epd가 저장될 변수입니다.
 epd가 저장될 변수입니다.
 ]================================]
 function SetNextUnitEpd(epd)
-    echo(epd .. " = epdread_epd(EPD(0x628438))")
+    echo(epd .. " = cunitepdread_epd(EPD(0x628438))[[1]]")
 end
 
 --[================================[
@@ -65,7 +65,7 @@ ptr가 저장될 변수입니다.
 epd가 저장될 변수입니다.
 ]================================]
 function SetNextUnitPtrEpd(ptr, epd)
-    echo(ptr .. "," .. epd .. " = dwepdread_epd(EPD(0x628438))")
+    echo(ptr .. ", " .. epd .. " = cunitepdread_epd(EPD(0x628438))")
 end
 
 
@@ -330,13 +330,13 @@ function GetCUnitptr(ptr, Offset)
 	address = table[1]
 	size = table[2]
 	
-	rd = math.floor(address / 4) * 4
+	rd = math.floor(address / 4)
 	if size == 1 then
-		outstr = "bread_epd(EPD(" .. rd ..") + EPD(" .. ptr .. "), " .. rd % 4 .. ")"
+		outstr = "bread_epd(EPD(" .. ptr .. ") + " .. rd .. ", " .. address % 4 .. ")"
 	elseif size == 2 then
-		outstr = "wread_epd(EPD(" .. rd ..") + EPD(" .. ptr .. "), " .. rd % 4 .. ")"
+		outstr = "wread_epd(EPD(" .. ptr .. ") + " .. rd .. ", " .. address % 4 .. ")"
 	elseif size == 4 then
-		outstr = "dwread_epd(EPD(" .. rd ..") + EPD(" .. ptr .. "))"
+		outstr = "dwread_epd(EPD(" .. ptr .. ") + " .. rd .. ")"
 	end
 	echo(outstr)
 	--return outstr
@@ -370,13 +370,13 @@ function GetCUnitepd(epd, Offset)
 	address = table[1]
 	size = table[2]
 	
-	rd = math.floor(address / 4) * 4
+	rd = math.floor(address / 4)
 	if size == 1 then
-		outstr = "bread_epd(EPD(" .. rd ..") + " .. epd .. ", " .. rd % 4 .. ")"
+		outstr = "bread_epd(" .. epd .. " + " .. rd .. ", " .. address % 4 .. ")"
 	elseif size == 2 then
-		outstr = "wread_epd(EPD(" .. rd ..") + " .. epd .. ", " .. rd % 4 .. ")"
+		outstr = "wread_epd(" .. epd .. " + " .. rd .. ", " .. address % 4 .. ")"
 	elseif size == 4 then
-		outstr = "dwread_epd(EPD(" .. rd ..") + " .. epd .. ")"
+		outstr = "dwread_epd(" .. epd .. " + " .. rd .. ")"
 	end
 	echo(outstr)
 	--return outstr
@@ -420,8 +420,7 @@ function SetCUnitptr(ptr, Offset, Value, Modifier)
 	address = table[1]
 	size = table[2]
 
-	rd = math.floor(address / 4) * 4
-
+	rd = math.floor(address / 4)
 	bp = address % 4
 
 	if IsNumber(Value) then
@@ -430,14 +429,14 @@ function SetCUnitptr(ptr, Offset, Value, Modifier)
 		Value = Value .. " * " .. 256^bp
 	end
 	mask = "0x"
-	for i=1,size do
+	for i = 1, size do
 		mask = mask .. "FF"
 	end
-	for i=1,bp,1 do
+	for i = 1, bp do
 		mask = mask .. "00"
 	end
 
-	outstr = "SetMemoryX(" .. ptr .. " + " .. rd .. ", " .. Modifier ..", " .. Value .. "," .. mask .. ")"
+	outstr = "SetMemoryX(" .. ptr .. " + " .. rd*4 .. ", " .. Modifier .. ", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
 
@@ -478,7 +477,6 @@ function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CU
 	size = table[2]
 
 	rd = math.floor(address / 4)
-
 	bp = address % 4
 
 	if IsNumber(Value) then
@@ -487,14 +485,14 @@ function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CU
 		Value = Value .. " * " .. 256^bp
 	end
 	mask = "0x"
-	for i=1,size do
+	for i = 1, size do
 		mask = mask .. "FF"
 	end
-	for i=1,bp,1 do
+	for i = 1, bp do
 		mask = mask .. "00"
 	end
 
-	outstr = "SetMemoryXEPD(" .. epd .. " + " .. rd .. ", " .. Modifier ..", " .. Value .. "," .. mask .. ")"
+	outstr = "SetMemoryXEPD(" .. epd .. " + " .. rd .. ", " .. Modifier .. ", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
 
@@ -534,8 +532,7 @@ function CUnitptr(ptr, Offset, Value, Comparison)
 	address = table[1]
 	size = table[2]
 
-	rd = math.floor(address / 4) * 4
-
+	rd = math.floor(address / 4)
 	bp = address % 4
 
 	if IsNumber(Value) then
@@ -544,14 +541,14 @@ function CUnitptr(ptr, Offset, Value, Comparison)
 		Value = Value .. " * " .. 256^bp
 	end
 	mask = "0x"
-	for i=1,size do
+	for i = 1, size do
 		mask = mask .. "FF"
 	end
-	for i=1,bp,1 do
+	for i = 1, bp do
 		mask = mask .. "00"
 	end
 
-	outstr = "MemoryX(" .. ptr .. " + " .. rd .. ", " .. Comparison ..", " .. Value .. "," .. mask .. ")"
+	outstr = "MemoryX(" .. ptr .. " + " .. rd*4 .. ", " .. Comparison .. ", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
 
@@ -592,7 +589,6 @@ function CUnitepd(epd, Offset, Value, Comparison)
 	size = table[2]
 
 	rd = math.floor(address / 4)
-
 	bp = address % 4
 
 	if IsNumber(Value) then
@@ -601,13 +597,13 @@ function CUnitepd(epd, Offset, Value, Comparison)
 		Value = Value .. " * " .. 256^bp
 	end
 	mask = "0x"
-	for i=1,size do
+	for i = 1, size do
 		mask = mask .. "FF"
 	end
-	for i=1,bp,1 do
+	for i = 1, bp do
 		mask = mask .. "00"
 	end
 
-	outstr = "MemoryXEPD(" .. epd .. " + " .. rd .. ", " .. Comparison ..", " .. Value .. "," .. mask .. ")"
+	outstr = "MemoryXEPD(" .. epd .. " + " .. rd .. ", " .. Comparison .. ", " .. Value .. "," .. mask .. ")"
 	echo(outstr)
 end
