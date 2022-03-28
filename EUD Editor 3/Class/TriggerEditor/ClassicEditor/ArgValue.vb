@@ -68,7 +68,7 @@ Public Class ArgValue
                     v = "UnitProperty(" & v & ")"
                 End If
 
-                If ValueType = "TrgString" Or ValueType = "FormatString" Or ValueType = "WAVName" Or ValueType = "TrgSwitch" Then
+                If ValueType = "TrgString" Or ValueType = "FormatString" Or ValueType = "WAVName" Or ValueType = "TrgSwitch" Or ValueType = "TrgAIScript" Then
                     v = """" & v & """"
                 ElseIf isLuaCover Then
                     Dim tlist() As String = {"TrgAllyStatus", "TrgComparison", "TrgModifier", "TrgOrder",

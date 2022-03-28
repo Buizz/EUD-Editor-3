@@ -158,7 +158,7 @@
                                                 <TextBlock Text="무한반복트리거" Visibility="{Binding _IsPreserved}"/>
                                             </StackPanel>
                                             <DockPanel Visibility="{Binding HaveComment}" Margin="8">
-                                                <TextBlock Text="{Binding CommentString}"/>
+                                                <TextBlock Text="{Binding CommentStringProperty}"/>
                                             </DockPanel>
                                             <StackPanel Margin="8" Visibility="{Binding NotHaveComment}">
                                                 <TextBlock Text="조건" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
