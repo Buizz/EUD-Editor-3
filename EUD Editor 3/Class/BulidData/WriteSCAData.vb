@@ -217,7 +217,7 @@ Partial Public Class BuildData
         sb.AppendLine("    switch (tagNum) {")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
-            sb.AppendLine("    case " & i & ":")
+            sb.AppendLine("    case " & i & ": {")
 
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable
@@ -242,7 +242,7 @@ Partial Public Class BuildData
                     sb.AppendLine("        ResetArray(alen, aepd);")
 
             End Select
-            sb.AppendLine("        break;")
+            sb.AppendLine("        break; }")
         Next
 
         sb.AppendLine("    }")
@@ -257,7 +257,7 @@ Partial Public Class BuildData
         sb.AppendLine("    switch (tagNum) {")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
-            sb.AppendLine("    case " & i & ":")
+            sb.AppendLine("    case " & i & ": {")
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
                 Case StarCraftArchive.CodeData.CodeType.Variable
                     '변수
@@ -279,7 +279,7 @@ Partial Public Class BuildData
                     sb.AppendLine("        const alen = " & arrayname & ".length / 8;")
                     sb.AppendLine("        " & arrayname & "[alen * cp + index] = Value;")
             End Select
-            sb.AppendLine("        break;")
+            sb.AppendLine("        break; }")
         Next
 
         sb.AppendLine("    }")
@@ -344,7 +344,7 @@ Partial Public Class BuildData
         sb.AppendLine("    switch (tagNum) {")
 
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
-            sb.AppendLine("    case " & i & ":")
+            sb.AppendLine("    case " & i & ": {")
 
 
             Select Case pjData.TEData.SCArchive.CodeDatas(i).TypeIndex
@@ -374,7 +374,7 @@ Partial Public Class BuildData
                 Case StarCraftArchive.CodeData.CodeType.Variable, StarCraftArchive.CodeData.CodeType.Deaths
                     sb.AppendLine("        SaveDCV(objValue);")
             End Select
-            sb.AppendLine("        break;")
+            sb.AppendLine("        break; }")
         Next
         sb.AppendLine("    }")
         sb.AppendLine("    return index, rvalue;")
