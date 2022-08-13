@@ -1,6 +1,8 @@
 ﻿Imports System.IO
 Imports System.Media
 Imports System.Windows.Threading
+Imports BingsuCodeEditor.EpScript
+Imports BingsuCodeEditor.Lua
 Imports Dragablz
 Imports MaterialDesignThemes.Wpf
 Imports Newtonsoft.Json
@@ -61,6 +63,9 @@ Namespace Tool
         Public Function GetArgTypeList() As List(Of String)
             Return cmps.Keys.ToList
         End Function
+        Public Function GetArgTypeArray() As String()
+            Return cmps.Keys.ToArray
+        End Function
 
 
         Public Function GetDefaultArgTypeList() As List(Of String)
@@ -76,6 +81,9 @@ Namespace Tool
 
 
         Public Function GetAutocmp(argname As String) As String()
+            If (argname Is Nothing) Then
+                Return {}
+            End If
             If cmps.ContainsKey(argname) Then
                 Return cmps(argname).ToArray
             Else
@@ -147,6 +155,7 @@ Namespace Tool
 
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
         Public TEEpsDefaultFunc As CFunc
+        Public EpsImportManager As EpsImportManager
 
         'Private MainWindow As MainWindow
         Public Sub Init()
@@ -156,6 +165,13 @@ Namespace Tool
 
             OffsetDicInit()
 
+            EpsImportManager = New EpsImportManager()
+            EpScriptDefaultCompletionData.GetArgDataList = AddressOf GetArgList
+            EpScriptDefaultCompletionData.GetArgKeyWordList = AddressOf GetArgTypeArray
+
+
+            LuaDefaultCompletionData.GetArgDataList = AddressOf GetArgList
+            LuaDefaultCompletionData.GetArgKeyWordList = AddressOf GetArgTypeArray
 
             TEEpsDefaultFunc = New CFunc
 
@@ -672,6 +688,12 @@ Namespace Tool
         Public ReadOnly Property GetDatFolder() As String
             Get
                 Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\DatFiles"
+            End Get
+        End Property
+
+        Public ReadOnly Property GetCodeEditorSettingFolder() As String
+            Get
+                Return System.AppDomain.CurrentDomain.BaseDirectory
             End Get
         End Property
 

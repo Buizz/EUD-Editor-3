@@ -71,6 +71,7 @@ Partial Public Class ProjectData
             Lagacy.LagacySaveLoad.Save(Filename)
         End If
 
+        BackUpFile(Filename)
 
         tIsLoad = True
         tIsDirty = False

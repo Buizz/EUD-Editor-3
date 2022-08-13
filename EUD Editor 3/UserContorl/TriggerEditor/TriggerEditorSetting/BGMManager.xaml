@@ -21,9 +21,10 @@
                 <RowDefinition
           Height="Auto" />
             </Grid.RowDefinitions>
-            <ListView x:Name="List" AllowDrop="True" DragDrop.Drop="List_DragEnter">
+            <ListView x:Name="List" AllowDrop="True" DragDrop.Drop="List_DragEnter"
+                      >
                 <ListView.View>
-                    <GridView>
+                    <GridView >
                         <GridViewColumn Width="40">
                             <GridViewColumn.CellTemplate>
                                 <DataTemplate>

@@ -38,6 +38,7 @@
 
     <sys:String x:Key="TEFontSize">Font size</sys:String>
 
+    <sys:String x:Key="TETestCodeEditorUse">Use TestCodeEditor</sys:String>
 
     <sys:String x:Key="TBLChange">Use tbl custom</sys:String>
     <sys:String x:Key="chkDataFirst">chkData First</sys:String>
@@ -175,7 +176,7 @@
     <sys:String x:Key="Error MapOpen">An error has occured while opening the map.</sys:String>
 
 
-    <sys:String x:Key="Error SaveFileOpen">Save file is incorrect.</sys:String>
+    <sys:String x:Key="Error SaveFileOpen">Failed to open save file. Select one of the following backup files.</sys:String>
 
     <sys:String x:Key="Error OpenMap is not SaveMap">Connected map's name and saved map's name must not be same within each other.</sys:String>
     <sys:String x:Key="Error OpenMap is not exist reset">There's no connected map. Do you want to Select a map to connect?</sys:String>
@@ -1163,4 +1164,8 @@
     <sys:String x:Key="ArgVariable">Variable</sys:String>
     <sys:String x:Key="ArgFunction">Function</sys:String>
     <sys:String x:Key="ArgUserCode">UserCode</sys:String>
+
+
+
+    <sys:String x:Key="BackUpDataWindow">BackUp</sys:String>
 </ResourceDictionary>

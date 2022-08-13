@@ -211,6 +211,10 @@
                     <Label  Content="{StaticResource TE Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                     <CheckBox x:Name="TopMostTEforce" Checked="TopMostTEforce_Checked"  Unchecked="TopMostTEforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
 
+
+                    <CheckBox x:Name="TETestCodeEditorUse" Checked="TETestCodeEditorUse_Checked"  Unchecked="TETestCodeEditorUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TETestCodeEditorUse}" Margin="0,0,20,0"/>
+
+
                     <DockPanel>
                         <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource TEFontSize}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <ComboBox Name="FontSizecb" Grid.Row="2" Grid.Column="1"   SelectionChanged="FontSize_SelectionChanged" MinWidth="72"

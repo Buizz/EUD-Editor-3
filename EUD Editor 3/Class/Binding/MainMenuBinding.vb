@@ -191,7 +191,7 @@ Public Class MainMenuBinding
                     If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
                         Return Application.Current.Resources("PrimaryHueMidBrush")
                     Else
-                        Return Application.Current.Resources("SecondaryAccentBrush")
+                        Return Application.Current.Resources("SecondaryHueMidBrush")
                     End If
                 Catch ex As Exception
                     Return Application.Current.Resources("PrimaryHueMidBrush")
@@ -210,7 +210,7 @@ Public Class MainMenuBinding
     My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
                         Return Application.Current.Resources("PrimaryHueMidBrush")
                     Else
-                        Return Application.Current.Resources("SecondaryAccentBrush")
+                        Return Application.Current.Resources("SecondaryHueMidBrush")
                     End If
                 Catch ex As Exception
                     Return Application.Current.Resources("PrimaryHueMidBrush")
@@ -225,7 +225,7 @@ Public Class MainMenuBinding
             If scData.LoadStarCraftData Then
                 Return Application.Current.Resources("PrimaryHueMidBrush")
             Else
-                Return Application.Current.Resources("SecondaryAccentBrush")
+                Return Application.Current.Resources("SecondaryHueMidBrush")
             End If
         End Get
     End Property
@@ -235,7 +235,7 @@ Public Class MainMenuBinding
             If scData.LoadStarCraftData Then
                 Return Application.Current.Resources("PrimaryHueMidBrush")
             Else
-                Return Application.Current.Resources("SecondaryAccentBrush")
+                Return Application.Current.Resources("SecondaryHueMidBrush")
             End If
         End Get
     End Property
@@ -245,7 +245,7 @@ Public Class MainMenuBinding
             If scData.LoadStarCraftData Then
                 Return Application.Current.Resources("PrimaryHueMidBrush")
             Else
-                Return Application.Current.Resources("SecondaryAccentBrush")
+                Return Application.Current.Resources("SecondaryHueMidBrush")
             End If
         End Get
     End Property

@@ -18,18 +18,21 @@
             <RowDefinition
           Height="Auto" />
         </Grid.RowDefinitions>
-        <ListView x:Name="List" >
+        <ListView x:Name="List">
             <ListView.View>
                 <GridView>
-                    <GridViewColumn Width="100"
+                        <GridViewColumn Width="100"
                         DisplayMemberBinding="{Binding TagName}"
-                        Header="{StaticResource Name}" />
-                    <GridViewColumn Width="70"
+                        Header="{StaticResource Name}" >
+                        </GridViewColumn>
+                        <GridViewColumn Width="70" 
                         DisplayMemberBinding="{Binding ECodeType}"
-                        Header="{StaticResource Type}" />
-                    <GridViewColumn Width="200"
+                        Header="{StaticResource Type}" >
+                        </GridViewColumn>
+                        <GridViewColumn Width="200"
                         DisplayMemberBinding="{Binding Value}"
-                        Header="{StaticResource Value}" />
+                        Header="{StaticResource Value}" >
+                        </GridViewColumn>
                 </GridView>
             </ListView.View>
             <ListView.ContextMenu>

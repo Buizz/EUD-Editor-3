@@ -183,7 +183,7 @@ Partial Public Class BuildData
             sb.AppendLine("import " & NameSapces(i) & " as n" & i & ";")
         Next
         sb.AppendLine("")
-        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 8 * (CommandLength + SpaceLength) & ");  // workspace")
+        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 16 * (CommandLength + SpaceLength) & ");  // workspace")
         'sb.AppendLine("const ws = 0x58F44A;")
         sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";  // EntryPointLength")
         sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";  // DataBufferSize")

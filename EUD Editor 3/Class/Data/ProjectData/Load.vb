@@ -43,16 +43,21 @@ Partial Public Class ProjectData
             teFile.Folders(i).LoadInit()
         Next
     End Sub
-    Public Shared Sub Load(FileName As String, ByRef _pjdata As ProjectData)
-        Dim stm As Stream = System.IO.File.Open(FileName, FileMode.Open, FileAccess.Read)
+    Public Shared Sub Load(DataPath As String, ByRef _pjdata As ProjectData, Optional FilePath As String = "")
+        If FilePath = "" Then
+            FilePath = DataPath
+        End If
+
+        Dim stm As Stream = System.IO.File.Open(DataPath, FileMode.Open, FileAccess.Read)
+
         Try
-            If FileName.Split(".").Last = "e3s" Then
+            If FilePath.Split(".").Last = "e3s" Then
                 Dim bf As BinaryFormatter = New BinaryFormatter()
                 _pjdata = New ProjectData
                 _pjdata.NewFIle()
                 _pjdata.InitData()
                 _pjdata.SaveData = bf.Deserialize(stm)
-                _pjdata.LoadInit(FileName)
+                _pjdata.LoadInit(FilePath)
                 _pjdata.Legacy()
                 stm.Close()
 
@@ -84,14 +89,21 @@ Partial Public Class ProjectData
                 _pjdata = New ProjectData
                 _pjdata.NewFIle()
                 _pjdata.InitData()
-                _pjdata.LoadInit(FileName)
+                _pjdata.LoadInit(FilePath)
 
-                Lagacy.LagacySaveLoad.Load(FileName)
+                Lagacy.LagacySaveLoad.Load(DataPath)
             End If
         Catch ex As Exception
-            Tool.ErrorMsgBox(Tool.GetText("Error SaveFileOpen"), ex.ToString)
+            'Tool.ErrorMsgBox(Tool.GetText("Error SaveFileOpen"), ex.ToString)
+
+            _pjdata.LoadInit(FilePath)
+            Dim BackUpWindows As New BackUpWindows()
+            BackUpWindows.ShowDialog()
             stm.Close()
             pjData.CloseFile()
+            If BackUpWindows.IsOkay Then
+                Load(BackUpWindows.SelectBackFile, pjData, FilePath)
+            End If
         End Try
 
     End Sub

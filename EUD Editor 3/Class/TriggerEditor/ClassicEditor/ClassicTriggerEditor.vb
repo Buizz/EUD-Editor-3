@@ -224,6 +224,8 @@ Public Class ClassicTriggerEditor
             sb.AppendLine("    {")
             sb.AppendLine("        setcurpl(" & player & ");")
             sb.AppendLine("        const cp = " & player & ";")
+            sb.AppendLine("        <? LuaPlayerVariable = " & player & "?>")
+
             For t = 0 To tlist.Count - 1
                 Dim StartLine As Integer = sb.ToString.Split(vbCrLf).Length
                 Dim trg As Trigger = tlist(t)

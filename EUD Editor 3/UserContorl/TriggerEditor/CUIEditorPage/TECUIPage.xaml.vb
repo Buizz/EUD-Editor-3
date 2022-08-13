@@ -14,8 +14,12 @@
     Public Sub RefreshData()
         Dim TString As String = PTEFile.RefreshData()
         If TString <> "" Then
-            TextEditor.Text = TString
-            TextEditor.ExternerLoader()
+            If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+                NewTextEditor.SetFilePath = PTEFile.FileName
+                NewTextEditor.Text = TString
+            Else
+                TextEditor.ExternerLoader()
+            End If
         End If
     End Sub
 
@@ -28,17 +32,40 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         PTEFile = tTEFile
-        TextEditor.Init(tTEFile)
-        TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
 
-        If highLightLine > -1 Then
-            TextEditor.LineHightLight(highLightLine)
+
+
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+            TextEditor.Visibility = Visibility.Collapsed
+            NewTextEditor.SetImportManager(Tool.EpsImportManager)
+            NewTextEditor.SetFilePath = PTEFile.GetPullPath()
+            NewTextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
+            NewTextEditor.OptionFilePath = Tool.GetCodeEditorSettingFolder
+            NewTextEditor.LoadOption()
+
+            If pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
+                NewTextEditor.IsDark = True
+            Else
+                NewTextEditor.IsDark = False
+            End If
+        Else
+            NewTextEditor.Visibility = Visibility.Collapsed
+            TextEditor.Init(tTEFile)
+            TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
+
+            If highLightLine > -1 Then
+                TextEditor.LineHightLight(highLightLine)
+            End If
         End If
     End Sub
 
 
     Public Sub SaveData()
-        CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+            CType(TEFile.Scripter, CUIScriptEditor).StringText = NewTextEditor.Text
+        Else
+            CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+        End If
         TEFile.LastDataRefresh()
     End Sub
 
@@ -50,7 +77,20 @@
 
     Private Sub UserControl_Unloaded(sender As Object, e As RoutedEventArgs)
         If TEFile.FileType = TEFile.EFileType.CUIEps Then
-            CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+
+            If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "False" Then
+                CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+            End If
+        End If
+    End Sub
+
+    Private Sub TextEditor_Text_Change(sender As Object, e As EventArgs)
+        pjData.SetDirty(True)
+
+        Tool.EpsImportManager.CachedContainerRemove(PTEFile.GetPullPath())
+
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "False" Then
+            CType(TEFile.Scripter, CUIScriptEditor).StringText = NewTextEditor.Text
         End If
     End Sub
 End Class

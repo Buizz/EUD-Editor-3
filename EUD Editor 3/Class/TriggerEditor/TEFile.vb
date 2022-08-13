@@ -239,6 +239,22 @@ Public Class TEFile
     End Property
 
 
+    Public Function GetPullPath() As String
+        Dim rpath As String = ""
+
+        Dim tfile As TEFile = Me
+
+        While Not tfile.IsTopFile
+            If rpath <> "" Then
+                rpath = "." + rpath
+            End If
+            rpath = tfile.FileName + rpath
+            tfile = tfile.Parent
+        End While
+        Return rpath
+    End Function
+
+
     Private _FileName As String
     Public Property FileName As String
         Get

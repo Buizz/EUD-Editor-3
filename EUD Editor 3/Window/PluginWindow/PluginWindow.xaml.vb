@@ -103,11 +103,13 @@
     End Sub
 
     Private Sub DeleteItem_Click(sender As Object, e As RoutedEventArgs)
-        pjData.SetDirty(True)
-        EdsText.Items.RemoveAt(EdsText.Items.Count - 1)
-        pjData.EdsBlock.Blocks.RemoveAt(MenuSelectIndex)
+        If pjData.EdsBlock.Blocks(MenuSelectIndex).BType = BuildData.EdsBlockType.UserPlugin Then
+            pjData.SetDirty(True)
+            EdsText.Items.RemoveAt(EdsText.Items.Count - 1)
+            pjData.EdsBlock.Blocks.RemoveAt(MenuSelectIndex)
 
-        ItemRefresh()
+            ItemRefresh()
+        End If
     End Sub
 
     Private MenuSelectIndex As Integer

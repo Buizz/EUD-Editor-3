@@ -38,6 +38,7 @@
 
     <sys:String x:Key="TEFontSize">폰트 크기</sys:String>
 
+    <sys:String x:Key="TETestCodeEditorUse">테스트 코드에디터 사용</sys:String>
 
     <sys:String x:Key="TBLChange">사용자 정의 tbl사용</sys:String>
     <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
@@ -175,7 +176,7 @@
     <sys:String x:Key="Error MapOpen">맵 열기 오류</sys:String>
 
 
-    <sys:String x:Key="Error SaveFileOpen">세이브 파일이 잘못되었습니다.</sys:String>
+    <sys:String x:Key="Error SaveFileOpen">세이브 파일을 여는데 실패했습니다. 복구하시려면 다음 백업파일 중 하나를 선택하세요.</sys:String>
 
     <sys:String x:Key="Error OpenMap is not SaveMap">연결된 맵과 저장맵의 이름은 같을 수 없습니다.</sys:String>
     <sys:String x:Key="Error OpenMap is not exist reset">연결된 맵이 없습니다. 새로 지정하겠습니까?</sys:String>
@@ -1167,4 +1168,7 @@
     <sys:String x:Key="ArgVariable">변수</sys:String>
     <sys:String x:Key="ArgFunction">함수</sys:String>
     <sys:String x:Key="ArgUserCode">사용자 코드</sys:String>
+
+
+    <sys:String x:Key="BackUpDataWindow">백업 관리</sys:String>
 </ResourceDictionary>

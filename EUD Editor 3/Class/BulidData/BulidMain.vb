@@ -1,4 +1,5 @@
-﻿Imports System.IO
+﻿Imports System.ComponentModel
+Imports System.IO
 Imports System.Media
 Imports System.Text
 Imports System.Windows.Threading
@@ -17,7 +18,7 @@ Partial Public Class BuildData
 
     '맵폴더로 지정되어 있으면 맵두개의 폴더가 같으면 상대 경로로 저장
     '맵 두개가 다른 폴더면 기본 폴더에 저장
-    Private MainThread As Threading.Thread
+    Private MainThread As BackgroundWorker
 
     Private eudplibShutDown As Boolean
     Public Sub Build(Optional isEdd As Boolean = False)
@@ -50,14 +51,25 @@ Partial Public Class BuildData
                     Return
                 End If
 
-                MainThread = New System.Threading.Thread(AddressOf BuildProgress)
-                MainThread.Start(isEdd)
+                Me.IsEdd = isEdd
+                MainThread = New BackgroundWorker()
+                AddHandler MainThread.DoWork, AddressOf BuildProgressWorker
+
+                MainThread.RunWorkerAsync()
+
+
+                'MainThread = New System.Threading.Thread(AddressOf BuildProgress)
+                'MainThread.Start(isEdd)
             End If
             'MsgBox("최종 폴더 :" & TempFloder)
         End If
-
-
     End Sub
+
+    Private IsEdd As Boolean
+    Private Sub BuildProgressWorker(sender As Object, e As DoWorkEventArgs)
+        BuildProgress(IsEdd)
+    End Sub
+
 
 
     '빌드가 가능한지 판단(필수 프로그램 연결)

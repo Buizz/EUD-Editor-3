@@ -1,5 +1,6 @@
 import SCAFlexible as scf;
 import TriggerEditor.SCATool as sct;
+import TriggerEditor.SCAFastLoader as scfl;
 
 
 var Timestamp;
@@ -24,6 +25,7 @@ const GlobalData = EUDArray(20);
 function Init(){
 	scf.Init();
 	sct.Init();
+    scfl.Init();
 }
 
 function Exec(){
@@ -35,6 +37,11 @@ function Exec(){
 	//
 
 }
+
+function ExecFastLoad(){
+	scfl.Exec();
+}
+
 
 function SetUseDefaultMessage(value){
 	//value가 1이면 기본값쓰기
@@ -121,4 +128,8 @@ function LoadData(Slot){
 }
 function SaveData(Slot){
 	sct.DataSave(Slot);
+}
+
+function LoadFastData(Player, Slot){
+	scfl.DataFastLoad(Player, Slot);
 }

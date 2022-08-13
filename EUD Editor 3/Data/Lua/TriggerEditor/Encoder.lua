@@ -533,6 +533,7 @@ function EncodeOrder(s)
     return EncodeConst(OrderDict, s)
 end
 
+LuaPlayerVariable = "getcurpl()"
 --[================================[
 @Language.ko-KR
 @Summary
@@ -546,6 +547,10 @@ end
 내부함수
 ]================================]
 function EncodePlayer(s)
+    if s == CurrentPlayer then
+        return LuaPlayerVariable
+    end
+
     return EncodeConst(PlayerDict, s)
 end
 

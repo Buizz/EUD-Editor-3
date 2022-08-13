@@ -58,7 +58,7 @@
                             </Popup>
                             <Button Click="Button_Click_3" Content="{StaticResource Dark}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
                         </DockPanel>
-                        <DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Background="{DynamicResource SecondaryAccentBrush}">
+                        <DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Background="{DynamicResource SecondaryHueMidBrush}">
                             <Popup x:Name="AccentColorPickerPopup" StaysOpen="False">
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="AccentColorPicker" ColorSelect="AccentColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>

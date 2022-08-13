@@ -9,15 +9,16 @@
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}" 
         Topmost="True"
-        Title="TextEditor" ResizeMode="NoResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Width="1048" Height="591" FontFamily="Arial"  >
-    <DockPanel>
+        Title="TextEditor" ResizeMode="CanResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Width="1040" MinWidth="1040" MaxWidth="1480" Height="588" MinHeight="588" MaxHeight="591" FontFamily="Arial"  >
+    <DockPanel LastChildFill="True">
 
         <DockPanel DockPanel.Dock="Left" Width="200">
             <ListBox x:Name="ColorInfor" DockPanel.Dock="Top" SelectionChanged="ColorInfor_SelectionChanged"/>
             <Button DockPanel.Dock="Bottom" Content="확인" Click="Button_Click" Height="Auto"/>
         </DockPanel>
-        <Grid Width="840" Height="560" DockPanel.Dock="Right" MaxWidth="1280">
-            <Grid.RowDefinitions>
+        <!--Grid Width="840" Height="560" DockPanel.Dock="Right" MaxWidth="1280">-->
+        <Grid Height="560" DockPanel.Dock="Right" >
+                <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
                 <RowDefinition Height="360"/>
             </Grid.RowDefinitions>

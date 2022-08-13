@@ -278,7 +278,7 @@ Public Class TriggerEditor
 
                 If tPage.CheckTEFile(tTEFile) Then
                     Control.SelectedIndex = i
-                    tPage.TextEditor.LineHightLight(SelectLine)
+                    'tPage.TextEditor.LineHightLight(SelectLine)
                     Return True
                 End If
             ElseIf TypeOf TabContent Is TEGUIPage Then

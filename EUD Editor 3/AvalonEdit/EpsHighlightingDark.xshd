@@ -1,183 +1,185 @@
 ﻿<?xml version="1.0"?>
 <SyntaxDefinition name="EPS HighlightingDark" xmlns="http://icsharpcode.net/sharpdevelop/syntaxdefinition/2008">
 	<Color name="Comment" foreground="#47C83E" />
-  <Color name="String" foreground="#F29661" />
-  <Color name="php" foreground="#A566FF" />
-	
+	<Color name="String" foreground="#F29661" />
+	<Color name="php" foreground="#A566FF" />
+
 	<!-- This is the main ruleset. -->
 	<RuleSet>
-    <!-- PHP 초록 계열-->
-    <Span color="php" multiline="true" begin="&lt;\?" end="\?&gt;"/>
+		<!-- PHP 초록 계열-->
+		<Span color="php" multiline="true" begin="&lt;\?" end="\?&gt;"/>
 
 
-    <Span color="Comment" begin="//" />
+		<Span color="Comment" begin="//" />
 		<Span color="Comment" multiline="true" begin="/\*" end="\*/" />
 
-    <!-- 함수 파란계열(시스템 색, 문법등)-->
-    <Keywords foreground="#6799FF">
-      <Word>object</Word>
-      <Word>static</Word>
-      <Word>once</Word>
-      <Word>if</Word>
-      <Word>else</Word>
-      <Word>for</Word>
-      <Word>while</Word>
-      <Word>function</Word>
-      <Word>foreach</Word>
-      <Word>return</Word>
+		<!-- 함수 파란계열(시스템 색, 문법등)-->
+		<Keywords foreground="#6799FF">
+			<Word>object</Word>
+			<Word>static</Word>
+			<Word>once</Word>
+			<Word>if</Word>
+			<Word>else</Word>
+			<Word>for</Word>
+			<Word>while</Word>
+			<Word>function</Word>
+			<Word>foreach</Word>
+			<Word>return</Word>
 
-      <Word>true</Word>
-      <Word>True</Word>
-      <Word>false</Word>
-      <Word>False</Word>
+			<Word>true</Word>
+			<Word>True</Word>
+			<Word>false</Word>
+			<Word>False</Word>
 
-      <Word>switch</Word>
-      <Word>case</Word>
-      <Word>break</Word>
-      
-    </Keywords>
+			<Word>switch</Word>
+			<Word>case</Word>
+			<Word>break</Word>
 
-
-    <!-- 함수 호출 붉은계열-->
-    <Rule foreground="#FFA7A7">
-      [\w\d]+(?=\()
-    </Rule>
+			<Word>this</Word>
+		</Keywords>
 
 
-    <Span color="String" multiline="true">
-      <Begin>"</Begin>
-      <End>"</End>
-      <RuleSet>
-        <!-- nested span for escape sequences -->
-        <Span begin="\\" end="." />
-      </RuleSet>
-    </Span>
-    
-    <Span color="String" multiline="true">
-      <Begin>'</Begin>
-      <End>'</End>
-      <RuleSet>
-        <!-- nested span for escape sequences -->
-        <Span begin="\\" end="." />
-      </RuleSet>
-    </Span>
-    
+		<!-- 함수 호출 붉은계열-->
+		<Rule foreground="#FFA7A7">
+			[\w\d]+(?=\()
+		</Rule>
 
-    <!-- 변수 + KeyWord 초록 계열 -->
-    <Keywords foreground="#CEF279">
-      <Word>const</Word>
-      <Word>var</Word>
 
-      <Word>Enemy</Word>
-      <Word>Ally</Word>
-      <Word>AlliedVictory</Word>
+		<Span color="String" multiline="true">
+			<Begin>"</Begin>
+			<End>"</End>
+			<RuleSet>
+				<!-- nested span for escape sequences -->
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
 
-      <Word>AtLeast</Word>
-      <Word>AtMost</Word>
-      <Word>Exactly</Word>
+		<Span color="String" multiline="true">
+			<Begin>'</Begin>
+			<End>'</End>
+			<RuleSet>
+				<!-- nested span for escape sequences -->
+				<Span begin="\\" end="." />
+			</RuleSet>
+		</Span>
 
-      <Word>SetTo</Word>
-      <Word>Add</Word>
-      <Word>Subtract</Word>
 
-      <Word>Move</Word>
-      <Word>Patrol</Word>
-      <Word>Attack</Word>
+		<!-- 색강조-->
+		<Rule foreground="#CEF279">
+			:\s*[\w\d]+
+		</Rule>
+		<!-- 변수 + KeyWord 초록 계열 -->
+		<Keywords foreground="#CEF279">
+			<Word>selftype</Word>
+			<Word>const</Word>
+			<Word>var</Word>
 
-      <Word>Enable</Word>
-      <Word>Disable</Word>
-      <Word>Toggle</Word>
+			<Word>Enemy</Word>
+			<Word>Ally</Word>
+			<Word>AlliedVictory</Word>
 
-      <Word>Ore</Word>
-      <Word>Gas</Word>
-      <Word>OreAndGas</Word>
+			<Word>AtLeast</Word>
+			<Word>AtMost</Word>
+			<Word>Exactly</Word>
 
-      <Word>P1</Word>
-      <Word>P2</Word>
-      <Word>P3</Word>
-      <Word>P4</Word>
-      <Word>P5</Word>
-      <Word>P6</Word>
-      <Word>P7</Word>
-      <Word>P8</Word>
-      <Word>P9</Word>
-      <Word>P10</Word>
-      <Word>P11</Word>
-      <Word>P12</Word>
-      <Word>CurrentPlayer</Word>
-      <Word>Foes</Word>
-      <Word>Allies</Word>
-      <Word>NeutralPlayers</Word>
-      <Word>AllPlayers</Word>
-      <Word>Force1</Word>
-      <Word>Force2</Word>
-      <Word>Force3</Word>
-      <Word>Force4</Word>
-      <Word>NonAlliedVictoryPlayers</Word>
+			<Word>SetTo</Word>
+			<Word>Add</Word>
+			<Word>Subtract</Word>
 
-      <Word>Set</Word>
-      <Word>Clear</Word>
-      <Word>Cleared</Word>
-      <Word>Toggle</Word>
-      <Word>Random</Word>
-    </Keywords>
+			<Word>Move</Word>
+			<Word>Patrol</Word>
+			<Word>Attack</Word>
 
-    <!-- 붉은 계열 -->
-    <Keywords foreground="#F15F5F">
-      <Word>import</Word>
-      <Word>as</Word>
-      <Word>+</Word>
-      <Word>-</Word>
-      <Word>=</Word>
-      <Word>*</Word>
-      <Word>/</Word>
-      <Word>&lt;</Word>
-      <Word>&gt;</Word>
-      <Word>!=</Word>
-      <Word>!</Word>
-      <Word>~</Word>
-      <Word>%</Word>
-      <Word>^</Word>
-      <Word>&amp;</Word>
-      <Word>?</Word>
-      <Word>|</Word>
-    </Keywords>
-    
+			<Word>Enable</Word>
+			<Word>Disable</Word>
+			<Word>Toggle</Word>
+
+			<Word>Ore</Word>
+			<Word>Gas</Word>
+			<Word>OreAndGas</Word>
+
+			<Word>P1</Word>
+			<Word>P2</Word>
+			<Word>P3</Word>
+			<Word>P4</Word>
+			<Word>P5</Word>
+			<Word>P6</Word>
+			<Word>P7</Word>
+			<Word>P8</Word>
+			<Word>P9</Word>
+			<Word>P10</Word>
+			<Word>P11</Word>
+			<Word>P12</Word>
+			<Word>CurrentPlayer</Word>
+			<Word>Foes</Word>
+			<Word>Allies</Word>
+			<Word>NeutralPlayers</Word>
+			<Word>AllPlayers</Word>
+			<Word>Force1</Word>
+			<Word>Force2</Word>
+			<Word>Force3</Word>
+			<Word>Force4</Word>
+			<Word>NonAlliedVictoryPlayers</Word>
+
+			<Word>Set</Word>
+			<Word>Clear</Word>
+			<Word>Cleared</Word>
+			<Word>Toggle</Word>
+			<Word>Random</Word>
+		</Keywords>
+
+		<!-- 붉은 계열 -->
+		<Keywords foreground="#F15F5F">
+			<Word>import</Word>
+			<Word>as</Word>
+			<Word>+</Word>
+			<Word>-</Word>
+			<Word>=</Word>
+			<Word>*</Word>
+			<Word>/</Word>
+			<Word>&lt;</Word>
+			<Word>&gt;</Word>
+			<Word>!=</Word>
+		</Keywords>
 
 
 
+		<!-- 색강조-->
+		<Rule foreground="#F15F5F" fontWeight="bold">
+			​[\w\d]+
+		</Rule>
 
-    <!-- 오브젝트 정의 옅은 보라-->
-    <Rule foreground="#D1B2FF">
-      (?&lt;=object)[\s]+[\w\d]+
-    </Rule>
-    <!-- 함수 정의 옅은 보라-->
-    <Rule foreground="#D1B2FF">
-      (?&lt;=function)[\s]+[\w\d]+
-    </Rule>
+		<!-- 오브젝트 정의 옅은 보라-->
+		<Rule foreground="#D1B2FF">
+			(?&lt;=object)[\s]+[\w\d]+
+		</Rule>
+		<!-- 함수 정의 옅은 보라-->
+		<Rule foreground="#D1B2FF">
+			(?&lt;=function)[\s]+[\w\d]+
+		</Rule>
 
 
 
 
-    <!-- 배열 초록 계열-->
-    <Rule foreground="#CEF279">
-      [\w\d]+(?=\[.*\])
-    </Rule>
+		<!-- 배열 초록 계열-->
+		<Rule foreground="#CEF279">
+			[\w\d]+(?=\[.*\])
+		</Rule>
 
-    
-    
-    <!-- Digits 얉은 연녹-->
-    <Rule foreground="#2DF8B8">
-      \b0[xX][0-9a-fA-F]+  # hex number
-    </Rule>
 
-    <!-- Digits 옅은 노랑-->
-    <Rule foreground="#FFE08C">
-              \b
-      (    \d+(\.[0-9]+)?   #number with optional floating point
-      |    \.[0-9]+         #or just starting with floating point
-      )
-      ([eE][+-]?[0-9]+)? # optional exponent
-    </Rule>
-  </RuleSet>
+
+		<!-- Digits 얉은 연녹-->
+		<Rule foreground="#2DF8B8">
+			\b0[xX][0-9a-fA-F]+  # hex number
+		</Rule>
+
+		<!-- Digits 옅은 노랑-->
+		<Rule foreground="#FFE08C">
+			\b
+			(    \d+(\.[0-9]+)?   #number with optional floating point
+			|    \.[0-9]+         #or just starting with floating point
+			)
+			([eE][+-]?[0-9]+)? # optional exponent
+		</Rule>
+	</RuleSet>
 </SyntaxDefinition>

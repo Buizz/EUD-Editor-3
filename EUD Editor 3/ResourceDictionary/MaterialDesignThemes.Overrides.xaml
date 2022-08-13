@@ -1,0 +1,9 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"                                     
+                    xmlns:materialDesign="clr-namespace:MaterialDesignThemes.Wpf;assembly=MaterialDesignThemes.Wpf">
+
+    <Style BasedOn="{StaticResource MaterialDesignListView}" TargetType="{x:Type ListView}">
+        <Setter Property="materialDesign:DataGridAssist.ColumnHeaderPadding" Value="7" />
+    </Style>
+
+</ResourceDictionary> 

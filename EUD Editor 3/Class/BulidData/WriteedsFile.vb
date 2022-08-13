@@ -31,6 +31,38 @@ Partial Public Class BuildData
         Public Function GetedsString() As String
             Dim sb As New StringBuilder
 
+            Dim checkdic As List(Of EdsBlockType) = New List(Of EdsBlockType)
+            'pBlocks가 다 있나 확인
+            For i = 0 To pBlocks.Count - 1
+                If checkdic.IndexOf(pBlocks(i).BType) = -1 Then
+                    checkdic.Add(pBlocks(i).BType)
+                End If
+            Next
+            
+            If checkdic.IndexOf(EdsBlockType.Main) = -1 Then
+                pBlocks.Insert(0, New EdsBlockItem(EdsBlockType.Main))
+            End If
+            If checkdic.IndexOf(EdsBlockType.DataEditor) = -1 Then
+                pBlocks.Add(New EdsBlockItem(EdsBlockType.DataEditor))
+            End If
+            If checkdic.IndexOf(EdsBlockType.ExtraDataEditor) = -1 Then
+                pBlocks.Add(New EdsBlockItem(EdsBlockType.ExtraDataEditor))
+            End If
+            If checkdic.IndexOf(EdsBlockType.DataDumper) = -1 Then
+                pBlocks.Add(New EdsBlockItem(EdsBlockType.DataDumper))
+            End If
+            If checkdic.IndexOf(EdsBlockType.TEMainPlugin) = -1 Then
+                pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMainPlugin))
+            End If
+            If checkdic.IndexOf(EdsBlockType.TEMSQC) = -1 Then
+                pBlocks.Add(New EdsBlockItem(EdsBlockType.TEMSQC))
+            End If
+            If checkdic.IndexOf(EdsBlockType.TEChatEvent) = -1 Then
+                pBlocks.Add(New EdsBlockItem(EdsBlockType.TEChatEvent))
+            End If
+
+
+
             For i = 0 To pBlocks.Count - 1
                 Dim texts As String = pBlocks(i).GetEdsString()
 
@@ -122,11 +154,16 @@ Partial Public Class BuildData
                             Dim msqccode As String = macro.GetMSQCCode
 
                             If pjData.TEData.SCArchive.IsUsed Then
-                                msqccode = msqccode & "MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
+                                msqccode = msqccode &
+"MSQCSpecial.Exactly(1) : MSQCSpecialBuffer, 100
 MSQCSpecial.Exactly(2) : MSQCSpecialBuffer, 200
 MSQCSpecial.Exactly(3) : MSQCSpecialBuffer, 300
 MSQCSpecial.Exactly(4) : MSQCSpecialBuffer, 400
-MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer" & vbCrLf
+MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer
+MSQCFLCondition.Exactly(1) ; val , MSQCLocalLoadingStatus : MSQCLoadingStatus
+MSQCSCAIDCondition.Exactly(1) ; val , MSQCLocalSCAIDHIGH : MSQCSCAIDHIGH
+MSQCSCAIDCondition.Exactly(1) ; val , MSQCLocalSCAIDLOW : MSQCSCAIDLOW
+" & vbCrLf
                             End If
                             If pjData.TEData.MouseLocation <> "" Then
                                 msqccode = msqccode & "mouse : " & pjData.TEData.MouseLocation & vbCrLf

@@ -1,74 +1,5 @@
 ﻿/***
  * @Type
- * C
- * @Summary.ko-KR
- * @Summary.en-US
-***/
-function RawCode(Code){}
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * @Summary.en-US
-***/
-function RawCode(Code){}
-
-
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * [Variable]을 [Value]으로 [Modifier]합니다.
- * @param.Variable.ko-KR
- * 설정할 변수입니다.
- * @param.Modifier.ko-KR
- * 계산 방법을 결정합니다.
- * @param.Value.ko-KR
- * 값입니다.
- * @Summary.en-US
- * [Variable]을 [Value]으로 [Modifier]합니다.
- * @param.Variable.en-US
- * 설정할 변수입니다.
- * @param.Modifier.en-US
- * 계산 방법을 결정합니다.
- * @param.Value.en-US
- * 값입니다.
-***/
-function SetVar(Variable /*Variable*/, Modifier : TrgModifier, Value /*Number*/){}
-
-
-/***
- * @Type
- * C
- * @Summary.ko-KR
- * [Variable]이 [Comparison][Value]인지 판단합니다.
- * @param.Variable.ko-KR
- * 설정할 변수입니다.
- * @param.Comparison.ko-KR
- * 계산 방법을 결정합니다.
- * @param.Value.ko-KR
- * 값입니다.
- * @Summary.en-US
- * [Variable]이 [Comparison][Value]인지 판단합니다.
- * @param.Variable.en-US
- * 설정할 변수입니다.
- * @param.Comparison.en-US
- * 계산 방법을 결정합니다.
- * @param.Value.en-US
- * 값입니다.
-***/
-function Var(Variable /*Variable*/, Comparison : TrgComparison, Value /*Number*/){}
-
-
-
-
-
-
-
-/***
- * @Type
  * A
  * @Summary.ko-KR
  * 플레이어가 게임에서 승리합니다.
@@ -1926,6 +1857,16 @@ function Never(){}
 ***/
 function $L(Location : TrgLocation) { }
 
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 텍스트를 만들어 해당 텍스트의 번호를 반환합니다.
+ * @param.Location.ko-KR
+ * 작성할 텍스트입니다.
+***/
+function $T(Text) { }
+
 
 /***
  * @Type
@@ -2728,16 +2669,6 @@ function TBL(content) { }
 function Db(b) { }
 
 
-/***
- * @Type
- * F
- * @Summary.ko-KR
- * 단순 EUD 배열에 씁니다\.
- * 
- * @param.인자이름.ko-KR
- * 인자 설명
- ***/
-function EUDArray(initval) { }
 
 
 /***
@@ -2970,20 +2901,6 @@ function EUDLightVariable(initval) { }
  ***/
 function EUDXVariable(initval, mask) { }
 
-
-/***
- * @Type
- * F
- * @Summary.ko-KR
- * EUDVArray(size)(initvals)
- * 
- * 예시
- * const_for_artanis = EUDVArray(4)(list(1, 2, 3, 4));
- * 
- * @param.인자이름.ko-KR
- * 인자 설명
- ***/
-function EUDVArray(size, initvals) { }
 
 
 /***
@@ -3918,21 +3835,6 @@ function EUDStack(size, basetype) { }
  * @Type
  * F
  * @Summary.ko-KR
- * 크기 8인 EUDVArray
- * 
- * const_pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
- * 
- * @param.initval.ko-KR
- * 초기값 8개
- * const_pv = PVariable(list(1, 2, 3, 4, 5, 6, 7, 8));
- ***/
-function PVariable(initval) { }
-
-
-/***
- * @Type
- * F
- * @Summary.ko-KR
  * Write byte by byte
  * 
  * Methods: writebyte, flushdword
@@ -4105,25 +4007,6 @@ function QueueGameCommand_QueuedRightClick(xy) { }
 function SetNextTrigger(trg) { }
 
 
-/***
- * @Type
- * F
- * @Summary.ko-KR
- * Object for storing single modifiable string.
- * Java의 StringBuilder랑 비슷합니다.
- * 
- * Method: print, insert, delete, append, Display, DisplayAt, Play,
- *         fadeIn, fadeOut, length
- * 
- * @param.content.ko-KR
- * Initial StringBuffer content capacity.
- * 
- * Capacity of StringBuffer is determined by size of this.
- * If content is integer, then initial capacity and content of StringBuffer
- * will be set to content(int) and empty string.
- * :type content: str, bytes, int
- ***/
-function StringBuffer(content) { }
 
 
 /***
@@ -4283,5 +4166,6 @@ object EUDVArray {
 object PVariable {
    function length() {}
 };
+
 
 

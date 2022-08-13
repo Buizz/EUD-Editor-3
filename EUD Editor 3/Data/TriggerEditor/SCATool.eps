@@ -1,5 +1,6 @@
 import SCAFlexible as scf;
 import TriggerEditor.SCArchive as sca;
+import TriggerEditor.SCAFastLoader as scfl;
 
 const CommandLength = 12;
 
@@ -108,17 +109,17 @@ const GlobalDataLoadStatus = PVariable();
 
 // const st = StringBuffer(100);
 
-function LoadDataRead(dataLen) {
+function LoadDataRead(dataLen, command, baseAddr) {
     const CP = getcurpl();
 
-    switch (SCACommand[CP]) {
+    switch (command) {
         case 1:
             for (var i = 0; i < scf.ObjectCount; i++) {
                 scf.ResetValue(i, 0);
             }
 
             for (var i = 0; i < dataLen; i++) {
-                i = scf.LoadDataReadValue(LoadAddrEPD[CP], i);
+                i = scf.LoadDataReadValue(baseAddr, i);
 
                 /*
                 const indicator = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
@@ -150,23 +151,23 @@ function LoadDataRead(dataLen) {
             break;
         case 2:
             // 날짜  YYYM D H M W
-            const BaseAddres = LoadAddrEPD[CP];
+            const BaseAddres = baseAddr;
 
             const year, month = div(dwread_epd(BaseAddres), 0x10);
-	    DoActions(BaseAddres.AddNumber(1));
-	    const day = bread_epd(BaseAddres, 3);
-	    const hour = bread_epd(BaseAddres, 2);
-	    const minute = bread_epd(BaseAddres, 1);
-	    const week = bread_epd(BaseAddres, 0);
-	    
-	    // Calculate timestamp: Epoch from 00:00 Jan 1, 2020.
-	    const tm_year = year - 1950;
-	    const timestamp = minute + hour*60 + (day-1)*1440 + (month-1)*43200
-	    	+ (tm_year-70)*525600 + ((tm_year-69)/4)*1440
-		- ((tm_year-1)/100)*1440 + ((tm_year+299)/400)*1440;
-	    
-	    const scaVars = sca.Timestamp, sca.Year, sca.Month, sca.Day, sca.Hour, sca.Min, sca.Week;
-	    SetVariables(scaVars, list(timestamp, year, month, day, hour, minute, week));
+            DoActions(BaseAddres.AddNumber(1));
+            const day = bread_epd(BaseAddres, 3);
+            const hour = bread_epd(BaseAddres, 2);
+            const minute = bread_epd(BaseAddres, 1);
+            const week = bread_epd(BaseAddres, 0);
+            
+            // Calculate timestamp: Epoch from 00:00 Jan 1, 2020.
+            const tm_year = year - 1950;
+            const timestamp = minute + hour*60 + (day-1)*1440 + (month-1)*43200
+                + (tm_year-70)*525600 + ((tm_year-69)/4)*1440
+                - ((tm_year-1)/100)*1440 + ((tm_year+299)/400)*1440;
+            
+            const scaVars = sca.Timestamp, sca.Year, sca.Month, sca.Day, sca.Hour, sca.Min, sca.Week;
+            SetVariables(scaVars, list(timestamp, year, month, day, hour, minute, week));
 
             DateLoadStatus[CP] = 1;
             break;
@@ -179,7 +180,7 @@ function LoadDataRead(dataLen) {
             }
 
             for (var i = 0; i < dataLen; i++) {
-                const insepector = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+                const insepector = wread_epd(baseAddr + i / 2, (i % 2) * 2);
                 if (insepector != 0) {
                     const vsize = insepector / 0x100;
                     const index = insepector % 0x100;
@@ -187,13 +188,13 @@ function LoadDataRead(dataLen) {
 
                     if (vsize == 1) {
                         i++;
-                        const value1 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+                        const value1 = wread_epd(baseAddr + i / 2, (i % 2) * 2);
                         i++;
-                        const value2 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+                        const value2 = wread_epd(baseAddr + i / 2, (i % 2) * 2);
                         value = value1 * 0x10000 + value2;
                     } else if (vsize == 2) {
                         i++;
-                        value = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
+                        value = wread_epd(baseAddr + i / 2, (i % 2) * 2);
                     }
 
                     sca.GlobalData[index] = value;
@@ -486,7 +487,7 @@ function PlayerExec() {
                                     MSQCValue = 0;
                                     MSQCCondiction = 0;
                                 }
-                                LoadDataRead(rn[CP] - 1);
+                                LoadDataRead(rn[CP] - 1, SCACommand[CP], LoadAddrEPD[CP]);
                                 SCACommand[CP] = 0;
 
                                 SCALastMessage[CP] = 4;
@@ -561,6 +562,9 @@ function PlayerExec() {
                 }
                 break;
             case 6:
+                //패스트로딩
+                break;
+            case 7:
                 //프로시져
                 break;
         }

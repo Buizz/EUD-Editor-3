@@ -30,6 +30,7 @@ Public Class SettingWindows
         ChangeTblUse.IsChecked = pgData.Setting(ProgramData.TSetting.CDLanuageChange)
         TopMostforce.IsChecked = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
         TopMostTEforce.IsChecked = pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost)
+        TETestCodeEditorUse.IsChecked = pgData.Setting(ProgramData.TSetting.TestCodeEditorUse)
         TopMostPluginforce.IsChecked = pgData.Setting(ProgramData.TSetting.PluginSettingTopMost)
         Mute.IsChecked = pgData.Setting(ProgramData.TSetting.MuteSound)
 
@@ -447,6 +448,10 @@ Public Class SettingWindows
 
     Private Sub CheckBox_Unchecked(sender As Object, e As RoutedEventArgs)
         pgData.Setting(ProgramData.TSetting.CheckReg) = False
+    End Sub
+
+    Private Sub TETestCodeEditorUse_Checked(sender As Object, e As RoutedEventArgs)
+        pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = TETestCodeEditorUse.IsChecked
     End Sub
 
     Private Sub TopMostTEforce_Checked(sender As Object, e As RoutedEventArgs)

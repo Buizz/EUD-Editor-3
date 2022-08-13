@@ -221,11 +221,26 @@ Public Class BGMManager
     Private Sub BGMPath_Click(sender As Object, e As RoutedEventArgs)
         Dim openfiledialog As New System.Windows.Forms.OpenFileDialog
         openfiledialog.Filter = Tool.GetText("BGM Fliter")
+        openfiledialog.Multiselect = True
 
         Dim dialog As System.Windows.Forms.DialogResult = openfiledialog.ShowDialog
 
         If dialog = System.Windows.Forms.DialogResult.OK Then
-            BGMPath.Text = openfiledialog.FileName
+            Dim files() As String = openfiledialog.FileNames
+            If files.Length = 1 Then
+
+                IsMultiFileOpne = False
+
+                BGMPath.Text = openfiledialog.FileName
+                BGMName.Text = openfiledialog.SafeFileName
+            ElseIf files.Length > 1 Then
+                IsMultiFileOpne = True
+                Filelist.Clear()
+                Filelist.AddRange(files)
+                BGMPath.Text = "다중 파일"
+                BGMName.Text = "다중 파일"
+                DefailtInfo.IsEnabled = False
+            End If
         End If
         BtnRefresh()
     End Sub

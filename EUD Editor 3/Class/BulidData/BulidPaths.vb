@@ -62,6 +62,11 @@
             Return EudPlibFilePath & "\ExtraDataEditor.py"
         End Get
     End Property
+    Public Shared ReadOnly Property WireFrameEpsFilePath() As String
+        Get
+            Return EudPlibFilePath & "\WireFrameDataEditor.eps"
+        End Get
+    End Property
     Public Shared ReadOnly Property TriggerEditorPath() As String
         Get
             Return EudPlibFilePath & "\TriggerEditor"
@@ -75,6 +80,11 @@
     Public Shared ReadOnly Property TempFilePath() As String
         Get
             Return Tool.GetDirectoy(TempFloder & "\", "temp")
+        End Get
+    End Property
+    Public Shared ReadOnly Property BackupFilePath() As String
+        Get
+            Return Tool.GetDirectoy(TempFloder & "\", "backup")
         End Get
     End Property
     Public Shared ReadOnly Property SoundFilePath() As String
