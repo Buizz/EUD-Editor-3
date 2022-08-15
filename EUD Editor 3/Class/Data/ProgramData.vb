@@ -4,7 +4,7 @@ Imports MaterialDesignThemes.Wpf
 Public Class ProgramData
     '<주 버전>.<부 버전>.<빌드 번호>.<수정>
     Public ReadOnly Property Version As System.Version = Reflection.Assembly.GetExecutingAssembly().GetName().Version '"0.0.1"
-    Public ReadOnly Property RecommendeuddraftVersion As New System.Version(0, 9, 5, 1)
+    Public ReadOnly Property RecommendeuddraftVersion As New System.Version(0, 9, 6, 1)
 
 
 
@@ -197,6 +197,12 @@ Public Class ProgramData
             Setting(ProgramData.TSetting.MuteSound) = True
         End Try
 
+
+        Try
+            Dim bool As Boolean = Setting(ProgramData.TSetting.TestCodeEditorUse)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.TestCodeEditorUse) = False
+        End Try
 
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))

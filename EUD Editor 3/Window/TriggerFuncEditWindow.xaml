@@ -7,6 +7,8 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
+        xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}"

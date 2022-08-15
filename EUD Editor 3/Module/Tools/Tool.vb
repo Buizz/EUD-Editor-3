@@ -156,6 +156,7 @@ Namespace Tool
         Public SaveProjectDialog As System.Windows.Forms.SaveFileDialog
         Public TEEpsDefaultFunc As CFunc
         Public EpsImportManager As EpsImportManager
+        Public LuaImportManager As LuaImportManager
 
         'Private MainWindow As MainWindow
         Public Sub Init()
@@ -170,6 +171,7 @@ Namespace Tool
             EpScriptDefaultCompletionData.GetArgKeyWordList = AddressOf GetArgTypeArray
 
 
+            LuaImportManager = New LuaImportManager()
             LuaDefaultCompletionData.GetArgDataList = AddressOf GetArgList
             LuaDefaultCompletionData.GetArgKeyWordList = AddressOf GetArgTypeArray
 

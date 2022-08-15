@@ -12,6 +12,7 @@
         AllowsTransparency="True"
         Loaded="MetroWindow_Loaded"
         Unloaded="MetroWindow_Unloaded"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}"  

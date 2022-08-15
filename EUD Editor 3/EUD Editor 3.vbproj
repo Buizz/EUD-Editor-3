@@ -614,6 +614,7 @@
     <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml.vb">
       <DependentUpon>VariableEditControl.xaml</DependentUpon>
     </Compile>
+    <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\LuaImportManager.vb" />
     <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\EpsImportManager.vb" />
     <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage Old.xaml.vb">
       <DependentUpon>TECUIPage Old.xaml</DependentUpon>

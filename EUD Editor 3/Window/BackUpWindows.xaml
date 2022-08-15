@@ -11,6 +11,7 @@
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Background="{DynamicResource MaterialDesignPaper}"
         Loaded="Window_Loaded"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         Title="{StaticResource BackUpDataWindow}" Height="420" MinHeight="420" Width="450" MinWidth="450" Topmost="True"
                       WindowStartupLocation="CenterScreen">
     <DockPanel>

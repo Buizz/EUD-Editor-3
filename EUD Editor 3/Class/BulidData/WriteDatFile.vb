@@ -196,11 +196,11 @@ Partial Public Class BuildData
 
 
                 sb.AppendLine("    WireFrameDataEditor.ChangeWireframe(" & i & ", " & pjData.ExtraDat.WireFrame(i) & ")")
-                If (i <= tranwirecount) And (trannewframe >= tranwirecount) Then
+                If (i <= tranwirecount) And (trannewframe <= tranwirecount) Then
                     sb.AppendLine("    WireFrameDataEditor.ChangeTranframe(" & i & ", " & pjData.ExtraDat.TranFrame(i) & ")")
                 End If
 
-                If (i <= grpwirecount) And (grpnewframe >= grpwirecount) Then
+                If (i <= grpwirecount) And (grpnewframe <= grpwirecount) Then
                     sb.AppendLine("    WireFrameDataEditor.ChangeGrpframe(" & i & ", " & pjData.ExtraDat.GrpFrame(i) & ")")
                 End If
 

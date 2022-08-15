@@ -1,8 +1,9 @@
 ﻿Imports BingsuCodeEditor
 
 Public Class EpsImportManager : Inherits ImportManager
-
-
+    Public Sub New()
+        CodeType = BingsuCodeEditor.CodeTextEditor.CodeType.epScript
+    End Sub
 
     Private Function GetTEFileContent(Path As String(), tTEfile As TEFile) As String
         Dim cTEfile As TEFile = tTEfile
@@ -106,7 +107,7 @@ Public Class EpsImportManager : Inherits ImportManager
     End Function
 
 
-    Public Overrides Function GetFileList(Optional basefilename As String = "") As List(Of String)
+    Public Overrides Function GetImportedFileList(Optional basefilename As String = "") As List(Of String)
 
 
 
@@ -132,6 +133,10 @@ Public Class EpsImportManager : Inherits ImportManager
     End Function
 
     Public Overrides Function GetDefaultFunctions() As String
+        Throw New NotImplementedException()
+    End Function
+
+    Public Overrides Function GetFIleList() As List(Of String)
         Throw New NotImplementedException()
     End Function
 End Class

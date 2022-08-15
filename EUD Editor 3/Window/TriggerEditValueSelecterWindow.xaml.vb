@@ -504,6 +504,7 @@ Public Class TriggerEditValueSelecterWindow
                     cCodeSelecter.Visibility = Visibility.Visible
                 Else
                     cCodeSelecter = New CodeSelecter()
+                    cCodeSelecter.IsTrigger = True
 
                     Dim DatFileType As SCDatFiles.DatFiles
                     Dim aTypeStrList() As String = {"TrgUnit", "Weapon", "Flingy", "Sprite", "Image", "Upgrade", "Tech", "Order", "Image", "TrgLocation", "TrgLocationIndex"}

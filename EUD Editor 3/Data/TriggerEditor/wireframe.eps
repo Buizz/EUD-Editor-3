@@ -93,4 +93,29 @@ function WireFrameInit() {
     else{
         is64bit = 0;
     }
+    
+    SetMemoryXEPD(grpwireptr + 5  * 2, SetTo, 0, 0xFFFF0000);
+    SetMemoryEPD(grpwireptr + 5  * 2 + 1, SetTo, 0);
+    SetMemoryXEPD(grpwireptr + 5  * 2 + 2, SetTo, 0, 0x0000FFFF);
+    
+    SetMemoryXEPD(grpwireptr + 23  * 2, SetTo, 0, 0xFFFF0000);
+    SetMemoryEPD(grpwireptr + 23  * 2 + 1, SetTo, 0);
+    SetMemoryXEPD(grpwireptr + 23  * 2 + 2, SetTo, 0, 0x0000FFFF);
+
+    SetMemoryXEPD(grpwireptr + 67  * 2, SetTo, 0, 0xFFFF0000);
+    SetMemoryEPD(grpwireptr + 67  * 2 + 1, SetTo, 0);
+    SetMemoryXEPD(grpwireptr + 67  * 2 + 2, SetTo, 0, 0x0000FFFF);
+    
+    SetMemoryXEPD(grpwireptr + 79  * 2, SetTo, 0, 0xFFFF0000);
+    SetMemoryEPD(grpwireptr + 79  * 2 + 1, SetTo, 0);
+    SetMemoryXEPD(grpwireptr + 79  * 2 + 2, SetTo, 0, 0x0000FFFF);
+
+    SetMemoryXEPD(grpwireptr + 27  * 2, SetTo, 0, 0xFFFF0000);
+    SetMemoryEPD(grpwireptr + 27  * 2 + 1, SetTo, 0);
+    SetMemoryXEPD(grpwireptr + 27  * 2 + 2, SetTo, 0, 0x0000FFFF);
+
+    SetMemoryXEPD(grpwireptr + 87  * 2, SetTo, 0, 0xFFFF0000);
+    SetMemoryEPD(grpwireptr + 87  * 2 + 1, SetTo, 0);
+    SetMemoryXEPD(grpwireptr + 87  * 2 + 2, SetTo, 0, 0x0000FFFF);
+
 }

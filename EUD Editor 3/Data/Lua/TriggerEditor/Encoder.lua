@@ -71,24 +71,36 @@ local AllyStatusDict = {
     [Enemy] = 0,
     [Ally] = 1,
     [AlliedVictory] = 2,
+    ["Enemy"] = 0,
+    ["Ally"] = 1,
+    ["AlliedVictory"] = 2,
 }
 
 local ComparisonDict = {
     [AtLeast] =  0,
     [AtMost] =  1,
     [Exactly] =  10,
+    ["AtLeast"] =  0,
+    ["AtMost"] =  1,
+    ["Exactly"] =  10,
 }
 
 local ModifierDict = {
     [SetTo] =  7,
     [Add] =  8,
     [Subtract] =  9,
+    ["SetTo"] =  7,
+    ["Add"] =  8,
+    ["Subtract"] =  9,
 }
 
 local OrderDict = {
     [Move] =  0,
     [Patrol] =  1,
     [Attack] =  2,
+    ["Move"] =  0,
+    ["Patrol"] =  1,
+    ["Attack"] =  2,
 }
 
 local PlayerDict = {
@@ -126,18 +138,58 @@ local PlayerDict = {
     [Force3] =  20,
     [Force4] =  21,
     [NonAlliedVictoryPlayers] =  26,
+    ["P1"] =  0,
+    ["P2"] =  1,
+    ["P3"] =  2,
+    ["P4"] =  3,
+    ["P5"] =  4,
+    ["P6"] =  5,
+    ["P7"] =  6,
+    ["P8"] =  7,
+    ["P9"] =  8,
+    ["P10"] =  9,
+    ["P11"] =  10,
+    ["P12"] =  11,
+    ["CurrentPlayer"] =  "getcurpl()",
+    ["Player1"] =  0,
+    ["Player2"] =  1,
+    ["Player3"] =  2,
+    ["Player4"] =  3,
+    ["Player5"] =  4,
+    ["Player6"] =  5,
+    ["Player7"] =  6,
+    ["Player8"] =  7,
+    ["Player9"] =  8,
+    ["Player10"] =  9,
+    ["Player11"] =  10,
+    ["Player12"] =  11,
+    ["Foes"] =  14,
+    ["Allies"] =  15,
+    ["NeutralPlayers"] =  16,
+    ["AllPlayers"] =  17,
+    ["Force1"] =  18,
+    ["Force2"] =  19,
+    ["Force3"] =  20,
+    ["Force4"] =  21,
+    ["NonAlliedVictoryPlayers"] =  26,
 }
 
 local PropStateDict = {
     [Enable] =  4,
     [Disable] =  5,
     [Toggle] =  6,
+    ["Enable"] =  4,
+    ["Disable"] =  5,
+    ["Toggle"] =  6,
 }
 
 local ResourceDict = {
     [Ore] =  0,
     [Gas] =  1,
     [OreAndGas] =  2,
+    ["Ore"] =  0,
+    ["Gas"] =  1,
+    ["OreAndGas"] =  2,
 }
 
 local ScoreDict = {
@@ -149,6 +201,14 @@ local ScoreDict = {
     [Razings] =  5,
     [KillsAndRazings] =  6,
     [Custom] =  7,
+    ["Total"] =  0,
+    ["Units"] =  1,
+    ["Buildings"] =  2,
+    ["UnitsAndBuildings"] =  3,
+    ["Kills"] =  4,
+    ["Razings"] =  5,
+    ["KillsAndRazings"] =  6,
+    ["Custom"] =  7,
 }
 
 local SwitchActionDict = {
@@ -156,11 +216,17 @@ local SwitchActionDict = {
     [Clear] =  5,
     [Toggle] =  6,
     [Random] =  11,
+    ["Set"] =  4,
+    ["Clear"] =  5,
+    ["Toggle"] =  6,
+    ["Random"] =  11,
 }
 
 local SwitchStateDict = {
     [Set] =  2,
     [Cleared] =  3,
+    ["Set"] =  2,
+    ["Cleared"] =  3,
 }
 
 

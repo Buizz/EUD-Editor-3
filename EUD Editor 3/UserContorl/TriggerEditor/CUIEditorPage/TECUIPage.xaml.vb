@@ -1,4 +1,6 @@
-﻿Public Class TECUIPage
+﻿Imports Newtonsoft.Json.Linq
+
+Public Class TECUIPage
     Private PTEFile As TEFile
     Public ReadOnly Property TEFile As TEFile
         Get
@@ -38,6 +40,7 @@
         If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
             TextEditor.Visibility = Visibility.Collapsed
             NewTextEditor.SetImportManager(Tool.EpsImportManager)
+            NewTextEditor.SetImportManager(Tool.LuaImportManager)
             NewTextEditor.SetFilePath = PTEFile.GetPullPath()
             NewTextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
             NewTextEditor.OptionFilePath = Tool.GetCodeEditorSettingFolder

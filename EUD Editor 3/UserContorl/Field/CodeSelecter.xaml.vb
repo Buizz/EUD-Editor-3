@@ -10,6 +10,7 @@ Public Class CodeSelecter
     Private IsFirstLoad As Boolean = False
     Private IsComboBox As Boolean
     Private StartIndex As Integer
+    Public IsTrigger As Boolean = False
 
     Public Event ListSelect As RoutedEventHandler
     Public Event OpenWindow As RoutedEventHandler
@@ -496,8 +497,11 @@ Public Class CodeSelecter
                 CodeIndexerList.Visibility = Visibility.Hidden
         End Select
 
-
-        ListCreateData(pagetype, StartIndex, _unitFlag)
+        If IsTrigger Then
+            ListCreateData(pagetype, StartIndex, True)
+        Else
+            ListCreateData(pagetype, StartIndex, _unitFlag)
+        End If
     End Sub
 
 

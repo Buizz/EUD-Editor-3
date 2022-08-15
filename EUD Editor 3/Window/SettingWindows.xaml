@@ -10,6 +10,7 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Title="{StaticResource Setting}" Height="500" Width="650" MinHeight="500" MinWidth="650" WindowStartupLocation="CenterScreen" Topmost="True">
 

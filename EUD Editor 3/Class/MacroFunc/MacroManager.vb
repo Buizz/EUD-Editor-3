@@ -168,13 +168,159 @@ Public Class MacroManager
         If str Is Nothing Then
             str = ""
         End If
-
+        lua.DoString("LuaPlayerVariable = ""getcurpl()""")
 
         '스트링을 받아서 Regex를 통해 루아함수를 찾는다.
         Dim rstr As String = str
+
+
+        '@KeyDown(P1, "`")
+        Dim shortMacro As New List(Of String)
+
+        Dim luaregex As New Regex("@[\w_]+[\w\d_]+", RegexOptions.Singleline)
+        Dim luamatches As MatchCollection = luaregex.Matches(rstr)
+        For i = 0 To luamatches.Count - 1
+
+
+            Dim truestr As String = luamatches(i).Value
+            Dim index As Integer = luamatches(i).Index + truestr.Length
+
+            Dim funcname As String = truestr.Substring(1)
+
+            Dim funccontent As String = ""
+
+
+            Dim braceCount As Integer = 0
+            If rstr(index) <> "(" Then
+                Continue For
+            End If
+
+            While True
+                If rstr.Length <= index Then
+                    Exit While
+                End If
+
+                If rstr(index) = "(" Then
+                    braceCount += 1
+                End If
+
+                If rstr(index) = ")" Then
+                    braceCount -= 1
+                End If
+
+                funccontent = funccontent & rstr(index)
+
+                If braceCount = 0 Then
+                    Exit While
+                End If
+                index += 1
+            End While
+
+            shortMacro.Add(funcname & funccontent)
+        Next
+
+        For Each t In shortMacro
+            Dim ctext As String = t
+
+            Dim braceCount As Integer = 0
+            Dim newtext As String = ctext
+
+            Dim index As Integer = 0
+
+            Dim args As New List(Of String)
+
+            Dim funcname As String = ""
+            While newtext(index) <> "("
+                funcname = funcname & newtext(index)
+                If newtext.Length <= index Then
+                    Exit While
+                End If
+
+                index += 1
+            End While
+
+            Dim argcontent As String = ""
+            While True
+                If newtext.Length <= index Then
+                    Exit While
+                End If
+
+                If newtext(index) = "(" Then
+                    braceCount += 1
+                End If
+
+                If newtext(index) = ")" Then
+                    braceCount -= 1
+                End If
+
+                If braceCount = 1 Then
+                    '밖일 경우
+                    If newtext(index) = "," Then
+                        args.Add(argcontent.Trim())
+                        argcontent = ""
+                    End If
+                End If
+
+
+
+                If braceCount <= 1 Then
+                    If (newtext(index) <> "(") And (newtext(index) <> ")") And (newtext(index) <> ",") Then
+                        argcontent = argcontent & newtext(index)
+                    End If
+                Else
+                    argcontent = argcontent & newtext(index)
+                End If
+
+
+
+
+
+
+                If braceCount = 0 Then
+                    args.Add(argcontent.Trim())
+                    Exit While
+                End If
+                index += 1
+            End While
+
+            Dim rctext As String = ""
+            For Each s In args
+                Dim quote As Boolean = False
+                If s.Length <= 2 Then
+                    '2보다 커야 ""로 덮힌것.
+                    quote = True
+                End If
+
+                If s.Substring(0, 1) <> """" And s.Substring(s.Length - 1, 1) <> """" Then
+                    quote = True
+                End If
+
+                If rctext <> "" Then
+                    rctext = rctext & ", "
+                Else
+                    rctext = funcname & "("
+                End If
+
+
+                If quote Then
+                    rctext = rctext & """" & s & """"
+                Else
+                    rctext = rctext & s
+                End If
+            Next
+            rctext = rctext & ")"
+
+
+            rstr = Replace(rstr, "@" & ctext, "<?" & rctext & "?>", 1, 1)
+        Next
+
+
+
+
+
         'global extended singleline multiline
         Dim regex As New Regex("(<\?|<\?php)(.+?)\?>", RegexOptions.Multiline Or RegexOptions.Singleline Or RegexOptions.ExplicitCapture)
-        Dim matches As MatchCollection = regex.Matches(str)
+        Dim matches As MatchCollection = regex.Matches(rstr)
 
         preDefineStr.Clear()
         For i = 0 To matches.Count - 1

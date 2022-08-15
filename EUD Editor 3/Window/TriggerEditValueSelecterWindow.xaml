@@ -10,6 +10,7 @@
         Closing="Window_Closing"
         ShowInTaskbar="False"
         AllowsTransparency="True"
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         Foreground="{DynamicResource MaterialDesignBody}" 
         
         Title="TriggerEditValueSelecterWindow"  Topmost="True" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
