@@ -247,11 +247,22 @@ Public Class MacroManager
 
                 If newtext(index) = "(" Then
                     braceCount += 1
+                    If (braceCount = 1) Then
+                        '첫 루프는 로직통과
+                        index += 1
+                        Continue While
+                    End If
                 End If
+
 
                 If newtext(index) = ")" Then
                     braceCount -= 1
+                    If braceCount = 0 Then
+                        args.Add(argcontent.Trim())
+                        Exit While
+                    End If
                 End If
+
 
                 If braceCount = 1 Then
                     '밖일 경우
@@ -262,8 +273,12 @@ Public Class MacroManager
                 End If
 
 
-
-                If braceCount <= 1 Then
+                'braceCount 0, 1일 경우?
+                If braceCount = 1 Then
+                    If (newtext(index) <> ",") Then
+                        argcontent = argcontent & newtext(index)
+                    End If
+                ElseIf braceCount = 1 Then
                     If (newtext(index) <> "(") And (newtext(index) <> ")") And (newtext(index) <> ",") Then
                         argcontent = argcontent & newtext(index)
                     End If
@@ -273,19 +288,17 @@ Public Class MacroManager
 
 
 
-
-
-
-                If braceCount = 0 Then
-                    args.Add(argcontent.Trim())
-                    Exit While
-                End If
                 index += 1
             End While
 
             Dim rctext As String = ""
             For Each s In args
                 Dim quote As Boolean = False
+                If s = "" Then
+                    rctext = funcname & "("
+                    Exit For
+                End If
+
                 If s.Length <= 2 Then
                     '2보다 커야 ""로 덮힌것.
                     quote = True

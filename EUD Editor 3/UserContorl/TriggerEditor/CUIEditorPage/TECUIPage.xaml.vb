@@ -26,7 +26,12 @@ Public Class TECUIPage
     End Sub
 
 
+    Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        Dim window As New TextEditorWindow(NewTextEditor.SelectedText)
+        window.ShowDialog()
 
+        NewTextEditor.SelectedText = window.TextString
+    End Sub
     Public Sub New(tTEFile As TEFile, Optional highLightLine As Integer = -1)
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -39,6 +44,7 @@ Public Class TECUIPage
 
         If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
             TextEditor.Visibility = Visibility.Collapsed
+            NewTextEditor.AddCustomMenuBtn("텍스트 에디터 열기", "Ctrl+T", Key.LeftCtrl, Key.T, New RoutedEventHandler(AddressOf MenuItem_Click))
             NewTextEditor.SetImportManager(Tool.EpsImportManager)
             NewTextEditor.SetImportManager(Tool.LuaImportManager)
             NewTextEditor.SetFilePath = PTEFile.GetPullPath()
