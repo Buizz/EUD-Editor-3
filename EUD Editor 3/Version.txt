@@ -1,2 +1,2 @@
-0.14.0.0
-https://github.com/Buizz/EUD-Editor-3/releases/download/0.14.0.0/EUD.Editor.3.0.14.0.0.zip
+0.14.1.0
+https://github.com/Buizz/EUD-Editor-3/releases/download/0.14.1.0/EUD.Editor.3.0.14.1.0.zip
