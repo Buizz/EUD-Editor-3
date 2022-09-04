@@ -145,7 +145,7 @@
 
 
 
-                    <ListBox x:Name="TListBox" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended"
+                    <ListBox x:Name="TListBox" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended"  ScrollViewer.CanContentScroll="False"
                              MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
 
                         <ListBox.ItemTemplate>

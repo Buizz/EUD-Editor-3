@@ -204,6 +204,12 @@ Public Class ProgramData
             Setting(ProgramData.TSetting.TestCodeEditorUse) = False
         End Try
 
+        Try
+            Dim bool As Boolean = Setting(ProgramData.TSetting.TECEUseSmoothScrool)
+        Catch ex As Exception
+            Setting(ProgramData.TSetting.TECEUseSmoothScrool) = True
+        End Try
+
         IsCompilng = False
         'Lan = New Language(Setting(TSetting.language))
 
@@ -251,13 +257,14 @@ Public Class ProgramData
 
         MuteSound = 30
         TestCodeEditorUse = 31
+        TECEUseSmoothScrool = 32
     End Enum
     Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
     "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush", "PrimaryHueDarkBrush",
     "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush", "DefaultData", "MapEditorData",
     "EditedData", "CheckedData", "CDLanuageChange", "DataEditorTopMost", "CheckReg",
     "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic", "TEFontSize", "SavePath", "OpenPath", "SaveMapPath", "OpenMapPath", "DonateMsg", "MuteSound",
-    "TestCodeEditorUse"}
+    "TestCodeEditorUse", "TECEUseSmoothScrool"}
     Public Property Setting(key As TSetting) As String
         Get
             Return pgsetting.SettingData(settingstr(key))

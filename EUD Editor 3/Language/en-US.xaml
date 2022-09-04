@@ -39,6 +39,7 @@
     <sys:String x:Key="TEFontSize">Font size</sys:String>
 
     <sys:String x:Key="TETestCodeEditorUse">Use TestCodeEditor</sys:String>
+    <sys:String x:Key="TECESmoothScroolUse">Use SmoothScrool(ClassicTrigger)</sys:String>
 
     <sys:String x:Key="TBLChange">Use tbl custom</sys:String>
     <sys:String x:Key="chkDataFirst">chkData First</sys:String>

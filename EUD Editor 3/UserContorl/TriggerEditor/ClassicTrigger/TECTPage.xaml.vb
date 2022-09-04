@@ -146,7 +146,11 @@ Public Class TECTPage
 
 
 
-
+        If pgData.Setting(ProgramData.TSetting.TECEUseSmoothScrool) Then
+            ScrollViewer.SetCanContentScroll(TListBox, False)
+        Else
+            ScrollViewer.SetCanContentScroll(TListBox, True)
+        End If
 
 
 

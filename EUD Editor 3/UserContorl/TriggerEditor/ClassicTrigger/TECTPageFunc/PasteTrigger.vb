@@ -63,7 +63,9 @@ Partial Public Class TECTPage
             SelectList.Sort(Function(x, y)
                                 Return TListBox.Items.IndexOf(x).CompareTo(TListBox.Items.IndexOf(y))
                             End Function)
-            InsertPos = TListBox.Items.IndexOf(SelectList.Last)
+
+            InsertPos = Scripter.TriggerListCollection.IndexOf(SelectList.Last)
+            'InsertPos = TListBox.Items.IndexOf(SelectList.Last)
         End If
 
 

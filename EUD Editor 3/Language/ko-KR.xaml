@@ -39,6 +39,7 @@
     <sys:String x:Key="TEFontSize">폰트 크기</sys:String>
 
     <sys:String x:Key="TETestCodeEditorUse">테스트 코드에디터 사용</sys:String>
+    <sys:String x:Key="TECESmoothScroolUse">부드러운 스크롤(클래식트리거)</sys:String>
 
     <sys:String x:Key="TBLChange">사용자 정의 tbl사용</sys:String>
     <sys:String x:Key="chkDataFirst">chk데이터 우선</sys:String>
