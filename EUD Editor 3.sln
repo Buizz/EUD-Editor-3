@@ -5,7 +5,7 @@ VisualStudioVersion = 17.2.32616.157
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{F184B08F-C81C-45F6-A57F-5ABD9991F28F}") = "EUD Editor 3", "EUD Editor 3\EUD Editor 3.vbproj", "{E30F3614-51DA-455E-A60E-F2B68E485FE7}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingsuCodeEditor", "..\..\BingsuCodeEditor\BingsuCodeEditor\BingsuCodeEditor.csproj", "{B5327821-471E-4A70-9008-C4A8EE93729E}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "BingsuCodeEditor", "..\BingsuCodeEditor\BingsuCodeEditor\BingsuCodeEditor.csproj", "{B5327821-471E-4A70-9008-C4A8EE93729E}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution

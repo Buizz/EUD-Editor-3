@@ -1902,7 +1902,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\..\..\BingsuCodeEditor\BingsuCodeEditor\BingsuCodeEditor.csproj">
+    <ProjectReference Include="..\..\BingsuCodeEditor\BingsuCodeEditor\BingsuCodeEditor.csproj">
       <Project>{b5327821-471e-4a70-9008-c4a8ee93729e}</Project>
       <Name>BingsuCodeEditor</Name>
     </ProjectReference>

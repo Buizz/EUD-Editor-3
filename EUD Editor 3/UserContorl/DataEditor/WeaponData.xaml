@@ -11,7 +11,7 @@
              mc:Ignorable="d"
              Background="{DynamicResource MaterialDesignPaper}" 
              Foreground="{DynamicResource MaterialDesignBody}"  
-             d:DesignHeight="482"  d:DesignWidth="770">
+             d:DesignHeight="550" d:DesignWidth="770">
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
 
@@ -111,9 +111,9 @@
                             </DockPanel>
                         </materialDesign:Card>
                         <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
-                            <Grid>
+                            <GroupBox Margin="2" Padding="1" Width="180" Height="180" materialDesign:ColorZoneAssist.Background="Transparent" materialDesign:ColorZoneAssist.Mode="Custom">
                                 <local:GRPImageBox x:Name="GRPImages" Width="180" Height="180"/>
-                            </Grid>
+                            </GroupBox>
                         </materialDesign:Card>
                     </StackPanel>
                 </StackPanel>

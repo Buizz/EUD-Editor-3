@@ -97,6 +97,7 @@ Public Class GRPBox
 
         Dim pwidth As Integer = ImageBox.ActualWidth
         Dim pheight As Integer = ImageBox.ActualHeight
+
         ImageBox.Children.Clear()
         If Flag = GRPImageBox.BoxType.Sprite Then
             If FObjectID >= 130 Then
@@ -245,39 +246,45 @@ Public Class GRPBox
                 Dim UpwardOffset As Integer = pjData.Dat.Data(SCDatFiles.DatFiles.weapons, "Upward Offset", FObjectID)
 
                 If True Then
-                    Dim Splashborder As New Border
+                    Dim Splashborder As New Ellipse
                     Splashborder.HorizontalAlignment = HorizontalAlignment.Left
                     Splashborder.VerticalAlignment = VerticalAlignment.Top
                     Splashborder.Margin = New Thickness(pwidth / 2 - (Outer) \ 2, pheight / 2 - (Outer) \ 2, 0, 0)
                     Splashborder.Width = Outer
                     Splashborder.Height = Outer
-                    Splashborder.Background = New SolidColorBrush(Color.FromArgb(150, 255, 50, 50))
-                    Splashborder.BorderBrush = New SolidColorBrush(Color.FromArgb(200, 0, 255, 0))
-                    Splashborder.BorderThickness = New Thickness(1)
+                    Splashborder.Fill = New SolidColorBrush(Color.FromArgb(100, 50, 50, 255))
+                    Splashborder.Stroke = New SolidColorBrush(Color.FromArgb(255, 50, 50, 255))
+                    'Splashborder.Background = New SolidColorBrush(Color.FromArgb(150, 255, 50, 50))
+                    'Splashborder.BorderBrush = New SolidColorBrush(Color.FromArgb(200, 0, 255, 0))
+                    'Splashborder.BorderThickness = New Thickness(1)
                     ImageBox.Children.Add(Splashborder)
                 End If
                 If True Then
-                    Dim Splashborder As New Border
+                    Dim Splashborder As New Ellipse
                     Splashborder.HorizontalAlignment = HorizontalAlignment.Left
                     Splashborder.VerticalAlignment = VerticalAlignment.Top
                     Splashborder.Margin = New Thickness(pwidth / 2 - (Medium) \ 2, pheight / 2 - (Medium) \ 2, 0, 0)
                     Splashborder.Width = Medium
                     Splashborder.Height = Medium
-                    Splashborder.Background = New SolidColorBrush(Color.FromArgb(150, 255, 100, 100))
-                    Splashborder.BorderBrush = New SolidColorBrush(Color.FromArgb(200, 0, 255, 0))
-                    Splashborder.BorderThickness = New Thickness(1)
+                    Splashborder.Fill = New SolidColorBrush(Color.FromArgb(100, 100, 100, 255))
+                    Splashborder.Stroke = New SolidColorBrush(Color.FromArgb(255, 100, 100, 255))
+                    'Splashborder.Background = New SolidColorBrush(Color.FromArgb(150, 255, 100, 100))
+                    'Splashborder.BorderBrush = New SolidColorBrush(Color.FromArgb(200, 0, 255, 0))
+                    'Splashborder.BorderThickness = New Thickness(1)
                     ImageBox.Children.Add(Splashborder)
                 End If
                 If True Then
-                    Dim Splashborder As New Border
+                    Dim Splashborder As New Ellipse
                     Splashborder.HorizontalAlignment = HorizontalAlignment.Left
                     Splashborder.VerticalAlignment = VerticalAlignment.Top
                     Splashborder.Margin = New Thickness(pwidth / 2 - (Inner) \ 2, pheight / 2 - (Inner) \ 2, 0, 0)
                     Splashborder.Width = Inner
                     Splashborder.Height = Inner
-                    Splashborder.Background = New SolidColorBrush(Color.FromArgb(150, 255, 150, 150))
-                    Splashborder.BorderBrush = New SolidColorBrush(Color.FromArgb(200, 0, 255, 0))
-                    Splashborder.BorderThickness = New Thickness(1)
+                    Splashborder.Fill = New SolidColorBrush(Color.FromArgb(100, 150, 150, 255))
+                    Splashborder.Stroke = New SolidColorBrush(Color.FromArgb(255, 150, 150, 255))
+                    'Splashborder.Background = New SolidColorBrush(Color.FromArgb(150, 255, 150, 150))
+                    'Splashborder.BorderBrush = New SolidColorBrush(Color.FromArgb(200, 0, 255, 0))
+                    'Splashborder.BorderThickness = New Thickness(1)
                     ImageBox.Children.Add(Splashborder)
                 End If
                 If True Then
