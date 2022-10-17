@@ -166,6 +166,7 @@ Public Class StarCraftData
     Private pIscriptName(SCIscriptCount) As String
     Private pvirtualCode(255) As String
     Private pASCIICode(128) As String
+    Private pASCIICodeList As List(Of String)
 
 
     Private pSoundName() As String
@@ -231,6 +232,10 @@ Public Class StarCraftData
             Return pASCIICode(index)
         End Get
     End Property
+
+    Public Function GetASCIIIndex(keystr As String) As Integer
+        Return pASCIICodeList.IndexOf(keystr)
+    End Function
 
     Private ExtraBtnStr(22) As String
     Public ReadOnly Property BtnStr(index As Integer) As String
@@ -643,6 +648,8 @@ Public Class StarCraftData
             index += 1
         End While
         sr.Close()
+
+        pASCIICodeList = pASCIICode.ToList()
 
         sr = New StreamReader(SfxSoundListPath)
         index = 0

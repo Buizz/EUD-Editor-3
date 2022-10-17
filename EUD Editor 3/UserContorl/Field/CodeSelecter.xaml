@@ -67,11 +67,12 @@
               Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" />
         </DockPanel>
 
-
-        <ToolBarTray x:Name="toolBarTray"  Grid.Row="2" >
-            <ToolBar Width="{Binding ActualWidth, ElementName=toolBarTray}" ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}"  >
-                <DockPanel  Width="{Binding ActualWidth, ElementName=toolBarTray}" LastChildFill="False" Margin="-10,0" >
-                    <ListBox x:Name="SortListBox" SelectionChanged="ListBox_SelectionChanged" Margin="10,0,0,0" >
+        <Grid Grid.Row="2">
+            
+            
+            <ToolBarTray  x:Name="toolBarTray"  >
+                <ToolBar Width="{Binding ActualWidth, ElementName=toolBarTray}" ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}" Background="{x:Null}"  >
+                    <ListBox x:Name="SortListBox" SelectionChanged="ListBox_SelectionChanged" >
                         <ListBoxItem x:Name="Btnsortn123" Padding="0" MinWidth="0" Width="34" Height="34" IsSelected="True" ToolTip="{StaticResource SortCode}">
                             <materialDesign:PackIcon Kind="SortNumerically"  Margin="-10" />
                         </ListBoxItem>
@@ -81,21 +82,24 @@
                         <ListBoxItem x:Name="BtnsortTree" Padding="0" MinWidth="0" Width="34" ToolTip="{StaticResource SortTree}">
                             <materialDesign:PackIcon Kind="FileTree"  Margin="-10"/>
                         </ListBoxItem>
-                    </ListBox>
+                    </ListBox>                    
+                </ToolBar>
 
-                    <ListBox SelectionMode="Extended" DockPanel.Dock="Right" SelectionChanged="ToolBox_SelectionChanged" Margin="0,0,-5,0" >
-                        <ListBoxItem x:Name="L_IconBtn" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource FliterIcon}">
-                            <materialDesign:PackIcon Kind="ImageArea" Margin="-10"/>
-                        </ListBoxItem >
+            </ToolBarTray>
+
+            <ToolBarTray  Background="{x:Null}" >
+                <ToolBar Width="{Binding ActualWidth, ElementName=toolBarTray}" ToolBarTray.IsLocked="True" Style="{DynamicResource MaterialDesignToolBar}" FlowDirection="RightToLeft" Background="{x:Null}"  >
+                    <ListBox SelectionMode="Extended" DockPanel.Dock="Right" SelectionChanged="ToolBox_SelectionChanged"  >
                         <ListBoxItem x:Name="L_IsEditBtn" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource FliterEdit}">
                             <materialDesign:PackIcon Kind="PencilBox" Margin="-10"/>
                         </ListBoxItem>
+                        <ListBoxItem x:Name="L_IconBtn" Padding="0" MinWidth="0" Width="34" Height="34" ToolTip="{StaticResource FliterIcon}">
+                            <materialDesign:PackIcon Kind="ImageArea" Margin="-10"/>
+                        </ListBoxItem >
                     </ListBox>
-                </DockPanel>
-            </ToolBar>
-        </ToolBarTray>
+                </ToolBar>
 
-
-
+            </ToolBarTray>
+        </Grid>
     </Grid>
 </UserControl>
