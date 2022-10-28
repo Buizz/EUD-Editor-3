@@ -21,7 +21,9 @@ Partial Public Class TriggerEditControl
 
         Try
             Dim Triggers As List(Of TriggerCodeBlock) = JsonConvert.DeserializeObject(PasteText, GetType(List(Of TriggerCodeBlock)))
-
+            If Triggers Is Nothing Then
+                Return False
+            End If
             If Triggers.Count = 0 Then
                 LastAble = False
                 Return False

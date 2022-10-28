@@ -22,6 +22,10 @@ Partial Public Class TECTPage
         Try
             Dim Triggers As List(Of Trigger) = JsonConvert.DeserializeObject(PasteText, GetType(List(Of Trigger)))
 
+            If Triggers Is Nothing Then
+                Return False
+            End If
+
             If Triggers.Count = 0 Then
                 LastAble = False
                 Return False
