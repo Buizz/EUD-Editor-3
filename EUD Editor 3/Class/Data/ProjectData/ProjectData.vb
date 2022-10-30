@@ -571,7 +571,7 @@ Public Class ProjectData
     Private ReadOnly Property UnitName(index As Byte) As String
         Get
             If index > 228 Then
-                Dim aunit() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+                Dim aunit() As String = {"(any unit)", "(men)", "(buildings)", "(factories)"}
                 Return aunit(index - 229)
             End If
 
