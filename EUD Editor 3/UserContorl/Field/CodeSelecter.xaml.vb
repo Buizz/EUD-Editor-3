@@ -962,7 +962,7 @@ Public Class CodeSelecter
                 End If
                 If pagetype = SCDatFiles.DatFiles.units Then
                     If IsTriggerUnit Then
-                        Dim aunit() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+                        Dim aunit() As String = {"(any unit)", "(men)", "(buildings)", "(factories)"}
 
                         For i = 0 To aunit.Count - 1
                             Dim textblock As New TextBlock

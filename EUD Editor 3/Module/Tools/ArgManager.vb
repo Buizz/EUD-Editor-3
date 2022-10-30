@@ -155,7 +155,7 @@
                     strs.Add(pjData.EngStat_txt(i))
                 Next
 
-                strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
+                strs.AddRange({"(any unit)", "(men)", "(buildings)", "(factories)"})
 
                 Return strs.ToArray
             Case "WAVName"

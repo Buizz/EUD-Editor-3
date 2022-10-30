@@ -161,7 +161,7 @@ Partial Public Class CodeEditor
                     strs.Add(pjData.EngStat_txt(i))
                 Next
 
-                strs.AddRange({"(men)", "(any unit)", "(factories)", "(buildings)"})
+                strs.AddRange({"(any unit)", "(men)", "(buildings)", "(factories)"})
 
                 Return strs.ToArray
             Case "WAVName"
@@ -381,7 +381,7 @@ Partial Public Class CodeEditor
                         data.Add(New TECompletionData(0, """" & pjData.CodeLabel(SCDatFiles.DatFiles.units, i) & """", """" & pjData.EngStat_txt(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
                     Next
 
-                    Dim strs() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+                    Dim strs() As String = {"(any unit)", "(men)", "(buildings)", "(factories)"}
 
                     For i = 0 To strs.Length - 1
                         Dim tb As New TextBox
@@ -595,7 +595,7 @@ Partial Public Class CodeEditor
                         data.Add(New TECompletionData(0, """" & pjData.CodeLabel(SCDatFiles.DatFiles.units, i) & """", """" & pjData.UnitInGameName(i) & """", tb, TextEditor, TECompletionData.EIconType.StarStringConst))
                     Next
 
-                    Dim strs() As String = {"(men)", "(any unit)", "(factories)", "(buildings)"}
+                    Dim strs() As String = {"(any unit)", "(men)", "(buildings)", "(factories)"}
 
                     For i = 0 To strs.Length - 1
                         Dim tb As New TextBox
