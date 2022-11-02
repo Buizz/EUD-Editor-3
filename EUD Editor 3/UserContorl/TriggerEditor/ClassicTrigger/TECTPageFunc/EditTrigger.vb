@@ -19,7 +19,7 @@
             Dim edittrg As Trigger = trg.DeepCopy()
             EditWindow.Visibility = Visibility.Visible
 
-            OpenStroyBoard.Begin(Me)
+            OpenStoryBoard.Begin(Me)
             Dim TrigEditctrl As New TriggerEditControl(Scripter, edittrg)
             InputDialog.Content = TrigEditctrl
 
@@ -68,7 +68,7 @@
                                                       trg.PropertyChangeAll()
                                                       'InputDialog.Content = Nothing
                                                       'EditWindow.Visibility = Visibility.Hidden
-                                                      CloseStroyBoard.Begin(Me)
+                                                      CloseStoryBoard.Begin(Me)
                                                   End Sub
 
 
@@ -76,7 +76,7 @@
             AddHandler TrigEditctrl.CancelBtnEvent, Sub()
                                                         'InputDialog.Content = Nothing
                                                         'EditWindow.Visibility = Visibility.Hidden
-                                                        CloseStroyBoard.Begin(Me)
+                                                        CloseStoryBoard.Begin(Me)
                                                     End Sub
 
 

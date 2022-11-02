@@ -3,14 +3,14 @@
 Public Class SCADataList
 
     Public Sub Refresh()
-        List.ItemsSource = pjData.TEData.SCArchive.CodeDatas
+        List.ItemsSource = pjData.TEData.SCArchive.CodeData
         NameCombobox.Items.Clear()
         InitStartFileCombox("", pjData.TEData.PFIles)
     End Sub
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         AnimationInit()
-        List.ItemsSource = pjData.TEData.SCArchive.CodeDatas
+        List.ItemsSource = pjData.TEData.SCArchive.CodeData
         NameCombobox.Items.Clear()
         InitStartFileCombox("", pjData.TEData.PFIles)
     End Sub
@@ -46,7 +46,7 @@ Public Class SCADataList
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         OpenNewWindow()
-        'pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData("레벨", "데스값 " & List.Items.Count, "마린"))
+        'pjData.TEData.SCArchive.CodeData.Add(New StarCraftArchive.CodeData("레벨", "데스값 " & List.Items.Count, "마린"))
         'List.Items.Refresh()
     End Sub
 
@@ -55,7 +55,7 @@ Public Class SCADataList
     End Sub
 
     Private Sub DeleteItem_Click(sender As Object, e As RoutedEventArgs)
-        pjData.TEData.SCArchive.CodeDatas.Remove(CType(List.SelectedItem, StarCraftArchive.CodeData))
+        pjData.TEData.SCArchive.CodeData.Remove(CType(List.SelectedItem, StarCraftArchive.CodeData))
         List.Items.Refresh()
         pjData.SetDirty(True)
     End Sub
@@ -73,7 +73,7 @@ Public Class SCADataList
     Private IsEditWindowopen As Boolean
     Private Sub OpenNewWindow()
         IsEditWindowopen = False
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         DataName.Text = ""
         Checekname()
         TypeCB.SelectedIndex = 1
@@ -86,7 +86,7 @@ Public Class SCADataList
     End Sub
     Private Sub OpenEditWindow()
         IsEditWindowopen = True
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         Dim SelCodeData As StarCraftArchive.CodeData = CType(List.SelectedItem, StarCraftArchive.CodeData)
 
         DataName.Text = SelCodeData.TagName
@@ -196,22 +196,22 @@ Public Class SCADataList
 
             Select Case TypeCB.SelectedIndex
                 Case 0
-                    pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
+                    pjData.TEData.SCArchive.CodeData.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
                 Case 1
-                    pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, ValueSelecter.Value))
+                    pjData.TEData.SCArchive.CodeData.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, ValueSelecter.Value))
                 Case 2
-                    pjData.TEData.SCArchive.CodeDatas.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
+                    pjData.TEData.SCArchive.CodeData.Add(New StarCraftArchive.CodeData(DataName.Text, TypeCB.SelectedIndex, CType(NameCombobox.SelectedItem, ComboBoxItem).Content & "," & VarSelecter.SelectedItem))
             End Select
         End If
         List.Items.Refresh()
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
         pjData.SetDirty(True)
     End Sub
     Private Sub CancelButton_Click(sender As Object, e As RoutedEventArgs)
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
     End Sub
-    Private OpenStroyBoard As Storyboard
-    Private CloseStroyBoard As Storyboard
+    Private OpenStoryBoard As Storyboard
+    Private CloseStoryBoard As Storyboard
     Private Sub AnimationInit()
         If True Then
             Dim scale1 As ScaleTransform = New ScaleTransform(1, 1)
@@ -236,10 +236,10 @@ Public Class SCADataList
             myOpacityAnimation.To = 1.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            OpenStroyBoard = New Storyboard()
-            OpenStroyBoard.Children.Add(myOpacityAnimation)
-            OpenStroyBoard.Children.Add(myWidthAnimation)
-            OpenStroyBoard.Children.Add(myHeightAnimation)
+            OpenStoryBoard = New Storyboard()
+            OpenStoryBoard.Children.Add(myOpacityAnimation)
+            OpenStoryBoard.Children.Add(myWidthAnimation)
+            OpenStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -270,10 +270,10 @@ Public Class SCADataList
             myOpacityAnimation.To = 0.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            CloseStroyBoard = New Storyboard()
-            CloseStroyBoard.Children.Add(myOpacityAnimation)
-            CloseStroyBoard.Children.Add(myWidthAnimation)
-            CloseStroyBoard.Children.Add(myHeightAnimation)
+            CloseStoryBoard = New Storyboard()
+            CloseStoryBoard.Children.Add(myOpacityAnimation)
+            CloseStoryBoard.Children.Add(myWidthAnimation)
+            CloseStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -281,7 +281,7 @@ Public Class SCADataList
             Storyboard.SetTargetProperty(myHeightAnimation, New PropertyPath("RenderTransform.ScaleY"))
             Storyboard.SetTargetProperty(myWidthAnimation, New PropertyPath("RenderTransform.ScaleX"))
 
-            AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
+            AddHandler CloseStoryBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       CreateEditWindow.Visibility = Visibility.Hidden
                                                   End Sub
         End If

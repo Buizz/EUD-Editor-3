@@ -21,7 +21,7 @@ Public Class LuaManager
     Private LogBox As TextBox
     Public ReadOnly Functions As List(Of String)
     Public ReadOnly ToolTips As List(Of TextBlock)
-    Public ReadOnly Propertys As List(Of String)
+    Public ReadOnly Properties As List(Of String)
     Public ReadOnly PropertyToolTips As List(Of TextBlock)
     Public ReadOnly ArgumentDefine As List(Of String())
     Public ReadOnly ToolTipTexts As List(Of String)
@@ -62,7 +62,7 @@ Public Class LuaManager
 
         Functions = New List(Of String)
         ToolTips = New List(Of TextBlock)
-        Propertys = New List(Of String)
+        Properties = New List(Of String)
         PropertyToolTips = New List(Of TextBlock)
         ArgumentDefine = New List(Of String())
         ToolTipTexts = New List(Of String)
@@ -80,7 +80,7 @@ Public Class LuaManager
         RegFunction("ClearLog", "clear", "<1>function <0>clear()" & vbCrLf & "로그 창을 지웁니다.")
 
         For DatFiles = 0 To Datfilesname.Count - 1
-            Propertys.Add(Datfilesname(DatFiles))
+            Properties.Add(Datfilesname(DatFiles))
             PropertyToolTips.Add(Tool.TextColorBlock(Datfilesname(DatFiles)))
         Next
 
@@ -89,10 +89,10 @@ Public Class LuaManager
             DatIndex = DatIndex & " " & Datfilesname(DatFiles)
 
 
-            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
-                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
+            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParameterList.Count - 1
+                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetParamname
                 Paramname = Paramname.Replace(" ", "_")
-                Propertys.Add(Paramname)
+                Properties.Add(Paramname)
                 PropertyToolTips.Add(Tool.TextColorBlock(Datfilesname(DatFiles) & " " & Paramname))
             Next
         Next
@@ -159,8 +159,8 @@ Public Class LuaManager
                 Return True
             End If
         Next
-        For i = 0 To Propertys.Count - 1
-            If Propertys(i).ToLower.IndexOf(str.ToLower) >= 0 Then
+        For i = 0 To Properties.Count - 1
+            If Properties(i).ToLower.IndexOf(str.ToLower) >= 0 Then
                 Return True
             End If
         Next
@@ -232,49 +232,49 @@ Public Class LuaManager
 
 
 
-    Public Sub SetDat(DatName As String, ParamaterName As String, ObjectId As Integer, Value As Long)
+    Public Sub SetDat(DatName As String, ParameterName As String, ObjectId As Integer, Value As Long)
         Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
         If Datfile = SCDatFiles.DatFiles.None Then
             Return
         End If
         DatName = Datfilesname(Datfile)
-        ParamaterName = Tool.ParamaterParser(ParamaterName, DatName)
+        ParameterName = Tool.ParameterParser(ParameterName, DatName)
 
         If SCDatFiles.CheckValidDat(Datfile) Then
-            pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).Value = Value
+            pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectId).Value = Value
         Else
-            pjData.BindingManager.ExtraDatBinding(Datfile, ParamaterName, ObjectId).Value = Value
+            pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectId).Value = Value
         End If
 
     End Sub
-    Public Function GetDat(DatName As String, ParamaterName As String, ObjectId As Integer) As Long
+    Public Function GetDat(DatName As String, ParameterName As String, ObjectId As Integer) As Long
         Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
         If Datfile = SCDatFiles.DatFiles.None Then
             Return 0
         End If
         DatName = Datfilesname(Datfile)
-        ParamaterName = Tool.ParamaterParser(ParamaterName, DatName)
+        ParameterName = Tool.ParameterParser(ParameterName, DatName)
 
 
         If SCDatFiles.CheckValidDat(Datfile) Then
-            Return pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).Value
+            Return pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectId).Value
         Else
-            Return pjData.BindingManager.ExtraDatBinding(Datfile, ParamaterName, ObjectId).Value
+            Return pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectId).Value
         End If
     End Function
-    Public Sub ResetDat(DatName As String, ParamaterName As String, ObjectId As Integer)
+    Public Sub ResetDat(DatName As String, ParameterName As String, ObjectId As Integer)
         Dim Datfile As SCDatFiles.DatFiles = GetDatFile(DatName)
         If Datfile = SCDatFiles.DatFiles.None Then
             Return
         End If
         DatName = Datfilesname(Datfile)
-        ParamaterName = Tool.ParamaterParser(ParamaterName, DatName)
+        ParameterName = Tool.ParameterParser(ParameterName, DatName)
 
 
         If SCDatFiles.CheckValidDat(Datfile) Then
-            pjData.BindingManager.DatBinding(Datfile, ParamaterName, ObjectId).DataReset()
+            pjData.BindingManager.DatBinding(Datfile, ParameterName, ObjectId).DataReset()
         Else
-            pjData.BindingManager.ExtraDatBinding(Datfile, ParamaterName, ObjectId).DataReset()
+            pjData.BindingManager.ExtraDatBinding(Datfile, ParameterName, ObjectId).DataReset()
         End If
     End Sub
 

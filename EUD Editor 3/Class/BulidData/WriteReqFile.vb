@@ -82,7 +82,7 @@ Partial Public Class BuildData
         fileCreator.Close()
     End Sub
 
-    Private Sub WriteRequirment(sb As StringBuilder)
+    Private Sub WriteRequirement(sb As StringBuilder)
         Dim pointers() As String = {"FG_PReqUnit", "FG_PReqUpg", "FG_PReqTechUpg", "FG_PReqTechUse", "FG_PReqOrder"}
         Dim Datfiles() As SCDatFiles.DatFiles = {SCDatFiles.DatFiles.units, SCDatFiles.DatFiles.upgrades, SCDatFiles.DatFiles.techdata, SCDatFiles.DatFiles.Stechdata, SCDatFiles.DatFiles.orders}
 

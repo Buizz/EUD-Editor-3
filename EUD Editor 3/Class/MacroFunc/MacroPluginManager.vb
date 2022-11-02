@@ -1,21 +1,21 @@
 ﻿Imports System.Text.RegularExpressions
 
 Partial Public Class MacroManager
-    Private _IsBulid As Boolean = False
-    Public Property IsBulid As Boolean
+    Private _IsBuild As Boolean = False
+    Public Property IsBuild As Boolean
         Get
-            Return _IsBulid
+            Return _IsBuild
         End Get
         Set(value As Boolean)
             If value = True Then
-                If _IsBulid = False Then
+                If _IsBuild = False Then
                     BuildStart()
-                    _IsBulid = True
+                    _IsBuild = True
                 End If
             Else
-                If _IsBulid = True Then
+                If _IsBuild = True Then
                     BuildEnd()
-                    _IsBulid = False
+                    _IsBuild = False
                 End If
             End If
         End Set
@@ -154,7 +154,7 @@ Partial Public Class MacroManager
 
     Public MSQCItems As New Dictionary(Of String, String)
     Public Sub AddMSQCPlugin(keyboard As String, vname As String, action As String, cond As String)
-        If IsBulid Then
+        If IsBuild Then
             Dim key As String = action & "(" & keyboard & ")"
 
             If Not MSQCItems.ContainsKey(key) Then
@@ -164,7 +164,7 @@ Partial Public Class MacroManager
     End Sub
     Public ChatEventItems As New List(Of String)
     Public Function AddChatEventPlugin(chat As String) As String
-        If IsBulid Then
+        If IsBuild Then
             Dim index As Integer = ChatEventItems.IndexOf(chat)
             If index = -1 Then
                 index = ChatEventItems.Count

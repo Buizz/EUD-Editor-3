@@ -370,7 +370,7 @@ Partial Public Class ProjectExplorer
             Dim cfile As TEFile = GetFile(LastSelectItem)
 
             If cfile.FileType = TEFile.EFileType.CUIEps Then
-                If cfile.ChagneType() Then
+                If cfile.ChangeType() Then
                     LastSelectItem.Header = GetTreeNodeHeader(cfile)
                     pjData.SetDirty(True)
                     TECloseTabITem(cfile)
@@ -385,7 +385,7 @@ Partial Public Class ProjectExplorer
 
             If cfile.FileType = TEFile.EFileType.GUIEps Then
 
-                If cfile.ChagneType() Then
+                If cfile.ChangeType() Then
                     LastSelectItem.Header = GetTreeNodeHeader(cfile)
                     pjData.SetDirty(True)
                     TECloseTabITem(cfile)

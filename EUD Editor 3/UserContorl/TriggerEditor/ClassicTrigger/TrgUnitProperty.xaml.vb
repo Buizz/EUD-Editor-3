@@ -1,4 +1,4 @@
-﻿Public Class TrgUnitPorperty
+﻿Public Class TrgUnitProperty
     Public Event SelectEvent As RoutedEventHandler
 
     Public Sub New()
@@ -28,10 +28,10 @@
             Return
         End If
 
-        Dim datas() As String = v.Split(",")
+        Dim data() As String = v.Split(",")
 
-        For i = 0 To datas.Count - 1
-            Dim c() As String = datas(i).Split("=")
+        For i = 0 To data.Count - 1
+            Dim c() As String = data(i).Split("=")
             Dim _type As String = c.First
             Dim _value As String = c.Last
 

@@ -72,7 +72,7 @@
 
 
 
-    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles chbox.ContextMenuOpening
+    Private Sub OpenMenu(sender As Object, e As ContextMenuEventArgs) Handles chbox.ContextMenuOpening
         CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)

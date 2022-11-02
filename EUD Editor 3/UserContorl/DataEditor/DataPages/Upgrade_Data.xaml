@@ -67,7 +67,7 @@
                                 <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
-                                  Text="{StaticResource UpgradeInfor}" Padding="6"/>
+                                  Text="{StaticResource UpgradeInfo}" Padding="6"/>
                                 <StackPanel Margin="10">
                                     <local:InputField x:Name="MR" Tag="Max. Repeats" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <local:ComboxSelecter x:Name="RAC" Tag="Race" HorizontalAlignment="Left" VerticalAlignment="Top" />

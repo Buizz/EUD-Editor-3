@@ -60,7 +60,7 @@ Public Class LagacySaveLoad
 
                     savefileVersion = FindSetting(Section_ProjectSET, "Version")
                     If savefileVersion = "0" Then
-                        Tool.ErrorMsgBox(Tool.GetText("Invalide2s"))
+                        Tool.ErrorMsgBox(Tool.GetText("Invalid2s"))
                         Exit Sub
                     End If
 
@@ -73,7 +73,7 @@ Public Class LagacySaveLoad
 
                     isUseCHKData = FindSetting(Section_ProjectSET, "loadfromCHK")
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "Setting"))
+                    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "Setting"))
                     Exit Sub
                 End Try
 
@@ -96,26 +96,26 @@ Public Class LagacySaveLoad
                             If temp(3) <> 0 Then
                                 Dim mapdata As Long = 0
                                 If pjData.IsMapLoading Then
-                                    If Not pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault Then
-                                        mapdata = pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                    If Not pjData.MapData.DatFile.GetDatFile(i).ParameterList(j).PureData(k).IsDefault Then
+                                        mapdata = pjData.MapData.DatFile.GetDatFile(i).ParameterList(j).PureData(k).Data
                                     Else
-                                        mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                        mapdata = scData.DefaultDat.GetDatFile(i).ParameterList(j).PureData(k).Data
                                     End If
                                 Else
-                                    mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                    mapdata = scData.DefaultDat.GetDatFile(i).ParameterList(j).PureData(k).Data
                                 End If
 
 
 
 
-                                'mapdata += scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
-                                pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).Data = temp(3) + mapdata
-                                pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault = False
+                                'mapdata += scData.DefaultDat.GetDatFile(i).ParameterList(j).PureData(k).Data
+                                pjData.Dat.GetDatFile(i).ParameterList(j).PureData(k).Data = temp(3) + mapdata
+                                pjData.Dat.GetDatFile(i).ParameterList(j).PureData(k).IsDefault = False
                             End If
                         End If
                     Next
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "DatEdit"), ex.ToString)
+                    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "DatEdit"), ex.ToString)
                     Exit Sub
                 End Try
 
@@ -191,7 +191,7 @@ Public Class LagacySaveLoad
                         Next
                     Next
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "FireGraft"), ex.ToString)
+                    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "FireGraft"), ex.ToString)
                     Exit Sub
                 End Try
 
@@ -228,7 +228,7 @@ Public Class LagacySaveLoad
 
 
                 Catch ex As Exception
-                    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "FileManager"), ex.ToString)
+                    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "FileManager"), ex.ToString)
                     Exit Sub
                 End Try
 
@@ -283,7 +283,7 @@ Public Class LagacySaveLoad
                 '    extraedssetting = FindSetting(Section_PluginSET, "extraedssetting")
 
                 'Catch ex As Exception
-                '    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "Plugin"))
+                '    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "Plugin"))
                 '    Exit Sub
                 'End Try
 
@@ -314,7 +314,7 @@ Public Class LagacySaveLoad
 
 
                 'Catch ex As Exception
-                '    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "SCDB"))
+                '    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "SCDB"))
                 '    Exit Sub
                 'End Try
 
@@ -325,7 +325,7 @@ Public Class LagacySaveLoad
                 '    Dim Section As String = FindSection(text, "TriggerEditorSET")
                 '    LoadTriggerFile(Section, True)
                 'Catch ex As Exception
-                '    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "TriggerEditor"))
+                '    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "TriggerEditor"))
                 '    Exit Sub
                 'End Try
 
@@ -336,7 +336,7 @@ Public Class LagacySaveLoad
                 'Try
                 '    LoadCHKdata()
                 'Catch ex As Exception
-                '    Tool.ErrorMsgBox(Tool.GetText("LodingError").Replace("$S0$", "scenario.chk"))
+                '    Tool.ErrorMsgBox(Tool.GetText("LoadingError").Replace("$S0$", "scenario.chk"))
                 '    Exit Sub
                 'End Try
 
@@ -438,15 +438,15 @@ Public Class LagacySaveLoad
 
         _stringbdl.Append("S_DatEditSET" & vbCrLf) 'DatEditSET Start
         For i = 0 To pjData.Dat.DatFileList.Count - 1
-            For j = 0 To pjData.Dat.DatFileList(i).ParamaterList.Count - 1
-                For k = 0 To pjData.Dat.DatFileList(i).ParamaterList(j).GetInfo(SCDatFiles.EParamInfo.VarCount) - 1
-                    If Not pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).IsDefault Then
-                        Dim value As Long = pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).Data
+            For j = 0 To pjData.Dat.DatFileList(i).ParameterList.Count - 1
+                For k = 0 To pjData.Dat.DatFileList(i).ParameterList(j).GetInfo(SCDatFiles.EParamInfo.VarCount) - 1
+                    If Not pjData.Dat.DatFileList(i).ParameterList(j).PureData(k).IsDefault Then
+                        Dim value As Long = pjData.Dat.DatFileList(i).ParameterList(j).PureData(k).Data
 
-                        If Not pjData.MapData.DatFile.DatFileList(i).ParamaterList(j).PureData(k).IsDefault Then
-                            value -= pjData.MapData.DatFile.DatFileList(i).ParamaterList(j).PureData(k).Data
+                        If Not pjData.MapData.DatFile.DatFileList(i).ParameterList(j).PureData(k).IsDefault Then
+                            value -= pjData.MapData.DatFile.DatFileList(i).ParameterList(j).PureData(k).Data
                         Else
-                            value -= scData.DefaultDat.DatFileList(i).ParamaterList(j).PureData(k).Data
+                            value -= scData.DefaultDat.DatFileList(i).ParameterList(j).PureData(k).Data
                         End If
 
 
@@ -546,7 +546,7 @@ Public Class LagacySaveLoad
         _stringbdl.Append("S_FileManagerSET" & vbCrLf) 'FileManagerSET Start
 
 
-        _stringbdl.Append("statlang : " & pgData.Setting(ProgramData.TSetting.CDLanuage) & vbCrLf)
+        _stringbdl.Append("statlang : " & pgData.Setting(ProgramData.TSetting.CDLanguage) & vbCrLf)
 
         Dim strcount As Integer = 0
         For i = 0 To SCtbltxtCount - 1

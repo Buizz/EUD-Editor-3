@@ -28,7 +28,7 @@
                             <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
-                                  Text="{StaticResource FlingyInfor}" Padding="6"/>
+                                  Text="{StaticResource FlingyInfo}" Padding="6"/>
                             <StackPanel Orientation="Horizontal" Margin="10">
                                 <StackPanel>
                                     <local:IconSelecter x:Name="SP" Tag="Sprite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" ValueChange="SP_ValueChange" />

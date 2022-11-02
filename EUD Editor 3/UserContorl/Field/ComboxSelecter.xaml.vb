@@ -44,9 +44,9 @@
 
                 DataContext = pjData.BindingManager.ExtraDatBinding(DatFile, Parameter, ObjectID)
 
-                Dim itmes As String() = Tool.GetText("FG_StatusInfor1_V").Split("|")
-                For i = 0 To itmes.Count - 1
-                    MainComboBox.Items.Add(itmes(i))
+                Dim items As String() = Tool.GetText("FG_StatusInfo1_V").Split("|")
+                For i = 0 To items.Count - 1
+                    MainComboBox.Items.Add(items(i))
                 Next
 
                 DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
@@ -72,9 +72,9 @@
                     'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
                 End If
 
-                Dim itmes As String() = DB.ComboxItems
-                For i = 0 To itmes.Count - 1
-                    MainComboBox.Items.Add(itmes(i))
+                Dim items As String() = DB.ComboxItems
+                For i = 0 To items.Count - 1
+                    MainComboBox.Items.Add(items(i))
                 Next
 
                 DatCommand = New DatCommand(DatFile, Parameter, ObjectID)
@@ -91,7 +91,7 @@
         End Select
     End Sub
 
-    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles MainComboBox.ContextMenuOpening
+    Private Sub OpenMenu(sender As Object, e As ContextMenuEventArgs) Handles MainComboBox.ContextMenuOpening
         CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)

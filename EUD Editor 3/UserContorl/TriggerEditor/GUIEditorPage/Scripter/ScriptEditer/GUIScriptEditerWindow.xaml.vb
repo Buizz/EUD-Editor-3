@@ -157,7 +157,7 @@
 
         pjData.SetDirty(True)
     End Sub
-    Private Sub CancleBtn_Click(sender As Object, e As RoutedEventArgs)
+    Private Sub CancelBtn_Click(sender As Object, e As RoutedEventArgs)
         RaiseEvent CancelBtnEvent(sender, e)
     End Sub
 

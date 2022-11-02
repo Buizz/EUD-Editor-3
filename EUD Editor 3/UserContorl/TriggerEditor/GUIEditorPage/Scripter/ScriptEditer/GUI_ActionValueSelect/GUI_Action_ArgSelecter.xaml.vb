@@ -101,7 +101,7 @@ Public Class GUI_Action_ArgSelecter
             Return
         End If
         If scr.ScriptType = ScriptBlock.EBlockType.funuse Then
-            Dim func As ScriptBlock = tescm.GetFuncInfor(scr.name, scr.Scripter)
+            Dim func As ScriptBlock = tescm.GetFuncInfo(scr.name, scr.Scripter)
             If func Is Nothing Then
                 DefaultCoder()
             Else
@@ -435,7 +435,7 @@ Public Class GUI_Action_ArgSelecter
         Dim cont As GUI_Action.tagcontainer = btn.Tag
         SelectCont = cont
         ToolTipPanel.Visibility = Visibility.Visible
-        TipInfor.Text = cont.des
+        TipInfo.Text = cont.des
 
         RaiseEvent ArgBtnClickEvent(cont.desscr, New RoutedEventArgs)
     End Sub

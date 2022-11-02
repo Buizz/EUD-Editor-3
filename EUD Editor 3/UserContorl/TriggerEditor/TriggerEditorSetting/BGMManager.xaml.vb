@@ -59,7 +59,7 @@ Public Class BGMManager
     End Sub
 
     Private Sub CancelButton_Click(sender As Object, e As RoutedEventArgs)
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
     End Sub
 
     Private Sub OkKey_Click(sender As Object, e As RoutedEventArgs)
@@ -69,7 +69,7 @@ Public Class BGMManager
             CType(List.SelectedItem, BGMData.BGMFile).Refresh(BGMPath.Text, BGMName.Text,
                                                               CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag)
         Else
-            If IsMultiFileOpne Then
+            If IsMultiFileOpen Then
                 For i = 0 To Filelist.Count - 1
                     Dim fileinfo As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(Filelist(i))
                     pjData.TEData.BGMData.BGMList.Add(New BGMData.BGMFile(fileinfo.FullName, fileinfo.Name,
@@ -81,50 +81,50 @@ Public Class BGMManager
             End If
         End If
         List.Items.Refresh()
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
         pjData.SetDirty(True)
     End Sub
 
 
-    Private IsMultiFileOpne As Boolean
+    Private IsMultiFileOpen As Boolean
 
     Private IsEditWindowopen As Boolean
 
     Private Filelist As New List(Of String)
     Private Sub OpenNewWindow(Files() As String)
-        DefailtInfo.IsEnabled = True
+        DefaultInfo.IsEnabled = True
         If Files Is Nothing Then
-            DefailtInfo.Visibility = Visibility.Visible
-            IsMultiFileOpne = False
+            DefaultInfo.Visibility = Visibility.Visible
+            IsMultiFileOpen = False
         Else
             If Files.Count = 1 Then
                 Dim fileinfo As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(Files.First)
 
-                IsMultiFileOpne = False
+                IsMultiFileOpen = False
                 BGMPath.Text = fileinfo.FullName
                 BGMName.Text = fileinfo.Name
             Else
-                IsMultiFileOpne = True
+                IsMultiFileOpen = True
                 Filelist.Clear()
                 Filelist.AddRange(Files)
                 BGMPath.Text = "다중 파일"
                 BGMName.Text = "다중 파일"
-                DefailtInfo.IsEnabled = False
+                DefaultInfo.IsEnabled = False
             End If
         End If
 
 
         IsEditWindowopen = False
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         CreateEditWindow.Visibility = Visibility.Visible
         BtnRefresh()
     End Sub
     Private Sub OpenEditWindow()
-        IsMultiFileOpne = False
+        IsMultiFileOpen = False
         IsEditWindowopen = True
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         CreateEditWindow.Visibility = Visibility.Visible
-        DefailtInfo.IsEnabled = True
+        DefaultInfo.IsEnabled = True
         BtnRefresh()
     End Sub
     Private Sub ContextMenu_Opened(sender As Object, e As RoutedEventArgs)
@@ -137,8 +137,8 @@ Public Class BGMManager
         End If
     End Sub
 
-    Private OpenStroyBoard As Storyboard
-    Private CloseStroyBoard As Storyboard
+    Private OpenStoryBoard As Storyboard
+    Private CloseStoryBoard As Storyboard
     Private Sub AnimationInit()
         If True Then
             Dim scale1 As ScaleTransform = New ScaleTransform(1, 1)
@@ -163,10 +163,10 @@ Public Class BGMManager
             myOpacityAnimation.To = 1.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            OpenStroyBoard = New Storyboard()
-            OpenStroyBoard.Children.Add(myOpacityAnimation)
-            OpenStroyBoard.Children.Add(myWidthAnimation)
-            OpenStroyBoard.Children.Add(myHeightAnimation)
+            OpenStoryBoard = New Storyboard()
+            OpenStoryBoard.Children.Add(myOpacityAnimation)
+            OpenStoryBoard.Children.Add(myWidthAnimation)
+            OpenStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -197,10 +197,10 @@ Public Class BGMManager
             myOpacityAnimation.To = 0.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            CloseStroyBoard = New Storyboard()
-            CloseStroyBoard.Children.Add(myOpacityAnimation)
-            CloseStroyBoard.Children.Add(myWidthAnimation)
-            CloseStroyBoard.Children.Add(myHeightAnimation)
+            CloseStoryBoard = New Storyboard()
+            CloseStoryBoard.Children.Add(myOpacityAnimation)
+            CloseStoryBoard.Children.Add(myWidthAnimation)
+            CloseStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -208,7 +208,7 @@ Public Class BGMManager
             Storyboard.SetTargetProperty(myHeightAnimation, New PropertyPath("RenderTransform.ScaleY"))
             Storyboard.SetTargetProperty(myWidthAnimation, New PropertyPath("RenderTransform.ScaleX"))
 
-            AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
+            AddHandler CloseStoryBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       CreateEditWindow.Visibility = Visibility.Hidden
                                                   End Sub
         End If
@@ -229,17 +229,17 @@ Public Class BGMManager
             Dim files() As String = openfiledialog.FileNames
             If files.Length = 1 Then
 
-                IsMultiFileOpne = False
+                IsMultiFileOpen = False
 
                 BGMPath.Text = openfiledialog.FileName
                 BGMName.Text = openfiledialog.SafeFileName
             ElseIf files.Length > 1 Then
-                IsMultiFileOpne = True
+                IsMultiFileOpen = True
                 Filelist.Clear()
                 Filelist.AddRange(files)
                 BGMPath.Text = "다중 파일"
                 BGMName.Text = "다중 파일"
-                DefailtInfo.IsEnabled = False
+                DefaultInfo.IsEnabled = False
             End If
         End If
         BtnRefresh()
@@ -316,7 +316,7 @@ Public Class BGMManager
             BGMWindow.WorkListRefresh(tlist)
             BGMWindow.ShowDialog()
 
-            If BGMWindow.isSucess Then
+            If BGMWindow.isSuccess Then
                 Dim folderPath As String = BuildData.SoundFilePath() & "\" & bgmfile.BGMName
                 Dim output As String = folderPath & "\slow.ogg"
 

@@ -43,11 +43,11 @@ Public Class CUIScriptEditor
     End Function
 
     <NonSerialized>
-    Public LastBulidText As String
+    Public LastBuildText As String
 
     Public Overrides Function GetFileText() As String
         Dim rStr As String = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain())
-        LastBulidText = rStr
+        LastBuildText = rStr
         Return rStr
     End Function
 

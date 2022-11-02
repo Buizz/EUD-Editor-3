@@ -39,7 +39,7 @@
         </StackPanel>
         <StackPanel x:Name="ToolTipPanel" DockPanel.Dock="Bottom">
             <Separator/>
-            <TextBlock x:Name="TipInfor" Text="" TextWrapping="WrapWithOverflow"/>
+            <TextBlock x:Name="TipInfo" Text="" TextWrapping="WrapWithOverflow"/>
         </StackPanel>
     </DockPanel>
 </UserControl>

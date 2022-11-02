@@ -1,4 +1,4 @@
-﻿Public Class StatusInforData
+﻿Public Class StatusInfoData
     Private Const UnitDatPage As Integer = 6
 
     Private DatFiles As SCDatFiles.DatFiles = SCDatFiles.DatFiles.statusinfor

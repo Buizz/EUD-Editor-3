@@ -2,7 +2,7 @@
 Imports MaterialDesignColors.Recommended
 Imports MaterialDesignThemes.Wpf
 
-Public Class ThemeContorl
+Public Class ThemeControl
     Private DefaultPalettName As String() = {"red", "pink", "purple", "deeppurple", "indigo", "blue", "lightblue",
         "cyan", "teal", "green", "lightgreen", "lime", "yellow", "amber", "orange", "deeporange", "brown", "grey", "bluegrey"}
     Private DefaultColors As String() = {"#FFF44336", "#FFE91E63", "#FF9C27B0", "#FF673AB7", "#FF3F51B5", "#FF2196F3", "#FF03A9F4",
@@ -36,7 +36,7 @@ Public Class ThemeContorl
         DefaultData.Background = New SolidColorBrush(pgData.PFiledDefault)
         MapEditorData.Background = New SolidColorBrush(pgData.PFiledMapEditColor)
         EditedData.Background = New SolidColorBrush(pgData.PFiledEditColor)
-        CheckedData.Background = New SolidColorBrush(pgData.PFiledFalgColor)
+        CheckedData.Background = New SolidColorBrush(pgData.PFiledFlagColor)
 
 
         For i = 0 To DefaultPalettName.Count - 1
@@ -207,7 +207,7 @@ Public Class ThemeContorl
 
     Private Sub CheckedData_Click(sender As Object, e As RoutedEventArgs)
         CheckedDataPopup.IsOpen = True
-        CheckedDataColorPicker.InitColor(pgData.PFiledFalgColor)
+        CheckedDataColorPicker.InitColor(pgData.PFiledFlagColor)
     End Sub
 
     Private Sub DefaultDataColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
@@ -239,23 +239,23 @@ Public Class ThemeContorl
 
     Private Sub CheckedDataColorPicker_ColorSelect(sender As Object, e As RoutedEventArgs)
         Dim MainColor As Color = sender
-        pgData.PFiledFalgColor = MainColor
+        pgData.PFiledFlagColor = MainColor
         If Tool.IsProjectLoad Then
             pjData.BindingManager.DataRefresh()
         End If
-        CheckedData.Background = New SolidColorBrush(pgData.PFiledFalgColor)
+        CheckedData.Background = New SolidColorBrush(pgData.PFiledFlagColor)
     End Sub
 
     Private Sub Button_Click_5(sender As Object, e As RoutedEventArgs)
         pgData.PFiledDefault = ColorConverter.ConvertFromString("#60DDCDCD")
         pgData.PFiledMapEditColor = ColorConverter.ConvertFromString("#60A1C7FF")
         pgData.PFiledEditColor = ColorConverter.ConvertFromString("#60FFA3FA")
-        pgData.PFiledFalgColor = ColorConverter.ConvertFromString("#80FF8F6A")
+        pgData.PFiledFlagColor = ColorConverter.ConvertFromString("#80FF8F6A")
 
         DefaultData.Background = New SolidColorBrush(pgData.PFiledDefault)
         MapEditorData.Background = New SolidColorBrush(pgData.PFiledMapEditColor)
         EditedData.Background = New SolidColorBrush(pgData.PFiledEditColor)
-        CheckedData.Background = New SolidColorBrush(pgData.PFiledFalgColor)
+        CheckedData.Background = New SolidColorBrush(pgData.PFiledFlagColor)
 
         'Application.Current.Resources.Remove("PrimaryHueLightBrush")
         'Application.Current.Resources.Remove("PrimaryHueLightForegroundBrush")

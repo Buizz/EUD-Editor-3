@@ -15,19 +15,19 @@ Public Class ButtonData
     Public Shared DeleteItemKeyInputCommand As RoutedUICommand = New RoutedUICommand("myCommand", "myCommand", GetType(ButtonData))
 
 
-    Private Sub NewItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub NewItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SNewItem()
     End Sub
-    Private Sub CutItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub CutItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SCutItem()
     End Sub
-    Private Sub CopyItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub CopyItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SCopyItem()
     End Sub
-    Private Sub PasteItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub PasteItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SPasteItem()
     End Sub
-    Private Sub DeleteItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub DeleteItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SDeleteItem()
     End Sub
 
@@ -137,16 +137,16 @@ Public Class ButtonData
     Private ImageBrush() As ImageBrush
     Private Sub BtnClick(sender As Object, e As RoutedEventArgs)
         SelectPos = sender.Tag
-        TypeSelecterPreivewReset()
+        TypeSelecterPreviewReset()
     End Sub
     Private SelectPos As Integer = 0
     Private Sub DialogOkayBtn_Click(sender As Object, e As RoutedEventArgs)
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
 
         ButtonSet.AddButtonType(TypeSelectListBox.SelectedIndex, SelectPos, ValueSelecter.Value)
         ButtonListReset()
     End Sub
-    Private Sub TypeSelecterPreivewReset()
+    Private Sub TypeSelecterPreviewReset()
         Dim BType As CButtonSet.BType = TypeSelectListBox.SelectedIndex
 
         For i = 0 To 8
@@ -217,7 +217,7 @@ Public Class ButtonData
                 ValueSelecter.Visibility = Visibility.Visible
             End If
         End If
-        TypeSelecterPreivewReset()
+        TypeSelecterPreviewReset()
     End Sub
 
 
@@ -357,7 +357,7 @@ Public Class ButtonData
 
     Private Sub SelectBtnAction()
         If SelectButton IsNot Nothing Then
-            DefaultInfor.Visibility = Visibility.Visible
+            DefaultInfo.Visibility = Visibility.Visible
             ButtonAction.Visibility = Visibility.Visible
 
             '선택 작업
@@ -396,7 +396,7 @@ Public Class ButtonData
                 ActVal.Visibility = Visibility.Hidden
             End Try
         Else
-            DefaultInfor.Visibility = Visibility.Hidden
+            DefaultInfo.Visibility = Visibility.Hidden
             ButtonAction.Visibility = Visibility.Hidden
         End If
         PreviewDraw()
@@ -524,7 +524,7 @@ Public Class ButtonData
     End Sub
 
     Private Sub DialogCancelBtn_Click(sender As Object, e As RoutedEventArgs)
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
     End Sub
 
 
@@ -533,7 +533,7 @@ Public Class ButtonData
 
 
     Private Sub OpenNewWindow()
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         'CodeSelecter.SelectedIndex = 2
         CreateEditWindow.Visibility = Visibility.Visible
 
@@ -545,12 +545,12 @@ Public Class ButtonData
             ValueSelecter.Init(datfile, Tool.GetText("BtnNewString"), 0)
             ValueSelecter.Visibility = Visibility.Visible
         End If
-        TypeSelecterPreivewReset
+        TypeSelecterPreviewReset
     End Sub
 
 
-    Private OpenStroyBoard As Storyboard
-    Private CloseStroyBoard As Storyboard
+    Private OpenStoryBoard As Storyboard
+    Private CloseStoryBoard As Storyboard
     Private Sub AnimationInit()
         If True Then
             Dim scale1 As ScaleTransform = New ScaleTransform(1, 1)
@@ -575,10 +575,10 @@ Public Class ButtonData
             myOpacityAnimation.To = 1.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            OpenStroyBoard = New Storyboard()
-            OpenStroyBoard.Children.Add(myOpacityAnimation)
-            OpenStroyBoard.Children.Add(myWidthAnimation)
-            OpenStroyBoard.Children.Add(myHeightAnimation)
+            OpenStoryBoard = New Storyboard()
+            OpenStoryBoard.Children.Add(myOpacityAnimation)
+            OpenStoryBoard.Children.Add(myWidthAnimation)
+            OpenStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -609,10 +609,10 @@ Public Class ButtonData
             myOpacityAnimation.To = 0.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            CloseStroyBoard = New Storyboard()
-            CloseStroyBoard.Children.Add(myOpacityAnimation)
-            CloseStroyBoard.Children.Add(myWidthAnimation)
-            CloseStroyBoard.Children.Add(myHeightAnimation)
+            CloseStoryBoard = New Storyboard()
+            CloseStoryBoard.Children.Add(myOpacityAnimation)
+            CloseStoryBoard.Children.Add(myWidthAnimation)
+            CloseStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -620,7 +620,7 @@ Public Class ButtonData
             Storyboard.SetTargetProperty(myHeightAnimation, New PropertyPath("RenderTransform.ScaleY"))
             Storyboard.SetTargetProperty(myWidthAnimation, New PropertyPath("RenderTransform.ScaleX"))
 
-            AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
+            AddHandler CloseStoryBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       CreateEditWindow.Visibility = Visibility.Hidden
                                                   End Sub
         End If
@@ -710,7 +710,7 @@ Public Class ButtonData
     End Sub
 
     Private Sub ValueSelecter_ValueChange(sender As Object, e As RoutedEventArgs)
-        TypeSelecterPreivewReset()
+        TypeSelecterPreviewReset()
     End Sub
 
     Private Sub ButtonList_MouseEnter(sender As Object, e As MouseEventArgs)

@@ -63,7 +63,7 @@ Public Class TECUIPage
             TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
 
             If highLightLine > -1 Then
-                TextEditor.LineHightLight(highLightLine)
+                TextEditor.LineHighlight(highLightLine)
             End If
         End If
     End Sub

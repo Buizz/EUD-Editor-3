@@ -31,7 +31,7 @@
                             <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource SpriteInfor}" Padding="6"/>
+                                  Text="{StaticResource SpriteInfo}" Padding="6"/>
                             <StackPanel Grid.Row="1" Margin="10,2" Orientation="Horizontal">
                                 <WrapPanel Orientation="Vertical">
                                     <local:IconSelecter x:Name="IFI" Tag="Image File" HorizontalAlignment="Left" VerticalAlignment="Top" Width="358"  ValueChange="IFI_ValueChange" />

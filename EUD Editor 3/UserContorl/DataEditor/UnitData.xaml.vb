@@ -38,7 +38,7 @@
     Private Unit_Graphic As Unit_Graphic
     Private Unit_MapEdit As Unit_MapEdit
     Private Unit_AIOrder As Unit_AIOrder
-    Private StatusInforData As StatusInforData
+    Private StatusInfoData As StatusInfoData
     Private RequireData As RequireData
     Private LoadSatus() As Boolean
 
@@ -48,7 +48,7 @@
                 Case 0
                     If Unit_Default Is Nothing Then
                         Unit_Default = New Unit_Default(tObjectID)
-                        Defualt.Content = Unit_Default
+                        Default.Content = Unit_Default
                     Else
                         Unit_Default.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
                     End If
@@ -88,11 +88,11 @@
                         Unit_AIOrder.ReLoad(SCDatFiles.DatFiles.units, tObjectID)
                     End If
                 Case 6
-                    If StatusInforData Is Nothing Then
-                        StatusInforData = New StatusInforData(tObjectID)
-                        SInforData.Content = StatusInforData
+                    If StatusInfoData Is Nothing Then
+                        StatusInfoData = New StatusInfoData(tObjectID)
+                        SInfoData.Content = StatusInfoData
                     Else
-                        StatusInforData.ReLoad(SCDatFiles.DatFiles.statusinfor, ObjectID)
+                        StatusInfoData.ReLoad(SCDatFiles.DatFiles.statusinfor, ObjectID)
                     End If
                 Case 7
                     If RequireData Is Nothing Then

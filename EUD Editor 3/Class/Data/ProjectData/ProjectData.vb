@@ -187,7 +187,7 @@ Public Class ProjectData
                 Return Tool.GetText("None")
             End If
 
-            If pgData.Setting(ProgramData.TSetting.CDLanuageChange) Then
+            If pgData.Setting(ProgramData.TSetting.CDLanguageChange) Then
                 If SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString Then
                     Return scData.GetStat_txt(index)
                 Else
@@ -309,7 +309,7 @@ Public Class ProjectData
         End Get
         Set(value As Boolean)
             If value Then
-                LastModifiyTimer = File.GetLastWriteTime(SaveData.OpenMapName)
+                LastModifyTimer = File.GetLastWriteTime(SaveData.OpenMapName)
             End If
 
             MapLoading = value

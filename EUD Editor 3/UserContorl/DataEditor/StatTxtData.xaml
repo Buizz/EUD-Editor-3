@@ -22,7 +22,7 @@
             </Grid.RowDefinitions>
             <local:NameBar x:Name="NameBar"/>
             <DockPanel Grid.Row="1">
-                <ListBox DockPanel.Dock="Right" Width="200" x:Name="ColorInfor" SelectionChanged="ColorInfor_SelectionChanged">
+                <ListBox DockPanel.Dock="Right" Width="200" x:Name="ColorInfo" SelectionChanged="ColorInfo_SelectionChanged">
                 </ListBox>
                 <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
                     <ComboBox x:Name="LimitCombobx" Width="140" Margin="10"

@@ -2,7 +2,7 @@
     Private LastSelectGroup As String
     Private ScriptEditor As GUIScriptEditorUI
 
-    Private Fliters As New Dictionary(Of String, String)
+    Private Filters As New Dictionary(Of String, String)
 
 
     Public Sub SetGUIScriptEditorUI(tScriptEditor As GUIScriptEditorUI)
@@ -82,10 +82,10 @@
             Colorbar.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
             Selectitem.Background = New SolidColorBrush(ColorConverter.ConvertFromString(colorcode))
 
-            If Fliters.ContainsKey(ScriptGroup) Then
-                FliterText.Text = Fliters(ScriptGroup)
+            If Filters.ContainsKey(ScriptGroup) Then
+                FliterText.Text = Filters(ScriptGroup)
             Else
-                Fliters.Add(ScriptGroup, "")
+                Filters.Add(ScriptGroup, "")
             End If
             If LastSelectGroup <> ScriptGroup Then '이전 선택과 다를 경우
                 LastSelectGroup = ScriptGroup
@@ -138,7 +138,7 @@
 
 
 
-                    If Fliters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                    If Filters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                         Dim tlistboxitem As New ListBoxItem
                         tlistboxitem.Tag = {types(i), keyname}
                         tlistboxitem.Content = flitertext
@@ -177,7 +177,7 @@
 
 
 
-                            If Fliters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                            If Filters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                                 Dim tlistboxitem As New ListBoxItem
                                 tlistboxitem.Tag = {types(i), keyname}
                                 tlistboxitem.Content = flitertext
@@ -207,7 +207,7 @@
 
 
 
-                        If Fliters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                        If Filters(ScriptGroup).Trim = "" Or flitertext.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                             Dim tlistboxitem As New ListBoxItem
                             tlistboxitem.Tag = {header, keyname}
                             tlistboxitem.Content = flitertext
@@ -287,7 +287,7 @@
                 Dim strs() As String = {"import"}
                 Dim types() As ScriptBlock.EBlockType = {ScriptBlock.EBlockType.import}
 
-                Dim fText As String = Fliters(ScriptGroup).Trim
+                Dim fText As String = Filters(ScriptGroup).Trim
 
                 For i = 0 To strs.Length - 1
                     Dim keyname As String = strs(i)
@@ -301,7 +301,7 @@
                     End If
 
 
-                    If fText = "" Or flitertext.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                    If fText = "" Or flitertext.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                         Dim tlistboxitem As New TreeViewItem
                         tlistboxitem.Tag = {types(i), keyname}
                         tlistboxitem.Header = flitertext
@@ -328,7 +328,7 @@
                     For i = 0 To tcfun.FuncCount - 1
                         Dim keyname As String = tcfun.GetFuncName(i)
 
-                        If fText = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                        If fText = "" Or keyname.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                             Dim tlistboxitem As New TreeViewItem
                             tlistboxitem.Tag = {ScriptBlock.EBlockType.externfun, namespacename & "." & keyname}
                             tlistboxitem.Header = namespacename & "." & keyname
@@ -376,7 +376,7 @@
 
 
                     Dim keyname As String = macro.FunctionList(i).Fname
-                    If Fliters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                    If Filters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                         Dim tlistboxitem As New TreeViewItem
                         tlistboxitem.Tag = {ScriptBlock.EBlockType.macrofun, macro.FunctionList(i).Fname}
                         tlistboxitem.Header = keyname
@@ -406,7 +406,7 @@
                 Dim keyname As String = strs(i)
 
 
-                If Fliters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Fliters(ScriptGroup).ToLower()) <> -1 Then
+                If Filters(ScriptGroup).Trim = "" Or keyname.ToLower.IndexOf(Filters(ScriptGroup).ToLower()) <> -1 Then
                     Dim tlistboxitem As New ListBoxItem
                     tlistboxitem.Tag = {ScriptBlock.EBlockType.funuse, keyname}
                     tlistboxitem.Content = keyname
@@ -449,7 +449,7 @@
     End Sub
 
     Private Sub SearchBoxTextChange(sender As Object, e As TextChangedEventArgs)
-        Fliters(LastSelectGroup) = FliterText.Text
+        Filters(LastSelectGroup) = FliterText.Text
         ToolBoxListRefresh(LastSelectGroup, ScriptEditor.GetSelectScriptBlock)
     End Sub
 

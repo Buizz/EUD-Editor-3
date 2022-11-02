@@ -337,7 +337,7 @@ Public Class MapData
                         Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHGas(i)
                         Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
 
-                        Key = "Resarch Time"
+                        Key = "Research Time"
                         Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHTime(i)
                         Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
 
@@ -768,7 +768,7 @@ Public Class MapData
                         Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHGas(i)
                         Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
 
-                        Key = "Resarch Time"
+                        Key = "Research Time"
                         Dat.Data(SCDatFiles.DatFiles.techdata, Key, i) = TEMPTECHTime(i)
                         Dat.Values(SCDatFiles.DatFiles.techdata, Key, i).IsDefault = False
 

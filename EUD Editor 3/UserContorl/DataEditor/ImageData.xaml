@@ -31,7 +31,7 @@
                             <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource ImageInfor}" Padding="6"/>
+                                  Text="{StaticResource ImageInfo}" Padding="6"/>
                             <WrapPanel Grid.Row="1" Margin="10,2">
                                 <local:IconSelecter x:Name="II" Tag="Iscript ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="659" ValueChange="II_ValueChange"/>
                             </WrapPanel>

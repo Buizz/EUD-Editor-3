@@ -28,11 +28,11 @@
                             <KeyBinding Command="{x:Static local:RequireListBox.DeleteItemKeyInputCommand}" Key="Delete" />
                         </ListBox.InputBindings>
                         <ListBox.CommandBindings>
-                            <CommandBinding Command="{x:Static local:RequireListBox.NewItemKeyInputCommand}"  CanExecute="NewItemCommandCanExecute" Executed="NewItemCommandExcute"/>
-                            <CommandBinding Command="{x:Static local:RequireListBox.CutItemKeyInputCommand}"  CanExecute="CutCommandCanExecute" Executed="CutItemCommandExcute"/>
-                            <CommandBinding Command="{x:Static local:RequireListBox.CopyItemKeyInputCommand}"  CanExecute="CopyCommandCanExecute" Executed="CopyItemCommandExcute"/>
-                            <CommandBinding Command="{x:Static local:RequireListBox.PasteItemKeyInputCommand}"  CanExecute="PasteCommandCanExecute" Executed="PasteItemCommandExcute"/>
-                            <CommandBinding Command="{x:Static local:RequireListBox.DeleteItemKeyInputCommand}"  CanExecute="DeleteCommandCanExecute" Executed="DeleteItemCommandExcute"/>
+                            <CommandBinding Command="{x:Static local:RequireListBox.NewItemKeyInputCommand}"  CanExecute="NewItemCommandCanExecute" Executed="NewItemCommandExecute"/>
+                            <CommandBinding Command="{x:Static local:RequireListBox.CutItemKeyInputCommand}"  CanExecute="CutCommandCanExecute" Executed="CutItemCommandExecute"/>
+                            <CommandBinding Command="{x:Static local:RequireListBox.CopyItemKeyInputCommand}"  CanExecute="CopyCommandCanExecute" Executed="CopyItemCommandExecute"/>
+                            <CommandBinding Command="{x:Static local:RequireListBox.PasteItemKeyInputCommand}"  CanExecute="PasteCommandCanExecute" Executed="PasteItemCommandExecute"/>
+                            <CommandBinding Command="{x:Static local:RequireListBox.DeleteItemKeyInputCommand}"  CanExecute="DeleteCommandCanExecute" Executed="DeleteItemCommandExecute"/>
                         </ListBox.CommandBindings>
 
 

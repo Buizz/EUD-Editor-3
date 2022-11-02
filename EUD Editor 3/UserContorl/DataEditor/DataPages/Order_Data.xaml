@@ -27,7 +27,7 @@
                                 <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                       Style="{StaticResource MaterialDesignBody2TextBlock}"
                                       DockPanel.Dock="Top" FontSize="14"
-                                      Text="{StaticResource OrderInfor}" Padding="6"/>
+                                      Text="{StaticResource OrderInfo}" Padding="6"/>
                                 <StackPanel Margin="10">
                                     <local:IconSelecter x:Name="TG" Tag="Targeting" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="570"/>
                                     <local:IconSelecter x:Name="EN" Tag="Energy" HorizontalAlignment="Left" VerticalAlignment="Top"  Width="570" />

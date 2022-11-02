@@ -25,7 +25,7 @@ Public Class CodeEditor
     End Sub
 
 
-    Public Sub LineHightLight(Line As Integer)
+    Public Sub LineHighlight(Line As Integer)
         If Line = -1 Then
             Return
         End If

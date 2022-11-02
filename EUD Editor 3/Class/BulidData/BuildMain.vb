@@ -248,7 +248,7 @@ Partial Public Class BuildData
             Tool.RefreshMainWindow()
             Return
         End Try
-        Dim isSucces As Boolean = Starteds(isEdd)
+        Dim isSuccess As Boolean = Starteds(isEdd)
 
 
         'Threading.Thread.Sleep(3000)
@@ -262,7 +262,7 @@ Partial Public Class BuildData
         pgData.isEddCompile = False
         Tool.RefreshMainWindow()
 
-        If isSucces Then
+        If isSuccess Then
             If pjData.TEData.SCArchive.IsUsed Then
                 'If Not isFreezeUse Then
                 '    If Not WriteSCADataFile() Then

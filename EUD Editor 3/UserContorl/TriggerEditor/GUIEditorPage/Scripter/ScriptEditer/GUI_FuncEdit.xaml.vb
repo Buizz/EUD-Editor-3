@@ -127,7 +127,7 @@ Public Class GUI_FuncEdit
 
         Dim funcstr As List(Of String) = tescm.GetFuncList(p._GUIScriptEditorUI.PTEFile)
         If funcstr.IndexOf(nametext) <> -1 Then
-            If tescm.GetFuncInfor(scr.value, p._GUIScriptEditorUI.Script) IsNot scr Then
+            If tescm.GetFuncInfo(scr.value, p._GUIScriptEditorUI.Script) IsNot scr Then
                 ErrorLog.Content = "중복된 함수명입니다."
                 Return False
             End If

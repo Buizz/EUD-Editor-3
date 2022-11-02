@@ -6,11 +6,11 @@
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         ItemList.Items.Clear()
-        For i = 0 To pjData.TEData.DotDatas.Count - 1
+        For i = 0 To pjData.TEData.DotData.Count - 1
             Dim tlist As New ListBoxItem
 
-            tlist.Content = pjData.TEData.DotDatas(i).ItemName
-            tlist.Tag = pjData.TEData.DotDatas(i)
+            tlist.Content = pjData.TEData.DotData(i).ItemName
+            tlist.Tag = pjData.TEData.DotData(i)
 
             ItemList.Items.Add(tlist)
         Next
@@ -37,7 +37,7 @@
         pjData.SetDirty(True)
 
         Dim dotData As New DotData(filename)
-        If Not dotData.LoadSucess Then
+        If Not dotData.LoadSuccess Then
             Return
         End If
 
@@ -48,7 +48,7 @@
         'dotData.ItemName = ItemList.Items.Count
 
 
-        pjData.TEData.DotDatas.Add(dotData)
+        pjData.TEData.DotData.Add(dotData)
 
         Dim tlist As New ListBoxItem
 
@@ -65,7 +65,7 @@
         If ItemList.SelectedIndex <> -1 Then
             Dim tdotdata As DotData = CType(ItemList.SelectedItem, ListBoxItem).Tag
 
-            pjData.TEData.DotDatas.Remove(tdotdata)
+            pjData.TEData.DotData.Remove(tdotdata)
             ItemList.Items.Remove(ItemList.SelectedItem)
         End If
     End Sub

@@ -105,7 +105,7 @@ Public Class IconSelecterP
         'MsgBox(Code(1))
     End Sub
 
-    Private Sub btnMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
+    Private Sub btnMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
         Dim ChangeValue As Integer = e.Delta / 100
 
         Dim CurrentValue As Integer = pValue

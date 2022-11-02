@@ -26,7 +26,7 @@
         End If
 
 
-        ChatEvnetCB.IsChecked = pjData.TEData.UseChatEvent
+        ChatEventCB.IsChecked = pjData.TEData.UseChatEvent
         MSQCCB.IsChecked = pjData.TEData.UseMSQC
 
 
@@ -38,12 +38,12 @@
 
 
 
-    Private Sub ChatEvnetCB_Checked(sender As Object, e As RoutedEventArgs)
-        pjData.TEData.UseChatEvent = ChatEvnetCB.IsChecked
+    Private Sub ChatEventCB_Checked(sender As Object, e As RoutedEventArgs)
+        pjData.TEData.UseChatEvent = ChatEventCB.IsChecked
     End Sub
 
-    Private Sub ChatEvnetCB_Unchecked(sender As Object, e As RoutedEventArgs)
-        pjData.TEData.UseChatEvent = ChatEvnetCB.IsChecked
+    Private Sub ChatEventCB_Unchecked(sender As Object, e As RoutedEventArgs)
+        pjData.TEData.UseChatEvent = ChatEventCB.IsChecked
     End Sub
 
     Private Sub MSQCCB_Checked(sender As Object, e As RoutedEventArgs)

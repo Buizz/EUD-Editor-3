@@ -104,15 +104,15 @@ Public Class MacroManager
                 Dim fileText As String = sr.ReadToEnd
                 'Dim regex As New Regex("function\s+([a-zA-Z_0-9]+)\(([a-zA-Z_0-9,. ]*)\)\s+--(.*)\/(.*)\/(.*)")
 
-                'Dim matchs As MatchCollection = regex.Matches(fileText)
+                'Dim matches As MatchCollection = regex.Matches(fileText)
 
-                ''MsgBox(files & vbCrLf & matchs.Count)
-                'For i = 0 To matchs.Count - 1
-                '    Dim fname As String = matchs(i).Groups(1).Value
-                '    Dim args As String = matchs(i).Groups(2).Value
-                '    Dim GrpupText As String = matchs(i).Groups(3).Value
-                '    Dim argType As String = matchs(i).Groups(4).Value
-                '    Dim comment As String = matchs(i).Groups(5).Value
+                ''MsgBox(files & vbCrLf & matches.Count)
+                'For i = 0 To matches.Count - 1
+                '    Dim fname As String = matches(i).Groups(1).Value
+                '    Dim args As String = matches(i).Groups(2).Value
+                '    Dim GrpupText As String = matches(i).Groups(3).Value
+                '    Dim argType As String = matches(i).Groups(4).Value
+                '    Dim comment As String = matches(i).Groups(5).Value
 
                 '    'MsgBox(comment)
 

@@ -5,7 +5,7 @@ Partial Public Class BuildData
 
 
     Private Sub WriteTEFile()
-        macro.IsBulid = True
+        macro.IsBuild = True
 
 
         If Not My.Computer.FileSystem.DirectoryExists(TriggerEditorPath) Then
@@ -21,7 +21,7 @@ Partial Public Class BuildData
         strWriter.Write(macro.GetpreVarEPS)
         strWriter.Close()
         filestreama.Close()
-        macro.IsBulid = False
+        macro.IsBuild = False
     End Sub
 
     Private Sub CreateTEFile(FolderPath As String, tTEFile As TEFile)

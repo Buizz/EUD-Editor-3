@@ -25,7 +25,7 @@
                 <ColumnDefinition Width="*"/>
                 <ColumnDefinition Width="*"/>
             </Grid.ColumnDefinitions>
-            <Button x:Name="CancleBtn" Grid.Column="1" Click="CancleBtn_Click" DockPanel.Dock="Right" Content="{StaticResource Cancel}" Style="{StaticResource MaterialDesignFlatButton}" Height="Auto"/>
+            <Button x:Name="CancelBtn" Grid.Column="1" Click="CancelBtn_Click" DockPanel.Dock="Right" Content="{StaticResource Cancel}" Style="{StaticResource MaterialDesignFlatButton}" Height="Auto"/>
             <Button x:Name="OkBtn" Grid.Column="0" IsEnabled="False" Click="OkBtn_Click" DockPanel.Dock="Right" Content="{StaticResource Okay}" Style="{StaticResource MaterialDesignFlatButton}" Height="Auto"/>
         </Grid>
 

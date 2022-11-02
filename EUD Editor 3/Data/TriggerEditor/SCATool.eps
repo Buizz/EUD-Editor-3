@@ -151,14 +151,14 @@ function LoadDataRead(dataLen, command, baseAddr) {
             break;
         case 2:
             // 날짜  YYYM D H M W
-            const BaseAddres = baseAddr;
+            const BaseAddress = baseAddr;
 
-            const year, month = div(dwread_epd(BaseAddres), 0x10);
-            DoActions(BaseAddres.AddNumber(1));
-            const day = bread_epd(BaseAddres, 3);
-            const hour = bread_epd(BaseAddres, 2);
-            const minute = bread_epd(BaseAddres, 1);
-            const week = bread_epd(BaseAddres, 0);
+            const year, month = div(dwread_epd(BaseAddress), 0x10);
+            DoActions(BaseAddress.AddNumber(1));
+            const day = bread_epd(BaseAddress, 3);
+            const hour = bread_epd(BaseAddress, 2);
+            const minute = bread_epd(BaseAddress, 1);
+            const week = bread_epd(BaseAddress, 0);
             
             // Calculate timestamp: Epoch from 00:00 Jan 1, 2020.
             const tm_year = year - 1950;
@@ -402,14 +402,14 @@ function PlayerExec() {
 
                     // Receiver
                     {
-                        const RecevieValue = ReceiveValue(MSQCBuffer[CP]);
+                        const ReceiveValue = ReceiveValue(MSQCBuffer[CP]);
 
                         if (ack[CP] == (rn[CP] % ackMax + 1)) {
-                            // st.print("값 전달 받음      rn : ",rn[CP] , " ack : " , ack[CP] , " Value : " ,RecevieValue);
+                            // st.print("값 전달 받음      rn : ",rn[CP] , " ack : " , ack[CP] , " Value : " ,ReceiveValue);
                             const rseq = rn[CP] - 1;
-                            wwrite_epd(LoadAddrEPD[CP] + rseq / 2, (rseq % 2) * 2, RecevieValue);
+                            wwrite_epd(LoadAddrEPD[CP] + rseq / 2, (rseq % 2) * 2, ReceiveValue);
                             rn[CP] += 1;
-                        } else if (ack[CP] == 0 && RecevieValue == 0xFFFF) {
+                        } else if (ack[CP] == 0 && ReceiveValue == 0xFFFF) {
                             MaxBuffer[CP] = rn[CP] - 1;
                         } else {
                             const CurrentTimeer = (TimeOut - CurrentTime);

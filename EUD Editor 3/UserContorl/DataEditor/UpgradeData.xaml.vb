@@ -19,7 +19,7 @@
         Upgrade_Data = New Upgrade_Data(tObjectID)
         RequireData = New RequireData(SCDatFiles.DatFiles.upgrades, tObjectID)
 
-        Defualt.Content = Upgrade_Data
+        Default.Content = Upgrade_Data
         Requir.Content = RequireData
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.upgrades, tObjectID)

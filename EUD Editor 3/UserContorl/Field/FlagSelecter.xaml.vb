@@ -22,15 +22,15 @@
         End If
 
         CheckboxList.Children.Clear()
-        Dim RelaWidth As Integer = ItemWidth
-        Dim itmes As String() = DB.ComboxItems
-        For i = 0 To itmes.Count - 1
+        Dim RealWidth As Integer = ItemWidth
+        Dim items As String() = DB.ComboxItems
+        For i = 0 To items.Count - 1
             Dim tBorder As New Border
 
 
             Dim tcheckBox As New CheckBox
-            tcheckBox.Content = itmes(i)
-            tcheckBox.MinWidth = RelaWidth
+            tcheckBox.Content = items(i)
+            tcheckBox.MinWidth = RealWidth
             tcheckBox.Foreground = Application.Current.Resources("MaterialDesignBody")
 
             tBorder.DataContext = DB.GetFlagBinding(i)
@@ -82,8 +82,8 @@
             'ValueText.ToolTip = pjData.BindingManager.DatBinding(DatFile, Parameter, ObjectID).GetToolTip
         End If
 
-        Dim itmes As String() = DB.ComboxItems
-        For i = 0 To itmes.Count - 1
+        Dim items As String() = DB.ComboxItems
+        For i = 0 To items.Count - 1
             Dim tBorder As Border = CheckboxList.Children.Item(i)
             Dim tcheckBox As CheckBox = tBorder.Child
 
@@ -103,7 +103,7 @@
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
     End Sub
 
-    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles CheckboxList.ContextMenuOpening
+    Private Sub OpenMenu(sender As Object, e As ContextMenuEventArgs) Handles CheckboxList.ContextMenuOpening
         CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)

@@ -93,8 +93,8 @@ Public Class FunctionToolTip
         Dim Lines() As String = InitStr.Split(vbCrLf)
 
         Dim ReadStatus As ReadStatus
-        Dim WriteParmIndex As Integer
-        Dim FristParam As Boolean = False
+        Dim WriteParamIndex As Integer
+        Dim FirstParam As Boolean = False
         '만약 @지령이 Summary라면
         For i = 0 To Lines.Count - 1
             Dim LineStr As String = Lines(i).Replace("*", "").Trim
@@ -117,9 +117,9 @@ Public Class FunctionToolTip
                         If ParamSplitter.Count = 3 Then
                             If ParamSplitter.Last = Lanstr Then
                                 If FuncArgTooltip.IndexOf(ParamSplitter(1)) >= 0 Then
-                                    WriteParmIndex = FuncArgTooltip.IndexOf(ParamSplitter(1))
+                                    WriteParamIndex = FuncArgTooltip.IndexOf(ParamSplitter(1))
                                     ReadStatus = ReadStatus.Param
-                                    FristParam = True
+                                    FirstParam = True
                                     Continue For
                                 End If
                             Else
@@ -141,11 +141,11 @@ Public Class FunctionToolTip
                 Case ReadStatus.Summary
                     pSummary = pSummary & LineStr & vbCrLf
                 Case ReadStatus.Param
-                    If FristParam Then
-                        FristParam = False
-                        FuncArgTooltip(WriteParmIndex) = LineStr & vbCrLf
+                    If FirstParam Then
+                        FirstParam = False
+                        FuncArgTooltip(WriteParamIndex) = LineStr & vbCrLf
                     Else
-                        FuncArgTooltip(WriteParmIndex) = FuncArgTooltip(WriteParmIndex) & " : " & LineStr & vbCrLf
+                        FuncArgTooltip(WriteParamIndex) = FuncArgTooltip(WriteParamIndex) & " : " & LineStr & vbCrLf
                     End If
                 Case ReadStatus.Type
                     Select Case LineStr
@@ -469,10 +469,10 @@ Public Class CFunc
             For i = 0 To matches.Count - 1
                 Dim ObjContents As String
 
-                Dim argment As String = matches(i).Groups(3).Value
-                If argment.IndexOf("/*") <> -1 And argment.IndexOf("*/") <> -1 And argment.IndexOf(":") = -1 Then
-                    argment = argment.Replace("*/", "")
-                    argment = argment.Replace("/*", ":")
+                Dim argument As String = matches(i).Groups(3).Value
+                If argument.IndexOf("/*") <> -1 And argument.IndexOf("*/") <> -1 And argument.IndexOf(":") = -1 Then
+                    argument = argument.Replace("*/", "")
+                    argument = argument.Replace("/*", ":")
                 End If
                 Dim StartIndex As Integer = matches(i).Index + matches(i).Length
 
@@ -487,7 +487,7 @@ Public Class CFunc
                 FuncTooltip.Add(New FunctionToolTip(matches(i).Groups(1).Value, matches(i).Groups(3).Value, matches(i).Groups(2).Value))
                 FuncNames.Add(matches(i).Groups(2).Value)
 
-                FuncArgument.Add(argment)
+                FuncArgument.Add(argument)
             Next
             For i = 0 To changesStr.Count - 1
                 str = Replace(str, changesStr(i), "", 1, 1)
@@ -516,13 +516,13 @@ Public Class CFunc
                     FuncNames.Add(matches(i).Groups(1).Value)
 
 
-                    Dim argment As String = matches(i).Groups(2).Value
-                    If argment.IndexOf("/*") <> -1 And argment.IndexOf("*/") <> -1 And argment.IndexOf(":") = -1 Then
-                        argment = argment.Replace("*/", "")
-                        argment = argment.Replace("/*", ":")
+                    Dim argument As String = matches(i).Groups(2).Value
+                    If argument.IndexOf("/*") <> -1 And argument.IndexOf("*/") <> -1 And argument.IndexOf(":") = -1 Then
+                        argument = argument.Replace("*/", "")
+                        argument = argument.Replace("/*", ":")
                     End If
 
-                    FuncArgument.Add(argment)
+                    FuncArgument.Add(argument)
                 End If
 
                 ObjContents = Mid(str, StartIndex, bl - StartIndex)

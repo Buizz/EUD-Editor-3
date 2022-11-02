@@ -2,7 +2,7 @@
 
 Public Class ListSelecter
     Private factoryPanel As FrameworkElementFactory = New FrameworkElementFactory(GetType(WrapPanel))
-    Private Templat As ItemsPanelTemplate = New ItemsPanelTemplate()
+    Private Template As ItemsPanelTemplate = New ItemsPanelTemplate()
 
 
     Private IsFirstLoad As Boolean = False
@@ -240,7 +240,7 @@ Public Class ListSelecter
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         Fliter = New tFliter
         factoryPanel.SetValue(WrapPanel.IsItemsHostProperty, True)
-        Templat.VisualTree = factoryPanel
+        Template.VisualTree = factoryPanel
         TreeviewItemDic = New Dictionary(Of Integer, TreeViewItem)
 
         LoadCmp = True
@@ -723,15 +723,15 @@ Public Class ListSelecter
     Public Sub RefreshTreeviewItem(key As SCDatFiles.DatFiles, ObjectID As String)
         If key = CurrentPage And Fliter.SortType = ESortType.Tree Then
             Dim TargetItem As TreeViewItem = TreeviewItemDic(ObjectID)
-            Dim _ParrentTreeview As Object = DeleteMe(TargetItem)
+            Dim _ParentTreeview As Object = DeleteMe(TargetItem)
 
-            While _ParrentTreeview IsNot Nothing
-                Dim parrentTreeview As TreeViewItem = _ParrentTreeview
-                If parrentTreeview.Items.Count = 0 Then
-                    _ParrentTreeview = DeleteMe(parrentTreeview)
+            While _ParentTreeview IsNot Nothing
+                Dim parentTreeview As TreeViewItem = _ParentTreeview
+                If parentTreeview.Items.Count = 0 Then
+                    _ParentTreeview = DeleteMe(parentTreeview)
                 Else
-                    _ParrentTreeview = parrentTreeview.Parent
-                    If _ParrentTreeview.GetType = GetType(TreeView) Then
+                    _ParentTreeview = parentTreeview.Parent
+                    If _ParentTreeview.GetType = GetType(TreeView) Then
                         Exit While
                     End If
                 End If
@@ -747,12 +747,12 @@ Public Class ListSelecter
     End Sub
     Private Function DeleteMe(TargetItem As TreeViewItem) As TreeViewItem
         If TargetItem.Parent.GetType = GetType(TreeViewItem) Then
-            Dim parrentTreeview As TreeViewItem = TargetItem.Parent
-            parrentTreeview.Items.Remove(TargetItem)
-            Return parrentTreeview
+            Dim parentTreeview As TreeViewItem = TargetItem.Parent
+            parentTreeview.Items.Remove(TargetItem)
+            Return parentTreeview
         ElseIf TargetItem.Parent.GetType = GetType(TreeView) Then
-            Dim parrentTreeview As TreeView = TargetItem.Parent
-            parrentTreeview.Items.Remove(TargetItem)
+            Dim parentTreeview As TreeView = TargetItem.Parent
+            parentTreeview.Items.Remove(TargetItem)
             Return Nothing
         End If
         Return Nothing
@@ -760,7 +760,7 @@ Public Class ListSelecter
 
 
 
-    'Dim TempTarget As TreeViewItem = parrentTreeview
+    'Dim TempTarget As TreeViewItem = parentTreeview
     'If TempTarget.Items.Count = 0 Then '부모의 수가 아무것도 없을 경우 자신을 지운다.
 
 
@@ -846,9 +846,9 @@ Public Class ListSelecter
         If Isbig Then
             If ItempColl.Count = 0 Then
                 If SelectTreeitem Is Nothing Then
-                    tv.ItemsPanel = Templat
+                    tv.ItemsPanel = Template
                 Else
-                    SelectTreeitem.ItemsPanel = Templat
+                    SelectTreeitem.ItemsPanel = Template
                 End If
             End If
 
@@ -901,12 +901,12 @@ Public Class ListSelecter
                 stackpanel.Background = Application.Current.Resources("PrimaryHueDarkBrush")
                 textblock.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
 
-                Dim _ParrentTreeview As Object = CodeItem.Parent
-                While _ParrentTreeview.GetType = GetType(TreeViewItem)
-                    Dim parrentTreeview As TreeViewItem = _ParrentTreeview
-                    parrentTreeview.IsExpanded = True
+                Dim _ParentTreeview As Object = CodeItem.Parent
+                While _ParentTreeview.GetType = GetType(TreeViewItem)
+                    Dim parentTreeview As TreeViewItem = _ParentTreeview
+                    parentTreeview.IsExpanded = True
 
-                    _ParrentTreeview = parrentTreeview.Parent
+                    _ParentTreeview = parentTreeview.Parent
                 End While
 
 

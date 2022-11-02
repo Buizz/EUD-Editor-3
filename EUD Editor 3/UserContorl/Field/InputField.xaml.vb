@@ -198,7 +198,7 @@
                 ElseIf Parameter = "Display" Then
                     TextStr.Text = Tool.GetText("FG_Display")
                 ElseIf Parameter = "Joint" Then
-                    TextStr.Text = Tool.GetText("FG_StatusInfor1")
+                    TextStr.Text = Tool.GetText("FG_StatusInfo1")
                 ElseIf Parameter = "wire" Then
                     TextStr.Text = Tool.GetText("FG_WireFrame")
                 ElseIf Parameter = "grp" Then
@@ -402,13 +402,13 @@
 
 
 
-    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles ValueText.ContextMenuOpening
+    Private Sub OpenMenu(sender As Object, e As ContextMenuEventArgs) Handles ValueText.ContextMenuOpening
         CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)
     End Sub
 
-    Private Sub TextBoxMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles ValueText.MouseWheel
+    Private Sub TextBoxMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles ValueText.MouseWheel
         Dim ChangeValue As Long = e.Delta / 100
         Select Case SpecialFlag
             Case SFlag.HP

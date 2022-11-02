@@ -48,7 +48,7 @@
                                         <local:InputField x:Name="VCB" Tag="Vespene Cost" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                     </StackPanel>
                                     <StackPanel Orientation="Horizontal">
-                                        <local:InputField x:Name="RTB" Tag="Resarch Time" HorizontalAlignment="Left" VerticalAlignment="Top"/>
+                                        <local:InputField x:Name="RTB" Tag="Research Time" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                         <local:InputField x:Name="MR" Tag="Energy Required" HorizontalAlignment="Left" VerticalAlignment="Top"/>
                                     </StackPanel>
                                 </StackPanel>
@@ -60,7 +60,7 @@
                                 <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
-                                  Text="{StaticResource TechInfor}" Padding="6"/>
+                                  Text="{StaticResource TechInfo}" Padding="6"/>
                                 <StackPanel Margin="10">
                                     <local:ComboxSelecter x:Name="RAC" Tag="Race" HorizontalAlignment="Left" VerticalAlignment="Top" />
                                     <local:BoolSelecter x:Name="BF" Tag="Brood War Flag" HorizontalAlignment="Left" VerticalAlignment="Top"  />

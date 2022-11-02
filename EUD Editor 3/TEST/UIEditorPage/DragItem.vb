@@ -1,10 +1,10 @@
 ﻿Partial Public Class TreeviewExample
-    Private FristDragMove As Boolean = False
+    Private FirstDragMove As Boolean = False
     Private DragSelect As Boolean = False
 
     Private DragSelectItem As TreeViewItem
 
-    Private Function CheckDragable() As Boolean
+    Private Function CheckDraggable() As Boolean
         '선택한 블럭들이 타입이 일치하는지 판단
         '선택한 블럭들 중에 삭제나 이동, 추가가 불가능한 블럭이 있는지 판단
 
@@ -18,9 +18,9 @@
             DragSelect = True
 
             Dim CurrentYpos As Integer = e.GetPosition(sender).Y
-            Dim Heigth As Integer = sender.Header.ActualHeight
+            Dim Height As Integer = sender.Header.ActualHeight
 
-            If CurrentYpos > Heigth / 2 Then
+            If CurrentYpos > Height / 2 Then
                 IsTop = False
             Else
                 IsTop = True
@@ -89,9 +89,9 @@
 
     Private Sub MainTreeview_PreviewMouseMove(sender As Object, e As MouseEventArgs)
         If IsDrag Then
-            If Not FristDragMove Then
+            If Not FirstDragMove Then
                 CreateDragImage()
-                FristDragMove = True
+                FirstDragMove = True
                 DragSelect = False
             End If
             DragImage.Visibility = Visibility.Visible

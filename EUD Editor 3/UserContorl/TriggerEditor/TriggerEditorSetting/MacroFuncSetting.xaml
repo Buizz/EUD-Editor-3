@@ -15,7 +15,7 @@
 
             <DockPanel Margin="5" LastChildFill="False">
                 <TextBlock Margin="4" Text="{StaticResource Visible}"/>
-                <CheckBox x:Name="ChatEvnetCB" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="ChatEvnetCB_Checked" Unchecked="ChatEvnetCB_Unchecked">
+                <CheckBox x:Name="ChatEventCB" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="ChatEventCB_Checked" Unchecked="ChatEventCB_Unchecked">
                 </CheckBox>
             </DockPanel>
             <UniformGrid Margin="10" Rows="4" Columns="2" Width="200" HorizontalAlignment="Left">

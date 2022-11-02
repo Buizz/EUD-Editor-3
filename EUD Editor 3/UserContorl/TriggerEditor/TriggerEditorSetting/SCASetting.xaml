@@ -39,7 +39,7 @@
                 <StackPanel>
                     <Button Content="{StaticResource SCAHomepage}" Click="Button_Click"/>
 
-                    <Label Content="{StaticResource SCALoginInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
+                    <Label Content="{StaticResource SCALoginInfo}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal">
                         <TextBox x:Name="MakerBattleTag"  MinWidth="170" materialDesign:HintAssist.Hint="{StaticResource SCAEmail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
                             <TextBox.Text>
@@ -145,9 +145,9 @@
                     </StackPanel>
                     <Separator Background="#4CA0A0A0"/>
                     <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                        <Label  Content="{StaticResource MapInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
+                        <Label  Content="{StaticResource MapInfo}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
                         <CheckBox x:Name="infoCheckbox"
-                            Style="{StaticResource MaterialDesignCheckBox}" Checked="CheckBox_Checked" Unchecked="infoCheckbox_Unchecked" Content="{StaticResource InforUpdate}">
+                            Style="{StaticResource MaterialDesignCheckBox}" Checked="CheckBox_Checked" Unchecked="infoCheckbox_Unchecked" Content="{StaticResource InfoUpdate}">
                             <CheckBox.IsChecked>
                                 <Binding
                                             Path="updateinfo"
@@ -208,7 +208,7 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="MapLink" MinWidth="150" ToolTip="{StaticResource MapInforLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapInforLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                        <TextBox x:Name="MapLink" MinWidth="150" ToolTip="{StaticResource MapInfoLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapInfoLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                             <TextBox.Text>
                                 <Binding
                                             Path="DownLink"

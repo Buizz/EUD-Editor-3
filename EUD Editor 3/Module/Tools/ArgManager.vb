@@ -195,8 +195,8 @@
                 Dim datindex As Integer = Datfilesname.ToList.IndexOf(dname)
                 If datindex <> -1 Then
                     If SCDatFiles.CheckValidDat(datindex) Then
-                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParamaterList.Count - 1
-                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetParamname
+                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParameterList.Count - 1
+                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetParamname
                             Paramname = Paramname.Replace(" ", "_")
                             strs.Add(Paramname)
                         Next

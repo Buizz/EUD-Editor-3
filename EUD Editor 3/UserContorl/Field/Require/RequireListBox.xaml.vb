@@ -22,19 +22,19 @@ Public Class RequireListBox
     End Sub
 
 
-    Private Sub NewItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub NewItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SNewItem()
     End Sub
-    Private Sub CutItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub CutItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SCutItem()
     End Sub
-    Private Sub CopyItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub CopyItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SCopyItem()
     End Sub
-    Private Sub PasteItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub PasteItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SPasteItem()
     End Sub
-    Private Sub DeleteItemCommandExcute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
+    Private Sub DeleteItemCommandExecute(ByVal target As Object, ByVal e As ExecutedRoutedEventArgs)
         SDeleteItem()
     End Sub
 
@@ -186,10 +186,10 @@ Public Class RequireListBox
             myOpacityAnimation.To = 1.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            OpenStroyBoard = New Storyboard()
-            OpenStroyBoard.Children.Add(myOpacityAnimation)
-            OpenStroyBoard.Children.Add(myWidthAnimation)
-            OpenStroyBoard.Children.Add(myHeightAnimation)
+            OpenStoryBoard = New Storyboard()
+            OpenStoryBoard.Children.Add(myOpacityAnimation)
+            OpenStoryBoard.Children.Add(myWidthAnimation)
+            OpenStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -220,10 +220,10 @@ Public Class RequireListBox
             myOpacityAnimation.To = 0.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            CloseStroyBoard = New Storyboard()
-            CloseStroyBoard.Children.Add(myOpacityAnimation)
-            CloseStroyBoard.Children.Add(myWidthAnimation)
-            CloseStroyBoard.Children.Add(myHeightAnimation)
+            CloseStoryBoard = New Storyboard()
+            CloseStoryBoard.Children.Add(myOpacityAnimation)
+            CloseStoryBoard.Children.Add(myWidthAnimation)
+            CloseStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -231,7 +231,7 @@ Public Class RequireListBox
             Storyboard.SetTargetProperty(myHeightAnimation, New PropertyPath("RenderTransform.ScaleY"))
             Storyboard.SetTargetProperty(myWidthAnimation, New PropertyPath("RenderTransform.ScaleX"))
 
-            AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
+            AddHandler CloseStoryBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       CreateEditWindow.Visibility = Visibility.Hidden
                                                   End Sub
         End If
@@ -244,8 +244,8 @@ Public Class RequireListBox
 
 
 
-    Private OpenStroyBoard As Storyboard
-    Private CloseStroyBoard As Storyboard
+    Private OpenStoryBoard As Storyboard
+    Private CloseStoryBoard As Storyboard
     Private Sub NewItem_Click(sender As Object, e As RoutedEventArgs)
         SNewItem()
     End Sub
@@ -537,7 +537,7 @@ Public Class RequireListBox
     Private IsEditWindowopen As Boolean
     Private Sub OpenNewWindow()
         IsEditWindowopen = False
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         CodeSelecter.SelectedIndex = 2
         CreateEditWindow.Visibility = Visibility.Visible
         IconSelecterRefresh()
@@ -547,7 +547,7 @@ Public Class RequireListBox
         'MsgBox(MainListBox.SelectedIndex)
         'MsgBox(MainListBox.SelectedItems Is Nothing)
         IsEditWindowopen = True
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
 
         Dim CodeData As CRequireData.RequireBlock = RequireList(MenuSeletIndex)
 
@@ -634,11 +634,11 @@ Public Class RequireListBox
         End If
 
 
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
     End Sub
 
     Private Sub CodeSelecter_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
