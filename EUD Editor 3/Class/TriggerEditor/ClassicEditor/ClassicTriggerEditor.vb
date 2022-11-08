@@ -100,7 +100,7 @@ Public Class ClassicTriggerEditor
     End Property
 
     Public Overrides Function GetFileText() As String
-        Dim returnStr As String = GetEpsText()
+        Dim returnStr As String = GetEpsText(IsMain())
 
         If IsMain() Then
             returnStr = returnStr &
@@ -113,7 +113,7 @@ Public Class ClassicTriggerEditor
     End Function
 
     Public Overrides Function GetStringText() As String
-        Return GetEpsText()
+        Return GetEpsText(IsMain())
     End Function
 
 
@@ -132,7 +132,7 @@ Public Class ClassicTriggerEditor
 
 
 
-    Public Function GetEpsText() As String
+    Public Function GetEpsText(Optional ByVal IsMainFile As Boolean = False) As String
         Dim sb As New StringBuilder
         sb.AppendLine("/*================Start Import================*/")
         For i = 0 To ImportFiles.Count - 1
@@ -211,6 +211,9 @@ Public Class ClassicTriggerEditor
 
 
         sb.AppendLine("function ClassicTriggerExec(){")
+        If IsMainFile = False Then
+            sb.AppendLine("    const _origcp = getcurpl();")
+        End If
         For player = 0 To 7
             Dim tlist As List(Of Trigger) = playerTrigger(player)
             If tlist.Count = 0 Then
@@ -245,6 +248,9 @@ Public Class ClassicTriggerEditor
 
             sb.AppendLine("    /*================End Player " & player + 1 & "================*/")
         Next
+        If IsMainFile = False Then
+            sb.AppendLine("    setcurpl(_origcp);")
+        End If
         sb.AppendLine("}")
 
 
