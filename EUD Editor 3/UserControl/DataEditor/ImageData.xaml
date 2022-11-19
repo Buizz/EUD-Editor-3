@@ -1,0 +1,100 @@
+﻿<UserControl x:Class="ImageData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}" 
+             d:DesignHeight="482"  d:DesignWidth="770">
+    <DockPanel>
+        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <local:NameBar x:Name="NameBar"/>
+            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <materialDesign:Card Height="70" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <Grid>
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="25" />
+                                <RowDefinition Height="*" />
+                            </Grid.RowDefinitions>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource ImageInfo}" Padding="6"/>
+                            <WrapPanel Grid.Row="1" Margin="10,2">
+                                <local:IconSelecter x:Name="II" Tag="Iscript ID" HorizontalAlignment="Left" VerticalAlignment="Top" Width="659" ValueChange="II_ValueChange"/>
+                            </WrapPanel>
+                        </Grid>
+                    </materialDesign:Card>
+                    <StackPanel>
+                        <materialDesign:Card Height="97" Width="221" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource ImageDefault}" Padding="6"/>
+                                <WrapPanel Grid.Row="1" Margin="10,2">
+                                    <local:BoolSelecter x:Name="GT" Tag="Gfx Turns" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                    <local:BoolSelecter x:Name="CA" Tag="Clickable" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                    <local:BoolSelecter x:Name="UFI" Tag="Use Full Iscript" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                    <local:BoolSelecter x:Name="DIC" Tag="Draw If Cloaked" HorizontalAlignment="Left" VerticalAlignment="Top" Width="100" />
+                                </WrapPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                        <materialDesign:Card Height="97" Width="233" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource ImageScreen}" Padding="6"/>
+                                <WrapPanel Grid.Row="1" Margin="10,2">
+                                    <local:ComboxSelecter x:Name="DF" Tag="Draw Function" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" />
+                                    <local:ComboxSelecter x:Name="REMA" IsEnabled="False" Tag="Remapping" HorizontalAlignment="Left" VerticalAlignment="Top" Width="200" />
+                                </WrapPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </StackPanel>
+
+                    <DockPanel>
+                        <local:GRPImageBox x:Name="GRPPlayer" Width="256" Height="256"/>
+                        <materialDesign:Card Height="312" Width="188" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                            <Grid>
+                                <Grid.RowDefinitions>
+                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="*" />
+                                </Grid.RowDefinitions>
+                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Left" FontSize="14"
+                                  Text="{StaticResource ImageScriptSelect}" Padding="6"/>
+                                <WrapPanel Grid.Row="1" >
+                                    <ListBox x:Name="ImageScripts" SelectionChanged="ImageScripts_SelectionChanged" Width="180"/>
+                                </WrapPanel>
+                            </Grid>
+                        </materialDesign:Card>
+                    </DockPanel>
+                   
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid>
+    </DockPanel>
+</UserControl>

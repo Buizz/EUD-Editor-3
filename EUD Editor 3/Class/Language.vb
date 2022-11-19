@@ -3,13 +3,13 @@ Imports Newtonsoft.Json
 
 
 Public Class Language
-    Private LanguageDatas As List(Of LanguageData)
+    Private LanguageData As List(Of LanguageData)
 
     Private CurrentLan As LanguageData
     Public Sub SetLanguage(name As String)
-        For i = 0 To LanguageDatas.Count - 1
-            If LanguageDatas(i).GetName = name Then
-                CurrentLan = LanguageDatas(i)
+        For i = 0 To LanguageData.Count - 1
+            If LanguageData(i).GetName = name Then
+                CurrentLan = LanguageData(i)
                 'pgData.Setting(ProgramData.TSetting.language) = CurrentLan.GetName
                 Exit Sub
             End If
@@ -28,8 +28,8 @@ Public Class Language
     Public Function GetLanguageArray() As String()
         Dim str As New List(Of String)
 
-        For i = 0 To LanguageDatas.Count - 1
-            str.Add(LanguageDatas(i).GetName)
+        For i = 0 To LanguageData.Count - 1
+            str.Add(LanguageData(i).GetName)
         Next
 
         Return str.ToArray
@@ -38,7 +38,7 @@ Public Class Language
 
 
     Public Sub New(lanname As String)
-        LanguageDatas = New List(Of LanguageData)
+        LanguageData = New List(Of LanguageData)
 
         For Each Filename As String In My.Computer.FileSystem.GetFiles(Tool.GetLanguageFolder)
             Dim filestream As New FileStream(Filename, FileMode.Open)
@@ -47,10 +47,10 @@ Public Class Language
             Dim jsonString As String = streamreader.ReadToEnd
 
             Dim dic As Dictionary(Of String, String) = JsonConvert.DeserializeObject(Of Dictionary(Of String, String))(jsonString)
-            LanguageDatas.Add(New LanguageData(dic))
+            LanguageData.Add(New LanguageData(dic))
 
             If dic("Language") = lanname Then
-                CurrentLan = LanguageDatas.Last
+                CurrentLan = LanguageData.Last
             End If
 
             streamreader.Close()
@@ -58,7 +58,7 @@ Public Class Language
         Next
 
         If lanname = "" Then
-            CurrentLan = LanguageDatas.Last
+            CurrentLan = LanguageData.Last
         End If
     End Sub
 

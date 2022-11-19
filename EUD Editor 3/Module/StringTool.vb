@@ -36,7 +36,7 @@
         End Function
 
 
-        Private Function ExtratStr(str As String) As String
+        Private Function ExtractStr(str As String) As String
             Return Mid(str, 2, str.Length - 2)
         End Function
 
@@ -58,13 +58,13 @@
             Dim OriginalKeys As New List(Of String)
 
             Dim rgx As New Text.RegularExpressions.Regex("<[^>\\]*(?:\\.[^>\\]*)*>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-            Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+            Dim Matches As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
             'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
             '만약 Virtual안에 있으면 해당 번호로 돌려줌.
-            For i = 0 To Matchs.Count - 1
-                Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+            For i = 0 To Matches.Count - 1
+                Dim tMatches As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
 
-                Dim pureStr As String = ExtratStr(tMatchs(MatchPass).Value)
+                Dim pureStr As String = ExtractStr(tMatches(MatchPass).Value)
                 If pureStr = "ᚎ" Then
                     pureStr = "\\"
                 ElseIf pureStr = "ᚍ" Then
@@ -96,10 +96,10 @@
                     Continue For
                 End If
 
-                OriginalKeys.Add(tMatchs(MatchPass).Value)
+                OriginalKeys.Add(tMatches(MatchPass).Value)
                 SpecialKeys.Add(ResultStr)
-                SpecialKeyPos.Add(tMatchs(MatchPass).Index)
-                str = Replace(str, tMatchs(MatchPass).Value, TempChar, 1, 1)
+                SpecialKeyPos.Add(tMatches(MatchPass).Index)
+                str = Replace(str, tMatches(MatchPass).Value, TempChar, 1, 1)
             Next
             If str(index) = TempChar Then
                 For i = 0 To SpecialKeyPos.Count - 1
@@ -136,13 +136,13 @@
                 Dim SpecialKeyPos As New List(Of Integer)
 
                 Dim rgx As New Text.RegularExpressions.Regex("<[^>\\]*(?:\\.[^>\\]*)*>", Text.RegularExpressions.RegexOptions.IgnoreCase)
-                Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+                Dim Matches As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
                 'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
                 '만약 Virtual안에 있으면 해당 번호로 돌려줌.
-                For i = 0 To Matchs.Count - 1
-                    Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
+                For i = 0 To Matches.Count - 1
+                    Dim tMatches As Text.RegularExpressions.MatchCollection = rgx.Matches(str)
 
-                    Dim pureStr As String = ExtratStr(tMatchs(MatchPass).Value)
+                    Dim pureStr As String = ExtractStr(tMatches(MatchPass).Value)
                     If pureStr = "ᚎ" Then
                         pureStr = "\\"
                     ElseIf pureStr = "ᚍ" Then
@@ -177,8 +177,8 @@
 
 
                     SpecialKeys.Add(ResultStr)
-                    SpecialKeyPos.Add(tMatchs(MatchPass).Index)
-                    str = Replace(str, tMatchs(MatchPass).Value, TempChar, 1, 1)
+                    SpecialKeyPos.Add(tMatches(MatchPass).Index)
+                    str = Replace(str, tMatches(MatchPass).Value, TempChar, 1, 1)
                 Next
 
                 'str = str.Replace("ᚎ", "\")

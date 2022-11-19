@@ -8,8 +8,8 @@ Public Class CRequireData
     Private Datfile As SCDatFiles.DatFiles
     Private Flag As Boolean
 
-    Private RequireDatas As List(Of RequireObject)
-    Private OrigRequireDatas As List(Of RequireObject)
+    Private RequireData As List(Of RequireObject)
+    Private OrigRequireData As List(Of RequireObject)
 
 
     Public Enum RequireUse
@@ -23,32 +23,32 @@ Public Class CRequireData
         Datfile = tDatfile
         Flag = tFlag
 
-        RequireDatas = New List(Of RequireObject)
-        OrigRequireDatas = New List(Of RequireObject)
+        RequireData = New List(Of RequireObject)
+        OrigRequireData = New List(Of RequireObject)
 
 
         For i = 0 To Codes.Count - 1
-            RequireDatas.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
-            OrigRequireDatas.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
+            RequireData.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
+            OrigRequireData.Add(New RequireObject(i, Datfile, Codes(i).Code, Codes(i).pos))
         Next
     End Sub
 
     Public Sub WriteBinaryData(index As Integer, bw As IO.BinaryWriter)
-        For i = 0 To RequireDatas(index).ReauireBlock.Count - 1
-            RequireDatas(index).ReauireBlock(i).CodeWrite(bw)
+        For i = 0 To RequireData(index).ReauireBlock.Count - 1
+            RequireData(index).ReauireBlock(i).CodeWrite(bw)
         Next
     End Sub
     Public Function GetCapacity() As Integer
         Dim TotalSize As Integer
         TotalSize += 4
-        For i = 0 To RequireDatas.Count - 1
-            If (RequireDatas(i).StartPos > 0 And RequireDatas(i).UseStatus <> RequireUse.DontUse) Or RequireDatas(i).UseStatus = RequireUse.CustomUse Then
+        For i = 0 To RequireData.Count - 1
+            If (RequireData(i).StartPos > 0 And RequireData(i).UseStatus <> RequireUse.DontUse) Or RequireData(i).UseStatus = RequireUse.CustomUse Then
                 TotalSize += 2 '시작 부호2개와 끝 부호2개
                 If Datfile = SCDatFiles.DatFiles.orders Then
                     TotalSize += 2
                 End If
-                For j = 0 To RequireDatas(i).ReauireBlock.Count - 1
-                    TotalSize += RequireDatas(i).ReauireBlock(j).GetSize()
+                For j = 0 To RequireData(i).ReauireBlock.Count - 1
+                    TotalSize += RequireData(i).ReauireBlock(j).GetSize()
                 Next
             End If
         Next
@@ -83,7 +83,7 @@ Public Class CRequireData
                 pjData.BindingManager.RequireDataBinding(index, Datfile).IsCustomUse = True
             End If
 
-            RequireDatas(index).PasteCopyData(pasteString)
+            RequireData(index).PasteCopyData(pasteString)
         Else
             Select Case str(0)
                 Case RequireUse.AlwaysUse
@@ -103,14 +103,14 @@ Public Class CRequireData
 
     End Sub
     Public Function GetCopyString(index As Integer) As String
-        Select Case RequireDatas(index).UseStatus
+        Select Case RequireData(index).UseStatus
             Case RequireUse.CustomUse, RequireUse.DefaultUse
                 Dim tString As String = ""
-                For i = 0 To RequireDatas(index).ReauireBlock.Count - 1
+                For i = 0 To RequireData(index).ReauireBlock.Count - 1
                     If i = 0 Then
-                        tString = RequireDatas(index).ReauireBlock(i).GetCopyText
+                        tString = RequireData(index).ReauireBlock(i).GetCopyText
                     Else
-                        tString = tString & "." & RequireDatas(index).ReauireBlock(i).GetCopyText
+                        tString = tString & "." & RequireData(index).ReauireBlock(i).GetCopyText
                     End If
                 Next
                 If tString <> "" Then
@@ -119,7 +119,7 @@ Public Class CRequireData
                     Return RequireUse.CustomUse
                 End If
             Case Else
-                Return RequireDatas(index).UseStatus
+                Return RequireData(index).UseStatus
         End Select
     End Function
 
@@ -127,57 +127,57 @@ Public Class CRequireData
 
     'Public Property GetRequireUseStatus(index As Integer) As RequireUse
     '    Get
-    '        Return RequireDatas(index).UseStatus
+    '        Return RequireData(index).UseStatus
     '    End Get
     '    Set(value As RequireUse)
-    '        RequireDatas(index).UseStatus = value
+    '        RequireData(index).UseStatus = value
     '    End Set
     'End Property
 
     Public ReadOnly Property GetRequireObject(index As Integer) As RequireObject
         Get
-            Return RequireDatas(index)
+            Return RequireData(index)
         End Get
     End Property
 
     Public ReadOnly Property GetRequireBlocks(index As Integer) As List(Of RequireBlock)
         Get
-            Return RequireDatas(index).ReauireBlock
+            Return RequireData(index).ReauireBlock
         End Get
     End Property
     Public Property RequireObjectUsed(index As Integer) As RequireUse
         Get
-            Return RequireDatas(index).UseStatus
+            Return RequireData(index).UseStatus
         End Get
         Set(value As RequireUse)
-            RequireDatas(index).UseStatus = value
+            RequireData(index).UseStatus = value
             Select Case value
                 Case RequireUse.DefaultUse
-                    RequireDatas(index).ReauireBlock.Clear()
-                    For i = 0 To OrigRequireDatas(index).ReauireBlock.Count - 1
-                        RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigRequireDatas(index).ReauireBlock(i).opCode, OrigRequireDatas(index).ReauireBlock(i).Value))
+                    RequireData(index).ReauireBlock.Clear()
+                    For i = 0 To OrigRequireData(index).ReauireBlock.Count - 1
+                        RequireData(index).ReauireBlock.Add(New RequireBlock(OrigRequireData(index).ReauireBlock(i).opCode, OrigRequireData(index).ReauireBlock(i).Value))
                     Next
-                    RequireDatas(index).ResetStartPos()
+                    RequireData(index).ResetStartPos()
 
                 Case RequireUse.DontUse
-                    RequireDatas(index).ReauireBlock.Clear()
+                    RequireData(index).ReauireBlock.Clear()
                 Case RequireUse.AlwaysUse
-                    RequireDatas(index).ReauireBlock.Clear()
+                    RequireData(index).ReauireBlock.Clear()
                 Case RequireUse.AlwaysCurrentUse
-                    RequireDatas(index).ReauireBlock.Clear()
+                    RequireData(index).ReauireBlock.Clear()
 
-                    For i = 0 To OrigRequireDatas(index).ReauireBlock.Count - 1
-                        If OrigRequireDatas(index).ReauireBlock(i).opCode = EOpCode.Current_unit_is Then
-                            If RequireDatas(index).ReauireBlock.Count > 0 Then
-                                RequireDatas(index).ReauireBlock.Add(New RequireBlock(EOpCode.Or_))
+                    For i = 0 To OrigRequireData(index).ReauireBlock.Count - 1
+                        If OrigRequireData(index).ReauireBlock(i).opCode = EOpCode.Current_unit_is Then
+                            If RequireData(index).ReauireBlock.Count > 0 Then
+                                RequireData(index).ReauireBlock.Add(New RequireBlock(EOpCode.Or_))
                             End If
-                            RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigRequireDatas(index).ReauireBlock(i).opCode, OrigRequireDatas(index).ReauireBlock(i).Value))
+                            RequireData(index).ReauireBlock.Add(New RequireBlock(OrigRequireData(index).ReauireBlock(i).opCode, OrigRequireData(index).ReauireBlock(i).Value))
                         End If
                     Next
                 Case RequireUse.CustomUse
-                    RequireDatas(index).ReauireBlock.Clear()
-                    For i = 0 To OrigRequireDatas(index).ReauireBlock.Count - 1
-                        RequireDatas(index).ReauireBlock.Add(New RequireBlock(OrigRequireDatas(index).ReauireBlock(i).opCode, OrigRequireDatas(index).ReauireBlock(i).Value))
+                    RequireData(index).ReauireBlock.Clear()
+                    For i = 0 To OrigRequireData(index).ReauireBlock.Count - 1
+                        RequireData(index).ReauireBlock.Add(New RequireBlock(OrigRequireData(index).ReauireBlock(i).opCode, OrigRequireData(index).ReauireBlock(i).Value))
                     Next
             End Select
         End Set

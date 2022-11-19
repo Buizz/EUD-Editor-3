@@ -4,7 +4,7 @@ Firebat - Idle Portrait
 Vulture - Idle Portrait 
 Spider Mine - Idle Portrait
 Goliath - Idle Portrait
-Seige Tank - Idle Portrait
+Siege Tank - Idle Portrait
 SCV - Idle Portrait
 Wraith - Idle Portrait
 Science Vessel - Idle Portrait
@@ -72,7 +72,7 @@ Sally - Idle Portrait
 Greedo - Idle Portrait
 Boskk - Idle Portrait
 Peter - Idle Portrait
-Independant Advisor - Idle Portrait
+Independent Advisor - Idle Portrait
 Terran Gas Tank - Idle Portrait
 Protoss Gas Orb - Idle Portrait
 Zerg Gas Sac - Idle Portrait
@@ -114,7 +114,7 @@ Firebat - Talking Portrait
 Vulture - Talking Portrait
 Spider Mine - Talking Portrait
 Goliath - Talking Portrait
-Seige Tank - Talking Portrait
+Siege Tank - Talking Portrait
 SCV - Talking Portrait
 Wraith - Talking Portrait
 Science Vessel - Talking Portrait
@@ -182,7 +182,7 @@ Sally - Talking Portrait
 Greedo - Talking Portrait
 Boskk - Talking Portrait
 Peter - Talking Portrait
-Independant Advisor - Talking Portrait
+Independent Advisor - Talking Portrait
 Terran Gas Tank - Talking Portrait
 Protoss Gas Orb - Talking Portrait
 Zerg Gas Sac - Talking Portrait

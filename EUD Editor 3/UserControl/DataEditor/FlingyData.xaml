@@ -1,0 +1,50 @@
+﻿<UserControl x:Class="FlingyData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}"  
+             d:DesignHeight="482"  d:DesignWidth="770">
+
+    <DockPanel>
+        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
+        <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <local:NameBar x:Name="NameBar"/>
+            <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
+                <WrapPanel HorizontalAlignment="Left" VerticalAlignment="Top" >
+                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <DockPanel>
+                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                  Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                  DockPanel.Dock="Top" FontSize="14"
+                                  Text="{StaticResource FlingyInfo}" Padding="6"/>
+                            <StackPanel Orientation="Horizontal" Margin="10">
+                                <StackPanel>
+                                    <local:IconSelecter x:Name="SP" Tag="Sprite" HorizontalAlignment="Left" VerticalAlignment="Top" Width="400" ValueChange="SP_ValueChange" />
+                                    <local:InputField x:Name="SPEED" Tag="Speed" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="AC" Tag="Acceleration" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="HD" Tag="Halt Distance" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="TR" Tag="Turn Radius" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:ComboxSelecter x:Name="MC" Tag="Movement Control" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                    <local:InputField x:Name="UN" Tag="Unused" HorizontalAlignment="Left" VerticalAlignment="Top" Width="340" />
+                                </StackPanel>
+                                <local:GRPImageBox x:Name="GRPImageBox" Width="256" Height="256"/>
+                            </StackPanel>
+                        </DockPanel>
+                    </materialDesign:Card>
+                </WrapPanel>
+            </ScrollViewer>
+        </Grid> 
+    </DockPanel>
+</UserControl>

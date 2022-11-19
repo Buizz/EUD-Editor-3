@@ -202,7 +202,7 @@
     <sys:String x:Key="Error CompileFail SaveMap is not exist!">빌드에 실패했습니다. 저장 맵을 생성 할 수 없습니다.</sys:String>
     <sys:String x:Key="Error CompileFail euddraft is not exist!">빌드에 실패했습니다. euddraft 실행 파일이 없습니다.</sys:String>
     <sys:String x:Key="Error TempFolder is not exist reset">임시 파일 폴더가 지정되어 있지 않습니다. 새로 지정하겠습니까?</sys:String>
-    <sys:String x:Key="Error complieFail TempFolder is not exist!">빌드에 실패했습니다. 임시 파일 폴더가 지정되어 있지 않습니다.</sys:String>
+    <sys:String x:Key="Error compileFail TempFolder is not exist!">빌드에 실패했습니다. 임시 파일 폴더가 지정되어 있지 않습니다.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft 실행 파일이 없습니다. 새로 지정하겠습니까?</sys:String>
     <sys:String x:Key="Error FailLoad DataEditor">데이터 에디터 로드에 실패했습니다.</sys:String>
     <sys:String x:Key="Error FailLoad TriggerEditor">트리거 에디터 로드에 실패했습니다.</sys:String>
@@ -214,7 +214,7 @@
     <sys:String x:Key="Error compiling">컴파일 중에는 종료 할 수 없습니다.</sys:String>
     <sys:String x:Key="Error ProgramLoading">데이터를 불러오는 중입니다. 그래도 종료하시겠습니까?</sys:String>
 
-    <sys:String x:Key="Error WriteStatusInfor">컴파일 중 오류가 발생했습니다. 스테이터스 정보가 잘못되었습니다.</sys:String>
+    <sys:String x:Key="Error WriteStatusInfo">컴파일 중 오류가 발생했습니다. 스테이터스 정보가 잘못되었습니다.</sys:String>
 
 
 
@@ -271,10 +271,10 @@
     <sys:String x:Key="FliterIcon">아이콘보기</sys:String>
     <sys:String x:Key="FliterEdit">편집된 것만 보기</sys:String>
 
-    <sys:String x:Key="DefaultInfor">기본정보</sys:String>
+    <sys:String x:Key="DefaultInfo">기본정보</sys:String>
     <sys:String x:Key="UpgradeRequir">연구조건</sys:String>
     <sys:String x:Key="TechUseRequir">사용조건</sys:String>
-    <sys:String x:Key="TechReserachRequir">연구조건</sys:String>
+    <sys:String x:Key="TechResearchRequir">연구조건</sys:String>
     <sys:String x:Key="OrderRequir">사용조건</sys:String>
 
     <sys:String x:Key="UnitDefault">기본정보</sys:String>
@@ -284,7 +284,7 @@
     <sys:String x:Key="UnitMapEdit">에디트</sys:String>
     <sys:String x:Key="UnitAIOrder">인공지능명령</sys:String>
 
-    <sys:String x:Key="UnitInfor">화면정보</sys:String>
+    <sys:String x:Key="UnitInfo">화면정보</sys:String>
     <sys:String x:Key="UnitRequir">생산조건</sys:String>
     <sys:String x:Key="UnitWireFrame">와이어프레임</sys:String>
 
@@ -317,19 +317,19 @@
     <sys:String x:Key="WeaponDisplay">무기 화면 정보</sys:String>
 
 
-    <sys:String x:Key="FlingyInfor">비행정보</sys:String>
-    <sys:String x:Key="SpriteInfor">스프라이트 정보</sys:String>
+    <sys:String x:Key="FlingyInfo">비행정보</sys:String>
+    <sys:String x:Key="SpriteInfo">스프라이트 정보</sys:String>
     <sys:String x:Key="UpgradeScreen">화면 정보</sys:String>
     <sys:String x:Key="UpgradeCost">기본비용</sys:String>
     <sys:String x:Key="UpgradeExtraCost">추가비용</sys:String>
-    <sys:String x:Key="UpgradeInfor">업그레이드 정보</sys:String>
+    <sys:String x:Key="UpgradeInfo">업그레이드 정보</sys:String>
 
     <sys:String x:Key="TechScreen">화면 정보</sys:String>
     <sys:String x:Key="TechCost">비용</sys:String>
-    <sys:String x:Key="TechInfor">기술 정보</sys:String>
-    <sys:String x:Key="OrderInfor">명령 정보</sys:String>
+    <sys:String x:Key="TechInfo">기술 정보</sys:String>
+    <sys:String x:Key="OrderInfo">명령 정보</sys:String>
 
-    <sys:String x:Key="ImageInfor">이미지 정보</sys:String>
+    <sys:String x:Key="ImageInfo">이미지 정보</sys:String>
     <sys:String x:Key="ImageDefault">일반 정보</sys:String>
     <sys:String x:Key="ImageScreen">화면 출력 정보</sys:String>
 
@@ -411,7 +411,7 @@
     <sys:String x:Key="units_Air Weapon">공중무기</sys:String>
     <sys:String x:Key="units_Max Air Hits">타격수</sys:String>
     <sys:String x:Key="units_AI Internal">내부 인공지능</sys:String>
-    <sys:String x:Key="units_AI Internal_V">"Strategic Sucide missions" AI를 무시한다.|"Guard" 상태가 되지 않는다.</sys:String>
+    <sys:String x:Key="units_AI Internal_V">"Strategic Suicide missions" AI를 무시한다.|"Guard" 상태가 되지 않는다.</sys:String>
 
     <sys:String x:Key="units_Special Ability Flags">스페셜 어빌리티 플래그</sys:String>
     <sys:String x:Key="units_Special Ability Flags_V">건물|애드온|공중유닛|자원을 캔다|부가 유닛|날 수 있는 건물|영웅|HP 자동 회복|기본모습|클로킹|1 Egg 2 Unit|단일 개체|자원 창고(반납)|자원 저장 건물|로보틱|디텍터|바이오닉|크립 필요|Unused|파일런 필요|버로우 가능 유닛|마법 유닛|영구 클로킹|아이템 가질 수 있음|인구 수 확인 무시|중간 오버레이|큰 오버레이|타겟 방향 자동 공격|전투에 반응|절대 무적|기계 유닛|유닛을 생산</sys:String>
@@ -557,7 +557,7 @@
 
     <sys:String x:Key="techdata_Mineral Cost">미네랄</sys:String>
     <sys:String x:Key="techdata_Vespene Cost">가스</sys:String>
-    <sys:String x:Key="techdata_Resarch Time">시간</sys:String>
+    <sys:String x:Key="techdata_Research Time">시간</sys:String>
     <sys:String x:Key="techdata_Energy Required">에너지</sys:String>
     <sys:String x:Key="techdata_Unknown 4">알수없음</sys:String>
     <sys:String x:Key="techdata_Icon">아이콘</sys:String>
@@ -732,7 +732,7 @@
 
     <sys:String x:Key="techdata_Mineral Cost_ToolTip">해당 기술을 연구할 경우 필요한 미네랄 양을 나타냅니다.</sys:String>
     <sys:String x:Key="techdata_Vespene Cost_ToolTip">해당 기술을 연구할 경우 필요한 가스 양을 나타냅니다.</sys:String>
-    <sys:String x:Key="techdata_Resarch Time_ToolTip">해당 기술을 연구하는 데 걸리는 시간을 나타냅니다 (단위: 프레임, 24 = 실제시간 1초, 15 = 게임시간 1초).</sys:String>
+    <sys:String x:Key="techdata_Research Time_ToolTip">해당 기술을 연구하는 데 걸리는 시간을 나타냅니다 (단위: 프레임, 24 = 실제시간 1초, 15 = 게임시간 1초).</sys:String>
     <sys:String x:Key="techdata_Energy Required_ToolTip">해당 기술을 사용하는 데 필요한 마나량을 나타냅니다.</sys:String>
     <sys:String x:Key="techdata_Unknown 4_ToolTip">사용되지 않습니다.</sys:String>
     <sys:String x:Key="techdata_Icon_ToolTip">해당 기술의 아이콘입니다. 연구시 유닛 콘솔창에서 이 아이콘이 나타납니다.</sys:String>
@@ -764,8 +764,8 @@
 
 
     <!--FG-->
-    <sys:String x:Key="FG_StatusInfor1">유닛종류</sys:String>
-    <sys:String x:Key="FG_StatusInfor1_V">건물|유닛|격납유닛|수송유닛|수송인구유닛|파워업유닛|부화유닛(에그)|합체유닛(아칸,다크아칸)|선택불가유닛|스캐럽, 맵리빌러|UnusedProtossBuilding</sys:String>
+    <sys:String x:Key="FG_StatusInfo1">유닛종류</sys:String>
+    <sys:String x:Key="FG_StatusInfo1_V">건물|유닛|격납유닛|수송유닛|수송인구유닛|파워업유닛|부화유닛(에그)|합체유닛(아칸,다크아칸)|선택불가유닛|스캐럽, 맵리빌러|UnusedProtossBuilding</sys:String>
     <sys:String x:Key="FG_Status">상태기능</sys:String>
     <sys:String x:Key="FG_Display">표시기능</sys:String>
 
@@ -797,14 +797,14 @@
     <sys:String x:Key="FG_CustomUseToolTip">사용자정의</sys:String>
 
     <!--색 코드-->
-    <sys:String x:Key="ColorNames">기본 색 사용|Pale Blue|Yellow|White|Grey|Red|Green|Red (P1)|NULL|NULL|&lt;1&gt;투명|&lt;1&gt;Remove beyond|NULL|Blue (P2)|Teal (P3)|Purple (P4)|Orange (P5)|Right Aling|Center Align|&lt;1&gt;투명|Brown (P6)|white (P7)|Yellow (P8)|Green (P9)|Brighter Yellow (P10)|Cyan|Pinkish (P11)|Dark Cyan (P12)|Greygreen|BlueGrey|Truquoise</sys:String>
+    <sys:String x:Key="ColorNames">기본 색 사용|Pale Blue|Yellow|White|Grey|Red|Green|Red (P1)|NULL|NULL|&lt;1&gt;투명|&lt;1&gt;Remove beyond|NULL|Blue (P2)|Teal (P3)|Purple (P4)|Orange (P5)|Right Align|Center Align|&lt;1&gt;투명|Brown (P6)|white (P7)|Yellow (P8)|Green (P9)|Brighter Yellow (P10)|Cyan|Pinkish (P11)|Dark Cyan (P12)|Greygreen|BlueGrey|Truquoise</sys:String>
 
     <!--버튼셋-->
     <sys:String x:Key="buttonSetEtcGroup">기타 버튼</sys:String>
     <sys:String x:Key="buttonSet">버튼셋</sys:String>
     <sys:String x:Key="button">버튼데이터</sys:String>
     <sys:String x:Key="BtnList">버튼리스트</sys:String>
-    <sys:String x:Key="BtnInfor">기본 정보</sys:String>
+    <sys:String x:Key="BtnInfo">기본 정보</sys:String>
     <sys:String x:Key="BtnPreview">미리보기</sys:String>
     <sys:String x:Key="BtnWork">버튼 동작</sys:String>
 
@@ -895,8 +895,8 @@
     <sys:String x:Key="NoMatchesFoundText">일치하는 결과가 없습니다!</sys:String>
 
 
-    <sys:String x:Key="Invalide2s">올바른 e2s파일이 아닙니다!</sys:String>
-    <sys:String x:Key="LodingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
+    <sys:String x:Key="Invalid2s">올바른 e2s파일이 아닙니다!</sys:String>
+    <sys:String x:Key="LoadingError">$S0$를 불러오는 과정에서 오류가 발생했습니다.</sys:String>
 
     <sys:String x:Key="Comment">주석</sys:String>
     <sys:String x:Key="Control">제어</sys:String>
@@ -1055,7 +1055,7 @@
 
     <sys:String x:Key="SCAHomepage">사이트 바로가기</sys:String>
     
-    <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
+    <sys:String x:Key="SCALoginInfo">SCA 로그인 정보</sys:String>
     <sys:String x:Key="MapSetting">맵 설정</sys:String>
     <sys:String x:Key="BattleTag">배틀코드</sys:String>
 
@@ -1065,9 +1065,9 @@
 
     <sys:String x:Key="DatabaseName">데이터베이스 이름</sys:String>
     <sys:String x:Key="SecondName">하위이름</sys:String>
-    <sys:String x:Key="MapInfor">맵 정보</sys:String>
+    <sys:String x:Key="MapInfo">맵 정보</sys:String>
 
-    <sys:String x:Key="InforUpdate">정보 갱신</sys:String>
+    <sys:String x:Key="InfoUpdate">정보 갱신</sys:String>
     <sys:String x:Key="OldBattleTag">(구)배틀태그 사용</sys:String>
 
     <sys:String x:Key="DataSetting">데이터 설정</sys:String>
@@ -1085,8 +1085,8 @@
     <sys:String x:Key="MapTag">맵 태그</sys:String>
     <sys:String x:Key="MapTagHint">다운로드 페이지에서 볼 수 있는 태그입니다.</sys:String>
 
-    <sys:String x:Key="MapInforLink">맵 정보 링크</sys:String>
-    <sys:String x:Key="MapInforLinkHint">다운로드 페이지에서 볼 수 있는 링크입니다.</sys:String>
+    <sys:String x:Key="MapInfoLink">맵 정보 링크</sys:String>
+    <sys:String x:Key="MapInfoLinkHint">다운로드 페이지에서 볼 수 있는 링크입니다.</sys:String>
 
     <sys:String x:Key="MapImageLink">맵 이미지 링크</sys:String>
     <sys:String x:Key="MapImageLinkHint">다운로드 페이지에서 볼 수 있는 이미지 링크입니다.</sys:String>

@@ -11,7 +11,7 @@ Public Class DotData
 
 
 
-    Public LoadSucess As Boolean = False
+    Public LoadSuccess As Boolean = False
 
 
     Private Pixels(,) As Byte
@@ -24,7 +24,7 @@ Public Class DotData
         If PixelOrgData.Width * PixelOrgData.Height >= 1000 Then
             Return
         End If
-        LoadSucess = True
+        LoadSuccess = True
 
 
         imgWidth = PixelOrgData.Width

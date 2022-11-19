@@ -61,7 +61,7 @@ Public Class ExtraDatFiles
     Public Sub New()
         LoadStatusData()
         LoadWireFrame()
-        LoadButonSet()
+        LoadButtonSet()
         LoadReqdata()
 
         ToolTipDic = New Dictionary(Of SCDatFiles.DatFiles, List(Of String))
@@ -101,22 +101,22 @@ Public Class ExtraDatFiles
         Get
             Select Case DType
                 Case SCDatFiles.DatFiles.units
-                    Return RequireDatas(0)
+                    Return RequireData(0)
                 Case SCDatFiles.DatFiles.upgrades
-                    Return RequireDatas(1)
+                    Return RequireData(1)
                 Case SCDatFiles.DatFiles.techdata
-                    Return RequireDatas(2)
+                    Return RequireData(2)
                 Case SCDatFiles.DatFiles.Stechdata
-                    Return RequireDatas(3)
+                    Return RequireData(3)
                 Case SCDatFiles.DatFiles.orders
-                    Return RequireDatas(4)
+                    Return RequireData(4)
             End Select
-            Return RequireDatas(0)
+            Return RequireData(0)
         End Get
     End Property
 
 
-    Private RequireDatas(4) As CRequireData
+    Private RequireData(4) As CRequireData
 
 
     Public Class SReqDATA
@@ -213,11 +213,11 @@ Public Class ExtraDatFiles
         fs.Close()
 
 
-        RequireDatas(0) = New CRequireData(SCDatFiles.DatFiles.units, RequireData(0))
-        RequireDatas(1) = New CRequireData(SCDatFiles.DatFiles.upgrades, RequireData(1))
-        RequireDatas(2) = New CRequireData(SCDatFiles.DatFiles.techdata, RequireData(2))
-        RequireDatas(3) = New CRequireData(SCDatFiles.DatFiles.techdata, RequireData(3), True)
-        RequireDatas(4) = New CRequireData(SCDatFiles.DatFiles.orders, RequireData(4))
+        RequireData(0) = New CRequireData(SCDatFiles.DatFiles.units, RequireData(0))
+        RequireData(1) = New CRequireData(SCDatFiles.DatFiles.upgrades, RequireData(1))
+        RequireData(2) = New CRequireData(SCDatFiles.DatFiles.techdata, RequireData(2))
+        RequireData(3) = New CRequireData(SCDatFiles.DatFiles.techdata, RequireData(3), True)
+        RequireData(4) = New CRequireData(SCDatFiles.DatFiles.orders, RequireData(4))
     End Sub
 
 
@@ -356,7 +356,7 @@ Public Class ExtraDatFiles
 
     Private _ButtonData As CButtonSets
 
-    Private Sub LoadButonSet()
+    Private Sub LoadButtonSet()
         ReDim _ButtonSet(SCButtonCount - 1)
         ReDim _DefaultButtonSet(SCButtonCount - 1)
 

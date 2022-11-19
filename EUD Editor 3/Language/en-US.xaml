@@ -174,7 +174,7 @@
 
 
     <sys:String x:Key="ErrorMsgbox">Error</sys:String>
-    <sys:String x:Key="Error MapOpen">An error has occured while opening the map.</sys:String>
+    <sys:String x:Key="Error MapOpen">An error has occurred while opening the map.</sys:String>
 
 
     <sys:String x:Key="Error SaveFileOpen">Failed to open save file. Select one of the following backup files.</sys:String>
@@ -183,9 +183,9 @@
     <sys:String x:Key="Error OpenMap is not exist reset">There's no connected map. Do you want to Select a map to connect?</sys:String>
     <sys:String x:Key="Error SaveMap is not exist reset">Saved map cannot be created. Do you want to select maps?</sys:String>
     <sys:String x:Key="Error SettingSave Fail">Saving program settings has been failed.</sys:String>
-    <sys:String x:Key="Error ProgramInit Fail">Problem has occured when resetting program data.</sys:String>
-    <sys:String x:Key="Error TriggerScript Init Fail">A wroblem has occured when resetting TriggerScript Editor.</sys:String>
-    <sys:String x:Key="Error LoadStarCraftData Fail">A problem has occured when resetting StarCraft data.</sys:String>
+    <sys:String x:Key="Error ProgramInit Fail">Problem has occurred when resetting program data.</sys:String>
+    <sys:String x:Key="Error TriggerScript Init Fail">A wroblem has occurred when resetting TriggerScript Editor.</sys:String>
+    <sys:String x:Key="Error LoadStarCraftData Fail">A problem has occurred when resetting StarCraft data.</sys:String>
     <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve">Reading Casc data has been failed.&#13;Your Starcraft version may not be up to date.</sys:String>
     <sys:String x:Key="Error NotExistMPQ">Could not load graphics from StartCraft. Please update the path to your StarCraft Launcher in Program Settings</sys:String>
     <sys:String x:Key="Error NotExistMPQ reset">Casc file is not selected. Do you want to select files?</sys:String>
@@ -202,7 +202,7 @@
     <sys:String x:Key="Error CompileFail SaveMap is not exist!">Compiling build has failed. Saved map cannot be created.</sys:String>
     <sys:String x:Key="Error CompileFail euddraft is not exist!">Compiling build has failed. There is no euddraft files.</sys:String>
     <sys:String x:Key="Error TempFolder is not exist reset">Temp file folder is not selected. Do you want to select files?</sys:String>
-    <sys:String x:Key="Error complieFail TempFolder is not exist!">Compiling build has failed. Temp file doler is not selected.</sys:String>
+    <sys:String x:Key="Error compileFail TempFolder is not exist!">Compiling build has failed. Temp file doler is not selected.</sys:String>
     <sys:String x:Key="Error euddraft is not exist reset">euddraft run file is not valid. Do you want to select files?</sys:String>
     <sys:String x:Key="Error FailLoad DataEditor">Loading data editor has been failed.</sys:String>
     <sys:String x:Key="Error FailLoad TriggerEditor">Loading Trigger editor has been failed.</sys:String>
@@ -214,7 +214,7 @@
     <sys:String x:Key="Error compiling">You cannot close EUD Editor 3 while compiling maps.</sys:String>
     <sys:String x:Key="Error ProgramLoading">Data is loading. Do you still want to close EUD Editor 3?</sys:String>
 
-    <sys:String x:Key="Error WriteStatusInfor">Error has occurred while compiling maps. Status info has been gone wrong.</sys:String>
+    <sys:String x:Key="Error WriteStatusInfo">Error has occurred while compiling maps. Status info has been gone wrong.</sys:String>
 
 
 
@@ -271,10 +271,10 @@
     <sys:String x:Key="FliterIcon">Display as Image Grid</sys:String>
     <sys:String x:Key="FliterEdit">Only Display Edited Entries</sys:String>
 
-    <sys:String x:Key="DefaultInfor">Default</sys:String>
+    <sys:String x:Key="DefaultInfo">Default</sys:String>
     <sys:String x:Key="UpgradeRequir">Requirements</sys:String>
     <sys:String x:Key="TechUseRequir">Usage Requirements</sys:String>
-    <sys:String x:Key="TechReserachRequir">Research Requirements</sys:String>
+    <sys:String x:Key="TechResearchRequir">Research Requirements</sys:String>
     <sys:String x:Key="OrderRequir">Requirements</sys:String>
 
     <sys:String x:Key="UnitDefault">Default</sys:String>
@@ -284,7 +284,7 @@
     <sys:String x:Key="UnitMapEdit">Map Editor</sys:String>
     <sys:String x:Key="UnitAIOrder">AI Order</sys:String>
 
-    <sys:String x:Key="UnitInfor">Display</sys:String>
+    <sys:String x:Key="UnitInfo">Display</sys:String>
     <sys:String x:Key="UnitRequir">Requirements</sys:String>
     <sys:String x:Key="UnitWireFrame">Wireframe</sys:String>
 
@@ -317,19 +317,19 @@
     <sys:String x:Key="WeaponDisplay">Display</sys:String>
 
 
-    <sys:String x:Key="FlingyInfor">Flight information</sys:String>
-    <sys:String x:Key="SpriteInfor">Sprite Information</sys:String>
+    <sys:String x:Key="FlingyInfo">Flight information</sys:String>
+    <sys:String x:Key="SpriteInfo">Sprite Information</sys:String>
     <sys:String x:Key="UpgradeScreen">Screen information</sys:String>
     <sys:String x:Key="UpgradeCost">Default cost</sys:String>
     <sys:String x:Key="UpgradeExtraCost">Additional Cost</sys:String>
-    <sys:String x:Key="UpgradeInfor">Upgrade information</sys:String>
+    <sys:String x:Key="UpgradeInfo">Upgrade information</sys:String>
 
     <sys:String x:Key="TechScreen">Screen information</sys:String>
     <sys:String x:Key="TechCost">Tech cost</sys:String>
-    <sys:String x:Key="TechInfor">Tech information</sys:String>
-    <sys:String x:Key="OrderInfor">Order information</sys:String>
+    <sys:String x:Key="TechInfo">Tech information</sys:String>
+    <sys:String x:Key="OrderInfo">Order information</sys:String>
 
-    <sys:String x:Key="ImageInfor">Image information</sys:String>
+    <sys:String x:Key="ImageInfo">Image information</sys:String>
     <sys:String x:Key="ImageDefault">Default information</sys:String>
     <sys:String x:Key="ImageScreen">Displayed screen information</sys:String>
 
@@ -345,7 +345,7 @@
     <sys:String x:Key="Startxt">Text</sys:String>
     <sys:String x:Key="Icon">Icon</sys:String>
     <sys:String x:Key="wireframe">Wireframe</sys:String>
-    <sys:String x:Key="statusinfor">StatusInfor</sys:String>
+    <sys:String x:Key="statusinfor">StatusInfo</sys:String>
 
 
 
@@ -409,7 +409,7 @@
     <sys:String x:Key="units_Air Weapon">Air</sys:String>
     <sys:String x:Key="units_Max Air Hits">Hits</sys:String>
     <sys:String x:Key="units_AI Internal">Internal AI</sys:String>
-    <sys:String x:Key="units_AI Internal_V">"Ignore Strategic Sucide missions" AI.|Will not become "Guard" status</sys:String>
+    <sys:String x:Key="units_AI Internal_V">"Ignore Strategic Suicide missions" AI.|Will not become "Guard" status</sys:String>
 
     <sys:String x:Key="units_Special Ability Flags">Special Ability Flags</sys:String>
     <sys:String x:Key="units_Special Ability Flags_V">Building|Addon|Flying Unit|Resource Miner|Subunit|Flying Building|Hero Unit|Regenerates HP|Animated Overlay|Cloakable|Two Units in One Egg|Individual Selection|Resource Depot|Resource Container|Robotic|Detector|Organic|Requires Creep|Unused|Requires Psi Field|Can Burrow|Spellcaster|Permanently Cloaked|Carryable|Ignore Supply Check|Uses Medium Overlay|Uses Large Ovelay|Full Auto-Attack|Battle Reactions|Invincible|Mechanical|Produces Units</sys:String>
@@ -555,7 +555,7 @@
 
     <sys:String x:Key="techdata_Mineral Cost">Mineral</sys:String>
     <sys:String x:Key="techdata_Vespene Cost">Gas</sys:String>
-    <sys:String x:Key="techdata_Resarch Time">Time</sys:String>
+    <sys:String x:Key="techdata_Research Time">Time</sys:String>
     <sys:String x:Key="techdata_Energy Required">Energy</sys:String>
     <sys:String x:Key="techdata_Unknown 4">Unknown</sys:String>
     <sys:String x:Key="techdata_Icon">Icon</sys:String>
@@ -586,7 +586,7 @@
     <sys:String x:Key="orders_Animation">Animation</sys:String>
     <sys:String x:Key="orders_Animation_V">Default|Death|Ground attack - Default|Air attack - Default|Unused1|Ground attack - Repeat|Air attack - Repeat|Use Special Ability |Ground attack - Return|Air attack - Return|Unknown2|Walk|Walk - Return|Special Status1|Special Status2|Construction has finished - At near|Construction has finished|Building Landing|Lift-off building|Creating|Creating - Return|Warp|Unknown3|Default - Staredit|Cannot be used - Disable|Burrow|Unburrow|Can be used - Enable|Normally/Default Animation</sys:String>
 
-    <sys:String x:Key="orders_Highlight">Activation buton</sys:String>
+    <sys:String x:Key="orders_Highlight">Activation button</sys:String>
     <sys:String x:Key="orders_Unknown17">Unknown</sys:String>
     <sys:String x:Key="orders_Obscured Order">Unclear order</sys:String>
 
@@ -599,7 +599,7 @@
     <sys:String x:Key="units_Construction Animation_ToolTip">Set graphics if unit is being constructed. Graphics does not appear if this value is 0.</sys:String>
     <sys:String x:Key="units_Unit Direction_ToolTip">Set view direction if unit is created.A value from 0 to 31 creates then looks at specific direction. If a value is 32, it sees random direction if it creates..</sys:String>
     <sys:String x:Key="units_Shield Enable_ToolTip">It activates unit’s shield. Not only it can be used for Protoss,  It can be used for all units. Terran and Zerg buildings’ shield does not go up while these being constructed.</sys:String>
-    <sys:String x:Key="units_Shield Amount_ToolTip">Unit’s amound of shield point. HP does not go down as shield point exist.</sys:String>
+    <sys:String x:Key="units_Shield Amount_ToolTip">Unit’s amount of shield point. HP does not go down as shield point exist.</sys:String>
     <sys:String x:Key="units_Hit Points_ToolTip">Unit’s HP. Amount from "9999" can be allowed on game but it does not be displayed.</sys:String>
     <sys:String x:Key="units_Elevation Level_ToolTip">Unit’s height while unit’s movement.You can make a unit to be moved like air units. However, if this unit is not an air unit, it can be ground unit for special ability (Such as recall) and Hit formula. As a value goes up, unit can be put on higher place not like terrain or other unit.</sys:String>
     <sys:String x:Key="units_Unknown (old Movement)_ToolTip">This movement control related data came from SC beta version. It does not be used now..</sys:String>
@@ -735,7 +735,7 @@
 
     <sys:String x:Key="techdata_Mineral Cost_ToolTip">Require Mineral cost to research tech.</sys:String>
     <sys:String x:Key="techdata_Vespene Cost_ToolTip">Require Vespene Gas cost to research tech.</sys:String>
-    <sys:String x:Key="techdata_Resarch Time_ToolTip">Time to complete research tech.</sys:String>
+    <sys:String x:Key="techdata_Research Time_ToolTip">Time to complete research tech.</sys:String>
     <sys:String x:Key="techdata_Energy Required_ToolTip">Require energy cost to cast tech.</sys:String>
     <sys:String x:Key="techdata_Unknown 4_ToolTip">Unused data</sys:String>
     <sys:String x:Key="techdata_Icon_ToolTip">Current tech icon. displayed in researching.</sys:String>
@@ -767,8 +767,8 @@
 
 
     <!--FG-->
-    <sys:String x:Key="FG_StatusInfor1">Unit Type</sys:String>
-    <sys:String x:Key="FG_StatusInfor1_V">Building|Unit|Unit with Hangar|Transport Unit|Transport Unit With Supply|Powerup|Morphing Unit(Egg)|Merging Unit(Archon)|Unselectable (Nuclear Missile, Scanner Sweep)|Scarab, Map Revealer|(Unused Protoss Building)</sys:String>
+    <sys:String x:Key="FG_StatusInfo1">Unit Type</sys:String>
+    <sys:String x:Key="FG_StatusInfo1_V">Building|Unit|Unit with Hangar|Transport Unit|Transport Unit With Supply|Powerup|Morphing Unit(Egg)|Merging Unit(Archon)|Unselectable (Nuclear Missile, Scanner Sweep)|Scarab, Map Revealer|(Unused Protoss Building)</sys:String>
     <sys:String x:Key="FG_Status">Status</sys:String>
     <sys:String x:Key="FG_Display">Display</sys:String>
 
@@ -807,7 +807,7 @@
     <sys:String x:Key="buttonSet">Buttonset</sys:String>
     <sys:String x:Key="button">Button Data</sys:String>
     <sys:String x:Key="BtnList">Button List</sys:String>
-    <sys:String x:Key="BtnInfor">Basic Info</sys:String>
+    <sys:String x:Key="BtnInfo">Basic Info</sys:String>
     <sys:String x:Key="BtnPreview">Preview</sys:String>
     <sys:String x:Key="BtnWork">Button Work</sys:String>
 
@@ -835,7 +835,7 @@
     <sys:String x:Key="PyScriptFile">eudplib File</sys:String>
     <sys:String x:Key="FIleName">File name</sys:String>
     <sys:String x:Key="CreateDate">Created Date</sys:String>
-    <sys:String x:Key="LastDate">Last Editted</sys:String>
+    <sys:String x:Key="LastDate">Last Edited</sys:String>
 
 
     <sys:String x:Key="SearchText">Search</sys:String>
@@ -897,8 +897,8 @@
     <sys:String x:Key="ErrorText">Error!</sys:String>
     <sys:String x:Key="NoMatchesFoundText">No match results!</sys:String>
 
-    <sys:String x:Key="Invalide2s">Invalid e2s file!</sys:String>
-     <sys:String x:Key="LodingError">An error occurred while loading $S0$.</sys:String>
+    <sys:String x:Key="Invalid2s">Invalid e2s file!</sys:String>
+     <sys:String x:Key="LoadingError">An error occurred while loading $S0$.</sys:String>
 
     <sys:String x:Key="Comment">Comment</sys:String>
     <sys:String x:Key="Control">Ctrl</sys:String>
@@ -1050,7 +1050,7 @@
 
     <sys:String x:Key="SCAHomepage">Site Link</sys:String>
     
-    <sys:String x:Key="SCALoginInfor">SCA Login Info</sys:String>
+    <sys:String x:Key="SCALoginInfo">SCA Login Info</sys:String>
     <sys:String x:Key="MapSetting">Map Settings</sys:String>
     <sys:String x:Key="BattleTag">Battle Tag</sys:String>
 
@@ -1061,9 +1061,9 @@
 
     <sys:String x:Key="DatabaseName">Database Name</sys:String>
     <sys:String x:Key="SecondName">Second Name</sys:String>
-    <sys:String x:Key="MapInfor">Map Info</sys:String>
+    <sys:String x:Key="MapInfo">Map Info</sys:String>
 
-    <sys:String x:Key="InforUpdate">Update Info</sys:String>
+    <sys:String x:Key="InfoUpdate">Update Info</sys:String>
     <sys:String x:Key="OldBattleTag">(Old)UseBattleTag</sys:String>
 
     <sys:String x:Key="DataSetting">Data Setting</sys:String>
@@ -1081,8 +1081,8 @@
     <sys:String x:Key="MapTag">Map Tag</sys:String>
     <sys:String x:Key="MapTagHint">This is the tag displayed on the download page.</sys:String>
 
-    <sys:String x:Key="MapInforLink">Map Information Link</sys:String>
-    <sys:String x:Key="MapInforLinkHint">This is the link displayed on the download page.</sys:String>
+    <sys:String x:Key="MapInfoLink">Map Information Link</sys:String>
+    <sys:String x:Key="MapInfoLinkHint">This is the link displayed on the download page.</sys:String>
 
     <sys:String x:Key="MapImageLink">Map Image Link</sys:String>
     <sys:String x:Key="MapImageLinkHint">This is a link to the image displayed on the download page.</sys:String>

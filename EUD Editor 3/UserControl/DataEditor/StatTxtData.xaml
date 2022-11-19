@@ -1,0 +1,67 @@
+﻿<UserControl x:Class="StatTxtData"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:controls="http://metro.mahapps.com/winfx/xaml/controls"
+             xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
+             xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
+             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
+             mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}" 
+             d:DesignHeight="482"  d:DesignWidth="770">
+    <DockPanel>
+        <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
+            <Grid>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="50"/>
+                <RowDefinition Height="40*"/>
+            </Grid.RowDefinitions>
+            <local:NameBar x:Name="NameBar"/>
+            <DockPanel Grid.Row="1">
+                <ListBox DockPanel.Dock="Right" Width="200" x:Name="ColorInfo" SelectionChanged="ColorInfo_SelectionChanged">
+                </ListBox>
+                <StackPanel Orientation="Horizontal" DockPanel.Dock="Top" >
+                    <ComboBox x:Name="LimitCombobx" Width="140" Margin="10"
+                              materialDesign:HintAssist.Hint="{StaticResource StatDatalimit}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" SelectionChanged="LimitCombobx_SelectionChanged">
+                        <ComboBoxItem Content="{StaticResource StatDatalimit0}"/>
+                        <ComboBoxItem Content="{StaticResource StatDatalimit1}"/>
+                        <ComboBoxItem Content="{StaticResource StatDatalimit2}"/>
+                        <ComboBoxItem Content="{StaticResource StatDatalimit3}"/>
+                        <ComboBoxItem Content="{StaticResource StatDatalimit4}"/>
+                        <ComboBoxItem Content="{StaticResource StatDatalimit5}"/>
+                        <ComboBoxItem Content="{StaticResource StatDatalimit6}"/>
+                    </ComboBox>
+                    <ComboBox x:Name="ShortCombobox" Width="140" Margin="30,10,10,10"
+                              materialDesign:HintAssist.Hint="{StaticResource StatDataShortCut}"
+                              Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaxDropDownHeight="200" SelectionChanged="ShortCombobox_SelectionChanged">
+                        <ComboBoxItem Content="{StaticResource StatDataShortCut0}" Tag="0"/>
+                    </ComboBox>
+                </StackPanel>
+
+                <TextBox Margin="10"
+                       x:Name="MainTextBox"
+                        Text="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"
+                        AcceptsReturn="True"
+                         AcceptsTab="True"
+                        TextWrapping="Wrap"
+                        DockPanel.Dock="Top" 
+                        materialDesign:HintAssist.Hint="Raw Text"
+                        Height="180" VerticalScrollBarVisibility="Disabled"
+                        TextChanged="TextBox_TextChanged"
+                     
+                         PreviewKeyDown="MainTextBox_PreviewKeyDown"
+                         PreviewKeyUp="MainTextBox_PreviewKeyUp"
+                     
+                         IsTabStop="True" VerticalContentAlignment="Top"/>
+
+                <local:ColoredTextBox x:Name="PreviewText" DockPanel.Dock="Bottom" Margin="10" Background="Black"/>
+
+            </DockPanel>
+        </Grid>
+    </DockPanel>
+</UserControl>

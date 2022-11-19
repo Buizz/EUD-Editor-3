@@ -57,7 +57,7 @@ Public Class MainWindowD
     Private ControlBar As ProjectControl
 
     Private Sub ProgramLoad()
-        InitProgramDatas()
+        InitProgramData()
         IsProgramLoad = True
         Dispatcher.Invoke(DispatcherPriority.Normal, New Action(Sub()
                                                                     LoadPanel.Visibility = Visibility.Collapsed

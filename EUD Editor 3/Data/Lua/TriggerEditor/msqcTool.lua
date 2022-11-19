@@ -194,7 +194,7 @@ end
 대상 플레이어입니다.
 @param.Button.Button
 ]================================]
-function MosePress(Player, Button)
+function MousePress(Player, Button)
 	Player = ParsePlayer(Player)
 	keyarray = "VMousePress_" .. Button
 	--AddMSQCPlugin("NotTyping ; KeyDown(" .. Key .. ") : " .. keyarray .. ", 1")
