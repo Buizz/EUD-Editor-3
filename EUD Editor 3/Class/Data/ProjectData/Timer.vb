@@ -2,17 +2,17 @@
 Imports Dragablz
 
 Partial Public Class ProjectData
-    Private LastModifiyTimer As Date
-    Private LastOupputModifiyTimer As Date
+    Private LastModifyTimer As Date
+    Private LastOupputModifyTimer As Date
     Private LastCompile As Boolean
     Public Sub RefreshOutputWriteTime()
-        LastOupputModifiyTimer = File.GetLastWriteTime(SaveMapName)
+        LastOupputModifyTimer = File.GetLastWriteTime(SaveMapName)
     End Sub
     Private Sub FileCheck_Tick(sender As Object, e As EventArgs)
         If IsMapLoading Then
             If Not pgData.IsCompilng Then
                 If My.Computer.FileSystem.FileExists(OpenMapName) Then
-                    If LastModifiyTimer <> File.GetLastWriteTime(OpenMapName) Then
+                    If LastModifyTimer <> File.GetLastWriteTime(OpenMapName) Then
                         Threading.Thread.Sleep(1000)
                         If Not Tool.isFileLock(OpenMapName) Then
                             IsMapLoading = MapData.ReLoad(OpenMapName)
@@ -42,8 +42,8 @@ Partial Public Class ProjectData
                 End If
             ElseIf pgData.isEddCompile Then
                 If My.Computer.FileSystem.FileExists(SaveMapName) Then
-                    If LastOupputModifiyTimer <> File.GetLastWriteTime(SaveMapName) Then
-                        LastOupputModifiyTimer = File.GetLastWriteTime(SaveMapName)
+                    If LastOupputModifyTimer <> File.GetLastWriteTime(SaveMapName) Then
+                        LastOupputModifyTimer = File.GetLastWriteTime(SaveMapName)
                         If pjData.TEData.SCArchive.IsUsed Then
                             pjData.EudplibData.WriteChecksum()
                         End If

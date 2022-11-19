@@ -23,7 +23,7 @@ var LocalSCAID;
 
 var Addr_LocalSCAID;
 const Addr_UserExistFlag = PVariable();
-const Addr_UserSCAIDInfor = PVariable();
+const Addr_UserSCAIDInfo = PVariable();
 var Addr_LoadingSCAID;
 var Addr_LoadingOrder;
 var Addr_LoadSlot;
@@ -48,7 +48,7 @@ function Init(){
 
 	Addr_LocalSCAID = BaseAddr + offset; offset++;
 	for(var i = 0; i < 8; i++){Addr_UserExistFlag[i] = BaseAddr + offset; offset++;}
-	for(var i = 0; i < 8; i++){Addr_UserSCAIDInfor[i] = BaseAddr + offset; offset++;}
+	for(var i = 0; i < 8; i++){Addr_UserSCAIDInfo[i] = BaseAddr + offset; offset++;}
 	Addr_LoadingSCAID = BaseAddr + offset; offset++;
 	Addr_LoadingOrder = BaseAddr + offset; offset++;
 	Addr_LoadSlot = BaseAddr + offset; offset++;
@@ -242,7 +242,7 @@ function Exec(){
 	for(var i = 0; i < 8 ; i++){
 		//dwwrite_epd(Addr_UserExistFlag[i], UserExist[i]);
 		dwwrite_epd(Addr_UserExistFlag[i], UserExist[i]);
-		dwwrite_epd(Addr_UserSCAIDInfor[i], SCAID[i]);
+		dwwrite_epd(Addr_UserSCAIDInfo[i], SCAID[i]);
 
 		dwwrite_epd(Addr_LoadingSCAID, LoadSCAID);
 		dwwrite_epd(Addr_LoadingOrder, LoadOrder);

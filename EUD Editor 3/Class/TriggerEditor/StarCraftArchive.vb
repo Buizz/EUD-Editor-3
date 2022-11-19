@@ -4,7 +4,7 @@
 Public Class StarCraftArchive
     Public Sub New()
         DataSpace = 300
-        _CodeDatas = New List(Of CodeData)
+        _CodeData = New List(Of CodeData)
         _MakerBattleTag = ""
         _MakerServerName = ""
         _MapName = ""
@@ -148,13 +148,13 @@ Public Class StarCraftArchive
         End Set
     End Property
 
-    Private _CodeDatas As List(Of CodeData)
-    Public ReadOnly Property CodeDatas As List(Of CodeData)
+    Private _CodeData As List(Of CodeData)
+    Public ReadOnly Property CodeData As List(Of CodeData)
         Get
-            If _CodeDatas Is Nothing Then
-                _CodeDatas = New List(Of CodeData)
+            If _CodeData Is Nothing Then
+                _CodeData = New List(Of CodeData)
             End If
-            Return _CodeDatas
+            Return _CodeData
         End Get
     End Property
 

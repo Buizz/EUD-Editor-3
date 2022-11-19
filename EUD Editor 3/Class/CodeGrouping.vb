@@ -147,7 +147,7 @@ Public Class CodeGrouping
                 Next
 
             Case SCDatFiles.DatFiles.weapons
-                Dim Type1 As String() = {"Zerg", "Terran", "Protoss", "Neutral", "Underfined"}
+                Dim Type1 As String() = {"Zerg", "Terran", "Protoss", "Neutral", "Undefined"}
                 Dim Type2 As String() = {"Air", "Ground", "Air & Ground", "Spell"}
 
 
@@ -297,7 +297,7 @@ Public Class CodeGrouping
                 ReDim GroupCode(SCUnitCount)
                 ReDim ToolTip(SCUnitCount)
 
-                Dim Type1 As String() = {"Zerg", "Terran", "Protoss", "Neutral", "Underfined"}
+                Dim Type1 As String() = {"Zerg", "Terran", "Protoss", "Neutral", "Undefined"}
                 Dim TypeKeyname As String() = {"*", "Ground Units", "Air Units", "Heroes", "Buildings", "Special Buildings", "Special"}
                 Dim TypeNetKeyname As String() = {"Critters", "Doodads", "Powerups", "Resources", "Neutral", "Special", "Start Location", "Zerg", "Protoss"}
 

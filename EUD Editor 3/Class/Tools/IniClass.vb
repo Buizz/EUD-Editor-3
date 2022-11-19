@@ -2,30 +2,30 @@
 
 Public Class IniClass
     Private Filename As String
-    Private Datas As Dictionary(Of String, String)
+    Private Data As Dictionary(Of String, String)
 
     Public Sub New()
-        Datas = New Dictionary(Of String, String)
+        Data = New Dictionary(Of String, String)
     End Sub
     Public Sub New(tfilename As String)
-        Datas = New Dictionary(Of String, String)
+        Data = New Dictionary(Of String, String)
         ReadIni(tfilename)
     End Sub
 
     Public Property SettingData(keys As String) As String
         Get
-            If Datas.ContainsKey(keys) Then
-                Return Datas(keys)
+            If Data.ContainsKey(keys) Then
+                Return Data(keys)
             Else
                 Return Nothing
             End If
 
         End Get
         Set(value As String)
-            If Datas.ContainsKey(keys) Then
-                Datas(keys) = value
+            If Data.ContainsKey(keys) Then
+                Data(keys) = value
             Else
-                Datas.Add(keys, value)
+                Data.Add(keys, value)
             End If
         End Set
     End Property
@@ -35,7 +35,7 @@ Public Class IniClass
 
 
     Public Sub ReadIni(tfilename As String)
-        Datas.Clear()
+        Data.Clear()
         Filename = tfilename
         If My.Computer.FileSystem.FileExists(Filename) Then
             Dim filestream As New FileStream(tfilename, FileMode.Open)
@@ -46,7 +46,7 @@ Public Class IniClass
                 Dim Keyname As String = str(0).Trim
                 Dim Value As String = str(1).Trim
 
-                Datas.Add(Keyname, Value)
+                Data.Add(Keyname, Value)
             End While
 
 
@@ -64,9 +64,9 @@ Public Class IniClass
         Dim strWriter As New StreamWriter(filestream)
 
         'Dim tstr As String
-        For i = 0 To Datas.Count - 1
-            'tstr = tstr & vbCrLf & Datas.Keys(i) & " = " & Datas.Values(i)
-            strWriter.Write(Datas.Keys(i) & " = " & Datas.Values(i) & vbCrLf)
+        For i = 0 To Data.Count - 1
+            'tstr = tstr & vbCrLf & Data.Keys(i) & " = " & Data.Values(i)
+            strWriter.Write(Data.Keys(i) & " = " & Data.Values(i) & vbCrLf)
         Next
         'MsgBox(tstr)
 

@@ -19,7 +19,7 @@
 
 
         '=======0.9.XX.XX버전 호환성========
-        'TEChatEvnet추가됨
+        'TEChatEvent추가됨
         If StringTool.CheckOldVersion(SaveVersion, 0, 9) Then
             Dim HaveChatBlock As Boolean = False
             For i = 0 To EdsBlock.Blocks.Count - 1
@@ -57,7 +57,7 @@
                         "다음 파일이 CUI로 강제 변경됩니다." & vbCrLf &
                        tfile.FileName, MsgBoxStyle.Exclamation)
 
-            If tfile.ChagneType() Then
+            If tfile.ChangeType() Then
                 pjData.SetDirty(True)
             End If
 

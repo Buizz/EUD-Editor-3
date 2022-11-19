@@ -1,0 +1,45 @@
+﻿<UserControl x:Class="GUI_Action_ArgSelecter"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             mc:Ignorable="d" 
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}"  
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel LastChildFill="False">
+        <StackPanel DockPanel.Dock="Top" >
+            <TextBlock x:Name="Fname" Text="함수명" FontSize="24" FontWeight="Bold" Margin="5,0"/>
+            <StackPanel Orientation="Horizontal">
+                <Button x:Name="ResetCoder" Click="ResetCoder_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    초기화
+                </Button>
+                <Button x:Name="CoderChange" Click="CoderChange_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    View
+                </Button>
+                <Button x:Name="ArgAdderbtn" Click="ArgAdder_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    인자추가
+                </Button>
+                <Button x:Name="ArgRemovebtn" Click="ArgRemove_Click" DockPanel.Dock="Left"
+                    Style="{StaticResource MaterialDesignOutlinedButton}">
+                    인자제거
+                </Button>
+            </StackPanel>
+        </StackPanel>
+        <TextBlock x:Name="Warring" Text="경고 : 함수의 인자수가 정의된 함수의 인자 수와 다릅니다." DockPanel.Dock="Top" Foreground="#DDFF0000" Visibility="Collapsed"/>
+        <WrapPanel x:Name="ValuePanel" DockPanel.Dock="Top" HorizontalAlignment="Left" VerticalAlignment="Top">
+        </WrapPanel>
+        <StackPanel x:Name="ExtraTipPanel" DockPanel.Dock="Top" MaxHeight="100" HorizontalAlignment="Left" VerticalAlignment="Top">
+            <Separator/>
+            <TextBlock x:Name="ExtraTip" Text="" TextWrapping="WrapWithOverflow" />
+        </StackPanel>
+        <StackPanel x:Name="ToolTipPanel" DockPanel.Dock="Bottom">
+            <Separator/>
+            <TextBlock x:Name="TipInfo" Text="" TextWrapping="WrapWithOverflow"/>
+        </StackPanel>
+    </DockPanel>
+</UserControl>

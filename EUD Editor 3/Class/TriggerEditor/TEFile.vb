@@ -323,7 +323,7 @@ Public Class TEFile
         Return CType(formatter.Deserialize(memory_stream), TEFile)
     End Function
 
-    Public Function ChagneType() As Boolean
+    Public Function ChangeType() As Boolean
         pjData.TETempData.SaveTabitems()
 
         Select Case _FileType

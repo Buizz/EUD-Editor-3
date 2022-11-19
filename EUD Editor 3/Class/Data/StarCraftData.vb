@@ -301,7 +301,7 @@ Public Class StarCraftData
                 If TrueVal Then
                     Return stat_txt.Strings(index).val2
                 Else
-                    Select Case pgData.Setting(ProgramData.TSetting.CDLanuage)
+                    Select Case pgData.Setting(ProgramData.TSetting.CDLanguage)
                         Case 1
                             Return stat_txt_kor_eng.Strings(index).val1
                         Case 2

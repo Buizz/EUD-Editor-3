@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 
-Module MPQMoudle
+Module MPQModule
     Public Class SFmpq
         ' General error codes
         Const MPQ_ERROR_MPQ_INVALID As UInteger = 2233466981
@@ -809,7 +809,7 @@ Module MPQMoudle
         ''' <param name="dwToRead">Number of bytes to be read.</param>
         ''' <param name="pdwRead">Pointer to DWORD that will receive number of bytes read.</param>
         ''' <param name="lpOverlapped">If hFile is handle to a local disk file, lpOverlapped is passed to ReadFile. Otherwise not used.</param>
-        ''' <returns>When all requested bytes have been read, the function returns true. When less than requested bytes have been read, the function returns false and GetLastError returns ERROR_HANDLE_EOF. If an error occured, the function returns false and GetLastError returns an error code different from ERROR_HANDLE_EOF.</returns>
+        ''' <returns>When all requested bytes have been read, the function returns true. When less than requested bytes have been read, the function returns false and GetLastError returns ERROR_HANDLE_EOF. If an error occurred, the function returns false and GetLastError returns an error code different from ERROR_HANDLE_EOF.</returns>
         <DllImport(DLL, EntryPoint:="SFileReadFile")>
         Public Shared Function SFileReadFile(hMpq As UInteger, lpBuffer As Byte(), dwToRead As UInteger, ByRef pdwRead As UInteger, lpOverlapped As IntPtr) As Boolean
         End Function
@@ -826,7 +826,7 @@ Module MPQMoudle
         ''' </summary>
         ''' <param name="hMpq">Handle to an open MPQ.</param>
         ''' <param name="szFileName">Name of the file to check.</param>
-        ''' <returns>When the file is present in the MPQ, function returns true. When the file is not present in the MPQ archive, the function returns false and GetLastError returns ERROR_FILE_NOT_FOUND. If an error occured, the function returns false and GetLastError returns an error code different than ERROR_FILE_NOT_FOUND.</returns>
+        ''' <returns>When the file is present in the MPQ, function returns true. When the file is not present in the MPQ archive, the function returns false and GetLastError returns ERROR_FILE_NOT_FOUND. If an error occurred, the function returns false and GetLastError returns an error code different than ERROR_FILE_NOT_FOUND.</returns>
         <DllImport(DLL, EntryPoint:="SFileHasFile")>
         Public Shared Function SFileHasFile(hMpq As UInteger, szFileName As String) As Boolean
         End Function
@@ -875,7 +875,7 @@ Module MPQMoudle
         ''' <param name="hMpq">Handle to an open MPQ archive.</param>
         ''' <param name="szToExtract">Name of a file within the MPQ that is to be extracted.</param>
         ''' <param name="szExtracted">Specifies the name of a local file that will be created and will contain data from the extracted MPQ file.</param>
-        ''' <param name="dwSearchScope">This parameter refines the definition of what to extract. If you want ot extract an unpatched file, use SFILE_OPEN_FROM_MPQ (this is the default parameter). If you want to extract patched version of the file, use SFILE_OPEN_PATCHED_FILE.</param>
+        ''' <param name="dwSearchScope">This parameter refines the definition of what to extract. If you want to extract an unpatched file, use SFILE_OPEN_FROM_MPQ (this is the default parameter). If you want to extract patched version of the file, use SFILE_OPEN_PATCHED_FILE.</param>
         ''' <returns>If the MPQ file has been successfully extracted into the target file, the function returns true. On an error, the function returns false and GetLastError returns an error code.</returns>
         <DllImport(DLL, EntryPoint:="SFileExtractFile")>
         Public Shared Function SFileExtractFile(hMpq As UInteger, szToExtract As String, szExtracted As String, dwSearchScope As UInteger) As Boolean

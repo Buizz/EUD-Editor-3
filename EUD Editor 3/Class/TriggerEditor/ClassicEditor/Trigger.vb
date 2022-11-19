@@ -203,14 +203,14 @@ Public Class Trigger
             If IsWaitable Then
 
                 If Not IsPreserved Then
-                    sb.AppendLine(ispace & "    static var " & thash & " = 0;")
+                    sb.AppendLine(ispace & "    const " & thash & " = EUDLightBool();")
                 End If
                 sb.AppendLine(ispace & "    <? WaitStart()?>")
 
 
 
                 If Not IsPreserved Then
-                    sb.AppendLine(ispace & "    if (" & thash & " == 0){")
+                    sb.AppendLine(ispace & "    if (" & thash & ".IsCleared()){")
                 End If
                 sb.AppendLine(ispace & "    <? WaitConditionStart()?>")
 
@@ -241,7 +241,7 @@ Public Class Trigger
                     sb.AppendLine(rstr)
                 Next
                 If Not IsPreserved Then
-                    sb.AppendLine(ispace & "        " & thash & " = 1;")
+                    sb.AppendLine(ispace & "        DoActions(" & thash & ".Set());")
                 End If
 
 
@@ -257,12 +257,12 @@ Public Class Trigger
             Else
 
                 If Not IsPreserved Then
-                    sb.AppendLine(ispace & "    static var " & thash & " = 0;")
+                    sb.AppendLine(ispace & "    const " & thash & " = EUDLightBool();")
                 End If
                 If Not (Condition.Count = 0 And IsPreserved) Then
                     sb.AppendLine(ispace & "    if (")
                     If Not IsPreserved Then
-                        sb.Append(ispace & "        " & thash & " == 0")
+                        sb.Append(ispace & "        " & thash & ".IsCleared()")
                         tstart += 1
                     End If
 
@@ -284,7 +284,7 @@ Public Class Trigger
                     sb.AppendLine(rstr)
                 Next
                 If Not IsPreserved Then
-                    sb.AppendLine(ispace & "        " & thash & " = 1;")
+                    sb.AppendLine(ispace & "        DoActions(" & thash & ".Set());")
                 End If
 
                 If Not (Condition.Count = 0 And IsPreserved) Then

@@ -423,343 +423,343 @@
     </Compile>
     <Compile Include="TEST\UIEditorPage\System.vb" />
     <Compile Include="Theme\CustomTheme.vb" />
-    <Compile Include="UserContorl\CodeEditor\CFunc.vb" />
-    <Compile Include="UserContorl\CodeEditor\CObject.vb" />
-    <Compile Include="UserContorl\CodeEditor\CodeEditor.xaml.vb">
+    <Compile Include="UserControl\CodeEditor\CFunc.vb" />
+    <Compile Include="UserControl\CodeEditor\CObject.vb" />
+    <Compile Include="UserControl\CodeEditor\CodeEditor.xaml.vb">
       <DependentUpon>CodeEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\CodeEditor\CodeSearchLocalization.vb" />
-    <Compile Include="UserContorl\CodeEditor\CompletionWindow.vb" />
-    <Compile Include="UserContorl\CodeEditor\EnteredText.vb" />
-    <Compile Include="UserContorl\CodeEditor\ExternerManager.vb" />
-    <Compile Include="UserContorl\CodeEditor\funcLoader.vb" />
-    <Compile Include="UserContorl\CodeEditor\PopupToolTip.xaml.vb">
+    <Compile Include="UserControl\CodeEditor\CodeSearchLocalization.vb" />
+    <Compile Include="UserControl\CodeEditor\CompletionWindow.vb" />
+    <Compile Include="UserControl\CodeEditor\EnteredText.vb" />
+    <Compile Include="UserControl\CodeEditor\ExternerManager.vb" />
+    <Compile Include="UserControl\CodeEditor\funcLoader.vb" />
+    <Compile Include="UserControl\CodeEditor\PopupToolTip.xaml.vb">
       <DependentUpon>PopupToolTip.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\CommandConsole\ConsoleTextbox.xaml.vb">
+    <Compile Include="UserControl\CommandConsole\ConsoleTextbox.xaml.vb">
       <DependentUpon>ConsoleTextbox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\CommandConsole\AutoComplete.vb" />
-    <Compile Include="UserContorl\DataEditor\ButtonData.xaml.vb">
+    <Compile Include="UserControl\CommandConsole\AutoComplete.vb" />
+    <Compile Include="UserControl\DataEditor\ButtonData.xaml.vb">
       <DependentUpon>ButtonData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_WireFrame.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_WireFrame.xaml.vb">
       <DependentUpon>Unit_WireFrame.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_AIOrder.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_AIOrder.xaml.vb">
       <DependentUpon>Unit_AIOrder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_MapEdit.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_MapEdit.xaml.vb">
       <DependentUpon>Unit_MapEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\FlingyData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\FlingyData.xaml.vb">
       <DependentUpon>FlingyData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\ImageData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\ImageData.xaml.vb">
       <DependentUpon>ImageData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\ListSelecter.xaml.vb">
+    <Compile Include="UserControl\DataEditor\ListSelecter.xaml.vb">
       <DependentUpon>ListSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DonateControl.xaml.vb">
+    <Compile Include="UserControl\DonateControl.xaml.vb">
       <DependentUpon>DonateControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\CodeSelecter.xaml.vb">
+    <Compile Include="UserControl\Field\CodeSelecter.xaml.vb">
       <DependentUpon>CodeSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Graphic.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_Graphic.xaml.vb">
       <DependentUpon>Unit_Graphic.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Sound.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_Sound.xaml.vb">
       <DependentUpon>Unit_Sound.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Special.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_Special.xaml.vb">
       <DependentUpon>Unit_Special.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Unit_Default.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Unit_Default.xaml.vb">
       <DependentUpon>Unit_Default.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Order_Data.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Order_Data.xaml.vb">
       <DependentUpon>Order_Data.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\RequirePage\RequireData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\RequirePage\RequireData.xaml.vb">
       <DependentUpon>RequireData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\SpriteData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\SpriteData.xaml.vb">
       <DependentUpon>SpriteData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\StatTxtData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\StatTxtData.xaml.vb">
       <DependentUpon>StatTxtData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\StatusInforData.xaml.vb">
-      <DependentUpon>StatusInforData.xaml</DependentUpon>
+    <Compile Include="UserControl\DataEditor\DataPages\StatusInforData.xaml.vb">
+      <DependentUpon>StatusInfoData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Tech_Data.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Tech_Data.xaml.vb">
       <DependentUpon>Tech_Data.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\OrderData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\OrderData.xaml.vb">
       <DependentUpon>OrderData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\UpgradeData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\UpgradeData.xaml.vb">
       <DependentUpon>UpgradeData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\TechData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\TechData.xaml.vb">
       <DependentUpon>TechData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\UnitData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\UnitData.xaml.vb">
       <DependentUpon>UnitData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\DataPages\Upgrade_Data.xaml.vb">
+    <Compile Include="UserControl\DataEditor\DataPages\Upgrade_Data.xaml.vb">
       <DependentUpon>Upgrade_Data.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\DataEditor\WeaponData.xaml.vb">
+    <Compile Include="UserControl\DataEditor\WeaponData.xaml.vb">
       <DependentUpon>WeaponData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\BoolSelecter.xaml.vb">
+    <Compile Include="UserControl\Field\BoolSelecter.xaml.vb">
       <DependentUpon>BoolSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\ColoredTextBlock.xaml.vb">
+    <Compile Include="UserControl\Field\ColoredTextBlock.xaml.vb">
       <DependentUpon>ColoredTextBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\ColoredTextBox.xaml.vb">
+    <Compile Include="UserControl\Field\ColoredTextBox.xaml.vb">
       <DependentUpon>ColoredTextBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\ComboxSelecter.xaml.vb">
+    <Compile Include="UserControl\Field\ComboxSelecter.xaml.vb">
       <DependentUpon>ComboxSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\FlagSelecterMini.xaml.vb">
+    <Compile Include="UserControl\Field\FlagSelecterMini.xaml.vb">
       <DependentUpon>FlagSelecterMini.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\FlagSelecter.xaml.vb">
+    <Compile Include="UserControl\Field\FlagSelecter.xaml.vb">
       <DependentUpon>FlagSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\IconSelecterP.xaml.vb">
+    <Compile Include="UserControl\Field\IconSelecterP.xaml.vb">
       <DependentUpon>IconSelecterP.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\IconSelecter.xaml.vb">
+    <Compile Include="UserControl\Field\IconSelecter.xaml.vb">
       <DependentUpon>IconSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\InputField.xaml.vb">
+    <Compile Include="UserControl\Field\InputField.xaml.vb">
       <DependentUpon>InputField.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\NameBar.xaml.vb">
+    <Compile Include="UserControl\Field\NameBar.xaml.vb">
       <DependentUpon>NameBar.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\ColorPicker\ColorPicker.xaml.vb">
+    <Compile Include="UserControl\ColorPicker\ColorPicker.xaml.vb">
       <DependentUpon>ColorPicker.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\Require\RequireListBox.xaml.vb">
+    <Compile Include="UserControl\Field\Require\RequireListBox.xaml.vb">
       <DependentUpon>RequireListBox.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\Require\RequireListBoxItem.xaml.vb">
+    <Compile Include="UserControl\Field\Require\RequireListBoxItem.xaml.vb">
       <DependentUpon>RequireListBoxItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\Require\UserControl1.xaml.vb">
+    <Compile Include="UserControl\Field\Require\UserControl1.xaml.vb">
       <DependentUpon>UserControl1.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\Field\UsedCodeList.xaml.vb">
+    <Compile Include="UserControl\Field\UsedCodeList.xaml.vb">
       <DependentUpon>UsedCodeList.xaml</DependentUpon>
     </Compile>
     <Compile Include="Theme\ThemeContorl.xaml.vb">
-      <DependentUpon>ThemeContorl.xaml</DependentUpon>
+      <DependentUpon>ThemeControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\ProjectControl.xaml.vb">
+    <Compile Include="UserControl\ProjectControl.xaml.vb">
       <DependentUpon>ProjectControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\BackUpFileItem.xaml.vb">
+    <Compile Include="UserControl\BackUpFileItem.xaml.vb">
       <DependentUpon>BackUpFileItem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\SampleMapList.xaml.vb">
+    <Compile Include="UserControl\SampleMapList.xaml.vb">
       <DependentUpon>SampleMapList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml.vb">
-      <DependentUpon>TrgUnitPorperty.xaml</DependentUpon>
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml.vb">
+      <DependentUpon>TrgUnitProperty.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\AddTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\CopyTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\CutTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\DeleteTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\EditTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\MoveTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\PasteTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\RefershGlobalObject.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\RefreshTrigger.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\Tools.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\ImportEditControl.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\AddTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\CopyTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\CutTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\DeleteTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\EditTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\MoveTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\PasteTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\RefershGlobalObject.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\RefreshTrigger.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPageFunc\Tools.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\ImportEditControl.xaml.vb">
       <DependentUpon>ImportEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\ListItemCodeBlock.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\ListItemCodeBlock.xaml.vb">
       <DependentUpon>ListItemCodeBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPage.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TECTPage.xaml.vb">
       <DependentUpon>TECTPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml.vb">
       <DependentUpon>TriggerBlock.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerCodeEditControl.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerCodeEditControl.xaml.vb">
       <DependentUpon>TriggerCodeEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControl.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControl.xaml.vb">
       <DependentUpon>TriggerEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\AddFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerCodeEditContorlFunc\ArgChange.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\CopyFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\CutFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\DeleteFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\EditFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\MoveFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\PasteFunction.vb" />
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\AddFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerCodeEditContorlFunc\ArgChange.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\CopyFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\CutFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\DeleteFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\EditFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\MoveFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControlFunc\PasteFunction.vb" />
+    <Compile Include="UserControl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml.vb">
       <DependentUpon>VariableEditControl.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\LuaImportManager.vb" />
-    <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\EpsImportManager.vb" />
-    <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage Old.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\CUIEditorPage\LuaImportManager.vb" />
+    <Compile Include="UserControl\TriggerEditor\CUIEditorPage\EpsImportManager.vb" />
+    <Compile Include="UserControl\TriggerEditor\CUIEditorPage\TECUIPage Old.xaml.vb">
       <DependentUpon>TECUIPage Old.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\CUIEditorPage\TECUIPage.xaml.vb">
       <DependentUpon>TECUIPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\CodeEditor\Init.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\AddItem.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\AddRule.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUI.xaml.vb">
+    <Compile Include="UserControl\CodeEditor\Init.vb" />
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\AddItem.vb" />
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\AddRule.vb" />
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUI.xaml.vb">
       <DependentUpon>GUIScriptEditorUI.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\DeleteItem.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\ErrorSnackBar.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\TaskManager.vb" />
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUIScriptEditerWindow.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\DeleteItem.vb" />
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\ErrorSnackBar.vb" />
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUIClass\TaskManager.vb" />
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUIScriptEditerWindow.xaml.vb">
       <DependentUpon>GUIScriptEditerWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Action.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Action.xaml.vb">
       <DependentUpon>GUI_Action.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ArgSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ArgSelecter.xaml.vb">
       <DependentUpon>GUI_Action_ArgSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_Count.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_Count.xaml.vb">
       <DependentUpon>GUI_Action_Count.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ListSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ListSelecter.xaml.vb">
       <DependentUpon>GUI_Action_ListSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_String.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_String.xaml.vb">
       <DependentUpon>GUI_Action_String.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_UnitProperty.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_UnitProperty.xaml.vb">
       <DependentUpon>GUI_Action_UnitProperty.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_FunctionSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_FunctionSelecter.xaml.vb">
       <DependentUpon>GUI_FunctionSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_ObjectSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_ObjectSelecter.xaml.vb">
       <DependentUpon>GUI_ObjectSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml.vb">
       <DependentUpon>GUI_VariableSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_WavSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_WavSelecter.xaml.vb">
       <DependentUpon>GUI_WavSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml.vb">
       <DependentUpon>GUI_ArgEditor.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditorWindow.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditorWindow.xaml.vb">
       <DependentUpon>GUI_ArgEditorWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgExpress.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgExpress.xaml.vb">
       <DependentUpon>GUI_ArgExpress.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Express.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Express.xaml.vb">
       <DependentUpon>GUI_Express.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Folder.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Folder.xaml.vb">
       <DependentUpon>GUI_Folder.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_For.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_For.xaml.vb">
       <DependentUpon>GUI_For.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncArgVal.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncArgVal.xaml.vb">
       <DependentUpon>GUI_FuncArgVal.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncEdit.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncEdit.xaml.vb">
       <DependentUpon>GUI_FuncEdit.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_GrayWindow.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_GrayWindow.xaml.vb">
       <DependentUpon>GUI_GrayWindow.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_If.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_If.xaml.vb">
       <DependentUpon>GUI_If.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Import.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Import.xaml.vb">
       <DependentUpon>GUI_Import.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Object.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Object.xaml.vb">
       <DependentUpon>GUI_Object.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml.vb">
       <DependentUpon>GUI_RawCode.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Return.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Return.xaml.vb">
       <DependentUpon>GUI_Return.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml.vb">
       <DependentUpon>GUI_Switch.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_SwitchCase.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_SwitchCase.xaml.vb">
       <DependentUpon>GUI_SwitchCase.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Var.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Var.xaml.vb">
       <DependentUpon>GUI_Var.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarFuncUse.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarFuncUse.xaml.vb">
       <DependentUpon>GUI_VarFuncUse.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarUse.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarUse.xaml.vb">
       <DependentUpon>GUI_VarUse.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptTreeviewitem.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptTreeviewitem.xaml.vb">
       <DependentUpon>ScriptTreeviewitem.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml.vb">
       <DependentUpon>TEGUIObjectSelecter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml.vb">
       <DependentUpon>TEGUIPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml.vb">
       <DependentUpon>DotPainter.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\EditDotData.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting\EditDotData.xaml.vb">
       <DependentUpon>EditDotData.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml.vb">
       <DependentUpon>SCADataList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting.xaml.vb">
       <DependentUpon>TriggerEditorSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\BGMManager.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting\BGMManager.xaml.vb">
       <DependentUpon>BGMManager.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\MacroFuncSetting.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting\MacroFuncSetting.xaml.vb">
       <DependentUpon>MacroFuncSetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml.vb">
       <DependentUpon>SCASetting.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ItemControl.vb" />
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\Menu.vb" />
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml.vb">
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\ItemControl.vb" />
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\Menu.vb" />
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml.vb">
       <DependentUpon>ProjectExplorer.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\Colors.vb" />
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DeleteItem.vb" />
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\DragItem.vb" />
-    <Compile Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\System.vb" />
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\Colors.vb" />
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\DeleteItem.vb" />
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\DragItem.vb" />
+    <Compile Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\System.vb" />
     <Compile Include="Window\BGMPlayerConverter.xaml.vb">
       <DependentUpon>BGMPlayerConverter.xaml</DependentUpon>
     </Compile>
@@ -857,175 +857,175 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\CodeEditor\CodeEditor.xaml">
+    <Page Include="UserControl\CodeEditor\CodeEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\CodeEditor\PopupToolTip.xaml">
+    <Page Include="UserControl\CodeEditor\PopupToolTip.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\CommandConsole\ConsoleTextbox.xaml">
+    <Page Include="UserControl\CommandConsole\ConsoleTextbox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\ButtonData.xaml">
+    <Page Include="UserControl\DataEditor\ButtonData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_WireFrame.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_WireFrame.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_AIOrder.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_AIOrder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_MapEdit.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_MapEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\FlingyData.xaml">
+    <Page Include="UserControl\DataEditor\FlingyData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\ImageData.xaml">
+    <Page Include="UserControl\DataEditor\ImageData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\ListSelecter.xaml">
+    <Page Include="UserControl\DataEditor\ListSelecter.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DonateControl.xaml">
+    <Page Include="UserControl\DonateControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\CodeSelecter.xaml">
+    <Page Include="UserControl\Field\CodeSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_Graphic.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_Graphic.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_Sound.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_Sound.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_Special.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_Special.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Unit_Default.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Unit_Default.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Order_Data.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Order_Data.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\RequirePage\RequireData.xaml">
+    <Page Include="UserControl\DataEditor\RequirePage\RequireData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\SpriteData.xaml">
+    <Page Include="UserControl\DataEditor\SpriteData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\StatTxtData.xaml">
+    <Page Include="UserControl\DataEditor\StatTxtData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\StatusInforData.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\StatusInforData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Tech_Data.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Tech_Data.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\OrderData.xaml">
+    <Page Include="UserControl\DataEditor\OrderData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\UpgradeData.xaml">
+    <Page Include="UserControl\DataEditor\UpgradeData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\TechData.xaml">
+    <Page Include="UserControl\DataEditor\TechData.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\DataEditor\UnitData.xaml">
+    <Page Include="UserControl\DataEditor\UnitData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\DataPages\Upgrade_Data.xaml">
+    <Page Include="UserControl\DataEditor\DataPages\Upgrade_Data.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\DataEditor\WeaponData.xaml">
+    <Page Include="UserControl\DataEditor\WeaponData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\BoolSelecter.xaml">
+    <Page Include="UserControl\Field\BoolSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\ColoredTextBlock.xaml">
+    <Page Include="UserControl\Field\ColoredTextBlock.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\Field\ColoredTextBox.xaml">
+    <Page Include="UserControl\Field\ColoredTextBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\ComboxSelecter.xaml">
+    <Page Include="UserControl\Field\ComboxSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\FlagSelecterMini.xaml">
+    <Page Include="UserControl\Field\FlagSelecterMini.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\Field\FlagSelecter.xaml">
+    <Page Include="UserControl\Field\FlagSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\IconSelecterP.xaml">
+    <Page Include="UserControl\Field\IconSelecterP.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\Field\IconSelecter.xaml">
+    <Page Include="UserControl\Field\IconSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\InputField.xaml">
+    <Page Include="UserControl\Field\InputField.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\NameBar.xaml">
+    <Page Include="UserControl\Field\NameBar.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\ColorPicker\ColorPicker.xaml">
+    <Page Include="UserControl\ColorPicker\ColorPicker.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\Require\RequireListBox.xaml">
+    <Page Include="UserControl\Field\Require\RequireListBox.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\Require\RequireListBoxItem.xaml">
+    <Page Include="UserControl\Field\Require\RequireListBoxItem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\Require\UserControl1.xaml">
+    <Page Include="UserControl\Field\Require\UserControl1.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\Field\UsedCodeList.xaml">
+    <Page Include="UserControl\Field\UsedCodeList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1033,223 +1033,223 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\ProjectControl.xaml">
+    <Page Include="UserControl\ProjectControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\BackUpFileItem.xaml">
+    <Page Include="UserControl\BackUpFileItem.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\SampleMapList.xaml">
+    <Page Include="UserControl\SampleMapList.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\ImportEditControl.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\ImportEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\ListItemCodeBlock.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\ListItemCodeBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPage.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\TECTPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\TriggerBlock.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerCodeEditControl.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\TriggerCodeEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TriggerEditControl.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\TriggerEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml">
+    <Page Include="UserControl\TriggerEditor\ClassicTrigger\VariableEditControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage Old.xaml">
+    <Page Include="UserControl\TriggerEditor\CUIEditorPage\TECUIPage Old.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\CUIEditorPage\TECUIPage.xaml">
+    <Page Include="UserControl\TriggerEditor\CUIEditorPage\TECUIPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUI.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\GUIScriptEditorUI.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUIScriptEditerWindow.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUIScriptEditerWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Action.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Action.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ArgSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ArgSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_Count.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_Count.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ListSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_ListSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_String.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_String.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_UnitProperty.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_Action_UnitProperty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_FunctionSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_FunctionSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_ObjectSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_ObjectSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_VariableSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_WavSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ActionValueSelect\GUI_WavSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditor.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditorWindow.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgEditorWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgExpress.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_ArgExpress.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Express.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Express.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Folder.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Folder.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_For.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_For.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncArgVal.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncArgVal.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncEdit.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_FuncEdit.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_GrayWindow.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_GrayWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_If.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_If.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Import.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Import.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Object.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Object.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_RawCode.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Return.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Return.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Switch.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_SwitchCase.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_SwitchCase.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Var.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_Var.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarFuncUse.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarFuncUse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarUse.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptEditer\GUI_VarUse.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\Scripter\ScriptTreeviewitem.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\Scripter\ScriptTreeviewitem.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\TEGUIObjectSelecter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml">
+    <Page Include="UserControl\TriggerEditor\GUIEditorPage\TEGUIPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\EditDotData.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting\EditDotData.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting\SCADataList.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\BGMManager.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting\BGMManager.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\MacroFuncSetting.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting\MacroFuncSetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml">
+    <Page Include="UserControl\TriggerEditor\TriggerEditorSetting\SCASetting.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml">
+    <Page Include="UserControl\TriggerEditor\WorkTab\ProjectExplorer\ProjectExplorer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

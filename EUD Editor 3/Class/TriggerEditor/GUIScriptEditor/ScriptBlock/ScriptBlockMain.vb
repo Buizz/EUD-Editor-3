@@ -219,7 +219,7 @@ Public Class ScriptBlock
 
         Select Case ScriptType
             Case EBlockType.funuse
-                Dim tscr As ScriptBlock = tescm.GetFuncInfor(name, Scripter)
+                Dim tscr As ScriptBlock = tescm.GetFuncInfo(name, Scripter)
                 If tscr IsNot Nothing Then
                     valuecount = tescm.GetFuncArgs(tscr).Count
                 End If
@@ -317,7 +317,7 @@ Public Class ScriptBlock
                     Dim argument As String = Tool.TEEpsDefaultFunc.GetFuncArgument(index)
                     lamdaRefreshValue(functooltip, argument)
                 Else
-                    Dim func As ScriptBlock = tescm.GetFuncInfor(name, Scripter)
+                    Dim func As ScriptBlock = tescm.GetFuncInfo(name, Scripter)
                     'DEBUG
                     If func Is Nothing Then
                         If Not IsValue() Then
@@ -799,7 +799,7 @@ Public Class ScriptBlock
                 End If
             Next
         Else
-            Dim func As ScriptBlock = tescm.GetFuncInfor(name, Scripter)
+            Dim func As ScriptBlock = tescm.GetFuncInfo(name, Scripter)
 
             If func Is Nothing Then
                 DefaultCoder(lnlines)
@@ -874,7 +874,7 @@ Public Class ScriptBlock
 
 
 
-        'Dim func As ScriptBlock = tescm.GetFuncInfor(name, Scripter)
+        'Dim func As ScriptBlock = tescm.GetFuncInfo(name, Scripter)
         'Dim args As List(Of ScriptBlock) = tescm.GetFuncArgs(func)
 
 

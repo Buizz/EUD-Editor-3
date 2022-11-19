@@ -26,8 +26,8 @@ Public Class SettingWindows
 
         CBGraphic.SelectedIndex = pgData.Setting(ProgramData.TSetting.Graphic)
 
-        CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanuage)
-        ChangeTblUse.IsChecked = pgData.Setting(ProgramData.TSetting.CDLanuageChange)
+        CBCodeLan.SelectedIndex = pgData.Setting(ProgramData.TSetting.CDLanguage)
+        ChangeTblUse.IsChecked = pgData.Setting(ProgramData.TSetting.CDLanguageChange)
         TopMostforce.IsChecked = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
         TopMostTEforce.IsChecked = pgData.Setting(ProgramData.TSetting.TriggerEditrTopMost)
         TETestCodeEditorUse.IsChecked = pgData.Setting(ProgramData.TSetting.TestCodeEditorUse)
@@ -334,12 +334,12 @@ Public Class SettingWindows
             Dim SelectItem As ComboBox = sender
 
 
-            pgData.Setting(ProgramData.TSetting.CDLanuage) = SelectItem.SelectedIndex
+            pgData.Setting(ProgramData.TSetting.CDLanguage) = SelectItem.SelectedIndex
         End If
     End Sub
 
     Private Sub ChangeTblUse_Checked(sender As Object, e As RoutedEventArgs)
-        pgData.Setting(ProgramData.TSetting.CDLanuageChange) = ChangeTblUse.IsChecked
+        pgData.Setting(ProgramData.TSetting.CDLanguageChange) = ChangeTblUse.IsChecked
     End Sub
 
     Private Sub TopMostforce_Checked(sender As Object, e As RoutedEventArgs)

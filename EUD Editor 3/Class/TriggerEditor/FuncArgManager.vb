@@ -284,7 +284,7 @@
 
                 InitMacro(luafunc)
             Case ScriptBlock.EBlockType.funuse
-                Dim func As ScriptBlock = tescm.GetFuncInfor(scr.name, scr.Scripter)
+                Dim func As ScriptBlock = tescm.GetFuncInfo(scr.name, scr.Scripter)
                 If func Is Nothing Then
                     IsCompleteFunction = False
                     FunNoExist = True
