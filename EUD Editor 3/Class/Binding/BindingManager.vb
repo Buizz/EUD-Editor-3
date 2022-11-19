@@ -117,9 +117,9 @@
             DataBindings(k) = New List(Of List(Of DatBinding))
             DataParamKeys(k) = New Dictionary(Of String, Integer)
 
-            For i = 0 To scData.DefaultDat.DatFileList(k).ParameterList.Count - 1
-                Dim keyName As String = scData.DefaultDat.DatFileList(k).ParameterList(i).GetParamname
-                Dim ValueType As SCDatFiles.DatFiles = scData.DefaultDat.DatFileList(k).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.ValueType)
+            For i = 0 To scData.DefaultDat.DatFileList(k).ParamaterList.Count - 1
+                Dim keyName As String = scData.DefaultDat.DatFileList(k).ParamaterList(i).GetParamname
+                Dim ValueType As SCDatFiles.DatFiles = scData.DefaultDat.DatFileList(k).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.ValueType)
 
                 If ValueType <> SCDatFiles.DatFiles.None Then
                     If _CodeConnectGroup.Keys.ToList.IndexOf(ValueType) >= 0 Then
@@ -131,7 +131,7 @@
 
                 DataParamKeys(k).Add(keyName, i)
                 DataBindings(k).Add(New List(Of DatBinding))
-                For j = 0 To scData.DefaultDat.DatFileList(k).ParameterList(i).GetValueCount - 1
+                For j = 0 To scData.DefaultDat.DatFileList(k).ParamaterList(i).GetValueCount - 1
                     DataBindings(k)(i).Add(New DatBinding(k, keyName, j))
                 Next
             Next
@@ -229,14 +229,14 @@
 
     Public Sub DataRefresh()
         For datindex = 0 To 6
-            For i = 0 To pjData.Dat.GetDatFile(datindex).ParameterList.Count - 1
-                Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetParamname
+            For i = 0 To pjData.Dat.GetDatFile(datindex).ParamaterList.Count - 1
+                Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetParamname
 
 
 
-                Dim ValueCount As Integer = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-                Dim ValueStart As Integer = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                Dim ValueCount As Integer = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                Dim ValueStart As Integer = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
                 For j = ValueStart To ValueEnd
                     pjData.BindingManager.DatBinding(datindex, Paramname, j).BackColorRefresh()

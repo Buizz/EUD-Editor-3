@@ -212,7 +212,7 @@ Protoss Beacon Overlay
 Zerg Beacon
 Protoss Beacon
 Terran Beacon
-Unknown214
+Unknwon214
 Powerups Shadow Header
 Flag
 Psi Emitter

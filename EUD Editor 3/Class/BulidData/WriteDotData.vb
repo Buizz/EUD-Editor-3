@@ -19,7 +19,7 @@ Partial Public Class BuildData
         sb.AppendLine("
 const arrdata = EUDArray(list(")
 
-        Dim dotdatas As List(Of DotData) = pjData.TEData.DotData
+        Dim dotdatas As List(Of DotData) = pjData.TEData.DotDatas
         For i = 0 To dotdatas.Count - 1
             If (i <> 0) Then
                 sb.AppendLine(",")

@@ -69,13 +69,13 @@ Public Class tblWriter
         Dim SpecialKeyPos As New List(Of Integer)
         Dim OriginalKeys As New List(Of String)
 
-        Dim Matches As Text.RegularExpressions.MatchCollection = rgx.Matches(tempstr)
+        Dim Matchs As Text.RegularExpressions.MatchCollection = rgx.Matches(tempstr)
         'Rgx들을 문자 치환하고 해당 번지를 돌려주자.
         '만약 Virtual안에 있으면 해당 번호로 돌려줌.
-        For k = 0 To Matches.Count - 1
-            Dim tMatches As Text.RegularExpressions.MatchCollection = rgx.Matches(tempstr)
+        For k = 0 To Matchs.Count - 1
+            Dim tMatchs As Text.RegularExpressions.MatchCollection = rgx.Matches(tempstr)
 
-            Dim pureStr As String = Mid(tMatches(MatchPass).Value, 2, tMatches(MatchPass).Value.Length - 2)
+            Dim pureStr As String = Mid(tMatchs(MatchPass).Value, 2, tMatchs(MatchPass).Value.Length - 2)
             Dim ResultStr As String = pureStr
 
             Dim PassFlag As Boolean = False
@@ -100,10 +100,10 @@ Public Class tblWriter
                 Continue For
             End If
 
-            OriginalKeys.Add(tMatches(MatchPass).Value)
+            OriginalKeys.Add(tMatchs(MatchPass).Value)
             SpecialKeys.Add(ResultStr)
-            SpecialKeyPos.Add(tMatches(MatchPass).Index)
-            tempstr = Replace(tempstr, tMatches(MatchPass).Value, TempChar, 1, 1)
+            SpecialKeyPos.Add(tMatchs(MatchPass).Index)
+            tempstr = Replace(tempstr, tMatchs(MatchPass).Value, TempChar, 1, 1)
         Next
         '별문자완성
 

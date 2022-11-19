@@ -3,7 +3,7 @@ Imports System.IO
 Imports System.Windows.Threading
 
 Public Class BGMPlayerConverter
-    Public isSuccess As Boolean
+    Public isSucess As Boolean
 
     Private BGMWorker As BackgroundWorker
 
@@ -258,9 +258,9 @@ Public Class BGMPlayerConverter
     Private Sub BGM_Complete(sender As Object, e As RunWorkerCompletedEventArgs)
         If e.Error IsNot Nothing Then
             Tool.ErrorMsgBox("BGM 변환 에러", e.Error.ToString)
-            isSuccess = False
+            isSucess = False
         Else
-            isSuccess = True
+            isSucess = True
         End If
         Me.Close()
     End Sub

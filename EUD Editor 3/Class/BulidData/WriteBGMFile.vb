@@ -112,6 +112,6 @@ Partial Public Class BuildData
         BGMWindow.WorkListRefresh(pjData.TEData.BGMData.BGMList)
         BGMWindow.ShowDialog()
 
-        Return BGMWindow.isSuccess
+        Return BGMWindow.isSucess
     End Function
 End Class

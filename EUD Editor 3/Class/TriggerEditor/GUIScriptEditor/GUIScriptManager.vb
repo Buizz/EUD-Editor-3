@@ -70,7 +70,7 @@ Public Class GUIScriptManager
 
 
 
-    Public Function GetFuncInfo(name As String, tScript As GUIScriptEditor) As ScriptBlock
+    Public Function GetFuncInfor(name As String, tScript As GUIScriptEditor) As ScriptBlock
         If tScript IsNot Nothing Then
             For i = 0 To tScript.ItemCount - 1
                 If tScript.GetItems(i).ScriptType = ScriptBlock.EBlockType.fundefine Then
@@ -86,7 +86,7 @@ Public Class GUIScriptManager
     End Function
 
 
-    Public Function GetExternFuncInfo(name As String, tScript As GUIScriptEditor) As ScriptBlock
+    Public Function GetExternFuncInfor(name As String, tScript As GUIScriptEditor) As ScriptBlock
         For i = 0 To tScript.ItemCount - 1
             If tScript.GetItems(i).ScriptType = ScriptBlock.EBlockType.fundefine Then
 
@@ -809,10 +809,10 @@ Public Class GUIScriptManager
                             Case "TrgLocationIndex"
                                 Dim v As Integer
 
-                                Dim locations As New List(Of String)
-                                locations.AddRange(CodeEditor.GetArgList("TrgLocationIndex"))
+                                Dim loactions As New List(Of String)
+                                loactions.AddRange(CodeEditor.GetArgList("TrgLocationIndex"))
 
-                                v = locations.IndexOf(svalue)
+                                v = loactions.IndexOf(svalue)
                                 If v = -1 Then
                                     strb.Append(0)
                                 Else

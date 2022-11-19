@@ -120,7 +120,7 @@ Class MainWindow
     End Sub
 
 
-    Private Sub ControlPanel_MouseDown(sender As Object, e As MouseButtonEventArgs)
+    Private Sub ContorlPanel_MouseDown(sender As Object, e As MouseButtonEventArgs)
         Me.DragMove()
     End Sub
 
@@ -132,7 +132,7 @@ Class MainWindow
     Private OldWidth As Double
     'Private OldPoint As Point
     Private IsDrag As Boolean
-    Private Sub SizeControl_MouseDown(sender As Object, e As MouseButtonEventArgs)
+    Private Sub SizeContorl_MouseDown(sender As Object, e As MouseButtonEventArgs)
         OldWidthPos = e.GetPosition(MainControl).X
         OldWidth = Me.Width
 
@@ -145,12 +145,12 @@ Class MainWindow
         IsDrag = True
     End Sub
 
-    Private Sub SizeControl_MouseUp(sender As Object, e As MouseButtonEventArgs)
+    Private Sub SizeContorl_MouseUp(sender As Object, e As MouseButtonEventArgs)
         IsDrag = False
         e.MouseDevice.Capture(Nothing)
     End Sub
 
-    Private Sub SizeControl_MouseMove(sender As Object, e As MouseEventArgs)
+    Private Sub SizeContorl_MouseMove(sender As Object, e As MouseEventArgs)
         If IsDrag Then
             e.MouseDevice.Capture(sender)
             Dim newWidthPos As Double = e.GetPosition(MainControl).X

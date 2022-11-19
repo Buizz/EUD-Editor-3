@@ -21,7 +21,7 @@ Public Class TriggerEditValueSelecterWindow
         ListboxPanel.Visibility = Visibility.Collapsed
         NumberPanel.Visibility = Visibility.Collapsed
         TrgStringPanel.Visibility = Visibility.Collapsed
-        TrgUnitPropertyPanel.Visibility = Visibility.Collapsed
+        TrgUnitPorpertyPanel.Visibility = Visibility.Collapsed
         VariablePanel.Visibility = Visibility.Collapsed
         FunctionPanel.Visibility = Visibility.Collapsed
         FormatStringPanel.Visibility = Visibility.Collapsed
@@ -104,7 +104,7 @@ Public Class TriggerEditValueSelecterWindow
 
 
 
-        AddHandler UProperty.SelectEvent, Sub(rval As String, e As RoutedEventArgs)
+        AddHandler UPorperty.SelectEvent, Sub(rval As String, e As RoutedEventArgs)
                                               If LoadCmp Then
                                                   tCode.Args(ArgIndex).ValueString = rval
                                                   tCode.Args(ArgIndex).IsInit = False
@@ -437,9 +437,9 @@ Public Class TriggerEditValueSelecterWindow
                 tCode.Args(ArgIndex).IsQuotation = False
 
 
-                UProperty.ResetValue(tCode.Args(ArgIndex).ValueString)
+                UPorperty.ResetValue(tCode.Args(ArgIndex).ValueString)
 
-                TrgUnitPropertyPanel.Visibility = Visibility.Visible
+                TrgUnitPorpertyPanel.Visibility = Visibility.Visible
             Case "WAVName", "BGM", "EUDScore", "SupplyType", "UnitsDat", "WeaponsDat",
                  "FlingyDat", "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat",
                  "TrgAIScript", "TrgSwitch", "TrgAllyStatus", "TrgComparison", "TrgModifier",
@@ -709,10 +709,10 @@ Public Class TriggerEditValueSelecterWindow
             If SelectListbox.SelectedItem IsNot Nothing Then
                 Dim item As ListBoxItem = SelectListbox.SelectedItem
 
-                Dim data() As Object = item.Tag
+                Dim datas() As Object = item.Tag
 
-                tCode.Args(ArgIndex).ValueString = data(0)
-                tCode.Args(ArgIndex).ValueNumber = data(1)
+                tCode.Args(ArgIndex).ValueString = datas(0)
+                tCode.Args(ArgIndex).ValueNumber = datas(1)
                 tCode.Args(ArgIndex).IsInit = False
                 ChangeComplete()
                 CloseP()

@@ -10,7 +10,7 @@ Public Class MainMenuBinding
     'SaveProject
     'CloseProject
     'OpenMap
-    'CompileProject
+    'ComplieProject
     'DataEditor
     'TriggerEditor
     'PluginSetting
@@ -20,7 +20,7 @@ Public Class MainMenuBinding
         NotifyPropertyChanged("DataEditorName")
         NotifyPropertyChanged("ProgramName")
         NotifyPropertyChanged("GridOpacity")
-        NotifyPropertyChanged("ProgressBarVisible")
+        NotifyPropertyChanged("ProgressBarVisble")
         NotifyPropertyChanged("IsEnableSetting")
         NotifyPropertyChanged("IsEnableNewfile")
         NotifyPropertyChanged("IsEnableOpenFile")
@@ -91,7 +91,7 @@ Public Class MainMenuBinding
             End If
         End Get
     End Property
-    Public ReadOnly Property ProgressBarVisible As Visibility
+    Public ReadOnly Property ProgressBarVisble As Visibility
         Get
             If pgData.IsCompilng Then
                 Return Visibility.Visible

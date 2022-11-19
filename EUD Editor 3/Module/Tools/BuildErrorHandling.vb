@@ -93,7 +93,7 @@ Module BuildErrorHandling
                 Select Case teFile.FileType
                     Case TEFile.EFileType.CUIEps
                         Dim OrgStr As String = CType(teFile.Scripter, CUIScriptEditor).GetStringText
-                        Dim BuildStr As String = CType(teFile.Scripter, CUIScriptEditor).LastBuildText
+                        Dim BuildStr As String = CType(teFile.Scripter, CUIScriptEditor).LastBulidText
 
 
                         Dim OrgLines() As String = OrgStr.Split(vbCrLf)

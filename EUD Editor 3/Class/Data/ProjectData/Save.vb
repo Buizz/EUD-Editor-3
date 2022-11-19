@@ -15,9 +15,9 @@ Partial Public Class ProjectData
         If IsSaveAs = True Then '다른이름으로 저장 일 경우 
             Tool.SaveProjectDialog.FileName = SafeFilename
 
-            Dim extent As String() = Tool.SaveProjectDialog.Filter.Split("|")
-            For i = 1 To extent.Count - 1 Step 2
-                If Extension = extent(i).Split(".").Last Then
+            Dim exten As String() = Tool.SaveProjectDialog.Filter.Split("|")
+            For i = 1 To exten.Count - 1 Step 2
+                If Extension = exten(i).Split(".").Last Then
                     Tool.SaveProjectDialog.FilterIndex = ((i - 1) \ 2) + 1
                     Exit For
                 End If
