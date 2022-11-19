@@ -196,7 +196,7 @@ Public Class TriggerEditorData
     <Serializable>
     Public Class LastTab
         Public Items As List(Of TEFile)
-        Public FristItem As LastTab
+        Public FirstItem As LastTab
         Public SecondItem As LastTab
         Public Orientation As Orientation
 

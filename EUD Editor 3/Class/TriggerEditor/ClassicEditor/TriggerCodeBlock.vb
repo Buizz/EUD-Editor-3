@@ -213,6 +213,9 @@ Public Class TriggerCodeBlock
         End If
 
         LoadArgText(_scripter)
+        If FGroup <> "" Then
+            rstr = rstr & FGroup + " : "
+        End If
 
         If isCmpTrigger Then
             If t.SortArgList.Count = 0 Then
@@ -335,7 +338,7 @@ Public Class TriggerCodeBlock
         '함수를 지정
         FName = tfun.FName
         FType = tfun.FType
-        FGroup = tfun.FGruop
+        FGroup = tfun.FGroup
     End Sub
 
     Public Sub Refresh(_scripter As ScriptEditor)

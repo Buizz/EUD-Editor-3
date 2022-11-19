@@ -176,9 +176,9 @@ Public Class TriggerCodeEditControl
                                    New Action(Sub()
                                                   If CurrentPageType = SelType Then
                                                       Dim itemColl As ItemCollection
-                                                      If TList(index).FGruop <> "" Then
+                                                      If TList(index).FGroup <> "" Then
                                                           '그룹이 있을 경우
-                                                          itemColl = GetCodeListGroup(TList(index).FGruop).Items
+                                                          itemColl = GetCodeListGroup(TList(index).FGroup).Items
                                                       Else
                                                           itemColl = CodeList.Items
                                                       End If

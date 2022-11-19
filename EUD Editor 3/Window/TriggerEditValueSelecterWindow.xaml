@@ -48,7 +48,7 @@
                     </Grid>
 
 
-                    <Grid x:Name="TrgUnitPorpertyPanel" Visibility="Collapsed">
+                    <Grid x:Name="TrgUnitPropertyPanel" Visibility="Collapsed">
                         <local:TrgUnitPorperty x:Name="UPorperty"/>
                     </Grid>
                     

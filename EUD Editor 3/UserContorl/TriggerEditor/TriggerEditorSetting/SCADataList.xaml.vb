@@ -73,7 +73,7 @@ Public Class SCADataList
     Private IsEditWindowopen As Boolean
     Private Sub OpenNewWindow()
         IsEditWindowopen = False
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         DataName.Text = ""
         Checekname()
         TypeCB.SelectedIndex = 1
@@ -86,7 +86,7 @@ Public Class SCADataList
     End Sub
     Private Sub OpenEditWindow()
         IsEditWindowopen = True
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         Dim SelCodeData As StarCraftArchive.CodeData = CType(List.SelectedItem, StarCraftArchive.CodeData)
 
         DataName.Text = SelCodeData.TagName
@@ -204,14 +204,14 @@ Public Class SCADataList
             End Select
         End If
         List.Items.Refresh()
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
         pjData.SetDirty(True)
     End Sub
     Private Sub CancelButton_Click(sender As Object, e As RoutedEventArgs)
-        CloseStroyBoard.Begin(Me)
+        CloseStoryBoard.Begin(Me)
     End Sub
-    Private OpenStroyBoard As Storyboard
-    Private CloseStroyBoard As Storyboard
+    Private OpenStoryBoard As Storyboard
+    Private CloseStoryBoard As Storyboard
     Private Sub AnimationInit()
         If True Then
             Dim scale1 As ScaleTransform = New ScaleTransform(1, 1)
@@ -236,10 +236,10 @@ Public Class SCADataList
             myOpacityAnimation.To = 1.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            OpenStroyBoard = New Storyboard()
-            OpenStroyBoard.Children.Add(myOpacityAnimation)
-            OpenStroyBoard.Children.Add(myWidthAnimation)
-            OpenStroyBoard.Children.Add(myHeightAnimation)
+            OpenStoryBoard = New Storyboard()
+            OpenStoryBoard.Children.Add(myOpacityAnimation)
+            OpenStoryBoard.Children.Add(myWidthAnimation)
+            OpenStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -270,10 +270,10 @@ Public Class SCADataList
             myOpacityAnimation.To = 0.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
-            CloseStroyBoard = New Storyboard()
-            CloseStroyBoard.Children.Add(myOpacityAnimation)
-            CloseStroyBoard.Children.Add(myWidthAnimation)
-            CloseStroyBoard.Children.Add(myHeightAnimation)
+            CloseStoryBoard = New Storyboard()
+            CloseStoryBoard.Children.Add(myOpacityAnimation)
+            CloseStoryBoard.Children.Add(myWidthAnimation)
+            CloseStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, CreateEditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -281,7 +281,7 @@ Public Class SCADataList
             Storyboard.SetTargetProperty(myHeightAnimation, New PropertyPath("RenderTransform.ScaleY"))
             Storyboard.SetTargetProperty(myWidthAnimation, New PropertyPath("RenderTransform.ScaleX"))
 
-            AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
+            AddHandler CloseStoryBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       CreateEditWindow.Visibility = Visibility.Hidden
                                                   End Sub
         End If

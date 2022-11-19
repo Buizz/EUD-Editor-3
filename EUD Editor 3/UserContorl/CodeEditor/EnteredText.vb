@@ -22,7 +22,7 @@ Partial Public Class CodeEditor
         FunctionStartOffset = 0
         Dim CheckFunctionName As String = ""
         Dim AnotherCharCount As Integer
-        Dim IsFirstArgumnet As Boolean = False
+        Dim IsFirstArgument As Boolean = False
 
 
         Dim index As Integer = 0
@@ -70,7 +70,7 @@ Partial Public Class CodeEditor
                     Exit While
                 Case "("
                     If ArgumentIndex = 0 And AnotherCharCount = 0 Then
-                        IsFirstArgumnet = True
+                        IsFirstArgument = True
                     End If
                     If GetFuncName Then
                         Exit While
@@ -100,7 +100,7 @@ Partial Public Class CodeEditor
                 Case ","
                     If Not CheckFunction And Not IsFunctionSpace Then
                         If ArgumentIndex = 0 And AnotherCharCount = 0 Then
-                            IsFirstArgumnet = True
+                            IsFirstArgument = True
                         End If
                         ArgumentIndex += 1
                     End If

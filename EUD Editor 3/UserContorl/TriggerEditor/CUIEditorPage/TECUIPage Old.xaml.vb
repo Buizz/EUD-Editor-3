@@ -32,7 +32,7 @@
         TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
 
         If highLightLine > -1 Then
-            TextEditor.LineHightLight(highLightLine)
+            TextEditor.LineHighLight(highLightLine)
         End If
     End Sub
 

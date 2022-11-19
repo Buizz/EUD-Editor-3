@@ -37,7 +37,7 @@
         pjData.SetDirty(True)
 
         Dim dotData As New DotData(filename)
-        If Not dotData.LoadSucess Then
+        If Not dotData.LoadSuccess Then
             Return
         End If
 

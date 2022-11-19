@@ -11,7 +11,7 @@
              Unloaded="Control_Unloaded"
              Foreground="White" d:DesignWidth="1000">
     <Grid>
-        <ProgressBar x:Name="MainBar" Grid.ColumnSpan="12" IsIndeterminate="True" Height="Auto" Visibility="{Binding ProgressBarVisble, UpdateSourceTrigger=PropertyChanged}" />
+        <ProgressBar x:Name="MainBar" Grid.ColumnSpan="12" IsIndeterminate="True" Height="Auto" Visibility="{Binding ProgressBarVisible, UpdateSourceTrigger=PropertyChanged}" />
         <Grid x:Name="MainGrid" Opacity="{Binding GridOpacity, UpdateSourceTrigger=PropertyChanged}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="*"/>

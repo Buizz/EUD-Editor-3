@@ -187,7 +187,7 @@ Public Class ProjectData
                 Return Tool.GetText("None")
             End If
 
-            If pgData.Setting(ProgramData.TSetting.CDLanuageChange) Then
+            If pgData.Setting(ProgramData.TSetting.CDLanguageChange) Then
                 If SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString Then
                     Return scData.GetStat_txt(index)
                 Else

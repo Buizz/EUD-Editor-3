@@ -875,7 +875,7 @@ Public Class GUIScriptEditorUI
                 If tb IsNot Nothing Then
                     tb.IsExpanded = True
                     For i = 0 To tb.Items.Count - 1
-                        ExapendTreeviewItem(tb.Items(i), True)
+                        ExpandTreeviewItem(tb.Items(i), True)
                     Next
                 End If
             Else
@@ -884,7 +884,7 @@ Public Class GUIScriptEditorUI
                     If tb IsNot Nothing Then
                         tb.IsExpanded = True
                         For j = 0 To tb.Items.Count - 1
-                            ExapendTreeviewItem(tb.Items(j), True)
+                            ExpandTreeviewItem(tb.Items(j), True)
                         Next
                     End If
                 Next
@@ -899,7 +899,7 @@ Public Class GUIScriptEditorUI
                 If tb IsNot Nothing Then
                     tb.IsExpanded = False
                     For i = 0 To tb.Items.Count - 1
-                        ExapendTreeviewItem(tb.Items(i), True)
+                        ExpandTreeviewItem(tb.Items(i), True)
                     Next
                 End If
             Else
@@ -908,7 +908,7 @@ Public Class GUIScriptEditorUI
                     If tb IsNot Nothing Then
                         tb.IsExpanded = False
                         For j = 0 To tb.Items.Count - 1
-                            ExapendTreeviewItem(tb.Items(j), True)
+                            ExpandTreeviewItem(tb.Items(j), True)
                         Next
                     End If
                 Next
@@ -916,10 +916,10 @@ Public Class GUIScriptEditorUI
         End If
     End Sub
 
-    Private Sub ExapendTreeviewItem(titem As TreeViewItem, IsExapend As Boolean)
+    Private Sub ExpandTreeviewItem(titem As TreeViewItem, IsExapend As Boolean)
         titem.IsExpanded = IsExapend
         For i = 0 To titem.Items.Count - 1
-            ExapendTreeviewItem(titem.Items(i), IsExapend)
+            ExpandTreeviewItem(titem.Items(i), IsExapend)
         Next
     End Sub
 

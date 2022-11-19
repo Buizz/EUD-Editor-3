@@ -60,7 +60,7 @@
                     <ColumnDefinition Width="*"/>
                 </Grid.ColumnDefinitions>
 
-                <Canvas x:Name="FristColor" Grid.Column="0" Background="#FFA85F5F"/>
+                <Canvas x:Name="FirstColor" Grid.Column="0" Background="#FFA85F5F"/>
                 <Canvas x:Name="CurrentColor" Grid.Column="1" Background="#FFFF2020"/>
             </Grid>
         </Border>

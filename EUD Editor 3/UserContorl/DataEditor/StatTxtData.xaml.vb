@@ -113,7 +113,7 @@
         End If
 
         'MsgBox(GetCharAt(0, texts) & "_" & GetCharAt(1, texts))
-        Dim FristKey As String = StringTool.GetCharAt(0, texts)
+        Dim FirstKey As String = StringTool.GetCharAt(0, texts)
         Dim LastKey As String = StringTool.GetCharAt(1, texts)
 
         Dim LastKeyIndex As Integer = -1
@@ -129,10 +129,10 @@
 
         If LastKeyIndex >= 0 And LastKeyIndex <= 5 Then
             Dim KeyExist As Boolean = False
-            If FristKey.Count > 1 Then
+            If FirstKey.Count > 1 Then
                 Dim KeyValue As Integer
                 Try
-                    KeyValue = "&H" & FristKey
+                    KeyValue = "&H" & FirstKey
                     If KeyValue <= 255 Then
                         For i = 0 To ShortCombobox.Items.Count - 1
                             Dim comboboxit As ComboBoxItem = ShortCombobox.Items(i)
@@ -150,8 +150,8 @@
             End If
 
             If Not KeyExist Then
-                If FristKey.Count = 1 Then
-                    Dim tKeyValue As Integer = AscW(FristKey)
+                If FirstKey.Count = 1 Then
+                    Dim tKeyValue As Integer = AscW(FirstKey)
                     If tKeyValue <= 255 Then
                         For i = 0 To ShortCombobox.Items.Count - 1
                             Dim comboboxit As ComboBoxItem = ShortCombobox.Items(i)

@@ -13,25 +13,25 @@ Partial Public Class BuildData
 
         '기본 Dat파일 저장
         For DatFile = 0 To SCDatFiles.DatFiles.orders
-            For Pindex = 0 To pjData.Dat.DatFileList(DatFile).ParamaterList.Count - 1
-                Dim ParamaterData As SCDatFiles.CDatFile.CParamater = pjData.Dat.DatFileList(DatFile).ParamaterList(Pindex)
+            For Pindex = 0 To pjData.Dat.DatFileList(DatFile).ParameterList.Count - 1
+                Dim ParameterData As SCDatFiles.CDatFile.CParamater = pjData.Dat.DatFileList(DatFile).ParameterList(Pindex)
 
-                If Not ParamaterData.GetInfo(SCDatFiles.EParamInfo.IsEnabled) Then
+                If Not ParameterData.GetInfo(SCDatFiles.EParamInfo.IsEnabled) Then
                     Continue For
                 End If
-                Dim Parameter As String = ParamaterData.GetParamname
+                Dim Parameter As String = ParameterData.GetParamname
                 Dim Offset As UInteger = Tool.GetOffset(DatFile, Parameter)
-                Dim Size As Byte = ParamaterData.GetInfo(SCDatFiles.EParamInfo.Size)
-                Dim Length As Byte = Size * ParamaterData.GetInfo(SCDatFiles.EParamInfo.VarArray)
+                Dim Size As Byte = ParameterData.GetInfo(SCDatFiles.EParamInfo.Size)
+                Dim Length As Byte = Size * ParameterData.GetInfo(SCDatFiles.EParamInfo.VarArray)
 
 
-                For ObjectID = 0 To ParamaterData.GetValueCount - 1
-                    If (Not ParamaterData.PureData(ObjectID).Enabled) Or
-                        ParamaterData.PureData(ObjectID).IsDefault Then
+                For ObjectID = 0 To ParameterData.GetValueCount - 1
+                    If (Not ParameterData.PureData(ObjectID).Enabled) Or
+                        ParameterData.PureData(ObjectID).IsDefault Then
                         Continue For
                     End If
                     Dim OldValue As Long
-                    Dim NewValue As Long = ParamaterData.PureData(ObjectID).Data
+                    Dim NewValue As Long = ParameterData.PureData(ObjectID).Data
                     Dim CurrentValue As Long
                     Dim CalOffset As UInteger = Offset + ObjectID * Length
                     Dim ByteShift As Byte = CalOffset Mod 4
@@ -40,12 +40,12 @@ Partial Public Class BuildData
 
                     Try
                         If pjData.MapData.DatFile.GetDatFile(DatFile).GetParamValue(Parameter, ObjectID).IsDefault Then '맵 데이터가 없을 경우
-                            OldValue = scData.DefaultDat.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
+                            OldValue = scData.DefaultDat.GetDatFile(DatFile).ParameterList(Pindex).PureData(ObjectID).Data
                         Else
-                            OldValue = pjData.MapData.DatFile.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
+                            OldValue = pjData.MapData.DatFile.GetDatFile(DatFile).ParameterList(Pindex).PureData(ObjectID).Data
                         End If
                     Catch ex As Exception
-                        OldValue = scData.DefaultDat.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
+                        OldValue = scData.DefaultDat.GetDatFile(DatFile).ParameterList(Pindex).PureData(ObjectID).Data
                     End Try
 
 

@@ -1,21 +1,21 @@
 ﻿Imports System.Text.RegularExpressions
 
 Partial Public Class MacroManager
-    Private _IsBulid As Boolean = False
+    Private _IsBuild As Boolean = False
     Public Property IsBulid As Boolean
         Get
-            Return _IsBulid
+            Return _IsBuild
         End Get
         Set(value As Boolean)
             If value = True Then
-                If _IsBulid = False Then
+                If _IsBuild = False Then
                     BuildStart()
-                    _IsBulid = True
+                    _IsBuild = True
                 End If
             Else
-                If _IsBulid = True Then
+                If _IsBuild = True Then
                     BuildEnd()
-                    _IsBulid = False
+                    _IsBuild = False
                 End If
             End If
         End Set

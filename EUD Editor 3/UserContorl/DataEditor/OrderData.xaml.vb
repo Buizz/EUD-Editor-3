@@ -19,7 +19,7 @@
         Order_Data = New Order_Data(tObjectID)
         RequireData = New RequireData(SCDatFiles.DatFiles.orders, tObjectID)
 
-        Defualt.Content = Order_Data
+        _Default.Content = Order_Data
         Requir.Content = RequireData
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.orders, tObjectID)

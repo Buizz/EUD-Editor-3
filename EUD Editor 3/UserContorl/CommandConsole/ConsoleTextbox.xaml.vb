@@ -96,8 +96,8 @@ Public Class ConsoleTextbox
 
     Private Sub MoveToolTipBox()
         If completionWindow IsNot Nothing Then
-            Dim StartPostion As TextViewPosition = ConsoleText.TextArea.Caret.Position
-            Dim p As Point = ConsoleText.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
+            Dim StartPosition As TextViewPosition = ConsoleText.TextArea.Caret.Position
+            Dim p As Point = ConsoleText.TextArea.TextView.GetVisualPosition(StartPosition, Rendering.VisualYPosition.LineTop)
 
             Dim CaretPos As Integer = p.Y - ConsoleText.VerticalOffset
             Dim copPos As Integer = completionWindow.Top - ConsoleText.PointToScreen(New Point(0, 0)).Y

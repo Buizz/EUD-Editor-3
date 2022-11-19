@@ -445,7 +445,7 @@ Public Class IconSelecter
         Field.ValueText.Text = Code(1)
         'MsgBox(Code(1))
     End Sub
-    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles btn.ContextMenuOpening
+    Private Sub OpenMenu(sender As Object, e As ContextMenuEventArgs) Handles btn.ContextMenuOpening
         If Parameter <> "UnitName" Then
             CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
             PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
@@ -453,7 +453,7 @@ Public Class IconSelecter
         End If
     End Sub
 
-    Private Sub btnMouseWhell(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
+    Private Sub btnMouseWheel(sender As Object, e As MouseWheelEventArgs) Handles btn.MouseWheel
         If Parameter <> "UnitName" Then
             Dim ChangeValue As Long = e.Delta / 100
             Select Case DatFile

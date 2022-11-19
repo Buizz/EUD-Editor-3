@@ -20,7 +20,7 @@ Public Class MainMenuBinding
         NotifyPropertyChanged("DataEditorName")
         NotifyPropertyChanged("ProgramName")
         NotifyPropertyChanged("GridOpacity")
-        NotifyPropertyChanged("ProgressBarVisble")
+        NotifyPropertyChanged("ProgressBarVisible")
         NotifyPropertyChanged("IsEnableSetting")
         NotifyPropertyChanged("IsEnableNewfile")
         NotifyPropertyChanged("IsEnableOpenFile")
@@ -91,7 +91,7 @@ Public Class MainMenuBinding
             End If
         End Get
     End Property
-    Public ReadOnly Property ProgressBarVisble As Visibility
+    Public ReadOnly Property ProgressBarVisible As Visibility
         Get
             If pgData.IsCompilng Then
                 Return Visibility.Visible

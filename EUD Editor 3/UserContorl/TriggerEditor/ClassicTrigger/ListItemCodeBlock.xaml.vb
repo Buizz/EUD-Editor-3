@@ -41,7 +41,17 @@
         End If
 
         _tcode.LoadArgText(scripter)
+        If t.FGroup <> "" Then
+            Dim ttb As New Label
+            ttb.Foreground = Brushes.CadetBlue
+            ttb.VerticalContentAlignment = VerticalAlignment.Center
 
+            If Not IsEmpty Then
+                ttb.Content = t.FGroup + " : "
+            End If
+
+            Wrap.Children.Add(ttb)
+        End If
         If isCmpTrigger Then
             If t.SortArgList.Count = 0 Then
                 Dim ttb As New Label

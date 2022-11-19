@@ -49,11 +49,11 @@
                                             <KeyBinding Command="{x:Static local:ButtonData.DeleteItemKeyInputCommand}" Key="Delete" />
                                         </ListBox.InputBindings>
                                         <ListBox.CommandBindings>
-                                            <CommandBinding Command="{x:Static local:ButtonData.NewItemKeyInputCommand}"  CanExecute="NewItemCommandCanExecute" Executed="NewItemCommandExcute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.NewItemKeyInputCommand}"  CanExecute="NewItemCommandCanExecute" Executed="NewItemCommandExecute"/>
                                             <CommandBinding Command="{x:Static local:ButtonData.CutItemKeyInputCommand}"  CanExecute="CutCommandCanExecute" Executed="CutItemCommandExcute"/>
-                                            <CommandBinding Command="{x:Static local:ButtonData.CopyItemKeyInputCommand}"  CanExecute="CopyCommandCanExecute" Executed="CopyItemCommandExcute"/>
-                                            <CommandBinding Command="{x:Static local:ButtonData.PasteItemKeyInputCommand}"  CanExecute="PasteCommandCanExecute" Executed="PasteItemCommandExcute"/>
-                                            <CommandBinding Command="{x:Static local:ButtonData.DeleteItemKeyInputCommand}"  CanExecute="DeleteCommandCanExecute" Executed="DeleteItemCommandExcute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.CopyItemKeyInputCommand}"  CanExecute="CopyCommandCanExecute" Executed="CopyItemCommandExecute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.PasteItemKeyInputCommand}"  CanExecute="PasteCommandCanExecute" Executed="PasteItemCommandExecute"/>
+                                            <CommandBinding Command="{x:Static local:ButtonData.DeleteItemKeyInputCommand}"  CanExecute="DeleteCommandCanExecute" Executed="DeleteItemCommandExecute"/>
                                         </ListBox.CommandBindings>
 
                                         <ListBox.ContextMenu>

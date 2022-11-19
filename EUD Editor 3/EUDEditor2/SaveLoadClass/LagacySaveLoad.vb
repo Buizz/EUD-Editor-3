@@ -96,21 +96,21 @@ Public Class LagacySaveLoad
                             If temp(3) <> 0 Then
                                 Dim mapdata As Long = 0
                                 If pjData.IsMapLoading Then
-                                    If Not pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault Then
-                                        mapdata = pjData.MapData.DatFile.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                    If Not pjData.MapData.DatFile.GetDatFile(i).ParameterList(j).PureData(k).IsDefault Then
+                                        mapdata = pjData.MapData.DatFile.GetDatFile(i).ParameterList(j).PureData(k).Data
                                     Else
-                                        mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                        mapdata = scData.DefaultDat.GetDatFile(i).ParameterList(j).PureData(k).Data
                                     End If
                                 Else
-                                    mapdata = scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
+                                    mapdata = scData.DefaultDat.GetDatFile(i).ParameterList(j).PureData(k).Data
                                 End If
 
 
 
 
                                 'mapdata += scData.DefaultDat.GetDatFile(i).ParamaterList(j).PureData(k).Data
-                                pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).Data = temp(3) + mapdata
-                                pjData.Dat.GetDatFile(i).ParamaterList(j).PureData(k).IsDefault = False
+                                pjData.Dat.GetDatFile(i).ParameterList(j).PureData(k).Data = temp(3) + mapdata
+                                pjData.Dat.GetDatFile(i).ParameterList(j).PureData(k).IsDefault = False
                             End If
                         End If
                     Next
@@ -438,15 +438,15 @@ Public Class LagacySaveLoad
 
         _stringbdl.Append("S_DatEditSET" & vbCrLf) 'DatEditSET Start
         For i = 0 To pjData.Dat.DatFileList.Count - 1
-            For j = 0 To pjData.Dat.DatFileList(i).ParamaterList.Count - 1
-                For k = 0 To pjData.Dat.DatFileList(i).ParamaterList(j).GetInfo(SCDatFiles.EParamInfo.VarCount) - 1
-                    If Not pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).IsDefault Then
-                        Dim value As Long = pjData.Dat.DatFileList(i).ParamaterList(j).PureData(k).Data
+            For j = 0 To pjData.Dat.DatFileList(i).ParameterList.Count - 1
+                For k = 0 To pjData.Dat.DatFileList(i).ParameterList(j).GetInfo(SCDatFiles.EParamInfo.VarCount) - 1
+                    If Not pjData.Dat.DatFileList(i).ParameterList(j).PureData(k).IsDefault Then
+                        Dim value As Long = pjData.Dat.DatFileList(i).ParameterList(j).PureData(k).Data
 
-                        If Not pjData.MapData.DatFile.DatFileList(i).ParamaterList(j).PureData(k).IsDefault Then
-                            value -= pjData.MapData.DatFile.DatFileList(i).ParamaterList(j).PureData(k).Data
+                        If Not pjData.MapData.DatFile.DatFileList(i).ParameterList(j).PureData(k).IsDefault Then
+                            value -= pjData.MapData.DatFile.DatFileList(i).ParameterList(j).PureData(k).Data
                         Else
-                            value -= scData.DefaultDat.DatFileList(i).ParamaterList(j).PureData(k).Data
+                            value -= scData.DefaultDat.DatFileList(i).ParameterList(j).PureData(k).Data
                         End If
 
 
@@ -546,7 +546,7 @@ Public Class LagacySaveLoad
         _stringbdl.Append("S_FileManagerSET" & vbCrLf) 'FileManagerSET Start
 
 
-        _stringbdl.Append("statlang : " & pgData.Setting(ProgramData.TSetting.CDLanuage) & vbCrLf)
+        _stringbdl.Append("statlang : " & pgData.Setting(ProgramData.TSetting.CDLanguage) & vbCrLf)
 
         Dim strcount As Integer = 0
         For i = 0 To SCtbltxtCount - 1

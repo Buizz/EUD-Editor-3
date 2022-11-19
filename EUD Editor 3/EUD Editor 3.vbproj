@@ -560,8 +560,8 @@
     <Compile Include="UserContorl\Field\UsedCodeList.xaml.vb">
       <DependentUpon>UsedCodeList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Theme\ThemeContorl.xaml.vb">
-      <DependentUpon>ThemeContorl.xaml</DependentUpon>
+    <Compile Include="Theme\ThemeControl.xaml.vb">
+      <DependentUpon>ThemeControl.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\ProjectControl.xaml.vb">
       <DependentUpon>ProjectControl.xaml</DependentUpon>
@@ -572,8 +572,8 @@
     <Compile Include="UserContorl\SampleMapList.xaml.vb">
       <DependentUpon>SampleMapList.xaml</DependentUpon>
     </Compile>
-    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml.vb">
-      <DependentUpon>TrgUnitPorperty.xaml</DependentUpon>
+    <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitProperty.xaml.vb">
+      <DependentUpon>TrgUnitProperty.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\AddTrigger.vb" />
     <Compile Include="UserContorl\TriggerEditor\ClassicTrigger\TECTPageFunc\CopyTrigger.vb" />
@@ -1029,7 +1029,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Theme\ThemeContorl.xaml">
+    <Page Include="Theme\ThemeControl.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -1045,7 +1045,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
-    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitPorperty.xaml">
+    <Page Include="UserContorl\TriggerEditor\ClassicTrigger\TrgUnitProperty.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>

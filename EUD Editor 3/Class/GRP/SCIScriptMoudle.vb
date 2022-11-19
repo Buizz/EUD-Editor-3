@@ -246,13 +246,13 @@ Namespace IScript
             Private ReadOnly ANIMTYPE() As Byte = {2, 2, 4, 0, 0, 0, 0, 0, 0, 0, 0, 0,
              14, 14, 16, 16, 0, 0, 0, 0, 22, 22, 0, 24, 26, 0, 28, 28, 28, 28}
 
-            Public Parrent As CIScript
+            Public Parent As CIScript
 
             Public IScriptID As Integer
             Public headeroffset As UInt16
 
             Public Function EntryType() As UInt32
-                Dim memsteram As New MemoryStream(Parrent.buffer)
+                Dim memsteram As New MemoryStream(Parent.buffer)
                 Dim bytereader As New BinaryReader(memsteram)
 
 
@@ -269,7 +269,7 @@ Namespace IScript
                 Return EntryTypen
             End Function
             Public Function AnimHeader(num As Integer) As UInt16
-                Dim memsteram As New MemoryStream(Parrent.buffer)
+                Dim memsteram As New MemoryStream(Parent.buffer)
                 Dim bytereader As New BinaryReader(memsteram)
                 Dim tanimheader As UInt16
 
@@ -330,7 +330,7 @@ Namespace IScript
 
                 If id <> &HFFFF Then
                     Dim tempCIscriptEntry As New CIscriptEntry
-                    tempCIscriptEntry.Parrent = Me
+                    tempCIscriptEntry.Parent = Me
 
                     tempCIscriptEntry.IScriptID = id
                     tempCIscriptEntry.headeroffset = headeroffset

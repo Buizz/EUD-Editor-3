@@ -174,7 +174,7 @@
 
 
     <sys:String x:Key="ErrorMsgbox">Error</sys:String>
-    <sys:String x:Key="Error MapOpen">An error has occured while opening the map.</sys:String>
+    <sys:String x:Key="Error MapOpen">An error has occurred while opening the map.</sys:String>
 
 
     <sys:String x:Key="Error SaveFileOpen">Failed to open save file. Select one of the following backup files.</sys:String>
@@ -183,9 +183,9 @@
     <sys:String x:Key="Error OpenMap is not exist reset">There's no connected map. Do you want to Select a map to connect?</sys:String>
     <sys:String x:Key="Error SaveMap is not exist reset">Saved map cannot be created. Do you want to select maps?</sys:String>
     <sys:String x:Key="Error SettingSave Fail">Saving program settings has been failed.</sys:String>
-    <sys:String x:Key="Error ProgramInit Fail">Problem has occured when resetting program data.</sys:String>
-    <sys:String x:Key="Error TriggerScript Init Fail">A wroblem has occured when resetting TriggerScript Editor.</sys:String>
-    <sys:String x:Key="Error LoadStarCraftData Fail">A problem has occured when resetting StarCraft data.</sys:String>
+    <sys:String x:Key="Error ProgramInit Fail">Problem has occurred when resetting program data.</sys:String>
+    <sys:String x:Key="Error TriggerScript Init Fail">A wroblem has occurred when resetting TriggerScript Editor.</sys:String>
+    <sys:String x:Key="Error LoadStarCraftData Fail">A problem has occurred when resetting StarCraft data.</sys:String>
     <sys:String x:Key="Error LoadMPQData Fail" xml:space="preserve">Reading Casc data has been failed.&#13;Your Starcraft version may not be up to date.</sys:String>
     <sys:String x:Key="Error NotExistMPQ">Could not load graphics from StartCraft. Please update the path to your StarCraft Launcher in Program Settings</sys:String>
     <sys:String x:Key="Error NotExistMPQ reset">Casc file is not selected. Do you want to select files?</sys:String>

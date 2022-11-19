@@ -103,7 +103,7 @@
         DatCommand.ReLoad(DatFile, Parameter, ObjectID)
     End Sub
 
-    Private Sub OpneMenu(sender As Object, e As ContextMenuEventArgs) Handles CheckboxList.ContextMenuOpening
+    Private Sub OpenMenu(sender As Object, e As ContextMenuEventArgs) Handles CheckboxList.ContextMenuOpening
         CopyItem.IsEnabled = DatCommand.IsEnabled(CopyItem.CommandParameter)
         PasteItem.IsEnabled = DatCommand.IsEnabled(PasteItem.CommandParameter)
         ResetItem.IsEnabled = DatCommand.IsEnabled(ResetItem.CommandParameter)

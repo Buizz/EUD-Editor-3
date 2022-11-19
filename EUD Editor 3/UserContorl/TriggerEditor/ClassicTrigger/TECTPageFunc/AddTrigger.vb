@@ -13,7 +13,7 @@
         Dim NTrigger As New Trigger
         EditWindow.Visibility = Visibility.Visible
 
-        OpenStroyBoard.Begin(Me)
+        OpenStoryBoard.Begin(Me)
         Dim TrigEditctrl As New TriggerEditControl(Scripter, NTrigger)
         InputDialog.Content = TrigEditctrl
 
@@ -63,7 +63,7 @@
 
                                                   'InputDialog.Content = Nothing
                                                   'EditWindow.Visibility = Visibility.Hidden
-                                                  CloseStroyBoard.Begin(Me)
+                                                  CloseStoryBoard.Begin(Me)
                                               End Sub
 
 
@@ -73,7 +73,7 @@
 
                                                     'InputDialog.Content = Nothing
                                                     'EditWindow.Visibility = Visibility.Hidden
-                                                    CloseStroyBoard.Begin(Me)
+                                                    CloseStoryBoard.Begin(Me)
                                                 End Sub
 
 

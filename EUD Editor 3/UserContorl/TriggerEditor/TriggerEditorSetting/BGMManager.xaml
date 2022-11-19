@@ -98,7 +98,7 @@
                         <RowDefinition Height="60"/>
                     </Grid.RowDefinitions>
                     <StackPanel Margin="18">
-                        <StackPanel x:Name="DefailtInfo">
+                        <StackPanel x:Name="DefaultInfo">
                             <DockPanel Margin="5">
                                 <Label Content="{StaticResource Name}" HorizontalAlignment="Center" VerticalAlignment="Center"  />
                                 <TextBox x:Name="BGMName" Margin="10,0,0,0"  TextChanged="BGMName_TextChanged">

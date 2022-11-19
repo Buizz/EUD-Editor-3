@@ -144,11 +144,11 @@
         OpenNewWindow(ntreeview.Tag, ntreeview)
     End Sub
 
-    Private LastScrOrgin As ScriptBlock
+    Private LastScrOrigin As ScriptBlock
     Private LastScr As ScriptBlock
     Private LastTreeview As TreeViewItem
     Private Function OpenNewWindow(scr As ScriptBlock, ntreeview As TreeViewItem, Optional dotscriptblock As ScriptBlock = Nothing) As Boolean
-        LastScrOrgin = scr.DeepCopy
+        LastScrOrigin = scr.DeepCopy
         LastScr = scr
         LastTreeview = ntreeview
         'MsgBox(LastScr.ValueCoder)
@@ -236,7 +236,7 @@
         End Select
         If Not IsCreateOpen Then
             'MsgBox("오케이이벤트 : " & scr.ValueCoder & vbCrLf & "바뀌기 전 이벤트 : " & LastScrOrgin.ValueCoder)
-            AddEditTask(scr, LastScrOrgin, LastTreeview)
+            AddEditTask(scr, LastScrOrigin, LastTreeview)
             SetRepeatCount(1)
         End If
 
@@ -245,7 +245,7 @@
         TEGUIPage.CloseEditWindow()
     End Sub
     Public Sub CancelBtnEvent()
-        LastScr.DuplicationBlock(LastScrOrgin)
+        LastScr.DuplicationBlock(LastScrOrigin)
 
 
         TEGUIPage.CloseEditWindow()

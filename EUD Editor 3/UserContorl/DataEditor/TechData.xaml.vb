@@ -4,7 +4,7 @@
 
         Tech_Data.ReLoad(DatFiles, ObjectID)
         RequireUseData.ReLoad(DatFiles, ObjectID, True)
-        RequireReserachData.ReLoad(DatFiles, ObjectID)
+        RequireResearchData.ReLoad(DatFiles, ObjectID)
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.techdata, ObjectID)
     End Sub
@@ -19,10 +19,10 @@
 
         Tech_Data = New Tech_Data(tObjectID)
         RequireUseData = New RequireData(SCDatFiles.DatFiles.techdata, tObjectID, True)
-        RequireReserachData = New RequireData(SCDatFiles.DatFiles.techdata, tObjectID)
+        RequireResearchData = New RequireData(SCDatFiles.DatFiles.techdata, tObjectID)
 
-        Defualt.Content = Tech_Data
-        ReserachRequir.Content = RequireReserachData
+        _Default.Content = Tech_Data
+        ResearchRequir.Content = RequireResearchData
         UseRequir.Content = RequireUseData
 
         TypeListBox.DataContext = pjData.BindingManager.UIManager(SCDatFiles.DatFiles.techdata, tObjectID)
@@ -30,7 +30,7 @@
 
     Private Tech_Data As Tech_Data
     Private RequireUseData As RequireData
-    Private RequireReserachData As RequireData
+    Private RequireResearchData As RequireData
 
     Private Sub ListBox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
         MainTab.SelectedIndex = TypeListBox.SelectedIndex

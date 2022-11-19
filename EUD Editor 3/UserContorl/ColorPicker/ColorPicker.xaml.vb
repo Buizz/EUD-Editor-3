@@ -23,7 +23,7 @@
     Public Sub InitColor(color As Color)
         SVPanelDrag = False
 
-        FristColor.Background = New SolidColorBrush(color)
+        FirstColor.Background = New SolidColorBrush(color)
 
         R = color.R
         G = color.G

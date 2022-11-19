@@ -162,8 +162,8 @@ Public Class TECTPage
 
 
 
-    Private OpenStroyBoard As Storyboard
-    Private CloseStroyBoard As Storyboard
+    Private OpenStoryBoard As Storyboard
+    Private CloseStoryBoard As Storyboard
     Private Sub AnimationInit()
         If True Then
             Dim scale1 As ScaleTransform = New ScaleTransform(1, 1)
@@ -188,10 +188,10 @@ Public Class TECTPage
             myOpacityAnimation.To = 1.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
-            OpenStroyBoard = New Storyboard()
-            OpenStroyBoard.Children.Add(myOpacityAnimation)
-            OpenStroyBoard.Children.Add(myWidthAnimation)
-            OpenStroyBoard.Children.Add(myHeightAnimation)
+            OpenStoryBoard = New Storyboard()
+            OpenStoryBoard.Children.Add(myOpacityAnimation)
+            OpenStoryBoard.Children.Add(myWidthAnimation)
+            OpenStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, EditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -222,10 +222,10 @@ Public Class TECTPage
             myOpacityAnimation.To = 0.0
             myOpacityAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(100))
 
-            CloseStroyBoard = New Storyboard()
-            CloseStroyBoard.Children.Add(myOpacityAnimation)
-            CloseStroyBoard.Children.Add(myWidthAnimation)
-            CloseStroyBoard.Children.Add(myHeightAnimation)
+            CloseStoryBoard = New Storyboard()
+            CloseStoryBoard.Children.Add(myOpacityAnimation)
+            CloseStoryBoard.Children.Add(myWidthAnimation)
+            CloseStoryBoard.Children.Add(myHeightAnimation)
             Storyboard.SetTargetName(myOpacityAnimation, EditWindow.Name)
             Storyboard.SetTargetName(myWidthAnimation, InputDialog.Name)
             Storyboard.SetTargetName(myHeightAnimation, InputDialog.Name)
@@ -233,7 +233,7 @@ Public Class TECTPage
             Storyboard.SetTargetProperty(myHeightAnimation, New PropertyPath("RenderTransform.ScaleY"))
             Storyboard.SetTargetProperty(myWidthAnimation, New PropertyPath("RenderTransform.ScaleX"))
 
-            AddHandler CloseStroyBoard.Completed, Sub(sender As Object, e As EventArgs)
+            AddHandler CloseStoryBoard.Completed, Sub(sender As Object, e As EventArgs)
                                                       EditWindow.Visibility = Visibility.Hidden
                                                   End Sub
         End If

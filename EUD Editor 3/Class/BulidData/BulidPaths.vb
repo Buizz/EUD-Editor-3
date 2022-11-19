@@ -74,22 +74,22 @@
     End Property
     Public Shared ReadOnly Property EudPlibFilePath() As String
         Get
-            Return Tool.GetDirectoy(TempFloder & "\", "eudplibData")
+            Return Tool.GetDirectory(TempFloder & "\", "eudplibData")
         End Get
     End Property
     Public Shared ReadOnly Property TempFilePath() As String
         Get
-            Return Tool.GetDirectoy(TempFloder & "\", "temp")
+            Return Tool.GetDirectory(TempFloder & "\", "temp")
         End Get
     End Property
     Public Shared ReadOnly Property BackupFilePath() As String
         Get
-            Return Tool.GetDirectoy(TempFloder & "\", "backup")
+            Return Tool.GetDirectory(TempFloder & "\", "backup")
         End Get
     End Property
     Public Shared ReadOnly Property SoundFilePath() As String
         Get
-            Return Tool.GetDirectoy(TempFloder & "\", "sound")
+            Return Tool.GetDirectory(TempFloder & "\", "sound")
         End Get
     End Property
     Public Shared ReadOnly Property TempFloder() As String
@@ -99,13 +99,13 @@
                 Return Tool.GetDirectoy("Data\temp\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
             ElseIf pjData.TempFileLoc = "1" Then
                 '맵 폴더가 같을 경우
-                Return Tool.GetDirectoy(pjData.OpenMapdirectory & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                Return Tool.GetDirectory(pjData.OpenMapdirectory & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
 
             ElseIf pjData.TempFileLoc = "2" Then
                 '맵 폴더가 같을 경우
-                Return Tool.GetDirectoy(System.IO.Path.GetDirectoryName(pjData.Filename) & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                Return Tool.GetDirectory(System.IO.Path.GetDirectoryName(pjData.Filename) & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
             Else
-                Return Tool.GetDirectoy(pjData.TempFileLoc, "\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                Return Tool.GetDirectory(pjData.TempFileLoc, "\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
                 'If pjData.OpenMapdirectory = pjData.SaveMapdirectory And pjData.OpenMapdirectory = pjData.TempFileLoc Then
 
 

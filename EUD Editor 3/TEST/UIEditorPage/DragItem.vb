@@ -1,5 +1,5 @@
 ﻿Partial Public Class TreeviewExample
-    Private FristDragMove As Boolean = False
+    Private FirstDragMove As Boolean = False
     Private DragSelect As Boolean = False
 
     Private DragSelectItem As TreeViewItem
@@ -31,23 +31,23 @@
             DragSelectItem = sender
 
 
-            Log.Text = "한번 클릭함 : "
+            log.Text = "한번 클릭함 : "
             For i = 0 To SelectItems.Count - 1
-                Log.Text = Log.Text & SelectItems(i).Tag & ", "
+                log.Text = log.Text & SelectItems(i).Tag & ", "
             Next
-            Log.Text = Log.Text & vbCrLf & "현재 선택한 블럭 : " & sender.Tag & "  드래그 완료  IsTop : " & IsTop
+            log.Text = log.Text & vbCrLf & "현재 선택한 블럭 : " & sender.Tag & "  드래그 완료  IsTop : " & IsTop
 
         End If
     End Sub
     Private Sub MainTreeviewItme_PreviewMouseUp(sender As TreeViewItem, e As MouseEventArgs)
         If DragSelect Then
             If sender Is DragSelectItem Then
-                Log.Text = "한번 클릭함 : "
+                log.Text = "한번 클릭함 : "
 
                 For i = 0 To SelectItems.Count - 1
-                    Log.Text = Log.Text & SelectItems(i).Tag & ", "
+                    log.Text = log.Text & SelectItems(i).Tag & ", "
                 Next
-                Log.Text = Log.Text & vbCrLf & "현재 선택한 블럭 : " & DragSelectItem.Tag & "  드래그 완료  IsTop : " & IsTop
+                log.Text = log.Text & vbCrLf & "현재 선택한 블럭 : " & DragSelectItem.Tag & "  드래그 완료  IsTop : " & IsTop
 
                 If SelectItems.IndexOf(DragSelectItem) < 0 Then
                     '드래그 한 곳이 선택한 블럭이 아닐 경우!
@@ -89,9 +89,9 @@
 
     Private Sub MainTreeview_PreviewMouseMove(sender As Object, e As MouseEventArgs)
         If IsDrag Then
-            If Not FristDragMove Then
+            If Not FirstDragMove Then
                 CreateDragImage()
-                FristDragMove = True
+                FirstDragMove = True
                 DragSelect = False
             End If
             DragImage.Visibility = Visibility.Visible

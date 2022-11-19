@@ -199,8 +199,8 @@ Partial Public Class CodeEditor
                 Dim datindex As Integer = Datfilesname.ToList.IndexOf(dname)
                 If datindex <> -1 Then
                     If SCDatFiles.CheckValidDat(datindex) Then
-                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParamaterList.Count - 1
-                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetParamname
+                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParameterList.Count - 1
+                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetParamname
                             Paramname = Paramname.Replace(" ", "_")
                             strs.Add(Paramname)
                         Next
@@ -274,7 +274,7 @@ Partial Public Class CodeEditor
     End Function
 
 
-    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+    Public Function LoadData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgument As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
         'TrgAllyStatus
@@ -306,17 +306,17 @@ Partial Public Class CodeEditor
 
         Select Case FuncNameas
             Case "$S"
-                IsFirstArgumnet = True
+                IsFirstArgument = True
                 ArgumentType = "TrgSwitch"
             Case "$U"
-                IsFirstArgumnet = True
+                IsFirstArgument = True
                 ArgumentType = "TrgUnit"
             Case "$L"
-                IsFirstArgumnet = True
+                IsFirstArgument = True
                 ArgumentType = "TrgLocation"
         End Select
 
-        If IsFirstArgumnet Then
+        If IsFirstArgument Then
             Select Case ArgumentType
                 Case "TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder", "TrgPlayer",
                      "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState"
@@ -512,7 +512,7 @@ Partial Public Class CodeEditor
         Return data
     End Function
 
-    Public Function LoadMacroData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
+    Public Function LoadMacroData(TextEditor As ICSharpCode.AvalonEdit.TextEditor, cmpData As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), FuncNameas As String, ArgumentCount As Integer, IsFirstArgument As Boolean, LastStr As String) As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData)
         Dim data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData) = cmpData
 
 
@@ -525,23 +525,23 @@ Partial Public Class CodeEditor
                 Argument = func.ArgName(ArgumentCount).Trim
                 ArgumentType = func.ArgType(ArgumentCount).Trim
             End If
-            'MsgBox(Argument & "<" & ArgumentType & "," & IsFirstArgumnet)
+            'MsgBox(Argument & "<" & ArgumentType & "," & IsFirstArgument)
         End If
 
 
         Select Case FuncNameas
             Case "$S"
-                IsFirstArgumnet = True
+                IsFirstArgument = True
                 ArgumentType = "TrgSwitch"
             Case "$U"
-                IsFirstArgumnet = True
+                IsFirstArgument = True
                 ArgumentType = "TrgUnit"
             Case "$L"
-                IsFirstArgumnet = True
+                IsFirstArgument = True
                 ArgumentType = "TrgLocation"
         End Select
 
-        If IsFirstArgumnet Then
+        If IsFirstArgument Then
             Select Case ArgumentType
                 Case "TrgAllyStatus", "TrgComparison", "TrgCount", "TrgModifier", "TrgOrder", "TrgPlayer",
                      "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState"

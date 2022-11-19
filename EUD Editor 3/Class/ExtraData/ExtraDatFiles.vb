@@ -61,7 +61,7 @@ Public Class ExtraDatFiles
     Public Sub New()
         LoadStatusData()
         LoadWireFrame()
-        LoadButonSet()
+        LoadButtonSet()
         LoadReqdata()
 
         ToolTipDic = New Dictionary(Of SCDatFiles.DatFiles, List(Of String))
@@ -356,7 +356,7 @@ Public Class ExtraDatFiles
 
     Private _ButtonData As CButtonSets
 
-    Private Sub LoadButonSet()
+    Private Sub LoadButtonSet()
         ReDim _ButtonSet(SCButtonCount - 1)
         ReDim _DefaultButtonSet(SCButtonCount - 1)
 

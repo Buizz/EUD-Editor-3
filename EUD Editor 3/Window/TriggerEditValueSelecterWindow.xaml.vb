@@ -21,7 +21,7 @@ Public Class TriggerEditValueSelecterWindow
         ListboxPanel.Visibility = Visibility.Collapsed
         NumberPanel.Visibility = Visibility.Collapsed
         TrgStringPanel.Visibility = Visibility.Collapsed
-        TrgUnitPorpertyPanel.Visibility = Visibility.Collapsed
+        TrgUnitPropertyPanel.Visibility = Visibility.Collapsed
         VariablePanel.Visibility = Visibility.Collapsed
         FunctionPanel.Visibility = Visibility.Collapsed
         FormatStringPanel.Visibility = Visibility.Collapsed
@@ -439,7 +439,7 @@ Public Class TriggerEditValueSelecterWindow
 
                 UPorperty.ResetValue(tCode.Args(ArgIndex).ValueString)
 
-                TrgUnitPorpertyPanel.Visibility = Visibility.Visible
+                TrgUnitPropertyPanel.Visibility = Visibility.Visible
             Case "WAVName", "BGM", "EUDScore", "SupplyType", "UnitsDat", "WeaponsDat",
                  "FlingyDat", "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat",
                  "TrgAIScript", "TrgSwitch", "TrgAllyStatus", "TrgComparison", "TrgModifier",

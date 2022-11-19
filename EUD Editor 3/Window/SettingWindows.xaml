@@ -184,7 +184,7 @@
                 </StackPanel>
             </TabItem>
             <TabItem x:Name="ThemePage" Header="{StaticResource Theme}">
-                <local:ThemeContorl/>
+                <local:ThemeControl/>
             </TabItem>
 
             <TabItem x:Name="EditorPage" Header="{StaticResource Editor Setting}" >

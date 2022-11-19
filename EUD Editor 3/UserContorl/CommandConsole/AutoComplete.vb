@@ -1,8 +1,8 @@
 ﻿Partial Public Class ConsoleTextbox
     Private Sub LoadAutocmp(data As IList(Of ICSharpCode.AvalonEdit.CodeCompletion.ICompletionData), funcname As String, argumentindex As Integer, str As String)
-        Dim ArgumentDefien As String = LuaManager.GetArgumentDefine(funcname, argumentindex)
+        Dim ArgumentDefine As String = LuaManager.GetArgumentDefine(funcname, argumentindex)
 
-        Select Case ArgumentDefien
+        Select Case ArgumentDefine
             Case "datfile"
                 Dim DatFileList() As String = {"units", "weapons", "flingy", "sprites", "images", "upgrades", "techdata", "orders",
                     "wireframe", "buttonSet", "statusinfor"}
@@ -19,8 +19,8 @@
                 Dim datindex As Integer = Datfilesname.ToList.IndexOf(fvalue)
                 If datindex <> -1 Then
                     If SCDatFiles.CheckValidDat(datindex) Then
-                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParamaterList.Count - 1
-                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParamaterList(i).GetParamname
+                        For i = 0 To pjData.Dat.GetDatFile(datindex).ParameterList.Count - 1
+                            Dim Paramname As String = pjData.Dat.GetDatFile(datindex).ParameterList(i).GetParamname
                             Paramname = Paramname.Replace(" ", "_")
                             data.Add(New DataEditCompletionData(Paramname, Tool.TextColorBlock(Datfilesname(datindex) & " " & Paramname), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
                         Next
@@ -66,8 +66,8 @@
                 Next
 
 
-                For i = 0 To LuaManager.Propertys.Count - 1
-                    data.Add(New DataEditCompletionData(LuaManager.Propertys(i), LuaManager.PropertyToolTips(i), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
+                For i = 0 To LuaManager.Properties.Count - 1
+                    data.Add(New DataEditCompletionData(LuaManager.Properties(i), LuaManager.PropertyToolTips(i), ConsoleText, DataEditCompletionData.EIconType.SettingValue))
                 Next
                 For i = 0 To LuaManager.LuaKeyWord.Count - 1
                     data.Add(New DataEditCompletionData(LuaManager.LuaKeyWord(i), Nothing, ConsoleText, DataEditCompletionData.EIconType.KeyWord))
@@ -82,9 +82,9 @@
         Dim tstr As String = func.Split("(").Last
         tstr = tstr.Replace(")", "")
 
-        Dim argmentsv As String() = tstr.Split(",")
-        If argmentsv.Count > argindex Then
-            Return argmentsv(argindex).Replace("""", "")
+        Dim argumentsv As String() = tstr.Split(",")
+        If argumentsv.Count > argindex Then
+            Return argumentsv(argindex).Replace("""", "")
         Else
             Return ""
         End If

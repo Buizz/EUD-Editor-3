@@ -200,7 +200,7 @@ Public Class SCDatFiles
 
         Private FIleName As String 'ex sprites
         Private Paramaters As List(Of CParamater)
-        Public ReadOnly Property ParamaterList As List(Of CParamater)
+        Public ReadOnly Property ParameterList As List(Of CParamater)
             Get
                 Return Paramaters
             End Get

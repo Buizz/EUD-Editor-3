@@ -277,15 +277,15 @@ Namespace Tool
             Return TextBlcck
         End Function
 
-        Public Function ParamaterParser(PName As String, Datname As String) As String
-            If ParamaterList.IndexOf(PName) >= 0 Then
+        Public Function ParameterParser(PName As String, Datname As String) As String
+            If ParameterList.IndexOf(PName) >= 0 Then
                 Return PName
             End If
 
-            For i = 0 To ParamaterList.Count - 1
+            For i = 0 To ParameterList.Count - 1
                 'MsgBox(GetText(ParamaterList(i)) & " " & PName)
-                If GetText(Datname & "_" & ParamaterList(i)) = PName Then
-                    Return ParamaterList(i)
+                If GetText(Datname & "_" & ParameterList(i)) = PName Then
+                    Return ParameterList(i)
                 End If
             Next
 
@@ -294,7 +294,7 @@ Namespace Tool
         End Function
 
 
-        Private ParamaterList As List(Of String)
+        Private ParameterList As List(Of String)
         Private OffsetDic As Dictionary(Of String, UInteger)
         Public Function GetOffset(dat As SCDatFiles.DatFiles, ParamName As String) As UInteger
             Return OffsetDic(Datfilesname(dat) & "_" & ParamName)
@@ -303,7 +303,7 @@ Namespace Tool
             Return OffsetDic(FullName)
         End Function
         Private Sub OffsetDicInit()
-            ParamaterList = New List(Of String)
+            ParameterList = New List(Of String)
             OffsetDic = New Dictionary(Of String, UInteger)
             Dim fs As New FileStream(OffsetPath, FileMode.Open)
             Dim sr As New StreamReader(fs)
@@ -316,7 +316,7 @@ Namespace Tool
 
                 OffsetDic.Add(Key, Value)
                 If Key.IndexOf("_") <> -1 Then
-                    ParamaterList.Add(Key.Split("_")(1))
+                    ParameterList.Add(Key.Split("_")(1))
                 End If
             End While
 
@@ -774,7 +774,7 @@ Namespace Tool
 
             Return BaseDirectPath & Path
         End Function
-        Public Function GetDirectoy(BaseDirect As String, Path As String) As String
+        Public Function GetDirectory(BaseDirect As String, Path As String) As String
             Dim BaseDirectPath As String = BaseDirect
             Dim PathBlock() As String = Path.Split("\")
 
@@ -872,8 +872,8 @@ Namespace Tool
             p.Start()
         End Sub
 
-        Public Function CheckexeConnect(Extention As String) As Boolean
-            Dim RegistryKeys As String = My.Computer.Registry.GetValue("HKEY_CLASSES_ROOT\" & Extention & "\shell\open\command", Nothing, "")
+        Public Function CheckexeConnect(Extension As String) As Boolean
+            Dim RegistryKeys As String = My.Computer.Registry.GetValue("HKEY_CLASSES_ROOT\" & Extension & "\shell\open\command", Nothing, "")
             If RegistryKeys Is Nothing Then
                 Return True
             End If

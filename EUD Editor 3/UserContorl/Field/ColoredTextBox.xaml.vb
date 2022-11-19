@@ -32,7 +32,7 @@ Public Class ColoredTextBox
         Texts.FontSize = 12.0
 
 
-        Dim FristChar As String = StringTool.GetCharAt(0, text)
+        Dim FirstStr As String = StringTool.GetCharAt(0, text)
         Dim SecondChar As String = StringTool.GetCharAt(1, text)
 
         Dim Flag As Boolean = False

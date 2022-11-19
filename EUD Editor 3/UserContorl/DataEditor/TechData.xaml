@@ -26,10 +26,10 @@
             <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
                      Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
                      >
-                <TabItem x:Name="Defualt" Header="{StaticResource DefaultInfor}" >
+                <TabItem x:Name="_Default" Header="{StaticResource DefaultInfor}" >
 
                 </TabItem>
-                <TabItem x:Name="ReserachRequir" Header="{StaticResource TechReserachRequir}">
+                <TabItem x:Name="ResearchRequir" Header="{StaticResource TechReserachRequir}">
 
                 </TabItem>
                 <TabItem x:Name="UseRequir" Header="{StaticResource TechUseRequir}">

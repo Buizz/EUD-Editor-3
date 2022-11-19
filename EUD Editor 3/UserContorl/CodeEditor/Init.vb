@@ -149,8 +149,8 @@ Partial Public Class CodeEditor
     End Enum
 
 
-    Private OrginXPos As Integer
-    Private OrginYPos As Integer
+    Private OriginXPos As Integer
+    Private OriginYPos As Integer
     Private Function ShowFuncTooltip(FuncName As String, ArgumentIndex As Integer, Startindex As Integer, Optional IsMacro As Boolean = False) As Boolean
         Dim funArgument As Border = Nothing
 
@@ -272,9 +272,9 @@ Partial Public Class CodeEditor
             'ToltipBorder.Child = funArgument
             ' m_toolTip.Content = funArgument
             If PopupToolTip.Visibility = Visibility.Hidden Then
-                Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
+                Dim StartPosition As TextViewPosition = TextEditor.TextArea.Caret.Position
                 'MsgBox(StartPostion.VisualColumn)
-                StartPostion.VisualColumn -= Startindex
+                StartPosition.VisualColumn -= Startindex
                 'MsgBox(StartPostion.VisualColumn)
 
                 'If StartPostion.Line > 1 Then
@@ -282,9 +282,9 @@ Partial Public Class CodeEditor
                 'End If
 
 
-                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
-                OrginXPos = p.X + 36
-                OrginYPos = p.Y - 5 - TextEditor.VerticalOffset
+                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPosition, Rendering.VisualYPosition.LineTop)
+                OriginXPos = p.X + 36
+                OriginYPos = p.Y - 5 - TextEditor.VerticalOffset
                 'ToltipBorder.Margin = New Thickness(p.X + 36, p.Y - 5 - TextEditor.VerticalOffset, 0, 0)
                 TooltipShow()
 
@@ -324,29 +324,29 @@ Partial Public Class CodeEditor
     Private Sub MoveToolTipBox()
         If PopupToolTip.Visibility = Visibility.Visible Then
             If completionWindow IsNot Nothing Then
-                PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
+                PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OriginXPos
+                PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OriginYPos - (PopupToolTip.ActualHeight - 4)
 
-                Dim StartPostion As TextViewPosition = TextEditor.TextArea.Caret.Position
-                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPostion, Rendering.VisualYPosition.LineTop)
+                Dim StartPosition As TextViewPosition = TextEditor.TextArea.Caret.Position
+                Dim p As Point = TextEditor.TextArea.TextView.GetVisualPosition(StartPosition, Rendering.VisualYPosition.LineTop)
 
                 Dim CaretPos As Integer = p.Y - TextEditor.VerticalOffset
                 Dim copPos As Integer = completionWindow.Top - TextEditor.PointToScreen(New Point(0, 0)).Y
 
                 If CaretPos > copPos Then
-                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos + 23
+                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OriginXPos
+                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OriginYPos + 23
                     'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos + 23, 0, 0)
                 Else
-                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
+                    PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OriginXPos
+                    PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OriginYPos - (PopupToolTip.ActualHeight - 4)
                     'ToltipBorder.Margin = New Thickness(ToltipBorder.Margin.Left, OrginYPos - (ToltipBorder.ActualHeight - 4), 0, 0)
                 End If
 
 
             Else
-                PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OrginXPos
-                PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OrginYPos - (PopupToolTip.ActualHeight - 4)
+                PopupToolTip.Left = -TextEditor.PointFromScreen(New Point(0, 0)).X + OriginXPos
+                PopupToolTip.Top = -TextEditor.PointFromScreen(New Point(0, 0)).Y + OriginYPos - (PopupToolTip.ActualHeight - 4)
             End If
         End If
     End Sub
@@ -375,7 +375,7 @@ Partial Public Class CodeEditor
         End If
     End Sub
 
-    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgumnet As Boolean, Optional Flag As SpecialFlag = SpecialFlag.None)
+    Private Sub ShowCompletion(ByVal enteredText As String, ByVal controlSpace As Boolean, LastStr As String, FuncNameas As String, ArgumentCount As Integer, IsFirstArgument As Boolean, Optional Flag As SpecialFlag = SpecialFlag.None)
         If completionWindow Is Nothing Then
             If Char.IsLetterOrDigit(enteredText) Or enteredText = "_" Or enteredText = "/" Then
                 completionWindow = New CustomCompletionWindow(TextEditor.TextArea)
@@ -402,7 +402,7 @@ Partial Public Class CodeEditor
 
                 Select Case Flag
                     Case SpecialFlag.None
-                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
+                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgument, LastStr)
                     Case SpecialFlag.IsFuncNameWrite
                         LoadFuncNameData(TextEditor, completionWindow.CompletionList.CompletionData)
                     Case SpecialFlag.IsFuncDefWrite
@@ -412,7 +412,7 @@ Partial Public Class CodeEditor
                     Case SpecialFlag.Extern
                         LoaddotData(TextEditor, completionWindow.CompletionList.CompletionData, LastStr)
                     Case SpecialFlag.lnlineCode
-                        LoadMacroData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
+                        LoadMacroData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgument, LastStr)
                 End Select
 
                 'If results.TriggerWordLength > 0 Then
@@ -445,7 +445,7 @@ Partial Public Class CodeEditor
                     'completionWindow.Close()
                     completionWindowHide()
                 End If
-            ElseIf enteredText = " " Or enteredText = vbTab Or enteredText = "," Or enteredText = "(" Or enteredText = "." Then 'IsFirstArgumnet And FuncNameas.Trim <> "" Then '
+            ElseIf enteredText = " " Or enteredText = vbTab Or enteredText = "," Or enteredText = "(" Or enteredText = "." Then 'IsFirstArgument And FuncNameas.Trim <> "" Then '
                 completionWindow = New CustomCompletionWindow(TextEditor.TextArea)
                 completionWindow.CloseWhenCaretAtBeginning = controlSpace
 
@@ -457,7 +457,7 @@ Partial Public Class CodeEditor
 
                 Select Case Flag
                     Case SpecialFlag.None
-                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
+                        LoadData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgument, LastStr)
                     Case SpecialFlag.IsFuncNameWrite
                         LoadFuncNameData(TextEditor, completionWindow.CompletionList.CompletionData)
                     Case SpecialFlag.IsFuncDefWrite
@@ -467,7 +467,7 @@ Partial Public Class CodeEditor
                     Case SpecialFlag.Extern
                         LoaddotData(TextEditor, completionWindow.CompletionList.CompletionData, LastStr)
                     Case SpecialFlag.lnlineCode
-                        LoadMacroData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgumnet, LastStr)
+                        LoadMacroData(TextEditor, completionWindow.CompletionList.CompletionData, FuncNameas, ArgumentCount, IsFirstArgument, LastStr)
                 End Select
 
 

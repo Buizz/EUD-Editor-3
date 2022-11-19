@@ -436,7 +436,7 @@ Public Class DatBinding
     Public Class FlagBinding
         Implements INotifyPropertyChanged
 
-        Private ParrentBinding As DatBinding
+        Private ParentBinding As DatBinding
 
         Private Datfile As SCDatFiles.DatFiles
         Private Parameter As String
@@ -445,8 +445,8 @@ Public Class DatBinding
 
         Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
-        Public Sub New(tParrentBinding As DatBinding, tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer, tFlagIndex As Integer)
-            ParrentBinding = tParrentBinding
+        Public Sub New(tParentBinding As DatBinding, tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer, tFlagIndex As Integer)
+            ParentBinding = tParentBinding
 
             Datfile = tDatfile
             Parameter = tParameter
@@ -493,7 +493,7 @@ Public Class DatBinding
 
                     pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
 
-                    ParrentBinding.PropertyChangedPack()
+                    ParentBinding.PropertyChangedPack()
                     PropertyChangedPack()
                 End If
 

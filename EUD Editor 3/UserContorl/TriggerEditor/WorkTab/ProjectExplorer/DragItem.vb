@@ -1,6 +1,6 @@
 ﻿Partial Public Class ProjectExplorer
     Private DragMoving As Point
-    Private FristDragMove As Boolean = False
+    Private FirstDragMove As Boolean = False
     Private DragSelect As Boolean = False
 
     Private DragSelectItem As TreeViewItem
@@ -95,7 +95,7 @@
         If IsDrag Then
             If Not CheckDragable() Or Not IsSelect Then
                 IsDrag = False
-                FristDragMove = False
+                FirstDragMove = False
                 DragImage.Visibility = Visibility.Collapsed
             End If
 
@@ -174,15 +174,15 @@
         If IsDrag Then
             If Not CheckDragable() Or Not IsSelect Then
                 IsDrag = False
-                FristDragMove = False
+                FirstDragMove = False
                 DragImage.Visibility = Visibility.Collapsed
                 Exit Sub
             End If
 
 
-            If Not FristDragMove Then
+            If Not FirstDragMove Then
                 CreateDragImage()
-                FristDragMove = True
+                FirstDragMove = True
                 DragSelect = False
             End If
             DragImage.Visibility = Visibility.Visible

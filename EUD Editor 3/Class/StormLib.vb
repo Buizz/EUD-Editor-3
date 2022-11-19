@@ -1,6 +1,6 @@
 ﻿Imports System.Runtime.InteropServices
 
-Module MPQMoudle
+Module MPQModule
     Public Class SFmpq
         ' General error codes
         Const MPQ_ERROR_MPQ_INVALID As UInteger = 2233466981
