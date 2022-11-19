@@ -436,7 +436,7 @@ Public Class DatBinding
     Public Class FlagBinding
         Implements INotifyPropertyChanged
 
-        Private ParentBinding As DatBinding
+        Private ParrentBinding As DatBinding
 
         Private Datfile As SCDatFiles.DatFiles
         Private Parameter As String
@@ -445,8 +445,8 @@ Public Class DatBinding
 
         Public Event PropertyChanged As PropertyChangedEventHandler Implements INotifyPropertyChanged.PropertyChanged
 
-        Public Sub New(tParentBinding As DatBinding, tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer, tFlagIndex As Integer)
-            ParentBinding = tParentBinding
+        Public Sub New(tParrentBinding As DatBinding, tDatfile As SCDatFiles.DatFiles, tParameter As String, tObjectID As Integer, tFlagIndex As Integer)
+            ParrentBinding = tParrentBinding
 
             Datfile = tDatfile
             Parameter = tParameter
@@ -493,7 +493,7 @@ Public Class DatBinding
 
                     pjData.Dat.Values(Datfile, Parameter, ObjectID).IsDefault = False
 
-                    ParentBinding.PropertyChangedPack()
+                    ParrentBinding.PropertyChangedPack()
                     PropertyChangedPack()
                 End If
 
@@ -526,7 +526,7 @@ Public Class DatBinding
 
                 If Not IsDefault Then
                     If (flag <> Trueflag) Then '수정된 값일 경우
-                        Return New SolidColorBrush(pgData.FiledFlagColor)
+                        Return New SolidColorBrush(pgData.FiledFalgColor)
                     Else
                         If flag Then
                             Return New SolidColorBrush(pgData.FiledMapEditColor)

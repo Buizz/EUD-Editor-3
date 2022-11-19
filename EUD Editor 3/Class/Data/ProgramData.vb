@@ -72,7 +72,7 @@ Public Class ProgramData
     Public Property PFiledDefault As Color
     Public Property PFiledEditColor As Color
     Public Property PFiledMapEditColor As Color
-    Public Property PFiledFlagColor As Color
+    Public Property PFiledFalgColor As Color
 
     Private DarkBackGroundColor As Color = Color.FromRgb(48, 48, 48)
     Private LightBackGroundColor As Color = Color.FromRgb(255, 255, 255)
@@ -115,12 +115,12 @@ Public Class ProgramData
             End If
         End Get
     End Property
-    Public ReadOnly Property FiledFlagColor As Color
+    Public ReadOnly Property FiledFalgColor As Color
         Get
             If Setting(TSetting.Theme) = "Dark" Then
-                Return colorConbersion(PFiledFlagColor, DarkBackGroundColor)
+                Return colorConbersion(PFiledFalgColor, DarkBackGroundColor)
             ElseIf Setting(TSetting.Theme) = "Light" Then
-                Return colorConbersion(PFiledFlagColor, LightBackGroundColor)
+                Return colorConbersion(PFiledFalgColor, LightBackGroundColor)
             End If
         End Get
     End Property
@@ -138,14 +138,14 @@ Public Class ProgramData
         pgsetting = New IniClass(Tool.GetSettingFile)
 
         Try
-            Dim bool As Boolean = Setting(ProgramData.TSetting.CDLanguageChange)
+            Dim bool As Boolean = Setting(ProgramData.TSetting.CDLanuageChange)
         Catch ex As Exception
-            Setting(ProgramData.TSetting.CDLanguageChange) = True
+            Setting(ProgramData.TSetting.CDLanuageChange) = True
         End Try
         Try
-            Dim uint As UInt32 = Setting(ProgramData.TSetting.CDLanguage)
+            Dim uint As UInt32 = Setting(ProgramData.TSetting.CDLanuage)
         Catch ex As Exception
-            Setting(ProgramData.TSetting.CDLanguage) = 0
+            Setting(ProgramData.TSetting.CDLanuage) = 0
         End Try
 
         Try
@@ -222,7 +222,7 @@ Public Class ProgramData
         starcraft = 1
         Language = 2
         Theme = 3
-        CDLanguage = 4
+        CDLanuage = 4
 
         PrimaryHueLightBrush = 5
         PrimaryHueLightForegroundBrush = 6
@@ -238,7 +238,7 @@ Public Class ProgramData
 
         EditedData = 15
         CheckedData = 16
-        CDLanguageChange = 17
+        CDLanuageChange = 17
         DataEditorTopMost = 18
         CheckReg = 19
 
@@ -259,10 +259,10 @@ Public Class ProgramData
         TestCodeEditorUse = 31
         TECEUseSmoothScrool = 32
     End Enum
-    Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Language", "Theme", "CDLanguage",
+    Private settingstr() As String = {"euddraft.exe", "StarCraft.exe", "Lanuage", "Theme", "CDLanuage",
     "PrimaryHueLightBrush", "PrimaryHueLightForegroundBrush", "PrimaryHueMidBrush", "PrimaryHueMidForegroundBrush", "PrimaryHueDarkBrush",
     "PrimaryHueDarkForegroundBrush", "SecondaryAccentBrush", "SecondaryAccentForegroundBrush", "DefaultData", "MapEditorData",
-    "EditedData", "CheckedData", "CDLanguageChange", "DataEditorTopMost", "CheckReg",
+    "EditedData", "CheckedData", "CDLanuageChange", "DataEditorTopMost", "CheckReg",
     "TriggerEditrTopMost", "PluginSettingTopMost", "CheckUpdate", "Graphic", "TEFontSize", "SavePath", "OpenPath", "SaveMapPath", "OpenMapPath", "DonateMsg", "MuteSound",
     "TestCodeEditorUse", "TECEUseSmoothScrool"}
     Public Property Setting(key As TSetting) As String
@@ -277,7 +277,7 @@ Public Class ProgramData
         Setting(ProgramData.TSetting.DefaultData) = pgData.PFiledDefault.ToString()
         Setting(ProgramData.TSetting.MapEditorData) = pgData.PFiledMapEditColor.ToString()
         Setting(ProgramData.TSetting.EditedData) = pgData.PFiledEditColor.ToString()
-        Setting(ProgramData.TSetting.CheckedData) = pgData.PFiledFlagColor.ToString()
+        Setting(ProgramData.TSetting.CheckedData) = pgData.PFiledFalgColor.ToString()
 
 
 

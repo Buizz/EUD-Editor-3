@@ -121,7 +121,7 @@ Public Class TriggerManager
 
             nTF.FName = func.Fname
             nTF.FSummary = func.Fcomment
-            nTF.FGroup = func.LuaGroup
+            nTF.FGruop = func.LuaGroup
 
             nTF.FType = TriggerFunction.EFType.Lua
 
@@ -337,7 +337,7 @@ Public Class TriggerManager
                 tfun.FType = _FType
             End If
             If _Group <> "" Then
-                tfun.FGroup = _Group
+                tfun.FGruop = _Group
             End If
 
 
@@ -361,7 +361,7 @@ Public Class TriggerManager
                 tfun.FType = _FType
             End If
             If _Group <> "" Then
-                tfun.FGroup = _Group
+                tfun.FGruop = _Group
             End If
 
             If tfun IsNot Nothing Then
@@ -517,7 +517,7 @@ Public Class TriggerFunction
                                 rTrg.FType = EFType.Action
                         End Select
                     ElseIf IsGroup Then
-                        rTrg.FGroup = tstr
+                        rTrg.FGruop = tstr
                     End If
 
                     If lan = pgData.Setting(ProgramData.TSetting.Language) Then
@@ -559,7 +559,7 @@ Public Class TriggerFunction
     Public FSummary As String = ""
     Public FName As String = ""
 
-    Public FGroup As String = ""
+    Public FGruop As String = ""
 
     Public ReadOnly Property IsVariableArgument As Boolean
         Get

@@ -1032,10 +1032,10 @@ PRIUse:
 
 
 
-                        Dim declare As ScriptBlock = GetScriptBlock(tcode.Items(0)) '선언문
+                        Dim declar As ScriptBlock = GetScriptBlock(tcode.Items(0)) '선언문
                         Dim cond As ScriptBlock = GetScriptBlock(tcode.Items(1)) '조건문
                         Dim oper As ScriptBlock = GetScriptBlock(tcode.Items(2)) '연산자
-                        declarstr = declare.ValueCoder
+                        declarstr = declar.ValueCoder
                         condstr = cond.ValueCoder
                         operstr = oper.ValueCoder
 

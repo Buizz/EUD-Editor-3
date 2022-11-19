@@ -232,27 +232,27 @@
 
 
 
-    Public Function DatOffset(DatName As String, Parameter As String) As String
+    Public Function DatOffset(DatName As String, Paramater As String) As String
         Dim datfile As SCDatFiles.DatFiles = pjData.Dat.GetDatFileE(DatName)
 
-        Parameter = Parameter.Replace("_", " ").Trim
+        Paramater = Paramater.Replace("_", " ").Trim
 
-        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarStart)
-        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.Size)
-        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarArray)
+        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarStart)
+        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.Size)
+        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarArray)
 
-        Dim offset As String = "0x" & Hex(Tool.GetOffset(datfile, Parameter)).ToUpper()
+        Dim offset As String = "0x" & Hex(Tool.GetOffset(datfile, Paramater)).ToUpper()
         Return offset
     End Function
-    Public Function GetDatFile(DatName As String, Parameter As String, index As String) As String
-        Dim offset As String = DatOffset(DatName, Parameter)
+    Public Function GetDatFile(DatName As String, Paramater As String, index As String) As String
+        Dim offset As String = DatOffset(DatName, Paramater)
         Dim datfile As SCDatFiles.DatFiles = pjData.Dat.GetDatFileE(DatName)
 
-        Parameter = Parameter.Replace("_", " ").Trim
+        Paramater = Paramater.Replace("_", " ").Trim
 
-        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarStart)
-        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.Size)
-        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarArray)
+        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarStart)
+        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.Size)
+        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarArray)
 
 
         Dim AddOffset As String
@@ -278,15 +278,15 @@
 
         Return action
     End Function
-    Public Function SetDatFile(DatName As String, Parameter As String, index As String, Value As String, Modifier As String) As String
-        Dim offset As String = DatOffset(DatName, Parameter)
+    Public Function SetDatFile(DatName As String, Paramater As String, index As String, Value As String, Modifier As String) As String
+        Dim offset As String = DatOffset(DatName, Paramater)
         Dim datfile As SCDatFiles.DatFiles = pjData.Dat.GetDatFileE(DatName)
 
-        Parameter = Parameter.Replace("_", " ").Trim
+        Paramater = Paramater.Replace("_", " ").Trim
 
-        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarStart)
-        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.Size)
-        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarArray)
+        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarStart)
+        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.Size)
+        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarArray)
 
 
         Dim AddOffset As String
@@ -383,12 +383,12 @@
 
         Return action
     End Function
-    Public Function ConditionDatFile(DatName As String, Parameter As String, index As String, Value As String, Modifier As String) As String
-        Dim offset As String = DatOffset(DatName, Parameter)
+    Public Function ConditionDatFile(DatName As String, Paramater As String, index As String, Value As String, Modifier As String) As String
+        Dim offset As String = DatOffset(DatName, Paramater)
         Dim datfile As SCDatFiles.DatFiles = pjData.Dat.GetDatFileE(DatName)
-        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarStart)
-        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.Size)
-        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarArray)
+        Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarStart)
+        Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.Size)
+        Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Paramater, SCDatFiles.EParamInfo.VarArray)
 
 
         Dim AddOffset As String

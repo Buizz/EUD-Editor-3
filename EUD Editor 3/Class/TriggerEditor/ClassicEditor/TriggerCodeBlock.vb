@@ -335,7 +335,7 @@ Public Class TriggerCodeBlock
         '함수를 지정
         FName = tfun.FName
         FType = tfun.FType
-        FGroup = tfun.FGroup
+        FGroup = tfun.FGruop
     End Sub
 
     Public Sub Refresh(_scripter As ScriptEditor)

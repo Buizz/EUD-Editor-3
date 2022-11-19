@@ -13,25 +13,25 @@ Partial Public Class BuildData
 
         '기본 Dat파일 저장
         For DatFile = 0 To SCDatFiles.DatFiles.orders
-            For Pindex = 0 To pjData.Dat.DatFileList(DatFile).ParameterList.Count - 1
-                Dim ParameterData As SCDatFiles.CDatFile.CParameter = pjData.Dat.DatFileList(DatFile).ParameterList(Pindex)
+            For Pindex = 0 To pjData.Dat.DatFileList(DatFile).ParamaterList.Count - 1
+                Dim ParamaterData As SCDatFiles.CDatFile.CParamater = pjData.Dat.DatFileList(DatFile).ParamaterList(Pindex)
 
-                If Not ParameterData.GetInfo(SCDatFiles.EParamInfo.IsEnabled) Then
+                If Not ParamaterData.GetInfo(SCDatFiles.EParamInfo.IsEnabled) Then
                     Continue For
                 End If
-                Dim Parameter As String = ParameterData.GetParamname
+                Dim Parameter As String = ParamaterData.GetParamname
                 Dim Offset As UInteger = Tool.GetOffset(DatFile, Parameter)
-                Dim Size As Byte = ParameterData.GetInfo(SCDatFiles.EParamInfo.Size)
-                Dim Length As Byte = Size * ParameterData.GetInfo(SCDatFiles.EParamInfo.VarArray)
+                Dim Size As Byte = ParamaterData.GetInfo(SCDatFiles.EParamInfo.Size)
+                Dim Length As Byte = Size * ParamaterData.GetInfo(SCDatFiles.EParamInfo.VarArray)
 
 
-                For ObjectID = 0 To ParameterData.GetValueCount - 1
-                    If (Not ParameterData.PureData(ObjectID).Enabled) Or
-                        ParameterData.PureData(ObjectID).IsDefault Then
+                For ObjectID = 0 To ParamaterData.GetValueCount - 1
+                    If (Not ParamaterData.PureData(ObjectID).Enabled) Or
+                        ParamaterData.PureData(ObjectID).IsDefault Then
                         Continue For
                     End If
                     Dim OldValue As Long
-                    Dim NewValue As Long = ParameterData.PureData(ObjectID).Data
+                    Dim NewValue As Long = ParamaterData.PureData(ObjectID).Data
                     Dim CurrentValue As Long
                     Dim CalOffset As UInteger = Offset + ObjectID * Length
                     Dim ByteShift As Byte = CalOffset Mod 4
@@ -40,12 +40,12 @@ Partial Public Class BuildData
 
                     Try
                         If pjData.MapData.DatFile.GetDatFile(DatFile).GetParamValue(Parameter, ObjectID).IsDefault Then '맵 데이터가 없을 경우
-                            OldValue = scData.DefaultDat.GetDatFile(DatFile).ParameterList(Pindex).PureData(ObjectID).Data
+                            OldValue = scData.DefaultDat.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
                         Else
-                            OldValue = pjData.MapData.DatFile.GetDatFile(DatFile).ParameterList(Pindex).PureData(ObjectID).Data
+                            OldValue = pjData.MapData.DatFile.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
                         End If
                     Catch ex As Exception
-                        OldValue = scData.DefaultDat.GetDatFile(DatFile).ParameterList(Pindex).PureData(ObjectID).Data
+                        OldValue = scData.DefaultDat.GetDatFile(DatFile).ParamaterList(Pindex).PureData(ObjectID).Data
                     End Try
 
 
@@ -57,11 +57,11 @@ Partial Public Class BuildData
 
                     'Select Case Size
                     '    Case 4
-                    '        sb.Append("    f_dwwrite_epd(EPD(0x" & Hex(Offset + ObjectID * Length).ToUpper & ")," & ParameterData.PureData(ObjectID).Data & ")")
+                    '        sb.Append("    f_dwwrite_epd(EPD(0x" & Hex(Offset + ObjectID * Length).ToUpper & ")," & ParamaterData.PureData(ObjectID).Data & ")")
                     '    Case 2
-                    '        sb.Append("    f_wwrite_epd(EPD(0x" & Hex(Offset + ObjectID * Length).ToUpper & ")," & ParameterData.PureData(ObjectID).Data & ", " & (Offset + ObjectID * Length) Mod 4 & ")")
+                    '        sb.Append("    f_wwrite_epd(EPD(0x" & Hex(Offset + ObjectID * Length).ToUpper & ")," & ParamaterData.PureData(ObjectID).Data & ", " & (Offset + ObjectID * Length) Mod 4 & ")")
                     '    Case 1
-                    '        sb.Append("    f_bwrite_epd(EPD(0x" & Hex(Offset + ObjectID * Length).ToUpper & ")," & ParameterData.PureData(ObjectID).Data & ", " & (Offset + ObjectID * Length) Mod 4 & ")")
+                    '        sb.Append("    f_bwrite_epd(EPD(0x" & Hex(Offset + ObjectID * Length).ToUpper & ")," & ParamaterData.PureData(ObjectID).Data & ", " & (Offset + ObjectID * Length) Mod 4 & ")")
                     'End Select
 
 
@@ -107,9 +107,9 @@ Partial Public Class BuildData
         '와이어프레임, 버튼셋, 요구사항, 상태플래그
         WriteWireFrame(sb)
         Try
-            WriteStatusInfo(sb)
+            WriteStatusInfor(sb)
         Catch ex As Exception
-            Tool.ErrorMsgBox(Tool.GetText("Error WriteStatusInfo"), ex.ToString)
+            Tool.ErrorMsgBox(Tool.GetText("Error WriteStatusInfor"), ex.ToString)
         End Try
         WriteButtonSet(sb)
         sb.AppendLine("    inputData = open('" & Tool.GetRelativePath(EdsFilePath, requireFilePath).Replace("\", "/") & "', 'rb').read()")
@@ -119,7 +119,7 @@ Partial Public Class BuildData
         sb.AppendLine("    addrEPD = EPD(0x" & Hex(Tool.GetOffset("FG_ReqUnit")) & ")")
         sb.AppendLine("    f_repmovsd_epd(addrEPD, EPD(inputData_db), inputDwordN)")
 
-        'sb.AppendLine("    DoActions([ # RequireData 포인터 작성")
+        'sb.AppendLine("    DoActions([ # RequreData 포인터 작성")
         'sb.AppendLine("        SetMemory(0x" & Hex(Tool.GetOffset("Vanilla") + 500) & ", SetTo, 0x" & Hex(Tool.GetOffset("FG_ReqUnit")) & ")")
         'sb.AppendLine("    ])")
 
@@ -128,7 +128,7 @@ Partial Public Class BuildData
 
 
         sb.AppendLine("def beforeTriggerExec():")
-        WriteRequirement(sb)
+        WriteRequirment(sb)
         sb.AppendLine("    ")
         sb.AppendLine("")
 
@@ -149,7 +149,7 @@ Partial Public Class BuildData
     End Sub
 
 
-    Private Sub WriteStatusInfo(sb As StringBuilder)
+    Private Sub WriteStatusInfor(sb As StringBuilder)
         sb.AppendLine("    DoActions([ # 스테이터스인포메이션")
         For i = 0 To SCUnitCount - 1
             If Not pjData.ExtraDat.DefaultStatusFunction1(i) Then

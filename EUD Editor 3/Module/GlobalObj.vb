@@ -73,7 +73,7 @@ Module GlobalObj
 
 
 
-    Public Function InitProgramData() As Boolean
+    Public Function InitProgramDatas() As Boolean
         Try
             scData = New StarCraftData
         Catch ex As Exception
@@ -175,9 +175,9 @@ Module GlobalObj
 
         colorStr = pgData.Setting(ProgramData.TSetting.CheckedData)
         If colorStr Is Nothing Then
-            pgData.PFiledFlagColor = ColorConverter.ConvertFromString("#80FF8F6A")
+            pgData.PFiledFalgColor = ColorConverter.ConvertFromString("#80FF8F6A")
         Else
-            pgData.PFiledFlagColor = ColorConverter.ConvertFromString(colorStr)
+            pgData.PFiledFalgColor = ColorConverter.ConvertFromString(colorStr)
         End If
 
 

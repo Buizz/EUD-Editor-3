@@ -184,9 +184,9 @@ Public Class TextEditorWindow
 
 
 
-    Private Sub ColorInfo_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
-        If ColorInfo.SelectedItem IsNot Nothing Then
-            Dim ColorCode As Integer = ColorInfo.SelectedItem.Tag
+    Private Sub ColorInfor_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If ColorInfor.SelectedItem IsNot Nothing Then
+            Dim ColorCode As Integer = ColorInfor.SelectedItem.Tag
 
             Dim InsertString As String = "\x" & Hex(ColorCode).ToUpper.PadLeft(2, "0")
             EditTextbox.SelectedText = InsertString
@@ -195,7 +195,7 @@ Public Class TextEditorWindow
             EditTextbox.SelectionStart += len
 
 
-            ColorInfo.SelectedIndex = -1
+            ColorInfor.SelectedIndex = -1
             EditTextbox.Focus()
         End If
 
@@ -230,7 +230,7 @@ Public Class TextEditorWindow
         ListboxItems.Background = Brushes.Black
         ListboxItems.Content = ColoreTextbox
         ListboxItems.Height = 16
-        ColorInfo.Items.Add(ListboxItems)
+        ColorInfor.Items.Add(ListboxItems)
     End Sub
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         Close()

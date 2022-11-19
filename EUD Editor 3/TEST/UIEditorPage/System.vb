@@ -57,7 +57,7 @@
             If LastSelectItem IsNot Nothing Then '첫번째 선택 블록이 있을 경우
                 '현재 누른 아이템이 라스트샐랙트 아이템과 부모가 같은지 판단.
                 If LastSelectItem.Parent Is sender.Parent Then
-                    Dim RFirstSelectItem As TreeViewItem = LastSelectItem
+                    Dim RFristSelectItem As TreeViewItem = LastSelectItem
 
                     Dim ParentItemCollection As ItemCollection
                     If TypeOf LastSelectItem.Parent Is TreeView Then
@@ -67,17 +67,17 @@
                     End If
 
 
-                    Dim FirstSelectIndex As Integer = ParentItemCollection.IndexOf(LastSelectItem)
+                    Dim FristSelectIndex As Integer = ParentItemCollection.IndexOf(LastSelectItem)
                     Dim senderSelectIndex As Integer = ParentItemCollection.IndexOf(sender)
 
 
 
-                    If FirstSelectIndex > senderSelectIndex Then
-                        For i = senderSelectIndex To FirstSelectIndex
+                    If FristSelectIndex > senderSelectIndex Then
+                        For i = senderSelectIndex To FristSelectIndex
                             AddSelectItem(ParentItemCollection(i))
                         Next
                     Else
-                        For i = FirstSelectIndex To senderSelectIndex
+                        For i = FristSelectIndex To senderSelectIndex
                             AddSelectItem(ParentItemCollection(i))
                         Next
                     End If
@@ -124,7 +124,7 @@
         Next
 
         If Not PressCtrl And Not PressShift Then
-            If CheckDraggable() Then
+            If CheckDragable() Then
                 IsDrag = True
             End If
         End If
@@ -133,7 +133,7 @@
 
     Private Sub MainTreeview_PreviewMouseLeftButtonUp(sender As Object, e As MouseButtonEventArgs)
         IsDrag = False
-        FirstDragMove = False
+        FristDragMove = False
         DragImage.Visibility = Visibility.Collapsed
     End Sub
 

@@ -29,7 +29,7 @@ End Enum
 
 
 Namespace MGRP
-    Public Module GRPModule
+    Public Module GRPMoudle
         Public tilesetname() As String = {"badlands", "platform", "install", "ashworld", "jungle", "desert", "ice", "twilight"}
 
         Private pPalett() As CPalett
@@ -46,7 +46,7 @@ Namespace MGRP
             End Get
         End Property
 
-        Public Sub GRPModuleInit()
+        Public Sub GRPMoudleInit()
             ReDim pPalett(17)
             For i = 0 To 17
                 pPalett(i) = New CPalett(i)

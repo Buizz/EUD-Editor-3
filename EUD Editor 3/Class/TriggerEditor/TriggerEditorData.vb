@@ -88,14 +88,14 @@ Public Class TriggerEditorData
     End Property
 
 
-    Private _DotData As List(Of DotData)
+    Private _DotDatas As List(Of DotData)
 
-    Public ReadOnly Property DotData As List(Of DotData)
+    Public ReadOnly Property DotDatas As List(Of DotData)
         Get
-            If _DotData Is Nothing Then
-                _DotData = New List(Of DotData)
+            If _DotDatas Is Nothing Then
+                _DotDatas = New List(Of DotData)
             End If
-            Return _DotData
+            Return _DotDatas
         End Get
     End Property
 
@@ -196,7 +196,7 @@ Public Class TriggerEditorData
     <Serializable>
     Public Class LastTab
         Public Items As List(Of TEFile)
-        Public FirstItem As LastTab
+        Public FristItem As LastTab
         Public SecondItem As LastTab
         Public Orientation As Orientation
 

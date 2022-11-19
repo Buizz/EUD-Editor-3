@@ -61,7 +61,7 @@
                                     Storyboard.TargetProperty="(DockPanel.Opacity)" 
                                     To="1" Duration="0:0:1" />
                             <DoubleAnimation 
-                                    Storyboard.TargetName="ControlPanel"
+                                    Storyboard.TargetName="ContorlPanel"
                                     Storyboard.TargetProperty="(DockPanel.Opacity)" 
                                     To="1" Duration="0:0:1" />
                         </Storyboard>
@@ -79,7 +79,7 @@
                                     Storyboard.TargetProperty="(DockPanel.Opacity)" 
                                     To="0" Duration="0:0:1" />
                             <DoubleAnimation 
-                                    Storyboard.TargetName="ControlPanel"
+                                    Storyboard.TargetName="ContorlPanel"
                                     Storyboard.TargetProperty="(DockPanel.Opacity)" 
                                     To="0" Duration="0:0:1" />
                         </Storyboard>
@@ -170,9 +170,9 @@
             </Button>
 
 
-            <DockPanel Name="ControlPanel" Grid.ColumnSpan="12" Opacity="0" >
-                <TextBlock Name="ProgramName" MouseDown="ControlPanel_MouseDown" Text="EUD Editor 3" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF21AEFF" Background="#FDFFFFFF" Height="18" Cursor="SizeAll"/>
-                <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" Width="13" Background="#FFA2A2A2" MouseDown="SizeControl_MouseDown" MouseUp="SizeControl_MouseUp" MouseMove="SizeControl_MouseMove" Cursor="SizeWE"/>
+            <DockPanel Name="ContorlPanel" Grid.ColumnSpan="12" Opacity="0" >
+                <TextBlock Name="ProgramName" MouseDown="ContorlPanel_MouseDown" Text="EUD Editor 3" DockPanel.Dock="Left" HorizontalAlignment="Left" VerticalAlignment="Top" FontWeight="Bold" Foreground="#FF21AEFF" Background="#FDFFFFFF" Height="18" Cursor="SizeAll"/>
+                <StackPanel DockPanel.Dock="Right" HorizontalAlignment="Right" Height="30" Margin="0,0,0,0" VerticalAlignment="Top" Width="13" Background="#FFA2A2A2" MouseDown="SizeContorl_MouseDown" MouseUp="SizeContorl_MouseUp" MouseMove="SizeContorl_MouseMove" Cursor="SizeWE"/>
             </DockPanel>
    
 

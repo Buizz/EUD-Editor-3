@@ -15,7 +15,7 @@
     <DockPanel LastChildFill="True">
 
         <DockPanel DockPanel.Dock="Left" Width="200">
-            <ListBox x:Name="ColorInfo" DockPanel.Dock="Top" SelectionChanged="ColorInfo_SelectionChanged"/>
+            <ListBox x:Name="ColorInfor" DockPanel.Dock="Top" SelectionChanged="ColorInfor_SelectionChanged"/>
             <Button DockPanel.Dock="Bottom" Content="확인" Click="Button_Click" Height="Auto"/>
         </DockPanel>
         <!--Grid Width="840" Height="560" DockPanel.Dock="Right" MaxWidth="1280">-->

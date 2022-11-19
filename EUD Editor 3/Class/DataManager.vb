@@ -77,8 +77,8 @@ Public Class DataManager
             Case 7
                 Return (pjData.ExtraDat.RequireData(DatFiles).RequireObjectUsed(ObjectID) = CRequireData.RequireUse.DefaultUse)
             Case Else
-                For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParameterList.Count - 1
-                    Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetParamname
+                For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                    Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
                     If PageMask(UnitDatPage).IndexOf(Paramname) < 0 Then
                         Continue For
                     End If
@@ -87,7 +87,7 @@ Public Class DataManager
                         Continue For
                     End If
 
-                    If Not pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetValue(ObjectID).IsDefault Then
+                    If Not pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetValue(ObjectID).IsDefault Then
                         Return False
                     End If
                 Next
@@ -104,16 +104,16 @@ Public Class DataManager
     Public Sub CopyDatObject(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         Dim Template As New Template(Datfilesname(DatFiles), ObjectID)
         If SCDatFiles.CheckValidDat(DatFiles) Then
-            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParameterList.Count - 1
-                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetParamname
+            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
 
                 If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
                     Continue For
                 End If
 
-                Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-                Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
 
                 Dim Value As Long
@@ -175,16 +175,16 @@ Public Class DataManager
 
                                 For i = 0 To tTemplate.Values.Count - 1
                                     Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                    Dim ParameterName As String = valueStrs(0)
+                                    Dim ParamaterName As String = valueStrs(0)
                                     Dim Value As String = valueStrs(1)
-                                    If pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParameterName, ObjectID) IsNot Nothing Then
-                                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParameterName, ObjectID).Value = Value
+                                    If pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParamaterName, ObjectID) IsNot Nothing Then
+                                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParamaterName, ObjectID).Value = Value
                                     End If
-                                    If pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParameterName, ObjectID) IsNot Nothing Then
-                                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParameterName, ObjectID).Value = Value
+                                    If pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParamaterName, ObjectID) IsNot Nothing Then
+                                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParamaterName, ObjectID).Value = Value
                                     End If
-                                    If pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, ParameterName, ObjectID) IsNot Nothing Then
-                                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, ParameterName, ObjectID).Value = Value
+                                    If pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, ParamaterName, ObjectID) IsNot Nothing Then
+                                        pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, ParamaterName, ObjectID).Value = Value
                                     End If
                                 Next
                             End If
@@ -195,9 +195,9 @@ Public Class DataManager
 
                                 For i = 0 To tTemplate.Values.Count - 1
                                     Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                    Dim ParameterName As String = valueStrs(0)
+                                    Dim ParamaterName As String = valueStrs(0)
                                     Dim Value As String = valueStrs(1)
-                                    If ParameterName = "RequireData" Then
+                                    If ParamaterName = "RequireData" Then
                                         pjData.ExtraDat.RequireData(DatFiles).PasteCopyData(ObjectID, Value)
                                         pjData.BindingManager.RequireCapacityBinding(DatFiles).PropertyChangedPack()
                                     End If
@@ -211,12 +211,12 @@ Public Class DataManager
 
                                 For i = 0 To tTemplate.Values.Count - 1
                                     Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                    Dim ParameterName As String = valueStrs(0)
+                                    Dim ParamaterName As String = valueStrs(0)
                                     Dim Value As String = valueStrs(1)
 
-                                    If PageMask(UnitDatPage).IndexOf(ParameterName) >= 0 Then
-                                        If pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID) IsNot Nothing Then
-                                            pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID).Value = Value
+                                    If PageMask(UnitDatPage).IndexOf(ParamaterName) >= 0 Then
+                                        If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
+                                            pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
                                         End If
                                     End If
                                 Next
@@ -230,9 +230,9 @@ Public Class DataManager
 
                                 For i = 0 To tTemplate.Values.Count - 1
                                     Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                    Dim ParameterName As String = valueStrs(0)
+                                    Dim ParamaterName As String = valueStrs(0)
                                     Dim Value As String = valueStrs(1)
-                                    If ParameterName = "RequireData" Or ParameterName = "RequireData1" Then
+                                    If ParamaterName = "RequireData" Or ParamaterName = "RequireData1" Then
                                         pjData.ExtraDat.RequireData(DatFiles).PasteCopyData(ObjectID, Value)
                                         pjData.BindingManager.RequireCapacityBinding(DatFiles).PropertyChangedPack()
                                     End If
@@ -245,9 +245,9 @@ Public Class DataManager
 
                                 For i = 0 To tTemplate.Values.Count - 1
                                     Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                    Dim ParameterName As String = valueStrs(0)
+                                    Dim ParamaterName As String = valueStrs(0)
                                     Dim Value As String = valueStrs(1)
-                                    If ParameterName = "RequireData2" Then
+                                    If ParamaterName = "RequireData2" Then
                                         pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.Stechdata).PasteCopyData(ObjectID, Value)
                                         pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata).PropertyChangedPack()
                                     End If
@@ -260,12 +260,12 @@ Public Class DataManager
 
                                 For i = 0 To tTemplate.Values.Count - 1
                                     Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                    Dim ParameterName As String = valueStrs(0)
+                                    Dim ParamaterName As String = valueStrs(0)
                                     Dim Value As String = valueStrs(1)
 
-                                    If pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID) IsNot Nothing Then
-                                        If pjData.Dat.ParamInfo(DatFiles, ParameterName, SCDatFiles.EParamInfo.IsEnabled) Then
-                                            pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID).Value = Value
+                                    If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
+                                        If pjData.Dat.ParamInfo(DatFiles, ParamaterName, SCDatFiles.EParamInfo.IsEnabled) Then
+                                            pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
                                         End If
                                     End If
                                 Next
@@ -287,35 +287,35 @@ Public Class DataManager
                 If SCDatFiles.CheckValidDat(DatFiles) Then
                     For i = 0 To tTemplate.Values.Count - 1
                         Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                        Dim ParameterName As String = valueStrs(0)
+                        Dim ParamaterName As String = valueStrs(0)
                         Dim Value As String = valueStrs(1)
 
 
                         Select Case DatFiles
                             Case SCDatFiles.DatFiles.units
-                                If ParameterName = "Status" Then
-                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParameterName, ObjectID).Value = Value
-                                ElseIf ParameterName = "Display" Then
-                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParameterName, ObjectID).Value = Value
-                                ElseIf ParameterName = "wire" Then
-                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParameterName, ObjectID).Value = Value
-                                ElseIf ParameterName = "grp" Then
-                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParameterName, ObjectID).Value = Value
-                                ElseIf ParameterName = "tran" Then
-                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParameterName, ObjectID).Value = Value
-                                ElseIf ParameterName = "ButtonSet" Then
-                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, ParameterName, ObjectID).Value = Value
+                                If ParamaterName = "Status" Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParamaterName, ObjectID).Value = Value
+                                ElseIf ParamaterName = "Display" Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.statusinfor, ParamaterName, ObjectID).Value = Value
+                                ElseIf ParamaterName = "wire" Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParamaterName, ObjectID).Value = Value
+                                ElseIf ParamaterName = "grp" Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParamaterName, ObjectID).Value = Value
+                                ElseIf ParamaterName = "tran" Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.wireframe, ParamaterName, ObjectID).Value = Value
+                                ElseIf ParamaterName = "ButtonSet" Then
+                                    pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonSet, ParamaterName, ObjectID).Value = Value
                                 Else
-                                    If pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID) IsNot Nothing Then
-                                        If pjData.Dat.ParamInfo(DatFiles, ParameterName, SCDatFiles.EParamInfo.IsEnabled) Then
-                                            pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID).Value = Value
+                                    If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
+                                        If pjData.Dat.ParamInfo(DatFiles, ParamaterName, SCDatFiles.EParamInfo.IsEnabled) Then
+                                            pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
                                         End If
                                     End If
                                 End If
                             Case Else
-                                If pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID) IsNot Nothing Then
-                                    If pjData.Dat.ParamInfo(DatFiles, ParameterName, SCDatFiles.EParamInfo.IsEnabled) Then
-                                        pjData.BindingManager.DatBinding(DatFiles, ParameterName, ObjectID).Value = Value
+                                If pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID) IsNot Nothing Then
+                                    If pjData.Dat.ParamInfo(DatFiles, ParamaterName, SCDatFiles.EParamInfo.IsEnabled) Then
+                                        pjData.BindingManager.DatBinding(DatFiles, ParamaterName, ObjectID).Value = Value
                                     End If
                                 End If
                         End Select
@@ -323,7 +323,7 @@ Public Class DataManager
 
                         Select Case DatFiles
                             Case SCDatFiles.DatFiles.units, SCDatFiles.DatFiles.upgrades, SCDatFiles.DatFiles.orders
-                                If ParameterName = "RequireData" Then
+                                If ParamaterName = "RequireData" Then
                                     pjData.ExtraDat.RequireData(DatFiles).PasteCopyData(ObjectID, Value)
                                     pjData.BindingManager.RequireCapacityBinding(DatFiles).PropertyChangedPack()
                                 End If
@@ -331,11 +331,11 @@ Public Class DataManager
 
                             'Template.Values.Add("RequireData" & ValueSpliter & pjData.ExtraDat.RequireData(DatFiles).GetCopyString(ObjectID))
                             Case SCDatFiles.DatFiles.techdata
-                                If ParameterName = "RequireData1" Then
+                                If ParamaterName = "RequireData1" Then
                                     pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.techdata).PasteCopyData(ObjectID, Value)
                                     pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.techdata).PropertyChangedPack()
                                 End If
-                                If ParameterName = "RequireData2" Then
+                                If ParamaterName = "RequireData2" Then
                                     pjData.ExtraDat.RequireData(SCDatFiles.DatFiles.Stechdata).PasteCopyData(ObjectID, Value)
                                     pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata).PropertyChangedPack()
                                 End If
@@ -348,18 +348,18 @@ Public Class DataManager
                         Case SCDatFiles.DatFiles.stattxt
                             For i = 0 To tTemplate.Values.Count - 1
                                 Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                Dim ParameterName As String = valueStrs(0)
+                                Dim ParamaterName As String = valueStrs(0)
                                 Dim Value As String = valueStrs(1)
-                                If ParameterName = "Value" Then
+                                If ParamaterName = "Value" Then
                                     pjData.BindingManager.StatTxtBinding(ObjectID).Value = Value
                                 End If
                             Next
                         Case SCDatFiles.DatFiles.ButtonData
                             For i = 0 To tTemplate.Values.Count - 1
                                 Dim valueStrs As String() = tTemplate.Values(i).Split(ValueSpliter)
-                                Dim ParameterName As String = valueStrs(0)
+                                Dim ParamaterName As String = valueStrs(0)
                                 Dim Value As String = valueStrs(1)
-                                If ParameterName = "Value" Then
+                                If ParamaterName = "Value" Then
                                     pjData.ExtraDat.ButtonData.GetButtonSet(ObjectID).PasteFromString(Value)
                                     pjData.BindingManager.ExtraDatBinding(SCDatFiles.DatFiles.ButtonData, "ButtonData", ObjectID).Value = False
                                 End If
@@ -396,8 +396,8 @@ Public Class DataManager
                         pjData.BindingManager.RequireDataBinding(ObjectID, DatFiles).IsDefaultUse = True
                         pjData.BindingManager.RequireCapacityBinding(DatFiles).PropertyChangedPack()
                     Case Else
-                        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParameterList.Count - 1
-                            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetParamname
+                        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
 
                             If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
                                 Continue For
@@ -405,9 +405,9 @@ Public Class DataManager
 
 
 
-                            Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-                            Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-                            Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                            Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                            Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                            Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
                             If PageMask(UnitDatPage).IndexOf(Paramname) >= 0 Then
                                 pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID).DataReset()
@@ -427,8 +427,8 @@ Public Class DataManager
                         pjData.BindingManager.RequireDataBinding(ObjectID, SCDatFiles.DatFiles.Stechdata).IsDefaultUse = True
                         pjData.BindingManager.RequireCapacityBinding(SCDatFiles.DatFiles.Stechdata).PropertyChangedPack()
                     Case Else
-                        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParameterList.Count - 1
-                            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetParamname
+                        For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                            Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
 
                             If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
                                 Continue For
@@ -436,9 +436,9 @@ Public Class DataManager
 
 
 
-                            Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-                            Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-                            Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                            Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                            Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                            Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
                             pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID).DataReset()
                             'For j = ValueStart To ValueEnd
@@ -453,8 +453,8 @@ Public Class DataManager
     End Sub
     Public Sub ResetDatObject(DatFiles As SCDatFiles.DatFiles, ObjectID As Integer)
         If SCDatFiles.CheckValidDat(DatFiles) Then
-            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParameterList.Count - 1
-                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetParamname
+            For i = 0 To pjData.Dat.GetDatFile(DatFiles).ParamaterList.Count - 1
+                Dim Paramname As String = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetParamname
 
                 If pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID) Is Nothing Then
                     Continue For
@@ -462,9 +462,9 @@ Public Class DataManager
 
 
 
-                Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
-                Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
-                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParameterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
+                Dim ValueCount As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarCount)
+                Dim ValueStart As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarStart)
+                Dim ValueEnd As Integer = pjData.Dat.GetDatFile(DatFiles).ParamaterList(i).GetInfo(SCDatFiles.EParamInfo.VarEnd)
 
                 pjData.BindingManager.DatBinding(DatFiles, Paramname, ObjectID).DataReset()
                 'For j = ValueStart To ValueEnd

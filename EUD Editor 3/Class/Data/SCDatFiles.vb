@@ -67,14 +67,14 @@ Public Class SCDatFiles
         VarArray = 6
     End Enum
 
-    Public Sub New(IsProjectData As Boolean, Optional TemporaryData As Boolean = False, Optional IsBindingData As Boolean = False)
+    Public Sub New(IsProjectData As Boolean, Optional TemporyData As Boolean = False, Optional IsBindingData As Boolean = False)
         DatfileDic = New Dictionary(Of DatFiles, CDatFile)
 
         Datfile = New List(Of CDatFile)
         For i = 0 To 9
             Dim str As String = Datfilesname(i)
 
-            Dim tDatfile As New CDatFile(str, IsProjectData, TemporaryData, IsBindingData)
+            Dim tDatfile As New CDatFile(str, IsProjectData, TemporyData, IsBindingData)
 
 
             Datfile.Add(tDatfile)
@@ -113,7 +113,7 @@ Public Class SCDatFiles
 
 
 
-    Public ReadOnly Property Values(key As DatFiles, paramName As String, index As Integer) As CDatFile.CParameter.Value
+    Public ReadOnly Property Values(key As DatFiles, paramName As String, index As Integer) As CDatFile.CParamater.Value
         Get
             Return DatfileDic(key).GetParamValue(paramName, index)
         End Get
@@ -163,9 +163,9 @@ Public Class SCDatFiles
     <Serializable()>
     Public Class CDatFile
         Public Function CheckDirty(ObjectID As Integer) As Boolean
-            For i = 0 To Parameters.Count - 1
-                If Parameters(i).GetValue(ObjectID) IsNot Nothing Then
-                    If Not Parameters(i).GetValue(ObjectID).IsDefault Then
+            For i = 0 To Paramaters.Count - 1
+                If Paramaters(i).GetValue(ObjectID) IsNot Nothing Then
+                    If Not Paramaters(i).GetValue(ObjectID).IsDefault Then
                         Return False
                     End If
                 End If
@@ -199,15 +199,15 @@ Public Class SCDatFiles
 
 
         Private FIleName As String 'ex sprites
-        Private Parameters As List(Of CParameter)
-        Public ReadOnly Property ParameterList As List(Of CParameter)
+        Private Paramaters As List(Of CParamater)
+        Public ReadOnly Property ParamaterList As List(Of CParamater)
             Get
-                Return Parameters
+                Return Paramaters
             End Get
         End Property
 
 
-        Public ReadOnly Property GetParamValue(name As String, index As Long) As CParameter.Value
+        Public ReadOnly Property GetParamValue(name As String, index As Long) As CParamater.Value
             Get
                 Return ParamDic(name).GetValue(index)
             End Get
@@ -232,11 +232,11 @@ Public Class SCDatFiles
         End Function
 
 
-        Public Sub New(tFIleName As String, IsProjectData As Boolean, TemporaryData As Boolean, IsBindingData As Boolean)
-            ParamDic = New Dictionary(Of String, CParameter)
+        Public Sub New(tFIleName As String, IsProjectData As Boolean, TemporyData As Boolean, IsBindingData As Boolean)
+            ParamDic = New Dictionary(Of String, CParamater)
 
             FIleName = tFIleName
-            Parameters = New List(Of CParameter)
+            Paramaters = New List(Of CParamater)
 
 
             Dim filepath As String = Tool.GetDatFolder & "\" & FIleName
@@ -255,8 +255,8 @@ Public Class SCDatFiles
             sr.ReadLine() ' 값
 
             For i = 0 To varcount - 1
-                Parameters.Add(New CParameter(FIleName, sr, br, Parameters.Count, InputEntrycount, IsProjectData, IsBindingData))
-                ParamDic.Add(Parameters.Last.GetParamname, Parameters.Last)
+                Paramaters.Add(New CParamater(FIleName, sr, br, Paramaters.Count, InputEntrycount, IsProjectData, IsBindingData))
+                ParamDic.Add(Paramaters.Last.GetParamname, Paramaters.Last)
 
             Next
 
@@ -271,7 +271,7 @@ Public Class SCDatFiles
             br.Close()
             fs.Close()
 
-            If Not TemporaryData Then
+            If Not TemporyData Then
                 CodeGrouping.CodeGrouping(FIleName, CodeGroup, CodeToolTip)
 
             End If
@@ -282,13 +282,13 @@ Public Class SCDatFiles
             End Get
         End Property
 
-        Private ParamDic As Dictionary(Of String, CParameter)
+        Private ParamDic As Dictionary(Of String, CParamater)
         '피라미터들
         <Serializable()>
-        Public Class CParameter
+        Public Class CParamater
             'Public ReadOnly Property GetOffsetName() As String
             '    Get
-            '        Return scData.GetOffset(FIleName & "_" & ParameterName)
+            '        Return scData.GetOffset(FIleName & "_" & ParamaterName)
             '    End Get
             'End Property
 
@@ -356,7 +356,7 @@ Public Class SCDatFiles
 
                     Select Case key
                         Case "Name"
-                            ParameterName = value
+                            ParamaterName = value
                         Case "Size"
                             Size = value
                         Case "VarStart"
@@ -377,13 +377,13 @@ Public Class SCDatFiles
                 End While
 
 
-                If Tool.ProhibitParam.ToList.IndexOf(ParameterName) >= 0 Then
+                If Tool.ProhibitParam.ToList.IndexOf(ParamaterName) >= 0 Then
                     Enabled = False
                 End If
 
                 Values = New List(Of Value)
 
-                Dim currents As UInteger = br.BaseStream.Position '베이스 스트림을 기억하고
+                Dim currentpos As UInteger = br.BaseStream.Position '베이스 스트림을 기억하고
                 br.BaseStream.Position -= (VarIndex - 1) * Size * (VarEnd - VarStart + 1)
                 For i As Integer = 0 To VarEnd - VarStart
                     br.BaseStream.Position += (VarIndex - 1) * Size '인덱스 만큼 앞으로 간다.
@@ -408,7 +408,7 @@ Public Class SCDatFiles
 
 
                     'If VarArray = 4 Then
-                    '    MsgBox(Hex(br.BaseStream.Position - Size) & vbCrLf & "유닛코드 : " & i & " 이름 : " & ParameterName & " 값 : " & Values.Last)
+                    '    MsgBox(Hex(br.BaseStream.Position - Size) & vbCrLf & "유닛코드 : " & i & " 이름 : " & ParamaterName & " 값 : " & Values.Last)
                     'End If
 
 
@@ -416,15 +416,15 @@ Public Class SCDatFiles
                 Next
 
                 '베이스 스트림에서 Size * encount만큼 간 곳으로 되돌린다.
-                br.BaseStream.Position = currents + Size * (VarEnd - VarStart + 1)
+                br.BaseStream.Position = currentpos + Size * (VarEnd - VarStart + 1)
             End Sub
 
 
             Private FIleName As String
-            Private ParameterName As String
+            Private ParamaterName As String
             Public ReadOnly Property GetParamname As String
                 Get
-                    Return ParameterName
+                    Return ParamaterName
                 End Get
             End Property
 

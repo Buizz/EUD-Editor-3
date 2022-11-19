@@ -63,9 +63,9 @@ Public Class TriggerEditor
             Next
 
             Return tTabablzControl
-        ElseIf TabItems.FirstItem IsNot Nothing And TabItems.SecondItem IsNot Nothing Then
+        ElseIf TabItems.FristItem IsNot Nothing And TabItems.SecondItem IsNot Nothing Then
             Dim tBranch As New Dockablz.Branch
-            tBranch.FirstItem = TLoadLastItem(TabItems.FirstItem)
+            tBranch.FirstItem = TLoadLastItem(TabItems.FristItem)
             tBranch.SecondItem = TLoadLastItem(TabItems.SecondItem)
             tBranch.Orientation = TabItems.Orientation
             'MsgBox("Load Branch")
@@ -103,9 +103,9 @@ Public Class TriggerEditor
         '            Next
         '            Exit Sub
         '        Case GetType(Dockablz.Branch)
-        '            TabItems.FirstItem = New TriggerEditorData.LastTab
+        '            TabItems.FristItem = New TriggerEditorData.LastTab
         '            TabItems.SecondItem = New TriggerEditorData.LastTab
-        '            TSaveLastItem(TabItems.FirstItem, CType(TabablzCont, Dockablz.Branch).FirstItem)
+        '            TSaveLastItem(TabItems.FristItem, CType(TabablzCont, Dockablz.Branch).FirstItem)
         '            TSaveLastItem(TabItems.SecondItem, CType(TabablzCont, Dockablz.Branch).SecondItem)
 
         '            Exit Sub
@@ -149,10 +149,10 @@ Public Class TriggerEditor
                     Next
                     Exit Sub
                 Case GetType(Dockablz.Branch)
-                    TabItems.FirstItem = New TriggerEditorData.LastTab
+                    TabItems.FristItem = New TriggerEditorData.LastTab
                     TabItems.SecondItem = New TriggerEditorData.LastTab
                     TabItems.Orientation = CType(TabablzCont, Dockablz.Branch).Orientation
-                    TSaveLastItem(TabItems.FirstItem, CType(TabablzCont, Dockablz.Branch).FirstItem)
+                    TSaveLastItem(TabItems.FristItem, CType(TabablzCont, Dockablz.Branch).FirstItem)
                     TSaveLastItem(TabItems.SecondItem, CType(TabablzCont, Dockablz.Branch).SecondItem)
                     'MsgBox("Save Branch")
                     Exit Sub
@@ -278,7 +278,7 @@ Public Class TriggerEditor
 
                 If tPage.CheckTEFile(tTEFile) Then
                     Control.SelectedIndex = i
-                    'tPage.TextEditor.LineHighlight(SelectLine)
+                    'tPage.TextEditor.LineHightLight(SelectLine)
                     Return True
                 End If
             ElseIf TypeOf TabContent Is TEGUIPage Then
