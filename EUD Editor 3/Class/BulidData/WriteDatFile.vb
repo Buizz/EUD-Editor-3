@@ -99,10 +99,7 @@ Partial Public Class BuildData
         sb.AppendLine("import WireFrameDataEditor")
         sb.AppendLine("from eudplib import *")
 
-
-        sb.AppendLine("")
-        sb.AppendLine("")
-        WriteWireFrame(sb)
+        'WriteWireFrame(sb)
         sb.AppendLine("")
         sb.AppendLine("")
         sb.AppendLine("def onPluginStart():")
