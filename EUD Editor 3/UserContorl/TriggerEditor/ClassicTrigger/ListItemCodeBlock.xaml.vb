@@ -41,13 +41,13 @@
         End If
 
         _tcode.LoadArgText(scripter)
-        If t.FGroup <> "" Then
+        If _tcode.FGroup <> "" Then
             Dim ttb As New Label
             ttb.Foreground = Brushes.CadetBlue
             ttb.VerticalContentAlignment = VerticalAlignment.Center
 
             If Not IsEmpty Then
-                ttb.Content = t.FGroup + " : "
+                ttb.Content = _tcode.FGroup + " : "
             End If
 
             Wrap.Children.Add(ttb)

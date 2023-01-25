@@ -176,7 +176,7 @@ Partial Public Class BuildData
     Private Sub WriteWireFrame(sb As StringBuilder)
         '바뀐게 있는지 체크.
 
-        File.Copy(Tool.DataPath("TriggerEditor\wireframe.eps"), WireFrameEpsFilePath, True)
+        'File.Copy(Tool.DataPath("TriggerEditor\wireframe.eps"), WireFrameEpsFilePath, True)
         sb.AppendLine("    WireFrameDataEditor.WireFrameInit()")
 
 
