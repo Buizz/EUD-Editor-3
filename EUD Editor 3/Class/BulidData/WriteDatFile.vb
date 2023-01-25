@@ -102,10 +102,16 @@ Partial Public Class BuildData
 
         sb.AppendLine("")
         sb.AppendLine("")
+        WriteWireFrame(sb)
+        sb.AppendLine("")
+        sb.AppendLine("")
         sb.AppendLine("def onPluginStart():")
+        sb.AppendLine("    try:")
+        sb.AppendLine("        init_wireframe()")
+        sb.AppendLine("    except NameError:")
+        sb.AppendLine("        pass")
 
         '와이어프레임, 버튼셋, 요구사항, 상태플래그
-        WriteWireFrame(sb)
         Try
             WriteStatusInfor(sb)
         Catch ex As Exception
@@ -176,10 +182,13 @@ Partial Public Class BuildData
     Private Sub WriteWireFrame(sb As StringBuilder)
         '바뀐게 있는지 체크.
 
-        'File.Copy(Tool.DataPath("TriggerEditor\wireframe.eps"), WireFrameEpsFilePath, True)
-        sb.AppendLine("    WireFrameDataEditor.WireFrameInit()")
-
-
+        File.Copy(Tool.DataPath("TriggerEditor\wireframe.eps"), WireFrameEpsFilePath, True)
+        sb.AppendLine("try:")
+        sb.AppendLine("    InitialWireframe")
+        sb.AppendLine("except NameError:")
+        sb.AppendLine("")
+        sb.AppendLine("    def init_wireframe():")
+        sb.AppendLine("        WireFrameDataEditor.WireFrameInit()")
         'E4 234 wireframe
         '6A 106 tranwire
         '83 131 grpwire
@@ -195,17 +204,38 @@ Partial Public Class BuildData
                 Dim grpnewframe As Byte = pjData.ExtraDat.GrpFrame(i)
 
 
-                sb.AppendLine("    WireFrameDataEditor.ChangeWireframe(" & i & ", " & pjData.ExtraDat.WireFrame(i) & ")")
-                If (i <= tranwirecount) And (trannewframe <= tranwirecount) Then
-                    sb.AppendLine("    WireFrameDataEditor.ChangeTranframe(" & i & ", " & pjData.ExtraDat.TranFrame(i) & ")")
+                sb.AppendLine("        WireFrameDataEditor.ChangeWireframe(" & i & ", " & pjData.ExtraDat.WireFrame(i) & ")")
+                If (i <= tranwirecount - 1) And (trannewframe <= tranwirecount - 1) Then
+                    sb.AppendLine("        WireFrameDataEditor.ChangeTranframe(" & i & ", " & pjData.ExtraDat.TranFrame(i) & ")")
                 End If
 
-                If (i <= grpwirecount) And (grpnewframe <= grpwirecount) Then
-                    sb.AppendLine("    WireFrameDataEditor.ChangeGrpframe(" & i & ", " & pjData.ExtraDat.GrpFrame(i) & ")")
+                If (i <= grpwirecount - 1) And (grpnewframe <= grpwirecount - 1) Then
+                    sb.AppendLine("        WireFrameDataEditor.ChangeGrpframe(" & i & ", " & pjData.ExtraDat.GrpFrame(i) & ")")
                 End If
 
             End If
         Next
+        sb.AppendLine("")
+        sb.AppendLine("else:") 'euddraft 0.9.8.6부터 지원 (와프 초기화 트리거 용량 최소화)
+        For i = 0 To wireframecount - 1
+            If Not pjData.ExtraDat.DefaultWireFrame(i) Then
+                Dim wirenewframe As Byte = pjData.ExtraDat.WireFrame(i)
+                Dim trannewframe As Byte = pjData.ExtraDat.TranFrame(i)
+                Dim grpnewframe As Byte = pjData.ExtraDat.GrpFrame(i)
+
+
+                sb.AppendLine("    InitialWireframe.wirefram(" & i & ", " & pjData.ExtraDat.WireFrame(i) & ")")
+                If (i <= tranwirecount - 1) And (trannewframe <= tranwirecount - 1) Then
+                    sb.AppendLine("    InitialWireframe.tranwire(" & i & ", " & pjData.ExtraDat.TranFrame(i) & ")")
+                End If
+
+                If (i <= grpwirecount - 1) And (grpnewframe <= grpwirecount - 1) Then
+                    sb.AppendLine("    InitialWireframe.grpwire(" & i & ", " & pjData.ExtraDat.GrpFrame(i) & ")")
+                End If
+            End If
+        Next
+
+
 
 
 
