@@ -51,6 +51,7 @@
                    ScrollViewer.VerticalScrollBarVisibility="Visible"
                    SelectedItemChanged="CodeIndexerTree_SelectedItemChanged"
                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
+                  ContextMenu="{StaticResource ContextMenu}" 
              Background="{DynamicResource MaterialDesignPaper}" 
              Foreground="{DynamicResource MaterialDesignBody}" >
 
