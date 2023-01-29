@@ -28,6 +28,7 @@ end
 @Language.ko-KR
 @Summary
 해당플레이어의 BGM을 재생합니다.
+@Group
 BGM
 
 
@@ -47,6 +48,7 @@ end
 @Language.ko-KR
 @Summary
 해당플레이어의 BGM을 멈춥니다.
+@Group
 BGM
 
 
@@ -66,6 +68,7 @@ end
 @Language.ko-KR
 @Summary
 해당플레이어의 BGM을 재개니다.
+@Group
 BGM
 
 
@@ -85,6 +88,7 @@ end
 @Language.ko-KR
 @Summary
 해당플레이어의 BGM을 일시정지입니다.
+@Group
 BGM
 
 
