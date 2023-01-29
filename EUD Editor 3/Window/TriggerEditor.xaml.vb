@@ -41,14 +41,13 @@ Public Class TriggerEditor
                 End If
             End If
         Next
-        DeactiveLastItem(pjData.TEData.LastOpenTabs, MainTab)
+        DeactiveLastItem(MainTab)
     End Sub
-    Private Sub DeactiveLastItem(TabItems As TriggerEditorData.LastTab, TabablzCont As Object)
+    Private Sub DeactiveLastItem(TabablzCont As Object)
         While True
             Select Case TabablzCont.GetType
                 Case GetType(TabablzControl)
                     Dim tTabablzControl As TabablzControl = TabablzCont
-                    TabItems.Items.Clear()
                     For i = 0 To tTabablzControl.Items.Count - 1
                         Dim TabItem As TabItem = tTabablzControl.Items(i)
 
@@ -60,11 +59,8 @@ Public Class TriggerEditor
                     Next
                     Exit Sub
                 Case GetType(Dockablz.Branch)
-                    TabItems.FirstItem = New TriggerEditorData.LastTab
-                    TabItems.SecondItem = New TriggerEditorData.LastTab
-                    TabItems.Orientation = CType(TabablzCont, Dockablz.Branch).Orientation
-                    DeactiveLastItem(TabItems.FirstItem, CType(TabablzCont, Dockablz.Branch).FirstItem)
-                    DeactiveLastItem(TabItems.SecondItem, CType(TabablzCont, Dockablz.Branch).SecondItem)
+                    DeactiveLastItem(CType(TabablzCont, Dockablz.Branch).FirstItem)
+                    DeactiveLastItem(CType(TabablzCont, Dockablz.Branch).SecondItem)
                     'MsgBox("Save Branch")
                     Exit Sub
                 Case GetType(Dockablz.Layout)
