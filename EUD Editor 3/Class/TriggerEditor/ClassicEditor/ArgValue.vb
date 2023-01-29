@@ -72,7 +72,7 @@ Public Class ArgValue
                     v = """" & v & """"
                 ElseIf isLuaCover Then
                     Dim tlist() As String = {"TrgAllyStatus", "TrgComparison", "TrgModifier", "TrgOrder",
-        "TrgPlayer", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState"}
+        "TrgPlayer", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState", "BGM"}
 
                     If tlist.ToList.IndexOf(ValueType) = -1 Then
                         v = """" & v & """"

@@ -1,7 +1,7 @@
 --[================================[
 @Language.ko-KR
 @Summary
-해당플레이어에게 [BGMName]를 재생합니다.
+해당플레이어의 BGM을 [BGMName]로 설정합니다.
 @Group
 BGM
 @param.BGMName.BGM
@@ -9,7 +9,7 @@ BGM
 
 @Language.en-US
 @Summary
-해당플레이어에게 [BGMName]를 재생합니다.
+해당플레이어의 BGM을 [BGMName]로 설정합니다.
 @Group
 BGM
 @param.BGMName.BGM

@@ -402,6 +402,12 @@ Public Class MacroManager
                     Dim vallen As Integer = tmatch.Value.Length
 
                     rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
+
+                Else
+                    'onPluginStart가 없을 경우 맨 밑에 새로 추가.
+                    rstr = rstr & "function onPluginStart(){" & vbCrLf
+                    rstr = rstr & temp & vbCrLf
+                    rstr = rstr & "}" & vbCrLf
                 End If
             End If
 
@@ -419,6 +425,11 @@ Public Class MacroManager
                     Dim vallen As Integer = tmatch.Value.Length
 
                     rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
+                Else
+                    'onPluginStart가 없을 경우 맨 밑에 새로 추가.
+                    rstr = rstr & "function beforeTriggerExec(){" & vbCrLf
+                    rstr = rstr & temp & vbCrLf
+                    rstr = rstr & "}" & vbCrLf
                 End If
             End If
             If True Then
@@ -435,6 +446,11 @@ Public Class MacroManager
                     Dim vallen As Integer = tmatch.Value.Length
 
                     rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
+                Else
+                    'onPluginStart가 없을 경우 맨 밑에 새로 추가.
+                    rstr = rstr & "function afterTriggerExec(){" & vbCrLf
+                    rstr = rstr & temp & vbCrLf
+                    rstr = rstr & "}" & vbCrLf
                 End If
             End If
         End If
