@@ -135,10 +135,10 @@ Partial Public Class BuildData
 
         Select Case respon
             Case "NOACCOUNT"
-                Tool.MsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다.", MessageBoxButton.OK, MessageBoxImage.Error)
+                Tool.CustomMsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다.", MessageBoxButton.OK, MessageBoxImage.Error)
                 Return False
             Case "BANUSER"
-                Tool.MsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCA사용이 금지된 아이디입니다.", MessageBoxButton.OK, MessageBoxImage.Error)
+                Tool.CustomMsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCA사용이 금지된 아이디입니다.", MessageBoxButton.OK, MessageBoxImage.Error)
                 Return False
         End Select
 

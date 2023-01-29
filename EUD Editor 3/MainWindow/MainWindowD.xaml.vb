@@ -102,7 +102,7 @@ Public Class MainWindowD
         If pgData.Setting(ProgramData.TSetting.CheckReg) Then
 
             If Tool.CheckexeConnect("e3s") Then
-                Dim dialogResult As MsgBoxResult = Tool.MsgBox(Tool.GetText("RegistryConnect"), MessageBoxButton.YesNoCancel)
+                Dim dialogResult As MsgBoxResult = Tool.CustomMsgBox(Tool.GetText("RegistryConnect"), MessageBoxButton.YesNoCancel)
                 If dialogResult = MsgBoxResult.Yes Then
                     Me.Visibility = Visibility.Hidden
                     SettiingForm = New SettingWindows
@@ -165,7 +165,7 @@ Public Class MainWindowD
                 'e.Cancel = ShutDownProgram()
             End If
         Else
-            If Tool.MsgBox(Tool.GetText("Error ProgramLoading"), MessageBoxButton.YesNo) = MsgBoxResult.No Then
+            If Tool.CustomMsgBox(Tool.GetText("Error ProgramLoading"), MessageBoxButton.YesNo) = MsgBoxResult.No Then
                 e.Cancel = True
             End If
         End If

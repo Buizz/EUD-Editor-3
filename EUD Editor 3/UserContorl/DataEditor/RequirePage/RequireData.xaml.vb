@@ -93,7 +93,7 @@
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        If Tool.MsgBox(Tool.GetLanText("FG_DefaultUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
+        If Tool.CustomMsgBox(Tool.GetLanText("FG_DefaultUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
             Return
         End If
 
@@ -109,7 +109,7 @@
     End Sub
 
     Private Sub Button_Click_1(sender As Object, e As RoutedEventArgs)
-        If Tool.MsgBox(Tool.GetLanText("FG_DontUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
+        If Tool.CustomMsgBox(Tool.GetLanText("FG_DontUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
             Return
         End If
 
@@ -125,7 +125,7 @@
     End Sub
 
     Private Sub Button_Click_2(sender As Object, e As RoutedEventArgs)
-        If Tool.MsgBox(Tool.GetLanText("FG_AlwaysUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
+        If Tool.CustomMsgBox(Tool.GetLanText("FG_AlwaysUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
             Return
         End If
 
@@ -141,7 +141,7 @@
     End Sub
 
     Private Sub Button_Click_3(sender As Object, e As RoutedEventArgs)
-        If Tool.MsgBox(Tool.GetLanText("FG_AlwaysCurrentUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
+        If Tool.CustomMsgBox(Tool.GetLanText("FG_AlwaysCurrentUseToolTip"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
             Return
         End If
 

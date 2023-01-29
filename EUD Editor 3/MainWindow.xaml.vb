@@ -212,7 +212,7 @@ Class MainWindow
             Process.Start(pjData.OpenMapName)
             Exit Sub
         Else
-            If Tool.MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
+            If Tool.CustomMsgBox(Tool.GetText("Error OpenMap is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 If Tool.OpenMapSet Then
                     BtnRefresh()
                     Process.Start(pjData.OpenMapName)
@@ -234,7 +234,7 @@ Class MainWindow
         BtnRefresh()
 
         If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
-            If Tool.MsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
+            If Tool.CustomMsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                 .Filter = "StarCraft.exe|StarCraft.exe",
                 .FileName = "StarCraft.exe",
@@ -267,7 +267,7 @@ Class MainWindow
         BtnRefresh()
 
         If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
-            If Tool.MsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
+            If Tool.CustomMsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                 .Filter = "StarCraft.exe|StarCraft.exe",
                 .FileName = "StarCraft.exe",
@@ -302,7 +302,7 @@ Class MainWindow
         BtnRefresh()
 
         If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
-            If Tool.MsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
+            If Tool.CustomMsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                 .Filter = "StarCraft.exe|StarCraft.exe",
                 .FileName = "StarCraft.exe",

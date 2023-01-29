@@ -103,7 +103,7 @@ Public Class TriggerManager
         Try
             funclist = GetListFromEpScript(sr.ReadToEnd)
         Catch ex As Exception
-            Tool.MsgBox("LoadFail epsFunctions.txt" & vbCrLf & ex.ToString, MessageBoxButton.OK)
+            Tool.CustomMsgBox("LoadFail epsFunctions.txt" & vbCrLf & ex.ToString, MessageBoxButton.OK)
             sr.Close()
             fs.Close()
             Return

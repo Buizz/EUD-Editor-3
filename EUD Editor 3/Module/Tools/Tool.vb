@@ -186,7 +186,7 @@ Namespace Tool
             Try
                 TEEpsDefaultFunc.LoadFunc(sr.ReadToEnd)
             Catch ex As Exception
-                MsgBox("함수 초기화 실패", MessageBoxButton.OK, MessageBoxImage.Error)
+                CustomMsgBox("함수 초기화 실패", MessageBoxButton.OK, MessageBoxImage.Error)
             End Try
             sr.Close()
             fs.Close()
@@ -508,7 +508,7 @@ Namespace Tool
         End Function
 
 
-        Public Function MsgBox(message As String, boxButton As MessageBoxButton, Optional boxImage As MessageBoxImage = MessageBoxImage.Information)
+        Public Function CustomMsgBox(message As String, boxButton As MessageBoxButton, Optional boxImage As MessageBoxImage = MessageBoxImage.Information)
             Dim dailog As MsgDialog = New MsgDialog(message, "", boxButton, boxImage)
             dailog.ShowDialog()
             Return dailog.msgresult
@@ -517,8 +517,13 @@ Namespace Tool
 
 
         Public Sub ErrorMsgBox(str As String, Optional Logstr As String = "")
-            Dim msg As MsgDialog = New MsgDialog(str, Logstr, MessageBoxButton.OK, MessageBoxImage.Error)
-            msg.ShowDialog()
+
+            Try
+                Dim msg As MsgDialog = New MsgDialog(str, Logstr, MessageBoxButton.OK, MessageBoxImage.Error)
+                msg.ShowDialog()
+            Catch ex As Exception
+                MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
+            End Try
 
             'MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
 
