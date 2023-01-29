@@ -13,6 +13,12 @@ Public Class TECUIPage
     End Function
 
 
+    Public Sub Deactivated()
+        If NewTextEditor.Visibility <> Visibility.Collapsed Then
+            NewTextEditor.Deactivated()
+        End If
+    End Sub
+
     Public Sub RefreshData()
         Dim TString As String = PTEFile.RefreshData()
         If TString <> "" Then

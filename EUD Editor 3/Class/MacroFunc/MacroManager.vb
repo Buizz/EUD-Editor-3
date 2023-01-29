@@ -56,6 +56,11 @@ Public Class MacroManager
         lua.RegisterFunction("GetBGMIndex", Me, Me.GetType().GetMethod("GetBGMIndex"))
         FunctionList.Add(New LuaFunction("GetBGMIndex", "사운드 인덱스를 반환합니다.", "내부함수", "bgmname", "BGM"))
 
+
+        lua.RegisterFunction("GetReturnBGMIndex", Me, Me.GetType().GetMethod("GetReturnBGMIndex"))
+        FunctionList.Add(New LuaFunction("GetReturnBGMIndex", "사운드 인덱스를 반환합니다.", "내부함수", "bgmname", "BGM"))
+
+
         lua.RegisterFunction("ParseUnit", Me, Me.GetType().GetMethod("ParseUnit"))
         lua.RegisterFunction("ParseWeapon", Me, Me.GetType().GetMethod("ParseWeapon"))
         lua.RegisterFunction("ParseFlingy", Me, Me.GetType().GetMethod("ParseFlingy"))
@@ -162,7 +167,7 @@ Public Class MacroManager
 
 
     Public ErrorMsg As String
-    Public Function MacroApply(str As String, isMain As Boolean) As String
+    Public Function MacroApply(str As String, isMain As Boolean, Optional filename As String = "") As String
         ErrorMsg = ""
 
         If str Is Nothing Then
@@ -343,11 +348,32 @@ Public Class MacroManager
             Dim truestr As String = matches(i).Value
             Dim mstr As String = Mid(truestr, 3, truestr.Length - 4)
             'Lua프로세싱
+
+
             Try
                 lua.DoString(mstr)
             Catch ex As Exception
+                Dim line As Integer = rstr.Substring(0, matches(i).Index).Replace(vbLf, vbCrLf).Replace(vbCr, vbCrLf).Split(vbCrLf).Count - 2
+
                 ErrorMsg = ex.ToString
-                MsgBox(ErrorMsg)
+                If filename <> "" Then
+                    ErrorMsg = "==============================================================================" & vbCrLf &
+                        "File : " & filename & vbCrLf &
+                        "Line " & line & " : " & mstr + " <-" & vbCrLf &
+                        "==============================================================================" & vbCrLf &
+                        ErrorMsg
+                Else
+                    ErrorMsg = "==============================================================================" & vbCrLf &
+                        "Line " & line & " : " & mstr + " <-" & vbCrLf &
+                        "==============================================================================" & vbCrLf &
+                        ErrorMsg
+                End If
+
+
+                macroErrorList.Add(ErrorMsg)
+
+                'Tool.ErrorMsgBox("Lua스크립트오류", ErrorMsg)
+                'MsgBox(ErrorMsg)
                 Continue For
             End Try
 

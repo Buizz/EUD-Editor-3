@@ -720,7 +720,7 @@ Public Class ProjectData
 
     Public Function CloseFile() As Boolean
         If IsDirty Then '파일이 변형되었을 경우
-            Dim dialog As MsgBoxResult = MsgBox(Tool.GetText("ColseSaveMsg").Replace("%S1", SafeFilename), MsgBoxStyle.YesNoCancel)
+            Dim dialog As MsgBoxResult = Tool.MsgBox(Tool.GetText("ColseSaveMsg").Replace("%S1", SafeFilename), MessageBoxButton.YesNoCancel)
             If dialog = MsgBoxResult.Yes Then
                 If Save() Then
                     Tool.CloseOtherWindow()

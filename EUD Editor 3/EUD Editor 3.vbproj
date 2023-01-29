@@ -778,6 +778,9 @@
     <Compile Include="Window\GrpLoader.xaml.vb">
       <DependentUpon>GrpLoader.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\MsgDialog.xaml.vb">
+      <DependentUpon>MsgDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\PluginWindow\DragManager.vb" />
     <Compile Include="Window\PluginWindow\PluginWindow.xaml.vb">
       <DependentUpon>PluginWindow.xaml</DependentUpon>
@@ -1277,6 +1280,10 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
+    <Page Include="Window\MsgDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Window\PluginWindow\PluginWindow.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -1380,6 +1387,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\chatEventTool.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\BGMPlayer.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\Wait.lua">
@@ -1595,6 +1605,9 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\tranwire.grp">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\BGMPlayerWrapper.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\dotTool.eps">

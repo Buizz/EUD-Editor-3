@@ -17,25 +17,59 @@ object Player{
 	
 	var bgmcode;
 	var bgmindex;
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 처음 트랙으로 돌아갑니다.
-***/
+	/***
+	 * @Type
+	 * A
+	 * @Summary.ko-KR
+	 * 처음 트랙으로 돌아갑니다.
+	***/
 	function ResetTrack(){
-		this.track = 0x40404040;
+		if(IsUserCP()){
+			this.track = 0x40404040;
+		}
 	}
 
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * 플레이할 BGM을 설정합니다.
- *
- * @param.bindex.ko-KR
- * 재생할 BGM의 인덱스입니다.
-***/
+	
+	/***
+	 * @Type
+	 * A
+	 * @Summary.ko-KR
+	 * 플레이할 BGM을 설정합니다.
+	 *
+	 * @param.bindex.ko-KR
+	 * 재생할 BGM의 인덱스입니다.
+	***/
+	function SetBGM(bindex /*BGM*/){
+		if(IsUserCP()){
+			this.bgmindex = bindex;
+
+			var T1 = this.bgmindex;
+			DoActions(T1.SetNumberX(0, ~0xF000));
+			var T2 = this.bgmindex;
+			DoActions(T2.SetNumberX(0, ~0xF00));
+			var T3 = this.bgmindex;
+			DoActions(T3.SetNumberX(0, ~0xF0));
+			var T4 = this.bgmindex;
+			DoActions(T4.SetNumberX(0, ~0xF));
+
+			this.bgmcode = T4 * 0x1000000 + T3 * 0x1000 + T2 + T1 / 0x100 + 0x40404040;
+
+			this.track = 0x40404040;
+			this.lasttimer = dwread_epd(EPD(0x51CE8C));
+		}
+	}
+
+
+
+	/***
+	 * @Type
+	 * A
+	 * @Summary.ko-KR
+	 * 플레이할 BGM을 설정합니다.
+	 *
+	 * @param.bindex.ko-KR
+	 * 재생할 BGM의 인덱스입니다.
+	***/
 	function constructor(bgmindex /*BGM*/){
 		this.bgmindex = bgmindex;
 
@@ -54,12 +88,12 @@ object Player{
 		this.lasttimer = dwread_epd(EPD(0x51CE8C));
 	}
 
-/***
- * @Type
- * A
- * @Summary.ko-KR
- * BGM을 재생합니다. 반복해서 호출해야 재생됩니다.
-***/
+	/***
+	 * @Type
+	 * A
+	 * @Summary.ko-KR
+	 * BGM을 재생합니다. 반복해서 호출해야 재생됩니다.
+	***/
 	function Play(){
 		if(IsUserCP()){
 			const CurrentTime = dwread_epd(EPD(0x51CE8C));
@@ -108,7 +142,9 @@ var bgmindex;
  * 처음 트랙으로 돌아갑니다.
 ***/
 function ResetTrack(){
-	track = 0x40404040;
+	if(IsUserCP()){
+		track = 0x40404040;
+	}
 }
 
 

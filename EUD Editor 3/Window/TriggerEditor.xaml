@@ -18,6 +18,8 @@
         Closed="MetroWindow_Closed"
         Closing="MetroWindow_Closing"
         x:Name="metroWindow"
+        LostFocus="metroWindow_LostFocus"
+        Deactivated="metroWindow_Deactivated"
         Title="{Binding TriggerEditorName,UpdateSourceTrigger=PropertyChanged}" Height="620" Width="1200" WindowStartupLocation="Manual" Topmost="True" MinWidth="300" MinHeight="300">
 
     <controls:MetroWindow.RightWindowCommands>

@@ -62,7 +62,7 @@ Public Class ClassicTriggerEditor
             Dim tTEFile As TEFile = pjData.TEData.GetTEFile(Nothing, importLink.Split("."), 0)
 
 
-            Dim tText As String = tTEFile.Scripter.GetFileText
+            Dim tText As String = tTEFile.Scripter.GetFileText(tTEFile.FileName)
 
 
             ImportFuncs.AddRange(tmanager.GetListFromEpScript(tText, TriggerFunction.EFType.ExternFunc, ImportFiles(i).vname))
@@ -99,7 +99,7 @@ Public Class ClassicTriggerEditor
         End Set
     End Property
 
-    Public Overrides Function GetFileText() As String
+    Public Overrides Function GetFileText(filename As String) As String
         Dim returnStr As String = GetEpsText(IsMain())
 
         If IsMain() Then
@@ -108,7 +108,7 @@ Public Class ClassicTriggerEditor
 	ClassicTriggerExec();
 }"
         End If
-        returnStr = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & returnStr, IsMain())
+        returnStr = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & returnStr, IsMain(), filename)
         Return returnStr
     End Function
 

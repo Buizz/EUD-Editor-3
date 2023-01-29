@@ -321,18 +321,18 @@ Namespace WindowMenu
                     Try
                         Process.Start(pjData.OpenMapName)
                     Catch ex As ComponentModel.Win32Exception
-                        MsgBox(Tool.GetText("ConnectProgramNoExist"), MsgBoxStyle.Critical)
+                        Tool.MsgBox(Tool.GetText("ConnectProgramNoExist"), MessageBoxButton.OK, MessageBoxImage.Error)
                     End Try
 
                     Exit Sub
                 Else
-                    If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                    If Tool.MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                         If Tool.OpenMapSet Then
                             ProjectControlBinding.PropertyChangedPack()
                             Try
                                 Process.Start(pjData.OpenMapName)
                             Catch ex As ComponentModel.Win32Exception
-                                MsgBox(Tool.GetText("ConnectProgramNoExist"), MsgBoxStyle.Critical)
+                                Tool.MsgBox(Tool.GetText("ConnectProgramNoExist"), MessageBoxButton.OK, MessageBoxImage.Error)
                             End Try
 
                             Exit Sub
@@ -357,7 +357,7 @@ Namespace WindowMenu
                 ProjectControlBinding.PropertyChangedPack()
 
                 If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
-                    If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                    If Tool.MsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                         Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                         .Filter = "StarCraft.exe|StarCraft.exe",
                         .FileName = "StarCraft.exe",
@@ -397,7 +397,7 @@ Namespace WindowMenu
                 'TriggerEditorForm.Show()
 
                 If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
-                    If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                    If Tool.MsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                         Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                         .Filter = "StarCraft.exe|StarCraft.exe",
                         .FileName = "StarCraft.exe",
@@ -447,7 +447,7 @@ Namespace WindowMenu
                 ProjectControlBinding.PropertyChangedPack()
 
                 If Not scData.LoadStarCraftData Then '로드가 되어있지 않을 경우 판단
-                    If MsgBox(Tool.GetText("Error NotExistMPQ reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                    If Tool.MsgBox(Tool.GetText("Error NotExistMPQ reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                         Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                         .Filter = "StarCraft.exe|StarCraft.exe",
                         .FileName = "StarCraft.exe",

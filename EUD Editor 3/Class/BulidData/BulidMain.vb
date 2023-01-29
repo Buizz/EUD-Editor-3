@@ -54,8 +54,10 @@ Partial Public Class BuildData
                 Me.IsEdd = isEdd
                 MainThread = New BackgroundWorker()
                 AddHandler MainThread.DoWork, AddressOf BuildProgressWorker
+                AddHandler MainThread.RunWorkerCompleted, AddressOf BuildProgressComplete
 
                 MainThread.RunWorkerAsync()
+
 
 
                 'MainThread = New System.Threading.Thread(AddressOf BuildProgress)
@@ -69,13 +71,23 @@ Partial Public Class BuildData
     Private Sub BuildProgressWorker(sender As Object, e As DoWorkEventArgs)
         BuildProgress(IsEdd)
     End Sub
+    Private Sub BuildProgressComplete(sender As Object, e As RunWorkerCompletedEventArgs)
+        If macro.macroErrorList.Count <> 0 Then
+            Dim m As String = ""
+            For Each msg In macro.macroErrorList
+                m = m + msg + vbCrLf
+            Next
+            Tool.ErrorMsgBox("Lua Script Inner Error", m)
+        End If
+    End Sub
+
 
 
 
     '빌드가 가능한지 판단(필수 프로그램 연결)
     Private Function CheckBuildable() As Boolean
         If Not My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
-            If MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+            If Tool.MsgBox(Tool.GetText("Error OpenMap is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 If Not Tool.OpenMapSet Then
                     Tool.ErrorMsgBox(Tool.GetText("Error CompileFail OpenMap is not exist!"))
                     Return False
@@ -87,7 +99,7 @@ Partial Public Class BuildData
             End If
         End If
         If Not My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) Then
-            If MsgBox(Tool.GetText("Error SaveMap is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+            If Tool.MsgBox(Tool.GetText("Error SaveMap is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 If Not Tool.SaveMapSet Then
                     Tool.ErrorMsgBox(Tool.GetText("Error CompileFail SaveMap is not exist!"))
                     Return False
@@ -99,7 +111,7 @@ Partial Public Class BuildData
             End If
         End If
         If Not My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
-            If MsgBox(Tool.GetText("Error euddraft is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+            If Tool.MsgBox(Tool.GetText("Error euddraft is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                 Dim opendialog As New System.Windows.Forms.OpenFileDialog With {
                 .Filter = "euddraft.exe|euddraft.exe",
                 .FileName = "euddraft.exe",
@@ -127,7 +139,7 @@ Partial Public Class BuildData
                 End If
             Else
                 If Not My.Computer.FileSystem.DirectoryExists(pjData.TempFileLoc) Then
-                    If MsgBox(Tool.GetText("Error TempFolder is not exist reset"), MsgBoxStyle.OkCancel) = MsgBoxResult.Ok Then
+                    If Tool.MsgBox(Tool.GetText("Error TempFolder is not exist reset"), MessageBoxButton.OKCancel) = MsgBoxResult.Ok Then
                         Dim folderSelect As New System.Windows.Forms.FolderBrowserDialog
 
                         If folderSelect.ShowDialog = Forms.DialogResult.OK Then
@@ -215,6 +227,12 @@ Partial Public Class BuildData
 
 
         WriteTEFile()
+        If macro.macroErrorList.Count <> 0 Then
+            pgData.IsCompilng = False
+            pgData.isEddCompile = False
+            Tool.RefreshMainWindow()
+            Return
+        End If
 
 
         If pjData.TEData.SCArchive.IsUsed Then
@@ -334,7 +352,7 @@ Partial Public Class BuildData
                         eudplibprocess.StandardInput.Write(vbCrLf)
                     End If
                     If eudplibShutDown Then
-                        MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
+                        Tool.MsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
                         Return False
                     End If
                 End While
@@ -353,7 +371,7 @@ Partial Public Class BuildData
                 '임시 판단
                 If (StandardOutput.IndexOf("Output scenario.chk") < 0) And (StandardOutput.IndexOf("출력된 scenario.chk 크기") < 0) Then
                     If eudplibShutDown Then
-                        MsgBox(Tool.GetText("Error CompileStop"), MsgBoxStyle.Critical)
+                        Tool.MsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
                     Else
                         GetMainWindow.LogTextBoxView(StandardOutput & vbCrLf & "=============================================================" & vbCrLf & StandardError, True)
 
@@ -395,6 +413,8 @@ Partial Public Class BuildData
         startInfo.Arguments = """" & filename & """"
 
         If Not isEdd Then
+            startInfo.StandardOutputEncoding = Encoding.UTF8
+            startInfo.StandardErrorEncoding = Encoding.UTF8
             startInfo.RedirectStandardOutput = True
             startInfo.RedirectStandardInput = True
             startInfo.RedirectStandardError = True

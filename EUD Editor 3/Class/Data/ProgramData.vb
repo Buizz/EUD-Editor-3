@@ -4,7 +4,7 @@ Imports MaterialDesignThemes.Wpf
 Public Class ProgramData
     '<주 버전>.<부 버전>.<빌드 번호>.<수정>
     Public ReadOnly Property Version As System.Version = Reflection.Assembly.GetExecutingAssembly().GetName().Version '"0.0.1"
-    Public ReadOnly Property RecommendeuddraftVersion As New System.Version(0, 9, 6, 1)
+    Public ReadOnly Property RecommendeuddraftVersion As New System.Version(0, 9, 9, 6)
 
 
 

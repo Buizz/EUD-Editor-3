@@ -55,10 +55,10 @@ Partial Public Class ProjectData
             bf.Serialize(stm, Me.SaveData)
             stm.Close()
         Else
-            Dim dialog As MsgBoxResult = MsgBox("호환성 경고" & vbCrLf &
+            Dim dialog As MsgBoxResult = Tool.MsgBox("호환성 경고" & vbCrLf &
                        "e2s파일을 저장 할 경우 일부 에러가 발생할 수 있습니다." & vbCrLf &
                        "플러그인 저장 안됨" & vbCrLf &
-                       "TE로드 저장 안됨", MsgBoxStyle.Critical Or MsgBoxStyle.OkCancel)
+                       "TE로드 저장 안됨", MessageBoxButton.OKCancel, MessageBoxImage.Error)
 
 
             If dialog = MsgBoxResult.Ok Then

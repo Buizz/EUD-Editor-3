@@ -24,6 +24,57 @@ Public Class TriggerEditor
 
     End Sub
 
+    Private Sub metroWindow_LostFocus(sender As Object, e As RoutedEventArgs)
+        DeactiveTabitems()
+    End Sub
+
+    Private Sub metroWindow_Deactivated(sender As Object, e As EventArgs)
+        DeactiveTabitems()
+    End Sub
+
+
+    Public Sub DeactiveTabitems()
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(TriggerEditor) Then
+                If Not win Is Me Then
+                    Exit Sub
+                End If
+            End If
+        Next
+        DeactiveLastItem(pjData.TEData.LastOpenTabs, MainTab)
+    End Sub
+    Private Sub DeactiveLastItem(TabItems As TriggerEditorData.LastTab, TabablzCont As Object)
+        While True
+            Select Case TabablzCont.GetType
+                Case GetType(TabablzControl)
+                    Dim tTabablzControl As TabablzControl = TabablzCont
+                    TabItems.Items.Clear()
+                    For i = 0 To tTabablzControl.Items.Count - 1
+                        Dim TabItem As TabItem = tTabablzControl.Items(i)
+
+                        If TypeOf TabItem.Content Is TECUIPage Then
+                            Dim TECUIPage As TECUIPage = TabItem.Content
+                            TECUIPage.Deactivated()
+                        End If
+                        'MsgBox("Save " & i)
+                    Next
+                    Exit Sub
+                Case GetType(Dockablz.Branch)
+                    TabItems.FirstItem = New TriggerEditorData.LastTab
+                    TabItems.SecondItem = New TriggerEditorData.LastTab
+                    TabItems.Orientation = CType(TabablzCont, Dockablz.Branch).Orientation
+                    DeactiveLastItem(TabItems.FirstItem, CType(TabablzCont, Dockablz.Branch).FirstItem)
+                    DeactiveLastItem(TabItems.SecondItem, CType(TabablzCont, Dockablz.Branch).SecondItem)
+                    'MsgBox("Save Branch")
+                    Exit Sub
+                Case GetType(Dockablz.Layout)
+                    Dim tLayout As Dockablz.Layout = TabablzCont
+                    TabablzCont = tLayout.Content
+            End Select
+        End While
+    End Sub
+
+
     Public Sub LoadLastTabItems()
         MainTab.Content = TLoadLastItem(pjData.TEData.LastOpenTabs)
     End Sub
@@ -372,4 +423,6 @@ Public Class TriggerEditor
             OpenTabItem(eitem.TargetTEFile, eitem.Line)
         End If
     End Sub
+
+
 End Class

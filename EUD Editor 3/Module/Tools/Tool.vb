@@ -4,7 +4,10 @@ Imports System.Windows.Threading
 Imports BingsuCodeEditor.EpScript
 Imports BingsuCodeEditor.Lua
 Imports Dragablz
+Imports ICSharpCode.AvalonEdit
+Imports ICSharpCode.AvalonEdit.Folding
 Imports MaterialDesignThemes.Wpf
+Imports Microsoft.WindowsAPICodePack.Shell
 Imports Newtonsoft.Json
 
 Namespace Tool
@@ -183,7 +186,7 @@ Namespace Tool
             Try
                 TEEpsDefaultFunc.LoadFunc(sr.ReadToEnd)
             Catch ex As Exception
-                MsgBox("함수 초기화 실패")
+                MsgBox("함수 초기화 실패", MessageBoxButton.OK, MessageBoxImage.Error)
             End Try
             sr.Close()
             fs.Close()
@@ -505,14 +508,21 @@ Namespace Tool
         End Function
 
 
+        Public Function MsgBox(message As String, boxButton As MessageBoxButton, Optional boxImage As MessageBoxImage = MessageBoxImage.Information)
+            Dim dailog As MsgDialog = New MsgDialog(message, "", boxButton, boxImage)
+            dailog.ShowDialog()
+            Return dailog.msgresult
+        End Function
+
 
 
         Public Sub ErrorMsgBox(str As String, Optional Logstr As String = "")
-            MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
+            Dim msg As MsgDialog = New MsgDialog(str, Logstr, MessageBoxButton.OK, MessageBoxImage.Error)
+            msg.ShowDialog()
 
-            If Logstr <> "" Then
-                MsgBox("테스트용 로그 확인" & vbCrLf & Logstr)
-            End If
+            'MsgBox(str, MsgBoxStyle.Critical, Tool.GetText("ErrorMsgbox"))
+
+
         End Sub
 
 

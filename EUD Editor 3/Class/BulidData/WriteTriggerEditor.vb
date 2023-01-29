@@ -39,7 +39,7 @@ Partial Public Class BuildData
                 Dim fs As New FileStream(filePath, FileMode.Create)
                 Dim sw As New StreamWriter(fs)
 
-                sw.Write(tTEFile.Files(i).Scripter.GetFileText)
+                sw.Write(tTEFile.Files(i).Scripter.GetFileText(tTEFile.Files(i).FileName))
 
                 sw.Close()
                 fs.Close()

@@ -9,7 +9,7 @@ Public MustInherit Class ScriptEditor
 
 
 
-    Public MustOverride Function GetFileText() As String
+    Public MustOverride Function GetFileText(filename As String) As String
     Public MustOverride Function GetStringText() As String
 
     Public MustOverride Function CheckConnect() As Boolean

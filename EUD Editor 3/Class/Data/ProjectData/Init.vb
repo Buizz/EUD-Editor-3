@@ -53,9 +53,9 @@
     End Sub
     Public Sub TELegacy(tfile As TEFile)
         If tfile.FileType = TEFile.EFileType.GUIEps Then
-            MsgBox("호환성 경고" & vbCrLf &
+            Tool.MsgBox("호환성 경고" & vbCrLf &
                         "다음 파일이 CUI로 강제 변경됩니다." & vbCrLf &
-                       tfile.FileName, MsgBoxStyle.Exclamation)
+                       tfile.FileName, MessageBoxButton.OK, MessageBoxImage.Exclamation)
 
             If tfile.ChagneType() Then
                 pjData.SetDirty(True)

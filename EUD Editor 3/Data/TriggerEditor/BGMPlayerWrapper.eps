@@ -1,0 +1,42 @@
+import TriggerEditor.BGMPlayer as bp;
+
+const IsBGMPlay = PVariable();
+
+function loadSound(){
+    bp.loadSound();
+}
+
+function Exec(){
+    const cp = getcurpl();
+    
+    if (IsBGMPlay[cp] == 1) {
+        bp.Play();
+    }
+}
+
+function SetBGM(bindex /*BGM*/){
+    bp.SetBGM(bindex);
+}
+
+function BGMStart(){
+    const cp = getcurpl();
+    bp.ResetTrack();
+    IsBGMPlay[cp] = 1;
+}
+
+function BGMStop(){
+    const cp = getcurpl();
+    bp.ResetTrack();
+    IsBGMPlay[cp] = 0;
+}
+
+function BGMResume(){
+    const cp = getcurpl();
+    IsBGMPlay[cp] = 1;
+}
+
+function BGMPause(){
+    const cp = getcurpl();
+    IsBGMPlay[cp] = 0;
+}
+

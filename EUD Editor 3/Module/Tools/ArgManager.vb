@@ -182,7 +182,7 @@
 
                 For i = 0 To pjData.TEData.BGMData.BGMList.Count - 1
                     Dim bgmFile As BGMData.BGMFile = pjData.TEData.BGMData.BGMList(i)
-                    strs.Add(bgmFile.BGMName)
+                    strs.Add("""" + bgmFile.BGMName + """")
                 Next
 
                 Return strs.ToArray

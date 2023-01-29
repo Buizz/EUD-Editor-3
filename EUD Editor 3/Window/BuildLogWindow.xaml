@@ -16,6 +16,7 @@
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}"  
+        Topmost="True"
         Title="BuildLogWindow" Height="500" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox x:Name="LogTextBox"  VerticalContentAlignment="Top" AcceptsReturn="True" IsReadOnly="True" TextWrapping="Wrap">

@@ -96,7 +96,7 @@ Partial Public Class BuildData
     Private Sub WriteExtraDatFile()
         Dim sb As New StringBuilder
 
-        sb.AppendLine("import WireFrameDataEditor")
+        'sb.AppendLine("import WireFrameDataEditor")
         sb.AppendLine("from eudplib import *")
 
         'WriteWireFrame(sb)

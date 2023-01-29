@@ -21,11 +21,14 @@ Partial Public Class MacroManager
         End Set
     End Property
 
+    Public macroErrorList As New List(Of String)
+
     Private Sub BuildStart()
         'MsgBox("빌드 시작")
         MSQCItems.Clear()
         ChatEventItems.Clear()
 
+        macroErrorList.Clear()
 
         onpluginStr.Clear()
         beforeStr.Clear()
@@ -33,7 +36,6 @@ Partial Public Class MacroManager
     End Sub
     Private Sub BuildEnd()
         'MsgBox("빌드 끝")
-
         'AddMSQCPlugin("NotTyping ; KeyDown("..Key.. ") : EUDArray, 1")
     End Sub
 

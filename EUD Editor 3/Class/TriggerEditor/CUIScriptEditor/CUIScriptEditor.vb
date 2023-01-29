@@ -45,8 +45,8 @@ Public Class CUIScriptEditor
     <NonSerialized>
     Public LastBuildText As String
 
-    Public Overrides Function GetFileText() As String
-        Dim rStr As String = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain())
+    Public Overrides Function GetFileText(filename As String) As String
+        Dim rStr As String = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain(), filename)
         LastBuildText = rStr
         Return rStr
     End Function
