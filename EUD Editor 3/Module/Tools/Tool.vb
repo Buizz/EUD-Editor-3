@@ -6,6 +6,7 @@ Imports BingsuCodeEditor.Lua
 Imports Dragablz
 Imports ICSharpCode.AvalonEdit
 Imports ICSharpCode.AvalonEdit.Folding
+Imports MahApps.Metro.Controls.Dialogs
 Imports MaterialDesignThemes.Wpf
 Imports Microsoft.WindowsAPICodePack.Shell
 Imports Newtonsoft.Json

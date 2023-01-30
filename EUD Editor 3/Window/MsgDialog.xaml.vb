@@ -3,7 +3,7 @@
 
 
     Public Sub Init(ErrorMsg As String, ErrorLog As String, boxButton As MessageBoxButton, boxImage As MessageBoxImage)
-        ErrorText.Text = ErrorMsg
+        ErrorText.Text = ErrorMsg.Replace("\n", vbCrLf)
 
         If ErrorLog <> "" Then
             LogPanel.Visibility = Visibility.Visible

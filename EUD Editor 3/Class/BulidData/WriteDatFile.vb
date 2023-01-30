@@ -99,7 +99,7 @@ Partial Public Class BuildData
         'sb.AppendLine("import WireFrameDataEditor")
         sb.AppendLine("from eudplib import *")
 
-        'WriteWireFrame(sb)
+        WriteWireFrame(sb)
         sb.AppendLine("")
         sb.AppendLine("")
         sb.AppendLine("def onPluginStart():")
@@ -213,12 +213,20 @@ Partial Public Class BuildData
             End If
         Next
         sb.AppendLine("")
-        sb.AppendLine("else:") 'euddraft 0.9.8.6부터 지원 (와프 초기화 트리거 용량 최소화)
+
+
+
+        Dim firstWireframe As Boolean = True
         For i = 0 To wireframecount - 1
             If Not pjData.ExtraDat.DefaultWireFrame(i) Then
                 Dim wirenewframe As Byte = pjData.ExtraDat.WireFrame(i)
                 Dim trannewframe As Byte = pjData.ExtraDat.TranFrame(i)
                 Dim grpnewframe As Byte = pjData.ExtraDat.GrpFrame(i)
+
+                If firstWireframe Then
+                    sb.AppendLine("else:") 'euddraft 0.9.8.6부터 지원 (와프 초기화 트리거 용량 최소화)
+                    firstWireframe = False
+                End If
 
 
                 sb.AppendLine("    InitialWireframe.wirefram(" & i & ", " & pjData.ExtraDat.WireFrame(i) & ")")
@@ -231,6 +239,10 @@ Partial Public Class BuildData
                 End If
             End If
         Next
+
+
+
+
 
 
 

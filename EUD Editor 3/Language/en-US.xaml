@@ -1167,6 +1167,6 @@
     <sys:String x:Key="ArgUserCode">UserCode</sys:String>
 
 
-
     <sys:String x:Key="BackUpDataWindow">BackUp</sys:String>
+    <sys:String x:Key="TempFolderError">Temporary folder [%S1] is not accessible.\nChanged to the default temporary folder</sys:String>
 </ResourceDictionary>

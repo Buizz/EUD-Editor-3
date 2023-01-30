@@ -94,23 +94,37 @@
     End Property
     Public Shared ReadOnly Property TempFloder() As String
         Get
-            If pjData.TempFileLoc = "0" Then
-                '기본 데이터 폴더 사용할 경우.
+
+            Try
+                If pjData.TempFileLoc = "0" Then
+                    '기본 데이터 폴더 사용할 경우.
+                    Return Tool.GetDirectoy("Data\temp\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                ElseIf pjData.TempFileLoc = "1" Then
+                    '맵 폴더가 같을 경우
+                    Return Tool.GetDirectory(pjData.OpenMapdirectory & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+
+                ElseIf pjData.TempFileLoc = "2" Then
+                    '맵 폴더가 같을 경우
+                    Return Tool.GetDirectory(System.IO.Path.GetDirectoryName(pjData.Filename) & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                Else
+                    Return Tool.GetDirectory(pjData.TempFileLoc, "\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                    'If pjData.OpenMapdirectory = pjData.SaveMapdirectory And pjData.OpenMapdirectory = pjData.TempFileLoc Then
+
+                    'End If
+                End If
+            Catch ex As System.UnauthorizedAccessException
+                Dim arr As String() = ex.Message.Split("'")
+                Dim tname As String = ex.Message
+                If arr.Length = 3 Then
+                    tname = ex.Message.Split("'")(1)
+                End If
+
+                Tool.CustomMsgBox(Tool.GetLanText("TempFolderError").Replace("%S1", tname), MessageBoxButton.OK, MessageBoxImage.Exclamation)
+
+                pjData.TempFileLoc = "0"
                 Return Tool.GetDirectoy("Data\temp\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
-            ElseIf pjData.TempFileLoc = "1" Then
-                '맵 폴더가 같을 경우
-                Return Tool.GetDirectory(pjData.OpenMapdirectory & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+            End Try
 
-            ElseIf pjData.TempFileLoc = "2" Then
-                '맵 폴더가 같을 경우
-                Return Tool.GetDirectory(System.IO.Path.GetDirectoryName(pjData.Filename) & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
-            Else
-                Return Tool.GetDirectory(pjData.TempFileLoc, "\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
-                'If pjData.OpenMapdirectory = pjData.SaveMapdirectory And pjData.OpenMapdirectory = pjData.TempFileLoc Then
-
-
-                'End If
-            End If
         End Get
     End Property
 #End Region

@@ -71,7 +71,12 @@ Partial Public Class BuildData
     Private Sub BuildProgressWorker(sender As Object, e As DoWorkEventArgs)
         BuildProgress(IsEdd)
     End Sub
+
+
     Private Sub BuildProgressComplete(sender As Object, e As RunWorkerCompletedEventArgs)
+        If eudplibShutDown Then
+            Tool.CustomMsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
+        End If
         If macro.macroErrorList.Count <> 0 Then
             Dim m As String = ""
             For Each msg In macro.macroErrorList
@@ -352,7 +357,7 @@ Partial Public Class BuildData
                         eudplibprocess.StandardInput.Write(vbCrLf)
                     End If
                     If eudplibShutDown Then
-                        Tool.CustomMsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
+                        'Tool.CustomMsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
                         Return False
                     End If
                 End While
@@ -371,7 +376,7 @@ Partial Public Class BuildData
                 '임시 판단
                 If (StandardOutput.IndexOf("Output scenario.chk") < 0) And (StandardOutput.IndexOf("출력된 scenario.chk 크기") < 0) Then
                     If eudplibShutDown Then
-                        Tool.CustomMsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
+                        'Tool.CustomMsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
                     Else
                         GetMainWindow.LogTextBoxView(StandardOutput & vbCrLf & "=============================================================" & vbCrLf & StandardError, True)
 

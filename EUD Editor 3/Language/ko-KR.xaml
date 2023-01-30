@@ -1172,4 +1172,5 @@
 
 
     <sys:String x:Key="BackUpDataWindow">백업 관리</sys:String>
+    <sys:String x:Key="TempFolderError">임시폴더[%S1]에 접근 할 수 없습니다.\n기본 임시폴더로 변경됩니다.</sys:String>
 </ResourceDictionary>
