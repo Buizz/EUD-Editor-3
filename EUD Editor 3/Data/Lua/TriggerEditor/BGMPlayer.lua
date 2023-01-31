@@ -17,7 +17,7 @@ BGM
 function SetBGM(BGMName)
 	preDefine("import TriggerEditor.BGMPlayerWrapper as bg;")
 	onPluginText("bg.loadSound();")
-	beforeText("bg.Exec();")
+	beforeText('foreach (cp : EUDLoopPlayer("Human")) {setcurpl(cp); bg.Exec();}')
 
 	--bindex = GetBGMIndex(BGMName)
 
