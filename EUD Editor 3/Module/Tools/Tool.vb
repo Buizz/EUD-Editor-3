@@ -443,22 +443,22 @@ Namespace Tool
 
 
             Dim mpqname As String = pjData.OpenMapName
-            SFmpq.SFileOpenArchive(mpqname, 0, 0, hmpq)
+            StormLib.SFileOpenArchive(mpqname, 0, 0, hmpq)
             filename = filename.Replace("/", "\")
 
-            SFmpq.SFileOpenFileEx(hmpq, filename, 0, hfile)
+            StormLib.SFileOpenFileEx(hmpq, filename, 0, hfile)
 
             If hfile <> 0 Then
-                filesize = SFmpq.SFileGetFileSize(hfile, filesize)
+                filesize = StormLib.SFileGetFileSize(hfile, filesize)
                 ReDim buffer(filesize)
 
-                SFmpq.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
+                StormLib.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
 
-                SFmpq.SFileCloseFile(hfile)
-                SFmpq.SFileCloseArchive(hmpq)
+                StormLib.SFileCloseFile(hfile)
+                StormLib.SFileCloseArchive(hmpq)
                 Return buffer
             End If
-            SFmpq.SFileCloseArchive(hmpq)
+            StormLib.SFileCloseArchive(hmpq)
             Return buffer
         End Function
 

@@ -141,8 +141,8 @@ Public Class MapData
         Strings = New List(Of String)
         _WavIndex = New List(Of Integer)
 
-        Dim hmpq As UInteger
-        Dim hfile As UInteger
+        Dim hmpq As ULong
+        Dim hfile As ULong
         Dim buffer() As Byte
         Dim filesize As UInteger
         Dim size As Integer
@@ -580,16 +580,16 @@ Public Class MapData
 
         Dim pdwread As IntPtr
 
-        SFmpq.SFileOpenArchive(MapName, 0, 0, hmpq)
+        StormLib.SFileOpenArchive(MapName, 0, 0, hmpq)
         Dim openFilename As String = "staredit\scenario.chk"
 
-        SFmpq.SFileOpenFileEx(hmpq, openFilename, 0, hfile)
+        StormLib.SFileOpenFileEx(hmpq, openFilename, 0, hfile)
         If hfile <> 0 Then
-            filesize = SFmpq.SFileGetFileSize(hfile, filesize)
+            filesize = StormLib.SFileGetFileSize(hfile, filesize)
             ReDim buffer(filesize)
-            SFmpq.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
-            SFmpq.SFileCloseFile(hfile)
-            SFmpq.SFileCloseArchive(hmpq)
+            StormLib.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
+            StormLib.SFileCloseFile(hfile)
+            StormLib.SFileCloseArchive(hmpq)
 
             Dim mem As MemoryStream = New MemoryStream(buffer)
             Dim binary As BinaryReader = New BinaryReader(mem)
@@ -993,7 +993,7 @@ Public Class MapData
             binary.Close()
             mem.Close()
         Else
-            SFmpq.SFileCloseArchive(hmpq)
+            StormLib.SFileCloseArchive(hmpq)
         End If
     End Sub
 

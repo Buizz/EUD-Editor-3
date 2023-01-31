@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports System.Text.RegularExpressions
-Imports LuaInterface
+Imports NLua
 
 Public Class MacroManager
     Private lua As Lua
