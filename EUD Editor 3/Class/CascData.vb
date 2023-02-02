@@ -97,7 +97,8 @@ Public Class CascData
         Dim bytewriter As New BinaryWriter(memstream)
         Dim Buffer(1024) As Byte
 
-        CascLib.CascOpenFile(hStorage, Hash, 0, &H1, hfile)
+        'CascLib.CascOpenFile(hStorage, Hash, 0, &H1, hfile)
+        CascLib.CascOpenFile(hStorage, Hash, 0, 0, hfile)
 
         While (True)
             Dim dwBytesRead As UInteger = 0

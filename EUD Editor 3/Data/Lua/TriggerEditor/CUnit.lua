@@ -424,7 +424,7 @@ function SetCUnitptr(ptr, Offset, Value, Modifier)
 	bp = address % 4
 
 	if IsNumber(Value) then
-		Value = Value * 256^bp
+		Value = math.floor(Value * 256^bp)
 	else
 		Value = Value .. " * " .. 256^bp
 	end
@@ -480,7 +480,7 @@ function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CU
 	bp = address % 4
 
 	if IsNumber(Value) then
-		Value = Value * 256^bp
+		Value = math.floor(Value * 256^bp)
 	else
 		Value = Value .. " * " .. 256^bp
 	end

@@ -38,6 +38,8 @@
         luaReturnstr = luaReturnstr & t
     End Sub
     Public Function ParseUnit(unit As String) As String
+
+
         Dim rint As Integer = pjData.GetUnitIndex(unit)
         If rint = -1 Then
             Return unit
@@ -296,6 +298,8 @@
 
         Parameter = Parameter.Replace("_", " ").Trim
 
+        index = ParseUnit(index)
+
         Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarStart)
         Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.Size)
         Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarArray)
@@ -366,19 +370,19 @@
                     '    [Subtract] =  9,
                     '}
                     Select Case Modifier
-                        Case 7
+                        Case 7, "SetTo"
                             If Size = 1 Then
                                 action = String.Format("bwrite({0} ,{1})", rOffset, Value)
                             Else
                                 action = String.Format("wwrite({0} ,{1})", rOffset, Value)
                             End If
-                        Case 8
+                        Case 8, "Add"
                             If Size = 1 Then
                                 action = String.Format("bwrite({0} ,bread({0}) + {1})", rOffset, Value)
                             Else
                                 action = String.Format("wwrite({0} ,wread({0}) + {1})", rOffset, Value)
                             End If
-                        Case 9
+                        Case 9, "Subtract"
                             If Size = 1 Then
                                 action = String.Format("bwrite({0} ,bread({0}) - {1})", rOffset, Value)
                             Else

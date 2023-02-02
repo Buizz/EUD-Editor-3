@@ -21,9 +21,9 @@ DatFile
 @param.Modifier.TrgModifier
 ]================================]
 function SetUnitsDat(DatType, Index, Value, Modifier) --DatFile/UnitsDat,TrgUnit,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
-	Unit = ParseUnit(Index)
-	Modifier = ParseModifier(Modifier)
-    str = SetDatFile("units", DatType, Unit, Value, Modifier)
+	--Unit = ParseUnit(Index)
+	--Modifier = ParseModifier(Modifier)
+    str = SetDatFile("units", DatType, Index, Value, Modifier)
 	echo(str)
 end
 

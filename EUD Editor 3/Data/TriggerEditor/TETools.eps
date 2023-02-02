@@ -794,6 +794,33 @@ function LocationDistanceVal(variable, loc1: TrgLocation, loc2: TrgLocation) {
     return LocationDistance(loc1, loc2);
 }
 
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * [x1], [y1]로부터 [x2], [y2]가 떨어진 거리를 구합니다.  
+ *
+ * @param.x1.ko-KR
+ * x좌표1
+ * 
+ * @param.x2.ko-KR
+ * x좌표2
+ * 
+ * @param.y1.ko-KR
+ * y좌표1
+ * 
+ * @param.y2.ko-KR
+ * y좌표2
+***/
+function Distance(x1, y1, x2, y2) {
+    const x = x2 - x1;
+    const y = y2 - y1;
+    return sqrt(x*x + y*y);
+}
+
+
+
 /***
  * @Type
  * A
