@@ -105,6 +105,11 @@ Module BuildErrorHandling
                             Dim s As Integer = bline + 1
                             Dim e As Integer
 
+                            If bline >= BuildLines.Count Then
+
+                                Exit For
+                            End If
+
                             While OrgLines(i).Trim <> BuildLines(bline).Trim
                                 bline += 1
                                 If BuildLines.Count <= bline Then

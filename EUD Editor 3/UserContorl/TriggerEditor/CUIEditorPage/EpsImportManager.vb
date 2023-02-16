@@ -26,8 +26,8 @@ Public Class EpsImportManager : Inherits ImportManager
 
         'Dim rlist As List(Of String) = New List(Of String)
 
-        For i = 0 To tTEfile.FileCount - 1
-            Dim Filename As String = tTEfile.Files(i).FileName
+        For i = 0 To cTEfile.FileCount - 1
+            Dim Filename As String = cTEfile.Files(i).FileName
 
             If cTEfile.Files(i).FileName = Path.Last Then
                 '파일

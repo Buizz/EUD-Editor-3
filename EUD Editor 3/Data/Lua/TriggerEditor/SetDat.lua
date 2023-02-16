@@ -21,9 +21,9 @@ DatFile
 @param.Modifier.TrgModifier
 ]================================]
 function SetUnitsDat(DatType, Index, Value, Modifier) --DatFile/UnitsDat,TrgUnit,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
-	--Unit = ParseUnit(Index)
-	--Modifier = ParseModifier(Modifier)
-    str = SetDatFile("units", DatType, Index, Value, Modifier)
+	Unit = ParseUnit(Index)
+	Modifier = ParseModifier(Modifier) .. ""
+    str = SetDatFile("units", DatType, Unit, Value, Modifier)
 	echo(str)
 end
 
@@ -51,7 +51,7 @@ DatFile
 ]================================]
 function SetWeaponsDat(DatType, Index, Value, Modifier) --DatFile/WeaponsDat,Weapon,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Weapon = ParseWeapon(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("weapons", DatType, Weapon, Value, Modifier)
 	echo(str)
 end
@@ -80,7 +80,7 @@ DatFile
 ]================================]
 function SetFlingyDat(DatType, Index, Value, Modifier) --DatFile/FlingyDat,Flingy,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Flingy = ParseFlingy(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("flingy", DatType, Flingy, Value, Modifier)
 	echo(str)
 end
@@ -109,7 +109,7 @@ DatFile
 ]================================]
 function SetSpritesDat(DatType, Index, Value, Modifier) --DatFile/SpritesDat,Sprite,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Sprite = ParseSprites(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("sprites", DatType, Sprite, Value, Modifier)
 	echo(str)
 end
@@ -138,7 +138,7 @@ DatFile
 ]================================]
 function SetImagesDat(DatType, Index, Value, Modifier) --DatFile/ImagesDat,Image,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Image = ParseImages(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("images", DatType, Image, Value, Modifier)
 	echo(str)
 end
@@ -167,7 +167,7 @@ DatFile
 ]================================]
 function SetUpgradesDat(DatType, Index, Value, Modifier) --DatFile/UpgradesDat,Upgrade,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Upgrade = ParseUpgrades(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("upgrades", DatType, Upgrade, Value, Modifier)
 	echo(str)
 end
@@ -196,7 +196,7 @@ DatFile
 ]================================]
 function SetTechdataDat(DatType, Index, Value, Modifier) --DatFile/TechdataDat,Tech,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Tech = ParseTech(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("techdata", DatType, Tech, Value, Modifier)
 	echo(str)
 end
@@ -225,7 +225,7 @@ DatFile
 ]================================]
 function SetOrdersDat(DatType, Index, Value, Modifier) --DatFile/OrdersDat,Order,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
 	Order = ParseOrder(Index)
-	Modifier = ParseModifier(Modifier)
+	Modifier = ParseModifier(Modifier) .. ""
     str = SetDatFile("orders", DatType, Order, Value, Modifier)
 	echo(str)
 end
