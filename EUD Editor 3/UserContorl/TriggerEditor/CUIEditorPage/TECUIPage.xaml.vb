@@ -57,7 +57,7 @@ Public Class TECUIPage
             NewTextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
             NewTextEditor.OptionFilePath = Tool.GetCodeEditorSettingFolder
             NewTextEditor.LoadOption()
-
+            NewTextEditor.TabSizeTextBoxRefresh()
             If pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
                 NewTextEditor.IsDark = True
             Else
