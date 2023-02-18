@@ -16,6 +16,6 @@
     End Sub
 
     Private Sub CoffeeButton_Click(sender As Object, e As RoutedEventArgs)
-        Process.Start("https://www.patreon.com/bing_su?fan_landing=true")
+        Process.Start("https://www.buymeacoffee.com/armoha")
     End Sub
 End Class
