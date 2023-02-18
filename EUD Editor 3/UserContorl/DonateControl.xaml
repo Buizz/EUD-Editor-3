@@ -11,9 +11,9 @@
     <StackPanel Margin="10">
         <StackPanel Orientation="Horizontal">
             <Button Background="#FFF96853" Foreground="#DDFFFFFF" Click="Button_Click" ToolTip="정기적으로 후원을 할 수 있는 플랫폼입니다. 언제든지 취소가 가능합니다.">
-                <WrapPanel>
-                    <materialDesign:PackIcon Kind="Patreon" />
-                    <TextBlock Text="BECOME A PATREON"/>
+                <WrapPanel Cursor="Hand">
+                    <materialDesign:PackIcon Kind="Patreon" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text=" BECOME A PATREON"/>
                 </WrapPanel>
             </Button>
         </StackPanel>
@@ -24,9 +24,28 @@
 
         <Label Content="{StaticResource DirectDonate}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
         <Label Content="카카오뱅크 이정훈 3333-09-9263239" Margin="10"/>
-
+        
         <Separator Background="#4CA0A0A0"/>
 
+
+        <Label Content="Special Thanks" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+
+        <StackPanel Orientation="Vertical" Margin="10" Cursor="Hand">
+            <Label Content="Artanis" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"/>
+            <Button Background="#FFF7DD31" Width="250" Foreground="#DD000000" Click="CoffeeButton_Click" ToolTip="정기적으로 후원을 할 수 있는 플랫폼입니다. 언제든지 취소가 가능합니다." HorizontalAlignment="Left">
+                <WrapPanel>
+                    <materialDesign:PackIcon Kind="Coffee" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                    <TextBlock Text=" buy me a coffee"/>
+                </WrapPanel>
+            </Button>
+            <Label Content="농협 김영민 312-0089-5615-21" />
+            <Separator Background="#4CA0A0A0"/>
+            <Label Content="트리거왕" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>
+            <Label Content="카카오뱅크 박현우 3333-04-4793219" />
+        </StackPanel>
+
+
+        <Separator Background="#4CA0A0A0"/>
 
         <CheckBox x:Name="Checking" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource ViewDonateWindow}"  Unchecked="Checking_Unchecked" Checked="Checking_Checked"/>
 
