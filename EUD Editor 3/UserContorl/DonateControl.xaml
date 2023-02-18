@@ -32,12 +32,23 @@
 
         <StackPanel Orientation="Vertical" Margin="10" Cursor="Hand">
             <Label Content="Artanis" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="18"/>
-            <Button Background="#FFF7DD31" Width="250" Foreground="#DD000000" Click="CoffeeButton_Click" ToolTip="정기적으로 후원을 할 수 있는 플랫폼입니다. 언제든지 취소가 가능합니다." HorizontalAlignment="Left">
-                <WrapPanel>
-                    <materialDesign:PackIcon Kind="Coffee" VerticalAlignment="Center" HorizontalAlignment="Center" />
-                    <TextBlock Text=" buy me a coffee"/>
-                </WrapPanel>
-            </Button>
+            <StackPanel Orientation="Horizontal">
+                <Button Background="#FFF7DD31" Width="250" Foreground="#DD000000" Click="CoffeeButton_Click"  HorizontalAlignment="Left">
+                    <WrapPanel>
+                        <materialDesign:PackIcon Kind="Coffee" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Text=" buy me a coffee"/>
+                    </WrapPanel>
+                </Button>
+
+                <Button Width="250" Foreground="#DD000000" Click="CoffeeButton_Click"  HorizontalAlignment="Left" Style="{StaticResource MaterialDesignOutlinedButton}">
+                    <WrapPanel>
+                        <materialDesign:PackIcon Kind="Github" VerticalAlignment="Center" HorizontalAlignment="Center" />
+                        <TextBlock Text=" Github sponsor"/>
+                    </WrapPanel>
+                </Button>
+            </StackPanel>
+         
+
             <Label Content="농협 김영민 312-0089-5615-21" />
             <Separator Background="#4CA0A0A0"/>
             <Label Content="트리거왕" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="16"/>

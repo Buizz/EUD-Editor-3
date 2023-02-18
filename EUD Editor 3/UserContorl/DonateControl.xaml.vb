@@ -18,4 +18,10 @@
     Private Sub CoffeeButton_Click(sender As Object, e As RoutedEventArgs)
         Process.Start("https://www.buymeacoffee.com/armoha")
     End Sub
+
+
+    Private Sub GithubButton_Click(sender As Object, e As RoutedEventArgs)
+        Process.Start("https://github.com/sponsors/armoha")
+    End Sub
+
 End Class
