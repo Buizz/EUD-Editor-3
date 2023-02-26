@@ -61,8 +61,8 @@ end
 대상 플레이어입니다.
 ]================================]
 function GetCompletedUnitCount(Unit, Player)
-	Player = ParsePlayer(Player) .. ""
-    Unit = ParseUnit(Unit) .. ""
+	Player = ParsePlayer(Player)
+    Unit = ParseUnit(Unit)
     OffsetEPD = CompletedUnitCountEPD(Unit, Player)
 
 	echo(string.format("dwread_epd(%s)", OffsetEPD))
@@ -87,8 +87,8 @@ end
 @param.Player.TrgPlayer
 ]================================]
 function CompletedUnitCountEPD(Unit, Player) --일반/TrgUnit,TrgPlayer/[Player]의 [Unit]의 완료된 유닛보유수의 주소를 반환합니다.
-	Player = ParsePlayer(Player) .. ""
-    Unit = ParseUnit(Unit) .. ""
+	Player = ParsePlayer(Player)
+    Unit = ParseUnit(Unit)
     Offset = 0x584DE4
 	if IsNumber(Player) and IsNumber(Unit) then
 		Offset = Offset + (Unit * 12 + Player) * 4

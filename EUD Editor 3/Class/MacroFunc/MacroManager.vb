@@ -1,6 +1,6 @@
 ﻿Imports System.IO
 Imports System.Text.RegularExpressions
-Imports NLua
+Imports LuaInterface
 
 Public Class MacroManager
     Private lua As Lua
@@ -32,8 +32,6 @@ Public Class MacroManager
     End Property
     Public Sub New()
         lua = New Lua()
-
-
         FunctionList = New List(Of LuaFunction)
 
 
@@ -353,7 +351,12 @@ Public Class MacroManager
             Try
                 lua.DoString(mstr)
             Catch ex As Exception
-                Dim line As Integer = rstr.Substring(0, matches(i).Index).Replace(vbLf, vbCrLf).Replace(vbCr, vbCrLf).Split(vbCrLf).Count - 2
+                Dim line As Integer = -1
+                Try
+                    line = rstr.Substring(0, matches(i).Index).Replace(vbLf, vbCrLf).Replace(vbCr, vbCrLf).Split(vbCrLf).Count - 2
+                Catch ttt As Exception
+
+                End Try
 
                 ErrorMsg = ex.ToString
                 If filename <> "" Then

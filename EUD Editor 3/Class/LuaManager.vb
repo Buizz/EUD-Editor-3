@@ -1,4 +1,4 @@
-﻿Imports NLua
+﻿Imports LuaInterface
 
 Public Class LuaManager
     Public Shared ReadOnly Property LuaFloderPath As String
