@@ -426,7 +426,7 @@ function SetCUnitptr(ptr, Offset, Value, Modifier)
 	if IsNumber(Value) then
 		Value = math.floor(Value * 256^bp)
 	else
-		Value = Value .. " * " .. 256^bp
+		Value = Value .. " * " .. math.floor(256^bp)
 	end
 	mask = "0x"
 	for i = 1, size do
@@ -482,7 +482,7 @@ function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CU
 	if IsNumber(Value) then
 		Value = math.floor(Value * 256^bp)
 	else
-		Value = Value .. " * " .. 256^bp
+		Value = Value .. " * " .. math.floor(256^bp)
 	end
 	mask = "0x"
 	for i = 1, size do
@@ -536,9 +536,9 @@ function CUnitptr(ptr, Offset, Value, Comparison)
 	bp = address % 4
 
 	if IsNumber(Value) then
-		Value = Value * 256^bp
+		Value = math.floor(Value * 256^bp)
 	else
-		Value = Value .. " * " .. 256^bp
+		Value = Value .. " * " .. math.floor(256^bp)
 	end
 	mask = "0x"
 	for i = 1, size do
@@ -592,9 +592,9 @@ function CUnitepd(epd, Offset, Value, Comparison)
 	bp = address % 4
 
 	if IsNumber(Value) then
-		Value = Value * 256^bp
+		Value = math.floor(Value * 256^bp)
 	else
-		Value = Value .. " * " .. 256^bp
+		Value = Value .. " * " .. math.floor(256^bp)
 	end
 	mask = "0x"
 	for i = 1, size do

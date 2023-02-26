@@ -40,7 +40,7 @@
                     </WrapPanel>
                 </Button>
 
-                <Button Width="250" Foreground="#DD000000" Click="CoffeeButton_Click"  HorizontalAlignment="Left" Style="{StaticResource MaterialDesignOutlinedButton}">
+                <Button Width="250" Foreground="#DD000000" Click="CoffeeButton_Click"  HorizontalAlignment="Left" Style="{StaticResource MaterialDesignOutlinedButton}" Background="White">
                     <WrapPanel>
                         <materialDesign:PackIcon Kind="Github" VerticalAlignment="Center" HorizontalAlignment="Center" />
                         <TextBlock Text=" Github sponsor"/>
