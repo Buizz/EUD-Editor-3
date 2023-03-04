@@ -107,7 +107,7 @@ Public Class TextEditorWindow
         letterHeight = cheight / 480.0F * 16.0F
 
 
-        Dim blank As Double = cheight / 480.0F * 117.0F
+        Dim blank As Double = cheight / 480.0F * 110.5F
 
         tbwidth.Text = cwidth
         tbheight.Text = cheight
@@ -117,7 +117,7 @@ Public Class TextEditorWindow
 
 
 
-        RenderTextBox.Margin = New Thickness(cheight / 480.0F * 11.0F, blank, 0, 0)
+        RenderTextBox.Margin = New Thickness(cheight / 480.0F * 10.0F, blank, 0, 0)
 
 
         TextBoxRender()
@@ -161,6 +161,7 @@ Public Class TextEditorWindow
         tbox.FontFamily = KorFont
         tbox.FontSize = letterSize
 
+
         Return tbox
     End Function
 
@@ -168,14 +169,14 @@ Public Class TextEditorWindow
     Private Sub TextBoxRender()
         RenderTextBox.BeginInit()
         RenderTextBox.Children.Clear()
-        Dim tstr As String = TextString.Replace("\n", vbCrLf)
-        Dim Strs() As String = tstr.Split(vbCrLf)
+        Dim tstr As String = TextString.Replace("\n", "ꁧ")
+        Dim Strs() As String = tstr.Split("ꁧ")
 
         Dim pattern As String = "\\x([\d\w][\d\w])"
         Dim rg As New Regex(pattern)
         For i = 0 To Strs.Count - 1
             Dim defaultBrush As New SolidColorBrush(ColorTable(1))
-            Dim LineStr As String = Strs(i).Replace(vbCrLf, "")
+            Dim LineStr As String = Strs(i) '.Trim '.Replace(vbCrLf, "")
 
             Dim matches As MatchCollection = rg.Matches(LineStr)
 
@@ -228,7 +229,7 @@ Public Class TextEditorWindow
             Inlines.Add(Run)
 
             Dim tdock As New DockPanel
-            Dim margin As Double = (letterSize - letterHeight)
+            Dim margin As Double = (letterHeight - letterSize) / 2
 
             tdock.Margin = New Thickness(0, margin, 0, margin)
             DockPanel.SetDock(tdock, Dock.Top)
@@ -386,7 +387,13 @@ Public Class TextEditorWindow
         Dim stRect As RECT
 
         Dim starcraftHandle As IntPtr
-        starcraftHandle = Process.GetProcessesByName("StarCraft")(0).MainWindowHandle
+        Try
+            starcraftHandle = Process.GetProcessesByName("StarCraft")(0).MainWindowHandle
+
+        Catch ex As Exception
+            Tool.ErrorMsgBox("스타크래프트 프로세스를 찾을 수 없습니다.")
+            Return
+        End Try
 
         Dim p As POINT
 
