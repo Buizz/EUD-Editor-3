@@ -1,10 +1,14 @@
-﻿Imports System.Text.RegularExpressions
+﻿Imports System.Runtime.InteropServices
+Imports System.Text.RegularExpressions
+Imports System.Windows.Threading
 
 Public Class TextEditorWindow
     Public TextString As String
 
     Private KorFont As FontFamily
 
+
+    Private IsLoading As Boolean = False
     Public Sub New(InitStr As String)
 
         ' 디자이너에서 이 호출이 필요합니다.
@@ -48,17 +52,119 @@ Public Class TextEditorWindow
         'MainTextBox.FontFamily = KorFont
         'MainTextBox.FontSize = 24.0
 
+
+
+        tbwidth.AddHandler(TextBox.TextInputEvent, New TextCompositionEventHandler(AddressOf tbwidth_TextInput), True)
+        tbheight.AddHandler(TextBox.TextInputEvent, New TextCompositionEventHandler(AddressOf tbheight_TextInput), True)
+
+        SetWindow(640, 480)
+
+
+
+        IsLoading = True
+    End Sub
+
+    Private cwidth As Integer
+    Private cheight As Integer
+
+    Private letterSize As Double
+    Private letterHeight As Double
+    Private Sub SetWindow(width As Integer, height As Integer)
+        If width = -1 Then
+            width = cwidth
+        End If
+
+        If height = -1 Then
+            height = cheight
+        End If
+
+
+        '한글자당 16
+        '16 * 11 = 176
+        '640 ~ 853
+
+        If height < 480 Then
+            '480이 최소크기b
+            height = 480
+        End If
+
+        '480일때 640이 최대
+        Dim hr As Double = height / 480
+        Dim rwidth As Double = width / hr
+
+        If rwidth < 640 Then
+            rwidth = 640
+        End If
+
+        If rwidth > 853 Then
+            rwidth = 853
+        End If
+
+        cheight = height
+        cwidth = rwidth * hr
+
+        letterSize = cheight / 480.0F * 12.0F
+        letterHeight = cheight / 480.0F * 16.0F
+
+
+        Dim blank As Double = cheight / 480.0F * 117.0F
+
+        tbwidth.Text = cwidth
+        tbheight.Text = cheight
+
+        mainTextBox.Width = cwidth
+        mainTextBox.Height = letterHeight * 11 + blank 'cheight
+
+
+
+        RenderTextBox.Margin = New Thickness(cheight / 480.0F * 11.0F, blank, 0, 0)
+
+
         TextBoxRender()
     End Sub
+
+    Private Sub Slider_ValueChanged(sender As Object, e As RoutedPropertyChangedEventArgs(Of Double))
+        If IsLoading Then
+            back.Opacity = e.NewValue / 10
+            mainback.Opacity = e.NewValue / 10
+        End If
+    End Sub
+
+
+
+    Private Sub tbwidth_TextInput(sender As Object, e As TextCompositionEventArgs)
+        If Not IsLoading Then
+            Return
+        End If
+        Dim tx As Integer
+
+        If Not Integer.TryParse(e.Text, Nothing) And Integer.TryParse(tbwidth.Text, tx) Then
+            SetWindow(tx, -1)
+        End If
+    End Sub
+
+    Private Sub tbheight_TextInput(sender As Object, e As TextCompositionEventArgs)
+        If Not IsLoading Then
+            Return
+        End If
+        Dim ty As Integer
+
+        If Not Integer.TryParse(e.Text, Nothing) And Integer.TryParse(tbheight.Text, ty) Then
+            SetWindow(-1, ty)
+        End If
+    End Sub
+
 
     Private Function NewTextBlock() As TextBlock
         Dim tbox As New TextBlock
         tbox.Inlines.Clear()
         tbox.FontFamily = KorFont
-        tbox.FontSize = 24.0
+        tbox.FontSize = letterSize
 
         Return tbox
     End Function
+
+
     Private Sub TextBoxRender()
         RenderTextBox.BeginInit()
         RenderTextBox.Children.Clear()
@@ -69,7 +175,7 @@ Public Class TextEditorWindow
         Dim rg As New Regex(pattern)
         For i = 0 To Strs.Count - 1
             Dim defaultBrush As New SolidColorBrush(ColorTable(1))
-            Dim LineStr As String = Strs(i).Trim
+            Dim LineStr As String = Strs(i).Replace(vbCrLf, "")
 
             Dim matches As MatchCollection = rg.Matches(LineStr)
 
@@ -122,7 +228,9 @@ Public Class TextEditorWindow
             Inlines.Add(Run)
 
             Dim tdock As New DockPanel
-            tdock.Margin = New Thickness(0, 4, 0, 4)
+            Dim margin As Double = (letterSize - letterHeight)
+
+            tdock.Margin = New Thickness(0, margin, 0, margin)
             DockPanel.SetDock(tdock, Dock.Top)
             tdock.Children.Add(LeftTextBox)
             tdock.Children.Add(RightTextBox)
@@ -237,6 +345,10 @@ Public Class TextEditorWindow
     End Sub
 
     Private Sub EditTextbox_TextChanged(sender As Object, e As TextChangedEventArgs)
+        If Not IsLoaded Then
+            Return
+        End If
+
         TextString = EditTextbox.Text.Replace(vbCrLf, "\n")
         TextBoxRender()
     End Sub
@@ -245,5 +357,57 @@ Public Class TextEditorWindow
         If e.Key = Key.Escape Then
             Close()
         End If
+    End Sub
+
+
+    Public Structure RECT
+        Public left As Integer
+        Public top As Integer
+        Public right As Integer
+        Public bottom As Integer
+    End Structure
+    Public Structure POINT
+        Public x As Integer
+        Public y As Integer
+    End Structure
+    Declare Function GetClientRect Lib "user32" Alias "GetClientRect" (ByVal hwnd As IntPtr, ByRef lpRect As RECT) As Integer
+    Declare Function GetLastError Lib "Kernel32" Alias "GetLastError" () As Integer
+
+
+    <DllImport("user32")>
+    Public Shared Function MapWindowPoints(hWndFrom As IntPtr, hWndTo As IntPtr, ByRef pts As POINT, cPoints As Int32) As Int32
+    End Function
+
+
+    Private EmptyDelegate As Action = New Action(Sub()
+
+                                                 End Sub)
+    Private Sub AttachToStarCraft(sender As Object, e As RoutedEventArgs)
+        Dim stRect As RECT
+
+        Dim starcraftHandle As IntPtr
+        starcraftHandle = Process.GetProcessesByName("StarCraft")(0).MainWindowHandle
+
+        Dim p As POINT
+
+        GetClientRect(starcraftHandle, stRect)
+        MapWindowPoints(starcraftHandle, 0, p, 1)
+
+        Dim LastWidth As Integer = cwidth
+        Dim LastHeight As Integer = cheight
+
+
+        SetWindow(stRect.right, stRect.bottom)
+
+        Me.Dispatcher.Invoke(DispatcherPriority.Render, EmptyDelegate)
+        Dim tp As Windows.Point = mainTextBox.TranslatePoint(New Windows.Point(0, 0), Me)
+
+
+
+
+
+
+        Left = p.x - tp.X
+        Top = p.y - tp.Y
     End Sub
 End Class

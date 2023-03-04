@@ -33,6 +33,9 @@ Public Class TECUIPage
 
 
     Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
+        NewTextEditor.SelectCurrentText()
+
+
         Dim window As New TextEditorWindow(NewTextEditor.SelectedText)
         window.ShowDialog()
 
@@ -58,6 +61,12 @@ Public Class TECUIPage
             NewTextEditor.OptionFilePath = Tool.GetCodeEditorSettingFolder
             NewTextEditor.LoadOption()
             NewTextEditor.TabSizeTextBoxRefresh()
+
+            Dim foldedList As List(Of Integer) = CType(TEFile.Scripter, CUIScriptEditor).foldedData
+            If foldedList IsNot Nothing Then
+                NewTextEditor.LoadFolding(foldedList)
+            End If
+
             If pgData.Setting(ProgramData.TSetting.Theme) = "Dark" Then
                 NewTextEditor.IsDark = True
             Else
@@ -95,6 +104,8 @@ Public Class TECUIPage
 
             If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "False" Then
                 CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+            Else
+                CType(TEFile.Scripter, CUIScriptEditor).foldedData = NewTextEditor.SaveFolding()
             End If
         End If
     End Sub
@@ -104,7 +115,7 @@ Public Class TECUIPage
 
         Tool.EpsImportManager.CachedContainerRemove(PTEFile.GetPullPath())
 
-        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "False" Then
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
             CType(TEFile.Scripter, CUIScriptEditor).StringText = NewTextEditor.Text
         End If
     End Sub

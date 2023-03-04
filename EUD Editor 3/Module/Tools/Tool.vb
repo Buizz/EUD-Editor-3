@@ -51,7 +51,7 @@ Namespace Tool
                 Dim sr As New StreamReader(f)
 
                 While (Not sr.EndOfStream)
-                    argllist.Add(sr.ReadLine.Trim)
+                    argllist.Add("""" + sr.ReadLine.Trim + """")
                 End While
 
 

@@ -4,6 +4,8 @@
 Public Class CUIScriptEditor
     Inherits ScriptEditor
 
+    Public foldedData As List(Of Integer)
+
     Public Sub New(SType As SType)
         ScriptType = SType
     End Sub

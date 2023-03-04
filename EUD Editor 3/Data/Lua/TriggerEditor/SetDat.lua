@@ -195,7 +195,7 @@ DatFile
 @param.Modifier.TrgModifier
 ]================================]
 function SetTechdataDat(DatType, Index, Value, Modifier) --DatFile/TechdataDat,Tech,Number,TrgModifier/[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
-	Tech = ParseTech(Index)
+	Tech = ParseTechdata(Index)
 	Modifier = ParseModifier(Modifier)
     str = SetDatFile("techdata", DatType, Tech, Value, Modifier)
 	echo(str)

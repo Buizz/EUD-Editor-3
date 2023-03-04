@@ -5,45 +5,111 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:EUD_Editor_3"
         
+        WindowStyle="None"
+        Background="Transparent" 
+        AllowsTransparency="True"
+        
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
         mc:Ignorable="d"
-        Background="{DynamicResource MaterialDesignPaper}" 
+         
         Foreground="{DynamicResource MaterialDesignBody}" 
         Topmost="True"
-        Title="TextEditor" ResizeMode="CanResize" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen" Width="1040" MinWidth="1040" MaxWidth="1480" Height="588" MinHeight="588" MaxHeight="591" FontFamily="Arial"  >
-    <DockPanel LastChildFill="True">
+        Title="TextEditor" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"
+        Width="1040" 
+        Height="620" 
+        ResizeMode="NoResize"
+        FontFamily="Arial">
 
-        <DockPanel DockPanel.Dock="Left" Width="200">
-            <ListBox x:Name="ColorInfor" DockPanel.Dock="Top" SelectionChanged="ColorInfor_SelectionChanged"/>
-            <Button DockPanel.Dock="Bottom" Content="확인" Click="Button_Click" Height="Auto"/>
-        </DockPanel>
-        <!--Grid Width="840" Height="560" DockPanel.Dock="Right" MaxWidth="1280">-->
-        <Grid Height="560" DockPanel.Dock="Right" >
-                <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="360"/>
-            </Grid.RowDefinitions>
-            <DockPanel>
-                <ListBox x:Name="FormatFunc"  DockPanel.Dock="Left" SelectionChanged="FormatFunc_SelectionChanged">
-                    <ListBoxItem Content="숫자" Tag=""/>
-                    <ListBoxItem Content="c 플레이어 색상" Tag=":c"/>
-                    <ListBoxItem Content="n 플레이어 이름" Tag=":n"/>
-                    <ListBoxItem Content="s 스트링 주소" Tag=":s"/>
-                    <ListBoxItem Content="t 스트링EPD 주소" Tag=":t"/>
-                    <ListBoxItem Content="x 16진법 출력" Tag=":x"/>
-                </ListBox>
-                <TextBox x:Name="EditTextbox" AcceptsReturn="True" AcceptsTab="True" TextChanged="EditTextbox_TextChanged" Margin="10" KeyUp="EditTextbox_KeyUp">
+    <WindowChrome.WindowChrome>
+        <WindowChrome/>
+    </WindowChrome.WindowChrome>
 
-                </TextBox>
-                
-            </DockPanel>
-            <Border Background="Black" Grid.Row="1">
-                <DockPanel x:Name="RenderTextBox" LastChildFill="False" Margin="20,4" VerticalAlignment="Bottom">
+    <Grid >
+        <Border Margin="0,0,0,0" x:Name="mainback" CornerRadius="10" Background="{DynamicResource PrimaryHueDarkBrush}" Opacity="1">
+            <Border.Effect>
+                <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="20" Opacity="0.25" Color="#FF5A5050"/>
+            </Border.Effect>
+        </Border>
 
+
+        <DockPanel Margin="15" LastChildFill="True">
+            <Grid DockPanel.Dock="Left">
+                <Border Margin="5" CornerRadius="10" Background="{DynamicResource MaterialDesignPaper}">
+                    <Border.Effect>
+                        <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="20" Opacity="0.25" Color="#FF5A5050"/>
+                    </Border.Effect>
+                </Border>
+                <DockPanel Margin="15" Width="200" >
+                    <DockPanel DockPanel.Dock="Top">
+                        <UniformGrid DockPanel.Dock="Bottom" Columns="4" Rows="1" Margin="8">
+                            <TextBlock Text="Width" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox x:Name="tbwidth" Text="640" />
+                            <TextBlock Text="Height" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+                            <TextBox  x:Name="tbheight" Text="480" />
+                        </UniformGrid>
+
+
+                        <Button DockPanel.Dock="Bottom" Height="Auto" Click="AttachToStarCraft">
+                            <DockPanel>
+                                <materialDesign:PackIcon Kind="Magnify" />
+                                <TextBlock Text="화면에 부착"/>
+                            </DockPanel>
+                        </Button>
+                        <ListBox x:Name="ColorInfor" DockPanel.Dock="Top" SelectionChanged="ColorInfor_SelectionChanged"/>
+                    </DockPanel>
+                    <UniformGrid DockPanel.Dock="Bottom" Rows="1" Columns="2">
+                    </UniformGrid>
+
+
+                    <Slider DockPanel.Dock="Top" ValueChanged="Slider_ValueChanged"
+                          Value="10"
+                          Minimum="1"
+                          Maximum="10"
+                          Style="{StaticResource MaterialDesignDiscreteSlider}"
+                          TickFrequency="{Binding DiscreteHorizontal.TickFrequency}"
+                          TickPlacement="BottomRight" VerticalAlignment="Center" Margin="2,2,2,2" />
+                    <Button DockPanel.Dock="Bottom" Content="확인" Click="Button_Click" Height="Auto"/>
                 </DockPanel>
-            </Border>
-        
-        </Grid>
-    </DockPanel>
+
+            </Grid>
+            
+            <!--Grid Width="840" Height="560" DockPanel.Dock="Right" MaxWidth="1280">-->
+
+            <DockPanel DockPanel.Dock="Right">
+                <Grid DockPanel.Dock="Top"  >
+                    <Border Margin="5" CornerRadius="10" Background="{DynamicResource MaterialDesignPaper}">
+                        <Border.Effect>
+                            <DropShadowEffect Direction="0" ShadowDepth="0" BlurRadius="20" Opacity="0.25" Color="#FF5A5050"/>
+                        </Border.Effect>
+                    </Border>
+                    <DockPanel Margin="10" >
+                        <ListBox x:Name="FormatFunc"  DockPanel.Dock="Left" SelectionChanged="FormatFunc_SelectionChanged">
+                            <ListBoxItem Content="숫자" Tag=""/>
+                            <ListBoxItem Content="c 플레이어 색상" Tag=":c"/>
+                            <ListBoxItem Content="n 플레이어 이름" Tag=":n"/>
+                            <ListBoxItem Content="s 스트링 주소" Tag=":s"/>
+                            <ListBoxItem Content="t 스트링EPD 주소" Tag=":t"/>
+                            <ListBoxItem Content="x 16진법 출력" Tag=":x"/>
+                        </ListBox>
+                        <TextBox x:Name="EditTextbox" AcceptsReturn="True" AcceptsTab="True" TextChanged="EditTextbox_TextChanged" Margin="10" KeyUp="EditTextbox_KeyUp" MinWidth="600">
+
+                        </TextBox>
+
+                    </DockPanel>
+                </Grid>
+
+                <Grid x:Name="mainTextBox" DockPanel.Dock="Bottom" >
+                    <Border x:Name="back" Background="Black">
+
+                    </Border>
+                    <DockPanel x:Name="RenderTextBox" LastChildFill="False" Margin="20,4"/>
+                </Grid>
+          
+            </DockPanel>
+
+
+        </DockPanel>
+    </Grid>
+    
 </Window>
