@@ -1,3 +1,7 @@
+# Beta 0.15.1.0
+-ScriptEditor 폴딩 저장
+-TextEditor 수정
+
 # Beta 0.15.0.0
 -64Bit 빌드
 -ScriptEditor 버그 수정 및 자동 완성 함수 추가
