@@ -667,11 +667,10 @@ function ScreenShake(x, y, tempLoc: TrgLocation) {
         ));
         setloc(tempLoc, screenX, screenY);
         CenterView(64);
-        py_exec("chkt = GetChkTokenized()");
-        py_exec("dim = chkt.getsection('DIM')");
-        const mapX = py_eval("b2i2(dim) << 4");
-        const mapY = py_eval("b2i2(dim, 2) << 4");
-        addloc(tempLoc, mapX - dwread(SCREEN_X), dwread(SCREEN_Y) - mapY);
+        const chkt = GetChkTokenized();
+        const dim = chkt.getsection("DIM");
+        const mapX, mapY = b2i2(dim) * 16, b2i2(dim, 2) * 16;  // × 32 ÷ 2 (map center)
+        addloc(tempLoc, mapX - dwread(SCREEN_X), mapY - dwread(SCREEN_Y));
         CenterView(tempLoc);
     }
 }
