@@ -10,7 +10,6 @@
         AllowsTransparency="True"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         mc:Ignorable="d"
          
         Foreground="{DynamicResource MaterialDesignBody}" 

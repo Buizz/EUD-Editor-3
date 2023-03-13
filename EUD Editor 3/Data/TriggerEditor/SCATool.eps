@@ -64,11 +64,14 @@ const SCALastMessage = PVariable();
 8 = 다른 작업 중입니다.
 9 = 작업 실패
 10 = 명령 실행
+11 = 시간 로드
+12 = 글로벌데이터 로드
 */
 
 var LastTick;
 
 
+const ConnectionTime = PVariable();
 const ConnectStatus = PVariable();
 const MaxBuffer = PVariable();
 const BaseAddrEPD = PVariable();
@@ -341,7 +344,7 @@ function PlayerExec() {
                 MSQCSpecial = 2;
             }
         }
-
+        ConnectionTime[CP] += 1;
 
 
         if (MSQCSpecialBuffer[CP] == 200) {
@@ -488,9 +491,23 @@ function PlayerExec() {
                                     MSQCCondiction = 0;
                                 }
                                 LoadDataRead(rn[CP] - 1, SCACommand[CP], LoadAddrEPD[CP]);
+
+                                
+                                switch (SCACommand[CP]) {
+                                    case 1:
+                                        SCALastMessage[CP] = 4;
+                                        break;
+                                    case 2:
+                                        SCALastMessage[CP] = 11;
+                                        break;
+                                    case 3:
+                                        SCALastMessage[CP] = 12;
+                                        break;
+                                }
                                 SCACommand[CP] = 0;
 
-                                SCALastMessage[CP] = 4;
+
+
                                 if (SCAUseUserMessage == 1) {
                                     PlayWAV("sound\\Misc\\TDrTra01.wav");
                                     f_eprintln("\x07성공적으로 \x03데이터\x04를 불러왔습니다.");
@@ -581,6 +598,8 @@ function PlayerExec() {
                 MSQCSpecial = 0;
             }
         }
+
+        ConnectionTime[CP] = 0;
     }
 
 

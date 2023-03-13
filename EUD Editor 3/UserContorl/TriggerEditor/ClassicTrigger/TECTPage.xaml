@@ -53,7 +53,7 @@
                     </DockPanel>
 
                     <Border x:Name="GlobalPanel" Visibility="Visible" Background="#80000000" >
-                        <materialDesign:Card x:Name="VariableCard" Background="{DynamicResource MaterialDesignPaper}" Padding="5" VerticalAlignment="Top" Margin="4,30,4,6" >
+                        <materialDesign:Card x:Name="VariableCard" Background="{DynamicResource MaterialDesignPaper}" Padding="5" Margin="4,30,4,6" VerticalAlignment="Top"  >
                             <DockPanel>
                                 <UniformGrid Rows="1" DockPanel.Dock="Bottom">
                                     <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Okay}" x:Name="GlobalOkayBtn" Click="GlobalOkayBtn_Click"/>

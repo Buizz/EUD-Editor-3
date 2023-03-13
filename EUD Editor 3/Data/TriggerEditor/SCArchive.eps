@@ -28,6 +28,7 @@ function Init(){
     scfl.Init();
 }
 
+
 function Exec(){
 	scf.Exec();
 	sct.Exec();
@@ -69,6 +70,28 @@ function CommandStatus(){
 	return sct.SCACommand[getcurpl()];
 }
 
+function ConnectionTime(){
+	return sct.ConnectionTime[getcurpl()];
+}
+
+function CheckLoadable(){
+	var c = 0;
+	var p = 0;
+	foreach(cp : EUDLoopPlayer("Human",None,None)){
+		if(sct.SCACommand[cp] != 0){
+			c += sct.SCACommand[cp];
+			p = cp;
+		}
+	}
+	if (c == 0){
+		return true;
+	}else{
+	    if (sct.SCAUseUserMessage == 1) {
+            f_eprintf("{:c}{:n}\x04의 \x07작업[{}]\x04을 \x17기다리고 있습니다.", p, p, sct.rn[p]);
+        }
+		return false;
+	}
+}
 
 
 /***
@@ -82,6 +105,9 @@ function CommandStatus(){
  * 7 = 런처와 먼저 연결하세요
  * 8 = 다른 작업 중입니다.
  * 9 = 작업 실패
+ * 10 = 명령 실행
+ * 11 = 시간 로드
+ * 12 = 글로벌데이터 로드
 ***/
 function GetLastMessage(){
 	return sct.SCALastMessage[getcurpl()];

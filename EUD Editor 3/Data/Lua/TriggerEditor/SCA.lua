@@ -122,6 +122,51 @@ function SCALoadGlobalData() --SCA//글로벌 변수를 불러옵니다.
 	echo("scalua.scaLoadGlobal()")
 end
 
+
+--[================================[
+@Language.ko-KR
+@Summary
+시간 정보를 불러옵니다.
+@Group
+SCA
+
+
+@Language.en-US
+@Summary
+시간 정보를 불러옵니다.
+@Group
+SCA
+]================================]
+function SCALoadTimeOnce() --SCA//시간 정보를 불러옵니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
+
+
+	echo("scalua.scaLoadTimeOnce()")
+end
+
+--[================================[
+@Language.ko-KR
+@Summary
+글로벌 변수를 불러옵니다.
+@Group
+SCA
+
+
+@Language.en-US
+@Summary
+글로벌 변수를 불러옵니다.
+@Group
+SCA
+]================================]
+function SCALoadGlobalDataOnce() --SCA//글로벌 변수를 불러옵니다.
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	beforeText("scalua.Exec();")
+
+
+	echo("scalua.scaLoadGlobalOnce()")
+end
+
 --[================================[
 @Language.ko-KR
 @Summary

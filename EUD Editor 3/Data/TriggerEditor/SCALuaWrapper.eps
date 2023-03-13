@@ -1,4 +1,6 @@
 import TriggerEditor.SCArchive as sca;
+import TriggerEditor.SCAFastLoader as scfl;
+import TriggerEditor.SCATool as sct;
 
 
 const s = StringBuffer();
@@ -14,6 +16,8 @@ const loadglobalstatus = PVariable();
 
 const loadTimestatus = PVariable();
 
+
+var IsUseLoadQueue = true;
 
 
 function IsLoadComplete(){
@@ -52,19 +56,14 @@ function IsTimeLoadComplete(){
 	return false;
 }
 
-
-
-
-
-
-
 function Exec(){
+
 	foreach(cp : EUDLoopPlayer("Human",None,None)){
 		setcurpl(cp);
 		sca.Exec();
 		
 		//연결 됨
-		if (sca.ConnectStatus() == 1){
+		if (sca.ConnectStatus() == 1 && sca.ConnectionTime() > 48){
 			
 			//로드 진행
 			if (loadstatus[cp] == 1){
@@ -72,8 +71,14 @@ function Exec(){
 					loadstatus[cp] = 2;
 					sca.ResetLastMessage();
 				}else{
-					if (sca.CommandStatus() == 0){
-						sca.LoadData(loadslot[cp]);
+					if ((sca.CommandStatus() == 0) && (IsUseLoadQueue == true) && sca.CheckLoadable()){
+						if(scfl.IsAllSCAUser()){
+							if(scfl.usercommandstatus == 0 && scfl.LoadOrder == 0){
+								sca.LoadFastData(cp, loadslot[cp]);
+							}
+						}else{
+							sca.LoadData(loadslot[cp]);
+						}
 					}
 				}
 			}else if (savestatus[cp] == 1){
@@ -107,11 +112,9 @@ function Exec(){
 				}
 			}
 			
-			
-			
 		}
-	
 	}
+
 	sca.ExecFastLoad();
 }
 
@@ -140,6 +143,24 @@ function scaLoadGlobal(){
 function scaLoadTime(){
 	const cp = getcurpl();
 	loadTimestatus[cp] = 1;
+}
+
+function scaLoadGlobalOnce(){
+	foreach(cp : EUDLoopPlayer("Human",None,None)){
+		if (sct.ConnectStatus[cp]() == 1){
+			loadglobalstatus[cp] = 1;
+			return;
+		}
+	}
+}
+
+function scaLoadTimeOnce(){
+	foreach(cp : EUDLoopPlayer("Human",None,None)){
+		if (sct.ConnectStatus[cp]() == 1){
+			loadTimestatus[cp] = 1;
+			return;
+		}
+	}
 }
 
 function SetUseDefaultMessage(value){

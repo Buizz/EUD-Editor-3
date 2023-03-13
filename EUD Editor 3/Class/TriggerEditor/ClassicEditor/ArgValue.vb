@@ -34,13 +34,25 @@ Public Class ArgValue
         IsQuotation = False
     End Sub
 
+    Private Function LuaCover(str As String)
+        If str.Length >= 2 Then
+            '2개보다 길면 
+
+            If str.Last = """" And str.First = """" Then
+                str = str.Substring(1, str.Length - 2)
+            End If
+        End If
+
+        Return """" & str & """"
+    End Function
+
 
     Public Function GetCodeText(_scripter As ScriptEditor, isLuaCover As Boolean) As String
         Dim v As String
         If ValueType = "Variable" Then
             v = ValueString & ValueString2
             If isLuaCover Then
-                v = """" & v & """"
+                v = LuaCover(v)
             End If
         ElseIf ValueType = "Function" Then
             If CodeBlock Is Nothing Then
@@ -51,7 +63,7 @@ Public Class ArgValue
                 v = CodeBlock.GetCodeText(0, _scripter, isLuaCover)
                 If isLuaCover Then
                     If CodeBlock.FType <> TriggerFunction.EFType.Lua Then
-                        v = """" & v & """"
+                        v = LuaCover(v)
                     End If
                 End If
             End If
@@ -69,13 +81,13 @@ Public Class ArgValue
                 End If
 
                 If ValueType = "TrgString" Or ValueType = "FormatString" Or ValueType = "WAVName" Or ValueType = "TrgSwitch" Or ValueType = "TrgAIScript" Then
-                    v = """" & v & """"
+                    v = LuaCover(v)
                 ElseIf isLuaCover Then
                     Dim tlist() As String = {"TrgAllyStatus", "TrgComparison", "TrgModifier", "TrgOrder",
         "TrgPlayer", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState", "BGM"}
 
                     If tlist.ToList.IndexOf(ValueType) = -1 Then
-                        v = """" & v & """"
+                        v = LuaCover(v)
                     End If
                 End If
             End If

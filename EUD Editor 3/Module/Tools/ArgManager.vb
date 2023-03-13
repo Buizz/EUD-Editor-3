@@ -164,14 +164,14 @@
                     For i = 0 To pjData.MapData.WavCount - 1
                         Dim tstr As String
                         tstr = pjData.MapData.WavIndex(i)
-                        strs.Add(tstr)
+                        strs.Add("""" + tstr + """")
                     Next
                 End If
 
 
 
                 For i = 0 To scData.Sound_Count - 1
-                    strs.Add(scData.SoundName(i))
+                    strs.Add("""" + scData.SoundName(i) + """")
                 Next
 
 

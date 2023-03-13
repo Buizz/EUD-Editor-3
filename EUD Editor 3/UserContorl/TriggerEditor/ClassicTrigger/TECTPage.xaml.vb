@@ -290,7 +290,7 @@ Public Class TECTPage
         ValType.SelectedIndex = -1
         ValName.Text = ""
         InitCB.IsChecked = False
-        VariableCard.Height = 130
+        'VariableCard.Height = 130
         GlobalOkayBtn.IsEnabled = False
 
         IsGlobalEditOpen = False
@@ -336,7 +336,7 @@ Public Class TECTPage
             If ValueData.vinit = "NULL" Then
                 GlobalInitBox.Text = ""
                 InitCB.IsChecked = False
-                VariableCard.Height = 130
+                'VariableCard.Height = 130
                 GlobalInitBox.IsEnabled = False
             Else
                 GlobalInitBox.IsEnabled = True
@@ -445,7 +445,7 @@ Public Class TECTPage
             VariableCard.Height = Double.NaN
         Else
             InitCB.IsChecked = False
-            VariableCard.Height = 130
+            'VariableCard.Height = 130
             GlobalInitBox.IsEnabled = False
         End If
     End Sub

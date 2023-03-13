@@ -1,4 +1,6 @@
 import TriggerEditor.SCArchive as sca;
+import TriggerEditor.SCAFastLoader as scfl;
+import TriggerEditor.SCATool as sct;
 
 
 const s = StringBuffer();
@@ -18,13 +20,17 @@ const loadglobalstatus = PVariable();
 const loadTimefunc = PVariable();
 const loadTimestatus = PVariable();
 
+
+var IsUseLoadQueue = true;
+
+
 function Exec(){
 	foreach(cp : EUDLoopPlayer("Human",None,None)){
 		setcurpl(cp);
 		sca.Exec();
 		
 		//연결 됨
-		if (sca.ConnectStatus() == 1){
+		if (sca.ConnectStatus() == 1 && sca.ConnectionTime() > 96){
 			
 			//로드 진행
 			if (loadstatus[cp] == 1){
@@ -34,8 +40,14 @@ function Exec(){
 					p(cp);
 					sca.ResetLastMessage();
 				}else{
-					if (sca.CommandStatus() == 0){
-						sca.LoadData(loadslot[cp]);
+					if ((sca.CommandStatus() == 0) && (IsUseLoadQueue == true) && sca.CheckLoadable()){
+						if(scfl.IsAllSCAUser()){
+							if(scfl.usercommandstatus == 0 && scfl.LoadOrder == 0){
+								sca.LoadFastData(cp, loadslot[cp]);
+							}
+						}else{
+							sca.LoadData(loadslot[cp]);
+						}
 					}
 				}
 			}else if (savestatus[cp] == 1){
@@ -74,13 +86,8 @@ function Exec(){
 					}
 				}
 			}
-			
-			
-			
 		}
-	
 	}
-
 	sca.ExecFastLoad();
 }
 
