@@ -1,4 +1,4 @@
-# Beta 0.15.1.0
+# Beta 0.15.1.1
 -ScriptEditor 폴딩 저장
 -TextEditor 수정
 
