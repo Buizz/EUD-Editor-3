@@ -10,7 +10,6 @@
         AllowsTransparency="True"
         
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-        mc:Ignorable="d"
          
         Foreground="{DynamicResource MaterialDesignBody}" 
         Topmost="True"
