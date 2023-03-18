@@ -317,6 +317,13 @@ Public Class MacroManager
                     rctext = funcname & "("
                 End If
 
+                If quote Then
+                    If s.First() = "@" Then
+                        s = s.Substring(1)
+                        quote = False
+                    End If
+                End If
+
 
                 If quote Then
                     rctext = rctext & """" & s & """"
