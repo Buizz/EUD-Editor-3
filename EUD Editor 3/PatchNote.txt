@@ -1,3 +1,8 @@
+# Beta 0.16.0.0
+-SCA로직 수정
+-SCA FastLoad 최적화
+-ScriptEditor 버그 수정
+
 # Beta 0.15.1.1
 -ScriptEditor 폴딩 저장
 -TextEditor 수정
