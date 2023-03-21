@@ -147,7 +147,7 @@ function scaLoadTime(){
 
 function scaLoadGlobalOnce(){
 	foreach(cp : EUDLoopPlayer("Human",None,None)){
-		if (sct.ConnectStatus[cp]() == 1){
+		if (sct.ConnectStatus[cp] == 1){
 			loadglobalstatus[cp] = 1;
 			return;
 		}
@@ -156,7 +156,7 @@ function scaLoadGlobalOnce(){
 
 function scaLoadTimeOnce(){
 	foreach(cp : EUDLoopPlayer("Human",None,None)){
-		if (sct.ConnectStatus[cp]() == 1){
+		if (sct.ConnectStatus[cp] == 1){
 			loadTimestatus[cp] = 1;
 			return;
 		}

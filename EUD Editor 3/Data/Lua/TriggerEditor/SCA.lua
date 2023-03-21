@@ -310,6 +310,10 @@ function SCAGlobalData(Index,Comparison,Value) --SCA/Number,TrgComparison,Number
 		str = Variable .. " == " .. Value
 
 		echo(str)
+	else
+		str = Variable .. Comparison .. Value
+
+		echo(str)
 	end
 end
 
