@@ -1,4 +1,5 @@
-﻿Imports Newtonsoft.Json.Linq
+﻿Imports MaterialDesignThemes.Wpf
+Imports Newtonsoft.Json.Linq
 
 Public Class TECUIPage
     Private PTEFile As TEFile
@@ -26,7 +27,7 @@ Public Class TECUIPage
                 NewTextEditor.SetFilePath = PTEFile.FileName
                 NewTextEditor.Text = TString
             Else
-                TextEditor.ExternerLoader()
+                OldTextEditor.ExternerLoader()
             End If
         End If
     End Sub
@@ -35,11 +36,17 @@ Public Class TECUIPage
     Private Sub MenuItem_Click(sender As Object, e As RoutedEventArgs)
         NewTextEditor.SelectCurrentText()
 
+        Me.Visibility = Visibility.Collapsed
+        Me.Visibility = Visibility.Visible
+        Application.Current.MainWindow.Visibility = Visibility.Visible
+        Dim Window As New TextEditorWindow(NewTextEditor.SelectedText)
+        Window.Owner = Application.Current.MainWindow
+        Window.ShowDialog()
+        Application.Current.MainWindow.Visibility = Visibility.Collapsed
 
-        Dim window As New TextEditorWindow(NewTextEditor.SelectedText)
-        window.ShowDialog()
+        NewTextEditor.SelectedText = Window.TextString
 
-        NewTextEditor.SelectedText = window.TextString
+
     End Sub
     Public Sub New(tTEFile As TEFile, Optional highLightLine As Integer = -1)
 
@@ -52,14 +59,14 @@ Public Class TECUIPage
 
 
         If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
-            TextEditor.Visibility = Visibility.Collapsed
+            OldTextEditor.Visibility = Visibility.Collapsed
             NewTextEditor.AddCustomMenuBtn("텍스트 에디터 열기", "Ctrl+T", Key.LeftCtrl, Key.T, New RoutedEventHandler(AddressOf MenuItem_Click))
             NewTextEditor.SetImportManager(Tool.EpsImportManager)
             NewTextEditor.SetImportManager(Tool.LuaImportManager)
             NewTextEditor.SetFilePath = PTEFile.GetPullPath()
             NewTextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
             NewTextEditor.OptionFilePath = Tool.GetCodeEditorSettingFolder
-            NewTextEditor.LoadOption()
+            NewTextEditor.LoadOption("Eps")
             NewTextEditor.TabSizeTextBoxRefresh()
 
             Dim foldedList As List(Of Integer) = CType(TEFile.Scripter, CUIScriptEditor).foldedData
@@ -74,11 +81,11 @@ Public Class TECUIPage
             End If
         Else
             NewTextEditor.Visibility = Visibility.Collapsed
-            TextEditor.Init(tTEFile)
-            TextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
+            OldTextEditor.Init(tTEFile)
+            OldTextEditor.Text = CType(TEFile.Scripter, CUIScriptEditor).StringText
 
             If highLightLine > -1 Then
-                TextEditor.LineHighLight(highLightLine)
+                OldTextEditor.LineHighLight(highLightLine)
             End If
         End If
     End Sub
@@ -88,7 +95,7 @@ Public Class TECUIPage
         If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
             CType(TEFile.Scripter, CUIScriptEditor).StringText = NewTextEditor.Text
         Else
-            CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+            CType(TEFile.Scripter, CUIScriptEditor).StringText = OldTextEditor.Text
         End If
         TEFile.LastDataRefresh()
     End Sub
@@ -103,7 +110,7 @@ Public Class TECUIPage
         If TEFile.FileType = TEFile.EFileType.CUIEps Then
 
             If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "False" Then
-                CType(TEFile.Scripter, CUIScriptEditor).StringText = TextEditor.Text
+                CType(TEFile.Scripter, CUIScriptEditor).StringText = OldTextEditor.Text
             Else
                 CType(TEFile.Scripter, CUIScriptEditor).foldedData = NewTextEditor.SaveFolding()
             End If

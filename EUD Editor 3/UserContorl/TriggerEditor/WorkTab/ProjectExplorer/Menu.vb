@@ -66,7 +66,8 @@ Partial Public Class ProjectExplorer
                     Else
                         If GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIEps Or
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Or
-                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.ClassicTrigger Then
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.ClassicTrigger Or
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.SCAScript Then
                             MenuConnect.Visibility = Visibility.Collapsed
                             MenuDisConnect.Visibility = Visibility.Collapsed
                             'ToGUI.Visibility = Visibility.Collapsed
@@ -410,6 +411,10 @@ Partial Public Class ProjectExplorer
         FileCreate(New TEFile(Tool.GetText("NewPyScript"), TEFile.EFileType.GUIPy))
         TERefreshSetting()
     End Sub
+    Private Sub AddSCAScript()
+        FileCreate(New TEFile(Tool.GetText("NewSCAScript"), TEFile.EFileType.SCAScript))
+        TERefreshSetting()
+    End Sub
 
 
     Private Sub AddFolder(tTEFile As TEFile)
@@ -451,6 +456,9 @@ Partial Public Class ProjectExplorer
     Private Sub GUIPy_Click(sender As Object, e As RoutedEventArgs)
         AddGUIPy()
     End Sub
+    Private Sub SCAScript_Click(sender As Object, e As RoutedEventArgs)
+        AddSCAScript()
+    End Sub
     Private Sub AddFolderBtn_Click(sender As Object, e As RoutedEventArgs)
         AddFolder(New TEFile(Tool.GetText("NewFolder"), TEFile.EFileType.Folder))
     End Sub
@@ -487,7 +495,9 @@ Partial Public Class ProjectExplorer
             For i = 0 To SelectItems.Count - 1
                 ExportFile(GetFile(SelectItems(i)), dialog.FileName)
 
-                If GetFile(SelectItems(i)).FileType = TEFile.EFileType.CUIEps Or GetFile(SelectItems(i)).FileType = TEFile.EFileType.ClassicTrigger Then
+                If GetFile(SelectItems(i)).FileType = TEFile.EFileType.CUIEps Or
+                    GetFile(SelectItems(i)).FileType = TEFile.EFileType.ClassicTrigger Or
+                    GetFile(SelectItems(i)).FileType = TEFile.EFileType.SCAScript Then
                     Dim fs As New System.IO.FileStream(dialog.FileName & "\" & GetFile(SelectItems(i)).FileName & ".eps", IO.FileMode.Create)
                     Dim sw As New System.IO.StreamWriter(fs)
                     sw.Write(GetFile(SelectItems(i)).Scripter.GetStringText())
@@ -500,7 +510,7 @@ Partial Public Class ProjectExplorer
     End Sub
 
     Private Sub ExportFile(teFile As TEFile, folder As String)
-        If teFile.FileType = TEFile.EFileType.CUIEps Or teFile.FileType = TEFile.EFileType.ClassicTrigger Then
+        If teFile.FileType = TEFile.EFileType.CUIEps Or teFile.FileType = TEFile.EFileType.ClassicTrigger Or teFile.FileType = TEFile.EFileType.SCAScript Then
             Dim fs As New System.IO.FileStream(folder & "\" & teFile.FileName & ".eps", IO.FileMode.Create)
             Dim sw As New System.IO.StreamWriter(fs)
             sw.Write(teFile.Scripter.GetStringText())

@@ -14,6 +14,7 @@ Public Class TEFile
         Setting
 
         ClassicTrigger
+        SCAScript
     End Enum
 
 
@@ -158,6 +159,8 @@ Public Class TEFile
                 _Scripter = New GUIScriptEditor(ScriptEditor.SType.Py, Me)
             Case EFileType.ClassicTrigger
                 _Scripter = New ClassicTriggerEditor()
+            Case EFileType.SCAScript
+                _Scripter = New SCAScriptEditor(ScriptEditor.SType.Lua)
         End Select
 
 
@@ -282,6 +285,8 @@ Public Class TEFile
                     Return _FileName & ".py"
                 Case EFileType.ClassicTrigger
                     Return _FileName & ".eps"
+                Case EFileType.SCAScript
+                    Return _FileName & ".lua"
             End Select
 
 

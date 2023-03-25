@@ -13,6 +13,9 @@ Public Class TriggerEditor
         'MainTabablzControl.NewItemFactory = asdgfaqwea
 
 
+        'MainTabablzControl.Style = FindResource("MaterialDesignAlternateTabablzControlStyle")
+
+
         Explorer.Init(Me)
     End Sub
 
@@ -54,6 +57,9 @@ Public Class TriggerEditor
                         If TypeOf TabItem.Content Is TECUIPage Then
                             Dim TECUIPage As TECUIPage = TabItem.Content
                             TECUIPage.Deactivated()
+                        ElseIf TypeOf TabItem.Content Is TESCAScriptPage Then
+                            Dim TECUIPage As TESCAScriptPage = TabItem.Content
+                            TECUIPage.Deactivated()
                         End If
                         'MsgBox("Save " & i)
                     Next
@@ -84,6 +90,7 @@ Public Class TriggerEditor
             tTabablzControl.InterTabController = New InterTabController
             tTabablzControl.InterTabController.Height = 0
             tTabablzControl.InterTabController.Partition = "QuickStart"
+            tTabablzControl.Style = FindResource("MaterialDesignAlternateTabablzControlStyle")
 
 
 
@@ -103,6 +110,8 @@ Public Class TriggerEditor
                         Tabitem = GetTabItem(New TEGUIPage(TabItems.Items(i)), TabItems.Items(i))
                     Case TEFile.EFileType.ClassicTrigger
                         Tabitem = GetTabItem(New TECTPage(TabItems.Items(i)), TabItems.Items(i))
+                    Case TEFile.EFileType.SCAScript
+                        Tabitem = GetTabItem(New TESCAScriptPage(TabItems.Items(i)), TabItems.Items(i))
                 End Select
 
                 'MsgBox("Load " & i)
@@ -191,6 +200,9 @@ Public Class TriggerEditor
                         ElseIf TypeOf TabItem.Content Is TECTPage Then
                             Dim TECTPage As TECTPage = TabItem.Content
                             TabItems.Items.Add(TECTPage.TEFile)
+                        ElseIf TypeOf TabItem.Content Is TESCAScriptPage Then
+                            Dim TECTPage As TESCAScriptPage = TabItem.Content
+                            TabItems.Items.Add(TECTPage.TEFile)
                         End If
                         'MsgBox("Save " & i)
                     Next
@@ -260,6 +272,8 @@ Public Class TriggerEditor
                 PlusTabItem(New TriggerEditorSetting(tTEFile), MainTab, tTEFile)
             Case TEFile.EFileType.ClassicTrigger
                 PlusTabItem(New TECTPage(tTEFile, Line), MainTab, tTEFile, Line)
+            Case TEFile.EFileType.SCAScript
+                PlusTabItem(New TESCAScriptPage(tTEFile, Line), MainTab, tTEFile, Line)
         End Select
     End Sub
 
@@ -343,6 +357,13 @@ Public Class TriggerEditor
                     tPage.SelectList(SelectLine)
                     Return True
                 End If
+            ElseIf TypeOf TabContent Is TESCAScriptPage Then
+                Dim tPage As TESCAScriptPage = TabContent
+
+                If tPage.CheckTEFile(tTEFile) Then
+                    Control.SelectedIndex = i
+                    Return True
+                End If
             ElseIf TypeOf TabContent Is TriggerEditorSetting Then
                 Dim tPage As TriggerEditorSetting = TabContent
 
@@ -392,6 +413,7 @@ Public Class TriggerEditor
     End Sub
     Private Function GetTabItem(tTEFileControl As UserControl, tTEFile As TEFile) As TabItem
         Dim TabItem As New TabItem
+        'TabItem.Style = Nothing 'FindResource("MaterialDesignNavigationRailTabItem")
         TabItem.DataContext = tTEFile.UIBinding
 
         Dim tbind As New Binding

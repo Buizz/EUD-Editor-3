@@ -39,8 +39,7 @@ Public Class BitmapManager
 
     Public Shared Function LoadImage(ms As MemoryStream) As ByteBitmap
 
-
-        Dim Image As IImage = Pfim.Pfim.FromStream(ms)
+        Dim Image As IImage = Pfimage.FromStream(ms)
         Try
             Select Case Image.Format
                 Case ImageFormat.Rgb24

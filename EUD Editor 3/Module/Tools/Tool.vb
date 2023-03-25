@@ -161,6 +161,7 @@ Namespace Tool
         Public TEEpsDefaultFunc As CFunc
         Public EpsImportManager As EpsImportManager
         Public LuaImportManager As LuaImportManager
+        Public SCAScriptImportManager As SCALuaImportManager
 
         'Private MainWindow As MainWindow
         Public Sub Init()
@@ -178,6 +179,12 @@ Namespace Tool
             LuaImportManager = New LuaImportManager()
             LuaDefaultCompletionData.GetArgDataList = AddressOf GetArgList
             LuaDefaultCompletionData.GetArgKeyWordList = AddressOf GetArgTypeArray
+
+
+            SCAScriptImportManager = New SCALuaImportManager()
+            LuaDefaultCompletionData.GetArgDataList = AddressOf GetArgList
+            LuaDefaultCompletionData.GetArgKeyWordList = AddressOf GetArgTypeArray
+
 
             TEEpsDefaultFunc = New CFunc
 
@@ -840,6 +847,26 @@ Namespace Tool
             Return False
         End Function
 
+
+        Public Function OpenTexteditor(str As String) As String
+            For Each win As Window In Application.Current.Windows
+                win.UpdateLayout()
+            Next
+            Application.Current.MainWindow.Visibility = Visibility.Visible
+
+            Dim Window As New TextEditorWindow(str)
+            Window.Owner = Application.Current.MainWindow
+            Window.ShowDialog()
+
+            Return Window.TextString
+        End Function
+
+
+        Public Sub RefreshAllWindow()
+            For Each win As Window In Application.Current.Windows
+                win.UpdateLayout()
+            Next
+        End Sub
 
         Public Sub RefreshMainWindow()
             Try

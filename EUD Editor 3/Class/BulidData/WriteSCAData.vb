@@ -116,7 +116,7 @@ Partial Public Class BuildData
         Next
         senddata = senddata & "vtaglist=" & WebUtility.UrlEncode(tagsdata) & "&"
 
-        If pjData.TEData.SCArchive.updateinfo Then
+        If pjData.TEData.SCArchive.updateinfo And False Then
             senddata = senddata & "mapname=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTitle) & "&"
             senddata = senddata & "email=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerEmail) & "&"
             senddata = senddata & "maplink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.DownLink) & "&"
@@ -135,10 +135,10 @@ Partial Public Class BuildData
 
         Select Case respon
             Case "NOACCOUNT"
-                Tool.CustomMsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다.", MessageBoxButton.OK, MessageBoxImage.Error)
+                Tool.ErrorMsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다.")
                 Return False
             Case "BANUSER"
-                Tool.CustomMsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCA사용이 금지된 아이디입니다.", MessageBoxButton.OK, MessageBoxImage.Error)
+                Tool.ErrorMsgBox(Tool.GetText("Error SCA") & vbCrLf & "SCA사용이 금지된 아이디입니다.")
                 Return False
         End Select
 

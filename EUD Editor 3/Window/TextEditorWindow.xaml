@@ -9,8 +9,9 @@
         Background="Transparent" 
         AllowsTransparency="True"
         
+        materialDesign:ShadowAssist.CacheMode="{x:Null}"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
-         
+        Loaded="Window_Loaded"
         Foreground="{DynamicResource MaterialDesignBody}" 
         Topmost="True"
         Title="TextEditor" SizeToContent="WidthAndHeight" WindowStartupLocation="CenterScreen"

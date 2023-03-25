@@ -131,6 +131,8 @@ Partial Public Class ProjectExplorer
                 Icon.Kind = PackIconKind.SettingsOutline
             Case TEFile.EFileType.ClassicTrigger
                 Icon.Kind = PackIconKind.FormatListCheckbox
+            Case TEFile.EFileType.SCAScript
+                Icon.Kind = PackIconKind.Internet
         End Select
 
 

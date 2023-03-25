@@ -201,15 +201,15 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
-    Public Property Password() As String
-        Get
-            Return pjData.TEData.SCArchive.PassWord
-        End Get
-        Set(value As String)
-            pjData.SetDirty(True)
-            pjData.TEData.SCArchive.PassWord = value
-        End Set
-    End Property
+    'Public Property Password() As String
+    '    Get
+    '        Return pjData.TEData.SCArchive.PassWord
+    '    End Get
+    '    Set(value As String)
+    '        pjData.SetDirty(True)
+    '        pjData.TEData.SCArchive.PassWord = value
+    '    End Set
+    'End Property
 
 
     Public Property MapCode() As String

@@ -826,6 +826,7 @@
     <!--트리거에디터-->
     <sys:String x:Key="NewFolder">새 폴더</sys:String>
     <sys:String x:Key="NewEpsScript">새epScript파일</sys:String>
+    <sys:String x:Key="NewSCAScript">새SCAScript파일</sys:String>
     <sys:String x:Key="NewPyScript">새eudplib파일</sys:String>
     <sys:String x:Key="Folder">폴더</sys:String>
     <sys:String x:Key="EpsScriptFile">epScript파일</sys:String>
@@ -868,6 +869,7 @@
 
 
     <sys:String x:Key="MenuCNewCT">클래식 트리거</sys:String>
+    <sys:String x:Key="MenuSCAScript">SCA 스크립트</sys:String>
     <sys:String x:Key="MenuCNewEpsScript">epScript 파일</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib 파일</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript 파일</sys:String>
@@ -1053,7 +1055,7 @@
     <sys:String x:Key="FreePlayMode">자유 모드</sys:String>
 
 
-    <sys:String x:Key="SCAHomepage">사이트 바로가기</sys:String>
+    <sys:String x:Key="SCAHomepage">SCArchive 관리</sys:String>
     
     <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
     <sys:String x:Key="MapSetting">맵 설정</sys:String>

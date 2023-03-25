@@ -37,7 +37,6 @@
             </ComboBox>
             <Expander x:Name="mapSettingex" HorizontalAlignment="Stretch" Header="{StaticResource MapSetting}">
                 <StackPanel>
-                    <Button Content="{StaticResource SCAHomepage}" Click="Button_Click"/>
 
                     <Label Content="{StaticResource SCALoginInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"/>
                     <StackPanel Orientation="Horizontal">
@@ -55,20 +54,10 @@
                                 </Binding>
                             </TextBox.Text>
                         </TextBox>
-                        <TextBox x:Name="UMSPassWord"  MinWidth="130" materialDesign:HintAssist.Hint="{StaticResource PassWord}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5" >
-                            <TextBox.Text>
-                                <Binding
-                                            Path="Password"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
+                        <PasswordBox x:Name="UMSPassWord" MinWidth="130" materialDesign:HintAssist.Hint="{StaticResource PassWord}"
+                                     Style="{StaticResource MaterialDesignFloatingHintPasswordBox}" Margin="5" PasswordChanged="UMSPassWord_PasswordChanged">
 
-                                    <Binding.ValidationRules>
-                                        <local:AlphaValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
+                        </PasswordBox>
 
 
                         <CheckBox x:Name="OldUseCheckbox"
@@ -144,26 +133,95 @@
                         </TextBox>
                     </StackPanel>
                     <Separator Background="#4CA0A0A0"/>
-                    <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
-                        <Label  Content="{StaticResource MapInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
-                        <CheckBox x:Name="infoCheckbox"
+
+                    <Button Content="{StaticResource SCAHomepage}" Click="Button_Click"/>
+
+                    <StackPanel Visibility="Collapsed">
+                        <StackPanel Orientation="Horizontal" Margin="0,0,0,3">
+                            <Label  Content="{StaticResource MapInfor}" HorizontalAlignment="Left" VerticalAlignment="Top" FontSize="14" FontWeight="Bold"  />
+                            <CheckBox x:Name="infoCheckbox"
                             Style="{StaticResource MaterialDesignCheckBox}" Checked="CheckBox_Checked" Unchecked="infoCheckbox_Unchecked" Content="{StaticResource InforUpdate}">
-                            <CheckBox.IsChecked>
-                                <Binding
+                                <CheckBox.IsChecked>
+                                    <Binding
                                             Path="updateinfo"
                                             UpdateSourceTrigger="PropertyChanged">
-                                </Binding>
-                            </CheckBox.IsChecked>
-                        </CheckBox>
-                    </StackPanel>
+                                    </Binding>
+                                </CheckBox.IsChecked>
+                            </CheckBox>
+                        </StackPanel>
 
 
-                    <StackPanel x:Name="MapDetail">
-                        <StackPanel Orientation="Horizontal" Margin="5">
-                            <TextBox x:Name="Maptitle" Grid.Column="0" MinWidth="150" ToolTip="{StaticResource MapNameHint}" materialDesign:HintAssist.Hint="{StaticResource MapName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
+                        <StackPanel x:Name="MapDetail">
+                            <StackPanel Orientation="Horizontal" Margin="5">
+                                <TextBox x:Name="Maptitle" Grid.Column="0" MinWidth="150" ToolTip="{StaticResource MapNameHint}" materialDesign:HintAssist.Hint="{StaticResource MapName}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0">
+                                    <TextBox.Text>
+                                        <Binding
+                                            Path="MapTitle"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                            <Binding.ValidationRules>
+                                                <local:TextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+
+                                <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="{StaticResource MakerEmailHint}" materialDesign:HintAssist.Hint="{StaticResource MakerEmail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                                    <TextBox.Text>
+                                        <Binding
+                                            Path="MakerEmail"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+
+                                            <Binding.ValidationRules>
+                                                <local:EMailValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                            </Binding.ValidationRules>
+                                        </Binding>
+                                    </TextBox.Text>
+                                </TextBox>
+                                <Label VerticalAlignment="Center" Content="{StaticResource ViewUnEnabled}"/>
+                                <CheckBox x:Name="ViewPublic" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
+                                    <CheckBox.IsChecked>
+                                        <Binding
+                                            Path="ViewPublic"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                        </Binding>
+                                    </CheckBox.IsChecked>
+                                </CheckBox>
+                                <Label VerticalAlignment="Center" Content="{StaticResource ViewEnabled}"/>
+                            </StackPanel>
+                            <TextBox x:Name="MapTags" MinWidth="150" ToolTip="{StaticResource MapTagHint}" materialDesign:HintAssist.Hint="{StaticResource MapTag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
                                 <TextBox.Text>
                                     <Binding
-                                            Path="MapTitle"
+                                            Path="MapTags"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox x:Name="MapLink" MinWidth="150" ToolTip="{StaticResource MapInforLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapInforLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                                <TextBox.Text>
+                                    <Binding
+                                            Path="DownLink"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+                            <TextBox x:Name="ImageLink" MinWidth="150" ToolTip="{StaticResource MapImageLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapImageLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
+                                <TextBox.Text>
+                                    <Binding
+                                            Path="ImageLink"
+                                            UpdateSourceTrigger="PropertyChanged">
+                                    </Binding>
+                                </TextBox.Text>
+                            </TextBox>
+
+                            <TextBox x:Name="Mapdes" AcceptsReturn="True" ToolTip="{StaticResource MapDescriptionHint}" materialDesign:HintAssist.Hint="{StaticResource MapDescription}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" VerticalContentAlignment="Top" Height="100">
+                                <TextBox.Text>
+                                    <Binding
+                                            Path="MapDes"
                                             ValidatesOnDataErrors="True"
                                             UpdateSourceTrigger="PropertyChanged">
                                         <Binding.ValidationRules>
@@ -173,72 +231,9 @@
                                     </Binding>
                                 </TextBox.Text>
                             </TextBox>
-
-                            <TextBox x:Name="MakerEmail" Grid.Column="0" MinWidth="150" ToolTip="{StaticResource MakerEmailHint}" materialDesign:HintAssist.Hint="{StaticResource MakerEmail}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                                <TextBox.Text>
-                                    <Binding
-                                            Path="MakerEmail"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-
-                                        <Binding.ValidationRules>
-                                            <local:EMailValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                        </Binding.ValidationRules>
-                                    </Binding>
-                                </TextBox.Text>
-                            </TextBox>
-                            <Label VerticalAlignment="Center" Content="{StaticResource ViewUnEnabled}"/>
-                            <CheckBox x:Name="ViewPublic" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked">
-                                <CheckBox.IsChecked>
-                                    <Binding
-                                            Path="ViewPublic"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                    </Binding>
-                                </CheckBox.IsChecked>
-                            </CheckBox>
-                            <Label VerticalAlignment="Center" Content="{StaticResource ViewEnabled}"/>
                         </StackPanel>
-                        <TextBox x:Name="MapTags" MinWidth="150" ToolTip="{StaticResource MapTagHint}" materialDesign:HintAssist.Hint="{StaticResource MapTag}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                            <TextBox.Text>
-                                <Binding
-                                            Path="MapTags"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-                        <TextBox x:Name="MapLink" MinWidth="150" ToolTip="{StaticResource MapInforLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapInforLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                            <TextBox.Text>
-                                <Binding
-                                            Path="DownLink"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-                        <TextBox x:Name="ImageLink" MinWidth="150" ToolTip="{StaticResource MapImageLinkHint}" materialDesign:HintAssist.Hint="{StaticResource MapImageLink}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0">
-                            <TextBox.Text>
-                                <Binding
-                                            Path="ImageLink"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
-
-                        <TextBox x:Name="Mapdes" AcceptsReturn="True" ToolTip="{StaticResource MapDescriptionHint}" materialDesign:HintAssist.Hint="{StaticResource MapDescription}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="5,0,5,0" VerticalContentAlignment="Top" Height="100">
-                            <TextBox.Text>
-                                <Binding
-                                            Path="MapDes"
-                                            ValidatesOnDataErrors="True"
-                                            UpdateSourceTrigger="PropertyChanged">
-                                    <Binding.ValidationRules>
-                                        <local:TextValidationRule
-                                            ValidatesOnTargetUpdated="True"/>
-                                    </Binding.ValidationRules>
-                                </Binding>
-                            </TextBox.Text>
-                        </TextBox>
                     </StackPanel>
+                    
                     
 
                 </StackPanel>

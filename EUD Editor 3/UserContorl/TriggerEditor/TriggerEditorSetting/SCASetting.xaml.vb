@@ -1,4 +1,6 @@
-﻿Public Class SCASetting
+﻿Imports System.Net
+
+Public Class SCASetting
 
     Private SCADAtas As SCADataList
     Public Sub New()
@@ -18,6 +20,7 @@
     Private Loadcmp As Boolean = False
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         MapDetail.IsEnabled = infoCheckbox.IsChecked
+        UMSPassWord.Password = pjData.TEData.SCArchive.PassWord
         Loadcmp = True
     End Sub
 
@@ -27,11 +30,16 @@
     End Sub
 
 
+    Private Sub UMSPassWord_PasswordChanged(sender As Object, e As RoutedEventArgs)
+        If Loadcmp Then
+            pjData.TEData.SCArchive.PassWord = UMSPassWord.Password
+        End If
+    End Sub
 
     Private Sub UseSCA_Checked(sender As Object, e As RoutedEventArgs)
         If Loadcmp Then
             If MakerBattleTag.Text.Trim = "" Or
-                UMSPassWord.Text.Trim = "" Or
+                UMSPassWord.Password.Trim = "" Or
                 MakerID.Text.Trim = "" Or
                 subtitle.Text.Trim = "" Or
                 UseMapName.Text.Trim = "" Then
@@ -71,6 +79,21 @@
     End Sub
 
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
-        Process.Start("https://scarchive.kr/")
+        Dim mapCode As String = pjData.EudplibData.GetMapCode()
+
+
+        If (mapCode = "") Or (pjData.TEData.SCArchive.SubTitle = "") Or
+              (pjData.TEData.SCArchive.SCAEmail = "") Or (pjData.TEData.SCArchive.PassWord = "") Then
+            Return
+        End If
+        Dim senddata As String = ""
+        senddata = "mapcode=" & WebUtility.UrlEncode(mapCode) & "&"
+        senddata = senddata & "subtitle=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SubTitle) & "&"
+        senddata = senddata & "bt=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SCAEmail) & "&"
+        senddata = senddata & "pw=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.PassWord)
+
+
+        Process.Start("https://scarchive.kr/creator/main.php?" + senddata)
     End Sub
+
 End Class

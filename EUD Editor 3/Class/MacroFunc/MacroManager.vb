@@ -18,6 +18,18 @@ Public Class MacroManager
         End Get
     End Property
 
+    Public Shared ReadOnly Property SCAFloderPath As String
+        Get
+            If Not My.Computer.FileSystem.DirectoryExists(System.AppDomain.CurrentDomain.BaseDirectory & "Data\Lua\SCAScript") Then
+                If Not My.Computer.FileSystem.DirectoryExists(System.AppDomain.CurrentDomain.BaseDirectory & "Data\Lua") Then
+                    My.Computer.FileSystem.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory & "Data\Lua")
+                End If
+                My.Computer.FileSystem.CreateDirectory(System.AppDomain.CurrentDomain.BaseDirectory & "Data\Lua\SCAScript")
+            End If
+
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "Data\Lua\SCAScript"
+        End Get
+    End Property
 
     Public FunctionList As List(Of LuaFunction)
     Public ReadOnly Property GetFunction(name As String) As LuaFunction

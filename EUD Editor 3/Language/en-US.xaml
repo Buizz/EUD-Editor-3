@@ -829,6 +829,7 @@
     <!--트리거에디터-->
     <sys:String x:Key="NewFolder">New Folder</sys:String>
     <sys:String x:Key="NewEpsScript">epScript</sys:String>
+    <sys:String x:Key="NewSCAScript">SCAScript</sys:String>
     <sys:String x:Key="NewPyScript">New eudplib File</sys:String>
     <sys:String x:Key="Folder">Folder</sys:String>
     <sys:String x:Key="EpsScriptFile">epScript File</sys:String>
@@ -871,6 +872,7 @@
 
 
     <sys:String x:Key="MenuCNewCT">ClassicTrigger</sys:String>
+    <sys:String x:Key="MenuSCAScript">SCA SCript</sys:String>
     <sys:String x:Key="MenuCNewEpsScript">epScript File</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib File</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript File</sys:String>
@@ -1048,7 +1050,7 @@
     <sys:String x:Key="MultiPlayMode">Multi Player Mode</sys:String>
     <sys:String x:Key="FreePlayMode">Free Play Mode</sys:String>
 
-    <sys:String x:Key="SCAHomepage">Site Link</sys:String>
+    <sys:String x:Key="SCAHomepage">SCArchive Management</sys:String>
     
     <sys:String x:Key="SCALoginInfor">SCA Login Info</sys:String>
     <sys:String x:Key="MapSetting">Map Settings</sys:String>

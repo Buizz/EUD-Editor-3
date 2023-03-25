@@ -1,4 +1,5 @@
-﻿Imports System.Runtime.InteropServices
+﻿Imports System.ComponentModel
+Imports System.Runtime.InteropServices
 Imports System.Text.RegularExpressions
 Imports System.Windows.Threading
 
@@ -416,5 +417,20 @@ Public Class TextEditorWindow
 
         Left = p.x - tp.X
         Top = p.y - tp.Y
+    End Sub
+
+
+
+
+    Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
+        Dim bg As BackgroundWorker = New BackgroundWorker()
+        AddHandler bg.DoWork, Sub()
+                                  Threading.Thread.Sleep(100)
+                              End Sub
+        AddHandler bg.RunWorkerCompleted, Sub()
+                                              Application.Current.MainWindow.Visibility = Visibility.Collapsed
+                                          End Sub
+
+        bg.RunWorkerAsync()
     End Sub
 End Class

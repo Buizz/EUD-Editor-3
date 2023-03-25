@@ -152,7 +152,14 @@ Public Class SCADataList
                     Next
                 End If
         End Select
-        InitTypeCB()
+        If TypeCB.SelectedIndex = 1 Then
+            InitTypeCB(SelCodeData.ValueIndex)
+        Else
+            InitTypeCB()
+        End If
+
+
+
         CreateEditWindow.Visibility = Visibility.Visible
     End Sub
     Private Sub TypeCB_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
@@ -160,7 +167,7 @@ Public Class SCADataList
             InitTypeCB()
         End If
     End Sub
-    Private Sub InitTypeCB()
+    Private Sub InitTypeCB(Optional initvalue As Integer = 0)
         Select Case TypeCB.SelectedIndex
             Case 0
                 ValueSelecter.Visibility = Visibility.Collapsed
@@ -168,7 +175,7 @@ Public Class SCADataList
                 OkKey.IsEnabled = False
                 VariableReset()
             Case 1
-                ValueSelecter.Init(SCDatFiles.DatFiles.units, "데스값", 0)
+                ValueSelecter.Init(SCDatFiles.DatFiles.units, "데스값", initvalue)
                 ValueSelecter.Visibility = Visibility.Visible
                 VariableField.Visibility = Visibility.Collapsed
                 Checekname()

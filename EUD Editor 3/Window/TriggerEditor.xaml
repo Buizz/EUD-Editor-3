@@ -76,7 +76,8 @@
                 </Grid>
             </Expander>
             <dockablz:Layout x:Name="MainTab"  Partition="{StaticResource Partition}" >
-                <dragablz:TabablzControl x:Name="MainTabablzControl" ShowDefaultCloseButton="True"  >
+                <dragablz:TabablzControl x:Name="MainTabablzControl" ShowDefaultCloseButton="True" Style="{StaticResource MaterialDesignAlternateTabablzControlStyle}">
+
                     <dragablz:TabablzControl.InterTabController>
                         <dragablz:InterTabController Partition="{StaticResource Partition}" Height="0" />
                     </dragablz:TabablzControl.InterTabController>
