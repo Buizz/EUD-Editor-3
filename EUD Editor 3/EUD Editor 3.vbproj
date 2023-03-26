@@ -166,8 +166,8 @@
     <Reference Include="MaterialDesignColors, Version=2.1.2.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignColors.2.1.2\lib\net462\MaterialDesignColors.dll</HintPath>
     </Reference>
-    <Reference Include="MaterialDesignThemes.MahApps, Version=0.2.8.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
-      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.2.8\lib\net462\MaterialDesignThemes.MahApps.dll</HintPath>
+    <Reference Include="MaterialDesignThemes.MahApps, Version=0.2.7.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
+      <HintPath>..\packages\MaterialDesignThemes.MahApps.0.2.7\lib\net462\MaterialDesignThemes.MahApps.dll</HintPath>
     </Reference>
     <Reference Include="MaterialDesignThemes.Wpf, Version=4.8.0.0, Culture=neutral, PublicKeyToken=df2a72020bd7962a, processorArchitecture=MSIL">
       <HintPath>..\packages\MaterialDesignThemes.4.8.0\lib\net462\MaterialDesignThemes.Wpf.dll</HintPath>
@@ -1660,6 +1660,9 @@
     <None Include="Data\TriggerEditor\BGMPlayer.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <Content Include="Data\TriggerEditor\SCAScript.py">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Content>
     <None Include="Data\TriggerEditor\SCAFastLoader.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

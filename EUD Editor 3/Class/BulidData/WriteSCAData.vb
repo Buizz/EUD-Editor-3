@@ -161,6 +161,7 @@ Partial Public Class BuildData
     Public Function GetSCAEps() As String
         Const CommandLength As Integer = 12
         Dim SpaceLength As Integer = pjData.TEData.SCArchive.DataSpace
+        Dim FuncLength As Integer = pjData.TEData.SCArchive.FuncSpace
 
 
         Dim sb As New StringBuilder
@@ -183,10 +184,20 @@ Partial Public Class BuildData
             sb.AppendLine("import " & NameSapces(i) & " as n" & i & ";")
         Next
         sb.AppendLine("")
-        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 16 * (CommandLength + SpaceLength) & ");  // workspace")
+
+        'EntryPoint.Count * 4
+        '8(플레이어) * 2(4바이트 맞추기 위해) * (CommandLength + SpaceLength) / 플레이어스페이스
+        '2 * (CommandLength + SpaceLength) / 로컬로딩
+        '2 * (CommandLength + SpaceLength) / 패딩
+        '플레이어함수
+
+
+        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 16 * (CommandLength + SpaceLength) + FuncLength * 4 & ");  // workspace")
         'sb.AppendLine("const ws = 0x58F44A;")
         sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";  // EntryPointLength")
-        sb.AppendLine("const SpaceLength = " & pjData.TEData.SCArchive.DataSpace & ";  // DataBufferSize")
+        sb.AppendLine("const SpaceLength = " & SpaceLength & ";  // DataBufferSize")
+        sb.AppendLine("const FuncLength = " & FuncLength & ";  // FuncSpace")
+        sb.AppendLine("const FuncStartEPD = EPD(ws + " & EntryPoint.Count * 4 + 16 * (CommandLength + SpaceLength) & ");  // FuncStart")
         sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";  // ObjectCount")
 
 

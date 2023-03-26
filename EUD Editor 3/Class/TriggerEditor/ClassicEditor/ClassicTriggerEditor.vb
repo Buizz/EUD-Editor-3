@@ -40,6 +40,9 @@ Public Class ClassicTriggerEditor
 
         For Each item In TriggerListCollection
             item.parentscripter = Me
+            If item.ForceEnabled Is Nothing Then
+                ReDim item.ForceEnabled(6)
+            End If
         Next
     End Sub
 
@@ -200,11 +203,60 @@ Public Class ClassicTriggerEditor
         Next
 
         For i = 0 To TriggerListCollection.Count - 1
+            Dim cTrig As Trigger = TriggerListCollection(i)
+
+            Dim exeplayers(7) As Boolean
             For p = 0 To 7
-                If TriggerListCollection(i).PlayerEnabled(p) Then
-                    TriggerListCollection(i).StartLine = -1
-                    TriggerListCollection(i).EndLine = -1
-                    playerTrigger(p).Add(TriggerListCollection(i))
+                If cTrig.PlayerEnabled(p) Then
+                    exeplayers(p) = True
+                End If
+            Next
+
+
+            If cTrig.ForceEnabled(0) Then
+                'AllPlayers
+                For p = 0 To 7
+                    exeplayers(p) = True
+                Next
+            End If
+
+            For f = 1 To 4
+                Dim forcenum As Integer = i - 1
+                If cTrig.ForceEnabled(f) Then
+                    'Force
+                    For p = 0 To 7
+                        If pjData.MapData.UserInfo(p).force = forcenum Then
+                            exeplayers(p) = True
+                        End If
+                    Next
+                End If
+            Next
+
+
+            If cTrig.ForceEnabled(5) Then
+                'User
+                For p = 0 To 7
+                    If pjData.MapData.UserInfo(p).control = MapData.UserINFOData.EControl.Human Then
+                        exeplayers(p) = True
+                    End If
+                Next
+            End If
+            If cTrig.ForceEnabled(6) Then
+                'Computer
+                For p = 0 To 7
+                    If pjData.MapData.UserInfo(p).control = MapData.UserINFOData.EControl.Computer Then
+                        exeplayers(p) = True
+                    End If
+                Next
+            End If
+
+
+
+            For p = 0 To 7
+                If exeplayers(p) Then
+                    cTrig.StartLine = -1
+                    cTrig.EndLine = -1
+                    playerTrigger(p).Add(cTrig)
                 End If
             Next
         Next

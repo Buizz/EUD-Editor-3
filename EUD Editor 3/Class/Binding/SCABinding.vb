@@ -81,7 +81,6 @@ Public Class SCABinding
 
 
 
-
     Public Property DataSize() As String
         Get
             Return pjData.TEData.SCArchive.DataSpace
@@ -89,6 +88,16 @@ Public Class SCABinding
         Set(value As String)
             pjData.SetDirty(True)
             pjData.TEData.SCArchive.DataSpace = value
+            PropertyChangedPack()
+        End Set
+    End Property
+    Public Property FuncSize() As String
+        Get
+            Return pjData.TEData.SCArchive.FuncSpace
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.FuncSpace = value
             PropertyChangedPack()
         End Set
     End Property

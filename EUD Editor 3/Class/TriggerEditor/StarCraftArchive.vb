@@ -58,6 +58,16 @@ Public Class StarCraftArchive
         End Set
     End Property
 
+    Private _FuuncSpace As Integer
+    Public Property FuncSpace As Integer
+        Get
+            Return _FuuncSpace
+        End Get
+        Set(value As Integer)
+            _FuuncSpace = value
+        End Set
+    End Property
+
     Private _MakerBattleTag As String
     Public Property MakerBattleTag As String
         Get

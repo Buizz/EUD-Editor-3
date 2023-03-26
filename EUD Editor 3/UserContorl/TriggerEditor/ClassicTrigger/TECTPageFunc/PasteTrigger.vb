@@ -88,6 +88,11 @@ Partial Public Class TECTPage
                     tcheck = True
                 End If
             Next
+            For k = 0 To 6
+                If trg.ForceEnabled(k) Then
+                    tcheck = True
+                End If
+            Next
             If Not tcheck Then
                 '모든 트리거가 꺼져있어서 추가불가능
                 Continue For

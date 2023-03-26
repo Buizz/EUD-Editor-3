@@ -15,9 +15,16 @@
                                     End If
 
                                     '해당 플레이어가 ON일경우 True
-                                    If trig.PlayerEnabled(Player) Then
-                                        rval = True
+                                    If Player > 7 Then
+                                        If trig.ForceEnabled(Player - 8) Then
+                                            rval = True
+                                        End If
+                                    Else
+                                        If trig.PlayerEnabled(Player) Then
+                                            rval = True
+                                        End If
                                     End If
+
 
 
                                     Return rval

@@ -21,6 +21,13 @@
             cb.IsChecked = ptrg.PlayerEnabled(cbtag)
         Next
 
+
+        For Each cb As CheckBox In OtherTab.Children
+            Dim cbtag As Integer = cb.Tag
+            cb.IsChecked = ptrg.ForceEnabled(cbtag)
+        Next
+
+
         AddHandler TriggerCodeEdit.OkayBtnEvent, AddressOf TriggerCodeEditOkayEvent
 
         cList.Items.Clear()
@@ -46,6 +53,7 @@
         IsCodeOnly.IsChecked = ptrg.IsOnlyCode
         CodeText.Text = ptrg.CodeText
 
+        ButtonRefresh()
 
         IsLoad = True
     End Sub
@@ -186,6 +194,12 @@
 
 
         Dim tcheck As Boolean = False
+        For k = 0 To 6
+            If ptrg.ForceEnabled(k) Then
+                tcheck = True
+            End If
+        Next
+
         For k = 0 To 7
             If ptrg.PlayerEnabled(k) Then
                 tcheck = True
@@ -200,15 +214,22 @@
 
 
     Private Sub PlayerCheck(sender As Object, e As RoutedEventArgs)
+        If Not IsLoad Then
+            Return
+        End If
+
         Dim cb As CheckBox = sender
 
         Dim pindex As Integer = cb.Tag
 
         ptrg.PlayerEnabled(pindex) = cb.IsChecked
 
-
-
         Dim tcheck As Boolean = False
+        For k = 0 To 6
+            If ptrg.ForceEnabled(k) Then
+                tcheck = True
+            End If
+        Next
         For k = 0 To 7
             If ptrg.PlayerEnabled(k) Then
                 tcheck = True
@@ -216,6 +237,34 @@
         Next
         OkayBtn.IsEnabled = tcheck
     End Sub
+
+
+    Private Sub ForceCheck(sender As Object, e As RoutedEventArgs)
+        If Not IsLoad Then
+            Return
+        End If
+
+        Dim cb As CheckBox = sender
+
+        Dim pindex As Integer = cb.Tag
+
+        ptrg.ForceEnabled(pindex) = cb.IsChecked
+
+        Dim tcheck As Boolean = False
+        For k = 0 To 6
+            If ptrg.ForceEnabled(k) Then
+                tcheck = True
+            End If
+        Next
+        For k = 0 To 7
+            If ptrg.PlayerEnabled(k) Then
+                tcheck = True
+            End If
+        Next
+        OkayBtn.IsEnabled = tcheck
+    End Sub
+
+
 
     Private Sub IsTriggerEnabled_Checked(sender As Object, e As RoutedEventArgs)
         ptrg.IsEnabled = True

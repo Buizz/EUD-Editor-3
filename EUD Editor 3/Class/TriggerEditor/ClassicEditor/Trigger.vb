@@ -34,7 +34,15 @@ Public Class Trigger
     Public PlayerEnabled(7) As Boolean
 
 
-
+    '플레이어
+    Public ForceEnabled(6) As Boolean
+    'AllPlayers
+    'Force1
+    'Force2
+    'Force3
+    'Force4
+    'User
+    'Computer
 
 
     Public ReadOnly Property _IsEnabled As System.Windows.Visibility
@@ -320,6 +328,10 @@ Public Class Trigger
         toTrg.CodeText = CodeText
         For i = 0 To PlayerEnabled.Count - 1
             toTrg.PlayerEnabled(i) = PlayerEnabled(i)
+        Next
+
+        For i = 0 To ForceEnabled.Count - 1
+            toTrg.ForceEnabled(i) = ForceEnabled(i)
         Next
 
         toTrg.CommentStringProperty = CommentStringProperty

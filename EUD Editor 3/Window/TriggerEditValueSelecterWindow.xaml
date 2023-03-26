@@ -54,7 +54,7 @@
                     
                     
                     <Grid x:Name="TrgStringPanel" Visibility="Collapsed">
-                        <TextBox x:Name="TrgTextBox" TextChanged="TrgTextBox_TextChanged"  AcceptsReturn="True"/>
+                        <TextBox x:Name="TrgTextBox" TextChanged="TrgTextBox_TextChanged" AcceptsReturn="True"/>
                     </Grid>
 
                     <Grid x:Name="RawCodePanel" Visibility="Collapsed">

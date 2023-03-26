@@ -25,6 +25,27 @@ Public Class MapData
     End Property
 
 
+    Private _UserInfo As List(Of UserINFOData)
+    Public ReadOnly Property UserInfo(index As Integer) As UserINFOData
+        Get
+            Return _UserInfo(index)
+        End Get
+    End Property
+    Public Class UserINFOData
+        Public number As Byte
+        Public force As Byte
+        Public control As EControl
+        Public Enum EControl
+            Human
+            Computer
+            NoPlayer
+        End Enum
+    End Class
+
+
+
+
+
     Private _WavIndex As List(Of Integer)
     Public ReadOnly Property WavIndex(index As Integer) As String
         Get
@@ -140,6 +161,7 @@ Public Class MapData
         Dat = New SCDatFiles(True)
         Strings = New List(Of String)
         _WavIndex = New List(Of Integer)
+        _UserInfo = New List(Of UserINFOData)
 
         Dim hmpq As ULong
         Dim hfile As ULong
@@ -179,6 +201,54 @@ Public Class MapData
                 Throw New Exception(Tool.GetText("Error Not support SCM"))
             End Try
 
+
+            If True Then
+                SearchCHK("OWNR", binary)
+
+                size = binary.ReadUInt32
+                'OWNR 1바이트 씩 12개
+                '03 = 구조가능
+                '05 = 컴퓨터
+                '06 = 사람
+                '07 = 중립
+                '00 = 사용되지 않음 (해당 플레이어가 사용불가인 상태로 되어있다는 뜻.)
+                For i = 0 To 7
+                    Dim b As Byte = binary.ReadByte()
+                    Dim userINFO As UserINFOData = New UserINFOData()
+                    userINFO.number = i
+
+                    Select Case b
+                        Case 3, 5, 7
+                            userINFO.control = UserINFOData.EControl.Computer
+                        Case 6
+                            userINFO.control = UserINFOData.EControl.Human
+                        Case Else
+                            userINFO.control = UserINFOData.EControl.NoPlayer
+
+                    End Select
+
+                    _UserInfo.Add(userINFO)
+                Next
+            End If
+
+
+
+            If True Then
+                SearchCHK("FORC", binary)
+
+                size = binary.ReadUInt32
+                'FORC 1바이트 씩 8개 2바이트씩 4개
+                '1400 0000 = 단락 길이
+                '0001 0203 0000 0000 = 각 플레이어의 소속 세력(Force), (순서대로 Player 1,2,3,4,5,6,7,8)
+                '00 = Force 1
+                '01 = Force 2
+                '02 = Force 3
+                '03 = Force 4
+                For i = 0 To 7
+                    Dim b As Byte = binary.ReadByte()
+                    _UserInfo(i).force = b
+                Next
+            End If
 
 
             If True Then

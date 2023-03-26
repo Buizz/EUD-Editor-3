@@ -241,20 +241,38 @@
 
             <Label  Content="{StaticResource DataSetting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
             <DockPanel>
-                <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource BufferSize}" ToolTip="{StaticResource BufferSizeHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
-                    <TextBox.Text>
-                        <Binding
+                <StackPanel Orientation="Horizontal">
+                    <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource BufferSize}" ToolTip="{StaticResource BufferSizeHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding
                                             Path="DataSize"
                                             ValidatesOnDataErrors="True"
                                             UpdateSourceTrigger="PropertyChanged">
 
-                            <Binding.ValidationRules>
-                                <local:NotTextValidationRule
+                                <Binding.ValidationRules>
+                                    <local:NotTextValidationRule
                                             ValidatesOnTargetUpdated="True"/>
-                            </Binding.ValidationRules>
-                        </Binding>
-                    </TextBox.Text>
-                </TextBox>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+
+                    <TextBox DockPanel.Dock="Top" x:Name="FuncSize" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource SCAFunctionSize}" ToolTip="{StaticResource SCAFunctionHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="20,0,5,0" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding
+                                            Path="FuncSize"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+
+                                <Binding.ValidationRules>
+                                    <local:NotTextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
+                </StackPanel>
+                
 
             </DockPanel>
 

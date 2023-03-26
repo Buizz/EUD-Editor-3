@@ -1097,6 +1097,9 @@
 
 
     <sys:String x:Key="CT_TriggerSetting">Setting</sys:String>
+    <sys:String x:Key="CT_Computer">Computer</sys:String>
+    <sys:String x:Key="CT_User">Human</sys:String>
+    <sys:String x:Key="CT_Force">Force</sys:String>
     <sys:String x:Key="CT_Player">Player</sys:String>
     <sys:String x:Key="CT_Condition">Condition</sys:String>
     <sys:String x:Key="CT_Action">Action</sys:String>

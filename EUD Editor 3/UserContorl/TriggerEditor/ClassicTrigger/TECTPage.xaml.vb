@@ -48,8 +48,8 @@ Public Class TECTPage
     Dim IsPlayerListChange As Boolean = False
     Public Sub PlayerListReset()
 
-        Dim PlayerFlag(7) As Boolean
-        Dim TriggerCount(7) As Integer
+        Dim PlayerFlag(14) As Boolean
+        Dim TriggerCount(14) As Integer
 
         Dim LastSelect As Integer = GetPlayerListIndex()
 
@@ -64,20 +64,52 @@ Public Class TECTPage
                     TriggerCount(j) += 1
                 End If
             Next
+
+
+            For j = 0 To Scripter.TriggerListCollection(i).ForceEnabled.Count - 1
+                If Scripter.TriggerListCollection(i).ForceEnabled(j) Then
+                    PlayerFlag(j + 8) = Scripter.TriggerListCollection(i).ForceEnabled(j)
+                    TriggerCount(j + 8) += 1
+                End If
+            Next
         Next
 
-        For i = 0 To 7
+        For i = 0 To 14
             If PlayerFlag(i) Then
                 Dim tlistitem As New ListBoxItem
 
                 tlistitem.Padding = New Thickness(10)
 
-                tlistitem.Content = "Player " & i + 1 & vbCrLf & TriggerCount(i) & "개"
+                If i > 7 Then
+                    Dim forcename As String = ""
+                    Select Case i
+                        Case 8
+                            forcename= Tool.GetLanText("TrgArgAllPlayers")
+                        Case 9
+                            forcename= Tool.GetLanText("TrgArgForce1")
+                        Case 10
+                            forcename= Tool.GetLanText("TrgArgForce2")
+                        Case 11
+                            forcename= Tool.GetLanText("TrgArgForce3")
+                        Case 12
+                            forcename= Tool.GetLanText("TrgArgForce4")
+                        Case 13
+                            forcename= Tool.GetLanText("CT_User")
+                        Case 14
+                            forcename= Tool.GetLanText("CT_Computer")
+                    End Select
+
+                    tlistitem.Content = forcename & vbCrLf & TriggerCount(i) & "개"
+                Else
+                    tlistitem.Content = "Player " & i + 1 & vbCrLf & TriggerCount(i) & "개"
+                End If
                 tlistitem.Tag = i
 
                 PlayerList.Items.Add(tlistitem)
             End If
         Next
+
+
 
         SetPlayerListIndex(LastSelect)
         IsPlayerListChange = False
