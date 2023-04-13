@@ -160,6 +160,8 @@ Partial Public Class BuildData
 
     Public Function GetSCAEps() As String
         Const CommandLength As Integer = 12
+        Const FastLoadCommandLength As Integer = 116
+        Const FuncCommandLength As Integer = 32
         Dim SpaceLength As Integer = pjData.TEData.SCArchive.DataSpace
         Dim FuncLength As Integer = pjData.TEData.SCArchive.FuncSpace
 
@@ -192,12 +194,32 @@ Partial Public Class BuildData
         '플레이어함수
 
 
-        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + 16 * (CommandLength + SpaceLength) + FuncLength * 4 & ");  // workspace")
+        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + '엔트리포인트
+                      8 * (CommandLength + SpaceLength) + '일반 값
+                      (FastLoadCommandLength + SpaceLength) + '패스트 로드
+                      FuncCommandLength + FuncLength * 4 + 'FuncLoad
+                      FuncLength * 4 & 'FuncReturnTable
+                       ");  // workspace")
         'sb.AppendLine("const ws = 0x58F44A;")
         sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";  // EntryPointLength")
         sb.AppendLine("const SpaceLength = " & SpaceLength & ";  // DataBufferSize")
-        sb.AppendLine("const FuncLength = " & FuncLength & ";  // FuncSpace")
-        sb.AppendLine("const FuncStartEPD = EPD(ws + " & EntryPoint.Count * 4 + 16 * (CommandLength + SpaceLength) & ");  // FuncStart")
+        sb.AppendLine("const FuncLength = " & FuncLength & ";  // FuncSpace / 4")
+
+        sb.AppendLine("const FuncCommandEPD = EPD(ws + " & EntryPoint.Count * 4 +
+                      8 * (CommandLength + SpaceLength) + '일반 값
+                      (FastLoadCommandLength + SpaceLength) & '패스트 로드
+                      ");  // FuncOrder")
+        sb.AppendLine("const FuncDataEPD = EPD(ws + " & EntryPoint.Count * 4 +
+                      8 * (CommandLength + SpaceLength) + '일반 값
+                      (FastLoadCommandLength + SpaceLength) + '패스트 로드
+                      FuncCommandLength & 'FuncCommand
+                      ");  // FuncData")
+        sb.AppendLine("const FuncReturnTableEPD = EPD(ws + " & EntryPoint.Count * 4 +
+                      8 * (CommandLength + SpaceLength) + '일반 값
+                      (FastLoadCommandLength + SpaceLength) + '패스트 로드
+                      FuncCommandLength + 'FuncCommand
+                      FuncLength * 4 & 'FuncLoad
+                      ");  // FuncReturnTable")
         sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";  // ObjectCount")
 
 
@@ -205,9 +227,10 @@ Partial Public Class BuildData
         sb.AppendLine("function Init() {")
         sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
         sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', py_open('scadatafile', 'rb').read());")
+        sb.AppendLine("    MPQAddFile('SCASCRIPT', py_open('scascript', 'rb').read());")
         sb.AppendLine("    DoActions(list(  // EntryPoint")
         For i = 0 To EntryPoint.Count - 1
-            sb.AppendLine("        SetMemory(ws + " & 4*i & ", SetTo, " & EntryPoint(i) & "),")
+            sb.AppendLine("        SetMemory(ws + " & 4 * i & ", SetTo, " & EntryPoint(i) & "),")
         Next
 
         sb.AppendLine("    ));")
@@ -464,36 +487,6 @@ Partial Public Class BuildData
 
 
     Public Function WriteSCADataFile() As Boolean
-        'Dim hmpq As UInteger
-        'Dim hfile As UInteger
-        'Dim buffer() As Byte
-        'Dim filesize As UInteger
-        'Dim pdwread As IntPtr
-
-
-
-        'Dim openFilename As String = "staredit\scenario.chk"
-
-
-        'System.Threading.Thread.Sleep(1000)
-
-
-        'StormLib.SFileOpenArchive(pjData.SaveMapName, 0, 0, hmpq)
-        'If hmpq = 0 Then
-        'Return False
-        'End If
-        'StormLib.SFileOpenFileEx(hmpq, openFilename, 0, hfile)
-        'filesize = StormLib.SFileGetFileSize(hfile, filesize)
-        'ReDim buffer(filesize)
-        'MsgBox("파일 크기 : " & filesize)
-        'StormLib.SFileReadFile(hfile, buffer, filesize, pdwread, 0)
-
-        'Dim crc32 As New CRC32
-        'Dim checksumv As UInteger = crc32.GetCRC32(buffer)
-        'MsgBox("체크섬 값 : " & checksumv)
-
-
-
         Dim Sb As New StringBuilder
         Sb.Append("SCArchive by BingSu")
         Sb.Append("!")
@@ -528,9 +521,22 @@ Partial Public Class BuildData
         Sb.Append("!")
         Sb.Append(pjData.TEData.SCArchive.TestMode)
 
+        Sb.Append("!")
+        Sb.Append(pjData.TEData.SCArchive.FuncSpace * 4)
+        Sb.Append("!")
 
+        Dim scriptsstrs As String = ""
+        Dim scripts As List(Of String) = GetArgList("SCAScript").ToList()
+        For Each item As String In scripts
+            If scriptsstrs <> "" Then
+                scriptsstrs = scriptsstrs & ","
+            End If
 
-
+            scriptsstrs = scriptsstrs & item.Replace("""", "")
+        Next
+        Sb.Append(scriptsstrs)
+        Sb.Append("!")
+        Sb.Append(WriteSCAFuncExecFile())
 
         Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)
         Dim sw As New StreamWriter(fs)
@@ -539,31 +545,35 @@ Partial Public Class BuildData
         sw.Write(checkstring)
 
 
-        'sw.Write(AESModule.EncryptString128Bit(Sb.ToString, ConnectKey))
-
-        '2데이터태그 실제데이터위치 배열
-        '엔트리포인트(현재 시간과 제작코드 등을 이용해 만들기, 빌드 시 마다 달라짐)
-        'chk값
-
-        'ConnectKey를 이용해 파일 암호화
-
         sw.Close()
         fs.Close()
 
 
-        'StormLib.SFileAddFile(hmpq, TempFilePath & "\scadatafile", "SCARCHIVEDATA", StormLib.MPQ_FILE_COMPRESS)
-
-        'StormLib.SFileAddFile(hmpq, EudPlibFilePath & "\scakeyfile", "SCARCHIVEMAPCODE", StormLib.MPQ_FILE_COMPRESS)
-
-
-
-        'StormLib.SFileCloseFile(hfile)
-        'StormLib.SFileCloseArchive(hmpq)
-
-
-
-
         Return True
-        'MsgBox("완료")
     End Function
+
+
+    Public Function WriteSCAFuncExecFile() As UInteger
+        Dim Sb As New StringBuilder
+        Sb.AppendLine("-- SCAScript")
+        Dim tefiles As List(Of TEFile) = pjData.TEData.GetAllTEFile(TEFile.EFileType.SCAScript)
+        For Each item In tefiles
+            Dim scriptEditor As SCAScriptEditor = item.Scripter
+            Sb.Append(scriptEditor.GetFileText(""))
+        Next
+        Dim crc As CRC32 = New CRC32()
+
+
+        Dim fs As New FileStream(EudPlibFilePath & "\scascript", FileMode.Create)
+        Dim sw As New StreamWriter(fs)
+
+        sw.Write(Sb.ToString)
+
+        sw.Close()
+        fs.Close()
+
+        Return crc.GetCRC32(Sb.ToString)
+    End Function
+
+
 End Class

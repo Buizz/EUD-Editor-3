@@ -1660,9 +1660,12 @@
     <None Include="Data\TriggerEditor\BGMPlayer.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <Content Include="Data\TriggerEditor\SCAScript.py">
+    <None Include="Data\TriggerEditor\SCAScriptReturn.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </Content>
+    </None>
+    <None Include="Data\TriggerEditor\SCAScript.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\TriggerEditor\SCAFastLoader.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>

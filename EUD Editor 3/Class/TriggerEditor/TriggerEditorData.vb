@@ -1,4 +1,5 @@
 ﻿Imports Dragablz
+Imports EUD_Editor_3.TEFile
 
 <Serializable>
 Public Class TriggerEditorData
@@ -99,6 +100,26 @@ Public Class TriggerEditorData
         End Get
     End Property
 
+    Public Function GetAllTEFile(filetype As EFileType) As List(Of TEFile)
+        Return GetTEFiles(PFIles, filetype)
+    End Function
+
+    Public Function GetTEFiles(tefile As TEFile, filetype As EFileType) As List(Of TEFile)
+        Dim rlist As New List(Of TEFile)
+
+        For index = 0 To tefile.FolderCount - 1
+            rlist.AddRange(GetTEFiles(tefile.Folders(index), filetype))
+        Next
+
+
+        For index = 0 To tefile.FileCount - 1
+            If tefile.Files(index).FileType = filetype Then
+                rlist.Add(tefile.Files(index))
+            End If
+        Next
+
+        Return rlist
+    End Function
 
 
     Public Function GetTEFile(cTEFile As TEFile, Link() As String, LinkIndex As Integer) As TEFile

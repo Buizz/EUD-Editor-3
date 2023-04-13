@@ -48,7 +48,7 @@ Public Class SCAScriptEditor
     Public LastBuildText As String
 
     Public Overrides Function GetFileText(filename As String) As String
-        Dim rStr As String = macro.MacroApply("import PluginVariables as msqcvar;" & vbCrLf & StringText, IsMain(), filename)
+        Dim rStr As String = macro.MacroApply(StringText, IsMain(), filename)
         LastBuildText = rStr
         Return rStr
     End Function

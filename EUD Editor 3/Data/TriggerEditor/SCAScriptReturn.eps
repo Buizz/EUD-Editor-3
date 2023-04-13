@@ -1,0 +1,199 @@
+import SCAFlexible as scf;
+import TriggerEditor.SCATool as sct;
+
+
+const ArrayobjectN = 1000;
+const Arraysize = 100;
+const Arraybuffer = EUDArray(ArrayobjectN * Arraysize);
+const Arrayoffset = EUDArray(py_list(py_range(0, 4 * Arraysize * ArrayobjectN, 4 * Arraysize)));
+
+var Arrayremaining = ArrayobjectN;
+
+
+function Arrayalloc(): EUDArray {
+    Arrayremaining -= 1;
+    return Arraybuffer + Arrayoffset[Arrayremaining];
+}
+function Arrayfree(array) {
+    Arrayoffset[Arrayremaining] = array - Arraybuffer;
+    Arrayremaining += 1;
+}
+
+
+const MiniArrayobjectN = 100;
+const MiniArraysize = 10;
+const MiniArraybuffer = EUDArray(MiniArrayobjectN * MiniArraysize);
+const MiniArrayoffset = EUDArray(py_list(py_range(0, 4 * MiniArraysize * MiniArrayobjectN, 4 * MiniArraysize)));
+var MiniArrayremaining = MiniArrayobjectN;
+
+
+function MiniArrayalloc(): EUDArray {
+    MiniArrayremaining -= 1;
+    return MiniArraybuffer + MiniArrayoffset[MiniArrayremaining];
+}
+function MiniArrayfree(array) {
+    MiniArrayoffset[MiniArrayremaining] = array - MiniArraybuffer;
+    MiniArrayremaining += 1;
+}
+
+
+
+const st = StringBuffer();
+object SCAReturnValue{
+    var lastepd;
+
+    //Number = 1
+    //String = 2
+    //Array = 3
+    var valueType;
+
+
+    var length;
+    var value;
+    function constructor(epd){
+        var tepd = epd;
+
+        this.length = dwread_epd(scf.FuncReturnTableEPD + tepd);
+        tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+
+        if(this.length == 1){
+            //단일 값
+            this.value = dwread_epd(scf.FuncReturnTableEPD + tepd);
+            tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+        }else{
+            const array = Arrayalloc();
+            for(var ai = 0; ai < this.length; ai++){
+                array[ai] = dwread_epd(scf.FuncReturnTableEPD + tepd);
+                tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+            }
+            this.value = array;
+        }
+
+        this.lastepd = tepd;
+    }
+
+    function destructor(){
+        if(this.length > 1){
+            Arrayfree(this.value);
+        }
+    }
+};
+
+object SCAReturn{
+    //리턴을 여러개 받을 수 있음.
+    //리턴을 받으면 값 삭제.
+    
+    var returnindex;
+    var returncount;
+    var returnvallist : EUDArray;
+    var lastepd;
+
+    function GetNumber(index){
+        const item = SCAReturnValue.cast(this.returnvallist[index]);
+        return item.value;
+    }
+    
+    function GetString(index){
+
+    }
+
+    function constructor(epd){
+        var tepd = epd;
+
+        this.returnindex = dwread_epd(scf.FuncReturnTableEPD + tepd);
+        tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+
+        this.returncount = dwread_epd(scf.FuncReturnTableEPD + tepd);
+        tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+        this.returnvallist = MiniArrayalloc();
+
+        var vindex = 0;
+        for(var i = 0; i < this.returncount; i++){
+
+            const valuetype = dwread_epd(scf.FuncReturnTableEPD + tepd); //변수 종류
+            tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+
+
+            switch(valuetype){
+                case 1: //Number = 1
+                    break;
+                case 2: //String = 2
+                    break;
+                case 3: //Array = 3
+                    break;
+            }
+        
+
+
+
+            const returnval = SCAReturnValue.alloc(tepd);
+            this.returnvallist[i] = returnval;
+
+            tepd = returnval.lastepd;
+        }
+
+        this.lastepd = tepd;
+    }
+
+
+    function destructor(){
+        for(var i = 0; i < this.returncount; i++){
+            const item = SCAReturnValue.cast(this.returnvallist[i]);
+            SCAReturnValue.free(item);
+        }
+        MiniArrayfree(this.returnvallist);
+    }
+};
+
+//리턴값 처리기
+var lastepd = 0;
+const returnarray = EUDArray(100);
+function Exec(){
+    if(!MemoryEPD(scf.FuncCommandEPD + 1, Exactly, lastepd)){
+        const rtoken = SCAReturn.alloc(lastepd);
+
+        const rindex = rtoken.returnindex;
+
+        
+        if(returnarray[rindex] != 0){
+            //값이 존재하므로 free해준다.
+             const item = SCAReturn.cast(returnarray[rindex]);
+             SCAReturn.free(item);
+             returnarray[rindex] = 0;
+        }
+
+        returnarray[rindex] = rtoken;
+        
+        st.printf("returnindex : {}, argcount : {}", rtoken.returnindex, rtoken.returncount);
+        //st.printf("{} {}", lastepd, rtoken.lastepd);
+
+        lastepd = rtoken.lastepd;
+    }
+}
+
+
+//리턴 성공 했는지 판단
+function IsReturn(rindex){
+    if(returnarray[rindex] != 0){
+        return true;
+    }else{
+        return false;
+    }
+    
+}
+
+//리턴 값 초기화
+function ResetReturnObject(rindex){
+    if(returnarray[rindex] != 0){
+        //값이 존재하므로 free해준다.
+        const item = SCAReturn.cast(returnarray[rindex]);
+        SCAReturn.free(item);
+        returnarray[rindex] = 0;
+    }
+}
+
+//리턴 오브젝트 반환
+function GetReturnObject(rindex) : SCAReturn{
+    return returnarray[rindex];
+}
+

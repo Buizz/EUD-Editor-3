@@ -1,4 +1,6 @@
-﻿Module ArgManager
+﻿Imports System.Text.RegularExpressions
+
+Module ArgManager
 
     Public Function GetArgList(ArgumentName As String) As String()
         Select Case ArgumentName
@@ -271,6 +273,24 @@
                 Return MacroManager.EUDScoreList
             Case "SupplyType"
                 Return MacroManager.EUDSupplyTypeList
+            Case "SCAScript"
+                Dim strs As New List(Of String)
+                For Each item In pjData.TEData.GetAllTEFile(TEFile.EFileType.SCAScript)
+                    Dim scriptEditor As SCAScriptEditor = item.Scripter
+
+                    Dim file As String = scriptEditor.GetFileText("")
+
+                    Dim regex As Regex = New Regex("function\s+([\w_][\w\d_]+)")
+
+                    Dim matches As MatchCollection = regex.Matches(file)
+
+                    For index = 0 To matches.Count - 1
+                        strs.Add("""" + matches.Item(index).Groups(1).Value + """")
+                    Next
+
+                Next
+
+                Return strs.ToArray
             Case Else
                 Return Tool.GetAutocmp(ArgumentName)
         End Select

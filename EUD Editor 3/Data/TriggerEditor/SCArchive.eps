@@ -1,6 +1,7 @@
 import SCAFlexible as scf;
 import TriggerEditor.SCATool as sct;
 import TriggerEditor.SCAFastLoader as scfl;
+import TriggerEditor.SCAScript as scs;
 
 
 var Timestamp;
@@ -32,6 +33,7 @@ function Init(){
 function Exec(){
 	scf.Exec();
 	sct.Exec();
+	scs.Exec();
 	
 	//오더를 판단해서 오더가 1이면 비공유 데이터에서
 	//이름과 배틀태그를 받아온다.

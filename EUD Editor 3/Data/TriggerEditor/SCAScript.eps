@@ -1,0 +1,42 @@
+import SCAFlexible as scf;
+import TriggerEditor.SCATool as sct;
+import TriggerEditor.SCAScriptReturn as scr;
+
+
+const st = StringBuffer();
+
+
+//리턴값 처리기
+function Exec(){
+    SetMemoryEPD(scf.FuncCommandEPD + 2, SetTo, dwread_epd(EPD(0x628448))); //Screen Coordinate X
+    SetMemoryEPD(scf.FuncCommandEPD + 3, SetTo, dwread_epd(EPD(0x628470))); //Screen Coordinate Y
+
+    scr.Exec();
+}
+
+var funcpointer;
+function execScript(funcnum, returnindex, argcount, args : EUDArray){
+    setcurpl(0);
+    //eprintf("{}  {}  {}", scf.FuncCommandEPD, scf.FuncLength, funcpointer);
+
+
+
+    SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, funcnum);
+    funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, returnindex);
+    funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, argcount);
+    funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    
+
+    for (var i = 0; i < argcount ; i++){
+        SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, args[i]);
+        funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    }
+
+    
+    SetMemoryEPD(scf.FuncCommandEPD, SetTo, funcpointer);
+    SetMemoryEPD(scf.FuncCommandEPD, Add, 1);
+    
+}
+
