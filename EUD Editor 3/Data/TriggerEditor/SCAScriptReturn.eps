@@ -47,37 +47,135 @@ object SCAReturnValue{
     //Array = 3
     var valueType;
 
-
     var length;
     var value;
-    function constructor(epd){
-        var tepd = epd;
+    var array : EUDArray;
+    function constructor(type, epd){
+        this.valueType = type;
+        this.lastepd = epd;
+    }
 
-        this.length = dwread_epd(scf.FuncReturnTableEPD + tepd);
-        tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
-
-        if(this.length == 1){
-            //단일 값
-            this.value = dwread_epd(scf.FuncReturnTableEPD + tepd);
-            tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
-        }else{
-            const array = Arrayalloc();
-            for(var ai = 0; ai < this.length; ai++){
-                array[ai] = dwread_epd(scf.FuncReturnTableEPD + tepd);
-                tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
-            }
-            this.value = array;
-        }
-
-        this.lastepd = tepd;
+    function GetIndex(index) : selftype{
+        return selftype.cast(this.array[index]);
     }
 
     function destructor(){
-        if(this.length > 1){
+        if(this.valueType == 1){
             Arrayfree(this.value);
+        }else if(this.valueType == 2){
+            for(var i = 0 ; i < this.length ; i++){
+                Arrayfree(this.array[i]);
+            }
+            Arrayfree(this.array);
         }
     }
 };
+
+function numberReturnFactory(rval : SCAReturnValue){
+    rval.value = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
+    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+}
+
+function stringReturnFactory(rval : SCAReturnValue){
+    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
+    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+    const array = Arrayalloc();
+    for(var ai = 0; ai < rval.length; ai++){
+        array[ai] = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
+        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+    }
+    rval.value = array;
+}
+
+function arrayReturnFactory3(rval : SCAReturnValue){
+    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
+    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+    const array = Arrayalloc();
+    for(var i = 0; i < rval.length; i++){
+        const valuetype = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd); //변수 종류
+        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+        const returnval = SCAReturnValue.alloc(valuetype, rval.lastepd);
+        switch(valuetype){
+            case 1: //Number = 1
+                numberReturnFactory(returnval);
+                break; 
+            case 2: //String = 2
+                stringReturnFactory(returnval);
+                break;
+            case 3: //Array = 3
+                //arrayReturnFactory2(returnval);
+                break;
+        }
+
+        array[i] = returnval;
+        rval.lastepd = returnval.lastepd;
+    }
+    
+    rval.value = array;
+}
+
+function arrayReturnFactory2(rval : SCAReturnValue){
+    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
+    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+    const array = Arrayalloc();
+    for(var i = 0; i < rval.length; i++){
+        const valuetype = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd); //변수 종류
+        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+        const returnval = SCAReturnValue.alloc(valuetype, rval.lastepd);
+        switch(valuetype){
+            case 1: //Number = 1
+                numberReturnFactory(returnval);
+                break; 
+            case 2: //String = 2
+                stringReturnFactory(returnval);
+                break;
+            case 3: //Array = 3
+                arrayReturnFactory3(returnval);
+                break;
+        }
+
+        array[i] = returnval;
+        rval.lastepd = returnval.lastepd;
+    }
+    
+    rval.value = array;
+}
+
+function arrayReturnFactory(rval : SCAReturnValue){
+    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
+    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+    const array = Arrayalloc();
+    for(var i = 0; i < rval.length; i++){
+        const valuetype = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd); //변수 종류
+        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
+
+        const returnval = SCAReturnValue.alloc(valuetype, rval.lastepd);
+        switch(valuetype){
+            case 1: //Number = 1
+                numberReturnFactory(returnval);
+                break; 
+            case 2: //String = 2
+                stringReturnFactory(returnval);
+                break;
+            case 3: //Array = 3
+                arrayReturnFactory2(returnval);
+                break;
+        }
+
+        array[i] = returnval;
+        rval.lastepd = returnval.lastepd;
+    }
+    
+    rval.value = array;
+}
+
+
 
 object SCAReturn{
     //리턴을 여러개 받을 수 있음.
@@ -88,14 +186,10 @@ object SCAReturn{
     var returnvallist : EUDArray;
     var lastepd;
 
-    function GetNumber(index){
-        const item = SCAReturnValue.cast(this.returnvallist[index]);
-        return item.value;
+    function GetValue(index) : SCAReturnValue{
+        return SCAReturnValue.cast(this.returnvallist[index]);
     }
-    
-    function GetString(index){
 
-    }
 
     function constructor(epd){
         var tepd = epd;
@@ -109,24 +203,22 @@ object SCAReturn{
 
         var vindex = 0;
         for(var i = 0; i < this.returncount; i++){
-
             const valuetype = dwread_epd(scf.FuncReturnTableEPD + tepd); //변수 종류
             tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
 
-
+            const returnval = SCAReturnValue.alloc(valuetype, tepd);
             switch(valuetype){
                 case 1: //Number = 1
+                    numberReturnFactory(returnval);
                     break;
                 case 2: //String = 2
+                    stringReturnFactory(returnval);
                     break;
                 case 3: //Array = 3
+                    arrayReturnFactory(returnval);
                     break;
             }
-        
 
-
-
-            const returnval = SCAReturnValue.alloc(tepd);
             this.returnvallist[i] = returnval;
 
             tepd = returnval.lastepd;
@@ -164,7 +256,7 @@ function Exec(){
 
         returnarray[rindex] = rtoken;
         
-        st.printf("returnindex : {}, argcount : {}", rtoken.returnindex, rtoken.returncount);
+        //st.printf("returnindex : {}, argcount : {}", rtoken.returnindex, rtoken.returncount);
         //st.printf("{} {}", lastepd, rtoken.lastepd);
 
         lastepd = rtoken.lastepd;
