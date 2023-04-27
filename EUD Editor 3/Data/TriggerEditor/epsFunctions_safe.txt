@@ -2669,6 +2669,16 @@ function TBL(content) { }
 function Db(b) { }
 
 
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 파이썬 리스트를 생성합니다.
+ * 
+ * @param.arg*.ko-KR
+ * 초기화 할 값입니다.
+ ***/
+function list(arg*) { }
 
 
 /***

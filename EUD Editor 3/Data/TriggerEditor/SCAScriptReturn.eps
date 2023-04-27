@@ -1,22 +1,26 @@
 import SCAFlexible as scf;
 import TriggerEditor.SCATool as sct;
 
+const st = StringBuffer();
 
-const ArrayobjectN = 1000;
+const ArrayobjectN = 10000;
 const Arraysize = 100;
 const Arraybuffer = EUDArray(ArrayobjectN * Arraysize);
 const Arrayoffset = EUDArray(py_list(py_range(0, 4 * Arraysize * ArrayobjectN, 4 * Arraysize)));
+//py_eval("print(list(range(0, 4 * Arraysize * ArrayobjectN, 4 * Arraysize)))");
 
 var Arrayremaining = ArrayobjectN;
 
 
 function Arrayalloc(): EUDArray {
     Arrayremaining -= 1;
+    st.printf("Array Alloc remain : {}", Arrayremaining);
     return Arraybuffer + Arrayoffset[Arrayremaining];
 }
 function Arrayfree(array) {
     Arrayoffset[Arrayremaining] = array - Arraybuffer;
     Arrayremaining += 1;
+    st.printf("Array Free remain : {}", Arrayremaining);
 }
 
 
@@ -29,152 +33,14 @@ var MiniArrayremaining = MiniArrayobjectN;
 
 function MiniArrayalloc(): EUDArray {
     MiniArrayremaining -= 1;
+    st.printf("MiniArray Alloc remain : {}", MiniArrayremaining);
     return MiniArraybuffer + MiniArrayoffset[MiniArrayremaining];
 }
 function MiniArrayfree(array) {
     MiniArrayoffset[MiniArrayremaining] = array - MiniArraybuffer;
     MiniArrayremaining += 1;
+    st.printf("MiniArray Free remain : {}", MiniArrayremaining);
 }
-
-
-
-const st = StringBuffer();
-object SCAReturnValue{
-    var lastepd;
-
-    //Number = 1
-    //String = 2
-    //Array = 3
-    var valueType;
-
-    var length;
-    var value;
-    var array : EUDArray;
-    function constructor(type, epd){
-        this.valueType = type;
-        this.lastepd = epd;
-    }
-
-    function GetIndex(index) : selftype{
-        return selftype.cast(this.array[index]);
-    }
-
-    function destructor(){
-        if(this.valueType == 1){
-            Arrayfree(this.value);
-        }else if(this.valueType == 2){
-            for(var i = 0 ; i < this.length ; i++){
-                Arrayfree(this.array[i]);
-            }
-            Arrayfree(this.array);
-        }
-    }
-};
-
-function numberReturnFactory(rval : SCAReturnValue){
-    rval.value = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
-    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-}
-
-function stringReturnFactory(rval : SCAReturnValue){
-    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
-    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-    const array = Arrayalloc();
-    for(var ai = 0; ai < rval.length; ai++){
-        array[ai] = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
-        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-    }
-    rval.value = array;
-}
-
-function arrayReturnFactory3(rval : SCAReturnValue){
-    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
-    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-    const array = Arrayalloc();
-    for(var i = 0; i < rval.length; i++){
-        const valuetype = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd); //변수 종류
-        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-        const returnval = SCAReturnValue.alloc(valuetype, rval.lastepd);
-        switch(valuetype){
-            case 1: //Number = 1
-                numberReturnFactory(returnval);
-                break; 
-            case 2: //String = 2
-                stringReturnFactory(returnval);
-                break;
-            case 3: //Array = 3
-                //arrayReturnFactory2(returnval);
-                break;
-        }
-
-        array[i] = returnval;
-        rval.lastepd = returnval.lastepd;
-    }
-    
-    rval.value = array;
-}
-
-function arrayReturnFactory2(rval : SCAReturnValue){
-    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
-    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-    const array = Arrayalloc();
-    for(var i = 0; i < rval.length; i++){
-        const valuetype = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd); //변수 종류
-        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-        const returnval = SCAReturnValue.alloc(valuetype, rval.lastepd);
-        switch(valuetype){
-            case 1: //Number = 1
-                numberReturnFactory(returnval);
-                break; 
-            case 2: //String = 2
-                stringReturnFactory(returnval);
-                break;
-            case 3: //Array = 3
-                arrayReturnFactory3(returnval);
-                break;
-        }
-
-        array[i] = returnval;
-        rval.lastepd = returnval.lastepd;
-    }
-    
-    rval.value = array;
-}
-
-function arrayReturnFactory(rval : SCAReturnValue){
-    rval.length = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd);
-    rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-    const array = Arrayalloc();
-    for(var i = 0; i < rval.length; i++){
-        const valuetype = dwread_epd(scf.FuncReturnTableEPD + rval.lastepd); //변수 종류
-        rval.lastepd += 1; if (rval.lastepd >= scf.FuncLength) rval.lastepd = 0;
-
-        const returnval = SCAReturnValue.alloc(valuetype, rval.lastepd);
-        switch(valuetype){
-            case 1: //Number = 1
-                numberReturnFactory(returnval);
-                break; 
-            case 2: //String = 2
-                stringReturnFactory(returnval);
-                break;
-            case 3: //Array = 3
-                arrayReturnFactory2(returnval);
-                break;
-        }
-
-        array[i] = returnval;
-        rval.lastepd = returnval.lastepd;
-    }
-    
-    rval.value = array;
-}
-
 
 
 object SCAReturn{
@@ -183,57 +49,120 @@ object SCAReturn{
     
     var returnindex;
     var returncount;
-    var returnvallist : EUDArray;
     var lastepd;
 
-    function GetValue(index) : SCAReturnValue{
-        return SCAReturnValue.cast(this.returnvallist[index]);
+    var values : EUDArray;
+    var valuetypes : EUDArray;
+    var valuelens : EUDArray;
+    var valuearraytypes : EUDArray;
+
+    function getarray(index) : EUDArray{
+        return this.values[index];
     }
 
-
     function constructor(epd){
-        var tepd = epd;
+        this.returnindex = dwread_epd(scf.FuncReturnTableEPD + epd);
+        epd += 1; if (epd >= scf.FuncLength) epd = 0;
 
-        this.returnindex = dwread_epd(scf.FuncReturnTableEPD + tepd);
-        tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+        //시작 리턴 배열
+        epd += 1; if (epd >= scf.FuncLength) epd = 0;
 
-        this.returncount = dwread_epd(scf.FuncReturnTableEPD + tepd);
-        tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
-        this.returnvallist = MiniArrayalloc();
+        this.returncount = dwread_epd(scf.FuncReturnTableEPD + epd);
+        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+        this.values = MiniArrayalloc();
+        this.valuetypes = MiniArrayalloc();
+        this.valuelens = MiniArrayalloc();
+        this.valuearraytypes = MiniArrayalloc();
 
         var vindex = 0;
         for(var i = 0; i < this.returncount; i++){
-            const valuetype = dwread_epd(scf.FuncReturnTableEPD + tepd); //변수 종류
-            tepd += 1; if (tepd >= scf.FuncLength) tepd = 0;
+            const valuetype = dwread_epd(scf.FuncReturnTableEPD + epd); //변수 종류
+            epd += 1; if (epd >= scf.FuncLength) epd = 0;
+            st.printf("반환타입 : {}", valuetype);
 
-            const returnval = SCAReturnValue.alloc(valuetype, tepd);
             switch(valuetype){
                 case 1: //Number = 1
-                    numberReturnFactory(returnval);
+                    {
+                        this.values[i] = dwread_epd(scf.FuncReturnTableEPD + epd);
+                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                        this.valuetypes[i] = valuetype;
+                    }
                     break;
                 case 2: //String = 2
-                    stringReturnFactory(returnval);
+                    {
+                        const length = dwread_epd(scf.FuncReturnTableEPD + epd);
+                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+
+                        const array = Arrayalloc();
+                        for(var ai = 0; ai < length; ai++){
+                            array[ai] = dwread_epd(scf.FuncReturnTableEPD + epd);
+                            epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                        }
+                        this.values[i] = array;
+                        this.valuelens[i] = length;
+                        this.valuetypes[i] = valuetype;
+                    }
                     break;
                 case 3: //Array = 3
-                    arrayReturnFactory(returnval);
+                    {
+                        const length = dwread_epd(scf.FuncReturnTableEPD + epd);
+                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                        const array = Arrayalloc();
+                        const arraytype = Arrayalloc();
+                        for(var ai = 0; ai < length; ai++){
+                            const valuetype = dwread_epd(scf.FuncReturnTableEPD + epd); //변수 종류
+                            epd += 1; if (epd >= scf.FuncLength) epd = 0;
+
+                            switch(valuetype){
+                                case 1: //Number = 1
+                                    array[ai] = dwread_epd(scf.FuncReturnTableEPD + epd);
+                                    epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                                    arraytype[ai] = valuetype;
+                                    break; 
+                                case 2: //String = 2
+                                    const length = dwread_epd(scf.FuncReturnTableEPD + epd);
+                                    epd += 1; if (epd >= scf.FuncLength) epd = 0;
+
+                                    const strarray = Arrayalloc();
+                                    for(var aii = 0; aii < length; aii++){
+                                        strarray[aii] = dwread_epd(scf.FuncReturnTableEPD + epd);
+                                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                                    }
+                                    array[ai] = strarray;
+                                    arraytype[ai] = valuetype;
+                                    break;
+                                case 3: //Array = 3
+                                    //이런 경우는 없음
+                                    break;
+                            }
+                        }
+                        this.values[i] = array;
+                        this.valuearraytypes[i] = arraytype;
+                        this.valuetypes[i] = valuetype;
+                    }
                     break;
             }
 
-            this.returnvallist[i] = returnval;
 
-            tepd = returnval.lastepd;
         }
 
-        this.lastepd = tepd;
+        this.lastepd = epd;
     }
 
 
     function destructor(){
         for(var i = 0; i < this.returncount; i++){
-            const item = SCAReturnValue.cast(this.returnvallist[i]);
-            SCAReturnValue.free(item);
+            if(this.valuetypes[i] == 2){
+                Arrayfree(this.values[i]);
+            }else if(this.valuetypes[i] == 3){
+                Arrayfree(this.values[i]);
+                Arrayfree(this.valuearraytypes[i]);
+            }
         }
-        MiniArrayfree(this.returnvallist);
+        MiniArrayfree(this.values);
+        MiniArrayfree(this.valuetypes);
+        MiniArrayfree(this.valuelens);
+        MiniArrayfree(this.valuearraytypes);
     }
 };
 
