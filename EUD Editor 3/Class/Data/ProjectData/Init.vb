@@ -50,6 +50,13 @@
             Next
         End If
         '===================================
+
+
+        '=======0.16.XX.XX버전 호환성========
+        If TEData.SCArchive.FuncSpace < 20000 Then
+            TEData.SCArchive.FuncSpace = 20000
+        End If
+        '===================================
     End Sub
     Public Sub TELegacy(tfile As TEFile)
         If tfile.FileType = TEFile.EFileType.GUIEps Then

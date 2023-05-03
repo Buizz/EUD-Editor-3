@@ -14,13 +14,13 @@ var Arrayremaining = ArrayobjectN;
 
 function Arrayalloc(): EUDArray {
     Arrayremaining -= 1;
-    st.printf("Array Alloc remain : {}", Arrayremaining);
+    //st.printf("Array Alloc remain : {}", Arrayremaining);
     return Arraybuffer + Arrayoffset[Arrayremaining];
 }
 function Arrayfree(array) {
     Arrayoffset[Arrayremaining] = array - Arraybuffer;
     Arrayremaining += 1;
-    st.printf("Array Free remain : {}", Arrayremaining);
+    //st.printf("Array Free remain : {}", Arrayremaining);
 }
 
 
@@ -33,13 +33,13 @@ var MiniArrayremaining = MiniArrayobjectN;
 
 function MiniArrayalloc(): EUDArray {
     MiniArrayremaining -= 1;
-    st.printf("MiniArray Alloc remain : {}", MiniArrayremaining);
+    //st.printf("MiniArray Alloc remain : {}", MiniArrayremaining);
     return MiniArraybuffer + MiniArrayoffset[MiniArrayremaining];
 }
 function MiniArrayfree(array) {
     MiniArrayoffset[MiniArrayremaining] = array - MiniArraybuffer;
     MiniArrayremaining += 1;
-    st.printf("MiniArray Free remain : {}", MiniArrayremaining);
+    //st.printf("MiniArray Free remain : {}", MiniArrayremaining);
 }
 
 
@@ -137,6 +137,7 @@ object SCAReturn{
                             }
                         }
                         this.values[i] = array;
+                        this.valuelens[i] = length;
                         this.valuearraytypes[i] = arraytype;
                         this.valuetypes[i] = valuetype;
                     }

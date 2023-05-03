@@ -61,12 +61,8 @@ Partial Public Class ProjectData
                 _pjdata.Legacy()
                 stm.Close()
 
-
                 Dim mainTEFile As TEFile = _pjdata.TEData.PFIles
                 TeFrileRefresh(mainTEFile)
-
-
-
 
                 'If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
                 '    Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")
@@ -75,16 +71,10 @@ Partial Public Class ProjectData
             Else
                 stm.Close()
 
-
                 Tool.CustomMsgBox("호환성 경고" & vbCrLf &
                        "e2s파일을 불러올 경우 일부 에러가 발생할 수 있습니다." & vbCrLf &
                        "플러그인 로드 안됨" & vbCrLf &
                        "TE로드 안됨", MessageBoxButton.OK, MessageBoxImage.Exclamation)
-
-
-
-
-
 
                 _pjdata = New ProjectData
                 _pjdata.NewFIle()
