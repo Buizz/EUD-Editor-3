@@ -148,7 +148,7 @@ Partial Public Class CodeEditor
                     If pjData.IsMapLoading Then
                         tstr = pjData.MapData.SwitchName(i)
                     Else
-                        tstr = "Switch " & i
+                        tstr = "Switch " & (i + 1)
                     End If
 
                     strs.Add(tstr)

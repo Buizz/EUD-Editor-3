@@ -95,7 +95,7 @@ Public Class MapData
         Get
             If 255 >= index Then
                 If pSwitchName(index) = 0 Then
-                    Return "Switch " & index
+                    Return "Switch " & (index + 1)
                 Else
                     Return Strings(pSwitchName(index) - 1)
                 End If
