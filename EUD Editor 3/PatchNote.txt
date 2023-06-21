@@ -2,6 +2,7 @@
 -SCA Script 추가 (테스트)
 -클래식 트리거 CUnit관련 인자 추가
 -MSQC Lua관련 버그 수정
+-ScriptEditor 한글 입력 후 포인터 이동시 입력 이상하게 되는 현상 수정
 
 # Beta 0.16.0.0
 -SCA로직 수정
