@@ -16,27 +16,19 @@ function Exec(){
 
 var funcpointer;
 function execScript(funcnum, returnindex, argcount, args : EUDArray){
-    setcurpl(0);
-    //eprintf("{}  {}  {}", scf.FuncCommandEPD, scf.FuncLength, funcpointer);
-
-
-
     SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, funcnum);
     funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
     SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, returnindex);
     funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
     SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, argcount);
     funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
-    
 
     for (var i = 0; i < argcount ; i++){
         SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, args[i]);
         funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
     }
-
     
     SetMemoryEPD(scf.FuncCommandEPD, SetTo, funcpointer);
     SetMemoryEPD(scf.FuncCommandEPD, Add, 1);
-    
 }
 

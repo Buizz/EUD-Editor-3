@@ -202,6 +202,17 @@
             Return rint
         End If
     End Function
+    Public Function ParseSCAScript(ObjectName As String) As String
+        ObjectName = ObjectName.Replace("""", "")
+        ObjectName = """" + ObjectName + """"
+
+        Dim rint As Integer = GetArgList("SCAScript").ToList.IndexOf(ObjectName)
+        If rint = -1 Then
+            Return ObjectName.Replace("""", "")
+        Else
+            Return rint
+        End If
+    End Function
 
 
     Public Function GetEUDScoreOffset(index As String) As String

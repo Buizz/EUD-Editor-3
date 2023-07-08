@@ -852,6 +852,7 @@
     <sys:String x:Key="TE_MacroDatASetting">Setting Plugin</sys:String>
     <sys:String x:Key="TE_DotPainter">Setting DotPainter</sys:String>
     <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
+    <sys:String x:Key="TE_SCAScriptSetting">Setting SCAScript</sys:String>
 
     <sys:String x:Key="TE_AllScript">All Script</sys:String>
 
@@ -863,6 +864,7 @@
     <sys:String x:Key="MenuConnect">Connect</sys:String>
     <sys:String x:Key="MenuDisConnect">Disconnect</sys:String>
     <sys:String x:Key="MenuViewEps">View Result</sys:String>
+    <sys:String x:Key="Open">Open</sys:String>
 
     <sys:String x:Key="OpenEpsFileFliter">epScript File|*.eps</sys:String>
     <sys:String x:Key="OpenPyFileFliter">eudplib File|*.py</sys:String>

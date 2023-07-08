@@ -100,6 +100,18 @@ Public Class TriggerEditorData
         End Get
     End Property
 
+
+    Private _SCAImageDatas As List(Of SCAScriptImageData)
+
+    Public ReadOnly Property SCAImageDatas As List(Of SCAScriptImageData)
+        Get
+            If _SCAImageDatas Is Nothing Then
+                _SCAImageDatas = New List(Of SCAScriptImageData)
+            End If
+            Return _SCAImageDatas
+        End Get
+    End Property
+
     Public Function GetAllTEFile(filetype As EFileType) As List(Of TEFile)
         Return GetTEFiles(PFIles, filetype)
     End Function

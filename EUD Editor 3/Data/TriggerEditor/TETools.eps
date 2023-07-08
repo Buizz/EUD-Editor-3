@@ -319,7 +319,7 @@ function RotateLocation(targetLoc: TrgLocation, originLoc: TrgLocation, angle) {
  * @param.flags.ko-KR
  * 제거할 상태입니다.
 ***/
-function RemoveStatusFlagsEPD(epd, flags) {
+function RemoveStatusFlagsEPD(epd, flags /*StatusFlags*/) {
     epd += 0xDC / 4;
     SetMemoryXEPD(epd, SetTo, 0, flags);
 }
@@ -336,7 +336,7 @@ function RemoveStatusFlagsEPD(epd, flags) {
  * @param.flags.ko-KR
  * 제거할 상태입니다.
 ***/
-function RemoveStatusFlags(unitPTR, flags) {
+function RemoveStatusFlags(unitPTR, flags /*StatusFlags*/) {
     RemoveStatusFlagsEPD(EPD(unitPTR), flags);
 }
 
@@ -1246,7 +1246,7 @@ function AttackGround(
  * @param.flags.ko-KR
  * 활성화할 상태입니다.
 ***/
-function AddStatusFlagsEPD(epd, flags) {
+function AddStatusFlagsEPD(epd, flags /*StatusFlags*/) {
     epd += 0xDC / 4;
     SetMemoryXEPD(epd, SetTo, ~0, flags);
 }
@@ -1263,7 +1263,7 @@ function AddStatusFlagsEPD(epd, flags) {
  * @param.flags.ko-KR
  * 활성화할 상태입니다.
 ***/
-function AddStatusFlags(unitPTR, flags) {
+function AddStatusFlags(unitPTR, flags /*StatusFlags*/) {
     unitPTR += 0xDC;
     SetMemoryX(unitPTR, SetTo, ~0, flags);
 }

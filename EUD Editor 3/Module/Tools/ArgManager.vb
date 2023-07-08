@@ -154,7 +154,7 @@ Module ArgManager
                 Dim strs As New List(Of String)
                 '스트링
                 For i = 0 To SCUnitCount - 1
-                    strs.Add(pjData.EngStat_txt(i))
+                    strs.Add(pjData.EngStat_txt(i, True))
                 Next
 
                 strs.AddRange({"(any unit)", "(men)", "(buildings)", "(factories)"})

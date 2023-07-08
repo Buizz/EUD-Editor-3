@@ -38,6 +38,7 @@
 
         Dim dotData As New DotData(filename)
         If Not dotData.LoadSuccess Then
+            Tool.ErrorMsgBox("이미지를 불러오지 못했습니다. 이미지의 가로 X 세로가 1000픽셀 이하여야 합니다.")
             Return
         End If
 

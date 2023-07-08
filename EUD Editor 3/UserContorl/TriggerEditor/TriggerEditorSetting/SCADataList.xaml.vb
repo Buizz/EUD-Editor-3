@@ -229,12 +229,12 @@ Public Class SCADataList
 
 
             Dim myHeightAnimation As DoubleAnimation = New DoubleAnimation()
-            myHeightAnimation.From = 0.0
+            myHeightAnimation.From = 0.6
             myHeightAnimation.To = 1.0
             myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
             Dim myWidthAnimation As DoubleAnimation = New DoubleAnimation()
-            myWidthAnimation.From = 0.0
+            myWidthAnimation.From = 0.6
             myWidthAnimation.To = 1.0
             myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
@@ -264,12 +264,12 @@ Public Class SCADataList
 
             Dim myHeightAnimation As DoubleAnimation = New DoubleAnimation()
             myHeightAnimation.From = 1.0
-            myHeightAnimation.To = 0.0
+            myHeightAnimation.To = 0.6
             myHeightAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
             Dim myWidthAnimation As DoubleAnimation = New DoubleAnimation()
             myWidthAnimation.From = 1.0
-            myWidthAnimation.To = 0.0
+            myWidthAnimation.To = 0.6
             myWidthAnimation.Duration = New Duration(TimeSpan.FromMilliseconds(150))
 
             Dim myOpacityAnimation As DoubleAnimation = New DoubleAnimation()

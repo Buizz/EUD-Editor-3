@@ -48,9 +48,9 @@ Public Class SCAScriptEditor
     Public LastBuildText As String
 
     Public Overrides Function GetFileText(filename As String) As String
-        Dim rStr As String = macro.MacroApply(StringText, IsMain(), filename)
-        LastBuildText = rStr
-        Return rStr
+        'Dim rStr As String = macro.MacroApply(StringText, IsMain(), filename)
+        LastBuildText = StringText
+        Return StringText
     End Function
 
 

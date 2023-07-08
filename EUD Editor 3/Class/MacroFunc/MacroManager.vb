@@ -83,6 +83,7 @@ Public Class MacroManager
         lua.RegisterFunction("ParseSwitchName", Me, Me.GetType().GetMethod("ParseSwitchName"))
         lua.RegisterFunction("ParseEUDScore", Me, Me.GetType().GetMethod("ParseEUDScore"))
         lua.RegisterFunction("ParseSupplyType", Me, Me.GetType().GetMethod("ParseSupplyType"))
+        lua.RegisterFunction("ParseSCAScript", Me, Me.GetType().GetMethod("ParseSCAScript"))
         lua.RegisterFunction("GetEUDScoreOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
         lua.RegisterFunction("GetSupplyOffset", Me, Me.GetType().GetMethod("GetSupplyOffset"))
 
@@ -238,6 +239,7 @@ Public Class MacroManager
             Dim ctext As String = t
 
             Dim braceCount As Integer = 0
+            Dim Issentence As Boolean = False
             Dim newtext As String = ctext
 
             Dim index As Integer = 0
@@ -260,46 +262,67 @@ Public Class MacroManager
                     Exit While
                 End If
 
-                If newtext(index) = "(" Then
-                    braceCount += 1
-                    If (braceCount = 1) Then
-                        '첫 루프는 로직통과
-                        index += 1
-                        Continue While
+                '문자열 감지
+                If braceCount >= 1 And newtext(index) = """" Then
+                    If Issentence Then
+                        If Not (index > 0 And newtext(index - 1) = "\") Then
+                            Issentence = False
+                        End If
+                    Else
+                        Issentence = True
                     End If
                 End If
 
 
-                If newtext(index) = ")" Then
-                    braceCount -= 1
-                    If braceCount = 0 Then
-                        args.Add(argcontent.Trim())
-                        Exit While
+                If Not Issentence Then
+                    If newtext(index) = "(" Then
+                        braceCount += 1
+                        If (braceCount = 1) Then
+                            '첫 루프는 로직통과
+                            index += 1
+                            Continue While
+                        End If
+                    End If
+
+
+                    If newtext(index) = ")" Then
+                        braceCount -= 1
+                        If braceCount = 0 Then
+                            args.Add(argcontent.Trim())
+                            Exit While
+                        End If
+                    End If
+
+
+                    If braceCount = 1 Then
+                        '밖일 경우
+                        If newtext(index) = "," Then
+                            args.Add(argcontent.Trim())
+                            argcontent = ""
+                        End If
                     End If
                 End If
 
 
-                If braceCount = 1 Then
-                    '밖일 경우
-                    If newtext(index) = "," Then
-                        args.Add(argcontent.Trim())
-                        argcontent = ""
-                    End If
-                End If
 
-
-                'braceCount 0, 1일 경우?
-                If braceCount = 1 Then
-                    If (newtext(index) <> ",") Then
-                        argcontent = argcontent & newtext(index)
-                    End If
-                ElseIf braceCount = 1 Then
-                    If (newtext(index) <> "(") And (newtext(index) <> ")") And (newtext(index) <> ",") Then
-                        argcontent = argcontent & newtext(index)
-                    End If
-                Else
+                If Issentence Then
                     argcontent = argcontent & newtext(index)
+                Else
+                    'braceCount 0, 1일 경우?
+                    If braceCount = 1 Then
+                        If (newtext(index) <> ",") Then
+                            argcontent = argcontent & newtext(index)
+                        End If
+                    ElseIf braceCount = 1 Then
+                        If (newtext(index) <> "(") And (newtext(index) <> ")") And (newtext(index) <> ",") Then
+                            argcontent = argcontent & newtext(index)
+                        End If
+                    Else
+                        argcontent = argcontent & newtext(index)
+                    End If
                 End If
+
+
 
 
 

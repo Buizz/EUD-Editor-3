@@ -132,6 +132,9 @@
     <Reference Include="ControlzEx, Version=5.0.0.0, Culture=neutral, PublicKeyToken=69f1c32f803d307e, processorArchitecture=MSIL">
       <HintPath>..\packages\ControlzEx.5.0.2\lib\net462\ControlzEx.dll</HintPath>
     </Reference>
+    <Reference Include="DotNetZip, Version=1.16.0.0, Culture=neutral, PublicKeyToken=6583c7c814667745, processorArchitecture=MSIL">
+      <HintPath>..\packages\DotNetZip.1.16.0\lib\net40\DotNetZip.dll</HintPath>
+    </Reference>
     <Reference Include="Dragablz, Version=0.0.3.234, Culture=neutral, processorArchitecture=MSIL">
       <HintPath>..\packages\Dragablz.0.0.3.234\lib\net45\Dragablz.dll</HintPath>
     </Reference>
@@ -415,6 +418,7 @@
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptTool\GUIFunctionAnalyze.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptTool\GUIObjectAnalyze.vb" />
     <Compile Include="Class\TriggerEditor\GUIScriptEditor\ScriptTool\GUIVarAnalyze.vb" />
+    <Compile Include="Class\TriggerEditor\SCAScriptEditor\SCAScriptImageData.vb" />
     <Compile Include="Class\TriggerEditor\SCAScriptEditor\SCAScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\StarCraftArchive.vb" />
@@ -765,6 +769,9 @@
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\SCAScriptPage\TESCAScriptPage.xaml.vb">
       <DependentUpon>TESCAScriptPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCAScriptSetting.xaml.vb">
+      <DependentUpon>SCAScriptSetting.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\DotPainter.xaml.vb">
       <DependentUpon>DotPainter.xaml</DependentUpon>
@@ -1265,6 +1272,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\SCAScriptPage\TESCAScriptPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCAScriptSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -1912,6 +1923,12 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\epsFunctions_safe.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\AblityFlags+FLAG.txt">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\TriggerEditor\Autocmp\StatusFlags+FLAG.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Content Include="KopiLua.dll" />

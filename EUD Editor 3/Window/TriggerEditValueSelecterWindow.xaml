@@ -13,6 +13,9 @@
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
         Foreground="{DynamicResource MaterialDesignBody}" 
         
+        
+        
+        
         Title="TriggerEditValueSelecterWindow"  Topmost="True" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
 
     <Border x:Name="MainBorder" Padding="5">
@@ -80,13 +83,31 @@
                         </DockPanel>
                     </Grid>
 
-                    <Grid x:Name="ArgumentStringPanel" Visibility="Visible">
+                    <Grid x:Name="ArgumentStringPanel" Visibility="Collapsed">
                         <DockPanel>
                             <local:CodeEditor x:Name="Arguments" DockPanel.Dock="Bottom" TextChange="ArgumentCodeEditor_TextChange"/>
                         </DockPanel>
                     </Grid>
-                    
+
                     <Grid x:Name="CodeSelecterPanel" Visibility="Collapsed">
+                    </Grid>
+
+
+                    <Grid x:Name="CheckBoxListPanel" Visibility="Visible">
+                        <DockPanel>
+                            <TextBox DockPanel.Dock="Top" x:Name="CheckBoxText" TextChanged="CheckBox_TextChanged"/>
+                            <ScrollViewer VerticalScrollBarVisibility="Disabled" HorizontalScrollBarVisibility="Auto">
+                                <WrapPanel x:Name="CheckBoxList" Orientation="Vertical">
+                                    <CheckBox Content="asd"/>
+                                    <CheckBox Content="asd"/>
+                                    <CheckBox Content="asd"/>
+                                    <CheckBox Content="asd"/>
+                                    <CheckBox Content="asd"/>
+                                    <CheckBox Content="asd"/>
+                                    <CheckBox Content="asd"/>
+                                </WrapPanel>
+                            </ScrollViewer>
+                        </DockPanel>
                     </Grid>
                 </Grid>
 

@@ -1,6 +1,7 @@
 ﻿Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
 Imports System.Windows.Threading
+Imports MaterialDesignThemes.Wpf.Transitions
 Imports Newtonsoft.Json
 
 
@@ -143,11 +144,14 @@ Public Class ProjectData
     End Property
 
 
-    Public ReadOnly Property EngStat_txt(index As Integer) As String
+    Public ReadOnly Property EngStat_txt(index As Integer, Optional isScript As Boolean = False) As String
         Get
             If index = -1 Then
                 Return Tool.GetText("None")
             End If
+            Dim IsUseRealName As Boolean = False
+
+            Dim rString As String
             Dim RealName As String = scData.GetEndStat_txt(index)
             If IsMapLoading Then
                 Dim strindex As Integer = MapData.DatFile.Data(SCDatFiles.DatFiles.units, "Unit Map String", index)
@@ -155,17 +159,87 @@ Public Class ProjectData
 
 
                 If strindex = 0 Then
-                    Return RealName
+                    IsUseRealName = True
+                    rString = RealName
                 Else
-                    Return MapData.Str(strindex - 1)
+                    IsUseRealName = False
+                    rString = MapData.Str(strindex - 1)
                 End If
             Else
-                Return RealName
+                IsUseRealName = True
+                rString = RealName
             End If
 
 
+            If IsUseRealName Then
+                Dim dic As New Dictionary(Of Integer, String) From {
+                    {5, " (Tank Mode)"},
+                    {10, " (Firebat)"},
+                    {16, " (Ghost)"},
+                    {17, " (Goliath)"},
+                    {19, " (Vulture)"},
+                    {20, " (Marine)"},
+                    {21, " (Wraith)"},
+                    {22, " (Science Vessel)"},
+                    {23, " (Siege Tank)"},
+                    {25, " (Siege Mode)"},
+                    {27, " (Battlecruiser)"},
+                    {28, " (Battlecruiser)"},
+                    {29, " (Battlecruiser)"},
+                    {30, " (Siege Mode)"},
+                    {48, " (Ultralisk)"},
+                    {49, " (Queen)"},
+                    {51, " (Infested Terran)"},
+                    {52, " (Defiler)"},
+                    {53, " (Hydralisk)"},
+                    {54, " (Zergling)"},
+                    {55, " (Mutalisk)"},
+                    {56, " (Guardian)"},
+                    {57, " (Overlord)"},
+                    {74, " (Hero)"},
+                    {75, " (Dark Templar)"},
+                    {76, " (Archon)"},
+                    {77, " (Zealot)"},
+                    {78, " (Dragoon)"},
+                    {79, " (Templar)"},
+                    {80, " (Scout)"},
+                    {81, " (Reaver)"},
+                    {82, " (Carrier)"},
+                    {86, " (Arbiter)"},
+                    {87, " (Templar)"},
+                    {88, " (Scout)"},
+                    {89, " (Badlands)"},
+                    {90, " (Jungle)"},
+                    {93, " (Desert)"},
+                    {94, " (Twilight)"},
+                    {95, " (Ash World)"},
+                    {96, " (Ice World)"},
+                    {98, " (Dark Templar)"},
+                    {99, " (Ghost)"},
+                    {100, " (Ghost)"},
+                    {102, " (Ghost)"},
+                    {126, " (Crashed Battlecruiser)"},
+                    {147, " (With Shell)"},
+                    {176, " (Type 1)"},
+                    {177, " (Type 2)"},
+                    {178, " (Type 3)"},
+                    {220, " (Type 1)"},
+                    {221, " (Type 2)"},
+                    {222, " (Protoss Type 1)"},
+                    {223, " (Protoss Type 2)"},
+                    {224, " (Zerg Type 1)"},
+                    {225, " (Zerg Type 2)"},
+                    {226, " (Terran Type 1)"},
+                    {227, " (Terran Type 2)"}
+                }
 
+                If dic.ContainsKey(index) Then
+                    rString += dic(index)
+                End If
 
+            End If
+
+            Return rString
         End Get
     End Property
     Public ReadOnly Property BuildStat_txt(index As Integer) As String

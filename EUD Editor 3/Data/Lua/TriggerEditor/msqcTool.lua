@@ -15,8 +15,16 @@
 @param.Key.Key
 ]================================]
 function KeyParse(Key)
-	index = string.find("NUMPAD*NUMPAD+NUMPAD-NUMPAD.NUMPAD/*+-./=,`[]\\'", Key)
-	if index ~= nii then
+	index = -1
+	spkeys = {"NUMPAD*", "NUMPAD+", "NUMPAD-", "NUMPAD.", "NUMPAD/", "*", "+", "-", ".", "/", "=", ",", "`", "[", "]", "\\", "'"}
+	for k,v in pairs(spkeys) do
+		if v == Key then
+			index = k
+			break
+		end
+	end
+
+	if index ~= -1 then
 		Key = "SP" .. index
 	end
 

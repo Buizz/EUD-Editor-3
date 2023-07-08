@@ -849,6 +849,7 @@
     <sys:String x:Key="TE_MacroDatASetting">플러그인 설정</sys:String>
     <sys:String x:Key="TE_DotPainter">DotPainter 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
+    <sys:String x:Key="TE_SCAScriptSetting">SCAScript 설정</sys:String>
 
     <sys:String x:Key="TE_AllScript">모든 코드</sys:String>
 
@@ -860,6 +861,7 @@
     <sys:String x:Key="MenuConnect">연결</sys:String>
     <sys:String x:Key="MenuDisConnect">연결 끊기</sys:String>
     <sys:String x:Key="MenuViewEps">컴파일 결과 보기</sys:String>
+    <sys:String x:Key="Open">열기</sys:String>
 
     <sys:String x:Key="OpenEpsFileFliter">epScript 파일|*.eps</sys:String>
     <sys:String x:Key="OpenPyFileFliter">eudplib 파일|*.py</sys:String>

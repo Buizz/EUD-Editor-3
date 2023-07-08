@@ -1,6 +1,7 @@
 import TriggerEditor.SCArchive as sca;
 import TriggerEditor.SCAFastLoader as scfl;
 import TriggerEditor.SCATool as sct;
+import TriggerEditor.SCAScript as scs;
 
 
 const s = StringBuffer();
@@ -122,6 +123,11 @@ function Exec(){
 function scaBan(type){
 	sca.BanPlayer(type);
 }
+
+function scaExecScript(funcnum, returnindex, argcount, args : EUDArray){
+	scs.execScript(funcnum, returnindex, argcount, args);
+}
+
 
 function scaLoad(slot){
 	const cp = getcurpl();

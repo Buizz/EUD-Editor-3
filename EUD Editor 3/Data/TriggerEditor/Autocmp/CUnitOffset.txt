@@ -139,7 +139,7 @@ BUILDING:HATCHERY:harvestValueRight
 BUILDING:HATCHERY:harvestValueBottom
 BUILDING:POWERUP:originX
 BUILDING:POWERUP:originY
-statusFlags
+statusFlags|Value|StatusFlags
 resourceType
 wireframeRandomizer
 secondaryOrderState

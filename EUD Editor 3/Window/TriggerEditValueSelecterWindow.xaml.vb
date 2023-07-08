@@ -1,5 +1,7 @@
 ﻿Imports System.ComponentModel
+Imports System.Windows.Controls.Primitives
 Imports System.Windows.Threading
+Imports BingsuCodeEditor.AutoCompleteToken
 
 Public Class TriggerEditValueSelecterWindow
     Public Event ValueChange As RoutedEventHandler
@@ -26,6 +28,7 @@ Public Class TriggerEditValueSelecterWindow
         FunctionPanel.Visibility = Visibility.Collapsed
         FormatStringPanel.Visibility = Visibility.Collapsed
         ArgumentStringPanel.Visibility = Visibility.Collapsed
+        CheckBoxListPanel.Visibility = Visibility.Collapsed
     End Sub
 
     Private Sub CloseP()
@@ -56,6 +59,7 @@ Public Class TriggerEditValueSelecterWindow
     Private ArgIndex As Integer
 
 
+    Private ArgTypeDetail As Dictionary(Of String, String) = New Dictionary(Of String, String)
 
     Public Sub New()
         ' 디자이너에서 이 호출이 필요합니다.
@@ -79,7 +83,7 @@ Public Class TriggerEditValueSelecterWindow
 
         TypeList.Items.Add(New Separator)
 
-
+        ArgTypeDetail.Clear()
         Dim dArgTypeList As List(Of String) = Tool.GetDefaultArgTypeList
         Dim ArgTypeList As List(Of String) = Tool.GetArgTypeList
 
@@ -96,8 +100,13 @@ Public Class TriggerEditValueSelecterWindow
         For i = 0 To ArgTypeList.Count - 1
             Dim ListItem As New ComboBoxItem
 
-            ListItem.Content = ArgTypeList(i)
-            ListItem.Tag = ArgTypeList(i)
+            Dim t() As String = ArgTypeList(i).Split("+")
+            If t.Count > 1 Then
+                ArgTypeDetail.Add(t.First, t.Last)
+            End If
+
+            ListItem.Content = t.First()
+            ListItem.Tag = t.First()
 
             TypeList.Items.Add(ListItem)
         Next
@@ -175,7 +184,6 @@ Public Class TriggerEditValueSelecterWindow
                 If TypeList.Items(i).GetType Is GetType(ComboBoxItem) Then
                     Dim tcbitem As ComboBoxItem = TypeList.Items(i)
                     Dim tTag As String = tcbitem.Tag
-
                     If tTag = cArgType Then
                         '타입설정
                         LastIndex = i
@@ -233,6 +241,7 @@ Public Class TriggerEditValueSelecterWindow
                 Dim tcbitem As ComboBoxItem = TypeList.SelectedItem
                 Dim tTag As String = tcbitem.Tag
 
+                tTag = tTag.Split("+").First
 
                 If tTag = "Default" Then
                     tCode.Args(ArgIndex).ValueType = tCode.Args(ArgIndex).DefaultType
@@ -260,6 +269,12 @@ Public Class TriggerEditValueSelecterWindow
         End If
 
         Dim aType As String = tCode.Args(ArgIndex).ValueType
+
+        Dim detail As String = ""
+        If ArgTypeDetail.ContainsKey(aType) Then
+            detail = ArgTypeDetail(aType)
+        End If
+
         PanelVisibilityCollapsed()
 
         Select Case aType
@@ -598,18 +613,120 @@ Public Class TriggerEditValueSelecterWindow
                 tCode.Args(ArgIndex).IsQuotation = True
 
 
-                ListReset()
-                ListboxPanel.Visibility = Visibility.Visible
+                If detail = "FLAG" Then
+                    Width = 400
+                    CheckBoxListPanel.Visibility = Visibility.Visible
+                    CheckBoxListReset()
+                Else
+                    ListReset()
+                    ListboxPanel.Visibility = Visibility.Visible
+                End If
         End Select
-
-
-
-
-
 
         LoadCmp = True
     End Sub
 
+
+    Private Sub CheckBoxListReset()
+        CheckBoxList.Children.Clear()
+
+        Dim aType As String = tCode.Args(ArgIndex).ValueType
+
+        Dim arglist() As String = GetArgList(aType + "+FLAG")
+
+
+        For Each item In arglist
+            Dim cb As New CheckBox
+            AddHandler cb.Checked, Sub(sender As CheckBox, e As RoutedEventArgs)
+                                       If sender.IsFocused Then
+                                           GetCheckBoxValue()
+                                       End If
+                                   End Sub
+            AddHandler cb.Unchecked, Sub(sender As CheckBox, e As RoutedEventArgs)
+                                         If sender.IsFocused Then
+                                             GetCheckBoxValue()
+                                         End If
+                                     End Sub
+
+
+            cb.Content = item.Replace("""", "")
+            CheckBoxList.Children.Add(cb)
+        Next
+        CheckBoxText.Text = tCode.Args(ArgIndex).ValueString
+
+        Dim num As UInteger
+        If UInteger.TryParse(CheckBoxText.Text, num) Then
+            SetCheckBoxValue(num)
+        Else
+            If CheckBoxText.Text.Length >= 3 Then
+                If CheckBoxText.Text.Substring(0, 2) = "0x" Then
+                    Try
+                        num = "&H" & CheckBoxText.Text.Substring(2)
+                        SetCheckBoxValue(num)
+                    Catch ex As Exception
+
+                    End Try
+                End If
+            End If
+        End If
+    End Sub
+
+    Private Sub GetCheckBoxValue()
+        Dim value As UInteger = 0
+
+        Dim e As Integer = 0
+        For Each ch As CheckBox In CheckBoxList.Children
+            If ch.IsChecked Then
+                value += 1 * Math.Pow(2, e)
+            End If
+            e += 1
+        Next
+
+        CheckBoxText.Text = "0x" + Hex(value)
+
+        tCode.Args(ArgIndex).ValueString = "0x" + Hex(value)
+        tCode.Args(ArgIndex).IsInit = False
+        ChangeComplete()
+    End Sub
+
+    Private Sub SetCheckBoxValue(value As UInteger)
+        Dim e As Integer = 0
+        For Each ch As CheckBox In CheckBoxList.Children
+            If ((value And Math.Pow(2, e)) > 0) Then
+                ch.IsChecked = True
+            Else
+                ch.IsChecked = False
+            End If
+
+            e += 1
+        Next
+    End Sub
+
+    Private Sub CheckBox_TextChanged(sender As TextBox, e As TextChangedEventArgs)
+        If LoadCmp And sender.IsFocused Then
+            tCode.Args(ArgIndex).ValueString = CheckBoxText.Text
+
+            Dim num As UInteger
+            If UInteger.TryParse(CheckBoxText.Text, num) Then
+                SetCheckBoxValue(num)
+            Else
+                If CheckBoxText.Text.Length >= 3 Then
+                    If CheckBoxText.Text.Substring(0, 2) = "0x" Then
+                        Try
+                            num = "&H" & CheckBoxText.Text.Substring(2)
+                            SetCheckBoxValue(num)
+                        Catch ex As Exception
+
+                        End Try
+                    End If
+                End If
+            End If
+
+
+            tCode.Args(ArgIndex).IsInit = False
+            ChangeComplete()
+        End If
+    End Sub
 
 
     Private Sub ListReset()
@@ -617,11 +734,9 @@ Public Class TriggerEditValueSelecterWindow
 
         'FliterBox
 
-
         SelectListbox.Items.Clear()
 
         Dim aType As String = tCode.Args(ArgIndex).ValueType
-
 
         Dim arglist() As String = GetArgList(aType)
 
@@ -633,7 +748,9 @@ Public Class TriggerEditValueSelecterWindow
                 lanstr = lanstr
             End If
 
+            lanstr = lanstr.Replace("""", "")
 
+            lanstr = lanstr.Split("|").First()
 
             If FliterText = "" Then
                 Dim listbox As New ListBoxItem
@@ -653,7 +770,6 @@ Public Class TriggerEditValueSelecterWindow
                 End If
             End If
 
-
         Next
         If FliterText = "" Then
             If SelectListbox.Items.Count <= 24 Then
@@ -665,8 +781,6 @@ Public Class TriggerEditValueSelecterWindow
         Else
             Height = SelectListbox.Items.Count * 34 + 40 + 40
         End If
-
-
     End Sub
 
 
@@ -711,7 +825,29 @@ Public Class TriggerEditValueSelecterWindow
 
                 Dim datas() As Object = item.Tag
 
-                tCode.Args(ArgIndex).ValueString = datas(0)
+                Dim datastring As String = datas(0)
+
+                If datastring.Split("|").Count > 1 Then
+                    Dim dlist() As String = datastring.Split("|")
+                    datastring = dlist(0)
+                    If datastring.Count > 0 Then
+                        If datastring(0) = """" Then
+                            datastring = datastring & """"
+                        End If
+                    End If
+
+                    Dim argname As String = dlist(1).Replace("""", "")
+                    Dim argtype As String = dlist(2).Replace("""", "")
+
+                    Dim index As Integer = tCode._LoadedArgString.FindIndex(Function(x As String)
+                                                                                Return x = argname
+                                                                            End Function)
+                    If index <> -1 Then
+                        tCode.Args(index).ValueType = argtype
+                    End If
+                End If
+
+                tCode.Args(ArgIndex).ValueString = datastring
                 tCode.Args(ArgIndex).ValueNumber = datas(1)
                 tCode.Args(ArgIndex).IsInit = False
                 ChangeComplete()
@@ -861,9 +997,6 @@ Public Class TriggerEditValueSelecterWindow
     Private Sub Window_Closing(sender As Object, e As CancelEventArgs)
         e.Cancel = True
     End Sub
-
-
-
 
 
 

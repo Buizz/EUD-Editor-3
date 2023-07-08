@@ -1,6 +1,8 @@
 ﻿Imports System.IO
 Imports System.Net
 Imports System.Text
+Imports EUD_Editor_3.IScript
+Imports Ionic.Zip
 
 Partial Public Class BuildData
     Private ConnectKey As String
@@ -48,6 +50,7 @@ Partial Public Class BuildData
         'sw.Close()
         'fs.Close()
         WriteSCADataFile()
+        WriteSCAScriptZipFile()
     End Sub
 
 
@@ -535,8 +538,7 @@ Partial Public Class BuildData
             scriptsstrs = scriptsstrs & item.Replace("""", "")
         Next
         Sb.Append(scriptsstrs)
-        Sb.Append("!")
-        Sb.Append(WriteSCAFuncExecFile())
+
 
         Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)
         Dim sw As New StreamWriter(fs)
@@ -553,7 +555,24 @@ Partial Public Class BuildData
     End Function
 
 
-    Public Function WriteSCAFuncExecFile() As UInteger
+    Public Sub WriteSCAScriptZipFile()
+        If File.Exists(EudPlibFilePath & "\scascript") Then
+            File.Delete(EudPlibFilePath & "\scascript")
+        End If
+        If Directory.Exists(EudPlibFilePath & "\scascript") Then
+            Directory.Delete(EudPlibFilePath & "\scascript", True)
+        End If
+
+
+        If File.Exists(EudPlibFilePath & "\scascripttemp") Then
+            File.Delete(EudPlibFilePath & "\scascripttemp")
+        End If
+        If Directory.Exists(EudPlibFilePath & "\scascripttemp") Then
+            Directory.Delete(EudPlibFilePath & "\scascripttemp", True)
+        End If
+        Directory.CreateDirectory(EudPlibFilePath & "\scascripttemp")
+
+
         Dim Sb As New StringBuilder
         Sb.AppendLine("-- SCAScript")
         Dim tefiles As List(Of TEFile) = pjData.TEData.GetAllTEFile(TEFile.EFileType.SCAScript)
@@ -563,8 +582,7 @@ Partial Public Class BuildData
         Next
         Dim crc As CRC32 = New CRC32()
 
-
-        Dim fs As New FileStream(EudPlibFilePath & "\scascript", FileMode.Create)
+        Dim fs As New FileStream(EudPlibFilePath & "\scascripttemp\script", FileMode.Create)
         Dim sw As New StreamWriter(fs)
 
         sw.Write(Sb.ToString)
@@ -572,8 +590,18 @@ Partial Public Class BuildData
         sw.Close()
         fs.Close()
 
-        Return crc.GetCRC32(Sb.ToString)
-    End Function
+        '파일 생성
+        For Each item In pjData.TEData.SCAImageDatas
+            item.SaveToFile(EudPlibFilePath & "\scascripttemp\")
+        Next
+
+        Dim zip As New ZipFile(EudPlibFilePath & "\scascript")
+
+        zip.Password = ConnectKey
+        zip.AddDirectory(EudPlibFilePath & "\scascripttemp")
+        zip.Save()
+
+    End Sub
 
 
 End Class

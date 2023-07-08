@@ -4236,9 +4236,21 @@ object PVariable {
 object CUnit {
    function constructor(epd) {}
 
-   
-   static function from_read(epd) {}
-   static function from_ptr(ptr) {}
+   	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * epd로부터 CUnit객체를 만듭니다.
+	 ***/
+	static function from_read(epd) : CUnit {}
+
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * ptr로부터 CUnit객체를 만듭니다.
+	 ***/
+	static function from_ptr(ptr) : CUnit {}
 
 
 	/***

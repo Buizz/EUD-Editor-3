@@ -72,6 +72,7 @@
             Return EudPlibFilePath & "\TriggerEditor"
         End Get
     End Property
+
     Public Shared ReadOnly Property EudPlibFilePath() As String
         Get
             Return Tool.GetDirectory(TempFloder & "\", "eudplibData")

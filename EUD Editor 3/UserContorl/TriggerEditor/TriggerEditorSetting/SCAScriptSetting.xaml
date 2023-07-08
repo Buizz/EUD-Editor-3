@@ -1,0 +1,34 @@
+﻿<UserControl x:Class="SCAScriptSetting"
+             xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+             xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+             xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+             xmlns:local="clr-namespace:EUD_Editor_3"
+             Background="{DynamicResource MaterialDesignPaper}" 
+             Foreground="{DynamicResource MaterialDesignBody}" 
+             mc:Ignorable="d" 
+             d:DesignHeight="450" d:DesignWidth="800">
+    <DockPanel>
+        <DockPanel DockPanel.Dock="Left" Width="150">
+            <UniformGrid DockPanel.Dock="Top" Rows="1">
+                <Button Style="{StaticResource MaterialDesignFlatButton}" Click="AddBtn">추가</Button>
+                <Button Style="{StaticResource MaterialDesignFlatButton}" x:Name="DeleteBtn" Click="DeleteBtnClick" IsEnabled="False">삭제</Button>
+            </UniformGrid>
+            <ListBox x:Name="ItemList" SelectionChanged="ItemList_SelectionChanged">
+                <ListBoxItem Content="리자몽"></ListBoxItem>
+            </ListBox>
+        </DockPanel>
+        <DockPanel x:Name="EditPage" Visibility="Hidden" Margin="10">
+            <StackPanel DockPanel.Dock="Top">
+                <DockPanel>
+                    <Button Content="{StaticResource Open}" Click="ReSetting_Click" DockPanel.Dock="Left"/>
+                    <TextBlock x:Name="imgSize" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
+                    <TextBox x:Name="filename" TextChanged="filename_TextChanged" Margin="5,0,5,0"/>
+                </DockPanel>
+            </StackPanel>
+            <Border Background="#FFDA00FF" Margin="5">
+                <Image x:Name="img" DockPanel.Dock="Bottom"/>
+            </Border>
+        </DockPanel>
+    </DockPanel>
+</UserControl>

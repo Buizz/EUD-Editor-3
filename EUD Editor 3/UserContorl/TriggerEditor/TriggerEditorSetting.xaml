@@ -63,6 +63,9 @@
             <TabItem Header="{StaticResource TE_SCASetting}">
                 <local:SCASetting x:Name="SCASettingTab"/>
             </TabItem>
+            <TabItem Header="{StaticResource TE_SCAScriptSetting}">
+                <local:SCAScriptSetting x:Name="SCAScriptSettingTab"/>
+            </TabItem> 
         </dragablz:TabablzControl>
     </Grid>
 </UserControl>
