@@ -26,7 +26,7 @@ function SCARunScript(ScriptName, ReturnIndex, ...)
 
 	argcount = 0
 	for i,v in ipairs(arg) do
-		echo("SCAArgArray[" .. i .. "] = " .. tostring(v) .. ";")
+		echo("SCAArgArray[" .. (i - 1) .. "] = " .. tostring(v) .. ";")
 		argcount = argcount + 1
 	end
 
