@@ -73,6 +73,8 @@ function Exec(){
 					sca.ResetLastMessage();
 				}else{
 					if ((sca.CommandStatus() == 0) && (IsUseLoadQueue == true) && sca.CheckLoadable()){
+						sca.LoadData(loadslot[cp]);
+						/* 패스트로드 제거
 						if(scfl.IsAllSCAUser()){
 							if(scfl.usercommandstatus == 0 && scfl.LoadOrder == 0){
 								sca.LoadFastData(cp, loadslot[cp]);
@@ -80,6 +82,7 @@ function Exec(){
 						}else{
 							sca.LoadData(loadslot[cp]);
 						}
+						*/
 					}
 				}
 			}else if (savestatus[cp] == 1){
