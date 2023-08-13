@@ -78,7 +78,7 @@ object SCAReturn{
         for(var i = 0; i < this.returncount; i++){
             const valuetype = dwread_epd(scf.FuncReturnTableEPD + epd); //변수 종류
             epd += 1; if (epd >= scf.FuncLength) epd = 0;
-            st.printf("반환타입 : {}", valuetype);
+            //st.printf("반환타입 : {}", valuetype);
 
             switch(valuetype){
                 case 1: //Number = 1
