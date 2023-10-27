@@ -6,14 +6,14 @@ Imports NAudio.Wave
 <Serializable>
 Public Class BGMData
     Public BGMList As New List(Of BGMFile)
+    Public SCABGMList As New List(Of BGMFile)
 
 
 
     <Serializable>
     Public Class BGMFile
         Public Property BGMFile As BGMFile
-
-
+        Public Property UseSCAScript As Boolean = False
         Public Sub RelativeBGMRefresh()
             If My.Computer.FileSystem.FileExists(pjData.Filename) Then
                 _BGMRelativePath = Tool.GetRelativePath(pjData.Filename, _BGMPath)
@@ -21,7 +21,6 @@ Public Class BGMData
 
             'MsgBox("RelativeDataRefresh")
         End Sub
-
 
         Private _BGMName As String
         Public Property BGMName As String
@@ -135,23 +134,25 @@ Public Class BGMData
         Public BGMBlockCount As Integer
 
 
-        Public Sub New(_filepath As String, _bgmname As String, _sample As Integer, _bitrate As Integer)
+        Public Sub New(_filepath As String, _bgmname As String, _sample As Integer, _bitrate As Integer, Optional _useScript As Boolean = False)
             BGMBlockCount = 0
             BGMFile = Me
             BGMCompressionSize = -1
 
             _BGMSampleRate = _sample
             _BGMBitRate = _bitrate
+            UseSCAScript = _useScript
 
             BGMName = _bgmname
             BGMPath = _filepath
         End Sub
-        Public Sub Refresh(_filepath As String, _bgmname As String, _sample As Integer, _bitrate As Integer)
+        Public Sub Refresh(_filepath As String, _bgmname As String, _sample As Integer, _bitrate As Integer, Optional _useScript As Boolean = False)
             BGMBlockCount = 0
             BGMCompressionSize = -1
 
             BGMName = _bgmname
             BGMPath = _filepath
+            UseSCAScript = _useScript
 
             _BGMSampleRate = _sample
             _BGMBitRate = _bitrate

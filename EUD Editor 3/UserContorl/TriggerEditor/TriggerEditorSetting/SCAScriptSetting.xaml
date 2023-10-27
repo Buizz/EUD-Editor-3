@@ -3,12 +3,38 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-             xmlns:local="clr-namespace:EUD_Editor_3"
+             xmlns:local="clr-namespace:EUD_Editor_3" xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes" xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              Background="{DynamicResource MaterialDesignPaper}" 
              Foreground="{DynamicResource MaterialDesignBody}" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
-    <DockPanel>
+    <Grid>
+        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="6"
+                                 ItemContainerStyle="{StaticResource SideTabItemStyle}"
+                                 TabStripPlacement="Left"  Background="{DynamicResource MaterialDesignPaper}" >
+            
+            <TabItem Header="{StaticResource TE_BGMSetting}">
+                <local:BGMManager/>
+            </TabItem>
+
+            <TabItem Header="{StaticResource TE_SCASetting}">
+                <local:SCASetting x:Name="SCASettingTab"/>
+            </TabItem>
+            <TabItem Header="{StaticResource TE_SCAScriptSetting}">
+                <local:SCAScriptSetting x:Name="SCAScriptSettingTab"/>
+            </TabItem>
+        </dragablz:TabablzControl>
+
+        <DockPanel DockPanel.Dock="Left" >
+            <materialDesign:ColorZone Mode="PrimaryLight" DockPanel.Dock="Left" Effect="{DynamicResource MaterialDesignShadowDepth5}" VerticalAlignment="Stretch">
+                <ListBox VerticalAlignment="Stretch">
+                    <ListBoxItem Content="이미지"></ListBoxItem>
+                    <ListBoxItem Content="효과음"></ListBoxItem>
+                </ListBox>
+            </materialDesign:ColorZone>
+        </DockPanel>
+
+
         <DockPanel DockPanel.Dock="Left" Width="150">
             <UniformGrid DockPanel.Dock="Top" Rows="1">
                 <Button Style="{StaticResource MaterialDesignFlatButton}" Click="AddBtn">추가</Button>
@@ -30,5 +56,6 @@
                 <Image x:Name="img" DockPanel.Dock="Bottom"/>
             </Border>
         </DockPanel>
-    </DockPanel>
+
+    </Grid>
 </UserControl>

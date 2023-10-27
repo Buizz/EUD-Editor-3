@@ -1716,6 +1716,7 @@
   <ItemGroup>
     <Folder Include="Class\Binding\CodeName\" />
     <Folder Include="Data\Lua\DataEditor\" />
+    <Folder Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCAScriptSetting\" />
     <Folder Include="x64\" />
     <Folder Include="x86\" />
   </ItemGroup>
