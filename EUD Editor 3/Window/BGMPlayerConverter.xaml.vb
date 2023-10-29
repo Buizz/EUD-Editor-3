@@ -4,6 +4,7 @@ Imports System.Windows.Threading
 
 Public Class BGMPlayerConverter
     Public isSuccess As Boolean
+    Private IsSCAScript As Boolean
 
     Private BGMWorker As BackgroundWorker
 
@@ -244,8 +245,9 @@ Public Class BGMPlayerConverter
 
 
     Public WorkList As List(Of BGMData.BGMFile)
-    Public Sub WorkListRefresh(_WorkList As List(Of BGMData.BGMFile))
+    Public Sub WorkListRefresh(_WorkList As List(Of BGMData.BGMFile), _IsSCAScript As Boolean)
         WorkList = _WorkList
+        IsSCAScript = _IsSCAScript
     End Sub
 
     Private Sub BGM_DoWork(sender As Object, e As DoWorkEventArgs)

@@ -109,7 +109,7 @@ Partial Public Class BuildData
     End Function
     Public Function SoundConverter() As Boolean
         Dim BGMWindow As New BGMPlayerConverter
-        BGMWindow.WorkListRefresh(pjData.TEData.BGMData.BGMList)
+        BGMWindow.WorkListRefresh(pjData.TEData.BGMData.BGMList, False)
         BGMWindow.ShowDialog()
 
         Return BGMWindow.isSuccess

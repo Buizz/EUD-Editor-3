@@ -852,7 +852,10 @@
     <sys:String x:Key="TE_MacroDatASetting">Setting Plugin</sys:String>
     <sys:String x:Key="TE_DotPainter">Setting DotPainter</sys:String>
     <sys:String x:Key="TE_SCASetting">Setting SCArchive</sys:String>
-    <sys:String x:Key="TE_SCAScriptSetting">Setting SCAScript</sys:String>
+    <sys:String x:Key="TE_SCAScriptSetting">Script Asset</sys:String>
+
+    <sys:String x:Key="TE_SCAScriptImage">Image</sys:String>
+    <sys:String x:Key="TE_SCAScriptSound">Sound</sys:String>
 
     <sys:String x:Key="TE_AllScript">All Script</sys:String>
 

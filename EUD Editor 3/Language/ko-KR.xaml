@@ -849,8 +849,11 @@
     <sys:String x:Key="TE_MacroDatASetting">플러그인 설정</sys:String>
     <sys:String x:Key="TE_DotPainter">DotPainter 설정</sys:String>
     <sys:String x:Key="TE_SCASetting">SCArchive 설정</sys:String>
-    <sys:String x:Key="TE_SCAScriptSetting">SCAScript 설정</sys:String>
+    <sys:String x:Key="TE_SCAScriptSetting">Script Asset</sys:String>
 
+    <sys:String x:Key="TE_SCAScriptImage">이미지</sys:String>
+    <sys:String x:Key="TE_SCAScriptSound">효과음</sys:String>
+    
     <sys:String x:Key="TE_AllScript">모든 코드</sys:String>
 
     <!--Menu-->

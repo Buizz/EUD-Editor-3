@@ -8,54 +8,33 @@
              Foreground="{DynamicResource MaterialDesignBody}" 
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="800">
+    <UserControl.Resources>
+        <ResourceDictionary>
+            <ResourceDictionary.MergedDictionaries>
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
+            </ResourceDictionary.MergedDictionaries>
+            <Style x:Key="SideTabItemStyle" TargetType="{x:Type dragablz:DragablzItem}" BasedOn="{StaticResource MaterialDesignDragableTabItemVerticalStyle}">
+                <Setter Property="Width" Value="100"/>
+            </Style>
+        </ResourceDictionary>
+    </UserControl.Resources>
     <Grid>
         <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="6"
                                  ItemContainerStyle="{StaticResource SideTabItemStyle}"
                                  TabStripPlacement="Left"  Background="{DynamicResource MaterialDesignPaper}" >
-            
-            <TabItem Header="{StaticResource TE_BGMSetting}">
-                <local:BGMManager/>
+
+            <TabItem Header="{StaticResource TE_SCAScriptImage}">
+                <local:SCAScriptImageManager/>
             </TabItem>
 
-            <TabItem Header="{StaticResource TE_SCASetting}">
-                <local:SCASetting x:Name="SCASettingTab"/>
-            </TabItem>
-            <TabItem Header="{StaticResource TE_SCAScriptSetting}">
-                <local:SCAScriptSetting x:Name="SCAScriptSettingTab"/>
+            <TabItem Header="{StaticResource TE_SCAScriptSound}">
+                <local:SCAScriptBGMManager/>
             </TabItem>
         </dragablz:TabablzControl>
 
-        <DockPanel DockPanel.Dock="Left" >
-            <materialDesign:ColorZone Mode="PrimaryLight" DockPanel.Dock="Left" Effect="{DynamicResource MaterialDesignShadowDepth5}" VerticalAlignment="Stretch">
-                <ListBox VerticalAlignment="Stretch">
-                    <ListBoxItem Content="이미지"></ListBoxItem>
-                    <ListBoxItem Content="효과음"></ListBoxItem>
-                </ListBox>
-            </materialDesign:ColorZone>
-        </DockPanel>
 
 
-        <DockPanel DockPanel.Dock="Left" Width="150">
-            <UniformGrid DockPanel.Dock="Top" Rows="1">
-                <Button Style="{StaticResource MaterialDesignFlatButton}" Click="AddBtn">추가</Button>
-                <Button Style="{StaticResource MaterialDesignFlatButton}" x:Name="DeleteBtn" Click="DeleteBtnClick" IsEnabled="False">삭제</Button>
-            </UniformGrid>
-            <ListBox x:Name="ItemList" SelectionChanged="ItemList_SelectionChanged">
-                <ListBoxItem Content="리자몽"></ListBoxItem>
-            </ListBox>
-        </DockPanel>
-        <DockPanel x:Name="EditPage" Visibility="Hidden" Margin="10">
-            <StackPanel DockPanel.Dock="Top">
-                <DockPanel>
-                    <Button Content="{StaticResource Open}" Click="ReSetting_Click" DockPanel.Dock="Left"/>
-                    <TextBlock x:Name="imgSize" DockPanel.Dock="Right" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="20,0,20,0"/>
-                    <TextBox x:Name="filename" TextChanged="filename_TextChanged" Margin="5,0,5,0"/>
-                </DockPanel>
-            </StackPanel>
-            <Border Background="#FFDA00FF" Margin="5">
-                <Image x:Name="img" DockPanel.Dock="Bottom"/>
-            </Border>
-        </DockPanel>
+        
 
     </Grid>
 </UserControl>

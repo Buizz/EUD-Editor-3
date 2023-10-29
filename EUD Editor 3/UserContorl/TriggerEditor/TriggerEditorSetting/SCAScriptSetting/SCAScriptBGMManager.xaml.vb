@@ -5,12 +5,12 @@ Imports NAudio.Vorbis
 Imports NAudio.Wave
 
 
-Public Class BGMManager
+Public Class SCAScriptBGMManager
 
     Private Sub UserControl_Loaded(sender As Object, e As RoutedEventArgs)
         AnimationInit()
 
-        List.ItemsSource = pjData.TEData.BGMData.BGMList
+        List.ItemsSource = pjData.TEData.BGMData.SCABGMList
     End Sub
     Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
         BGMPath.Text = ""
@@ -313,7 +313,7 @@ Public Class BGMManager
             tlist.Add(bgmfile)
 
             Dim BGMWindow As New BGMPlayerConverter
-            BGMWindow.WorkListRefresh(tlist, True)
+            BGMWindow.WorkListRefresh(tlist, False)
             BGMWindow.ShowDialog()
 
             If BGMWindow.isSuccess Then
