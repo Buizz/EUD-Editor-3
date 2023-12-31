@@ -231,6 +231,26 @@ Partial Public Class BuildData
         sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
         sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', py_open('scadatafile', 'rb').read());")
         sb.AppendLine("    MPQAddFile('SCASCRIPT', py_open('scascript', 'rb').read());")
+
+        For i = 0 To pjData.TEData.BGMData.SCABGMList.Count - 1
+            Dim bgmfile As BGMData.BGMFile = pjData.TEData.BGMData.SCABGMList(i)
+            Dim folderPath As String = BuildData.SoundFilePath() & "\" & bgmfile.BGMName
+            Dim output As String = folderPath & "\sample.mp3"
+
+            sb.AppendLine("    MPQAddFile('" & bgmfile.BGMName & "', py_open('" & output.Replace("\", "/") & "', 'rb').read());")
+            'Dim rfilename As String = files.Split("\").Last
+            'If rfilename.IndexOf("st") <> -1 Then
+            '    Dim c As Integer = rfilename.Replace("st", "").Replace(".ogg", "")
+
+            '    Dim hname As String = GetSoundIndex(i)
+            '    Dim tname As String = GetSoundIndex(c)
+
+
+            '    sb.AppendLine("    MPQAddFile('" & hname & tname & "', py_open('" & files.Replace("\", "/") & "', 'rb').read());")
+            'End If
+        Next
+
+
         sb.AppendLine("    DoActions(list(  // EntryPoint")
         For i = 0 To EntryPoint.Count - 1
             sb.AppendLine("        SetMemory(ws + " & 4 * i & ", SetTo, " & EntryPoint(i) & "),")

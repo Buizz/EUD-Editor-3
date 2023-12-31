@@ -51,6 +51,18 @@ Partial Public Class BuildData
                     Return
                 End If
 
+
+                If Not SoundSCAScriptConverter() Then
+                    Tool.ErrorMsgBox("SCAScriptSound파일 변환 에러")
+                    pgData.IsCompilng = False
+                    pgData.isEddCompile = False
+                    Tool.RefreshMainWindow()
+
+                    Return
+                End If
+
+
+
                 Me.IsEdd = isEdd
                 MainThread = New BackgroundWorker()
                 AddHandler MainThread.DoWork, AddressOf BuildProgressWorker

@@ -144,10 +144,19 @@ Public Class BGMPlayerConverter
 
         '====================================================================================================================================
 
-        LabelChange(bgmdata.BGMPath & " ogg로 변환 중 ...")
+        Dim ext As String = ""
+
+        If IsSCAScript Then
+            ext = "mp3"
+        Else
+            ext = "ogg"
+        End If
+
+
+        LabelChange(bgmdata.BGMPath & " " & ext & "로 변환 중 ...")
         ProgressChange(25)
 
-        psiProcInfo.Arguments = "-i " & Chr(34) & output & ".wav" & Chr(34) & " -y " & Chr(34) & output & ".ogg" & Chr(34)
+        psiProcInfo.Arguments = "-i " & Chr(34) & output & ".wav" & Chr(34) & " -y " & Chr(34) & output & "." & ext & Chr(34)
         prcFFMPEG.Start()
         prcFFMPEG.WaitForExit()
 
@@ -157,7 +166,7 @@ Public Class BGMPlayerConverter
         Dim samplerate As Integer = bgmdata.BGMSampleRate
 
         If bitrate <> -1 Or samplerate <> -1 Then
-            LabelChange(bgmdata.BGMPath & " ogg로 압축 중 ...")
+            LabelChange(bgmdata.BGMPath & " " & ext & "로 압축 중 ...")
             ProgressChange(50)
 
             Dim bitratestr As String = ""
@@ -172,9 +181,9 @@ Public Class BGMPlayerConverter
 
 
             If bitrate <> -1 And samplerate <> -1 Then
-                psiProcInfo.Arguments = "-i " & Chr(34) & output & ".ogg" & Chr(34) & " " & bitratestr & " " & sampleratestr & " -y " & Chr(34) & output & "low.ogg" & Chr(34)
+                psiProcInfo.Arguments = "-i " & Chr(34) & output & "." & ext & Chr(34) & " " & bitratestr & " " & sampleratestr & " -y " & Chr(34) & output & "low." & ext & Chr(34)
             Else
-                psiProcInfo.Arguments = "-i " & Chr(34) & output & ".ogg" & Chr(34) & " " & bitratestr & sampleratestr & " -y " & Chr(34) & output & "low.ogg" & Chr(34)
+                psiProcInfo.Arguments = "-i " & Chr(34) & output & "." & ext & Chr(34) & " " & bitratestr & sampleratestr & " -y " & Chr(34) & output & "low." & ext & Chr(34)
             End If
 
 
@@ -185,26 +194,36 @@ Public Class BGMPlayerConverter
 
         '====================================================================================================================================
 
-        LabelChange(bgmdata.BGMPath & " 파일 분활 중 ...")
-        ProgressChange(75)
+        If Not IsSCAScript Then
+            LabelChange(bgmdata.BGMPath & " 파일 분활 중 ...")
+            ProgressChange(75)
 
-        If bitrate = -1 And samplerate = -1 Then
-            psiProcInfo.Arguments = "-i " & Chr(34) & output & ".ogg" & Chr(34) & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "t%d" & ".ogg" & Chr(34)
+            If bitrate = -1 And samplerate = -1 Then
+                psiProcInfo.Arguments = "-i " & Chr(34) & output & ".ogg" & Chr(34) & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "t%d" & ".ogg" & Chr(34)
+            Else
+                psiProcInfo.Arguments = "-i " & Chr(34) & output & "low.ogg" & Chr(34) & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "t%d" & ".ogg" & Chr(34)
+            End If
+
+            prcFFMPEG.Start()
+            prcFFMPEG.WaitForExit()
+
+            If bitrate = -1 And samplerate = -1 Then
+                bgmdata.BGMCompressionSize = Tool.GetFileSize(output & ".ogg")
+            Else
+                bgmdata.BGMCompressionSize = Tool.GetFileSize(output & "low.ogg")
+            End If
         Else
-            psiProcInfo.Arguments = "-i " & Chr(34) & output & "low.ogg" & Chr(34) & " -f segment -segment_time " & interval & " -y -c copy " & Chr(34) & output & "t%d" & ".ogg" & Chr(34)
+            Dim fileinfo As FileInfo
+
+            If bitrate <> -1 Or samplerate <> -1 Then
+                fileinfo = New FileInfo(output & "low." & ext)
+            Else
+                fileinfo = New FileInfo(output & "." & ext)
+            End If
+            fileinfo.CopyTo(folderPath & "\" & "sample." & ext, True)
         End If
 
-        prcFFMPEG.Start()
-        prcFFMPEG.WaitForExit()
-
-        If bitrate = -1 And samplerate = -1 Then
-            bgmdata.BGMCompressionSize = Tool.GetFileSize(output & ".ogg")
-        Else
-            bgmdata.BGMCompressionSize = Tool.GetFileSize(output & "low.ogg")
-        End If
         ProgressChange(100)
-
-
 
 
         bgmblockCRC32V = 0
@@ -223,9 +242,6 @@ Public Class BGMPlayerConverter
         Next
 
 
-
-
-
         Dim fs As New FileStream(SettingPath, FileMode.Create)
         Dim sw As New StreamWriter(fs)
 
@@ -237,8 +253,6 @@ Public Class BGMPlayerConverter
 
         sw.Close()
         fs.Close()
-
-
 
         Return True
     End Function

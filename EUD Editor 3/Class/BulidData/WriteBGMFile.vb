@@ -96,9 +96,7 @@ Partial Public Class BuildData
                 End If
             Next
 
-
         Next
-
 
         sb.AppendLine("}")
 
@@ -110,6 +108,13 @@ Partial Public Class BuildData
     Public Function SoundConverter() As Boolean
         Dim BGMWindow As New BGMPlayerConverter
         BGMWindow.WorkListRefresh(pjData.TEData.BGMData.BGMList, False)
+        BGMWindow.ShowDialog()
+
+        Return BGMWindow.isSuccess
+    End Function
+    Public Function SoundSCAScriptConverter() As Boolean
+        Dim BGMWindow As New BGMPlayerConverter
+        BGMWindow.WorkListRefresh(pjData.TEData.BGMData.SCABGMList, True)
         BGMWindow.ShowDialog()
 
         Return BGMWindow.isSuccess

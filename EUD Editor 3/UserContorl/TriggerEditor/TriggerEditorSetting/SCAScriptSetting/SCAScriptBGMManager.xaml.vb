@@ -50,7 +50,7 @@ Public Class SCAScriptBGMManager
 
     Private Sub DeleteItem_Click(sender As Object, e As RoutedEventArgs)
         For Each bgmfile As BGMData.BGMFile In List.SelectedItems
-            pjData.TEData.BGMData.BGMList.Remove(bgmfile)
+            pjData.TEData.BGMData.SCABGMList.Remove(bgmfile)
 
         Next
 
@@ -72,11 +72,11 @@ Public Class SCAScriptBGMManager
             If IsMultiFileOpen Then
                 For i = 0 To Filelist.Count - 1
                     Dim fileinfo As IO.FileInfo = My.Computer.FileSystem.GetFileInfo(Filelist(i))
-                    pjData.TEData.BGMData.BGMList.Add(New BGMData.BGMFile(fileinfo.FullName, fileinfo.Name,
+                    pjData.TEData.BGMData.SCABGMList.Add(New BGMData.BGMFile(fileinfo.FullName, fileinfo.Name,
                                                                   CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag))
                 Next
             Else
-                pjData.TEData.BGMData.BGMList.Add(New BGMData.BGMFile(BGMPath.Text, BGMName.Text,
+                pjData.TEData.BGMData.SCABGMList.Add(New BGMData.BGMFile(BGMPath.Text, BGMName.Text,
                                                                   CType(SampleRateCombobox.SelectedItem, ComboBoxItem).Tag, CType(BitRateCombobox.SelectedItem, ComboBoxItem).Tag))
             End If
         End If
@@ -313,7 +313,7 @@ Public Class SCAScriptBGMManager
             tlist.Add(bgmfile)
 
             Dim BGMWindow As New BGMPlayerConverter
-            BGMWindow.WorkListRefresh(tlist, False)
+            BGMWindow.WorkListRefresh(tlist, True)
             BGMWindow.ShowDialog()
 
             If BGMWindow.isSuccess Then

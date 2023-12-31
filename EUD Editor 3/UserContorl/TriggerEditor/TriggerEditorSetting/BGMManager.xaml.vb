@@ -313,7 +313,7 @@ Public Class BGMManager
             tlist.Add(bgmfile)
 
             Dim BGMWindow As New BGMPlayerConverter
-            BGMWindow.WorkListRefresh(tlist, True)
+            BGMWindow.WorkListRefresh(tlist, False)
             BGMWindow.ShowDialog()
 
             If BGMWindow.isSuccess Then
