@@ -64,6 +64,9 @@ Public Class ClassicTriggerEditor
             Dim importLink As String = ImportFiles(i).vfolder
             Dim tTEFile As TEFile = pjData.TEData.GetTEFile(Nothing, importLink.Split("."), 0)
 
+            If tTEFile Is Nothing Then
+                Continue For
+            End If
 
             Dim tText As String = tTEFile.Scripter.GetFileText(tTEFile.FileName)
 

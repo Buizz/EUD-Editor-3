@@ -15,7 +15,7 @@ Imports System.Windows
 <Assembly: AssemblyDescription("EUD Edit Program")>
 <Assembly: AssemblyCompany("")>
 <Assembly: AssemblyProduct("EUD Editor 3")>
-<Assembly: AssemblyCopyright("Copyright © 2021 맛있는빙수")>
+<Assembly: AssemblyCopyright("Copyright © 2024 맛있는빙수")>
 <Assembly: AssemblyTrademark("")>
 <Assembly: ComVisible(false)>
 
@@ -55,5 +55,5 @@ Imports System.Windows
 ' 지정되도록 할 수 있습니다.
 ' <Assembly: AssemblyVersion("1.0.*")>
 
-<Assembly: AssemblyVersion("0.17.0.0")>
+<Assembly: AssemblyVersion("0.17.0.1")>
 <Assembly: AssemblyFileVersion("0.17.0.0")>
