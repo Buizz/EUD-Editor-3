@@ -51,7 +51,7 @@ Public Class ClassicTriggerEditor
         If ImportFuncs Is Nothing Then
             ImportFuncs = New List(Of TriggerFunction)
         End If
-
+        '테스트
         If ImportVars Is Nothing Then
             ImportVars = New List(Of DefineVariable)
         End If
