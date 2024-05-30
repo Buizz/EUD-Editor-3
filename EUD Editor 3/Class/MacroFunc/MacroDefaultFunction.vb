@@ -213,6 +213,14 @@
             Return rint
         End If
     End Function
+    Public Function ParseSCAScriptVariable(ObjectName As String) As String
+        If SCAScriptVariables.Contains(ObjectName) Then
+            Return SCAScriptVariables.IndexOf(ObjectName)
+        End If
+
+        SCAScriptVariables.Add(ObjectName)
+        Return SCAScriptVariables.IndexOf(ObjectName)
+    End Function
 
 
     Public Function GetEUDScoreOffset(index As String) As String

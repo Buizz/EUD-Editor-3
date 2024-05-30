@@ -15,8 +15,8 @@
 ***/
 function CountAtLoc(player: TrgPlayer, unit: TrgUnit, loc: TrgLocation) {
     // made by Artanis[M] & safhfh & Jpoker & trgk;
-    var x = 0xFF;
-    foreach(i : py_range(31, -1, -1)) {
+    var x = 1700;
+    foreach(i : py_range(10, -1, -1)) {
         if (x >= py_pow(2, i)) {
             x -= py_pow(2, i);
             if (!Bring(player, AtMost, x, unit, loc)) {

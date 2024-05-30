@@ -258,7 +258,6 @@ Public Class TriggerEditorTempData
             If win.GetType Is GetType(TriggerEditor) Then
                 Dim MainContent As Object = CType(win, TriggerEditor).MainTab
 
-
                 If CheckBranch(MainContent) Then
                     Exit Sub
                 End If

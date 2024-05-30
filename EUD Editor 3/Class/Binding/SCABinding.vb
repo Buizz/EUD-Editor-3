@@ -101,6 +101,19 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
+    Public Property SCAScriptVarCount() As String
+        Get
+            Return pjData.TEData.SCArchive.SCAScriptVarCount
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.SCAScriptVarCount = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
+
+
     Public Property UserName() As String
         Get
             Return pjData.TEData.SCArchive.MakerServerName

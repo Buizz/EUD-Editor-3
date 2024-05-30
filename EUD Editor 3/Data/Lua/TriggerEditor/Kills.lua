@@ -1,7 +1,7 @@
 --[================================[
 @Language.ko-KR
 @Summary
-[Player]의 [Unit]이 죽은 수를 [Amount]만큼 [Modifier]합니다.
+[Player]가 [Unit]을 죽인 수를 [Amount]만큼 [Modifier]합니다.
 @Group
 일반
 @param.Player.TrgPlayer
@@ -16,7 +16,7 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]이 죽은 수를 [Amount]만큼 [Modifier]합니다.
+[Player]가 [Unit]을 죽인 수를 [Amount]만큼 [Modifier]합니다.
 @Group
 일반
 @param.Player.TrgPlayer
@@ -41,7 +41,7 @@ end
 --[================================[
 @Language.ko-KR
 @Summary
-[Player]의 [Unit]이 죽은 수를 읽습니다.
+[Player]가 [Unit]이 죽은 수를 읽습니다.
 @Group
 일반
 @param.Unit.TrgUnit
@@ -52,7 +52,7 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]이 죽은 수를 읽습니다.
+[Player]가 [Unit]이 죽은 수를 읽습니다.
 @Group
 일반
 @param.Unit.TrgUnit
@@ -71,7 +71,7 @@ end
 --[================================[
 @Language.ko-KR
 @Summary
-[Player]의 [Unit]이 죽은 수의 주소를 반환합니다.
+[Player]가 [Unit]을 죽인 수의 주소를 반환합니다.
 @Group
 일반
 @param.Unit.TrgUnit
@@ -82,7 +82,7 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]이 죽은 수의 주소를 반환합니다.
+[Player]가 [Unit]을 죽인 수의 주소를 반환합니다.
 @Group
 일반
 @param.Unit.TrgUnit

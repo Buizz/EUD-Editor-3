@@ -84,6 +84,9 @@ Public Class MacroManager
         lua.RegisterFunction("ParseEUDScore", Me, Me.GetType().GetMethod("ParseEUDScore"))
         lua.RegisterFunction("ParseSupplyType", Me, Me.GetType().GetMethod("ParseSupplyType"))
         lua.RegisterFunction("ParseSCAScript", Me, Me.GetType().GetMethod("ParseSCAScript"))
+        lua.RegisterFunction("ParseSCAScriptVariable", Me, Me.GetType().GetMethod("ParseSCAScriptVariable"))
+
+
         lua.RegisterFunction("GetEUDScoreOffset", Me, Me.GetType().GetMethod("GetEUDScoreOffset"))
         lua.RegisterFunction("GetSupplyOffset", Me, Me.GetType().GetMethod("GetSupplyOffset"))
 

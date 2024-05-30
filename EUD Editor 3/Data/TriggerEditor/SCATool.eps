@@ -36,7 +36,7 @@ function Init(){
     dwwrite_epd(EPD(mappath) + 7, 3414833178);
 
     dwwrite_epd(EPD(mappath) + 8, 0xFFFFFFFF);
-    dwwrite_epd(EPD(mappath) + 9, 0x00000006);
+    dwwrite_epd(EPD(mappath) + 9, 0x00000007);
     //0~39
 
     f_repmovsd_epd(EPD(mappath) + 10, EPD(0x57EEE8) + 9 * getuserplayerid(), 7);

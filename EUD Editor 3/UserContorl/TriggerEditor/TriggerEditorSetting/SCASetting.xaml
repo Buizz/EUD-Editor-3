@@ -271,6 +271,21 @@
                             </Binding>
                         </TextBox.Text>
                     </TextBox>
+
+                    <TextBox DockPanel.Dock="Top" x:Name="SCAScriptVarCount" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource SCAScriptVarCount}" ToolTip="{StaticResource SCAScriptVarCountHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="20,0,5,0" HorizontalAlignment="Left" >
+                        <TextBox.Text>
+                            <Binding
+                                            Path="SCAScriptVarCount"
+                                            ValidatesOnDataErrors="True"
+                                            UpdateSourceTrigger="PropertyChanged">
+
+                                <Binding.ValidationRules>
+                                    <local:NotTextValidationRule
+                                            ValidatesOnTargetUpdated="True"/>
+                                </Binding.ValidationRules>
+                            </Binding>
+                        </TextBox.Text>
+                    </TextBox>
                 </StackPanel>
                 
 

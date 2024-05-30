@@ -57,7 +57,6 @@ Public Class TESCAScriptPage
 
 
     Public Sub SaveData()
-
         CType(TEFile.Scripter, SCAScriptEditor).StringText = NewTextEditor.Text
         TEFile.LastDataRefresh()
     End Sub
@@ -78,12 +77,11 @@ Public Class TESCAScriptPage
 
     Private Sub TextEditor_Text_Change(sender As Object, e As EventArgs)
         pjData.SetDirty(True)
-
         'Tool.EpsImportManager.CachedContainerRemove(PTEFile.GetPullPath())
 
-        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
-            CType(TEFile.Scripter, SCAScriptEditor).StringText = NewTextEditor.Text
-        End If
+        CType(TEFile.Scripter, SCAScriptEditor).StringText = NewTextEditor.Text
+        'If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+        'End If
     End Sub
 End Class
 

@@ -53,8 +53,11 @@
 
 
         '=======0.16.XX.XX버전 호환성========
-        If TEData.SCArchive.FuncSpace < 20000 Then
-            TEData.SCArchive.FuncSpace = 20000
+        If TEData.SCArchive.FuncSpace < 4000 Then
+            TEData.SCArchive.FuncSpace = 4000
+        End If
+        If TEData.SCArchive.SCAScriptVarCount < 200 Then
+            TEData.SCArchive.SCAScriptVarCount = 200
         End If
         '===================================
     End Sub

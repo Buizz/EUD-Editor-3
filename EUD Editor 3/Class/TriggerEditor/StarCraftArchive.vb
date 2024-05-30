@@ -4,6 +4,11 @@
 Public Class StarCraftArchive
     Public Sub New()
         DataSpace = 300
+
+        FuncSpace = 4000
+        SCAScriptVarCount = 200
+
+
         _CodeDatas = New List(Of CodeData)
         _MakerBattleTag = ""
         _MakerServerName = ""
@@ -65,6 +70,16 @@ Public Class StarCraftArchive
         End Get
         Set(value As Integer)
             _FuuncSpace = value
+        End Set
+    End Property
+
+    Private _SCAScriptVarCount As Integer
+    Public Property SCAScriptVarCount As Integer
+        Get
+            Return _SCAScriptVarCount
+        End Get
+        Set(value As Integer)
+            _SCAScriptVarCount = value
         End Set
     End Property
 

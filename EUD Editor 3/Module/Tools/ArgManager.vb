@@ -279,7 +279,9 @@ Module ArgManager
                     Dim scriptEditor As SCAScriptEditor = item.Scripter
 
                     Dim file As String = scriptEditor.GetFileText("")
-
+                    If file = "" Then
+                        Continue For
+                    End If
                     Dim regex As Regex = New Regex("function\s+([\w_][\w\d_]+)")
 
                     Dim matches As MatchCollection = regex.Matches(file)

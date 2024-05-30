@@ -338,6 +338,7 @@
     <Compile Include="Class\Bitmap\BitmapManager.vb" />
     <Compile Include="Class\BulidData\BulidPaths.vb" />
     <Compile Include="Class\BulidData\SCACheckSum.vb" />
+    <Compile Include="Class\BulidData\SCAWorkSpace.vb" />
     <Compile Include="Class\BulidData\WriteDotData.vb" />
     <Compile Include="Class\BulidData\WriteBGMFile.vb" />
     <Compile Include="Class\BulidData\WriteSCAData.vb" />
@@ -1459,6 +1460,9 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\BGMPlayer.lua">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Lua\TriggerEditor\Selection.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\Lua\TriggerEditor\Wait.lua">

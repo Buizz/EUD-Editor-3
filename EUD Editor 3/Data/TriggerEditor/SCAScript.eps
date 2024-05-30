@@ -32,3 +32,10 @@ function execScript(funcnum, returnindex, argcount, args : EUDArray){
     SetMemoryEPD(scf.FuncCommandEPD, Add, 1);
 }
 
+function writeVariable(index, value){
+    SetMemoryEPD(scf.SCAScriptVarEPD + index, SetTo, value);
+}
+
+function readVariable(index){
+    return dwread_epd(scf.SCAScriptVarEPD + index);
+}

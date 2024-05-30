@@ -1100,6 +1100,12 @@
     <sys:String x:Key="BufferSize">Buffer Size</sys:String>
     <sys:String x:Key="BufferSizeHint">This is the amount of space used by users to send and receive data If there is a lot of data being sent and received, an error will occur if the buffer is not large enough.</sys:String>
 
+    <sys:String x:Key="SCAFunctionSize">Function Buffer Size</sys:String>
+    <sys:String x:Key="SCAFunctionHint">Space when a function is called. The larger the data, the greater the number of data that can be sent at once.</sys:String>
+
+    <sys:String x:Key="SCAScriptVarCount">Script Max Count</sys:String>
+    <sys:String x:Key="SCAScriptVarCountHint">Maximum quantity of SCA Script Variable.</sys:String>
+    
 
     <sys:String x:Key="CT_TriggerSetting">Setting</sys:String>
     <sys:String x:Key="CT_Computer">Computer</sys:String>

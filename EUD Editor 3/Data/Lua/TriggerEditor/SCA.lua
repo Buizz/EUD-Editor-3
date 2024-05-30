@@ -35,6 +35,65 @@ end
 
 
 
+--[================================[
+@Language.ko-KR
+@Summary
+Script 변수 [Variable]에 [Value]만큼 [Modifier]합니다.
+@Group
+SCA
+@param.Variable.TrgString
+변수 이름입니다.
+@param.Value.Number
+넣을 값 입니다.
+@param.Modifier.TrgModifier
+연산 종류 입니다.
+
+@Language.en-US
+@Summary
+Script 변수 [Variable]에 [Value]만큼 [Modifier]합니다.
+@Group
+SCA
+@param.Variable.TrgString
+변수 이름입니다.
+@param.Value.Number
+넣을 값 입니다.
+@param.Modifier.TrgModifier
+연산 종류 입니다.
+]================================]
+function SCAWriteScriptVariable(Variable, Modifier, Value)
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+
+	Modifier = ParseModifier(Modifier)
+
+	echo(string.format("SetMemoryEPD(scalua.scf.SCAScriptVarEPD + %s, %s, %s)", ParseSCAScriptVariable(Variable), Modifier, Value))
+end
+
+
+
+--[================================[
+@Language.ko-KR
+@Summary
+Script 변수 [Variable]를 읽습니다.
+@Group
+SCA
+@param.Variable.TrgString
+변수 이름입니다.
+
+@Language.en-US
+@Summary
+Script 변수 [Variable]를 읽습니다.
+@Group
+SCA
+@param.Variable.TrgString
+변수 이름입니다.
+]================================]
+function SCAReadScriptVariable(Variable)
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+
+	echo(string.format("dwread_epd(scalua.scf.SCAScriptVarEPD + %s)", ParseSCAScriptVariable(Variable)))
+end
+
+
 
 --[================================[
 @Language.ko-KR
@@ -60,6 +119,8 @@ function SCALoad(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 불러옵니�
 	echo("scalua.scaLoad(".. Slot .. ")")
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -83,7 +144,6 @@ function SCASave(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 저장합니�
 
 	echo("scalua.scaSave(".. Slot .. ")")
 end
-
 
 
 
@@ -138,6 +198,8 @@ function SCALoadTime() --SCA//시간 정보를 불러옵니다.
 	echo("scalua.scaLoadTime()")
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -159,6 +221,7 @@ function SCALoadGlobalData() --SCA//글로벌 변수를 불러옵니다.
 
 	echo("scalua.scaLoadGlobal()")
 end
+
 
 
 --[================================[
@@ -183,6 +246,8 @@ function SCALoadTimeOnce() --SCA//시간 정보를 불러옵니다.
 	echo("scalua.scaLoadTimeOnce()")
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -205,6 +270,8 @@ function SCALoadGlobalDataOnce() --SCA//글로벌 변수를 불러옵니다.
 	echo("scalua.scaLoadGlobalOnce()")
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -223,6 +290,8 @@ function IsLoadComplete() --SCA//불러오기 완료를 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	echo("scalua.IsLoadComplete()")
 end
+
+
 
 --[================================[
 @Language.ko-KR
@@ -243,6 +312,8 @@ function IsSaveComplete() --SCA//저장 완료를 확인합니다.
 	echo("scalua.IsSaveComplete()")
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -262,6 +333,8 @@ function IsGlobalLoadComplete() --SCA//글로벌 변수의 불러오기 완료�
 	echo("scalua.IsGlobalLoadComplete()")
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -280,10 +353,6 @@ function IsTimeLoadComplete() --SCA//시간 정보의 불러오기 완료를 확
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	echo("scalua.IsTimeLoadComplete()")
 end
-
-
-
-
 
 
 
@@ -309,6 +378,8 @@ function SCAGetGlobalData(Index) --SCA/Number/[Index]번 글로벌 데이터의 
 
 	echo("scalua.GlobalData(" .. Index .. ")")
 end
+
+
 
 --[================================[
 @Language.ko-KR
@@ -355,6 +426,8 @@ function SCAGlobalData(Index,Comparison,Value) --SCA/Number,TrgComparison,Number
 	end
 end
 
+
+
 --[================================[
 @Language.ko-KR
 @Summary
@@ -393,6 +466,8 @@ function SCAGetTime(DateType) --SCA/DateType/[DateType]을 반환합니다.
 	end
 	echo(Variable)
 end
+
+
 
 --[================================[
 @Language.ko-KR
@@ -448,6 +523,8 @@ function SCATime(DateType,Comparison,Value) --SCA/DateType,TrgComparison,Number/
 		echo(str)
 	end
 end
+
+
 
 --[================================[
 @Language.ko-KR

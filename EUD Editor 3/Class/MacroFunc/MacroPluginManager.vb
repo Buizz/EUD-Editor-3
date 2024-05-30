@@ -23,12 +23,16 @@ Partial Public Class MacroManager
 
     Public macroErrorList As New List(Of String)
 
+    Public SCAScriptVariables As New List(Of String)
+
+
     Private Sub BuildStart()
         'MsgBox("빌드 시작")
         MSQCItems.Clear()
         ChatEventItems.Clear()
 
         macroErrorList.Clear()
+        SCAScriptVariables.Clear()
 
         onpluginStr.Clear()
         beforeStr.Clear()

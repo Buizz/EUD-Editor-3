@@ -167,10 +167,20 @@ Partial Public Class BuildData
         Const FuncCommandLength As Integer = 32
         Dim SpaceLength As Integer = pjData.TEData.SCArchive.DataSpace
         Dim FuncLength As Integer = pjData.TEData.SCArchive.FuncSpace
+        Dim SCAScriptVarCount As Integer = pjData.TEData.SCArchive.SCAScriptVarCount
+
+        Dim workSpace As New SCAWorkSpace
+        workSpace.AddSpace("EntryPoint", EntryPoint.Count * 4)
+        workSpace.AddSpace("UserCommandSpace", (CommandLength + SpaceLength) * 8)
+        workSpace.AddSpace("FastLoadCommand", FastLoadCommandLength)
+        workSpace.AddSpace("FastLoadSpace", SpaceLength)
+        workSpace.AddSpace("FuncCommand", FuncCommandLength)
+        workSpace.AddSpace("FuncData", FuncLength * 4)
+        workSpace.AddSpace("FuncReturnTable", FuncLength * 4)
+        workSpace.AddSpace("ScriptVarSpace", SCAScriptVarCount * 4)
 
 
         Dim sb As New StringBuilder
-
         Dim NameSapces As New List(Of String)
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
             If pjData.TEData.SCArchive.CodeDatas(i).TypeIndex <> StarCraftArchive.CodeData.CodeType.Deaths Then
@@ -197,32 +207,52 @@ Partial Public Class BuildData
         '플레이어함수
 
 
-        sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + '엔트리포인트
-                      8 * (CommandLength + SpaceLength) + '일반 값
-                      (FastLoadCommandLength + SpaceLength) + '패스트 로드
-                      FuncCommandLength + FuncLength * 4 + 'FuncLoad
-                      FuncLength * 4 & 'FuncReturnTable
-                       ");  // workspace")
-        'sb.AppendLine("const ws = 0x58F44A;")
+        sb.AppendLine("const ws = Db(" & workSpace.GetAllCapacity() & ");  // workspace")
+
         sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";  // EntryPointLength")
         sb.AppendLine("const SpaceLength = " & SpaceLength & ";  // DataBufferSize")
         sb.AppendLine("const FuncLength = " & FuncLength & ";  // FuncSpace / 4")
 
-        sb.AppendLine("const FuncCommandEPD = EPD(ws + " & EntryPoint.Count * 4 +
-                      8 * (CommandLength + SpaceLength) + '일반 값
-                      (FastLoadCommandLength + SpaceLength) & '패스트 로드
-                      ");  // FuncOrder")
-        sb.AppendLine("const FuncDataEPD = EPD(ws + " & EntryPoint.Count * 4 +
-                      8 * (CommandLength + SpaceLength) + '일반 값
-                      (FastLoadCommandLength + SpaceLength) + '패스트 로드
-                      FuncCommandLength & 'FuncCommand
-                      ");  // FuncData")
-        sb.AppendLine("const FuncReturnTableEPD = EPD(ws + " & EntryPoint.Count * 4 +
-                      8 * (CommandLength + SpaceLength) + '일반 값
-                      (FastLoadCommandLength + SpaceLength) + '패스트 로드
-                      FuncCommandLength + 'FuncCommand
-                      FuncLength * 4 & 'FuncLoad
-                      ");  // FuncReturnTable")
+        sb.AppendLine("const FuncCommandEPD = EPD(ws + " & workSpace.GetSpaceStartOffset("FuncCommand") & ");  // FuncOrder")
+        sb.AppendLine("const FuncDataEPD = EPD(ws + " & workSpace.GetSpaceStartOffset("FuncData") & ");  // FuncData")
+        sb.AppendLine("const FuncReturnTableEPD = EPD(ws + " & workSpace.GetSpaceStartOffset("FuncReturnTable") & ");  // FuncReturnTable")
+        sb.AppendLine("const SCAScriptVarEPD = EPD(ws + " & workSpace.GetSpaceStartOffset("ScriptVarSpace") & ");  // SCAScriptVarCount")
+
+        'sb.AppendLine("const ws = Db(" & EntryPoint.Count * 4 + '엔트리포인트
+        '              8 * (CommandLength + SpaceLength) + '일반 값
+        '              (FastLoadCommandLength + SpaceLength) + '패스트 로드
+        '              FuncCommandLength + FuncLength * 4 + 'FuncLoad
+        '              FuncLength * 4 + 'FuncLoad
+        '              SCAScriptVarCount * 4 &'FuncReturnTable
+        '               ");  // workspace")
+        ''sb.AppendLine("const ws = 0x58F44A;")
+        'sb.AppendLine("const EntryPointLength = " & EntryPoint.Count & ";  // EntryPointLength")
+        'sb.AppendLine("const SpaceLength = " & SpaceLength & ";  // DataBufferSize")
+        'sb.AppendLine("const FuncLength = " & FuncLength & ";  // FuncSpace / 4")
+
+        'sb.AppendLine("const FuncCommandEPD = EPD(ws + " & EntryPoint.Count * 4 +
+        '              8 * (CommandLength + SpaceLength) + '일반 값
+        '              (FastLoadCommandLength + SpaceLength) & '패스트 로드
+        '              ");  // FuncOrder")
+        'sb.AppendLine("const FuncDataEPD = EPD(ws + " & EntryPoint.Count * 4 +
+        '              8 * (CommandLength + SpaceLength) + '일반 값
+        '              (FastLoadCommandLength + SpaceLength) + '패스트 로드
+        '              FuncCommandLength & 'FuncCommand
+        '              ");  // FuncData")
+        'sb.AppendLine("const FuncReturnTableEPD = EPD(ws + " & EntryPoint.Count * 4 +
+        '              8 * (CommandLength + SpaceLength) + '일반 값
+        '              (FastLoadCommandLength + SpaceLength) + '패스트 로드
+        '              FuncCommandLength + 'FuncCommand
+        '              FuncLength * 4 & 'FuncLoad
+        '              ");  // FuncReturnTable")
+        'sb.AppendLine("const SCAScriptVarEPD = EPD(ws + " & EntryPoint.Count * 4 +
+        '              8 * (CommandLength + SpaceLength) + '일반 값
+        '              (FastLoadCommandLength + SpaceLength) + '패스트 로드
+        '              FuncCommandLength + 'FuncCommand
+        '              FuncLength * 4 + 'FuncLoad
+        '              FuncLength * 4 & 'FuncLoad
+        '              ");  // SCAScriptVarCount")
+
         sb.AppendLine("const ObjectCount = " & pjData.TEData.SCArchive.CodeDatas.Count & ";  // ObjectCount")
 
 
@@ -558,6 +588,25 @@ Partial Public Class BuildData
             scriptsstrs = scriptsstrs & item.Replace("""", "")
         Next
         Sb.Append(scriptsstrs)
+        Sb.Append("!")
+        Sb.Append(pjData.TEData.SCArchive.SCAScriptVarCount)
+        Sb.Append("!")
+        Dim scriptvar As String = ""
+        For Each item As String In macro.SCAScriptVariables
+            If scriptvar <> "" Then
+                scriptvar = scriptvar & ","
+            End If
+
+            scriptvar = scriptvar & item
+        Next
+        Sb.Append(scriptvar)
+
+
+
+
+
+
+
 
 
         Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)

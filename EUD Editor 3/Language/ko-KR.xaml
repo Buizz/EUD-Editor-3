@@ -1107,6 +1107,9 @@
     <sys:String x:Key="SCAFunctionSize">함수 사이즈</sys:String>
     <sys:String x:Key="SCAFunctionHint">함수를 주고 받는 공간입니다. 데이터가 클 수록 한번에 보낼 수 있는 갯수가 증가합니다.</sys:String>
 
+    <sys:String x:Key="SCAScriptVarCount">Script 최대 수</sys:String>
+    <sys:String x:Key="SCAScriptVarCountHint">SCA Script Variable의 최대 수량입니다.</sys:String>
+
 
     <sys:String x:Key="CT_TriggerSetting">트리거 설정</sys:String>
     <sys:String x:Key="CT_Computer">컴퓨터</sys:String>
