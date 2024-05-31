@@ -84,6 +84,11 @@ Public Class ButtonData
         UseStrSelecter.Init(SCDatFiles.DatFiles.stattxt, Tool.GetText("BtnEnaStr"), 0)
         DUseStrSelecter.Init(SCDatFiles.DatFiles.stattxt, Tool.GetText("BtnDisStr"), 0)
 
+        BIconSelecter.SetTextWidth(4)
+        UseStrSelecter.SetTextWidth(4)
+        DUseStrSelecter.SetTextWidth(4)
+
+
         SelectButton = Nothing
         SelectBtnAction()
 

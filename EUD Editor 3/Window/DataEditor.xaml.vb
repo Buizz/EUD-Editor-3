@@ -4,6 +4,8 @@ Imports MaterialDesignThemes.Wpf
 Public Class DataEditor
     Private LuaManager As LuaManager
 
+    Private InitIndex As Integer
+
     Private WindowOpenType As OpenType
     Public Enum OpenType
         MainWindow
@@ -24,10 +26,11 @@ Public Class DataEditor
         End Select
         WindowOpenType = OpenType.MainWindow
     End Sub
-    Public Sub New(tab As TabItem, Optional Page As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None)
+    Public Sub New(tab As TabItem, Optional Page As SCDatFiles.DatFiles = SCDatFiles.DatFiles.None, Optional InitIndex As Integer = 0)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
+        Me.InitIndex = InitIndex
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         WindowOpenType = OpenType.Orders
@@ -62,7 +65,7 @@ Public Class DataEditor
         TabContent.Items.Add(tab)
         TabContent.SelectedItem = tab
 
-        CodeExpander.IsExpanded = False
+        CodeExpander.IsExpanded = True
         Console.IsExpanded = False
 
         'If Page <> SCDatFiles.DatFiles.None Then
@@ -87,7 +90,7 @@ Public Class DataEditor
         Me.DataContext = ProjectControlBinding
         pjData.CodeSelecters.Add(CodeList)
         CodeList.SetFliter(CodeSelecter.ESortType.n123)
-        CodeList.ListReset(OpenPage, False)
+        CodeList.ListReset(OpenPage, False, _StartIndex:=InitIndex)
 
         'Dim asdgfaqwea As Func(Of TabItem) = AddressOf dsafads
         'MainTab.NewItemFactory = asdgfaqwea
@@ -97,6 +100,7 @@ Public Class DataEditor
         End If
         Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
 
+        CodeList.ScrollToSelectItem()
         'ControlBar.HotkeyInit(Me)
     End Sub
 
@@ -174,8 +178,7 @@ Public Class DataEditor
         TabItemTool.ChanageTabItem(CodePage, index, MainTab)
     End Sub
 
-
-
-
-
+    Private Sub CodeExpander_Expanded(sender As Object, e As RoutedEventArgs)
+        CodeList.ScrollToSelectItem()
+    End Sub
 End Class

@@ -19,6 +19,15 @@ Public Class CodeSelecter
     Private LastSelectIndex As Integer = -1
 
     Private timer As New Date
+
+    Public Sub ScrollToSelectItem()
+        Refresh(StartIndex, WireFrameFlag)
+
+        If (CodeIndexerList.SelectedItems.Count > 0) Then
+            CodeIndexerList.ScrollIntoView(CodeIndexerList.SelectedItems(0))
+        End If
+    End Sub
+
     Private Sub CodeIndexerList_KeyDown(sender As Object, e As KeyEventArgs) Handles CodeIndexerList.PreviewKeyDown
         If timer.AddMilliseconds(50) < Now Then
             timer = Now

@@ -14,6 +14,10 @@ Public Class IconSelecterP
 
     Public Event ValueChange As RoutedEventHandler
 
+    Public Sub SetTextWidth(width As Integer)
+        ValueText.Width = 7 * width
+    End Sub
+
 
     Public Sub Init(_DatFile As SCDatFiles.DatFiles, InitText As String, tValue As Long)
         CodeList.DataLoadCmp = False

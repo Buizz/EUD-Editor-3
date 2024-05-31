@@ -940,7 +940,7 @@ End Namespace
 Namespace TabItemTool
     Module TabItemTool
         Public Sub WindowTabItem(Datfile As SCDatFiles.DatFiles, index As Integer)
-            Dim DataEditorForm As New DataEditor(GetTabItem(Datfile, index), Datfile)
+            Dim DataEditorForm As New DataEditor(GetTabItem(Datfile, index), Datfile, index)
             'DataEditorForm.OpenbyOthers(GetTabItem(Datfile, index), Datfile)
             DataEditorForm.Show()
         End Sub

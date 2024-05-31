@@ -58,7 +58,7 @@
             <local:ConsoleTextbox/>
         </Expander>
 
-        <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" VerticalContentAlignment="Stretch" >
+        <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" VerticalContentAlignment="Stretch" Expanded="CodeExpander_Expanded" >
             <Expander.Header>
                 <TextBlock
                     TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
