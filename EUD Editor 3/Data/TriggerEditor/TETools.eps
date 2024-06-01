@@ -1286,3 +1286,49 @@ function AddStatusFlags(unitPTR, flags /*StatusFlags*/) {
 function AddSizeLocation(location: TrgLocation, width, height) {
     dilateloc(location, width, height);
 }
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [ptr]의 소유권을 [NewOwner]에게 넘깁니다..
+ *
+ * @param.ptr.ko-KR
+ * 유닛의 포인터입니다.
+ *
+ * @param.NewOwner.ko-KR
+ * 플레이어 입니다.
+***/
+function CGive(ptr ,NewOwner: TrgPlayer) {
+    const epd = EPD(ptr);
+    const player = epd + 0x4C / 4;
+    const Owner = bread_epd(player, 0);
+    SetMemoryXEPD(player, SetTo, NewOwner, 0xFF);
+    const prv, nxt = epd + 0x68 / 4, epd + 0x6C / 4;
+    const prev_ptr, prev_epd = cunitepdread_epd(prv);
+    const next_ptr, next_epd = cunitepdread_epd(nxt);
+    if(prev_ptr >= 0x59CCA8) {
+        dwwrite_epd(prev_epd + 0x6C / 4, next_ptr);
+    } else {
+        dwwrite_epd(EPD(0x6283F8) + Owner, next_ptr);
+    }
+    if(next_ptr >= 0x59CCA8) {
+        dwwrite_epd(next_epd + 0x68 / 4, prev_ptr);
+    }
+    const NewHeader = EPD(0x6283F8) + NewOwner;
+    if(MemoryEPD(NewHeader, AtLeast, 0x59CCA8)) {
+        const NewPrevPtr, NewPrevEPD = cunitepdread_epd(NewHeader);
+        const NewPrev_nxt = NewPrevEPD + 0x6C / 4;
+        const NewNextPtr, NewNextEPD = cunitepdread_epd(NewPrev_nxt);
+        dwwrite_epd(NewPrev_nxt, ptr);
+        dwwrite_epd(prv, NewPrevPtr);
+        dwwrite_epd(nxt, NewNextPtr);
+        if(NewNextPtr >= 0x59CCA8) {
+            dwwrite_epd(NewNextEPD + 0x68 / 4, ptr);
+        }
+    } else {
+        dwwrite_epd(NewHeader, ptr);
+        dwwrite_epd(prv, 0);
+        dwwrite_epd(nxt, 0);
+    }
+}
