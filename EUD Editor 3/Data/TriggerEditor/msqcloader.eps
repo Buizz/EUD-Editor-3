@@ -1,0 +1,465 @@
+var MSQCIsTransfer = 0;
+var MSQCSend1 = 0;
+var MSQCSend2 = 0;
+var MSQCSend3 = 0;
+var MSQCSend4 = 0;
+var MSQCSend5 = 0;
+var MSQCSend6 = 0;
+var MSQCSend7 = 0;
+var MSQCSend8 = 0;
+var MSQCSend9 = 0;
+var MSQCSend10 = 0;
+var MSQCSend11 = 0;
+var MSQCSend12 = 0;
+var MSQCSend13 = 0;
+var MSQCSend14 = 0;
+var MSQCSend15 = 0;
+var MSQCSend16 = 0;
+var MSQCSend17 = 0;
+var MSQCSend18 = 0;
+var MSQCSend19 = 0;
+var MSQCSend20 = 0;
+const MSQCReceive1 = PVariable();
+const MSQCReceive2 = PVariable();
+const MSQCReceive3 = PVariable();
+const MSQCReceive4 = PVariable();
+const MSQCReceive5 = PVariable();
+const MSQCReceive6 = PVariable();
+const MSQCReceive7 = PVariable();
+const MSQCReceive8 = PVariable();
+const MSQCReceive9 = PVariable();
+const MSQCReceive10 = PVariable();
+const MSQCReceive11 = PVariable();
+const MSQCReceive12 = PVariable();
+const MSQCReceive13 = PVariable();
+const MSQCReceive14 = PVariable();
+const MSQCReceive15 = PVariable();
+const MSQCReceive16 = PVariable();
+const MSQCReceive17 = PVariable();
+const MSQCReceive18 = PVariable();
+const MSQCReceive19 = PVariable();
+const MSQCReceive20 = PVariable();
+
+function Init(){
+	EUDRegisterObjectToNamespace("MSQCIsTransfer", MSQCIsTransfer);
+	EUDRegisterObjectToNamespace("MSQCSend1", MSQCSend1);
+	EUDRegisterObjectToNamespace("MSQCSend2", MSQCSend2);
+	EUDRegisterObjectToNamespace("MSQCSend3", MSQCSend3);
+	EUDRegisterObjectToNamespace("MSQCSend4", MSQCSend4);
+	EUDRegisterObjectToNamespace("MSQCSend5", MSQCSend5);
+	EUDRegisterObjectToNamespace("MSQCSend6", MSQCSend6);
+	EUDRegisterObjectToNamespace("MSQCSend7", MSQCSend7);
+	EUDRegisterObjectToNamespace("MSQCSend8", MSQCSend8);
+	EUDRegisterObjectToNamespace("MSQCSend9", MSQCSend9);
+	EUDRegisterObjectToNamespace("MSQCSend10", MSQCSend10);
+	EUDRegisterObjectToNamespace("MSQCSend11", MSQCSend11);
+	EUDRegisterObjectToNamespace("MSQCSend12", MSQCSend12);
+	EUDRegisterObjectToNamespace("MSQCSend13", MSQCSend13);
+	EUDRegisterObjectToNamespace("MSQCSend14", MSQCSend14);
+	EUDRegisterObjectToNamespace("MSQCSend15", MSQCSend15);
+	EUDRegisterObjectToNamespace("MSQCSend16", MSQCSend16);
+	EUDRegisterObjectToNamespace("MSQCSend17", MSQCSend17);
+	EUDRegisterObjectToNamespace("MSQCSend18", MSQCSend18);
+	EUDRegisterObjectToNamespace("MSQCSend19", MSQCSend19);
+	EUDRegisterObjectToNamespace("MSQCSend20", MSQCSend20);
+	
+	EUDRegisterObjectToNamespace("MSQCReceive1", MSQCReceive1);
+	EUDRegisterObjectToNamespace("MSQCReceive2", MSQCReceive2);
+	EUDRegisterObjectToNamespace("MSQCReceive3", MSQCReceive3);
+	EUDRegisterObjectToNamespace("MSQCReceive4", MSQCReceive4);
+	EUDRegisterObjectToNamespace("MSQCReceive5", MSQCReceive5);
+	EUDRegisterObjectToNamespace("MSQCReceive6", MSQCReceive6);
+	EUDRegisterObjectToNamespace("MSQCReceive7", MSQCReceive7);
+	EUDRegisterObjectToNamespace("MSQCReceive8", MSQCReceive8);
+	EUDRegisterObjectToNamespace("MSQCReceive9", MSQCReceive9);
+	EUDRegisterObjectToNamespace("MSQCReceive10", MSQCReceive10);
+	EUDRegisterObjectToNamespace("MSQCReceive11", MSQCReceive11);
+	EUDRegisterObjectToNamespace("MSQCReceive12", MSQCReceive12);
+	EUDRegisterObjectToNamespace("MSQCReceive13", MSQCReceive13);
+	EUDRegisterObjectToNamespace("MSQCReceive14", MSQCReceive14);
+	EUDRegisterObjectToNamespace("MSQCReceive15", MSQCReceive15);
+	EUDRegisterObjectToNamespace("MSQCReceive16", MSQCReceive16);
+	EUDRegisterObjectToNamespace("MSQCReceive17", MSQCReceive17);
+	EUDRegisterObjectToNamespace("MSQCReceive18", MSQCReceive18);
+	EUDRegisterObjectToNamespace("MSQCReceive19", MSQCReceive19);
+	EUDRegisterObjectToNamespace("MSQCReceive20", MSQCReceive20);
+}
+
+const temparray = EUDArray(20);
+
+const maxerrorlist = 1000;
+var l_errorindex = 0;
+const l_errorlist = EUDArray(maxerrorlist);
+
+const loadstart = PVariable();
+const loaddatalen = PVariable();
+const lastrindex = PVariable();
+const waittimer = PVariable();
+
+const receiveindex = PVariable();
+var l_loadindex = 0;
+var l_datablockindex = 0;
+var l_errorcount = 0;
+var l_loaddatalen = 0;
+
+var senddata = 0;
+const receivedata = PVariable();
+function Start(cp, tsenddata, treceivedata, len){
+	if(IsUserCP()){
+		l_datablockindex = 0;
+		l_loadindex = 0;
+		l_errorcount = 0;
+		l_loaddatalen = len * 2;
+		MSQCIsTransfer = 1;
+	}
+	
+	loaddatalen[cp] = 0;
+	waittimer[cp] = 0;
+	receiveindex[cp] = 0; 
+	lastrindex[cp] = 0;
+	
+	senddata = tsenddata;
+	receivedata[cp] = treceivedata;
+	
+	loadstart[cp] = 1;
+	//DisplayText("Debug: 로드시작");
+}
+
+function ReadSendValue(index){
+	const rv = wread_epd(senddata + index / 2, (index % 2) * 2);
+	
+	//const x = rv % 2000 + 3;
+	//const y = rv / 2000 + 3;
+	//return x + y * 0x10000;
+	
+	return rv;
+}
+
+const mapwidth = 1900;
+const minwidth = 25;
+const maxparity = 52;
+const lenparity = 51;
+function SetMSQCSend(index, rv, p){
+	const rvalue = rv + p * 0x10000;
+	
+	const x = rvalue % mapwidth + minwidth;
+	const y = rvalue / mapwidth + minwidth;
+	
+	const value = x + y * 0x10000;
+	//return x + y * 0x10000;
+	
+	if(index == 0) MSQCSend1 = value;
+	else if(index == 1) MSQCSend2 = value;
+	else if(index == 2) MSQCSend3 = value;
+	else if(index == 3) MSQCSend4 = value;
+	else if(index == 4) MSQCSend5 = value;
+	else if(index == 5) MSQCSend6 = value;
+	else if(index == 6) MSQCSend7 = value;
+	else if(index == 7) MSQCSend8 = value;
+	else if(index == 8) MSQCSend9 = value;
+	else if(index == 9) MSQCSend10 = value;
+	else if(index == 10) MSQCSend11 = value;
+	else if(index == 11) MSQCSend12 = value;
+	else if(index == 12) MSQCSend13 = value;
+	else if(index == 13) MSQCSend14 = value;
+	else if(index == 14) MSQCSend15 = value;
+	else if(index == 15) MSQCSend16 = value;
+	else if(index == 16) MSQCSend17 = value;
+	else if(index == 17) MSQCSend18 = value;
+	else if(index == 18) MSQCSend19 = value;
+	else if(index == 19) MSQCSend20 = value;
+}
+
+function ReadReceiveData(cp){
+	temparray[0] = MSQCReceive1[cp];
+	temparray[1] = MSQCReceive2[cp];
+	temparray[2] = MSQCReceive3[cp];
+	temparray[3] = MSQCReceive4[cp];
+	temparray[4] = MSQCReceive5[cp];
+	temparray[5] = MSQCReceive6[cp];
+	temparray[6] = MSQCReceive7[cp];
+	temparray[7] = MSQCReceive8[cp];
+	temparray[8] = MSQCReceive9[cp];
+	temparray[9] = MSQCReceive10[cp];
+	temparray[10] = MSQCReceive11[cp];
+	temparray[11] = MSQCReceive12[cp];
+	temparray[12] = MSQCReceive13[cp];
+	temparray[13] = MSQCReceive14[cp];
+	temparray[14] = MSQCReceive15[cp];
+	temparray[15] = MSQCReceive16[cp];
+	temparray[16] = MSQCReceive17[cp];
+	temparray[17] = MSQCReceive18[cp];
+	temparray[18] = MSQCReceive19[cp];
+	temparray[19] = MSQCReceive20[cp];
+	
+	for (var i = 0; i < 20; i++) {
+		const x = (temparray[i]) % 0x10000 - minwidth;
+		const y = (temparray[i]) / 0x10000 - minwidth;
+		temparray[i] = x + y * mapwidth;
+	}
+}
+
+const s = StringBuffer();
+function Loop(cp){
+	if(loadstart[cp] == 1){
+
+
+		if(waittimer[cp] < 10){
+			waittimer[cp] += 1;
+			
+			const initvalue = 13;
+			for (var i = 0; i < 20; i++) {
+				if(IsUserCP()){
+					SetMSQCSend(i, initvalue, maxparity);
+				}
+			}
+			
+			return;
+		}
+		
+		if(IsUserCP()){
+			if((lastrindex[cp] < l_loaddatalen - 1)){
+				//Send
+				const tinedx = (l_loadindex + l_datablockindex * 50) * 20;
+				
+				const addindex = l_loadindex + 1;
+				for (var i = 0; i < 20; i++) {
+					SetMSQCSend(i, ReadSendValue(tinedx + i), addindex);
+				}
+				
+				//다음 루프에서 안넘어가게
+				if((tinedx + 20) < l_loaddatalen - 1){
+					l_loadindex += 1;
+				}
+				if(l_loadindex >= 50){
+					l_loadindex = 0;
+					l_datablockindex += 1;
+				}
+			}else{
+				//데이터가 넘어가면 끝 알리기
+				for (var i = 0; i < 20; i++) {
+					if(IsUserCP()){
+						SetMSQCSend(i, l_loaddatalen, lenparity);
+					}
+				}
+			}
+		}
+		
+		ReadReceiveData(cp);
+		
+		for (var i = 0; i < 20; i++) {
+			//Receive
+			const recevie = temparray[i];
+			
+			const parity = recevie / 0x10000 - 1;
+			const rval = recevie % 0x10000;
+			
+			//s.printf("\x06 recevie {} parity {} rval {} ",recevie, parity, rval);
+			
+			if((parity + 1) == lenparity){
+				loaddatalen[cp] = rval;
+			}else if(parity > 50){
+				break;
+			}else{
+				const calcparity = receiveindex[cp] % 50;
+				
+				if(parity < calcparity){
+					//패리티 불일치
+					receiveindex[cp] -= calcparity - parity;
+				}else if(parity > calcparity){
+					receiveindex[cp] += parity - calcparity;
+				}
+				
+				const rindex = receiveindex[cp] * 20 + i;
+				lastrindex[cp] = rindex;
+				//값 받음
+				//WriteReceiveValue()
+				wwrite_epd(receivedata[cp] + rindex / 2, (rindex % 2) * 2, rval);
+				
+				//const testv = dwread_epd(senddata + rindex);
+			}
+			
+			/*
+			if(rindex % 2 == 0){
+				//이떄출력
+				const sendd = dwread_epd(senddata + rindex / 2 - 1);
+				const recevied = dwread_epd(receivedata[cp] + rindex / 2 - 1);
+				
+				if(sendd != recevied){
+					s.printfAt(1, "\x06rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
+				}else{
+					s.printfAt(1, "\x07rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
+				}
+			}
+			*/
+			
+			//s.printfAt(4, "\x07 lastrindex {}, loaddatalen {} ", lastrindex[cp], loaddatalen[cp]);
+			if(lastrindex[cp] >= loaddatalen[cp] - 1){
+				loadstart[cp] = 2;
+				//DisplayText("Debug: 스테이트변경");
+				break;
+			}
+		}
+		receiveindex[cp] += 1;
+	}else if(loadstart[cp] == 2){
+		//검증 구간
+		if(IsUserCP()){
+			if(l_errorcount == 0){
+				l_errorcount = 100;
+				l_errorindex = 0;
+				for (var i = 0; i < loaddatalen[cp] / 2; i++) {
+					//s.printf("\x07 index {}, s {}, r {} ", i, dwread_epd(senddata + i), dwread_epd(receivedata[cp] + i));
+					if(dwread_epd(senddata + i) != dwread_epd(receivedata[cp] + i)){
+						l_errorcount = 200;
+						//s.printf("\x06 index {}, s {}, r {} ", i, dwread_epd(senddata + i), dwread_epd(receivedata[cp] + i));
+						l_errorlist[l_errorindex] = i;
+						l_errorindex += 1;
+						//loadstart[cp] = 0;
+						//break;
+					}
+				}
+			}
+			
+			const sval = l_errorcount + maxparity * 0x10000;
+			MSQCSend20 = sval;
+		}
+		//Receive
+		const recevie = MSQCReceive20[cp];
+		
+		const parity = recevie / 0x10000;
+		const rval = recevie % 0x10000;
+		if(parity == maxparity){
+			//제대로 받았음
+			if(rval == 100){
+				//성공
+				//DisplayText("Debug: 성공");
+				loadstart[cp] = 0;
+				if(IsUserCP()){
+					MSQCIsTransfer = 0;
+				}
+			}else if(rval == 200){
+				//오류
+				//DisplayText("Debug: 오류");
+				//loadstart[cp] = 3;
+				
+				if(IsUserCP()){
+					l_datablockindex = 0;
+					l_loadindex = 0;
+					l_errorcount = 0;
+				}
+				waittimer[cp] = 0;
+				lastrindex[cp] = 0;
+				loadstart[cp] = 3;
+				
+			}
+		}
+	}else if(loadstart[cp] == 3){
+		//부분 수정 구간
+		/*
+		if(l_errorindex < 100){
+			s.insert(0);
+			for (var i = 0; i < l_errorindex; i++) {
+				s.appendf("{} ", l_errorlist[i]);
+				if(i % 10 == 9){
+					s.appendf("\n");
+				}
+			}
+			s.DisplayAt(0);
+		}
+		*/
+
+		var lastreceiveerror = 0;
+		//=======================오류전송=======================
+		if(IsUserCP()){
+			const tinedx = (l_loadindex + l_datablockindex * 50) * 6;
+			const p = l_loadindex % 50;
+			
+			
+			var qw = 0;
+			for (var i = 0; i < 18; i += 3) {
+				if(l_errorindex - 1 < tinedx + qw){
+					SetMSQCSend(i, 0xFFFF, maxparity);
+					SetMSQCSend(i + 1, 0xFFFF, maxparity);
+					SetMSQCSend(i + 2, 0xFFFF, maxparity);
+					break;
+				}
+				
+				const currentIndex = l_errorlist[tinedx + qw] * 2;
+				const v1 = ReadSendValue(currentIndex);
+				const v2 = ReadSendValue(currentIndex + 1);
+				//현재 인덱스를 알려줌
+				SetMSQCSend(i, l_errorlist[tinedx + qw], l_loadindex);
+				SetMSQCSend(i + 1, v1, l_loadindex);
+				SetMSQCSend(i + 2, v2, l_loadindex);
+				
+				//s.printfAt(qw * 2 + 1, "\x07 currentIndex {}, send {:x}, receive {:x}, v1 {:x} , v2 {:x} ", currentIndex / 2, dwread_epd(senddata + currentIndex / 2), dwread_epd(receivedata[cp] + currentIndex / 2), v1, v2);
+				qw += 1;
+			}
+
+
+			if(tinedx + qw < l_errorindex){
+				l_loadindex += 1;
+			}else{
+				//l_loadindex = 0;
+				//l_datablockindex = 0;
+			}
+			
+			if(l_loadindex >= 50){
+				l_loadindex = 0;
+				l_datablockindex += 1;
+			}
+			
+			
+			SetMSQCSend(19, l_errorlist[l_errorindex - 1], maxparity);
+		}
+		//=======================오류전송=======================
+		
+		
+		//=======================오류받기=======================
+		ReadReceiveData(cp);
+		
+		const lasterrorindex = temparray[19] % 0x10000;
+		
+		var qw = 0;
+		for (var i = 0; i < 18; i += 3) {
+			const parity = temparray[i] / 0x10000;
+			if(parity > 50){
+				break;
+			}
+			
+			const currentIndex = temparray[i] % 0x10000;
+			const v1 = temparray[i + 1] % 0x10000;
+			const v2 = temparray[i + 2] % 0x10000;
+			//현재 인덱스를 알려줌
+			if(lasterrorindex != lastreceiveerror){
+				lastreceiveerror = currentIndex;
+			}
+			
+			const value = v2 * 0x10000 + v1;
+			
+			dwwrite_epd(receivedata[cp] + currentIndex, value);
+			
+			//s.printfAt(qw + 2, "\x07 currentIndex {}, v {:x}, send {:x}, receive {:x}, v1 {:x} , v2 {:x} ", currentIndex, value, dwread_epd(senddata + currentIndex), dwread_epd(receivedata[cp] + currentIndex), v1, v2);
+			qw += 1;
+		}
+		
+		//s.printfAt(0, "\x07 lasterrorindex {}, lastreceiveerror {}", lasterrorindex, lastreceiveerror);
+		if(lasterrorindex == lastreceiveerror){
+			loadstart[cp] = 2;
+			
+			if(waittimer[cp] < 20){
+				waittimer[cp] += 1;
+			}else{
+				loadstart[cp] = 2;
+			}
+			
+		}
+		
+		//=======================오류받기=======================
+
+	}
+	
+	//f_eprintf("l_errorindex {} ", l_errorindex);
+}
+
+

@@ -160,6 +160,26 @@ MSQCSpecial.Exactly(2) : MSQCSpecialBuffer, 200
 MSQCSpecial.Exactly(3) : MSQCSpecialBuffer, 300
 MSQCSpecial.Exactly(4) : MSQCSpecialBuffer, 400
 MSQCCondiction.Exactly(1) ; xy , MSQCValue : MSQCBuffer
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend1 : MSQCReceive1
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend2 : MSQCReceive2
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend3 : MSQCReceive3
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend4 : MSQCReceive4
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend5 : MSQCReceive5
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend6 : MSQCReceive6
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend7 : MSQCReceive7
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend8 : MSQCReceive8
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend9 : MSQCReceive9
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend10 : MSQCReceive10
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend11 : MSQCReceive11
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend12 : MSQCReceive12
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend13 : MSQCReceive13
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend14 : MSQCReceive14
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend15 : MSQCReceive15
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend16 : MSQCReceive16
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend17 : MSQCReceive17
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend18 : MSQCReceive18
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend19 : MSQCReceive19
+MSQCIsTransfer.Exactly(1) ; xy , MSQCSend20 : MSQCReceive20
 MSQCFLCondition.Exactly(1) ; val , MSQCLocalLoadingStatus : MSQCLoadingStatus
 MSQCSCAIDCondition.Exactly(1) ; val , MSQCLocalSCAIDHIGH : MSQCSCAIDHIGH
 MSQCSCAIDCondition.Exactly(1) ; val , MSQCLocalSCAIDLOW : MSQCSCAIDLOW

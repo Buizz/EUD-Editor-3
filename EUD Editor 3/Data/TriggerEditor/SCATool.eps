@@ -1,6 +1,7 @@
 import SCAFlexible as scf;
 import TriggerEditor.SCArchive as sca;
 import TriggerEditor.SCAFastLoader as scfl;
+import TriggerEditor.msqcloader as ml;
 
 const CommandLength = 12;
 
@@ -20,6 +21,8 @@ const MSQCSpecialBuffer = PVariable();
 const MSQCBuffer = PVariable();
 const mappath = Db(632); //(8 + 2 + 7 + 65) * 4 = 328
 function Init(){
+    ml.Init();
+
 	EUDRegisterObjectToNamespace("MSQCSpecial", MSQCSpecial);
 	EUDRegisterObjectToNamespace("MSQCSpecialBuffer", MSQCSpecialBuffer);
 	EUDRegisterObjectToNamespace("MSQCCondiction", MSQCCondiction);
@@ -50,9 +53,8 @@ function Init(){
 }
 
 
-
-var SCAUseUserMessage = 1;
 const SCALastMessage = PVariable();
+var SCAUseUserMessage = 1;
 /*
 1 = 연결됨
 2 = 연결 끊킴
@@ -109,9 +111,6 @@ function SendValue(seq) {
 const DateLoadStatus = PVariable();
 const GlobalDataLoadStatus = PVariable();
 
-
-// const st = StringBuffer(100);
-
 function LoadDataRead(dataLen, command, baseAddr) {
     const CP = getcurpl();
 
@@ -123,33 +122,6 @@ function LoadDataRead(dataLen, command, baseAddr) {
 
             for (var i = 0; i < dataLen; i++) {
                 i = scf.LoadDataReadValue(baseAddr, i);
-
-                /*
-                const indicator = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-            	
-                if (indicator != 0){
-                    const spec = indicator / 0x1000;
-                    const ObjNum = indicator % 0x1000;
-            	
-                    var value = 0;
-                    if (spec == 1){
-                        // 4바이트 지정
-                        i++;
-                        const value1 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-                        i++;
-                        const value2 = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-                	
-                        value = value1 * 0x10000 + value2;
-                    }else if (spec == 2){
-                        // 2바이트 지정
-                        i++;
-                        value = wread_epd(LoadAddrEPD[CP] + i / 2, (i % 2) * 2);
-                	
-                    }
-                	
-                    // st.print("값 받음 : ", value);
-                    scf.SaveValue(ObjNum, value, 0);
-                }*/
             }
             break;
         case 2:
@@ -220,26 +192,6 @@ function SaveDataWrite() {
         var objvalue;
         index, objvalue = scf.SaveDataWriteValue(i, BaseAddrEPD[CP], index);
         rvalue += objvalue;
-        /*
-        const objValue = scf.LoadValue(i, 0);
-        if(objValue != 0){
-            if (objValue > 0xFFFF){
-                wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, 0x1000 + i);
-                index++;
-                wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, objValue / 0x10000);
-                index++;
-                wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, objValue % 0x10000);
-                index++;
-            }else{
-                wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, 0x2000 + i);
-                index++;
-                wwrite_epd(BaseAddrEPD[CP] + index / 2, (index % 2) * 2, objValue);
-                index++;
-            }
-        }
-        */
-        // st.print("값 저장 : ", objValue);
-
     }
     dwwrite_epd(BaseAddrEPD[CP], index);
     
@@ -276,10 +228,12 @@ function CheckIntegrity() {
             // 둘다 0일경우 루프 탈출
             if (MSQCSpecial == 0 && (value1 == 0 && value2 == 0)) {
                 MSQCSpecial = 3;
+                break;
             }
 
             if (MSQCSpecial == 0 && value1 != value2) {
                 MSQCSpecial = 4;
+                break;
             }
         }
     }
@@ -383,44 +337,72 @@ function PlayerExec() {
                     bwrite_epd(orderAddrEPD, 2, SCACommand[CP]);
                 }
 
-
-
                 // 런처가 데이터를 올렸는지 판단한다.
                 const LauncherStatus = bread_epd(orderAddrEPD, 3);
                 if (SCAUseUserMessage == 1) {
                     if (rn[CP] == 1) {
                         f_eprintln("\x07불러오기 : \x03SCArchive\x04의 \x1F응답\x04을 \x07기다리는 중...");
                     } else if (CheckIntegrityFlag[CP] == 0) {
-                        f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", rn[CP]);
+                        f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", ml.lastrindex[CP], "/", ml.l_loaddatalen);
                     } else if (CheckIntegrityFlag[CP] == 1) {
                         f_eprintln("\x07불러오기 : \x03전달 오류를 판단하는 중 ... ");
                     }
                 }
 
+                if (LauncherStatus == 1) {
+                    if(rn[CP] == 1){
+                        if(ml.loadstart[CP] == 0){
+                            var i = 0;
+                            if(IsUserCP()){
+                                var sendvalue = 10000;
+                                while(sendvalue != 0){
+                                    sendvalue = dwread_epd(BaseAddrEPD[CP] + i);
+                                    i += 1;
+                                }
+                                dwwrite_epd(BaseAddrEPD[CP] + i, 0);
+                            }
+                            
+                            ml.Start(CP, BaseAddrEPD[CP], LoadAddrEPD[CP], i + 1);
+                        }else if(ml.loadstart[CP] == 1){
+                            rn[CP] = 2;
+                        }
+                    }
+		            ml.Loop(CP);
+                }
 
+                if (rn[CP] == 2 && ml.loadstart[CP] == 0){
+                    if (IsUserCP()) {
+                        bwrite_epd(orderAddrEPD, 2, 0);
+                        bwrite_epd(orderAddrEPD, 3, 0);
+                        MSQCValue = 0;
+                        MSQCCondiction = 0;
+                    }
+                    LoadDataRead(ml.loaddatalen[CP] - 1, SCACommand[CP], LoadAddrEPD[CP]);
+                    
+                    switch (SCACommand[CP]) {
+                        case 1:
+                            SCALastMessage[CP] = 4;
+                            break;
+                        case 2:
+                            SCALastMessage[CP] = 11;
+                            break;
+                        case 3:
+                            SCALastMessage[CP] = 12;
+                            break;
+                    }
+                    SCACommand[CP] = 0;
+
+                    if (SCAUseUserMessage == 1) {
+                        PlayWAV("sound\\Misc\\TDrTra01.wav");
+                        f_eprintln("\x07성공적으로 \x03데이터\x04를 불러왔습니다.");
+                    }
+                    break;
+                }
+                /*
                 if (CheckIntegrityFlag[CP] == 0) {
                     if (IsUserCP()) {
+                        //전송시작
                         MSQCCondiction = 1;
-                    }
-
-                    // Receiver
-                    {
-                        const ReceiveValue = ReceiveValue(MSQCBuffer[CP]);
-
-                        if (ack[CP] == (rn[CP] % ackMax + 1)) {
-                            // st.print("값 전달 받음      rn : ",rn[CP] , " ack : " , ack[CP] , " Value : " ,ReceiveValue);
-                            const rseq = rn[CP] - 1;
-                            wwrite_epd(LoadAddrEPD[CP] + rseq / 2, (rseq % 2) * 2, ReceiveValue);
-                            rn[CP] += 1;
-                        } else if (ack[CP] == 0 && ReceiveValue == 0xFFFF) {
-                            MaxBuffer[CP] = rn[CP] - 1;
-                        } else {
-                            const CurrentTimeer = (TimeOut - CurrentTime);
-                            if (CurrentTimeer > 500) {
-                                TimeOut = CurrentTime;
-                                index = rn[CP];
-                            }
-                        }
                     }
 
 
@@ -442,13 +424,32 @@ function PlayerExec() {
                             }
                         }
                     }
-                }
 
+                    // Receiver
+                    {
+                        const ReceiveValue = ReceiveValue(MSQCBuffer[CP]);
+
+                        if (ack[CP] == (rn[CP] % ackMax + 1)) {
+                            // st.print("값 전달 받음      rn : ",rn[CP] , " ack : " , ack[CP] , " Value : " ,ReceiveValue);
+                            const rseq = rn[CP] - 1;
+                            wwrite_epd(LoadAddrEPD[CP] + rseq / 2, (rseq % 2) * 2, ReceiveValue);
+                            rn[CP] += 1;
+                        } else if (ack[CP] == 0 && ReceiveValue == 0xFFFF) {
+                            MaxBuffer[CP] = rn[CP] - 1;
+                        } else {
+                            const CurrentTimeer = (TimeOut - CurrentTime);
+                            if (CurrentTimeer > 500) {
+                                TimeOut = CurrentTime;
+                                index = rn[CP];
+                            }
+                        }
+                    }
+                }
 
 
                 // End
                 {
-                    if (rn[CP] > MaxBuffer[CP]) {
+                    if (rn[CP] == 2 && ml.loadstart[CP] == 0) {
                         const rseq = MaxBuffer[CP];
                         dwwrite_epd(LoadAddrEPD[CP] + rseq / 2, 0);
 
@@ -456,6 +457,7 @@ function PlayerExec() {
                         switch (CheckIntegrityFlag[CP]) {
                             case 0:
                                 if (IsUserCP()) {
+                                    //전송 중지
                                     MSQCCondiction = 0;
                                 }
                                 CheckIntegrity();
@@ -516,6 +518,11 @@ function PlayerExec() {
                         }
                     }
                 }
+
+                */
+
+
+
                 break;
             case 4:
                 if (IsUserCP()) {

@@ -1689,6 +1689,9 @@
     <None Include="Data\TriggerEditor\BGMPlayer.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
+    <None Include="Data\TriggerEditor\msqcloader.eps">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
     <None Include="Data\TriggerEditor\SCAScriptReturn.eps">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
