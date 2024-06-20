@@ -9,6 +9,8 @@
              PreviewKeyUp="UserControl_PreviewKeyUp"
              Background="{DynamicResource MaterialDesignPaper}" 
              Foreground="{DynamicResource MaterialDesignBody}"
+             MinHeight="400"
+             MinWidth="600"
              d:DesignHeight="454" d:DesignWidth="800">
     
     <Grid x:Name="maingrid" >

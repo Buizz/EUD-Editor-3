@@ -1,4 +1,5 @@
 ﻿Imports System.CodeDom
+Imports System.Web.UI
 Imports ICSharpCode.AvalonEdit
 Imports ICSharpCode.AvalonEdit.CodeCompletion
 Imports ICSharpCode.AvalonEdit.Document
@@ -260,6 +261,22 @@ Partial Public Class CodeEditor
                 '스트링
                 For i = 0 To SCOrderCount - 1
                     strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.orders, i))
+                Next
+
+                Return strs.ToArray
+            Case "Icon"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCIconCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.Icon, i))
+                Next
+
+                Return strs.ToArray
+            Case "Portrait"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCPortdataCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.portdata, i))
                 Next
 
                 Return strs.ToArray

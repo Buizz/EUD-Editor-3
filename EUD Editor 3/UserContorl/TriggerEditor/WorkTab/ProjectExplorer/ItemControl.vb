@@ -132,7 +132,7 @@ Partial Public Class ProjectExplorer
             Case TEFile.EFileType.ClassicTrigger
                 Icon.Kind = PackIconKind.FormatListCheckbox
             Case TEFile.EFileType.SCAScript
-                Icon.Kind = PackIconKind.Internet
+                Icon.Kind = PackIconKind.ScriptText
         End Select
 
 

@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
-             Width="550" Height="165">
+             mc:Ignorable="d" >
 
     <Grid>
         <Grid.RowDefinitions>

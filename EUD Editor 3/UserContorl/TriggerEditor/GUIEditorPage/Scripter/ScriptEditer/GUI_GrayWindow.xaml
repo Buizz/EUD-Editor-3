@@ -7,7 +7,7 @@
         mc:Ignorable="d"
         WindowStyle="None"
         AllowsTransparency="True"
-        Background="#AA000000"
+        Background="#33000000"
         Title="GUI_GrayWindow" Height="450" Width="800" ResizeMode="NoResize" ShowInTaskbar="False">
     <Grid>
         

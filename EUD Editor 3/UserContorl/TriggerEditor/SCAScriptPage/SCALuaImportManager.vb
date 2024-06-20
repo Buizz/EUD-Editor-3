@@ -107,7 +107,7 @@ Public Class SCALuaImportManager : Inherits ImportManager
         '외부파일에 포함되지 않으면 맵에서 가져와야함.
         Select Case pullpath
             Case "DEFAULTFUNCTIONLIST"
-                Return System.IO.File.ReadAllText(MacroManager.SCAFloderPath & "\" & pullpath)
+                Return System.IO.File.ReadAllText(MacroManager.SCAFloderPath & "\SCAScriptPredefine.lua")
             Case Else
                 Return GetTEFileContent(pullpath.Split("."), pjData.TEData.PFIles)
         End Select

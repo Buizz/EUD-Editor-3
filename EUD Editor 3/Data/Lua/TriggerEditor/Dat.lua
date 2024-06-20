@@ -177,7 +177,7 @@ DatFile
 비교 방식입니다.
 ]================================]
 function ImagesDat(DatType, Index, Value, Comparison) --DatFile/ImagesDat,Image,Number,TrgComparison/[Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
-	Image = ParseImage(Index)
+	Image = ParseImages(Index)
 	Comparison = ParseComparison(Comparison)
     str = ConditionDatFile("images", DatType, Image, Value, Comparison)
 	echo(str)

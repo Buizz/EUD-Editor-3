@@ -22,7 +22,11 @@ Public Class LuaImportManager : Inherits ImportManager
 
 
     Public Overrides Function GetFIleContent(pullpath As String) As String
-        Return System.IO.File.ReadAllText(MacroManager.LuaFloderPath & "\" & pullpath)
+        If pullpath <> "DEFAULTFUNCTIONLIST" Then
+            Return System.IO.File.ReadAllText(MacroManager.LuaFloderPath & "\" & pullpath)
+        Else
+            Return ""
+        End If
     End Function
 
 

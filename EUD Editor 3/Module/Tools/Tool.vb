@@ -79,7 +79,7 @@ Namespace Tool
             "TrgPlayer", "TrgProperty", "TrgPropState", "TrgResource", "TrgScore", "TrgSwitchAction", "TrgSwitchState",
             "TrgAIScript", "TrgLocation", "TrgSwitch", "TrgUnit", "WAVName", "BGM", "FormatString", "Arguments", "Tbl", "UnitsDat", "WeaponsDat", "FlingyDat",
             "SpritesDat", "ImagesDat", "UpgradesDat", "TechdataDat", "OrdersDat", "Weapon", "Flingy",
-            "Sprite", "Image", "Upgrade", "Tech", "Order", "EUDScore", "SupplyType"}
+            "Sprite", "Image", "Upgrade", "Tech", "Order", "Icon", "Portrait", "EUDScore", "SupplyType"}
 
 
 
@@ -90,6 +90,8 @@ Namespace Tool
             End If
             If cmps.ContainsKey(argname) Then
                 Return cmps(argname).ToArray
+            ElseIf cmps.ContainsKey(argname + "+FLAG") Then
+                Return cmps(argname + "+FLAG").ToArray
             Else
                 Return {}
             End If

@@ -4,8 +4,7 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
-             Width="270" Height="240">
+             mc:Ignorable="d" >
     <DockPanel>
         <TextBlock DockPanel.Dock="Top">
            함수 이름

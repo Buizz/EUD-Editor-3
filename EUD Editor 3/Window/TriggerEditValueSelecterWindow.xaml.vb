@@ -649,7 +649,7 @@ Public Class TriggerEditValueSelecterWindow
                                      End Sub
 
 
-            cb.Content = item.Replace("""", "")
+            cb.Content = item.Replace("""", "").Split("=").First()
             CheckBoxList.Children.Add(cb)
         Next
         CheckBoxText.Text = tCode.Args(ArgIndex).ValueString

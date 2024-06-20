@@ -1,6 +1,8 @@
 ﻿Imports System.Collections.ObjectModel
 Imports System.IO
 Imports System.Text
+Imports EUD_Editor_3.FunctionToolTip
+Imports net.r_eg.Conari.Types
 
 Public Class GUIScriptManager
     Public HighlightBrush As SolidColorBrush = New SolidColorBrush(Color.FromRgb(232, 90, 113))
@@ -774,12 +776,57 @@ Public Class GUIScriptManager
                                 strb.Append(GetIntend(intend))
                             End If
 
-                            strb.Append(sname)
-                            strb.Append("(")
 
-                            GetScriptText(schild, strb, intend, ", ")
+                            If sname = "Var" Then
+                                Dim tsb As New StringBuilder
+                                GetScriptText(schild, tsb, intend, "▦")
+                                Dim values() As String = tsb.ToString().Split("▦")
+                                strb.Append(values(0))
 
-                            strb.Append(")")
+                                Select Case values(1)
+                                    Case "AtMost"
+                                        strb.Append("<")
+                                    Case "AtLeast"
+                                        strb.Append(">")
+                                    Case "Exactly"
+                                        strb.Append(">")
+                                    Case Else
+                                        strb.Append(values(1))
+                                End Select
+
+                                strb.Append(schild(2).value)
+                            ElseIf sname = "SetVar" Then
+                                Dim tsb As New StringBuilder
+                                GetScriptText(schild, tsb, intend, "▦")
+                                Dim values() As String = tsb.ToString().Split("▦")
+                                strb.Append(values(0))
+
+                                Select Case values(1)
+                                    Case "SetTo"
+                                        strb.Append("==")
+                                    Case "Add"
+                                        strb.Append("+=")
+                                    Case "Subtract"
+                                        strb.Append("-=")
+                                    Case Else
+                                        strb.Append(values(1))
+                                End Select
+
+                                strb.Append(values(2))
+                            Else
+                                strb.Append(sname)
+                                strb.Append("(")
+
+                                GetScriptText(schild, strb, intend, ", ")
+
+                                strb.Append(")")
+                            End If
+
+
+
+
+
+
                             If isCondition Then
                                 If Not isLastValue Then
                                     If isAnd Then
@@ -826,7 +873,12 @@ Public Class GUIScriptManager
                                 If Tool.GetArgTypeList.IndexOf(sname.Trim) = -1 Then
                                     strb.Append(svalue)
                                 Else
-                                    strb.Append("""" & svalue & """")
+                                    If (svalue.First = """" And svalue.Last = """") Then
+                                        strb.Append(svalue)
+                                    Else
+                                        strb.Append("""" & svalue & """")
+                                    End If
+
                                 End If
                         End Select
 

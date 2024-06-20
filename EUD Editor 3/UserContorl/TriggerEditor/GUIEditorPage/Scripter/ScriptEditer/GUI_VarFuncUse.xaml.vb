@@ -15,6 +15,7 @@ Public Class GUI_VarFuncUse
 
     Private methodname As String = ""
     Public Sub CrlInit(_scr As ScriptBlock, _dotscr As ScriptBlock, _GUIEditorUI As GUIScriptEditorUI, _ArgEditor As GUI_ArgEditor, Optional VReset As Boolean = False)
+        FuncDefine = Nothing
         scr = _scr
         dotscr = _dotscr
         GUIEditorUI = _GUIEditorUI
@@ -200,8 +201,13 @@ Public Class GUI_VarFuncUse
             scrlist.AddRange(tescm.GetDefaultObject(GUIEditorUI.Script))
 
             If scrlist.Count <> 0 Then
-                objscr = scrlist.First
-                isExternObj = False
+                For Each item In scrlist
+                    If item.value = objname Then
+                        objscr = item
+                        isExternObj = False
+                        Exit For
+                    End If
+                Next
             Else
                 tLabel.Visibility = Visibility.Visible
                 tLabel.Content = "존재하지 않는 오브젝트"
@@ -218,8 +224,13 @@ Public Class GUI_VarFuncUse
             scrlist.AddRange(tescm.GetExternObject(GUIEditorUI.Script, spacename))
 
             If scrlist.Count <> 0 Then
-                objscr = scrlist.First
-                isExternObj = True
+                For Each item In scrlist
+                    If item.value = objname Then
+                        objscr = item
+                        isExternObj = True
+                        Exit For
+                    End If
+                Next
             Else
                 tLabel.Visibility = Visibility.Visible
                 tLabel.Content = "존재하지 않는 오브젝트"
@@ -242,10 +253,8 @@ Public Class GUI_VarFuncUse
                 Exit For
             End If
         Next
+
         If IsExistFunc And methodfunc IsNot Nothing Then
-
-
-
 
             If methodfunc.tobject IsNot Nothing Then
                 isExternObj = True
@@ -341,7 +350,9 @@ Public Class GUI_VarFuncUse
         End If
 
         If VReset Then
-            FuncDefine.ResetScriptBlock(scr)
+            If FuncDefine IsNot Nothing Then
+                FuncDefine.ResetScriptBlock(scr)
+            End If
 
             FuncCoder()
         End If

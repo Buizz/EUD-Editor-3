@@ -456,7 +456,11 @@ Public Class GUI_Action_ArgSelecter
     End Sub
 
     Private Sub ArgAdder_Click(sender As Object, e As RoutedEventArgs)
-        EditValues.Insert(FuncDefine.ArgStartIndex, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        If FuncDefine.ArgStartIndex = -1 Then
+            EditValues.Insert(EditValues.Count, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        Else
+            EditValues.Insert(FuncDefine.ArgStartIndex, New ScriptBlock(ScriptBlock.EBlockType.constVal, "Number", False, False, "0", Nothing))
+        End If
         If IsDefaultCoder Then
             DefaultCoder()
         Else
@@ -467,7 +471,12 @@ Public Class GUI_Action_ArgSelecter
     End Sub
 
     Private Sub ArgRemove_Click(sender As Object, e As RoutedEventArgs)
-        EditValues.RemoveAt(FuncDefine.ArgStartIndex)
+
+        If FuncDefine.ArgStartIndex = -1 Then
+            EditValues.RemoveAt(EditValues.Count - 1)
+        Else
+            EditValues.RemoveAt(FuncDefine.ArgStartIndex)
+        End If
         If IsDefaultCoder Then
             DefaultCoder()
         Else

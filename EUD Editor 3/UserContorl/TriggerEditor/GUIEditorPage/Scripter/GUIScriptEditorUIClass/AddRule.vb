@@ -23,7 +23,7 @@
 
         Else
             If newscr.ScriptType = ScriptBlock.EBlockType.fundefine Then
-                If destscr.ScriptType <> ScriptBlock.EBlockType.objectmethod Or destscr.ScriptType <> ScriptBlock.EBlockType.folderaction Then
+                If destscr.ScriptType <> ScriptBlock.EBlockType.objectmethod And destscr.ScriptType <> ScriptBlock.EBlockType.folderaction Then
                     SnackBarDialog(Tool.GetText("TE_SnackBar2"))
                     Return False
                 End If

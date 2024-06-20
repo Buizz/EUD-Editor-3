@@ -82,6 +82,8 @@ Partial Public Class TECTPage
         For i = Triggers.Count - 1 To 0 Step -1
             Dim trg As Trigger = Triggers(i)
 
+            trg.parentscripter = Scripter
+
             Dim tcheck As Boolean = False
             For k = 0 To 7
                 If trg.PlayerEnabled(k) Then

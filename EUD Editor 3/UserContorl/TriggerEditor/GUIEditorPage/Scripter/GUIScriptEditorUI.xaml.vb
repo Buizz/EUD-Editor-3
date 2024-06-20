@@ -9,6 +9,9 @@ Public Class GUIScriptEditorUI
     Public Script As GUIScriptEditor
     Private MainItems As List(Of ScriptBlock)
 
+
+
+
     Public ReadOnly Property GetItems(index As Integer) As ScriptBlock
         Get
             Return MainItems(index)

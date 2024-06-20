@@ -28,8 +28,8 @@ end
 @Language.ko-KR
 @Summary
 [Player]의 [Score]가 [Comparison] [Amount]인지 확인합니다.
+@Group
 선택인식
-스코어
 @param.Comparison.TrgComparison
 @param.Amount.Number
 
@@ -37,8 +37,8 @@ end
 @Language.en-US
 @Summary
 [Player]의 [Score]가 [Comparison] [Amount]인지 확인합니다.
+@Group
 선택인식
-스코어
 @param.Comparison.TrgComparison
 @param.Amount.Number
 ]================================]

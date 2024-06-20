@@ -87,9 +87,8 @@ function Init(){
 
 const temparray = EUDArray(20);
 
-const maxerrorlist = 1000;
 var l_errorindex = 0;
-const l_errorlist = EUDArray(maxerrorlist);
+const l_errorlist = EUDArray(1000);
 
 const loadstart = PVariable();
 const loaddatalen = PVariable();
@@ -101,6 +100,7 @@ var l_loadindex = 0;
 var l_datablockindex = 0;
 var l_errorcount = 0;
 var l_loaddatalen = 0;
+var l_datasendstart = 0;
 
 var senddata = 0;
 const receivedata = PVariable();
@@ -109,6 +109,7 @@ function Start(cp, tsenddata, treceivedata, len){
 		l_datablockindex = 0;
 		l_loadindex = 0;
 		l_errorcount = 0;
+		l_datasendstart = 0;
 		l_loaddatalen = len * 2;
 		MSQCIsTransfer = 1;
 	}
@@ -124,6 +125,12 @@ function Start(cp, tsenddata, treceivedata, len){
 	loadstart[cp] = 1;
 	//DisplayText("Debug: 로드시작");
 }
+
+
+function StartLocal(){
+	l_datasendstart = 1;
+}
+
 
 function ReadSendValue(index){
 	const rv = wread_epd(senddata + index / 2, (index % 2) * 2);
@@ -217,7 +224,7 @@ function Loop(cp){
 			return;
 		}
 		
-		if(IsUserCP()){
+		if(IsUserCP() && l_datasendstart == 1){
 			if((lastrindex[cp] < l_loaddatalen - 1)){
 				//Send
 				const tinedx = (l_loadindex + l_datablockindex * 50) * 20;
@@ -246,7 +253,8 @@ function Loop(cp){
 		}
 		
 		ReadReceiveData(cp);
-		
+
+		var isreceiveflag = 0;
 		for (var i = 0; i < 20; i++) {
 			//Receive
 			const recevie = temparray[i];
@@ -261,6 +269,7 @@ function Loop(cp){
 			}else if(parity > 50){
 				break;
 			}else{
+				isreceiveflag = 1;
 				const calcparity = receiveindex[cp] % 50;
 				
 				if(parity < calcparity){
@@ -275,23 +284,25 @@ function Loop(cp){
 				//값 받음
 				//WriteReceiveValue()
 				wwrite_epd(receivedata[cp] + rindex / 2, (rindex % 2) * 2, rval);
-				
 				//const testv = dwread_epd(senddata + rindex);
+				/*
+				if(rindex % 2 == 0){
+					//이떄출력
+					const sendd = dwread_epd(senddata + rindex / 2 - 1);
+					const recevied = dwread_epd(receivedata[cp] + rindex / 2 - 1);
+					
+					if(sendd != recevied){
+						s.printfAt(1, "\x06rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
+					}else{
+						s.printfAt(1, "\x07rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
+					}
+				}
+				*/
 			}
 			
-			/*
-			if(rindex % 2 == 0){
-				//이떄출력
-				const sendd = dwread_epd(senddata + rindex / 2 - 1);
-				const recevied = dwread_epd(receivedata[cp] + rindex / 2 - 1);
-				
-				if(sendd != recevied){
-					s.printfAt(1, "\x06rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
-				}else{
-					s.printfAt(1, "\x07rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
-				}
-			}
-			*/
+			
+
+			
 			
 			//s.printfAt(4, "\x07 lastrindex {}, loaddatalen {} ", lastrindex[cp], loaddatalen[cp]);
 			if(lastrindex[cp] >= loaddatalen[cp] - 1){
@@ -300,7 +311,9 @@ function Loop(cp){
 				break;
 			}
 		}
-		receiveindex[cp] += 1;
+		if(isreceiveflag == 1){
+			receiveindex[cp] += 1;
+		}
 	}else if(loadstart[cp] == 2){
 		//검증 구간
 		if(IsUserCP()){
@@ -335,6 +348,7 @@ function Loop(cp){
 				//DisplayText("Debug: 성공");
 				loadstart[cp] = 0;
 				if(IsUserCP()){
+					l_datasendstart = 0;
 					MSQCIsTransfer = 0;
 				}
 			}else if(rval == 200){

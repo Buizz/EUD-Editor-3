@@ -269,6 +269,21 @@ Module ArgManager
                 Next
 
                 Return strs.ToArray
+            Case "Icon"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCIconCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.Icon, i))
+                Next
+
+                Return strs.ToArray
+            Case "Portrait"
+                Dim strs As New List(Of String)
+                '스트링
+                For i = 0 To SCPortdataCount - 1
+                    strs.Add(pjData.CodeLabel(SCDatFiles.DatFiles.portdata, i))
+                Next
+                Return strs.ToArray
             Case "EUDScore"
                 Return MacroManager.EUDScoreList
             Case "SupplyType"

@@ -6,8 +6,7 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
-             mc:Ignorable="d" 
-             Width="300" Height="170">
+             mc:Ignorable="d" >
     <DockPanel LastChildFill="False">
         <ComboBox x:Name="ForTypeCB" DockPanel.Dock="Top" SelectionChanged="ForTypeCB_SelectionChanged" MaxDropDownHeight="500">
             <ComboBoxItem Content="직접입력" Tag="UserEdit"/>

@@ -134,7 +134,7 @@ DatFile
 대상 이미지입니다.
 ]================================]
 function GetImagesDat(DatType, Index) --DatFile/ImagesDat,Image/[Index]의 [DatType] 값을 반환합니다.
-	Image = ParseImage(Index)
+	Image = ParseImages(Index)
     str = GetDatFile("images", DatType, Image)
 	echo(str)
 end

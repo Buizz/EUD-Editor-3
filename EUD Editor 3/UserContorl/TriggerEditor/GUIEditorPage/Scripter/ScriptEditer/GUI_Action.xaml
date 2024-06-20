@@ -9,9 +9,12 @@
              mc:Ignorable="d" >
              <!--Width="700" Height="350"-->
     <DockPanel>
-        <Border x:Name="ValueSelect" DockPanel.Dock="Right" Width="250">
-            
-        </Border>
+        <materialDesign:Card x:Name="ValueSelectCard" DockPanel.Dock="Right" Margin="5" Padding="5">
+            <Border x:Name="ValueSelect" Width="250" >
+
+            </Border>
+        </materialDesign:Card>
+
         <Grid DockPanel.Dock="Left">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>

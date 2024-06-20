@@ -113,7 +113,6 @@ const GlobalDataLoadStatus = PVariable();
 
 function LoadDataRead(dataLen, command, baseAddr) {
     const CP = getcurpl();
-
     switch (command) {
         case 1:
             for (var i = 0; i < scf.ObjectCount; i++) {
@@ -319,6 +318,7 @@ function PlayerExec() {
                 bwrite_epd(orderAddrEPD, 2, 0);
                 bwrite_epd(orderAddrEPD, 3, 0);
                 MSQCCondiction = 0;
+                ml.MSQCIsTransfer = 0;
             }
         }
 
@@ -349,25 +349,27 @@ function PlayerExec() {
                     }
                 }
 
-                if (LauncherStatus == 1) {
-                    if(rn[CP] == 1){
-                        if(ml.loadstart[CP] == 0){
-                            var i = 0;
-                            if(IsUserCP()){
-                                var sendvalue = 10000;
-                                while(sendvalue != 0){
-                                    sendvalue = dwread_epd(BaseAddrEPD[CP] + i);
-                                    i += 1;
-                                }
-                                dwwrite_epd(BaseAddrEPD[CP] + i, 0);
+
+                if(rn[CP] == 1){
+                    if(ml.loadstart[CP] == 0){
+                        var i = 0;
+                        if(IsUserCP()){
+                            var sendvalue = 10000;
+                            while(sendvalue != 0){
+                                sendvalue = dwread_epd(BaseAddrEPD[CP] + i);
+                                i += 1;
                             }
-                            
-                            ml.Start(CP, BaseAddrEPD[CP], LoadAddrEPD[CP], i + 1);
-                        }else if(ml.loadstart[CP] == 1){
-                            rn[CP] = 2;
+                            dwwrite_epd(BaseAddrEPD[CP] + i, 0);
                         }
+                        
+                        ml.Start(CP, BaseAddrEPD[CP], LoadAddrEPD[CP], i + 1);
+                    }else if(ml.loadstart[CP] == 1){
+                        rn[CP] = 2;
                     }
-		            ml.Loop(CP);
+                }
+		        ml.Loop(CP);
+                if (LauncherStatus == 1) {
+                    ml.StartLocal();
                 }
 
                 if (rn[CP] == 2 && ml.loadstart[CP] == 0){

@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
-             Height="100" Width="200">
+             mc:Ignorable="d" >
     <DockPanel LastChildFill="False">
         <ComboBox x:Name="maincombobox" DockPanel.Dock="Top" materialDesign:HintAssist.Hint="연산자" Style="{StaticResource MaterialDesignFloatingHintComboBox}">
 

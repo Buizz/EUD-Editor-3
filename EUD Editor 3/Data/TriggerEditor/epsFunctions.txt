@@ -207,6 +207,22 @@ function Transmission(Unit : TrgUnit, Where : TrgLocation, WAVName : TrgString, 
 function PlayWAV(WAVName /*WAVName*/){}
 
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [WAVName]을 모든 플레이어에게 재생합니다.
+ * @Summary.en-US
+ * Play [WAVName]
+ * 
+ * @param.WAVName.ko-KR
+ * 재생할 음악입니다.
+ * 
+ * @param.WAVName.en-US
+ * 재생할 음악입니다.
+***/
+function PlayWAVAll(WAVName /*WAVName*/){}
+
 
 /***
  * @Type
@@ -219,6 +235,18 @@ function PlayWAV(WAVName /*WAVName*/){}
 ***/
 function DisplayText(Text : TrgString){}
 
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [Text]를 모든 플레이어에게 출력합니다.
+ * @Summary.en-US
+ * Display for all player:
+ * Display [Text]
+***/
+function DisplayTextAll(Text : TrgString){}
 
 
 /***
@@ -238,6 +266,22 @@ function DisplayText(Text : TrgString){}
 function CenterView(Where : TrgLocation){}
 
 
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 모든 플레이어의 화면을 [Where]로 이동시킵니다.
+ * @Summary.en-US
+ * Center view for all player at [Where]
+ * 
+ * @param.Where.ko-KR
+ * 플레이어가 보게 될 화면 로케이션입니다.
+ * 
+ * @param.Where.en-US
+ * 플레이어가 보게 될 화면 로케이션입니다.
+***/
+function CenterViewAll(Where : TrgLocation){}
+
 
 /***
  * @Type
@@ -254,6 +298,23 @@ function CenterView(Where : TrgLocation){}
  * 미션 오브젝트의 내용입니다.
 ***/
 function SetMissionObjectives(Text : TrgString){}
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 모든 플레이어의 미션 오브젝트 (F10 + J) 내용을 [Text]로  설정합니다.
+ * @Summary.en-US
+ * Set Mission Objectives to: [Text]
+ * 
+ * @param.Text.ko-KR
+ * 미션 오브젝트의 내용입니다.
+ * 
+ * @param.Text.en-US
+ * 미션 오브젝트의 내용입니다.
+***/
+function SetMissionObjectivesAll(Text : TrgString){}
 
 
 
@@ -646,9 +707,49 @@ function MinimapPing(Where : TrgLocation){}
  * @Type
  * A
  * @Summary.ko-KR
+ * 모든 플레이어의 미니맵 [Where] 위치에 핑 표시를 찍습니다.
+ * @Summary.en-US
+ * Show minimap ping for all player at [Where].
+ * 
+ * @param.Where.ko-KR
+ * 핑을 찍을 지점입니다.
+ * 
+ * @param.Where.en-US
+ * 핑을 찍을 지점입니다.
+***/
+function MinimapPingAll(Where : TrgLocation){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
  * 해당 트리거 플레이어의 포트레잇 창에 [Unit]이 말하는 초상화를 [Time]동안 띄웁니다.
  * @Summary.en-US
  * Show [Unit] talking to current player for [Time] milliseconds.
+ * 
+ * @param.Unit.ko-KR
+ * 포트레잇 창에 말하는 모습을 띄울 유닛입니다.
+ * @param.Time.ko-KR
+ * 띄울 시간입니다.
+ * 
+ * @param.Unit.en-US
+ * 포트레잇 창에 말하는 모습을 띄울 유닛입니다.
+ * @param.Time.en-US
+ * 띄울 시간입니다.
+***/
+function TalkingPortrait(Unit : TrgUnit, Time){}
+
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * 모든 플레이어의 포트레잇 창에 [Unit]이 말하는 초상화를 [Time]동안 띄웁니다.
+ * @Summary.en-US
+ * Show [Unit] talking to all player for [Time] milliseconds.
  * 
  * @param.Unit.ko-KR
  * 포트레잇 창에 말하는 모습을 띄울 유닛입니다.
@@ -2592,6 +2693,110 @@ function playerexist(player: TrgPlayer) { }
  * @Type
  * F
  * @Summary.ko-KR
+ * Weapon의 index를 반환합니다.
+ * 
+ * @param.weaponname.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeWeapon(weaponname /*Weapon*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Flingy의 index를 반환합니다.
+ * 
+ * @param.flingyname.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeFlingy(flingyname /*Flingy*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Sprite의 index를 반환합니다.
+ * 
+ * @param.spritename.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeSprite(spritename /*Sprite*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Upgrade의 index를 반환합니다.
+ * 
+ * @param.upgradename.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeUpgrade(upgradename /*Upgrade*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Tech의 index를 반환합니다.
+ * 
+ * @param.techname.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeTech(techname /*Tech*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Order의 index를 반환합니다.
+ * 
+ * @param.ordername.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeUnitOrder(ordername /*Order*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Icon의 index를 반환합니다.
+ * 
+ * @param.iconname.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodeIcon(iconname /*Icon*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * Portrait의 index를 반환합니다.
+ * 
+ * @param.portraitname.ko-KR
+ * 코드의 이름입니다.
+ ***/
+function EncodePortrait(portraitname /*Portrait*/) { }
+
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
  * 파이썬3의 bytes와 str 간에 상호변환
  * 
  * @param.인자이름.ko-KR
@@ -2736,6 +2941,18 @@ function Db(b) { }
  * 인자 설명
  ***/
 function EUDArray(initval) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 파이썬 리스트를 생성합니다.
+ * 
+ * @param.arg*.ko-KR
+ * 초기화 할 값입니다.
+ ***/
+function list(arg*) { }
 
 
 /***
@@ -3749,6 +3966,18 @@ function EUDLoopUnit() { }
 function EUDLoopNewUnit(allowance) { }
 
 
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
+ * 새로 생성된 CUnit(구조오프셋)을 1회 돕니다. CUnit을 yield합니다.
+ ***/
+function EUDLoopNewCUnit() { }
+
+
+
+
 /***
  * @Type
  * F
@@ -4283,3 +4512,324 @@ object PVariable {
 };
 
 
+
+object CUnit {
+   function constructor(epd) {}
+
+   	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * epd로부터 CUnit객체를 만듭니다.
+	 ***/
+	static function from_read(epd) : CUnit {}
+
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * ptr로부터 CUnit객체를 만듭니다.
+	 ***/
+	static function from_ptr(ptr) : CUnit {}
+
+
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛의 색을 플레이어의 색으로 바꿉니다.
+	 ***/
+	function set_color(Player : TrgPlayer){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 생산대기열을 초기화합니다.
+	 ***/
+	function reset_buildq(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛의 좌표로 로케이션을 설정합니다. (크기는 0x0이 됩니다)
+	 ***/
+	function setloc(Location : TrgLocation){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 버로우 중이면 참인 조건
+	 ***/
+	function is_burrowed(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 수송선 안에 있으면 참인 조건
+	 ***/
+	function is_in_transport(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 벙커 안에 있으면 참인 조건
+	 ***/
+	function is_in_building(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 공중유닛이면 참인 조건
+	 ***/
+	function is_air(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 환영(=할루시네이션)이면 참인 조건
+	 ***/
+	function is_hallucination(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 생산 중인 유닛/건설 중인 건물은 거짓, 완료된 유닛이나 건물이면 참인 조건
+	 ***/
+	function is_completed(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 죽는 중이면 참인 조건 ([unlimiter] 사용하는 맵에선 사용 불가, 컴파일 오류)
+	 ***/
+	function is_dying(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛이 사망합니다. (unit.order;// 0; 또는 unit.order;// py_str("Die"); 랑 같습니다)
+	 ***/
+	function die(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛에 이속업(=발업)을 적용합니다. (unit.statusFlags.SpeedUpgrade;// true; 랑 같습니다)
+	 ***/
+	function set_speed_upgrade(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 이속업을 해제합니다. (unit.statusFlags.SpeedUpgrade;// false; 랑 같습니다)
+	 ***/
+	function clear_speed_upgrade(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛을 공중 유닛 판정으로 만듭니다. (unit.statusFlags.InAir;// true; 랑 같습니다)
+	 ***/
+	function set_air(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛을 지상 유닛 판정으로 만듭니다. (unit.statusFlags.InAir;// false; 랑 같습니다)
+	 ***/
+	function set_ground(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛을 무적 처리합니다. (unit.statusFlags.Invincible;// true; 랑 같습니다)
+	 ***/
+	function set_invincible(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛을 무적 해제합니다. (unit.statusFlags.Invincible;// false; 랑 같습니다)
+	 ***/
+	function clear_invincible(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛의 충돌 판정을 제거합니다.
+	 ***/
+	function remove_collision(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛에게 환영(할루시네이션) 판정을 부여합니다. 그래픽은 바뀌지 않습니다.
+	 ***/
+	function set_hallucination(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 유닛의 환영 판정을 제거합니다. 그래픽은 바뀌지 않습니다.
+	 ***/
+	function clear_hallucination(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 건물에 파일런 동력을 공급합니다.
+	 ***/
+	function power(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 건물을 언파워드 상태로 만듭니다.
+	 ***/
+	function unpower(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 
+	 ***/
+	function set_noclip(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 
+	 ***/
+	function clear_noclip(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 
+	 ***/
+	function set_gathering(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 
+	 ***/
+	function clear_gathering(){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 상태플래그에 값이 있는지 확인하는 조건
+	 ***/
+	function check_status_flag(Value /*StatusFlags*/){}
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 상태플래그를 비트마스크로 비교했을 때 정확히 해당 값인지 확인하는 조건
+	 ***/
+	function check_status_flag(Value /*StatusFlags*/, Mask){};
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 상태플래그에서 해당 값을 켭니다.
+	 ***/
+	function set_status_flag(Value /*StatusFlags*/){};
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 상태플래그의 비트마스크 부분만 값을 대입합니다
+	 ***/
+	function set_status_flag(Value /*StatusFlags*/, Mask){};
+	/***
+	 * @Type
+	 * F
+	 * @Summary.ko-KR
+	 * 상태플래그에서 해당 값을 끕니다.
+	 ***/
+	function clear_status_flag(Value /*StatusFlags*/){};
+
+
+	var prev;// CUnitMember(0x000)
+	var next;// CUnitMember(0x004)  //link
+	var hp;// Member(0x008, MemberKind.DWORD)  //displayed value is ceil(healthPoints/256)
+	var sprite;// CSpriteMember(0x00C)
+	var moveTargetPos;// Member(0x010, MemberKind.POSITION)
+	var moveTargetX;// Member(0x010, MemberKind.POSITION_X)
+	var moveTargetY;// Member(0x012, MemberKind.POSITION_Y)
+	var moveTarget;// CUnitMember(0x014)
+	var moveTargetUnit;// CUnitMember(0x014)
+	var nextMovementWaypoint;// Member(0x018, MemberKind.POSITION)  //The next way point in the path the unit is following to get to its destination. Equal to moveToPos for air units since they don't need to navigate around buildings.
+	var nextTargetWaypoint;// Member(0x01C, MemberKind.POSITION)  //The desired position
+	var movementFlags;// MovementFlags(0x020, MemberKind.BYTE)
+	var currentDirection1;// Member(0x021, MemberKind.BYTE)  //current direction the unit is facing
+	var turnRadius;// Member(0x022, MemberKind.BYTE)  //flingy
+	var velocityDirection1;// Member(0x023, MemberKind.BYTE)  //usually only differs from the currentDirection field for units that can accelerate and travel in a different direction than they are facing. For example Mutalisks can change the direction they are facing faster than then can change the direction they are moving.
+	var flingyID;// Member(0x024, MemberKind.FLINGY)
+	var unknown0x26;// Member(0x026, MemberKind.BYTE)
+	var flingyMovementType;// Member(0x027, MemberKind.BYTE)
+	var pos;// Member(0x028, MemberKind.POSITION)  //Current position of the unit
+	var posX;// Member(0x028, MemberKind.POSITION_X)
+	var posY;// Member(0x02A, MemberKind.POSITION_Y)
+	var haltX;// Member(0x02C, MemberKind.DWORD)
+	var haltY;// Member(0x030, MemberKind.DWORD)
+	var topSpeed;// Member(0x034, MemberKind.DWORD)
+	var currentSpeed1;// Member(0x038, MemberKind.DWORD)
+	var currentSpeed2;// Member(0x03C, MemberKind.DWORD)
+	var currentVelocityX;// Member(0x040, MemberKind.DWORD)
+	var currentVelocityY;// Member(0x044, MemberKind.DWORD)
+	var acceleration;// Member(0x048, MemberKind.WORD)
+	var currentDirection2;// Member(0x04A, MemberKind.BYTE)
+	var velocityDirection2;// Member(0x04B, MemberKind.BYTE)  //pathing related
+	var playerID;// Member(0x04C, MemberKind.TRG_PLAYER)
+	var owner;// Member(0x04C, MemberKind.TRG_PLAYER)
+	var orderID;// Member(0x04D, MemberKind.UNIT_ORDER)
+	var order;// Member(0x04D, MemberKind.UNIT_ORDER)
+	var orderState;// Member(0x04E, MemberKind.BYTE)
+	var orderSignal;// Member(0x04F, MemberKind.BYTE)
+	var orderUnitType;// Member(0x050, MemberKind.TRG_UNIT)
+	var unknown0x52;// Member(0x052, MemberKind.WORD)  //2-byte padding
+	var cooldown;// Member(0x054, MemberKind.DWORD)
+	var orderTimer;// Member(0x054, MemberKind.BYTE)
+	var gCooldown;// Member(0x055, MemberKind.BYTE)
+	var aCooldown;// Member(0x056, MemberKind.BYTE)
+	var spellCooldown;// Member(0x057, MemberKind.BYTE)
+	var groundWeaponCooldown;// Member(0x055, MemberKind.BYTE)
+	var airWeaponCooldown;// Member(0x056, MemberKind.BYTE)
+	var orderTargetPos;// Member(0x058, MemberKind.POSITION)  //ActionFocus
+	var orderTargetXY;// Member(0x058, MemberKind.POSITION)
+	var orderTargetX;// Member(0x058, MemberKind.POSITION_X)
+	var orderTargetY;// Member(0x05A, MemberKind.POSITION_Y)
+	var orderTarget;// CUnitMember(0x05C)
+	var orderTargetUnit;// CUnitMember(0x05C)
+	var shield;// Member(0x060, MemberKind.DWORD)
+	var unitID;// Member(0x064, MemberKind.TRG_UNIT)
+	var unitType;// Member(0x064, MemberKind.TRG_UNIT)
+	var unknown0x66;// Member(0x066, MemberKind.WORD)  //2-byte padding
+	var prevPlayerUnit;// CUnitMember(0x068)
+	var nextPlayerUnit;// CUnitMember(0x06C)
+	var subUnit;// CUnitMember(0x070)
+	var orderQueueHead;// UnsupportedMember(0x074, MemberKind.DWORD)  //COrder
+	var orderQueueTail;// UnsupportedMember(0x078, MemberKind.DWORD)
+	var autoTargetUnit;// CUnitMember(0x07C)
+	var connectedUnit;// CUnitMember(0x080)  //larva, in-transit, addons
+	var orderQueueCount;// Member(0x084, MemberKind.BYTE)  //may be count in addition to first since can be 2 when 3 orders are queued
+	var orderQueueTimer;// Member(0x085, MemberKind.BYTE)  //Cycles down from from 8 to 0 (inclusive). See also 0x122.
+	var unknown0x86;// Member(0x086, MemberKind.BYTE)
+	var attackNotifyTimer;// Member(0x087, MemberKind.BYTE)  //Prevent "Your forces are under attack." on every attack
+	var prevUnitType;// UnsupportedMember(0x088, MemberKind.TRG_UNIT)  //zerg buildings while morphing
+	var lastEventTimer;// UnsupportedMember(0x08A, MemberKind.BYTE)
+	var lastEventColor;// UnsupportedMember(0x08B, MemberKind.BYTE)  //17 : was completed (train, morph), 174 : was attacked
+	var unknown0x8C;// Member(0x08C, MemberKind.WORD)  // might have originally been RGB from lastEventColor
+	var rankIncrease;// Member(0x08E, MemberKind.BYTE)
+	var killCount;// Member(0x08F, MemberKind.BYTE)
+	var lastAttackingPlayer;// Member(0x090, MemberKind.TRG_PLAYER)
+	var secondaryOrderTimer;// Member(0x091, MemberKind.BYTE)
+	var AIActionFlag;// Member(0x092, MemberKind.BYTE)
+	var userActionFlags;// Member(0x093, MemberKind.BYTE)  //2 : issued an order, 3 : interrupted an order, 4 : hide self before death (self-destruct?)
+	var currentButtonSet;// Member(0x094, MemberKind.WORD)
+	var isCloaked;// Member(0x096, MemberKind.BOOL)
+	var movementState;// Member(0x097, MemberKind.BYTE)
+};

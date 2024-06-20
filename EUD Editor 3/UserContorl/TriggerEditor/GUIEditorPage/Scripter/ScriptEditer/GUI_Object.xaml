@@ -5,8 +5,7 @@
              xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             mc:Ignorable="d" 
-             Width="200" Height="40">
+             mc:Ignorable="d" >
     <DockPanel>
         <TextBox x:Name="vname" materialDesign:HintAssist.Hint="객체 명" Style="{StaticResource MaterialDesignFloatingHintTextBox}" VerticalAlignment="Center" DockPanel.Dock="Top" TextChanged="vname_TextChanged"/>
 

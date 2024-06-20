@@ -766,10 +766,17 @@ Public Class ScriptBlock
                     Dim aname As String = args(k).Split(":").First.Trim
                     arglist.Add(aname)
 
-                    If argumentstr.IndexOf("[" & aname & "]") <> -1 Then
+                    Dim checkedname As String = ""
+                    If aname.IndexOf("/") <> -1 Then
+                        checkedname = aname.Split("/").First.Trim
+                    Else
+                        checkedname = aname
+                    End If
+
+                    If argumentstr.IndexOf("[" & checkedname & "]") <> -1 Then
                         vcount += 1
                     End If
-                    argumentstr = argumentstr.Replace("[" & aname & "]", "ᐱᐳ" & aname & "ᐱ")
+                    argumentstr = argumentstr.Replace("[" & checkedname & "]", "ᐱᐳ" & aname & "ᐱ")
                 End If
             Next
             Dim values() As String = argumentstr.Split("ᐱ")
