@@ -1453,6 +1453,9 @@
     <EmbeddedResource Include="AvalonEdit\EpsHighlightingLight.xshd">
       <SubType>Designer</SubType>
     </EmbeddedResource>
+    <Resource Include="Data\Font\D2Coding-Ver1.3.2-20180524-all.ttc">
+      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </Resource>
     <None Include="Data\Lua\TriggerEditor\CUnit.lua">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1884,7 +1887,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </EmbeddedResource>
     <None Include="Data\TriggerEditor\epsFunctions.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\Resources\Action.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
@@ -1947,7 +1950,7 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\epsFunctions_safe.txt">
-      <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\Autocmp\AblityFlags+FLAG.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
