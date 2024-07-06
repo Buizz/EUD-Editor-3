@@ -134,7 +134,7 @@ Module ArgManager
                     Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
 
 
-                    strs.Add(tstr)
+                    strs.Add(tstr & "⫥" & "[" & i & "] " & tstr)
                 Next
                 Return strs.ToArray
             Case "TrgSwitch"
@@ -147,14 +147,14 @@ Module ArgManager
                         tstr = "Switch " & (i + 1)
                     End If
 
-                    strs.Add(tstr)
+                    strs.Add(tstr & "⫥" & "[" & i & "] " & tstr)
                 Next
                 Return strs.ToArray
             Case "TrgUnit"
                 Dim strs As New List(Of String)
                 '스트링
                 For i = 0 To SCUnitCount - 1
-                    strs.Add(pjData.EngStat_txt(i, True))
+                    strs.Add(pjData.EngStat_txt(i, True) & "⫥[" & i & "] " & pjData.CodeLabel(SCDatFiles.DatFiles.units, i, True))
                 Next
 
                 strs.AddRange({"(any unit)", "(men)", "(buildings)", "(factories)"})

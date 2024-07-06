@@ -46,12 +46,18 @@ Namespace Tool
         Public Sub LoadArgs()
             For Each file As String In My.Computer.FileSystem.GetFiles(AutocmpFolderPath)
                 Dim f As New FileStream(file, FileMode.Open)
+                Dim filename As String = Path.GetFileName(file)
 
                 Dim argllist As New List(Of String)
                 Dim sr As New StreamReader(f)
 
                 While (Not sr.EndOfStream)
-                    argllist.Add("""" + sr.ReadLine.Trim + """")
+                    If filename.IndexOf("FLAG") <> -1 Then
+                        argllist.Add(sr.ReadLine.Trim)
+                    Else
+                        argllist.Add("""" + sr.ReadLine.Trim + """")
+                    End If
+
                 End While
 
 

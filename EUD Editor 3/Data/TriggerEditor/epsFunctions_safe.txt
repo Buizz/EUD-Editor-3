@@ -4267,27 +4267,6 @@ function SetNextTrigger(trg) { }
  * @Type
  * F
  * @Summary.ko-KR
- * Object for storing single modifiable string.
- * Java의 StringBuilder랑 비슷합니다.
- * 
- * Method: print, insert, delete, append, Display, DisplayAt, Play,
- *         fadeIn, fadeOut, length
- * 
- * @param.content.ko-KR
- * Initial StringBuffer content capacity.
- * 
- * Capacity of StringBuffer is determined by size of this.
- * If content is integer, then initial capacity and content of StringBuffer
- * will be set to content(int) and empty string.
- * :type content: str, bytes, int
- ***/
-function StringBuffer(content) { }
-
-
-/***
- * @Type
- * F
- * @Summary.ko-KR
  * 스트링 말고 stat_txt.tbl같은 곳에 텍스트 효과 넣을 때 씁니다. 설명 넣기 귀찮네요
  * 맛바빙보
  * 

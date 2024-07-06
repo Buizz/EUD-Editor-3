@@ -1012,7 +1012,8 @@ function CheckTargetSkillEPD(
                 RemoveUnitAt(1, 101, 255, P9),
             ));
             SetMemoryEPD(unitEPD, SetTo, x + y * 65536);
-            unitEPD += 9;  // 0x4D orderID
+            //unitEPD += 9;  // 0x4D orderID
+            unitEPD += 15;  // 0x4D orderID
             SetMemoryXEPD(unitEPD, SetTo, 0x100, 0xFF00);
             return True;
         }

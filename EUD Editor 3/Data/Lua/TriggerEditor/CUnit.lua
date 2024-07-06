@@ -1,6 +1,60 @@
 --[================================[
 @Language.ko-KR
 @Summary
+다음에 생성될 유닛의 주소를 반환합니다
+@Group
+구조오프셋
+
+
+@Language.en-US
+@Summary
+다음에 생성될 유닛의 주소를 반환합니다
+@Group
+구조오프셋
+]================================]
+function ReadNextUnitPtr()
+    echo("cunitread_epd(EPD(0x628438))")
+end
+
+--[================================[
+@Language.ko-KR
+@Summary
+다음에 생성될 유닛의 EPD를 반환합니다
+@Group
+구조오프셋
+
+
+@Language.en-US
+@Summary
+다음에 생성될 유닛의 EPD를 반환합니다
+@Group
+구조오프셋
+]================================]
+function ReadNextUnitEpd()
+    echo("cunitepdread_epd(EPD(0x628438))[[1]]")
+end
+
+--[================================[
+@Language.ko-KR
+@Summary
+다음에 생성될 유닛을 ptr, epd로 반환합니다.
+@Group
+구조오프셋
+
+
+@Language.en-US
+@Summary
+다음에 생성될 유닛을 ptr, epd로 반환합니다.
+@Group
+구조오프셋
+]================================]
+function ReadNextUnitPtrEpd()
+    echo("cunitepdread_epd(EPD(0x628438))")
+end
+
+--[================================[
+@Language.ko-KR
+@Summary
 [ptr]에 다음에 생성될 유닛의 주소를 반환합니다
 @Group
 구조오프셋
