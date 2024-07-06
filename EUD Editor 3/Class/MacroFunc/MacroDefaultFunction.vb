@@ -421,6 +421,9 @@
     Public Function ConditionDatFile(DatName As String, Parameter As String, index As String, Value As String, Modifier As String) As String
         Dim offset As String = DatOffset(DatName, Parameter)
         Dim datfile As SCDatFiles.DatFiles = pjData.Dat.GetDatFileE(DatName)
+
+        Parameter = Parameter.Replace("_", " ")
+
         Dim Start As Integer = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarStart)
         Dim Size As Byte = pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.Size)
         Dim Length As Byte = Size * pjData.Dat.GetDatFile(datfile).GetParamInfo(Parameter, SCDatFiles.EParamInfo.VarArray)
