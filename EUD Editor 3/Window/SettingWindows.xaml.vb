@@ -104,8 +104,10 @@ Public Class SettingWindows
 
 
         Dim selectencode As String = ""
-        If pjData.TextEncoding IsNot Nothing Then
-            selectencode = pjData.TextEncoding.EncodingName
+        If pjData IsNot Nothing Then
+            If pjData.TextEncoding IsNot Nothing Then
+                selectencode = pjData.TextEncoding.EncodingName
+            End If
         End If
 
         If True Then
