@@ -111,7 +111,7 @@ function CurrentUpgrade(Upgrade, Player, Comparison, Amount) --업그레이드/U
     	if IsNumber(Amount) then
     		rstr = string.format("MemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Comparison, Amount * math.pow(256, Mod), Mask)
     	else
-			rstr = string.format("MemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Comparison, Amount .. " * " .. math.pow(256, Mod), Mask)
+			rstr = string.format("MemoryXEPD(EPD(0x%X), %s, %s, %s)", ROffset, Comparison, Amount .. " * " .. math.pow(256, Mod), Mask)
     	end
 
 	else
@@ -249,7 +249,7 @@ function SetUpgradeMax(Upgrade, Player, Modifier, Amount) --업그레이드/Upgr
     	if IsNumber(Amount) then
     		rstr = string.format("SetMemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Modifier, Amount * math.pow(256, Mod), Mask)
     	else
-			rstr = string.format("SetMemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Modifier, Amount .. " * " .. math.pow(256, Mod), Mask)
+			rstr = string.format("SetMemoryXEPD(EPD(0x%X), %s, %s, %s)", ROffset, Modifier, Amount .. " * " .. math.pow(256, Mod), Mask)
     	end
 
 	else
@@ -313,7 +313,7 @@ function CurrentUpgradeMax(Upgrade, Player, Comparison, Amount) --업그레이�
     	if IsNumber(Amount) then
     		rstr = string.format("MemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Comparison, Amount * math.pow(256, Mod), Mask)
     	else
-			rstr = string.format("MemoryXEPD(EPD(0x%X), %s, 0x%X, %s)", ROffset, Comparison, Amount .. " * " .. math.pow(256, Mod), Mask)
+			rstr = string.format("MemoryXEPD(EPD(0x%X), %s, %s, %s)", ROffset, Comparison, Amount .. " * " .. math.pow(256, Mod), Mask)
     	end
 
 	else

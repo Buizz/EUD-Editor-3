@@ -30,6 +30,8 @@
     <sys:String x:Key="LastVersion">You are using the latest version of EUD Editor.</sys:String>
     <sys:String x:Key="NotFoundServer">The server is not responding.</sys:String>
 
+    <sys:String x:Key="Encoding">Encoding</sys:String>
+
     <sys:String x:Key="TempFileLoc">Temp file location</sys:String>
     <sys:String x:Key="TempFileLoc0">Data Folder</sys:String>
     <sys:String x:Key="TempFileLoc1">Map file folder</sys:String>

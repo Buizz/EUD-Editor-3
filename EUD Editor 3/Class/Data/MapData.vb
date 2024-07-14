@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 
 Public Class MapData
     Public ReadOnly Property LoadComplete As Boolean
@@ -562,8 +563,11 @@ Public Class MapData
 
             Dim f As Boolean = SearchCHK("STRx", binary)
             If f Then
-                size = binary.ReadUInt32
+                If pjData.TextEncoding Is Nothing Then
+                    pjData.TextEncoding = System.Text.Encoding.UTF8
+                End If
 
+                size = binary.ReadUInt32
                 Dim BasePos As UInteger = mem.Position
                 Dim strCount As UInteger = binary.ReadUInt32()
                 Dim lastPos As UInteger = mem.Position
@@ -573,20 +577,22 @@ Public Class MapData
 
                     Dim StartPos As UInteger = binary.ReadUInt32()
                     mem.Position = BasePos + StartPos
-
                     While (binary.ReadByte <> 0)
                     End While
                     Dim Bytecount As Integer = mem.Position - (BasePos + StartPos)
-
                     mem.Position = BasePos + StartPos
 
-                    Dim str As String = System.Text.Encoding.UTF8.GetString(binary.ReadBytes(Bytecount - 1))
+                    Dim b As Byte() = binary.ReadBytes(Bytecount - 1)
 
-                    Strings.Add(str)
-
+                    Dim strstartext As String = pjData.TextEncoding.GetString(b)
+                    Strings.Add(strstartext)
                     lastPos += 4
                 Next
             Else
+                If pjData.TextEncoding Is Nothing Then
+                    pjData.TextEncoding = System.Text.Encoding.GetEncoding(0)
+                End If
+
                 SearchCHK("STR ", binary)
 
                 size = binary.ReadUInt32
@@ -599,36 +605,27 @@ Public Class MapData
 
                 For i = 0 To strCount - 1 '사이즈 만큼 반복
                     mem.Position = lastPos
-
                     Dim StartPos As UInteger = binary.ReadUInt16()
-
                     mem.Position = BasePos + StartPos
 
                     While (binary.ReadByte <> 0)
                     End While
                     Dim Bytecount As Integer = mem.Position - (BasePos + StartPos)
-
                     mem.Position = BasePos + StartPos
 
-                    Strings.Add(System.Text.Encoding.GetEncoding(0).GetString(binary.ReadBytes(Bytecount - 1)))
+                    Dim b As Byte() = binary.ReadBytes(Bytecount - 1)
 
+                    Dim strstartext As String = pjData.TextEncoding.GetString(b)
+                    Strings.Add(strstartext)
                     lastPos += 2
                 Next
             End If
-
-
             If True Then
                 SearchCHK("SPRP", binary)
                 size = binary.ReadUInt32
-
                 _MapName = binary.ReadUInt16
                 _MapDes = binary.ReadUInt16
             End If
-
-
-
-
-
             binary.Close()
             mem.Close()
         Else
@@ -641,18 +638,15 @@ Public Class MapData
         Dat = New SCDatFiles(True)
         Strings = New List(Of String)
         _WavIndex = New List(Of Integer)
-
         Dim hmpq As UInteger
         Dim hfile As UInteger
         Dim buffer() As Byte
         Dim filesize As UInteger
         Dim size As Integer
-
         Dim pdwread As IntPtr
 
         StormLib.SFileOpenArchive(MapName, 0, 0, hmpq)
         Dim openFilename As String = "staredit\scenario.chk"
-
         StormLib.SFileOpenFileEx(hmpq, openFilename, 0, hfile)
         If hfile <> 0 Then
             filesize = StormLib.SFileGetFileSize(hfile, filesize)

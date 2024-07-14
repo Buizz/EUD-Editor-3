@@ -1,6 +1,10 @@
 ﻿Imports System.Windows.Threading
 Imports System.Windows.Interop
 Imports System.ComponentModel
+Imports Microsoft.WindowsAPICodePack
+Imports net.r_eg.Conari.Extension
+Imports System.Runtime.InteropServices
+Imports System.IO
 
 Public Class MainWindowD
     Private BackGroundWorker As BackgroundWorker
@@ -170,6 +174,5 @@ Public Class MainWindowD
             End If
         End If
     End Sub
-
 
 End Class

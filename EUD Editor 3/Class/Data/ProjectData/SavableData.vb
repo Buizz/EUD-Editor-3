@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports System.Text
 
 <Serializable()>
 Public Class SaveableData
@@ -70,6 +71,17 @@ Public Class SaveableData
         End Get
         Set(value As Boolean)
             mAutoBuild = value
+        End Set
+    End Property
+
+
+    Private _encoding As Encoding = Nothing
+    Public Property TextEncoding As Encoding
+        Get
+            Return _encoding
+        End Get
+        Set(value As Encoding)
+            _encoding = value
         End Set
     End Property
 

@@ -92,6 +92,18 @@
                     
                     <Separator Background="#4CA0A0A0"/>
 
+                    <Label Content="{StaticResource Encoding}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
+                    <DockPanel Margin="5">
+                        <ComboBox 
+                            SelectionChanged="EncodingCombobox_SelectionChanged"
+                            x:Name="EncodingCombobox"
+                            MinWidth="80"
+                            VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}">
+
+                        </ComboBox>
+                    </DockPanel>
+
+                    <Separator Background="#4CA0A0A0"/>
 
                 </StackPanel>
             </TabItem>

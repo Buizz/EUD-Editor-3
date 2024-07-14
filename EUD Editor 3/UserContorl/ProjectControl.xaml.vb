@@ -140,4 +140,23 @@ Public Class ProjectControl
     Private Sub MenuItemEdd_Click(sender As Object, e As RoutedEventArgs)
         WindowMenu.insert(True)
     End Sub
+
+    Private Sub RecentFileList_Opened(sender As Object, e As RoutedEventArgs)
+        Dim list As List(Of String) = Tool.GetRecentFileList()
+        RecentFileList.Items.Clear()
+        For Each i In list
+            Dim safefile As String = IO.Path.GetFileName(i)
+
+            Dim ctmenu As New MenuItem()
+            ctmenu.Header = safefile
+            ctmenu.Tag = i
+
+            AddHandler ctmenu.Click, Sub(sender2 As Object, e2 As RoutedEventArgs)
+                                         WindowMenu.LoadWithFile(i)
+                                     End Sub
+
+            RecentFileList.Items.Add(ctmenu)
+        Next
+
+    End Sub
 End Class

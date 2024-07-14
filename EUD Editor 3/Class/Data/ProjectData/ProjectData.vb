@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Runtime.Serialization.Formatters.Binary
+Imports System.Text
 Imports System.Windows.Threading
 Imports MaterialDesignThemes.Wpf.Transitions
 Imports Newtonsoft.Json
@@ -142,6 +143,17 @@ Public Class ProjectData
             Return SaveData.ExtraDat.Stat_txt(index) = ExtraDatFiles.StatNullString
         End Get
     End Property
+
+    Public Property TextEncoding As Encoding
+        Get
+            Return SaveData.TextEncoding
+        End Get
+        Set(value As Encoding)
+            SaveData.TextEncoding = value
+        End Set
+    End Property
+
+
 
 
     Public ReadOnly Property EngStat_txt(index As Integer, Optional isScript As Boolean = False) As String
@@ -309,6 +321,7 @@ Public Class ProjectData
                 IsMapLoading = False
                 tIsDirty = True
                 SaveData.OpenMapName = value
+                TextEncoding = Nothing
                 _MapData = New MapData(SaveData.OpenMapName)
 
                 IsMapLoading = _MapData.LoadComplete
@@ -318,6 +331,18 @@ Public Class ProjectData
             End If
         End Set
     End Property
+
+    Public Sub ReloadMap()
+        IsMapLoading = False
+        tIsDirty = True
+        _MapData = New MapData(SaveData.OpenMapName)
+
+        IsMapLoading = _MapData.LoadComplete
+        If Not IsMapLoading Then
+            SaveData.OpenMapName = ""
+        End If
+    End Sub
+
     Public Property SaveMapName As String
         Get
             Return SaveData.SaveMapName

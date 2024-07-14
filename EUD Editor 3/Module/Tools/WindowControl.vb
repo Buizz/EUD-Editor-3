@@ -309,6 +309,13 @@ Namespace WindowMenu
             End If
         End Sub
 
+        Public Sub LoadWithFile(filename As String)
+            If Not pgData.IsCompilng Then
+                ProjectData.LoadWithCheckOepn(filename, pjData)
+                ProjectControlBinding.PropertyChangedPack()
+            End If
+        End Sub
+
         Public Sub Load()
             If Not pgData.IsCompilng Then
                 ProjectData.Load(False, pjData)

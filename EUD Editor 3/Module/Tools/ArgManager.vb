@@ -134,7 +134,7 @@ Module ArgManager
                     Dim tstr As String = pjData.CodeLabel(SCDatFiles.DatFiles.Location, i)
 
 
-                    strs.Add(tstr & "⫥" & "[" & i & "] " & tstr)
+                    strs.Add(tstr & "⫥" & "[" & i + 1 & "] " & tstr)
                 Next
                 Return strs.ToArray
             Case "TrgSwitch"

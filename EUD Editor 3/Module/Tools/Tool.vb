@@ -103,18 +103,45 @@ Namespace Tool
             End If
         End Function
 
+        Public Sub AddRecentFile(path As String)
+            Dim filestr As String = My.Settings.RecentFileList
+
+            Dim rlist As New List(Of String)
 
 
+            If filestr = "" Then
+                rlist.Add(path)
+            Else
+                rlist.AddRange(filestr.Split("?"))
+
+                If rlist.Contains(path) Then
+                    rlist.Remove(path)
+                    rlist.Insert(0, path)
+                Else
+                    rlist.Insert(0, path)
+                End If
+            End If
+
+            If rlist.Count > 11 Then
+                rlist.RemoveAt(rlist.Count - 1)
+            End If
 
 
+            My.Settings.RecentFileList = String.Join("?", rlist)
+            My.Settings.Save()
+        End Sub
 
+        Public Function GetRecentFileList() As List(Of String)
+            Dim filestr As String = My.Settings.RecentFileList
 
+            Dim rlist As New List(Of String)
 
+            If filestr <> "" Then
+                rlist.AddRange(filestr.Split("?"))
+            End If
 
-
-
-
-
+            Return rlist
+        End Function
 
 
 

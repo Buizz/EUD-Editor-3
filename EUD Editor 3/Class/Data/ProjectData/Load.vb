@@ -34,8 +34,18 @@ Partial Public Class ProjectData
         End If
     End Sub
 
+    Public Shared Sub LoadWithCheckOepn(tFilename As String, ByRef _pjdata As ProjectData)
+        If Tool.IsProjectLoad() Then
+            '꺼야됨
+            If Not _pjdata.CloseFile Then
+                Exit Sub
+            End If
+        End If
 
-    Private Shared Sub TeFrileRefresh(teFile As TEFile)
+        Load(tFilename, _pjdata)
+    End Sub
+
+    Private Shared Sub TeFileRefresh(teFile As TEFile)
         For i = 0 To teFile.FileCount - 1
             teFile.Files(i).LoadInit()
         Next
@@ -47,6 +57,8 @@ Partial Public Class ProjectData
         If FilePath = "" Then
             FilePath = DataPath
         End If
+
+        Tool.AddRecentFile(FilePath)
 
         Dim stm As Stream = System.IO.File.Open(DataPath, FileMode.Open, FileAccess.Read)
 
@@ -62,7 +74,7 @@ Partial Public Class ProjectData
                 stm.Close()
 
                 Dim mainTEFile As TEFile = _pjdata.TEData.PFIles
-                TeFrileRefresh(mainTEFile)
+                TeFileRefresh(mainTEFile)
 
                 'If _pjdata.SaveData.LastVersion.ToString <> pgData.Version.ToString Then
                 '    Tool.ErrorMsgBox("테스트 버전은 다른 버전의 세이브 파일을 열 수 없습니다")

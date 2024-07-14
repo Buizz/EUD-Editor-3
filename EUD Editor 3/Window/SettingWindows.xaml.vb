@@ -102,6 +102,49 @@ Public Class SettingWindows
         AddHandler UpdateChecker.RunWorkerCompleted, AddressOf UpdateChecker_RunWorkerCompleted
         UpdateChecker.RunWorkerAsync()
 
+
+        Dim selectencode As String = ""
+        If pjData.TextEncoding IsNot Nothing Then
+            selectencode = pjData.TextEncoding.EncodingName
+        End If
+
+        If True Then
+            Dim cb As New ComboBoxItem
+
+            cb.Content = Tool.GetText("None")
+            cb.Tag = Nothing
+            EncodingCombobox.Items.Add(cb)
+            If selectencode = "" Then
+                EncodingCombobox.SelectedItem = cb
+            End If
+        End If
+
+        If True Then
+            Dim cb As New ComboBoxItem
+
+            Dim ed As System.Text.Encoding = System.Text.Encoding.GetEncoding(0)
+
+            cb.Content = ed.EncodingName
+            cb.Tag = ed
+            EncodingCombobox.Items.Add(cb)
+            If selectencode = ed.EncodingName Then
+                EncodingCombobox.SelectedItem = cb
+            End If
+        End If
+
+        If True Then
+            Dim cb As New ComboBoxItem
+
+            Dim ed As System.Text.Encoding = System.Text.Encoding.UTF8
+
+            cb.Content = ed.EncodingName
+            cb.Tag = ed
+            EncodingCombobox.Items.Add(cb)
+            If selectencode = ed.EncodingName Then
+                EncodingCombobox.SelectedItem = cb
+            End If
+        End If
+
         DatLoad = True
     End Sub
 
@@ -378,6 +421,20 @@ Public Class SettingWindows
         End If
     End Sub
 
+    Private Sub EncodingCombobox_SelectionChanged(sender As Object, e As SelectionChangedEventArgs)
+        If DatLoad Then
+            If EncodingCombobox.SelectedItem IsNot Nothing Then
+                Dim cb As ComboBoxItem = EncodingCombobox.SelectedItem
+                Dim ed As Text.Encoding = cb.Tag
+
+                pjData.TextEncoding = ed
+
+                pjData.ReloadMap()
+            End If
+        End If
+    End Sub
+
+
     Private Sub UseCustomTbl_Checked(sender As Object, e As RoutedEventArgs)
         If DatLoad Then
             pjData.UseCustomtbl = UseCustomTbl.IsChecked
@@ -519,6 +576,7 @@ Public Class SettingWindows
     Private Sub Mute_Checked(sender As Object, e As RoutedEventArgs)
         pgData.Setting(ProgramData.TSetting.MuteSound) = Mute.IsChecked
     End Sub
+
 
     'Private Sub CBLanguage_SelectionChanged(sender As Object, e As SelectionChangedEventArgs) Handles CBLanguage.SelectionChanged
     '    pgData.Lan.SetLanguage(e.AddedItems(0))
