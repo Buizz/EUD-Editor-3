@@ -11,13 +11,15 @@
         loclist.Insert(0, Tool.GetLanText("None"))
 
         For i = 0 To loclist.Count - 1
+            Dim realLocName As String = loclist(i).Split("⫥").First()
+
             Dim cbitem As New ComboBoxItem
-            cbitem.Content = loclist(i)
-            cbitem.Tag = loclist(i)
+            cbitem.Content = realLocName
+            cbitem.Tag = realLocName
 
             MouseLocationCB.Items.Add(cbitem)
 
-            If loclist(i) = pjData.TEData.MouseLocation Then
+            If realLocName = pjData.TEData.MouseLocation Then
                 MouseLocationCB.SelectedIndex = i
             End If
         Next
