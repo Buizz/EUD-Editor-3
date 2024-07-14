@@ -384,12 +384,22 @@ function UpgradeOffsetMax(Upgrade, Player) --업그레이드/Upgrade,TrgPlayer/[
 	Upgrade = ParseUpgrades(Upgrade) + 0
 	Player = ParsePlayer(Player)
 
+	Size = 0
 	if Upgrade <= 45 then
 		offset = 0x58D088
-		offset = offset + Player * 46 + Upgrade
+		Size = 46
 	else
 		offset = 0x58F278
-		offset = offset + Player * 20 + Upgrade
+		Size = 15
+		Upgrade = Upgrade - 46
 	end
-	return offset
+
+
+	if IsNumber(Player) then
+		offset = offset + Player * Size + Upgrade
+		return offset
+	else
+		offset = string.format("0x%X + %s * %s + %s", offset, Player, Size, Upgrade)
+		return offset
+	end
 end
