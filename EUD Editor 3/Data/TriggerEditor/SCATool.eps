@@ -352,24 +352,23 @@ function PlayerExec() {
 
                 if(rn[CP] == 1){
                     if(ml.loadstart[CP] == 0){
-                        var i = 0;
-                        if(IsUserCP()){
-                            var sendvalue = 10000;
-                            while(sendvalue != 0){
-                                sendvalue = dwread_epd(BaseAddrEPD[CP] + i);
-                                i += 1;
-                            }
-                            dwwrite_epd(BaseAddrEPD[CP] + i, 0);
-                        }
-                        
-                        ml.Start(CP, BaseAddrEPD[CP], LoadAddrEPD[CP], i + 1);
+                        ml.Start(CP, BaseAddrEPD[CP], LoadAddrEPD[CP]);
                     }else if(ml.loadstart[CP] == 1){
                         rn[CP] = 2;
                     }
                 }
 		        ml.Loop(CP);
                 if (LauncherStatus == 1) {
-                    ml.StartLocal();
+                    var i = 0;
+                    if(IsUserCP()){
+                        var sendvalue = 10000;
+                        while(sendvalue != 0){
+                            sendvalue = dwread_epd(BaseAddrEPD[CP] + i);
+                            i += 1;
+                        }
+                        dwwrite_epd(BaseAddrEPD[CP] + i, 0);
+                    }
+                    ml.StartLocal(i);
                 }
 
                 if (rn[CP] == 2 && ml.loadstart[CP] == 0){

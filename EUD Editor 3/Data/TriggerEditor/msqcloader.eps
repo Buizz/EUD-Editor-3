@@ -104,13 +104,13 @@ var l_datasendstart = 0;
 
 var senddata = 0;
 const receivedata = PVariable();
-function Start(cp, tsenddata, treceivedata, len){
+function Start(cp, tsenddata, treceivedata){
 	if(IsUserCP()){
 		l_datablockindex = 0;
 		l_loadindex = 0;
 		l_errorcount = 0;
 		l_datasendstart = 0;
-		l_loaddatalen = len * 2;
+		l_loaddatalen = 9999;
 		MSQCIsTransfer = 1;
 	}
 	
@@ -127,8 +127,9 @@ function Start(cp, tsenddata, treceivedata, len){
 }
 
 
-function StartLocal(){
+function StartLocal(len){
 	l_datasendstart = 1;
+	l_loaddatalen = len * 2;
 }
 
 
