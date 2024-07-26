@@ -277,7 +277,7 @@ Partial Public Class BuildData
         Try
             WriteedsFile(isEdd)
         Catch ex As Exception
-            Tool.ErrorMsgBox(Tool.GetText("Error SCA Freeze"))
+            Tool.ErrorMsgBox(ex.ToString())
             pgData.IsCompilng = False
             pgData.isEddCompile = False
             Tool.RefreshMainWindow()

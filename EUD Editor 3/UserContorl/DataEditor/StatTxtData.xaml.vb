@@ -252,4 +252,8 @@
             DonotChangeCombobox = True
         End If
     End Sub
+
+    Private Sub Button_Click(sender As Object, e As RoutedEventArgs)
+        Clipboard.SetText(StringTool.BraketToHex(MainTextBox.Text))
+    End Sub
 End Class

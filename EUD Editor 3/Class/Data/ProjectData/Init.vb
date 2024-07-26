@@ -34,7 +34,7 @@
             TEData.UseChatEvent = True
             TEData.UseMSQC = True
         End If
-        '===================================
+        '====================================
 
 
         '=======0.11.XX.XX버전 호환성========
@@ -49,7 +49,7 @@
                 TELegacy(mainTEFile.Folders(i))
             Next
         End If
-        '===================================
+        '====================================
 
 
         '=======0.16.XX.XX버전 호환성========
@@ -59,7 +59,7 @@
         If TEData.SCArchive.SCAScriptVarCount < 200 Then
             TEData.SCArchive.SCAScriptVarCount = 200
         End If
-        '===================================
+        '====================================
     End Sub
     Public Sub TELegacy(tfile As TEFile)
         If tfile.FileType = TEFile.EFileType.GUIEps Then

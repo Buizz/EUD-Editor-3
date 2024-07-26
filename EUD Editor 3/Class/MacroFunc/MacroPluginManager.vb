@@ -1,4 +1,5 @@
 ﻿Imports System.Text.RegularExpressions
+Imports net.r_eg.Conari.Types
 
 Partial Public Class MacroManager
     Private _IsBuild As Boolean = False
@@ -74,6 +75,10 @@ Partial Public Class MacroManager
             End If
         Next
 
+        For i = 0 To MouseItems.Count - 1
+            Dim vname As String = "VMouseClickIndex" & i '"VChat_" & i
+            rstr = rstr & MouseItems(i) & " : " & vname & ", 1" & vbCrLf
+        Next
 
 
         Return rstr
@@ -117,6 +122,10 @@ Partial Public Class MacroManager
 
 
         sb.AppendLine("VChatIndex = EUDArray(8)")
+        For i = 0 To MouseItems.Count - 1
+            Dim vname As String = "VMouseClickIndex" & i '"VChat_" & i
+            sb.AppendLine(vname & " = EUDArray(8)")
+        Next
         'For i = 0 To ChatEventItems.Count - 1
         '    sb.AppendLine("VChat_" & i & " = EUDArray(8)")
         'Next
@@ -140,6 +149,11 @@ Partial Public Class MacroManager
         Next
 
         sb.AppendLine("    EUDRegisterObjectToNamespace(""VChatIndex"", VChatIndex)")
+
+        For i = 0 To MouseItems.Count - 1
+            Dim vname As String = "VMouseClickIndex" & i '"VChat_" & i
+            sb.AppendLine("    EUDRegisterObjectToNamespace(""" & vname & """, " & vname & ")")
+        Next
         If pjData.TEData.SCArchive.IsUsed Then
             sb.AppendLine("    sca.Init()")
         End If
@@ -158,6 +172,30 @@ Partial Public Class MacroManager
 
 
 
+    Public MouseItems As New List(Of String)
+    Public Function AddMouseEvent(Line As String, MinX As String, MinY As String) As String
+        If IsBulid Then
+            'X 0x006CDDC4
+            'Y 0x006CDDC8
+            '(dwread_epd(EPD(0x6CDDC8)) - 110) / 16
+            Dim LineInt As Integer = Line - 1
+
+            Dim cond As String = "MouseUp(L) ; "
+
+            cond &= String.Format("Memory(0x6CDDC8, AtLeast, {0})", LineInt * 16 + 110) & " ; "
+            cond &= String.Format("Memory(0x6CDDC8, AtMost, {0})", (LineInt + 1) * 16 + 109) & " ; "
+            cond &= String.Format("Memory(0x6CDDC4, AtLeast, {0})", MinX) & " ; "
+            cond &= String.Format("Memory(0x6CDDC4, AtMost, {0})", MinY)
+
+            Dim index As Integer = MouseItems.IndexOf(cond)
+            If index = -1 Then
+                index = MouseItems.Count
+                MouseItems.Add(cond)
+            End If
+            Return index
+        End If
+        Return 0
+    End Function
     Public MSQCItems As New Dictionary(Of String, String)
     Public Sub AddMSQCPlugin(keyboard As String, vname As String, action As String, cond As String)
         If IsBulid Then

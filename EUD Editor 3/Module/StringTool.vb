@@ -1,4 +1,6 @@
-﻿Namespace StringTool
+﻿Imports System.Text.RegularExpressions
+
+Namespace StringTool
     Module StringTool
 
         Public Function CheckOldVersion(ver() As String, Optional a As Integer = Integer.MaxValue, Optional b As Integer = Integer.MaxValue, Optional c As Integer = Integer.MaxValue, Optional d As Integer = Integer.MaxValue) As Boolean
@@ -203,6 +205,74 @@
 
             Return " "
         End Function
+
+        Public Function BraketToHex(text As String)
+            Dim regex As New Regex("<[^>\\]*(?:\\.[^>\\]*)*>")
+
+            Dim rtext As String = text.Replace(vbCrLf, "\n")
+
+
+            Dim matches As MatchCollection = regex.Matches(rtext)
+            For Each i As Match In matches
+                Dim code As String = i.Value.Substring(1, i.Length - 2)
+
+                Dim ascii As Integer = scData.GetASCIIIndex(code)
+                If ascii <> -1 Then
+                    If ascii >= 32 And ascii <= 126 Then
+                        code = Chr(ascii)
+
+                        rtext = rtext.Replace(i.Value, code)
+                        'rtext = rtext.Remove(i.Index, i.Length)
+                        'rtext = rtext.Insert(i.Index, code)
+
+                        Continue For
+                    Else
+                        code = Hex(ascii)
+                    End If
+                ElseIf I.Length > 4 Then
+                    Continue For
+                End If
+
+                rtext = rtext.Replace(i.Value, "\x" + code.PadLeft(2, "0"))
+                'rtext = rtext.Remove(i.Index, i.Length)
+                'rtext = rtext.Insert(i.Index, "\x" + code.PadLeft(2, "0"))
+
+                'i = regex.Match(rtext)
+            Next
+
+
+            'Dim match As Match = regex.Match(rtext)
+            'While match.Success
+            '    Dim code As String = match.Value.Substring(1, match.Length - 2)
+
+            '    Dim ascii As Integer = scData.GetASCIIIndex(code)
+            '    If ascii <> -1 Then
+            '        If ascii >= 32 And ascii <= 126 Then
+            '            code = Chr(ascii)
+
+            '            rtext = rtext.Remove(match.Index, match.Length)
+            '            rtext = rtext.Insert(match.Index, code)
+
+            '            match = regex.Match(rtext)
+            '            Continue While
+            '        Else
+            '            code = Hex(ascii)
+            '        End If
+            '    ElseIf match.Length > 4 Then
+            '        match = regex.Match(rtext)
+            '        Continue While
+            '    End If
+
+            '    rtext = rtext.Remove(match.Index, match.Length)
+            '    rtext = rtext.Insert(match.Index, "\x" + code.PadLeft(2, "0"))
+
+            '    match = regex.Match(rtext)
+            'End While
+
+            Return rtext
+        End Function
+
+
     End Module
 
 End Namespace

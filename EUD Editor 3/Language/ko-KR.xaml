@@ -375,6 +375,7 @@
     <sys:String x:Key="StatDataShortCut">단축키</sys:String>
     <sys:String x:Key="StatDataShortCut0">없음</sys:String>
 
+    <sys:String x:Key="HEXClipboard">Hex로 복사</sys:String>
 
 
     <sys:String x:Key="ImageScriptSelect">이미지 스크립트</sys:String>

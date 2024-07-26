@@ -23,6 +23,7 @@ Public Class tblWriter
             tempstr = StringTool.ChangeSlash(tempstr)
 
             Dim en As Text.Encoding = Text.Encoding.GetEncoding(949, New Text.EncoderExceptionFallback(), New Text.DecoderExceptionFallback())
+            'Dim en As Text.Encoding = Text.Encoding.UTF8
 
 
             Try

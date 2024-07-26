@@ -41,6 +41,7 @@
                               Style="{StaticResource MaterialDesignFloatingHintComboBox}" MaxDropDownHeight="200" SelectionChanged="ShortCombobox_SelectionChanged">
                         <ComboBoxItem Content="{StaticResource StatDataShortCut0}" Tag="0"/>
                     </ComboBox>
+                    <Button Content="{StaticResource HEXClipboard}" Click="Button_Click"/>
                 </StackPanel>
 
                 <TextBox Margin="10"
