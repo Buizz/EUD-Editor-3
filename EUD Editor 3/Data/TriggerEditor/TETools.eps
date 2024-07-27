@@ -52,6 +52,19 @@ function __LocOrderBase(
     SetMemoryEPD(epd, SetTo, y + x);
 }
 
+
+function __PosOrderBase(
+    epd,
+    order_lsh8,
+    x,
+    y
+) {
+    epd += 0x4D / 4;
+    SetMemoryXEPD(epd, SetTo, order_lsh8, 0xFF00);
+    epd += (0x58 - 0x4C) / 4;
+    SetMemoryEPD(epd, SetTo, y * 65536 + x);
+}
+
 /***
  * @Type
  * A
@@ -245,6 +258,52 @@ function COrderUnitEPD(unitEPD, order, targetPTR) {
 ***/
 function COrderUnit(unitPTR, order, targetPTR) {
     COrderUnitEPD(EPD(unitPTR), order, targetPTR);
+}
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [epd]가 [order]을 수행합니다.  
+ *
+ * @param.epd.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.x.ko-KR
+ * 명령을 내릴 X위치입니다.
+ *
+ * @param.y.ko-KR
+ * 명령을 내릴 Y위치입니다.
+ *
+ * @param.order.ko-KR
+ * 수행할 명령입니다.
+***/
+function COrderPosEPD(epd, order, x, y) {
+    __PosOrderBase(epd, order << 8, x, y);
+}
+
+
+/***
+ * @Type
+ * A
+ * @Summary.ko-KR
+ * [loc]로 [unitPTR]가 [order]을 수행합니다.  
+ *
+ * @param.unitPTR.ko-KR
+ * 명령을 내릴 유닛입니다.
+ *
+ * @param.x.ko-KR
+ * 명령을 내릴 X위치입니다.
+ *
+ * @param.y.ko-KR
+ * 명령을 내릴 Y위치입니다.
+ *
+ * @param.order.ko-KR
+ * 수행할 명령입니다.
+***/
+function COrderPos(unitPTR, order, x, y) {
+    __PosOrderBase(EPD(unitPTR), order << 8, x, y);
 }
 
 /***
