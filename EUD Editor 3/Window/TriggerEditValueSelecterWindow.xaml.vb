@@ -741,9 +741,12 @@ Public Class TriggerEditValueSelecterWindow
         Dim arglist() As String = GetArgList(aType)
 
         For i = 0 To arglist.Count - 1
-            Dim lanstr As String = Tool.GetLanText("TrgArg" & arglist(i))
-            If lanstr = "TrgArg" & arglist(i) Then
-                lanstr = arglist(i)
+            Dim argstr As String = arglist(i).Split("⫥").First
+            Dim argtag As String = arglist(i).Split("⫥").Last
+
+            Dim lanstr As String = Tool.GetLanText("TrgArg" & argtag)
+            If lanstr = "TrgArg" & argtag Then
+                lanstr = argtag
             Else
                 lanstr = lanstr
             End If
@@ -756,7 +759,7 @@ Public Class TriggerEditValueSelecterWindow
                 Dim listbox As New ListBoxItem
 
                 listbox.Content = lanstr
-                listbox.Tag = {arglist(i), +i}
+                listbox.Tag = {argstr, +i}
 
                 SelectListbox.Items.Add(listbox)
             Else
@@ -764,7 +767,7 @@ Public Class TriggerEditValueSelecterWindow
                     Dim listbox As New ListBoxItem
 
                     listbox.Content = lanstr
-                    listbox.Tag = {arglist(i), +i}
+                    listbox.Tag = {argstr, +i}
 
                     SelectListbox.Items.Add(listbox)
                 End If

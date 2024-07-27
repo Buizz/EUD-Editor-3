@@ -147,7 +147,7 @@ Module ArgManager
                         tstr = "Switch " & (i + 1)
                     End If
 
-                    strs.Add(tstr & "⫥" & "[" & i & "] " & tstr)
+                    strs.Add(tstr & "⫥" & "[" & i + 1 & "] " & tstr)
                 Next
                 Return strs.ToArray
             Case "TrgUnit"
