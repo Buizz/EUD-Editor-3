@@ -2646,6 +2646,20 @@ function lengthdir(length, angle) { }
  * @Type
  * F
  * @Summary.ko-KR
+ * 각도 [angle]만큼 [length] 진행한 X,Y좌표를 반환합니다.
+ * 
+ * @param.length.ko-KR
+ * 길이입니다.
+ * @param.angle.ko-KR
+ * 각도입니다. 스타 시스템에 맞춰 0~255가 가능합니다.
+ ***/
+function lengthdir_256(length, angle) { }
+
+
+/***
+ * @Type
+ * F
+ * @Summary.ko-KR
  * Queue game command to packet queue.
  * 
  * Starcraft periodically broadcasts game packets to other player. Game
