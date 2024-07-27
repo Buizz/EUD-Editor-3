@@ -4422,6 +4422,17 @@ object PVariable {
 };
 
 
+object UnitGroupItem{
+	var test;
+};
+
+object UnitGroup{
+	function constructor(size) {}
+
+	var cploop : UnitGroupItem;
+};
+
+
 
 object CUnit {
    function constructor(epd) {}
