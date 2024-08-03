@@ -367,8 +367,8 @@ function PlayerExec() {
                             i += 1;
                         }
                         dwwrite_epd(BaseAddrEPD[CP] + i, 0);
+                        ml.StartLocal(i);
                     }
-                    ml.StartLocal(i);
                 }
 
                 if (rn[CP] == 2 && ml.loadstart[CP] == 0){
