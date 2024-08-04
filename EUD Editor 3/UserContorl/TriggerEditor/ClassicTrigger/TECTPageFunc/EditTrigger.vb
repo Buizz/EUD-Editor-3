@@ -52,21 +52,31 @@
 
                                                       Dim CurrentPage As Integer = PlayerList.SelectedIndex
 
-                                                      If Not trg.PlayerEnabled(CurrentPage) Then
-                                                          For i = 0 To trg.PlayerEnabled.Count - 1
-                                                              If trg.PlayerEnabled(i) Then
-                                                                  If CurrentPage <> i Then
-                                                                      PlayerList.SelectedIndex = i
-                                                                      'RefreshTriggerPage()
+                                                      If CurrentPage < 8 Then
+                                                          If Not trg.PlayerEnabled(CurrentPage) Then
+                                                              For i = 0 To trg.PlayerEnabled.Count - 1
+                                                                  If trg.PlayerEnabled(i) Then
+                                                                      If CurrentPage <> i Then
+                                                                          PlayerList.SelectedIndex = i
+                                                                          'RefreshTriggerPage()
+                                                                      End If
+                                                                      Exit For
                                                                   End If
-                                                                  Exit For
-                                                              End If
-                                                          Next
+                                                              Next
+                                                          End If
+                                                      Else
+                                                          If Not trg.ForceEnabled(CurrentPage - 8) Then
+                                                              For i = 0 To trg.ForceEnabled.Count - 1
+                                                                  If trg.ForceEnabled(i) Then
+                                                                      If (CurrentPage - 8) <> i Then
+                                                                          PlayerList.SelectedIndex = CurrentPage
+                                                                          'RefreshTriggerPage()
+                                                                      End If
+                                                                      Exit For
+                                                                  End If
+                                                              Next
+                                                          End If
                                                       End If
-
-
-
-
 
 
                                                       pjData.SetDirty(True)
