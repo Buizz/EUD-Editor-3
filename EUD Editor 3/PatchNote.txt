@@ -1,6 +1,10 @@
 # 0.18.4.0
 -SCA 무한로딩 해결 2
 -Code TextEditor 버그 개선
+https://github.com/Buizz/EUD-Editor-3/issues/119
+https://github.com/Buizz/EUD-Editor-3/issues/118
+https://github.com/Buizz/EUD-Editor-3/issues/116
+
 
 # 0.18.3.0
 -SCA 무한로딩 현상 해결
