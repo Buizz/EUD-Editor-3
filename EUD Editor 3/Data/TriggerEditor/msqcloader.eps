@@ -233,12 +233,21 @@ function Loop(cp){
 				const addindex = l_loadindex + 1;
 				for (var i = 0; i < 20; i++) {
 					SetMSQCSend(i, ReadSendValue(tinedx + i), addindex);
+					s.printfAt(7, "\x06sendindex {}, sendvalue {}", tinedx, ReadSendValue(tinedx + i));
 				}
 				
 				//다음 루프에서 안넘어가게
 				if((tinedx + 20) < l_loaddatalen - 1){
 					l_loadindex += 1;
+				}else{
+					//끝났으니까 끝내자...
+					for (var i = 0; i < 20; i++) {
+						SetMSQCSend(i, l_loaddatalen, lenparity);
+					}
+					s.printfAt(8, "\x06끝내기 신호");
 				}
+
+
 				if(l_loadindex >= 50){
 					l_loadindex = 0;
 					l_datablockindex += 1;
@@ -246,9 +255,7 @@ function Loop(cp){
 			}else{
 				//데이터가 넘어가면 끝 알리기
 				for (var i = 0; i < 20; i++) {
-					if(IsUserCP()){
-						SetMSQCSend(i, l_loaddatalen, lenparity);
-					}
+					SetMSQCSend(i, l_loaddatalen, lenparity);
 				}
 			}
 		}
@@ -263,7 +270,7 @@ function Loop(cp){
 			const parity = recevie / 0x10000 - 1;
 			const rval = recevie % 0x10000;
 			
-			//s.printf("\x06 recevie {} parity {} rval {} ",recevie, parity, rval);
+			s.printfAt(8, "\x06 recevie {} parity {} rval {} ",recevie, parity, rval);
 			
 			if((parity + 1) == lenparity){
 				loaddatalen[cp] = rval;
@@ -286,7 +293,7 @@ function Loop(cp){
 				//WriteReceiveValue()
 				wwrite_epd(receivedata[cp] + rindex / 2, (rindex % 2) * 2, rval);
 				//const testv = dwread_epd(senddata + rindex);
-				/*
+				
 				if(rindex % 2 == 0){
 					//이떄출력
 					const sendd = dwread_epd(senddata + rindex / 2 - 1);
@@ -294,21 +301,26 @@ function Loop(cp){
 					
 					if(sendd != recevied){
 						s.printfAt(1, "\x06rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
+
+						const x = (temparray[i]) % 0x10000 - minwidth;
+						const y = (temparray[i]) / 0x10000 - minwidth;
+						const value = x + y * mapwidth;
+						s.printfAt(2, "\x06x  {}, y {}, value {}", x, y, value);
 					}else{
 						s.printfAt(1, "\x07rindex {}, receive {} send {} parity {}", rindex / 2, recevied, sendd, parity);
 					}
 				}
-				*/
+				
 			}
 			
 			
 
 			
 			
-			//s.printfAt(4, "\x07 lastrindex {}, loaddatalen {} ", lastrindex[cp], loaddatalen[cp]);
+			s.printfAt(4, "\x07 lastrindex {}, loaddatalen {} ", lastrindex[cp], loaddatalen[cp]);
 			if(lastrindex[cp] >= loaddatalen[cp] - 1){
 				loadstart[cp] = 2;
-				//DisplayText("Debug: 스테이트변경");
+				DisplayText("Debug: 스테이트변경");
 				break;
 			}
 		}
@@ -322,10 +334,10 @@ function Loop(cp){
 				l_errorcount = 100;
 				l_errorindex = 0;
 				for (var i = 0; i < loaddatalen[cp] / 2; i++) {
-					//s.printf("\x07 index {}, s {}, r {} ", i, dwread_epd(senddata + i), dwread_epd(receivedata[cp] + i));
+					s.printf("\x07 index {}, s {}, r {} ", i, dwread_epd(senddata + i), dwread_epd(receivedata[cp] + i));
 					if(dwread_epd(senddata + i) != dwread_epd(receivedata[cp] + i)){
 						l_errorcount = 200;
-						//s.printf("\x06 index {}, s {}, r {} ", i, dwread_epd(senddata + i), dwread_epd(receivedata[cp] + i));
+						s.printf("\x06 index {}, s {}, r {} ", i, dwread_epd(senddata + i), dwread_epd(receivedata[cp] + i));
 						l_errorlist[l_errorindex] = i;
 						l_errorindex += 1;
 						//loadstart[cp] = 0;
@@ -346,7 +358,7 @@ function Loop(cp){
 			//제대로 받았음
 			if(rval == 100){
 				//성공
-				//DisplayText("Debug: 성공");
+				DisplayText("Debug: 성공");
 				loadstart[cp] = 0;
 				if(IsUserCP()){
 					l_datasendstart = 0;
@@ -354,7 +366,7 @@ function Loop(cp){
 				}
 			}else if(rval == 200){
 				//오류
-				//DisplayText("Debug: 오류");
+				DisplayText("Debug: 오류");
 				//loadstart[cp] = 3;
 				
 				if(IsUserCP()){
@@ -370,7 +382,7 @@ function Loop(cp){
 		}
 	}else if(loadstart[cp] == 3){
 		//부분 수정 구간
-		/*
+		
 		if(l_errorindex < 100){
 			s.insert(0);
 			for (var i = 0; i < l_errorindex; i++) {
@@ -381,7 +393,7 @@ function Loop(cp){
 			}
 			s.DisplayAt(0);
 		}
-		*/
+		
 
 		var lastreceiveerror = 0;
 		//=======================오류전송=======================
@@ -407,7 +419,7 @@ function Loop(cp){
 				SetMSQCSend(i + 1, v1, l_loadindex);
 				SetMSQCSend(i + 2, v2, l_loadindex);
 				
-				//s.printfAt(qw * 2 + 1, "\x07 currentIndex {}, send {:x}, receive {:x}, v1 {:x} , v2 {:x} ", currentIndex / 2, dwread_epd(senddata + currentIndex / 2), dwread_epd(receivedata[cp] + currentIndex / 2), v1, v2);
+				s.printfAt(qw * 2 + 1, "\x07 currentIndex {}, send {:x}, receive {:x}, v1 {:x} , v2 {:x} ", currentIndex / 2, dwread_epd(senddata + currentIndex / 2), dwread_epd(receivedata[cp] + currentIndex / 2), v1, v2);
 				qw += 1;
 			}
 
@@ -454,11 +466,11 @@ function Loop(cp){
 			
 			dwwrite_epd(receivedata[cp] + currentIndex, value);
 			
-			//s.printfAt(qw + 2, "\x07 currentIndex {}, v {:x}, send {:x}, receive {:x}, v1 {:x} , v2 {:x} ", currentIndex, value, dwread_epd(senddata + currentIndex), dwread_epd(receivedata[cp] + currentIndex), v1, v2);
+			s.printfAt(qw + 2, "\x07 currentIndex {}, v {:x}, send {:x}, receive {:x}, v1 {:x} , v2 {:x} ", currentIndex, value, dwread_epd(senddata + currentIndex), dwread_epd(receivedata[cp] + currentIndex), v1, v2);
 			qw += 1;
 		}
 		
-		//s.printfAt(0, "\x07 lasterrorindex {}, lastreceiveerror {}", lasterrorindex, lastreceiveerror);
+		s.printfAt(0, "\x07 lasterrorindex {}, lastreceiveerror {}", lasterrorindex, lastreceiveerror);
 		if(lasterrorindex == lastreceiveerror){
 			loadstart[cp] = 2;
 			
