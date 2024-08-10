@@ -343,10 +343,20 @@ function PlayerExec() {
                     if (rn[CP] == 1) {
                         f_eprintln("\x07불러오기 : \x03SCArchive\x04의 \x1F응답\x04을 \x07기다리는 중...");
                     } else if (CheckIntegrityFlag[CP] == 0) {
-                        f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", ml.lastrindex[CP], "/", ml.l_loaddatalen);
-                    } else if (CheckIntegrityFlag[CP] == 1) {
-                        f_eprintln("\x07불러오기 : \x03전달 오류를 판단하는 중 ... ");
+                        if(ml.loadstart[CP] == 1){
+                            if(ml.l_displayloaddatalen == 0){
+                                f_eprintln("\x07불러오기 : \x03SCArchive\x04의 \x1F응답\x04을 \x07기다리는 중...");
+                            }else{
+                                f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", ml.lastrindex[CP], "/", ml.l_displayloaddatalen);
+                            }
+                        }else{
+                            f_eprintln("\x07불러오기 : \x03전달 오류를 판단하는 중 ... ");
+                        }
+
                     }
+                    // else if (CheckIntegrityFlag[CP] == 1) {
+                    //     f_eprintln("\x07불러오기 : \x03전달 오류를 판단하는 중 ... ");
+                    // }
                 }
 
 
