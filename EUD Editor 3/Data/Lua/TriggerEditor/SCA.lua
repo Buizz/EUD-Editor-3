@@ -19,10 +19,11 @@ SCA
 @param.ReturnIndex.Number
 반환할 인덱스입니다.
 ]================================]
-function SCARunScript(ScriptName, ReturnIndex, ...)
+function SCARunFunc(ScriptName, ReturnIndex, ...)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	preDefine("const SCAArgArray = EUDArray(100);")
-	beforeText("scalua.Exec();")
+	afterText("scalua.Exec();")
 
 	argcount = 0
 	for i,v in ipairs(arg) do
@@ -62,6 +63,7 @@ SCA
 ]================================]
 function SCAWriteScriptVariable(Variable, Modifier, Value)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 
 	Modifier = ParseModifier(Modifier)
 
@@ -89,6 +91,7 @@ SCA
 ]================================]
 function SCAReadScriptVariable(Variable)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 
 	echo(string.format("dwread_epd(scalua.scf.SCAScriptVarEPD + %s)", ParseSCAScriptVariable(Variable)))
 end
@@ -113,7 +116,8 @@ SCA
 ]================================]
 function SCALoad(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 불러옵니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 
 	echo("scalua.scaLoad(".. Slot .. ")")
@@ -139,7 +143,8 @@ SCA
 ]================================]
 function SCASave(Slot) --SCA/Number/[Slot] 슬롯의 데이터를 저장합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 
 	echo("scalua.scaSave(".. Slot .. ")")
@@ -165,13 +170,14 @@ SCA
 ]================================]
 function SCABan(BanType)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 	
 	bancode = {
 		["OnlyBan"] = 0,
 		["BanWithExit"] = 1
 	}
-	echo("scalua.scaBan(" + bancode[BanType] + ")")
+	echo("scalua.scaBan(" .. bancode[BanType] .. ")")
 end
 
 
@@ -192,7 +198,8 @@ SCA
 ]================================]
 function SCALoadTime() --SCA//시간 정보를 불러옵니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 
 	echo("scalua.scaLoadTime()")
@@ -216,7 +223,8 @@ SCA
 ]================================]
 function SCALoadGlobalData() --SCA//글로벌 변수를 불러옵니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 
 	echo("scalua.scaLoadGlobal()")
@@ -240,7 +248,8 @@ SCA
 ]================================]
 function SCALoadTimeOnce() --SCA//시간 정보를 불러옵니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 
 	echo("scalua.scaLoadTimeOnce()")
@@ -264,7 +273,8 @@ SCA
 ]================================]
 function SCALoadGlobalDataOnce() --SCA//글로벌 변수를 불러옵니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 
 	echo("scalua.scaLoadGlobalOnce()")
@@ -288,6 +298,7 @@ SCA
 ]================================]
 function IsLoadComplete() --SCA//불러오기 완료를 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	echo("scalua.IsLoadComplete()")
 end
 
@@ -309,6 +320,7 @@ SCA
 ]================================]
 function IsSaveComplete() --SCA//저장 완료를 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	echo("scalua.IsSaveComplete()")
 end
 
@@ -330,6 +342,7 @@ SCA
 ]================================]
 function IsGlobalLoadComplete() --SCA//글로벌 변수의 불러오기 완료를 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	echo("scalua.IsGlobalLoadComplete()")
 end
 
@@ -351,6 +364,7 @@ SCA
 ]================================]
 function IsTimeLoadComplete() --SCA//시간 정보의 불러오기 완료를 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	echo("scalua.IsTimeLoadComplete()")
 end
 
@@ -374,7 +388,8 @@ SCA
 ]================================]
 function SCAGetGlobalData(Index) --SCA/Number/[Index]번 글로벌 데이터의 값을 반환합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 	echo("scalua.GlobalData(" .. Index .. ")")
 end
@@ -403,7 +418,8 @@ SCA
 ]================================]
 function SCAGlobalData(Index,Comparison,Value) --SCA/Number,TrgComparison,Number/[Index]번 글로벌 데이터의 값이 [Comparison] [Value]인지 판단합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 	
     Comparison = ParseComparison(Comparison)
 	Variable = "scalua.GlobalData(" .. Index .. ")"
@@ -446,7 +462,8 @@ SCA
 ]================================]
 function SCAGetTime(DateType) --SCA/DateType/[DateType]을 반환합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 
 	Variable = ""
 	if DateType == "Year" then
@@ -491,7 +508,8 @@ SCA
 ]================================]
 function SCATime(DateType,Comparison,Value) --SCA/DateType,TrgComparison,Number/[DateType]이 [Comparison] [Value]인지 판단합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 	
     Comparison = ParseComparison(Comparison)
 	Variable = ""
@@ -544,7 +562,8 @@ SCA
 ]================================]
 function SCAWeek(Weekend) --SCA/Weekend/현재 요일이 [Weekend]인지 확인합니다.
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-	beforeText("scalua.Exec();")
+	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+	afterText("scalua.Exec();")
 	
 	Variable = "scalua.Week()"
 	weekend = {

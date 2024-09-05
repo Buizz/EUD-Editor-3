@@ -50,6 +50,9 @@ Public Class MacroManager
         lua.RegisterFunction("preDefine", Me, Me.GetType().GetMethod("preDefine"))
         FunctionList.Add(New LuaFunction("preDefine", "값을 미리 선언합니다.", "내부함수", "str", "str"))
 
+        lua.RegisterFunction("mainPreDefine", Me, Me.GetType().GetMethod("mainPreDefine"))
+        FunctionList.Add(New LuaFunction("mainPreDefine", "메인파일에 값을 미리 선언합니다.", "내부함수", "str", "str"))
+
         lua.RegisterFunction("onPluginText", Me, Me.GetType().GetMethod("onPluginText"))
         FunctionList.Add(New LuaFunction("onPluginText", "메인 함수의 onPluginExec에 내용을 추가합니다.", "내부함수", "str", "str"))
 
@@ -433,6 +436,12 @@ Public Class MacroManager
 
         '만약 main파일일 경우
         If isMain Then
+            For i = 0 To mainPreDefineStr.Count - 1
+                If Not preDefineStr.Contains(mainPreDefineStr(i)) Then
+                    rstr = mainPreDefineStr(i) & vbCrLf & rstr
+                End If
+
+            Next
             If True Then
                 Dim temp As String = ""
 

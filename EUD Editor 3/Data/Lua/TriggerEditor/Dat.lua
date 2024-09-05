@@ -214,7 +214,7 @@ DatFile
 비교 방식입니다.
 ]================================]
 function UpgradesDat(DatType, Index, Value, Comparison) --DatFile/UpgradesDat,Upgrade,Number,TrgComparison/[Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
-	Upgrade = ParseUpgrade(Index)
+	Upgrade = ParseUpgrades(Index)
 	Comparison = ParseComparison(Comparison)
     str = ConditionDatFile("upgrades", DatType, Upgrade, Value, Comparison)
 	echo(str)
@@ -251,7 +251,7 @@ DatFile
 비교 방식입니다.
 ]================================]
 function TechdataDat(DatType, Index, Value, Comparison) --DatFile/TechdataDat,Tech,Number,TrgComparison/[Index]의 [DatType]의 값이 [Comparison] [Value]인지 판단합니다.
-	Tech = ParseTech(Index)
+	Tech = ParseTechData(Index)
 	Comparison = ParseComparison(Comparison)
     str = ConditionDatFile("techdata", DatType, Tech, Value, Comparison)
 	echo(str)

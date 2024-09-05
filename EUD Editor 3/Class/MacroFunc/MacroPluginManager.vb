@@ -35,6 +35,7 @@ Partial Public Class MacroManager
         macroErrorList.Clear()
         SCAScriptVariables.Clear()
 
+        mainPreDefineStr.Clear()
         onpluginStr.Clear()
         beforeStr.Clear()
         afterStr.Clear()

@@ -33,6 +33,13 @@
     End Sub
 
 
+    Public mainPreDefineStr As New List(Of String)
+    Public Sub mainPreDefine(t As String)
+        If mainPreDefineStr.IndexOf(t) = -1 Then
+            mainPreDefineStr.Add(t)
+        End If
+    End Sub
+
 
     Public Sub echo(t As String)
         luaReturnstr = luaReturnstr & t

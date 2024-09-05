@@ -18,7 +18,7 @@ const loadglobalstatus = PVariable();
 const loadTimestatus = PVariable();
 
 
-var IsUseLoadQueue = true;
+var IsUseLoadQueue = false;
 
 
 function IsLoadComplete(){
@@ -72,7 +72,7 @@ function Exec(){
 					loadstatus[cp] = 2;
 					sca.ResetLastMessage();
 				}else{
-					if ((sca.CommandStatus() == 0) && (IsUseLoadQueue == true) && sca.CheckLoadable()){
+					if ((sca.CommandStatus() == 0)){
 						sca.LoadData(loadslot[cp]);
 						/* 패스트로드 제거
 						if(scfl.IsAllSCAUser()){
@@ -119,7 +119,7 @@ function Exec(){
 		}
 	}
 
-	sca.ExecFastLoad();
+	//sca.ExecFastLoad();
 }
 
 

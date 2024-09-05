@@ -1,4 +1,5 @@
 ﻿Imports System.IO
+Imports KopiLua
 
 Partial Public Class BuildData
 
@@ -26,14 +27,15 @@ Partial Public Class BuildData
 
     Private Sub CreateTEFile(FolderPath As String, tTEFile As TEFile)
 
+        Dim mainfile As TEFile = Nothing
+
         For i = 0 To tTEFile.FileCount - 1
             Dim filePath As String = FolderPath & "\" & tTEFile.Files(i).RealFileName
 
-            'If pjData.TEData.MainFile Is tTEFile.Files(i) Then
-            '    If pjData.TEData.SCArchive.IsUsed Then
-            '        WriteSCAScript(FolderPath)
-            '    End If
-            'End If
+            If tTEFile.Files(i).Scripter.IsMain Then
+                mainfile = tTEFile.Files(i)
+                Continue For
+            End If
 
             Try
                 Dim fs As New FileStream(filePath, FileMode.Create)
@@ -46,8 +48,24 @@ Partial Public Class BuildData
             Catch ex As Exception
 
             End Try
-
         Next
+
+        If mainfile IsNot Nothing Then
+            Try
+                Dim filePath As String = FolderPath & "\" & mainfile.RealFileName
+                Dim fs As New FileStream(filePath, FileMode.Create)
+                Dim sw As New StreamWriter(fs)
+
+                sw.Write(mainfile.Scripter.GetFileText(mainfile.FileName))
+
+                sw.Close()
+                fs.Close()
+            Catch ex As Exception
+
+            End Try
+        End If
+
+
 
         For i = 0 To tTEFile.FolderCount - 1
             Dim filePath As String = FolderPath & "\" & tTEFile.Folders(i).FileName
