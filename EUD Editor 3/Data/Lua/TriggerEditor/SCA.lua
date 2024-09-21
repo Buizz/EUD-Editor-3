@@ -27,11 +27,11 @@ function SCARunFunc(ScriptName, ReturnIndex, ...)
 
 	argcount = 0
 	for i,v in ipairs(arg) do
-		echo("SCAArgArray[" .. (i - 1) .. "] = " .. tostring(v) .. ";")
+		echo("SCAArgArray[" .. (i - 1) .. "] = " .. tostring(v) .. ";\n") --줄바꿈 추가
 		argcount = argcount + 1
 	end
 
-	echo("scalua.scaExecScript(".. ParseSCAScript(ScriptName) .. ", " .. ReturnIndex .. ", " .. argcount .. ", SCAArgArray)")
+	echo("scalua.scaExecScript(".. ParseSCAScript(ScriptName) .. ", " .. ReturnIndex .. ", " .. argcount .. ", EPD(SCAArgArray))") --배열의 EPD를 넘겨준다.
 end
 
 
@@ -96,6 +96,28 @@ function SCAReadScriptVariable(Variable)
 	echo(string.format("dwread_epd(scalua.scf.SCAScriptVarEPD + %s)", ParseSCAScriptVariable(Variable)))
 end
 
+--[================================[
+@Language.ko-KR
+@Summary
+Script 변수 [Variable]의 오프셋입니다.
+@Group
+SCA
+@param.Variable.TrgString
+변수 이름입니다.
+
+@Language.en-US
+@Summary
+Script 변수 [Variable]의 오프셋입니다.
+@Group
+SCA
+@param.Variable.TrgString
+변수 이름입니다.
+]================================]
+function SCAScriptVariableOffset(Variable)
+	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
+
+	echo("scalua.scf.SCAScriptVarEPD + " .. ParseSCAScriptVariable(Variable))
+end
 
 
 --[================================[
