@@ -76,7 +76,7 @@
     <sys:String x:Key="ToolTip CloseFile">프로젝트 닫기</sys:String>
 
     <sys:String x:Key="ToolTip OpenMapEditor">맵 에디터로 열기(Ctrl + W)</sys:String>
-    <sys:String x:Key="ToolTip Compile">빌드(Ctrl + B)</sys:String>
+    <sys:String x:Key="ToolTip Compile">빌드(Ctrl + B, F5)</sys:String>
 
     <sys:String x:Key="ToolTip DE">데이터 에디터(Ctrl + D)</sys:String>
     <sys:String x:Key="ToolTip TE">트리거 에디터 #(Ctrl + T)</sys:String>

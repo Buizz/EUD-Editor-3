@@ -214,6 +214,12 @@ Module WindowControl
             If TypeOf TabContent Is TECUIPage Then
                 Dim tPage As TECUIPage = TabContent
                 tefile = tPage.TEFile
+
+                If tPage.NewTextEditor.Visibility = Visibility.Visible Then
+                    tPage.NewTextEditor.Dispose()
+
+                End If
+
             ElseIf TypeOf TabContent Is TEGUIPage Then
                 Dim tPage As TEGUIPage = TabContent
                 tefile = tPage.TEFile

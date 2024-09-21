@@ -76,7 +76,7 @@
     <sys:String x:Key="ToolTip CloseFile">Close Project</sys:String>
 
     <sys:String x:Key="ToolTip OpenMapEditor">Open in Map Editor (Ctrl + W)</sys:String>
-    <sys:String x:Key="ToolTip Compile">Build (Ctrl + B)</sys:String>
+    <sys:String x:Key="ToolTip Compile">Build (Ctrl + B, F5)</sys:String>
 
     <sys:String x:Key="ToolTip DE">Data Editor (Ctrl + D)</sys:String>
     <sys:String x:Key="ToolTip TE">Trigger Editor (Ctrl + T)</sys:String>

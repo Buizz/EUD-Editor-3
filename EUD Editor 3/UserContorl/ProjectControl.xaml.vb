@@ -19,6 +19,8 @@ Public Class ProjectControl
                 WindowMenu.ScmdOpen()
             Case "insert"
                 WindowMenu.insert()
+            Case "insert2"
+                WindowMenu.insert()
             Case "OpenDataEditor"
                 WindowMenu.OpenDataEditor()
             Case "OpenTriggerEdit"
@@ -43,18 +45,20 @@ Public Class ProjectControl
     Private MyHotKeyManager As HotKeyManager
     Public Sub HotkeyInit(twindow As Window)
         MyHotKeyManager = New HotKeyManager(twindow)
-        Dim hSetting As New LocalHotKey("Setting", ModifierKeys.Control, Keys.E)
-        Dim hNewFile As New LocalHotKey("NewFile", ModifierKeys.Control Xor ModifierKeys.Shift, Keys.N)
-        Dim hLoad As New LocalHotKey("Load", ModifierKeys.Control, Keys.O)
-        Dim hSave As New LocalHotKey("Save", ModifierKeys.Control, Keys.S)
-        Dim hScmdOpen As New LocalHotKey("ScmdOpen", ModifierKeys.Control, Keys.W)
-        Dim hinsert As New LocalHotKey("insert", ModifierKeys.Control, Keys.B)
-        Dim hOpenDataEditor As New LocalHotKey("OpenDataEditor", ModifierKeys.Control, Keys.D)
-        Dim hOpenTriggerEdit As New LocalHotKey("OpenTriggerEdit", ModifierKeys.Control, Keys.T)
-        Dim hOpenPlugin As New LocalHotKey("OpenPlugin", ModifierKeys.Control, Keys.P)
-        Dim hCodeFold As New LocalHotKey("CodeFold", ModifierKeys.Control, Keys.F)
-        Dim hUndo As New LocalHotKey("Undo", ModifierKeys.Control, Keys.Z)
-        Dim hRedo As New LocalHotKey("Redo", ModifierKeys.Control, Keys.R)
+        Dim hSetting As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("Setting", ModifierKeys.Control, Keys.E)
+        Dim hNewFile As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("NewFile", ModifierKeys.Control Xor ModifierKeys.Shift, Keys.N)
+        Dim hLoad As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("Load", ModifierKeys.Control, Keys.O)
+        Dim hSave As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("Save", ModifierKeys.Control, Keys.S)
+        Dim hScmdOpen As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("ScmdOpen", ModifierKeys.Control, Keys.W)
+        Dim hinsert As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("insert", ModifierKeys.Control, Keys.B)
+        Dim hOpenDataEditor As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("OpenDataEditor", ModifierKeys.Control, Keys.D)
+        Dim hOpenTriggerEdit As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("OpenTriggerEdit", ModifierKeys.Control, Keys.T)
+        Dim hOpenPlugin As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("OpenPlugin", ModifierKeys.Control, Keys.P)
+        Dim hCodeFold As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("CodeFold", ModifierKeys.Control, Keys.F)
+        Dim hUndo As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("Undo", ModifierKeys.Control, Keys.Z)
+        Dim hRedo As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("Redo", ModifierKeys.Control, Keys.R)
+
+        Dim hinsert2 As New BondTech.HotKeyManagement.WPF._4.LocalHotKey("insert2", ModifierKeys.None, Keys.F5)
 
 
         MyHotKeyManager.AddLocalHotKey(hSetting)
@@ -69,6 +73,7 @@ Public Class ProjectControl
         MyHotKeyManager.AddLocalHotKey(hCodeFold)
         MyHotKeyManager.AddLocalHotKey(hUndo)
         MyHotKeyManager.AddLocalHotKey(hRedo)
+        MyHotKeyManager.AddLocalHotKey(hinsert2)
 
         If twindow.GetType Is GetType(TriggerEditor) Then
             TE = twindow
@@ -79,7 +84,7 @@ Public Class ProjectControl
 
 
     Private Sub Control_Unloaded(sender As Object, e As RoutedEventArgs)
-
+        MyHotKeyManager.Dispose()
     End Sub
 
     Private Sub Control_Loaded(sender As Object, e As RoutedEventArgs)

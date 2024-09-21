@@ -226,6 +226,16 @@ Public Class TriggerEditor
     Private NoTabItemClose As Boolean = False
     Private Sub ClosingTabItemHandlerImpl(ByVal args As ItemActionCallbackArgs(Of TabablzControl))
         NoTabItemClose = True
+
+        Dim tTabablzControl As TabItem = args.DragablzItem.Content
+        If TypeOf tTabablzControl.Content Is TECUIPage Then
+            Dim TECUIPage As TECUIPage = tTabablzControl.Content
+            If TECUIPage.NewTextEditor.Visibility = Visibility.Visible Then
+
+                TECUIPage.NewTextEditor.Dispose()
+            End If
+        End If
+
     End Sub
     Private Sub MetroWindow_Closing(sender As Object, e As ComponentModel.CancelEventArgs)
         If NoTabItemClose Then

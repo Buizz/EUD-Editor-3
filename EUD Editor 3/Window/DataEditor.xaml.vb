@@ -101,7 +101,7 @@ Public Class DataEditor
         Topmost = pgData.Setting(ProgramData.TSetting.DataEditorTopMost)
 
         CodeList.ScrollToSelectItem()
-        'ControlBar.HotkeyInit(Me)
+        ControlBar.HotkeyInit(Me)
     End Sub
 
 

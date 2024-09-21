@@ -96,7 +96,7 @@ Module GlobalObj
         Catch ex As Exception
 
         End Try
-
+        'LocalHotkey.HotkeyInit(window)
         'Try
         '    tescm = New ScriptManager
         'Catch ex As Exception
