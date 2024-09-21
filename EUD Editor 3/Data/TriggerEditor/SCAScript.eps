@@ -15,17 +15,22 @@ function Exec(){
 }
 
 var funcpointer;
-function execScript(funcnum, returnindex, argcount, args : EUDArray){
+function execScript(funcnum, returnindex, argcount, argsArrEPD){ // 배열의 EPD를 받는다.
+    const AdvancePointer = function() {
+        SetVariables(funcpointer, 1, Add);
+        Trigger(funcpointer.AtLeast(scf.FuncLength), funcpointer.SetNumber(0));
+    };
+
     SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, funcnum);
-    funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    AdvancePointer();
     SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, returnindex);
-    funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    AdvancePointer();
     SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, argcount);
-    funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+    AdvancePointer();
 
     for (var i = 0; i < argcount ; i++){
-        SetMemoryEPD(scf.FuncDataEPD + funcpointer, SetTo, args[i]);
-        funcpointer += 1; if (funcpointer >= scf.FuncLength) funcpointer = 0;
+        repmovsd_epd(scf.FuncDataEPD + funcpointer, argsArrEPD + i, 1); // 배열 값을 4bytes 만큼 복사한다.
+        AdvancePointer();
     }
     
     SetMemoryEPD(scf.FuncCommandEPD, SetTo, funcpointer);

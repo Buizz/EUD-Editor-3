@@ -1,203 +1,304 @@
 import SCAFlexible as scf;
-import TriggerEditor.SCATool as sct;
+// todo: Use Object Pool;
 
-const st = StringBuffer();
+py_exec("\n\
+def f_mersenne_gte(x):\n\
+    if x <= 1:\n\
+        return 1\n\
+    temp = 1\n\
+    while temp - 1 < x:\n\
+        temp *= 2\n\
+    return temp - 1\n\
+");
+const mersenne_gte = py_eval("f_mersenne_gte");
+
+// todo: Remove when eudplib fixed
+py_exec("\n\
+from collections.abc import Iterator\n\
+from eudplib.ctrlstru.loopblock import set_continuepoint\n\
+def ELR(start, end=None) -> Iterator[EUDVariable]:\n\
+    EUDCreateBlock(\"looprangeblock\", None)\n\
+    if end is None:\n\
+        start, end = 0, start\n\
+    v = EUDVariable()\n\
+    v << start\n\
+    if EUDWhileNot()(v >= end):\n\
+        block = EUDPeekBlock(\"whileblock\")[1]\n\
+        yield v\n\
+        if not block[\"contpoint\"].IsSet():\n\
+            set_continuepoint()\n\
+        v += 1\n\
+    EUDEndWhile()\n\
+    EUDPopBlock(\"looprangeblock\")\n\
+");
+const ELR = py_eval("ELR");
+// todo: Remove when eudplib fixed
 
 const ArrayobjectN = 5000;
 const Arraysize = 1000;
-const Arraybuffer = EUDArray(ArrayobjectN*Arraysize);
-//const Arraybuffer = Db(ArrayobjectN*Arraysize);
-const Arrayoffset = EUDArray(py_list(py_range(0, 4 * Arraysize * ArrayobjectN, 4 * Arraysize)));
-//py_eval("print(list(range(0, 4 * Arraysize * ArrayobjectN, 4 * Arraysize)))");
-
+const Arraybuffer = EUDArray(ArrayobjectN * Arraysize);
+const Arrayoffset = EUDVArray(ArrayobjectN)(py_list(py_range(0, Arraysize * ArrayobjectN, Arraysize)));
 var Arrayremaining = ArrayobjectN;
-
-
-function Arrayalloc(): EUDArray {
+function ArrayAlloc() {
     Arrayremaining -= 1;
-    //st.printf("Array Alloc remain : {}", Arrayremaining);
-    return Arraybuffer + Arrayoffset[Arrayremaining];
+    return EPD(Arraybuffer) + Arrayoffset[Arrayremaining];
 }
-function Arrayfree(array) {
-    Arrayoffset[Arrayremaining] = array - Arraybuffer;
+function ArrayFree(ArrayEPD) {
+    Arrayoffset[Arrayremaining] = ArrayEPD - EPD(Arraybuffer);
     Arrayremaining += 1;
-    //st.printf("Array Free remain : {}", Arrayremaining);
 }
-
 
 const MiniArrayobjectN = 100;
 const MiniArraysize = 10;
 const MiniArraybuffer = EUDArray(MiniArrayobjectN * MiniArraysize);
-const MiniArrayoffset = EUDArray(py_list(py_range(0, 4 * MiniArraysize * MiniArrayobjectN, 4 * MiniArraysize)));
-var MiniArrayremaining = MiniArrayobjectN;
-
-
-function MiniArrayalloc(): EUDArray {
+const MiniArrayoffset = EUDVArray(MiniArrayobjectN)(py_list(py_range(0, MiniArraysize * MiniArrayobjectN, MiniArraysize)));
+var MiniArrayremaining  = MiniArrayobjectN;
+function MiniArrayAlloc() {
     MiniArrayremaining -= 1;
-    //st.printf("MiniArray Alloc remain : {}", MiniArrayremaining);
-    return MiniArraybuffer + MiniArrayoffset[MiniArrayremaining];
+    return EPD(MiniArraybuffer) + MiniArrayoffset[MiniArrayremaining];
 }
-function MiniArrayfree(array) {
-    MiniArrayoffset[MiniArrayremaining] = array - MiniArraybuffer;
+function MiniArrayFree(ArrayEPD) {
+    MiniArrayoffset[MiniArrayremaining] = ArrayEPD - EPD(MiniArraybuffer);
     MiniArrayremaining += 1;
-    //st.printf("MiniArray Free remain : {}", MiniArrayremaining);
 }
 
+const StrobjectN = 100;
+const Strsize = 1000;
+const Strbuffer = EUDArray(StrobjectN * Strsize);
+const Stroffset = EUDVArray(StrobjectN)(py_list(py_range(0, 4 * Strsize * StrobjectN, 4 * Strsize)));
+var Strremaining = StrobjectN;
+function StrAlloc() {
+    Strremaining -= 1;
+    return Strbuffer + Stroffset[Strremaining];
+}
+function StrFree(StrPtr) {
+    Stroffset[Strremaining] = StrPtr - Strbuffer;
+    Strremaining += 1;
+}
 
-object SCAReturn{
+object SCAReturnString {
+    var values;
+    var length;
+
+    function constructor(length) {
+        this.values = ArrayAlloc();
+        this.length = length;
+    }
+
+    function destructor() {
+        foreach(i: ELR(this.length)) {
+            dwwrite_epd(this.values + i, 0); // 할당된 값을 0으로 바꾼다.
+        }
+        ArrayFree(this.values);
+    }
+};
+
+object SCAReturnArray {
+    var values;
+    var types;
+    var length;
+
+    function constructor(length) {
+        this.values = ArrayAlloc();
+        this.types = ArrayAlloc();
+        this.length = length;
+    }
+
+    function destructor() {
+        foreach(i: ELR(this.length)) {
+            const values, types = this.values + i, this.types + i;
+            if (MemoryXEPD(types, Exactly, 2, mersenne_gte(3))) {
+                SCAReturnString.free(dwread_epd(values));
+            }
+            DoActions(SetMemoryEPD(values, SetTo, 0), SetMemoryEPD(types, SetTo, 0));  // 할당된 값을 0으로 바꾼다.
+        }
+        ArrayFree(this.values);
+        ArrayFree(this.types);
+    }
+};
+
+object SCAReturn {
     //리턴을 여러개 받을 수 있음.
     //리턴을 받으면 값 삭제.
     
+    var values;
+    var types;
+    var fmtStrPtr;
+    var fmtStrlen;
     var returnindex;
     var returncount;
     var lastepd;
 
-    var values : EUDArray;
-    var valuetypes : EUDArray;
-    var valuelens : EUDArray;
-    var valuearraytypes : EUDArray;
+    function constructor(epd) {
+        this.values = MiniArrayAlloc();
+        this.types = MiniArrayAlloc();
+        this.fmtStrPtr = StrAlloc();
+        const AdvanceEPD = function() {
+            SetVariables(epd, 1, Add);
+            Trigger(epd.AtLeast(scf.FuncLength), epd.SetNumber(0));
+        };
 
-    function getarray(index) : EUDArray{
-        return this.values[index];
-    }
+        this.returnindex = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(100)); // 배열 길이, 최대 100 (0 ~ 127)
+        AdvanceEPD();
 
-    function constructor(epd){
-        this.returnindex = dwread_epd(scf.FuncReturnTableEPD + epd);
-        epd += 1; if (epd >= scf.FuncLength) epd = 0;
-
-        //시작 리턴 배열
-        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+        // 리턴 배열
+        AdvanceEPD();
 
         this.returncount = dwread_epd(scf.FuncReturnTableEPD + epd);
-        epd += 1; if (epd >= scf.FuncLength) epd = 0;
-        this.values = MiniArrayalloc();
-        this.valuetypes = MiniArrayalloc();
-        this.valuelens = MiniArrayalloc();
-        this.valuearraytypes = MiniArrayalloc();
+        AdvanceEPD();
 
-        var vindex = 0;
-        for(var i = 0; i < this.returncount; i++){
-            const valuetype = dwread_epd(scf.FuncReturnTableEPD + epd); //변수 종류
-            epd += 1; if (epd >= scf.FuncLength) epd = 0;
-            //st.printf("반환타입 : {}", valuetype);
+        var fmtStrPtr = sprintf(this.fmtStrPtr, "[");
+        foreach(i: ELR(this.returncount)){
+            const values, types = this.values + i, this.types + i;
+            if (i > 0) {
+                fmtStrPtr = sprintf(fmtStrPtr, ", ");
+            }
+            epdswitch(scf.FuncReturnTableEPD + epd, mersenne_gte(3)){ // 변수 종류, 최대 3
+                case 1: { //Number = 1
+                    AdvanceEPD();
 
-            switch(valuetype){
-                case 1: //Number = 1
-                    {
-                        this.values[i] = dwread_epd(scf.FuncReturnTableEPD + epd);
-                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
-                        this.valuetypes[i] = valuetype;
-                    }
+                    const temp = dwread_epd(scf.FuncReturnTableEPD + epd);
+                    DoActions(SetMemoryEPD(values, SetTo, temp), SetMemoryEPD(types, SetTo, 1));
+                    fmtStrPtr = sprintf(fmtStrPtr, "{}", temp);
+                    AdvanceEPD();
                     break;
-                case 2: //String = 2
-                    {
-                        const length = dwread_epd(scf.FuncReturnTableEPD + epd);
-                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                }
+                case 2: { //String = 2
+                    AdvanceEPD();
+                    const length = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(1000)); // 문자열 길이, 최대 1000 (0 ~ 1023)
+                    AdvanceEPD();
 
-                        const array = Arrayalloc();
-                        for(var ai = 0; ai < length; ai++){
-                            array[ai] = dwread_epd(scf.FuncReturnTableEPD + epd);
-                            epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                    const temp = SCAReturnString.alloc(length);
+                    repmovsd_epd(temp.values, scf.FuncReturnTableEPD + epd, length); // 문자열 값을 (4 * length)bytes 만큼 복사한다.
+                    fmtStrPtr = sprintf(fmtStrPtr, "\"{:t}\"", temp.values);
+
+                    foreach(_: ELR(length)){
+                        AdvanceEPD();
+                    }
+                    DoActions(SetMemoryEPD(values, SetTo, temp), SetMemoryEPD(types, SetTo, 2));
+                    break;
+                }
+                case 3: { //Array = 3
+                    AdvanceEPD();
+                    
+                    const length = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(1000)); // 배열 길이, 최대 1000 (0 ~ 1023)
+                    AdvanceEPD();
+
+                    const temp_main = SCAReturnArray.alloc(length);
+                    fmtStrPtr = sprintf(fmtStrPtr, "[");
+                    foreach(ai: ELR(length)) {
+                        const temp_values, temp_types = temp_main.values + ai, temp_main.types + ai;
+                        if (ai > 0) {
+                            fmtStrPtr = sprintf(fmtStrPtr, ", ");
                         }
-                        this.values[i] = array;
-                        this.valuelens[i] = length;
-                        this.valuetypes[i] = valuetype;
-                    }
-                    break;
-                case 3: //Array = 3
-                    {
-                        const length = dwread_epd(scf.FuncReturnTableEPD + epd);
-                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
-                        const array = Arrayalloc();
-                        const arraytype = Arrayalloc();
-                        for(var ai = 0; ai < length; ai++){
-                            const valuetype = dwread_epd(scf.FuncReturnTableEPD + epd); //변수 종류
-                            epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                        epdswitch(scf.FuncReturnTableEPD + epd, mersenne_gte(3)){  // 변수 종류, 최대 3
+                            case 1: { //Number = 1
+                                AdvanceEPD();
 
-                            switch(valuetype){
-                                case 1: //Number = 1
-                                    array[ai] = dwread_epd(scf.FuncReturnTableEPD + epd);
-                                    epd += 1; if (epd >= scf.FuncLength) epd = 0;
-                                    arraytype[ai] = valuetype;
-                                    break; 
-                                case 2: //String = 2
-                                    const length = dwread_epd(scf.FuncReturnTableEPD + epd);
-                                    epd += 1; if (epd >= scf.FuncLength) epd = 0;
+                                const temp = dwread_epd(scf.FuncReturnTableEPD + epd);
+                                DoActions(SetMemoryEPD(temp_values, SetTo, temp), SetMemoryEPD(temp_types, SetTo, 1));
+                                fmtStrPtr = sprintf(fmtStrPtr, "{}", temp);
+                                AdvanceEPD();
+                                break; 
+                            }
+                            case 2: { //String = 2
+                                AdvanceEPD();
 
-                                    const strarray = Arrayalloc();
-                                    for(var aii = 0; aii < length; aii++){
-                                        strarray[aii] = dwread_epd(scf.FuncReturnTableEPD + epd);
-                                        epd += 1; if (epd >= scf.FuncLength) epd = 0;
-                                    }
-                                    array[ai] = strarray;
-                                    arraytype[ai] = valuetype;
-                                    break;
-                                case 3: //Array = 3
-                                    //이런 경우는 없음
-                                    break;
+                                const length = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(1000)); // 문자열 길이, 최대 1000 (0 ~ 1023)
+                                AdvanceEPD();
+
+                                const temp_sub = SCAReturnString.alloc(length);
+                                repmovsd_epd(temp_sub.values, scf.FuncReturnTableEPD + epd, length); // 문자열 값을 (4 * length)bytes 만큼 복사한다.
+                                fmtStrPtr = sprintf(fmtStrPtr, "\"{:t}\"", temp_sub.values);
+
+                                foreach(_: ELR(length)){
+                                    AdvanceEPD();
+                                }
+                                DoActions(SetMemoryEPD(temp_values, SetTo, temp_sub), SetMemoryEPD(temp_types, SetTo, 2));
+                                break;
+                            }
+                            case 3: { //Array = 3
+                                //이런 경우는 없음
+                                AdvanceEPD();
+                                break;
+                            }
+                            default: {
+                                AdvanceEPD();
+                                break;
                             }
                         }
-                        this.values[i] = array;
-                        this.valuelens[i] = length;
-                        this.valuearraytypes[i] = arraytype;
-                        this.valuetypes[i] = valuetype;
                     }
+                    fmtStrPtr = sprintf(fmtStrPtr, "]");
+                    DoActions(SetMemoryEPD(values, SetTo, temp_main), SetMemoryEPD(types, SetTo, 3));
                     break;
+                }
+                default: {
+                    AdvanceEPD();
+                    break;
+                }
             }
-
-
         }
-
+        fmtStrPtr = sprintf(fmtStrPtr, "]");
+        this.fmtStrlen = fmtStrPtr - this.fmtStrPtr;
         this.lastepd = epd;
     }
 
-
-    function destructor(){
-        for(var i = 0; i < this.returncount; i++){
-            if(this.valuetypes[i] == 2){
-                Arrayfree(this.values[i]);
-            }else if(this.valuetypes[i] == 3){
-                Arrayfree(this.values[i]);
-                Arrayfree(this.valuearraytypes[i]);
+    function destructor() {
+        foreach(i: ELR(this.returncount)){
+            const values, types = this.values + i, this.types + i;
+            const temp = dwread_epd(values);
+            epdswitch(types, mersenne_gte(3)) {
+                case 2: {
+                    SCAReturnString.free(temp);
+                    break;
+                }
+                case 3: {
+                    SCAReturnArray.free(temp);
+                    break;
+                }
             }
+            DoActions(SetMemoryEPD(values, SetTo, 0), SetMemoryEPD(types, SetTo, 0));
         }
-        MiniArrayfree(this.values);
-        MiniArrayfree(this.valuetypes);
-        MiniArrayfree(this.valuelens);
-        MiniArrayfree(this.valuearraytypes);
+        MiniArrayFree(this.values);
+        MiniArrayFree(this.types);
+        for (var i = 0; i <= this.fmtStrlen; i += 4) {
+            dwwrite(this.fmtStrPtr + i, 0);
+        }
+        StrFree(this.fmtStrPtr);
     }
 };
 
-//리턴값 처리기
+const ReturnSize = 100;
+const returnarray = (SCAReturn * ReturnSize)();
+
+//리턴 값 초기화
+function ResetReturnObject(rindex){
+    const temp = returnarray[rindex];
+    if(temp){
+        //값이 존재하므로 free해준다.
+        SCAReturn.free(temp);
+        returnarray[rindex] = 0;
+    }
+}
+
 var lastepd = 0;
-const returnarray = EUDArray(100);
+
+//리턴 값 처리기
 function Exec(){
     if(!MemoryEPD(scf.FuncCommandEPD + 1, Exactly, lastepd)){
         const rtoken = SCAReturn.alloc(lastepd);
-
         const rindex = rtoken.returnindex;
 
-        
-        if(returnarray[rindex] != 0){
-            //값이 존재하므로 free해준다.
-             const item = SCAReturn.cast(returnarray[rindex]);
-             SCAReturn.free(item);
-             returnarray[rindex] = 0;
-        }
-
+        ResetReturnObject(rindex);
         returnarray[rindex] = rtoken;
-        
-        //st.printf("returnindex : {}, argcount : {}", rtoken.returnindex, rtoken.returncount);
-        //st.printf("{} {}", lastepd, rtoken.lastepd);
 
         lastepd = rtoken.lastepd;
     }
 }
 
-
 //리턴 성공 했는지 판단
 function IsReturn(rindex){
-    if(returnarray[rindex] != 0){
+    if(returnarray[rindex]){
         return true;
     }else{
         return false;
@@ -205,18 +306,5 @@ function IsReturn(rindex){
     
 }
 
-//리턴 값 초기화
-function ResetReturnObject(rindex){
-    if(returnarray[rindex] != 0){
-        //값이 존재하므로 free해준다.
-        const item = SCAReturn.cast(returnarray[rindex]);
-        SCAReturn.free(item);
-        returnarray[rindex] = 0;
-    }
-}
-
 //리턴 오브젝트 반환
-function GetReturnObject(rindex) : SCAReturn{
-    return returnarray[rindex];
-}
-
+const GetReturnObject = py_eval("lambda x: returnarray[x]");
