@@ -50,6 +50,22 @@ Module WindowControl
     End Enum
 
 
+    Public Sub TEOpenFile(tefile As TEFile, startoffset As Integer)
+        If tefile Is Nothing Then
+            Return
+        End If
+
+        For Each win As Window In Application.Current.Windows
+            If win.GetType Is GetType(TriggerEditor) Then
+                Dim triggereditor As TriggerEditor = CType(win, TriggerEditor)
+
+                triggereditor.OpenTabItem(tefile, StartOffset:=startoffset)
+                tefile.ParentPage.ScrollTo(startoffset)
+                tefile.ParentPage.FocusTextBox()
+            End If
+        Next
+    End Sub
+
     Public Sub TERefreshSetting()
         For Each win As Window In Application.Current.Windows
             If win.GetType Is GetType(TriggerEditor) Then

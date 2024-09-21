@@ -143,4 +143,7 @@ Public Class SCALuaImportManager : Inherits ImportManager
     Public Overrides Function GetDefaultFunctions() As String
         Throw New NotImplementedException()
     End Function
+
+    Public Overrides Sub OpenFile(pullpath As String, offset As Integer)
+    End Sub
 End Class

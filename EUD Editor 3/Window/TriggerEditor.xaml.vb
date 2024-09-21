@@ -262,7 +262,7 @@ Public Class TriggerEditor
     'End Function
 
 
-    Public Sub OpenTabItem(tTEFile As TEFile, Optional LineHighlight As String = "")
+    Public Sub OpenTabItem(tTEFile As TEFile, Optional LineHighlight As String = "", Optional StartOffset As Integer = 0)
         '모든 Winddow및 TEControl을 뒤져서 중복으로 켜져있는지 확인 후
         '중복되어 있으면 해당 파일을 Activate시킨다.
         Dim Line As Integer = -1
@@ -273,9 +273,13 @@ Public Class TriggerEditor
             Return
         End If
 
+        If CheckActvateTab(tTEFile, Line) Then
+            Exit Sub
+        End If
+
         Select Case tTEFile.FileType
             Case TEFile.EFileType.CUIEps, TEFile.EFileType.CUIPy
-                PlusTabItem(New TECUIPage(tTEFile, Line), MainTab, tTEFile, Line)
+                PlusTabItem(New TECUIPage(tTEFile, Line, StartOffset), MainTab, tTEFile, Line)
             Case TEFile.EFileType.GUIEps, TEFile.EFileType.GUIPy
                 PlusTabItem(New TEGUIPage(tTEFile), MainTab, tTEFile)
             Case TEFile.EFileType.Setting

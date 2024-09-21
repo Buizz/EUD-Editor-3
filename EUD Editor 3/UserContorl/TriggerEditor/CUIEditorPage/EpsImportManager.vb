@@ -66,6 +66,34 @@ Public Class EpsImportManager : Inherits ImportManager
         Return ""
     End Function
 
+    Public Overrides Sub OpenFile(findpath As String, offset As Integer)
+        TEOpenFile(GetTEFile(findpath + ".eps", "", pjData.TEData.PFIles), offset)
+    End Sub
+
+
+    Private Function GetTEFile(FindPath As String, Path As String, tTEfile As TEFile) As TEFile
+        For i = 0 To tTEfile.FileCount - 1
+            Dim Filename As String = Path & tTEfile.Files(i).RealFileName
+
+            If Filename = FindPath Then
+                Return tTEfile.Files(i)
+            End If
+        Next
+
+
+        For i = 0 To tTEfile.FolderCount - 1
+            If tTEfile.Folders(i).FileType <> TEFile.EFileType.Setting Then
+                Dim Filename As String = Path & tTEfile.Folders(i).FileName & "."
+
+                Dim tfile As TEFile = GetTEFile(FindPath, Filename, tTEfile.Folders(i))
+                If tfile IsNot Nothing Then
+                    Return tfile
+                End If
+            End If
+        Next
+
+        Return Nothing
+    End Function
 
 
     Public Overrides Function GetFIleContent(pullpath As String) As String
@@ -77,7 +105,6 @@ Public Class EpsImportManager : Inherits ImportManager
         End Select
         'Return "var test1;"
     End Function
-
 
 
     Private Function GetTEFIleList(Path As String, tTEfile As TEFile) As List(Of String)
@@ -108,9 +135,6 @@ Public Class EpsImportManager : Inherits ImportManager
 
 
     Public Overrides Function GetImportedFileList(Optional basefilename As String = "") As List(Of String)
-
-
-
         Dim rlist As List(Of String) = New List(Of String)
 
         If pjData.TEData.PFIles Is Nothing Then

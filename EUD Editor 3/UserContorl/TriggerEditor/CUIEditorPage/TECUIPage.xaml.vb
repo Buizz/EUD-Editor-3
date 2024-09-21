@@ -1,4 +1,5 @@
-﻿Imports MaterialDesignThemes.Wpf
+﻿Imports ICSharpCode.AvalonEdit
+Imports MaterialDesignThemes.Wpf
 Imports Newtonsoft.Json.Linq
 
 Public Class TECUIPage
@@ -48,14 +49,30 @@ Public Class TECUIPage
 
 
     End Sub
-    Public Sub New(tTEFile As TEFile, Optional highLightLine As Integer = -1)
+
+    Public Sub ScrollTo(StartOffset As Integer)
+        NewTextEditor.ScrollTo(StartOffset)
+    End Sub
+
+
+    Public Sub FocusTextBox()
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+            Me.Focus()
+            Keyboard.Focus(Me)
+            NewTextEditor.FocusTextBox()
+        Else
+
+        End If
+    End Sub
+
+    Public Sub New(tTEFile As TEFile, Optional highLightLine As Integer = -1, Optional startoffset As Integer = 0)
 
         ' 디자이너에서 이 호출이 필요합니다.
         InitializeComponent()
 
         ' InitializeComponent() 호출 뒤에 초기화 코드를 추가하세요.
         PTEFile = tTEFile
-
+        tTEFile.ParentPage = Me
 
 
         If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
@@ -68,6 +85,7 @@ Public Class TECUIPage
             NewTextEditor.OptionFilePath = Tool.GetCodeEditorSettingFolder
             NewTextEditor.LoadOption("Eps")
             NewTextEditor.TabSizeTextBoxRefresh()
+            NewTextEditor.Options.ShowZeroSpace = True
 
             Dim foldedList As List(Of Integer) = CType(TEFile.Scripter, CUIScriptEditor).foldedData
             If foldedList IsNot Nothing Then
@@ -79,6 +97,8 @@ Public Class TECUIPage
             Else
                 NewTextEditor.IsDark = False
             End If
+
+            NewTextEditor.ScrollTo(startoffset)
         Else
             NewTextEditor.Visibility = Visibility.Collapsed
             OldTextEditor.Init(tTEFile)

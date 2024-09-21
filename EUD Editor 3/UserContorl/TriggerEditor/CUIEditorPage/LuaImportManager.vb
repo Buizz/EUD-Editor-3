@@ -5,6 +5,9 @@ Public Class LuaImportManager : Inherits ImportManager
         CodeType = BingsuCodeEditor.CodeTextEditor.CodeType.Lua
     End Sub
 
+    Public Overrides Sub OpenFile(pullpath As String, offset As Integer)
+    End Sub
+
     Public Overrides Function GetFIleList() As List(Of String)
         Dim flielist As List(Of String) = New List(Of String)
 

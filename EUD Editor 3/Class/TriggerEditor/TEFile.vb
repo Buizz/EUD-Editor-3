@@ -21,6 +21,8 @@ Public Class TEFile
     '형태가 폴더 이거나 파일 이거나 둘 중 하나
     '파일 안에는 파일이 들어 있을 수 있는 구조.
 
+    <NonSerialized>
+    Public ParentPage As TECUIPage
 
 
 
