@@ -1,9 +1,17 @@
+# 0.19.0.0
+-CodeTextEditor 투명 문자 가시화 https://github.com/Buizz/EUD-Editor-3/issues/129
+-CodeTextEditor CPU 점유율 및 성능 누수 버그 수정
+-CodeTextEditor F12로 정의로 따라가는 기능 추가
+-SCAScript 함수 이름 변경 SCAScriptRunFunc, SCAScriptWriteVariable, SCAScriptReadVariable, SCAScriptVariableOffset
+-다중 선택 후 삭제시 버그 해결
+-Lua함수를 메인파일에 사용하지 않아도 beforeTriggerExec등에 내용 출력되게 수정 https://cafe.naver.com/edac/131774
+
 # 0.18.4.0
 -SCA 무한로딩 해결 2
 -Code TextEditor 버그 개선
-https://github.com/Buizz/EUD-Editor-3/issues/119
-https://github.com/Buizz/EUD-Editor-3/issues/118
-https://github.com/Buizz/EUD-Editor-3/issues/116
+-https://github.com/Buizz/EUD-Editor-3/issues/119
+-https://github.com/Buizz/EUD-Editor-3/issues/118
+-https://github.com/Buizz/EUD-Editor-3/issues/116
 
 # 0.18.3.0
 -SCA 무한로딩 현상 해결
