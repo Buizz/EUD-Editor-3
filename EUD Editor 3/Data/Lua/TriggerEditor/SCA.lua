@@ -19,7 +19,7 @@ SCA
 @param.ReturnIndex.Number
 반환할 인덱스입니다.
 ]================================]
-function SCARunScript(ScriptName, ReturnIndex, ...)
+function SCARunFunc(ScriptName, ReturnIndex, ...)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	preDefine("const SCAArgArray = EUDArray(100);")
@@ -27,11 +27,11 @@ function SCARunScript(ScriptName, ReturnIndex, ...)
 
 	argcount = 0
 	for i,v in ipairs(arg) do
-		echo("SCAArgArray[" .. (i - 1) .. "] = " .. tostring(v) .. ";\n")
+		echo("SCAArgArray[" .. (i - 1) .. "] = " .. tostring(v) .. ";\n") --줄바꿈 추가
 		argcount = argcount + 1
 	end
 
-	echo("scalua.scaExecScript(".. ParseSCAScript(ScriptName) .. ", " .. ReturnIndex .. ", " .. argcount .. ", SCAArgArray)")
+	echo("scalua.scaExecScript(".. ParseSCAScript(ScriptName) .. ", " .. ReturnIndex .. ", " .. argcount .. ", EPD(SCAArgArray))") --배열의 EPD를 넘겨준다.
 end
 
 
@@ -96,32 +96,10 @@ function SCAReadScriptVariable(Variable)
 	echo(string.format("dwread_epd(scalua.scf.SCAScriptVarEPD + %s)", ParseSCAScriptVariable(Variable)))
 end
 
-
-
---[================================[
-@Language.en-US
-@Summary
-Script 변수 [Variable]가 [Comparison] [Value]인지 판단합니다.
-@Group
-SCA
-@param.Variable.TrgString
-변수 이름입니다.
-@param.Value.Number
-넣을 값 입니다.
-@param.Comparison.TrgComparison
-]================================]
-function SCACompareScriptVariable(Variable, Comparison, Value)
-	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
-
-	echo(string.format("MemoryEPD(scalua.scf.SCAScriptVarEPD + %s, %s, %s)", ParseSCAScriptVariable(Variable), Comparison, Value))
-end
-
-
-
 --[================================[
 @Language.ko-KR
 @Summary
-Script 변수 [Variable]의 주소를 가져옵니다.
+Script 변수 [Variable]의 오프셋입니다.
 @Group
 SCA
 @param.Variable.TrgString
@@ -129,7 +107,7 @@ SCA
 
 @Language.en-US
 @Summary
-Script 변수 [Variable]의 주소를 가져옵니다.
+Script 변수 [Variable]의 오프셋입니다.
 @Group
 SCA
 @param.Variable.TrgString
@@ -138,9 +116,8 @@ SCA
 function SCAScriptVariableOffset(Variable)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 
-	echo(string.format("scalua.scf.SCAScriptVarEPD + %s", ParseSCAScriptVariable(Variable)))
+	echo("scalua.scf.SCAScriptVarEPD + " .. ParseSCAScriptVariable(Variable))
 end
-
 
 
 --[================================[
