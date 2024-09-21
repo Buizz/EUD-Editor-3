@@ -19,7 +19,7 @@ SCA
 @param.ReturnIndex.Number
 반환할 인덱스입니다.
 ]================================]
-function SCARunFunc(ScriptName, ReturnIndex, ...)
+function SCAScriptRunFunc(ScriptName, ReturnIndex, ...)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	preDefine("const SCAArgArray = EUDArray(100);")
@@ -61,7 +61,7 @@ SCA
 @param.Modifier.TrgModifier
 연산 종류 입니다.
 ]================================]
-function SCAWriteScriptVariable(Variable, Modifier, Value)
+function SCAScriptWriteVariable(Variable, Modifier, Value)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 
@@ -89,7 +89,7 @@ SCA
 @param.Variable.TrgString
 변수 이름입니다.
 ]================================]
-function SCAReadScriptVariable(Variable)
+function SCAScriptReadVariable(Variable)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 	mainPreDefine("import TriggerEditor.SCALuaWrapper as scalua;")
 
