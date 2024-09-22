@@ -1,5 +1,7 @@
 ﻿
 
+Imports System.Net.NetworkInformation
+
 <Serializable>
 Public Class StarCraftArchive
     Public Sub New()
@@ -94,16 +96,37 @@ Public Class StarCraftArchive
     End Property
 
 
+    Public ReadOnly Property MacAddr As String
+        Get
+            Dim _MacAddr As String = ((From nic In NetworkInterface.GetAllNetworkInterfaces()
+                                       Where nic.OperationalStatus = OperationalStatus.Up
+                                       Select nic.GetPhysicalAddress()).ToString()
+                                    ).FirstOrDefault()
+            Return _MacAddr
+        End Get
+    End Property
+
+
     Private _SCAEmail As String
     Public Property SCAEmail As String
         Get
-            Return _SCAEmail
+            Return AESModule.DecryptString128Bit(_SCAEmail, MacAddr)
         End Get
         Set(value As String)
-            _SCAEmail = value
+            _SCAEmail = AESModule.EncryptString128Bit(value, MacAddr)
         End Set
     End Property
 
+
+    Private _PassWord As String
+    Public Property PassWord As String
+        Get
+            Return AESModule.DecryptString128Bit(_PassWord, MacAddr)
+        End Get
+        Set(value As String)
+            _PassWord = AESModule.EncryptString128Bit(value, MacAddr)
+        End Set
+    End Property
 
 
     Private _IsUseOldBattleTag As Boolean
@@ -161,17 +184,6 @@ Public Class StarCraftArchive
         End Set
     End Property
 
-
-
-    Private _PassWord As String
-    Public Property PassWord As String
-        Get
-            Return _PassWord
-        End Get
-        Set(value As String)
-            _PassWord = value
-        End Set
-    End Property
 
     Private _CodeDatas As List(Of CodeData)
     Public ReadOnly Property CodeDatas As List(Of CodeData)
