@@ -245,6 +245,9 @@ Module WindowControl
             ElseIf TypeOf TabContent Is TESCAScriptPage Then
                 Dim tPage As TESCAScriptPage = TabContent
                 tefile = tPage.TEFile
+            ElseIf TypeOf TabContent Is TETextEditorPage Then
+                Dim tPage As TETextEditorPage = TabContent
+                tefile = tPage.TEFile
             End If
 
 

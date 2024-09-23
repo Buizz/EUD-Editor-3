@@ -286,8 +286,6 @@ function PlayerExec() {
     }
 
 
-
-
     if (ConnectStatus[CP] == 1) {
         if (IsUserCP()) {
             const CurrentDisConnectTimer = (DisConnectTimer - CurrentTime);
@@ -616,7 +614,10 @@ function PlayerExec() {
                 MSQCSpecial = 0;
             }
         }
-
+        
+        if (ml.loadstart[cp] != 0){
+            ml.loadstart[cp] = 0;
+        }
         ConnectionTime[CP] = 0;
     }
 

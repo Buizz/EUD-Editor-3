@@ -133,6 +133,8 @@ Partial Public Class ProjectExplorer
                 Icon.Kind = PackIconKind.FormatListCheckbox
             Case TEFile.EFileType.SCAScript
                 Icon.Kind = PackIconKind.ScriptText
+            Case TEFile.EFileType.RawText
+                Icon.Kind = PackIconKind.Raw
         End Select
 
 

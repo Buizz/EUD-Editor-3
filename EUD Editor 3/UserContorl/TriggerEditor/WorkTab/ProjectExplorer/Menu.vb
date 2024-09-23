@@ -67,7 +67,8 @@ Partial Public Class ProjectExplorer
                         If GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIEps Or
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Or
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.ClassicTrigger Or
-                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.SCAScript Then
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.SCAScript Or
+                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.RawText Then
                             MenuConnect.Visibility = Visibility.Collapsed
                             MenuDisConnect.Visibility = Visibility.Collapsed
                             'ToGUI.Visibility = Visibility.Collapsed
@@ -415,6 +416,15 @@ Partial Public Class ProjectExplorer
         FileCreate(New TEFile(Tool.GetText("NewSCAScript"), TEFile.EFileType.SCAScript))
         TERefreshSetting()
     End Sub
+    Private Sub AddCT()
+        'MsgBox("클래식트리거 추가")
+        FileCreate(New TEFile(Tool.GetText("NewClassicScript"), TEFile.EFileType.ClassicTrigger))
+        TERefreshSetting()
+    End Sub
+    Private Sub AddRawText()
+        FileCreate(New TEFile(Tool.GetText("NewRawTextScript"), TEFile.EFileType.RawText))
+        TERefreshSetting()
+    End Sub
 
 
     Private Sub AddFolder(tTEFile As TEFile)
@@ -463,7 +473,13 @@ Partial Public Class ProjectExplorer
         AddFolder(New TEFile(Tool.GetText("NewFolder"), TEFile.EFileType.Folder))
     End Sub
 
+    Private Sub CT_Click(sender As Object, e As RoutedEventArgs)
+        AddCT()
+    End Sub
 
+    Private Sub RawText_Click(sender As Object, e As RoutedEventArgs)
+        AddRawText()
+    End Sub
     Private Sub MenuImport_Click(sender As Object, e As RoutedEventArgs)
         Dim openDialog As New Forms.OpenFileDialog()
         openDialog.Title = Tool.GetText("OpenEpsTitle")

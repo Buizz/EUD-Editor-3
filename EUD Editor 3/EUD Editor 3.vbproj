@@ -424,6 +424,7 @@
     <Compile Include="Class\TriggerEditor\SCAScriptEditor\SCAScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\ScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\StarCraftArchive.vb" />
+    <Compile Include="Class\TriggerEditor\TextEditor\RawTextScriptEditor.vb" />
     <Compile Include="Class\TriggerEditor\TriggerEditorData.vb" />
     <Compile Include="Class\TriggerEditor\TEFile.vb" />
     <Compile Include="AvalonEdit\CodeEditor\CodeTextEditor.xaml.vb">
@@ -771,6 +772,9 @@
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\SCAScriptPage\TESCAScriptPage.xaml.vb">
       <DependentUpon>TESCAScriptPage.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="UserContorl\TriggerEditor\TextEditor\TETextEditorPage.xaml.vb">
+      <DependentUpon>TETextEditorPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="UserContorl\TriggerEditor\TriggerEditorSetting\SCAScriptSetting\SCAScriptImageManager.xaml.vb">
       <DependentUpon>SCAScriptImageManager.xaml</DependentUpon>
@@ -1280,6 +1284,10 @@
       <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="UserContorl\TriggerEditor\SCAScriptPage\TESCAScriptPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="UserContorl\TriggerEditor\TextEditor\TETextEditorPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>

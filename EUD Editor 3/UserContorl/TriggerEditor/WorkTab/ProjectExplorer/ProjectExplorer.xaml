@@ -51,6 +51,7 @@
                             <MenuItem x:Name="MenuCUIEPS" Header="{StaticResource MenuCNewEpsScript}" InputGestureText="Alt+T" Icon="{materialDesign:PackIcon Kind=FormatText}" Click="CUIEps_Click"/>
                             <MenuItem x:Name="MenuClassicEPS" Header="{StaticResource MenuCNewCT}" InputGestureText="Alt+U" Icon="{materialDesign:PackIcon Kind=FormatListCheckbox}" Click="CT_Click"/>
                             <MenuItem x:Name="MenuSCAScript" Header="{StaticResource MenuSCAScript}" InputGestureText="Alt+Y" Icon="{materialDesign:PackIcon Kind=ScriptText}" Click="SCAScript_Click"/>
+                            <MenuItem x:Name="MenuRawText" Header="{StaticResource MenuCNewRawTextScript}" InputGestureText="" Icon="{materialDesign:PackIcon Kind=Raw}" Click="RawText_Click"/>
                         </MenuItem>
                         <MenuItem x:Name="MenuExport" Header="{StaticResource MenuExport}" Icon="{materialDesign:PackIcon Kind=FileUploadOutline}" Click="MenuExport_Click"/>
 

@@ -882,6 +882,7 @@
     <sys:String x:Key="MenuCNewCT">ClassicTrigger</sys:String>
     <sys:String x:Key="MenuSCAScript">SCA SCript</sys:String>
     <sys:String x:Key="MenuCNewEpsScript">epScript File</sys:String>
+    <sys:String x:Key="MenuCNewRawTextScript">RawText File</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib File</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript File</sys:String>
     <sys:String x:Key="MenuGNewPyScript">[GUI] eudplib File</sys:String>
@@ -973,8 +974,9 @@
     <sys:String x:Key="FuncNameUserEdit">UserEdit</sys:String>
 
     <sys:String x:Key="GUIEditorBtn">GUI Editor</sys:String>
-    
+
     <sys:String x:Key="NewClassicScript">NewClassicTrigger</sys:String>
+    <sys:String x:Key="NewRawTextScript">NewRawTextFile</sys:String>
 
     <sys:String x:Key="TrgArgAll">All</sys:String>
     <sys:String x:Key="TrgArg0">All</sys:String>

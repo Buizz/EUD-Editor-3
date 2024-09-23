@@ -288,6 +288,8 @@ Public Class TriggerEditor
                 PlusTabItem(New TECTPage(tTEFile, Line), MainTab, tTEFile, Line)
             Case TEFile.EFileType.SCAScript
                 PlusTabItem(New TESCAScriptPage(tTEFile, Line), MainTab, tTEFile, Line)
+            Case TEFile.EFileType.RawText
+                PlusTabItem(New TETextEditorPage(tTEFile, Line), MainTab, tTEFile, Line)
         End Select
     End Sub
 
@@ -373,6 +375,13 @@ Public Class TriggerEditor
                 End If
             ElseIf TypeOf TabContent Is TESCAScriptPage Then
                 Dim tPage As TESCAScriptPage = TabContent
+
+                If tPage.CheckTEFile(tTEFile) Then
+                    Control.SelectedIndex = i
+                    Return True
+                End If
+            ElseIf TypeOf TabContent Is TETextEditorPage Then
+                Dim tPage As TETextEditorPage = TabContent
 
                 If tPage.CheckTEFile(tTEFile) Then
                     Control.SelectedIndex = i

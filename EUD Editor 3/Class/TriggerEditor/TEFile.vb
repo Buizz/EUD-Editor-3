@@ -15,6 +15,7 @@ Public Class TEFile
 
         ClassicTrigger
         SCAScript
+        RawText
     End Enum
 
 
@@ -163,6 +164,8 @@ Public Class TEFile
                 _Scripter = New ClassicTriggerEditor()
             Case EFileType.SCAScript
                 _Scripter = New SCAScriptEditor(ScriptEditor.SType.Lua)
+            Case EFileType.RawText
+                _Scripter = New RawTextScriptEditor(ScriptEditor.SType.RawText)
         End Select
 
 

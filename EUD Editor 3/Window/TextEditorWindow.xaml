@@ -91,9 +91,13 @@
                             <ListBoxItem Content="t 스트링EPD 주소" Tag=":t"/>
                             <ListBoxItem Content="x 16진법 출력" Tag=":x"/>
                         </ListBox>
-                        <TextBox x:Name="EditTextbox" AcceptsReturn="True" AcceptsTab="True" TextChanged="EditTextbox_TextChanged" Margin="10" KeyUp="EditTextbox_KeyUp" MinWidth="600">
+                        <DockPanel>
+                            <TextBlock Text="1&#10;2&#10;3&#10;4&#10;5&#10;6&#10;7&#10;8&#10;9&#10;10&#10;11" DockPanel.Dock="Left" VerticalAlignment="Top" Margin="0,14,0,0" />
+                            <TextBox x:Name="EditTextbox" AcceptsReturn="True" AcceptsTab="True" TextChanged="EditTextbox_TextChanged" Margin="10" KeyUp="EditTextbox_KeyUp" MinWidth="600" VerticalContentAlignment="Top">
 
-                        </TextBox>
+                            </TextBox>
+                        </DockPanel>
+            
 
                     </DockPanel>
                 </Grid>

@@ -4,6 +4,7 @@ Public MustInherit Class ScriptEditor
         Eps
         Py
         Lua
+        RawText
     End Enum
     Protected ScriptType As SType
 

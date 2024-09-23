@@ -879,6 +879,7 @@
     <sys:String x:Key="MenuCNewCT">클래식 트리거</sys:String>
     <sys:String x:Key="MenuSCAScript">SCA 스크립트</sys:String>
     <sys:String x:Key="MenuCNewEpsScript">epScript 파일</sys:String>
+    <sys:String x:Key="MenuCNewRawTextScript">RawText 파일</sys:String>
     <sys:String x:Key="MenuCNewPyScript">[CUI] eudplib 파일</sys:String>
     <sys:String x:Key="MenuGNewEpsScript">[GUI] epScript 파일</sys:String>
     <sys:String x:Key="MenuGNewPyScript">[GUI] eudplib 파일</sys:String>
@@ -977,6 +978,7 @@
 
 
     <sys:String x:Key="NewClassicScript">새ClassicTrigger파일</sys:String>
+    <sys:String x:Key="NewRawTextScript">새RawText파일</sys:String>
 
 
     <sys:String x:Key="TrgArgAll">모두</sys:String>
