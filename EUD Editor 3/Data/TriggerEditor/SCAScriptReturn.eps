@@ -12,67 +12,42 @@ def f_mersenne_gte(x):\n\
 ");
 const mersenne_gte = py_eval("f_mersenne_gte");
 
-// todo: Remove when eudplib fixed
-py_exec("\n\
-from collections.abc import Iterator\n\
-from eudplib.ctrlstru.loopblock import set_continuepoint\n\
-def ELR(start, end=None) -> Iterator[EUDVariable]:\n\
-    EUDCreateBlock(\"looprangeblock\", None)\n\
-    if end is None:\n\
-        start, end = 0, start\n\
-    v = EUDVariable()\n\
-    v << start\n\
-    if EUDWhileNot()(v >= end):\n\
-        block = EUDPeekBlock(\"whileblock\")[1]\n\
-        yield v\n\
-        if not block[\"contpoint\"].IsSet():\n\
-            set_continuepoint()\n\
-        v += 1\n\
-    EUDEndWhile()\n\
-    EUDPopBlock(\"looprangeblock\")\n\
-");
-const ELR = py_eval("ELR");
-// todo: Remove when eudplib fixed
-
 const ArrayobjectN = 5000;
 const Arraysize = 1000;
-const Arraybuffer = EUDArray(ArrayobjectN * Arraysize);
-const Arrayoffset = EUDVArray(ArrayobjectN)(py_list(py_range(0, Arraysize * ArrayobjectN, Arraysize)));
+const ArrayMask = mersenne_gte(Arraysize);
+const Arraybuffer = EUDVArray(ArrayobjectN)(py_eval("lambda x, y: [EUDArray(x) for _ in range(y)]")(Arraysize, ArrayobjectN));
 var Arrayremaining = ArrayobjectN;
 function ArrayAlloc() {
     Arrayremaining -= 1;
-    return EPD(Arraybuffer) + Arrayoffset[Arrayremaining];
+    return Arraybuffer[Arrayremaining];
 }
-function ArrayFree(ArrayEPD) {
-    Arrayoffset[Arrayremaining] = ArrayEPD - EPD(Arraybuffer);
-    Arrayremaining += 1;
+function ArrayFree(num) {
+    Arrayremaining += num;
 }
 
 const MiniArrayobjectN = 100;
 const MiniArraysize = 10;
-const MiniArraybuffer = EUDArray(MiniArrayobjectN * MiniArraysize);
-const MiniArrayoffset = EUDVArray(MiniArrayobjectN)(py_list(py_range(0, MiniArraysize * MiniArrayobjectN, MiniArraysize)));
+const MiniArrayMask = mersenne_gte(MiniArraysize);
+const MiniArraybuffer = EUDVArray(MiniArrayobjectN)(py_eval("lambda x, y: [EUDArray(x) for _ in range(y)]")(MiniArraysize, MiniArrayobjectN));
 var MiniArrayremaining  = MiniArrayobjectN;
 function MiniArrayAlloc() {
     MiniArrayremaining -= 1;
-    return EPD(MiniArraybuffer) + MiniArrayoffset[MiniArrayremaining];
+    return MiniArraybuffer[MiniArrayremaining];
 }
-function MiniArrayFree(ArrayEPD) {
-    MiniArrayoffset[MiniArrayremaining] = ArrayEPD - EPD(MiniArraybuffer);
-    MiniArrayremaining += 1;
+
+function MiniArrayFree(num) {
+    MiniArrayremaining += num;
 }
 
 const StrobjectN = 100;
 const Strsize = 1000;
-const Strbuffer = EUDArray(StrobjectN * Strsize);
-const Stroffset = EUDVArray(StrobjectN)(py_list(py_range(0, 4 * Strsize * StrobjectN, 4 * Strsize)));
+const Strbuffer = (StringBuffer * StrobjectN)(py_eval("lambda x, y: [StringBuffer(x) for _ in range(y)]")(Strsize, StrobjectN));
 var Strremaining = StrobjectN;
-function StrAlloc() {
+function StrAlloc(): StringBuffer {
     Strremaining -= 1;
-    return Strbuffer + Stroffset[Strremaining];
+    return Strbuffer[Strremaining];
 }
-function StrFree(StrPtr) {
-    Stroffset[Strremaining] = StrPtr - Strbuffer;
+function StrFree() {
     Strremaining += 1;
 }
 
@@ -86,10 +61,10 @@ object SCAReturnString {
     }
 
     function destructor() {
-        foreach(i: ELR(this.length)) {
+        foreach(i: EUDLoopRange(this.length)) {
             dwwrite_epd(this.values + i, 0); // 할당된 값을 0으로 바꾼다.
         }
-        ArrayFree(this.values);
+        ArrayFree(1);
     }
 };
 
@@ -105,15 +80,14 @@ object SCAReturnArray {
     }
 
     function destructor() {
-        foreach(i: ELR(this.length)) {
+        foreach(i: EUDLoopRange(this.length)) {
             const values, types = this.values + i, this.types + i;
             if (MemoryXEPD(types, Exactly, 2, mersenne_gte(3))) {
                 SCAReturnString.free(dwread_epd(values));
             }
             DoActions(SetMemoryEPD(values, SetTo, 0), SetMemoryEPD(types, SetTo, 0));  // 할당된 값을 0으로 바꾼다.
         }
-        ArrayFree(this.values);
-        ArrayFree(this.types);
+        ArrayFree(2);
     }
 };
 
@@ -123,8 +97,7 @@ object SCAReturn {
     
     var values;
     var types;
-    var fmtStrPtr;
-    var fmtStrlen;
+    var strBuffer: StringBuffer;
     var returnindex;
     var returncount;
     var lastepd;
@@ -132,7 +105,7 @@ object SCAReturn {
     function constructor(epd) {
         this.values = MiniArrayAlloc();
         this.types = MiniArrayAlloc();
-        this.fmtStrPtr = StrAlloc();
+        this.strBuffer = StrAlloc();
         const AdvanceEPD = function() {
             SetVariables(epd, 1, Add);
             Trigger(epd.AtLeast(scf.FuncLength), epd.SetNumber(0));
@@ -141,17 +114,17 @@ object SCAReturn {
         this.returnindex = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(100)); // 배열 길이, 최대 100 (0 ~ 127)
         AdvanceEPD();
 
-        // 리턴 배열
+        // 시작 리턴 배열
         AdvanceEPD();
 
-        this.returncount = dwread_epd(scf.FuncReturnTableEPD + epd);
+        this.returncount = maskread_epd(scf.FuncReturnTableEPD + epd, MiniArrayMask); // 리턴 길이, 최대 10 (0 ~ 15)
         AdvanceEPD();
 
-        var fmtStrPtr = sprintf(this.fmtStrPtr, "[");
-        foreach(i: ELR(this.returncount)){
+        this.strBuffer.insert(0, "[");
+        foreach(i: EUDLoopRange(this.returncount)){
             const values, types = this.values + i, this.types + i;
             if (i > 0) {
-                fmtStrPtr = sprintf(fmtStrPtr, ", ");
+                this.strBuffer.append(", ");
             }
             epdswitch(scf.FuncReturnTableEPD + epd, mersenne_gte(3)){ // 변수 종류, 최대 3
                 case 1: { //Number = 1
@@ -159,20 +132,20 @@ object SCAReturn {
 
                     const temp = dwread_epd(scf.FuncReturnTableEPD + epd);
                     DoActions(SetMemoryEPD(values, SetTo, temp), SetMemoryEPD(types, SetTo, 1));
-                    fmtStrPtr = sprintf(fmtStrPtr, "{}", temp);
+                    this.strBuffer.appendf("{}", temp);
                     AdvanceEPD();
                     break;
                 }
                 case 2: { //String = 2
                     AdvanceEPD();
-                    const length = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(1000)); // 문자열 길이, 최대 1000 (0 ~ 1023)
+                    const length = maskread_epd(scf.FuncReturnTableEPD + epd, ArrayMask); // 문자열 길이, 최대 1000 (0 ~ 1023)
                     AdvanceEPD();
 
                     const temp = SCAReturnString.alloc(length);
                     repmovsd_epd(temp.values, scf.FuncReturnTableEPD + epd, length); // 문자열 값을 (4 * length)bytes 만큼 복사한다.
-                    fmtStrPtr = sprintf(fmtStrPtr, "\"{:t}\"", temp.values);
+                    this.strBuffer.appendf("\"{:t}\"", temp.values);
 
-                    foreach(_: ELR(length)){
+                    foreach(_: EUDLoopRange(length)){
                         AdvanceEPD();
                     }
                     DoActions(SetMemoryEPD(values, SetTo, temp), SetMemoryEPD(types, SetTo, 2));
@@ -181,15 +154,15 @@ object SCAReturn {
                 case 3: { //Array = 3
                     AdvanceEPD();
                     
-                    const length = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(1000)); // 배열 길이, 최대 1000 (0 ~ 1023)
+                    const length = maskread_epd(scf.FuncReturnTableEPD + epd, ArrayMask); // 배열 길이, 최대 1000 (0 ~ 1023)
                     AdvanceEPD();
 
                     const temp_main = SCAReturnArray.alloc(length);
-                    fmtStrPtr = sprintf(fmtStrPtr, "[");
-                    foreach(ai: ELR(length)) {
+                    this.strBuffer.appendf("[");
+                    foreach(ai: EUDLoopRange(length)) {
                         const temp_values, temp_types = temp_main.values + ai, temp_main.types + ai;
                         if (ai > 0) {
-                            fmtStrPtr = sprintf(fmtStrPtr, ", ");
+                            this.strBuffer.appendf(", ");
                         }
                         epdswitch(scf.FuncReturnTableEPD + epd, mersenne_gte(3)){  // 변수 종류, 최대 3
                             case 1: { //Number = 1
@@ -197,21 +170,21 @@ object SCAReturn {
 
                                 const temp = dwread_epd(scf.FuncReturnTableEPD + epd);
                                 DoActions(SetMemoryEPD(temp_values, SetTo, temp), SetMemoryEPD(temp_types, SetTo, 1));
-                                fmtStrPtr = sprintf(fmtStrPtr, "{}", temp);
+                                this.strBuffer.appendf("{}", temp);
                                 AdvanceEPD();
                                 break; 
                             }
                             case 2: { //String = 2
                                 AdvanceEPD();
 
-                                const length = maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(1000)); // 문자열 길이, 최대 1000 (0 ~ 1023)
+                                const length = maskread_epd(scf.FuncReturnTableEPD + epd, ArrayMask); // 문자열 길이, 최대 1000 (0 ~ 1023)
                                 AdvanceEPD();
 
                                 const temp_sub = SCAReturnString.alloc(length);
                                 repmovsd_epd(temp_sub.values, scf.FuncReturnTableEPD + epd, length); // 문자열 값을 (4 * length)bytes 만큼 복사한다.
-                                fmtStrPtr = sprintf(fmtStrPtr, "\"{:t}\"", temp_sub.values);
+                                this.strBuffer.appendf("\"{:t}\"", temp_sub.values);
 
-                                foreach(_: ELR(length)){
+                                foreach(_: EUDLoopRange(length)){
                                     AdvanceEPD();
                                 }
                                 DoActions(SetMemoryEPD(temp_values, SetTo, temp_sub), SetMemoryEPD(temp_types, SetTo, 2));
@@ -228,7 +201,7 @@ object SCAReturn {
                             }
                         }
                     }
-                    fmtStrPtr = sprintf(fmtStrPtr, "]");
+                    this.strBuffer.append("]");
                     DoActions(SetMemoryEPD(values, SetTo, temp_main), SetMemoryEPD(types, SetTo, 3));
                     break;
                 }
@@ -238,13 +211,12 @@ object SCAReturn {
                 }
             }
         }
-        fmtStrPtr = sprintf(fmtStrPtr, "]");
-        this.fmtStrlen = fmtStrPtr - this.fmtStrPtr;
+        this.strBuffer.append("]");
         this.lastepd = epd;
     }
 
     function destructor() {
-        foreach(i: ELR(this.returncount)){
+        foreach(i: EUDLoopRange(this.returncount)){
             const values, types = this.values + i, this.types + i;
             const temp = dwread_epd(values);
             epdswitch(types, mersenne_gte(3)) {
@@ -259,12 +231,9 @@ object SCAReturn {
             }
             DoActions(SetMemoryEPD(values, SetTo, 0), SetMemoryEPD(types, SetTo, 0));
         }
-        MiniArrayFree(this.values);
-        MiniArrayFree(this.types);
-        for (var i = 0; i <= this.fmtStrlen; i += 4) {
-            dwwrite(this.fmtStrPtr + i, 0);
-        }
-        StrFree(this.fmtStrPtr);
+        MiniArrayFree(2);
+        this.strBuffer.insert(0);
+        StrFree();
     }
 };
 
