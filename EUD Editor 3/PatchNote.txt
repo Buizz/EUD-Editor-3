@@ -1,3 +1,9 @@
+# 0.19.2.0
+-RawTextFile 생성 추가 (확장자까지 이름에 포함됩니다. ex tool.py로 해야 정상 작성됨)
+-Bulid 오타 수정 -> Build
+-SCA 계정정보 암호화 로직 수정
+-빌드시 오류가 생기면 무한루프에 안빠지게 수정
+
 # 0.19.1.1
 -CodeTextEditor 투명 문자 가시화 https://github.com/Buizz/EUD-Editor-3/issues/129
 -CodeTextEditor CPU 점유율 및 성능 누수 버그 수정
