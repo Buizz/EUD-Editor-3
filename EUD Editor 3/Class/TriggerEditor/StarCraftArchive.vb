@@ -98,10 +98,11 @@ Public Class StarCraftArchive
 
     Public ReadOnly Property MacAddr As String
         Get
-            Dim _MacAddr As String = ((From nic In NetworkInterface.GetAllNetworkInterfaces()
-                                       Where nic.OperationalStatus = OperationalStatus.Up
-                                       Select nic.GetPhysicalAddress()).ToString()
-                                    ).FirstOrDefault()
+            Dim _MacAddr As String = (From nic In NetworkInterface.GetAllNetworkInterfaces()
+                                      Where nic.OperationalStatus = OperationalStatus.Up
+                                      Select nic.GetPhysicalAddress()).FirstOrDefault().ToString()
+
+
             Return _MacAddr
         End Get
     End Property
@@ -110,7 +111,11 @@ Public Class StarCraftArchive
     Private _SCAEmail As String
     Public Property SCAEmail As String
         Get
-            Return AESModule.DecryptString128Bit(_SCAEmail, MacAddr)
+            Try
+                Return AESModule.DecryptString128Bit(_SCAEmail, MacAddr)
+            Catch ex As Exception
+                Return ""
+            End Try
         End Get
         Set(value As String)
             _SCAEmail = AESModule.EncryptString128Bit(value, MacAddr)
@@ -121,7 +126,11 @@ Public Class StarCraftArchive
     Private _PassWord As String
     Public Property PassWord As String
         Get
-            Return AESModule.DecryptString128Bit(_PassWord, MacAddr)
+            Try
+                Return AESModule.DecryptString128Bit(_PassWord, MacAddr)
+            Catch ex As Exception
+                Return ""
+            End Try
         End Get
         Set(value As String)
             _PassWord = AESModule.EncryptString128Bit(value, MacAddr)
@@ -152,13 +161,18 @@ Public Class StarCraftArchive
     End Property
 
 
+    '===================================================================================
     Private _MakerServerName As String
     Public Property MakerServerName As String
         Get
-            Return _MakerServerName
+            Try
+                Return AESModule.DecryptString128Bit(_MakerServerName, MacAddr)
+            Catch ex As Exception
+                Return ""
+            End Try
         End Get
         Set(value As String)
-            _MakerServerName = value
+            _MakerServerName = AESModule.EncryptString128Bit(value, MacAddr)
         End Set
     End Property
 
@@ -166,10 +180,14 @@ Public Class StarCraftArchive
     Private _SubTitle As String
     Public Property SubTitle As String
         Get
-            Return _SubTitle
+            Try
+                Return AESModule.DecryptString128Bit(_SubTitle, MacAddr)
+            Catch ex As Exception
+                Return ""
+            End Try
         End Get
         Set(value As String)
-            _SubTitle = value
+            _SubTitle = AESModule.EncryptString128Bit(value, MacAddr)
         End Set
     End Property
 
@@ -177,12 +195,17 @@ Public Class StarCraftArchive
     Private _MapName As String
     Public Property MapName As String
         Get
-            Return _MapName
+            Try
+                Return AESModule.DecryptString128Bit(_MapName, MacAddr)
+            Catch ex As Exception
+                Return ""
+            End Try
         End Get
         Set(value As String)
-            _MapName = value
+            _MapName = AESModule.EncryptString128Bit(value, MacAddr)
         End Set
     End Property
+    '===================================================================================
 
 
     Private _CodeDatas As List(Of CodeData)

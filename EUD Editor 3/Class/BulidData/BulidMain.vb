@@ -86,8 +86,18 @@ Partial Public Class BuildData
 
 
     Private Sub BuildProgressComplete(sender As Object, e As RunWorkerCompletedEventArgs)
+        If e.Error IsNot Nothing Then
+            Tool.CustomMsgBox(Tool.GetText("CompileFail") + vbCrLf + e.Error.Message, MessageBoxButton.OK, MessageBoxImage.Error)
+            pgData.IsCompilng = False
+            pgData.isEddCompile = False
+            Tool.RefreshMainWindow()
+
+            Return
+        End If
+
         If eudplibShutDown Then
             Tool.CustomMsgBox(Tool.GetText("Error CompileStop"), MessageBoxButton.OK, MessageBoxImage.Error)
+            Return
         End If
         If macro.macroErrorList.Count <> 0 Then
             Dim m As String = ""

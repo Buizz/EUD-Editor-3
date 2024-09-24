@@ -3,7 +3,7 @@ Imports net.r_eg.Conari.Types
 
 Partial Public Class MacroManager
     Private _IsBuild As Boolean = False
-    Public Property IsBulid As Boolean
+    Public Property IsBuild As Boolean
         Get
             Return _IsBuild
         End Get
@@ -175,7 +175,7 @@ Partial Public Class MacroManager
 
     Public MouseItems As New List(Of String)
     Public Function AddMouseEvent(Line As String, MinX As String, MinY As String) As String
-        If IsBulid Then
+        If IsBuild Then
             'X 0x006CDDC4
             'Y 0x006CDDC8
             '(dwread_epd(EPD(0x6CDDC8)) - 110) / 16
@@ -199,7 +199,7 @@ Partial Public Class MacroManager
     End Function
     Public MSQCItems As New Dictionary(Of String, String)
     Public Sub AddMSQCPlugin(keyboard As String, vname As String, action As String, cond As String)
-        If IsBulid Then
+        If IsBuild Then
             Dim key As String = action & "(" & keyboard & ")"
 
             If Not MSQCItems.ContainsKey(key) Then
@@ -209,7 +209,7 @@ Partial Public Class MacroManager
     End Sub
     Public ChatEventItems As New List(Of String)
     Public Function AddChatEventPlugin(chat As String) As String
-        If IsBulid Then
+        If IsBuild Then
             Dim index As Integer = ChatEventItems.IndexOf(chat)
             If index = -1 Then
                 index = ChatEventItems.Count

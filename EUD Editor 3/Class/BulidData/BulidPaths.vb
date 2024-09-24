@@ -99,16 +99,16 @@
             Try
                 If pjData.TempFileLoc = "0" Then
                     '기본 데이터 폴더 사용할 경우.
-                    Return Tool.GetDirectoy("Data\temp\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                    Return Tool.GetDirectoy("Data\temp\BuildData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
                 ElseIf pjData.TempFileLoc = "1" Then
                     '맵 폴더가 같을 경우
-                    Return Tool.GetDirectory(pjData.OpenMapdirectory & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                    Return Tool.GetDirectory(pjData.OpenMapdirectory & "\BuildData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
 
                 ElseIf pjData.TempFileLoc = "2" Then
                     '맵 폴더가 같을 경우
-                    Return Tool.GetDirectory(System.IO.Path.GetDirectoryName(pjData.Filename) & "\BulidData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                    Return Tool.GetDirectory(System.IO.Path.GetDirectoryName(pjData.Filename) & "\BuildData_", Tool.StripFileName(pjData.SafeFilename.Split(".").First))
                 Else
-                    Return Tool.GetDirectory(pjData.TempFileLoc, "\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                    Return Tool.GetDirectory(pjData.TempFileLoc, "\BuildData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
                     'If pjData.OpenMapdirectory = pjData.SaveMapdirectory And pjData.OpenMapdirectory = pjData.TempFileLoc Then
 
                     'End If
@@ -123,7 +123,7 @@
                 Tool.CustomMsgBox(Tool.GetLanText("TempFolderError").Replace("%S1", tname), MessageBoxButton.OK, MessageBoxImage.Exclamation)
 
                 pjData.TempFileLoc = "0"
-                Return Tool.GetDirectoy("Data\temp\BulidData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
+                Return Tool.GetDirectoy("Data\temp\BuildData_" & Tool.StripFileName(pjData.SafeFilename.Split(".").First))
             End Try
 
         End Get
