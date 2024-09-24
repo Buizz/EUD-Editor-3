@@ -1,0 +1,244 @@
+from eudplib import *
+import SCAFlexible as scf
+
+def mersenne_gte(x):
+    if x <= 1:
+        return 1    
+    temp = 1
+    while temp - 1 < x:
+        temp *= 2
+    return temp - 1
+
+ArrayobjectN = 5000
+Arraysize = 1000
+ArrayMask = mersenne_gte(Arraysize)
+Arraybuffer = EUDVArray(ArrayobjectN)([EUDArray(Arraysize) for _ in range(ArrayobjectN)])
+Arrayremaining = EUDVariable(ArrayobjectN)
+
+def ArrayAlloc():
+    Arrayremaining.__isub__(1)
+    return Arraybuffer[Arrayremaining]
+
+def ArrayFree(num = 1):
+    Arrayremaining.__iadd__(num)
+
+MiniArrayobjectN = 100
+MiniArraysize = 10
+MiniArrayMask = mersenne_gte(MiniArraysize)
+MiniArraybuffer = EUDVArray(MiniArrayobjectN)([EUDArray(MiniArraysize) for _ in range(MiniArrayobjectN)])
+MiniArrayremaining = EUDVariable(MiniArrayobjectN)
+
+def MiniArrayAlloc():
+    MiniArrayremaining.__isub__(1)
+    return MiniArraybuffer[MiniArrayremaining]
+
+def MiniArrayFree(num):
+    MiniArrayremaining.__iadd__(num)
+
+StrobjectN = 100
+Strsize = 1000
+Strbuffer = (StringBuffer * StrobjectN)([StringBuffer(Strsize) for _ in range(StrobjectN)])
+Strremaining = EUDVariable(StrobjectN)
+def StrAlloc():
+    Strremaining.__isub__(1)
+    return Strbuffer[Strremaining]
+
+def StrFree():
+    Strremaining.__iadd__(1)
+
+class SCAReturnString(EUDStruct):
+    _fields_ = [
+        'values',
+        'length',
+    ]
+
+    @EUDMethod
+    def constructor(self, length):
+        self.values = ArrayAlloc()
+        self.length = length
+
+    @EUDMethod
+    def destructor(self):
+        for i in EUDLoopRange(self.length):
+            f_dwwrite_epd(self.values + i, 0)
+        ArrayFree(1)
+
+class SCAReturnArray(EUDStruct):
+    _fields_ = [
+        'values',
+        'types',
+        'length',
+    ]
+
+    @EUDMethod
+    def constructor(self, length):
+        self.values = ArrayAlloc()
+        self.types = ArrayAlloc()
+        self.length = length
+
+    @EUDMethod
+    def destructor(self):
+        for i in EUDLoopRange(self.length):
+            values, types = self.values + i, self.types + i
+            if EUDIf()(MemoryXEPD(types, Exactly, 2, mersenne_gte(3))):
+                SCAReturnString.free(f_dwread_epd(values))
+            EUDEndIf()
+            DoActions(SetMemoryEPD(values, SetTo, 0), SetMemoryEPD(types, SetTo, 0))
+        ArrayFree(2)
+    
+
+class SCAReturn(EUDStruct):
+    _fields_ = [
+        ('strBuffer', StringBuffer),
+        'values',
+        'types',
+        'returnindex',
+        'returncount',
+        'lastepd',
+    ]
+
+    @EUDMethod
+    def constructor(self, epd):
+        self.strBuffer = StrAlloc()
+        self.values = MiniArrayAlloc()
+        self.types = MiniArrayAlloc()
+
+        @EUDFunc
+        def AdvanceEPD():
+            SetVariables(epd, 1, Add)
+            Trigger(epd.AtLeast(scf.FuncLength), epd.SetNumber(0))
+            
+        self.returnindex = f_maskread_epd(scf.FuncReturnTableEPD + epd, mersenne_gte(100))
+        AdvanceEPD()
+
+        AdvanceEPD()
+
+        self.returncount = f_maskread_epd(scf.FuncReturnTableEPD + epd, MiniArrayMask)
+        AdvanceEPD()
+
+        self.strBuffer.insert(0, "[")
+        for i in EUDLoopRange(self.returncount):
+            values, types = self.values + i, self.types + i
+            if EUDIf()(i <= 0, neg=True):
+                self.strBuffer.append(", ")
+            EUDEndIf()
+            EPDSwitch(scf.FuncReturnTableEPD + epd, mersenne_gte(3))
+            if EUDSwitchCase()(1):
+                AdvanceEPD()
+                temp = f_dwread_epd(scf.FuncReturnTableEPD + epd)
+                DoActions(SetMemoryEPD(values, SetTo, temp), SetMemoryEPD(types, SetTo, 1))
+                self.strBuffer.appendf("{}", temp)
+                AdvanceEPD()
+                EUDBreak()
+            if EUDSwitchCase()(2):
+                AdvanceEPD()
+                length = f_maskread_epd(scf.FuncReturnTableEPD + epd, ArrayMask)
+                AdvanceEPD()
+                temp = SCAReturnString.alloc(length)
+                f_repmovsd_epd(temp.values, scf.FuncReturnTableEPD + epd, length)
+                self.strBuffer.appendf("\"{:t}\"", temp.values)
+                for _ in EUDLoopRange(length):
+                    AdvanceEPD()
+                                        
+                DoActions(SetMemoryEPD(values, SetTo, temp), SetMemoryEPD(types, SetTo, 2))
+                EUDBreak()
+            if EUDSwitchCase()(3):
+                AdvanceEPD()
+                length = f_maskread_epd(scf.FuncReturnTableEPD + epd, ArrayMask)
+                AdvanceEPD()
+                temp_main = SCAReturnArray.alloc(length)
+                self.strBuffer.appendf("[")
+                for ai in EUDLoopRange(length):
+                    temp_values, temp_types = temp_main.values + ai, temp_main.types + ai
+                    if EUDIf()(ai <= 0, neg=True):
+                        self.strBuffer.appendf(", ")
+                    EUDEndIf()
+                    EPDSwitch(scf.FuncReturnTableEPD + epd, mersenne_gte(3))
+                    if EUDSwitchCase()(1):
+                        AdvanceEPD()
+                        temp = f_dwread_epd(scf.FuncReturnTableEPD + epd)
+                        DoActions(SetMemoryEPD(temp_values, SetTo, temp), SetMemoryEPD(temp_types, SetTo, 1))
+                        self.strBuffer.appendf("{}", temp)
+                        AdvanceEPD()
+                        EUDBreak()
+                    if EUDSwitchCase()(2):
+                        AdvanceEPD()
+                        sublen = f_maskread_epd(scf.FuncReturnTableEPD + epd, ArrayMask)
+                        AdvanceEPD()
+                        temp_sub = SCAReturnString.alloc(sublen)
+                        f_repmovsd_epd(temp_sub.values, scf.FuncReturnTableEPD + epd, sublen)
+                        self.strBuffer.appendf("\"{:t}\"", temp_sub.values)
+                        for _ in EUDLoopRange(sublen):
+                            AdvanceEPD()
+                                                        
+                        DoActions(SetMemoryEPD(temp_values, SetTo, temp_sub), SetMemoryEPD(temp_types, SetTo, 2))
+                        EUDBreak()
+                    if EUDSwitchCase()(3):
+                        AdvanceEPD()
+                        EUDBreak()
+                    if EUDSwitchDefault()():
+                        AdvanceEPD()
+                        EUDBreak()
+                    EUDEndSwitch()
+                    
+                self.strBuffer.append("]")
+                DoActions(SetMemoryEPD(values, SetTo, temp_main), SetMemoryEPD(types, SetTo, 3))
+                EUDBreak()
+            if EUDSwitchDefault()():
+                AdvanceEPD()
+                EUDBreak()
+            EUDEndSwitch()
+            
+        self.strBuffer.append("]")
+        self.lastepd = epd
+                
+    @EUDMethod
+    def destructor(self):
+        for i in EUDLoopRange(self.returncount):
+            values, types = self.values + i, self.types + i
+            temp = f_dwread_epd(values)
+            EPDSwitch(types, mersenne_gte(3))
+            if EUDSwitchCase()(2):
+                SCAReturnString.free(f_dwread_epd(values))
+                EUDBreak()
+            if EUDSwitchCase()(3):
+                SCAReturnArray.free(f_dwread_epd(values))
+                EUDBreak()
+            EUDEndSwitch()
+            DoActions(SetMemoryEPD(values, SetTo, 0), SetMemoryEPD(types, SetTo, 0))
+                        
+        MiniArrayFree(2)
+        self.strBuffer.insert(0)
+        StrFree()
+
+ReturnSize = 100
+returnarray = (SCAReturn * ReturnSize)()
+@EUDFunc
+def ResetReturnObject(rindex):
+    temp = returnarray[rindex]
+    if EUDIf()(temp):
+        SCAReturn.free(temp)
+        returnarray[rindex] = 0
+    EUDEndIf()
+    
+lastepd = EUDVariable()
+@EUDFunc
+def Exec():
+    if EUDIfNot()(MemoryEPD(scf.FuncCommandEPD + 1, Exactly, lastepd)):
+        rtoken = SCAReturn.alloc(lastepd)
+        rindex = rtoken.returnindex
+        ResetReturnObject(rindex)
+        returnarray[rindex] = rtoken
+        lastepd << rtoken.lastepd
+    EUDEndIf()
+    
+@EUDFunc
+def IsReturn(rindex):
+    if EUDIf()(returnarray[rindex]):
+        EUDReturn(True)
+    if EUDElse()():
+        EUDReturn(False)
+    EUDEndIf()
+    
+def GetReturnObject(rindex):
+    return returnarray[rindex]
