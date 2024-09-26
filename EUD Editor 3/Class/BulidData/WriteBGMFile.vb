@@ -47,6 +47,8 @@ Partial Public Class BuildData
     Public Function GetBGMEps() As String
         Dim sb As New StringBuilder
 
+        sb.Append("import py_pathlib;")
+        sb.Append("")
         sb.Append("const bgmlen = [")
         For i = 0 To pjData.TEData.BGMData.BGMList.Count - 1
             If i <> 0 Then
@@ -92,7 +94,7 @@ Partial Public Class BuildData
                     Dim tname As String = GetSoundIndex(c)
 
 
-                    sb.AppendLine("    MPQAddFile('" & hname & tname & "', py_open('" & files.Replace("\", "/") & "', 'rb').read());")
+                    sb.AppendLine("    MPQAddFile('" & hname & tname & "', pathlib.Path('" & files.Replace("\", "/") & "').read_bytes());")
                 End If
             Next
 

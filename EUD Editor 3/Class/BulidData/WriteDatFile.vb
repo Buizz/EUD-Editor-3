@@ -115,9 +115,10 @@ Partial Public Class BuildData
             Tool.ErrorMsgBox(Tool.GetText("Error WriteStatusInfor"), ex.ToString)
         End Try
         WriteButtonSet(sb)
-        sb.AppendLine("    inputData = open('" & Tool.GetRelativePath(EdsFilePath, requireFilePath).Replace("\", "/") & "', 'rb').read()")
-        sb.AppendLine("    inputData_db = Db(inputData)")
-        sb.AppendLine("    inputDwordN = (len(inputData) + 3) // 4")
+        sb.AppendLine("    with open('" & Tool.GetRelativePath(EdsFilePath, requireFilePath).Replace("\", "/") & "', 'rb') as file:")
+        sb.AppendLine("        inputData = file.read()")
+        sb.AppendLine("        inputData_db = Db(inputData)")
+        sb.AppendLine("        inputDwordN = (len(inputData) + 3) // 4")
         sb.AppendLine("")
         sb.AppendLine("    addrEPD = EPD(0x" & Hex(Tool.GetOffset("FG_ReqUnit")) & ")")
         sb.AppendLine("    f_repmovsd_epd(addrEPD, EPD(inputData_db), inputDwordN)")
