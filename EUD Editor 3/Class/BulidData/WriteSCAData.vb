@@ -195,6 +195,8 @@ Partial Public Class BuildData
             End If
         Next
 
+        sb.AppendLine("import py_pathlib;")
+        sb.AppendLine("")
         For i = 0 To NameSapces.Count - 1
             sb.AppendLine("import " & NameSapces(i) & " as n" & i & ";")
         Next
@@ -258,16 +260,16 @@ Partial Public Class BuildData
 
         sb.AppendLine("")
         sb.AppendLine("function Init() {")
-        sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', py_open('scakeyfile', 'rb').read());")
-        sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', py_open('scadatafile', 'rb').read());")
-        sb.AppendLine("    MPQAddFile('SCASCRIPT', py_open('scascript', 'rb').read());")
+        sb.AppendLine("    MPQAddFile('SCARCHIVEMAPCODE', pathlib.Path('scakeyfile').read_bytes());")
+        sb.AppendLine("    MPQAddFile('SCARCHIVEDATA', pathlib.Path('scadatafile').read_bytes());")
+        sb.AppendLine("    MPQAddFile('SCASCRIPT', pathlib.Path('scascript').read_bytes());")
 
         For i = 0 To pjData.TEData.BGMData.SCABGMList.Count - 1
             Dim bgmfile As BGMData.BGMFile = pjData.TEData.BGMData.SCABGMList(i)
             Dim folderPath As String = BuildData.SoundFilePath() & "\" & bgmfile.BGMName
             Dim output As String = folderPath & "\sample.mp3"
 
-            sb.AppendLine("    MPQAddFile('" & bgmfile.BGMName & "', py_open('" & output.Replace("\", "/") & "', 'rb').read());")
+            sb.AppendLine("    MPQAddFile('" & bgmfile.BGMName & "', pathlib.Path('" & output.Replace("\", "/") & "').read_bytes());")
             'Dim rfilename As String = files.Split("\").Last
             'If rfilename.IndexOf("st") <> -1 Then
             '    Dim c As Integer = rfilename.Replace("st", "").Replace(".ogg", "")
@@ -276,7 +278,7 @@ Partial Public Class BuildData
             '    Dim tname As String = GetSoundIndex(c)
 
 
-            '    sb.AppendLine("    MPQAddFile('" & hname & tname & "', py_open('" & files.Replace("\", "/") & "', 'rb').read());")
+            '    sb.AppendLine("    MPQAddFile('" & hname & tname & "', pathlib.Path('" & files.Replace("\", "/") & "').read_bytes());")
             'End If
         Next
 
