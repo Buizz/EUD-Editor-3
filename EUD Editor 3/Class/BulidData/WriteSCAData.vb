@@ -291,9 +291,10 @@ Partial Public Class BuildData
         sb.AppendLine("    ));")
         sb.AppendLine("}")
         sb.AppendLine("")
-        sb.AppendLine("function Exec() {")
-        sb.AppendLine("    Init();")
-        sb.AppendLine("}")
+        ' Unnecessary Exec func!
+        ' sb.AppendLine("function Exec() {")
+        ' sb.AppendLine("    Init();")
+        ' sb.AppendLine("}")
         sb.AppendLine("")
 
         sb.AppendLine("function ResetValue(tagNum, index) {")
