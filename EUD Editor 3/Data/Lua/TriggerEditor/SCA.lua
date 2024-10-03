@@ -31,7 +31,7 @@ function SCAScriptRunFunc(ScriptName, ReturnIndex, ...)
 		argcount = argcount + 1
 	end
 
-	echo("scalua.scaExecScript(".. ParseSCAScript(ScriptName) .. ", " .. ReturnIndex .. ", " .. argcount .. ", EPD(SCAArgArray))") --배열의 EPD를 넘겨준다.
+	echo("scalua.scaExecScript(".. ParseSCAScript(ScriptName) .. ", " .. ReturnIndex .. ", " .. argcount .. ", SCAArgArray)") --배열의 EPD를 넘겨준다.
 end
 
 
