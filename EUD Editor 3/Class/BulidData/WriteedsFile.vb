@@ -66,18 +66,18 @@ Partial Public Class BuildData
             For i = 0 To pBlocks.Count - 1
                 Dim texts As String = pBlocks(i).GetEdsString()
 
-                If pjData.TEData.SCArchive.IsUsed Then
-                    Dim startoffreeze As Integer = texts.IndexOf("[freeze]")
-                    If startoffreeze >= 0 Then
-                        If texts.IndexOf("[freeze]" & vbCrLf & "prompt: 1") = -1 Then
-                            If Tool.CustomMsgBox(Tool.GetText("Error SCA Freeze"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
-                                Throw New Exception()
-                            End If
-                            texts = texts.Insert(startoffreeze + 8, vbCrLf & "prompt: 1")
-                        End If
-                        'prompt: 1
-                    End If
-                End If
+                'If pjData.TEData.SCArchive.IsUsed Then
+                '    Dim startoffreeze As Integer = texts.IndexOf("[freeze]")
+                '    If startoffreeze >= 0 Then
+                '        If texts.IndexOf("[freeze]" & vbCrLf & "prompt: 1") = -1 Then
+                '            If Tool.CustomMsgBox(Tool.GetText("Error SCA Freeze"), MessageBoxButton.OKCancel) = MsgBoxResult.Cancel Then
+                '                Throw New Exception()
+                '            End If
+                '            texts = texts.Insert(startoffreeze + 8, vbCrLf & "prompt: 1")
+                '        End If
+                '        'prompt: 1
+                '    End If
+                'End If
 
                 sb.AppendLine(texts)
             Next

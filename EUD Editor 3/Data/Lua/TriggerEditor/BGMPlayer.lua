@@ -16,6 +16,8 @@ BGM
 ]================================]
 function SetBGM(BGMName)
 	preDefine("import TriggerEditor.BGMPlayerWrapper as bg;")
+	mainPreDefine("import TriggerEditor.BGMPlayerWrapper as bg;")
+	
 	onPluginText("bg.loadSound();")
 	beforeText('foreach (cp : EUDLoopPlayer("Human")) {setcurpl(cp); bg.Exec();}')
 
