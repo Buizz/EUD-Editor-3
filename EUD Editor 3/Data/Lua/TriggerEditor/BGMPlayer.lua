@@ -22,7 +22,7 @@ function SetBGM(BGMName)
 	beforeText('foreach (cp : EUDLoopPlayer("Human")) {setcurpl(cp); bg.Exec();}')
 
 	--bindex = GetBGMIndex(BGMName)
-
+	 
 	echo("bg.SetBGM(" .. GetReturnBGMIndex(BGMName) .. ")")
 end
 
