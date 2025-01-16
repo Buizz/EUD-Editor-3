@@ -336,13 +336,21 @@ Public Class SettingWindows
         End While
         StandardOutput = process.StandardOutput.ReadLine
 
-        Dim FrishLine As String = StandardOutput.Split(":")(0).Trim
+        If StandardOutput Is Nothing Then
+            Dispatcher.Invoke(Windows.Threading.DispatcherPriority.Normal,
+            New Action(Sub()
+                           euddraftVersion1.Content = Tool.GetText("euddraftVersion1") & "ERROR"
+                           euddraftVersion2.Content = Tool.GetText("euddraftVersion2") & "euddraft " & pgData.RecommendeuddraftVersion.ToString
+                       End Sub))
+        Else
+            Dim FrishLine As String = StandardOutput.Split(":")(0).Trim
 
-        Dispatcher.Invoke(Windows.Threading.DispatcherPriority.Normal,
-        New Action(Sub()
-                       euddraftVersion1.Content = Tool.GetText("euddraftVersion1") & FrishLine
-                       euddraftVersion2.Content = Tool.GetText("euddraftVersion2") & "euddraft " & pgData.RecommendeuddraftVersion.ToString
-                   End Sub))
+            Dispatcher.Invoke(Windows.Threading.DispatcherPriority.Normal,
+            New Action(Sub()
+                           euddraftVersion1.Content = Tool.GetText("euddraftVersion1") & FrishLine
+                           euddraftVersion2.Content = Tool.GetText("euddraftVersion2") & "euddraft " & pgData.RecommendeuddraftVersion.ToString
+                       End Sub))
+        End If
     End Sub
 
 

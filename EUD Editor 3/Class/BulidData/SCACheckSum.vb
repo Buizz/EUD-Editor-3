@@ -31,6 +31,7 @@ Partial Public Class BuildData
         Dim checkstring As String = httpRequest("encrypt256", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(checksumv))
         'Dim checkstring As String = AESModule.EncryptString128Bit(checksumv, ConnectKey)
 
+        bw.Write(checkstring.Length)
         bw.Write(checkstring)
         'MsgBox(checkstring)
 

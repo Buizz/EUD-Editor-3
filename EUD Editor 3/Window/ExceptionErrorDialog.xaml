@@ -13,7 +13,7 @@
         Background="{DynamicResource MaterialDesignPaper}" 
         Foreground="{DynamicResource MaterialDesignBody}"  
         mc:Ignorable="d"
-        Title="오류 보고"  WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize">
+        Title="오류 보고"  WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Topmost="True">
     <DockPanel>
         <Grid Height="120" Width="550" DockPanel.Dock="Top">
             <Grid.ColumnDefinitions>

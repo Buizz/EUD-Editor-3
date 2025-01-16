@@ -709,6 +709,23 @@ end
 --[================================[
 @Language.ko-KR
 @Summary
+현재 플레이어를 해당 맵에서 Ban합니다.
+@Group
+SCA
+
+@Language.en-US
+@Summary
+현재 플레이어를 해당 맵에서 Ban합니다.
+@Group
+SCA
+]================================]
+function sca_ban()
+end
+
+
+--[================================[
+@Language.ko-KR
+@Summary
 SCA서버에 데이터를 저장합니다.
 @Group
 SCA

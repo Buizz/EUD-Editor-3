@@ -151,7 +151,7 @@ Public Class ProgramData
         Try
             Dim bool As Boolean = Setting(ProgramData.TSetting.DataEditorTopMost)
         Catch ex As Exception
-            Setting(ProgramData.TSetting.DataEditorTopMost) = True
+            Setting(ProgramData.TSetting.DataEditorTopMost) = False
         End Try
 
         Try
@@ -163,19 +163,19 @@ Public Class ProgramData
         Try
             Dim bool As Boolean = Setting(ProgramData.TSetting.TriggerEditrTopMost)
         Catch ex As Exception
-            Setting(ProgramData.TSetting.TriggerEditrTopMost) = True
+            Setting(ProgramData.TSetting.TriggerEditrTopMost) = False
         End Try
 
         Try
             Dim bool As Boolean = Setting(ProgramData.TSetting.PluginSettingTopMost)
         Catch ex As Exception
-            Setting(ProgramData.TSetting.PluginSettingTopMost) = True
+            Setting(ProgramData.TSetting.PluginSettingTopMost) = False
         End Try
 
         Try
             Dim bool As Boolean = Setting(ProgramData.TSetting.CheckUpdate)
         Catch ex As Exception
-            Setting(ProgramData.TSetting.CheckUpdate) = True
+            Setting(ProgramData.TSetting.CheckUpdate) = False
         End Try
 
         If Not IsNumeric(Setting(ProgramData.TSetting.Graphic)) Then
