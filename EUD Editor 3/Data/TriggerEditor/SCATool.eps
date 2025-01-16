@@ -29,18 +29,17 @@ function Init(){
 	EUDRegisterObjectToNamespace("MSQCValue", MSQCValue);
 	EUDRegisterObjectToNamespace("MSQCBuffer", MSQCBuffer);
 
-    DoActions(
-        SetMemoryEPD(EPD(mappath) + 0, SetTo, 3722075717),
-        SetMemoryEPD(EPD(mappath) + 1, SetTo, 3982906636),
-        SetMemoryEPD(EPD(mappath) + 2, SetTo, 1185060405),
-        SetMemoryEPD(EPD(mappath) + 3, SetTo, 2930803196),
-        SetMemoryEPD(EPD(mappath) + 4, SetTo, 773278115),
-        SetMemoryEPD(EPD(mappath) + 5, SetTo, 3579781808),
-        SetMemoryEPD(EPD(mappath) + 6, SetTo, 3074824624),
-        SetMemoryEPD(EPD(mappath) + 7, SetTo, 3414833178),
-        SetMemoryEPD(EPD(mappath) + 8, SetTo, 0xFFFFFFFF),
-        SetMemoryEPD(EPD(mappath) + 9, SetTo, 0x00000007),
-    );
+	dwwrite_epd(EPD(mappath) + 0, 3722075717);
+	dwwrite_epd(EPD(mappath) + 1, 3982906636);
+	dwwrite_epd(EPD(mappath) + 2, 1185060405);
+	dwwrite_epd(EPD(mappath) + 3, 2930803196);
+	dwwrite_epd(EPD(mappath) + 4, 773278115);
+	dwwrite_epd(EPD(mappath) + 5, 3579781808);
+	dwwrite_epd(EPD(mappath) + 6, 3074824624);
+    dwwrite_epd(EPD(mappath) + 7, 3414833178);
+
+    dwwrite_epd(EPD(mappath) + 8, 0xFFFFFFFF);
+    dwwrite_epd(EPD(mappath) + 9, 0x00000007);
     //0~39
 
     f_repmovsd_epd(EPD(mappath) + 10, EPD(0x57EEE8) + 9 * getuserplayerid(), 7);
