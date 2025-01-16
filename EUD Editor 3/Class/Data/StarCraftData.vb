@@ -1,5 +1,6 @@
 ﻿Imports System.ComponentModel
 Imports System.IO
+Imports EUD_Editor_3.ProgramData
 Imports Pfim
 Public Module SCConst
     Public SCUnitCount As Byte = 228
@@ -283,7 +284,7 @@ Public Class StarCraftData
     End Property
     Private ReadOnly Property BtnStrPath As String
         Get
-            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\UnitBtn.txt"
+            Return System.AppDomain.CurrentDomain.BaseDirectory & "\Data\Texts\UnitBtn_" & pgData.Setting(ProgramData.TSetting.Language) & ".txt"
         End Get
     End Property
 

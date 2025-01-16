@@ -115,7 +115,7 @@ Public Class Trigger
             Next
 
             If rstr = "" Then
-                rstr = "조건이 없습니다."
+                rstr = Tool.GetLanText("CT_ConditionNotExist")
             End If
 
             Return rstr
@@ -136,7 +136,7 @@ Public Class Trigger
             Next
 
             If rstr = "" Then
-                rstr = "액션이 없습니다."
+                rstr = Tool.GetLanText("CT_ActionNotExist")
             End If
 
             Return rstr

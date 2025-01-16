@@ -12,6 +12,8 @@
     <sys:String x:Key="DataLoading">Loading data...</sys:String>
     <sys:String x:Key="RegistryConnect">Do you want to associate EUD Editor 3 with .e3s files? (Recommended)</sys:String>
 
+    <sys:String x:Key="SCASettingWindow">SCA Setting</sys:String>
+    
     <sys:String x:Key="Setting">Program Settings</sys:String>
     <sys:String x:Key="SampleSelect">Sample Map Select</sys:String>
     <sys:String x:Key="OpenMap">Open Map</sys:String>
@@ -1163,6 +1165,10 @@
     <sys:String x:Key="CT_Extern">Extern</sys:String>
 
 
+    <sys:String x:Key="CT_TriggerUnused">[TRIGGER UNUSED]</sys:String>
+    <sys:String x:Key="CT_PreservedHead">[PRESERVED TRIGGER]</sys:String>
+    
+    
 
     <sys:String x:Key="CT_Select">Select</sys:String>
 

@@ -154,16 +154,16 @@
                                     <Border Width="{Binding ElementName=TListBox,Path=ActualWidth}" Background="#19C8C8C8" BorderThickness="1" Margin="-4,-2,-6,-2">
                                         <StackPanel Orientation="Vertical">
                                             <StackPanel Orientation="Horizontal">
-                                                <TextBlock Text="사용안함" Visibility="{Binding _IsEnabled}" Foreground="Red"/>
-                                                <TextBlock Text="무한반복트리거" Visibility="{Binding _IsPreserved}"/>
+                                                <TextBlock Text="{StaticResource CT_TriggerUnused}" Visibility="{Binding _IsEnabled}" FontSize="18" Foreground="Red" FontWeight="Bold" Margin="2,0,2,0"/>
+                                                <TextBlock Text="{StaticResource CT_PreservedHead}" Visibility="{Binding _IsPreserved}" FontSize="18" FontWeight="Bold" Margin="2,0,2,0"/>
                                             </StackPanel>
                                             <DockPanel Visibility="{Binding HaveComment}" Margin="8">
                                                 <TextBlock Text="{Binding CommentStringProperty}"/>
                                             </DockPanel>
                                             <StackPanel Margin="8" Visibility="{Binding NotHaveComment}">
-                                                <TextBlock Text="조건" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                                                <TextBlock Text="{StaticResource CT_Condition}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                                                 <TextBlock Text="{Binding ConditionString}" Margin="8,0,0,0"/>
-                                                <TextBlock Text="액션" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                                                <TextBlock Text="{StaticResource CT_Action}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
                                                 <TextBlock Text="{Binding ActionsString}" Margin="8,0,0,0"/>
                                             </StackPanel>
                                         </StackPanel>

@@ -846,6 +846,9 @@
     <Compile Include="Window\BackUpWindows.xaml.vb">
       <DependentUpon>BackUpWindows.xaml</DependentUpon>
     </Compile>
+    <Compile Include="Window\SCASettingWindows.xaml.vb">
+      <DependentUpon>SCASettingWindows.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Window\SampleMapSetting.xaml.vb">
       <DependentUpon>SampleMapSetting.xaml</DependentUpon>
     </Compile>
@@ -1375,6 +1378,10 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
+    <Page Include="Window\SCASettingWindows.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Window\SampleMapSetting.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -1839,30 +1846,30 @@
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <Resource Include="Version.txt" />
-    <EmbeddedResource Include="Data\Texts\GRPfile.txt">
+    <None Include="Data\Texts\GRPfile.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\Images.txt">
+    </None>
+    <None Include="Data\Texts\Images.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\UnitBtn.txt">
+    </None>
+    <None Include="Data\Texts\UnitBtn_en-US.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
     <None Include="Data\Resources\BlackIcon.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="Data\Texts\Sfxdata.txt">
+    <None Include="Data\Texts\Sfxdata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\Portdata.txt">
+    </None>
+    <None Include="Data\Texts\Portdata.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\Icon.txt">
+    </None>
+    <None Include="Data\Texts\Icon.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\IscriptIDList.txt">
+    </None>
+    <None Include="Data\Texts\IscriptIDList.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
     <None Include="Data\Resources\Func.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1874,27 +1881,27 @@
     </None>
     <None Include="README.md" />
     <None Include="Resources\success.wav" />
-    <EmbeddedResource Include="Data\Texts\Virtual-Key Codes.txt">
+    <None Include="Data\Texts\Virtual-Key Codes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\ASCII Codes.txt">
+    </None>
+    <None Include="Data\Texts\ASCII Codes.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\FireGraftActFun.txt">
+    </None>
+    <None Include="Data\Texts\FireGraftActFun.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\FireGraftConFun.txt">
+    </None>
+    <None Include="Data\Texts\FireGraftConFun.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
     <Content Include="Data\RegSetting.exe">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
-    <EmbeddedResource Include="Data\Texts\AnimHeader.txt">
+    <None Include="Data\Texts\AnimHeader.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\AnimOpcodes.txt">
+    </None>
+    <None Include="Data\Texts\AnimOpcodes.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
     <None Include="Data\TriggerEditor\epsFunctions.txt">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
@@ -1913,18 +1920,18 @@
     <None Include="Data\Resources\Variable.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <EmbeddedResource Include="Data\Texts\FlingyGroup.txt">
+    <None Include="Data\Texts\FlingyGroup.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\ImageGroup.txt">
+    </None>
+    <None Include="Data\Texts\ImageGroup.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\SpriteGroup.txt">
+    </None>
+    <None Include="Data\Texts\SpriteGroup.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
-    <EmbeddedResource Include="Data\Texts\StrGroup.txt">
+    </None>
+    <None Include="Data\Texts\StrGroup.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
-    </EmbeddedResource>
+    </None>
     <None Include="Data\Resources\nameSpace.png">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
@@ -1966,6 +1973,9 @@
     </None>
     <None Include="Data\TriggerEditor\Autocmp\StatusFlags+FLAG.txt">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+    </None>
+    <None Include="Data\Texts\UnitBtn_ko-KR.txt">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
     <Content Include="ICSharpCode.AvalonEdit.dll" />
     <Content Include="KopiLua.dll" />

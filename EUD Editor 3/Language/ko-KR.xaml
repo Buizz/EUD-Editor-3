@@ -12,6 +12,8 @@
     <sys:String x:Key="DataLoading">실행을 위해 데이터를 불러오는 중...</sys:String>
     <sys:String x:Key="RegistryConnect">확장자가 연결되어 있지 않습니다. 연결하시겠습니까?</sys:String>
 
+    <sys:String x:Key="SCASettingWindow">SCA 설정</sys:String>
+    
     <sys:String x:Key="Setting">설정</sys:String>
     <sys:String x:Key="SampleSelect">샘플 맵 선택</sys:String>
     <sys:String x:Key="OpenMap">연결된 맵</sys:String>
@@ -1165,6 +1167,10 @@
     <sys:String x:Key="CT_Plib">플립</sys:String>
     <sys:String x:Key="CT_Lua">Lua</sys:String>
     <sys:String x:Key="CT_Extern">외부</sys:String>
+
+
+    <sys:String x:Key="CT_TriggerUnused">[트리거사용안함]</sys:String>
+    <sys:String x:Key="CT_PreservedHead">[무한반복트리거]</sys:String>
 
 
 
