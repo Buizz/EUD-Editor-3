@@ -7,9 +7,15 @@ Public Class SCABinding
 
     Public Sub PropertyChangedPack()
         NotifyPropertyChanged("MapCode")
+
         'NotifyPropertyChanged("MiniBackColor")
     End Sub
-
+    Public Sub LoginRefresh()
+        NotifyPropertyChanged("UserName")
+        NotifyPropertyChanged("MapName")
+        NotifyPropertyChanged("SubTitle")
+        'NotifyPropertyChanged("MiniBackColor")
+    End Sub
 
 
     Public Property SCAUse() As Boolean
@@ -116,7 +122,12 @@ Public Class SCABinding
 
     Public Property UserName() As String
         Get
-            Return pjData.TEData.SCArchive.MakerServerName
+            If pjData.TEData.SCArchive.IsLogin Then
+                Return pjData.TEData.SCArchive.MakerServerName
+            Else
+                Return "****"
+            End If
+
         End Get
         Set(value As String)
             pjData.SetDirty(True)
@@ -124,9 +135,29 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
+
+    Public Property MapName() As String
+        Get
+            If pjData.TEData.SCArchive.IsLogin Then
+                Return pjData.TEData.SCArchive.MapName
+            Else
+                Return "****"
+            End If
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MapName = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
     Public Property SubTitle() As String
         Get
-            Return pjData.TEData.SCArchive.SubTitle
+            If pjData.TEData.SCArchive.IsLogin Then
+                Return pjData.TEData.SCArchive.SubTitle
+            Else
+                Return "****"
+            End If
         End Get
         Set(value As String)
             pjData.SetDirty(True)
@@ -213,16 +244,7 @@ Public Class SCABinding
     End Property
 
 
-    Public Property MapName() As String
-        Get
-            Return pjData.TEData.SCArchive.MapName
-        End Get
-        Set(value As String)
-            pjData.SetDirty(True)
-            pjData.TEData.SCArchive.MapName = value
-            PropertyChangedPack()
-        End Set
-    End Property
+
     'Public Property Password() As String
     '    Get
     '        Return pjData.TEData.SCArchive.PassWord

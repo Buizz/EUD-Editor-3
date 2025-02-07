@@ -146,5 +146,57 @@ Public Class TECUIPage
             CType(TEFile.Scripter, CUIScriptEditor).StringText = NewTextEditor.Text
         End If
     End Sub
+
+
+    Private ispass As Boolean
+    Private Sub UserControl_GotKeyboardFocus(sender As Object, e As KeyboardFocusChangedEventArgs)
+        If ispass Then
+            Return
+        End If
+
+        Dim scripter As CUIScriptEditor = TEFile.Scripter
+
+        If scripter.CheckConnect Then
+            Dim textstring As String = ""
+
+            If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+                textstring = NewTextEditor.Text
+            Else
+                textstring = OldTextEditor.Text
+            End If
+
+            If textstring <> scripter.StringText Then
+                '파일이 변형됨
+                ExternLoad.Visibility = Visibility.Visible
+            End If
+
+
+        End If
+
+    End Sub
+
+    Private Sub ExternOkay_Click(sender As Object, e As RoutedEventArgs)
+        Dim scripter As CUIScriptEditor = TEFile.Scripter
+
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+            NewTextEditor.Text = scripter.StringText
+        Else
+            OldTextEditor.Text = scripter.StringText
+        End If
+
+        ExternLoad.Visibility = Visibility.Collapsed
+    End Sub
+
+    Private Sub ExternCancel_Click(sender As Object, e As RoutedEventArgs)
+        ExternLoad.Visibility = Visibility.Collapsed
+
+        If pgData.Setting(ProgramData.TSetting.TestCodeEditorUse) = "True" Then
+            ispass = True
+            NewTextEditor.FocusTextBox()
+            ispass = False
+        Else
+            OldTextEditor.Focus()
+        End If
+    End Sub
 End Class
 

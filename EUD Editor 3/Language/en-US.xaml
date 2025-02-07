@@ -12,7 +12,7 @@
     <sys:String x:Key="DataLoading">Loading data...</sys:String>
     <sys:String x:Key="RegistryConnect">Do you want to associate EUD Editor 3 with .e3s files? (Recommended)</sys:String>
 
-    <sys:String x:Key="SCASettingWindow">SCA Setting</sys:String>
+    <sys:String x:Key="SCASettingWindow">SCA Login</sys:String>
     
     <sys:String x:Key="Setting">Program Settings</sys:String>
     <sys:String x:Key="SampleSelect">Sample Map Select</sys:String>
@@ -841,8 +841,11 @@
     <sys:String x:Key="PyScriptFile">eudplib File</sys:String>
     <sys:String x:Key="FIleName">File name</sys:String>
     <sys:String x:Key="CreateDate">Created Date</sys:String>
+    <sys:String x:Key="ConnectFile">Connected File</sys:String>
     <sys:String x:Key="LastDate">Last Editted</sys:String>
 
+    <sys:String x:Key="Warning">Warning</sys:String>
+    <sys:String x:Key="ExternWarning">The file has been externally modified. Do you load files from external sources?</sys:String>
 
     <sys:String x:Key="SearchText">Search</sys:String>
     <sys:String x:Key="TextEditor">Text Editor</sys:String>
@@ -1062,9 +1065,18 @@
     <sys:String x:Key="MultiPlayMode">Multi Player Mode</sys:String>
     <sys:String x:Key="FreePlayMode">Free Play Mode</sys:String>
 
-    <sys:String x:Key="SCAHomepage">SCArchive Management</sys:String>
-    
-    <sys:String x:Key="SCALoginInfor">SCA Login Info</sys:String>
+    <sys:String x:Key="SCAHomepage">SCArchive Setting Page</sys:String>
+
+    <sys:String x:Key="SCALogin">Sign In</sys:String>
+    <sys:String x:Key="SCALogout">Sign Out</sys:String>
+    <sys:String x:Key="SCASign">Sign Up</sys:String>
+    <sys:String x:Key="SCALoginError">LoginError</sys:String>
+    <sys:String x:Key="Email">Email</sys:String>
+    <sys:String x:Key="SCASaveLoginInfor">Remember me</sys:String>
+
+    <sys:String x:Key="SCADoubleLoginAlert">This is a different SCA account than the saved SCA account. \nID Number will be deleted. \nWould you still like to continue?</sys:String>
+
+    <sys:String x:Key="SCALoginInfor">SCA Sign In</sys:String>
     <sys:String x:Key="MapSetting">Map Settings</sys:String>
     <sys:String x:Key="BattleTag">Battle Tag</sys:String>
 

@@ -64,6 +64,46 @@ Partial Public Class BuildData
 
 
                 Me.IsEdd = isEdd
+
+                If pjData.TEData.SCArchive.IsUsed Then
+                    '로그인이 되어 있을 경우
+                    If pjData.TEData.SCArchive.IsLogin Then
+                        If Not pjData.TEData.SCArchive.CheckLoginAccount() Then
+                            Dim SCALoginWindow As New SCASettingWindows
+
+                            SCALoginWindow.ShowDialog()
+
+                            '로그인 실패하면
+                            If Not SCALoginWindow.Result Then
+                                Tool.ErrorMsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다. SCA사용이 해제됩니다.")
+                                pgData.IsCompilng = False
+                                pgData.isEddCompile = False
+                                Tool.RefreshMainWindow()
+                                Return
+                            Else
+                                pjData.TEData.SCArchive.IsUsed = True
+                            End If
+                        End If
+                    Else
+                        Dim SCALoginWindow As New SCASettingWindows
+
+                        SCALoginWindow.ShowDialog()
+
+                        '로그인 실패하면
+                        If Not SCALoginWindow.Result Then
+                            Tool.ErrorMsgBox(Tool.GetText("Error SCA") & vbCrLf & "계정 정보가 올바르지 않습니다. SCA사용이 해제됩니다.")
+                            pgData.IsCompilng = False
+                            pgData.isEddCompile = False
+                            Tool.RefreshMainWindow()
+                            Return
+                        Else
+                            pjData.TEData.SCArchive.IsUsed = True
+                        End If
+                    End If
+                End If
+
+
+
                 MainThread = New BackgroundWorker()
                 AddHandler MainThread.DoWork, AddressOf BuildProgressWorker
                 AddHandler MainThread.RunWorkerCompleted, AddressOf BuildProgressComplete

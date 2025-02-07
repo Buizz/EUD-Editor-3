@@ -795,8 +795,6 @@ Public Class ProjectData
             SaveData.OpenMapName = ""
         End If
 
-        'For i = 0 To TEData.BGMData.BGMList.Count - 1
-        'Next
 
         If Not My.Computer.FileSystem.DirectoryExists(SaveMapdirectory) Then
             SaveData.SaveMapName = ""

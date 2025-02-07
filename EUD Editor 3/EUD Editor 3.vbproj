@@ -402,6 +402,7 @@
     <Compile Include="Class\tblWriter.vb" />
     <Compile Include="Class\Tools\IniClass.vb" />
     <Compile Include="Class\Command\DateEditor\DatCommand.vb" />
+    <Compile Include="Class\Tools\HttpTool.vb" />
     <Compile Include="Class\TriggerEditor\BGMData.vb" />
     <Compile Include="Class\TriggerEditor\ClassicEditor\ArgValue.vb" />
     <Compile Include="Class\TriggerEditor\ClassicEditor\ClassicTriggerEditor.vb" />
@@ -1983,6 +1984,7 @@
     <Content Include="KopiLuaInterface.dll" />
     <Content Include="Microsoft.DwayneNeed.dll" />
     <Content Include="Microsoft.DwayneNeed.Win32.dll" />
+    <Resource Include="Resources\SCIcon.png" />
     <Content Include="StormLib.dll">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </Content>

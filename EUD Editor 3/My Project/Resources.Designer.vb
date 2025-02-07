@@ -22,7 +22,7 @@ Namespace My.Resources
     '''<summary>
     '''  지역화된 문자열 등을 찾기 위한 강력한 형식의 리소스 클래스입니다.
     '''</summary>
-    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "16.0.0.0"),  _
+    <Global.System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "17.0.0.0"),  _
      Global.System.Diagnostics.DebuggerNonUserCodeAttribute(),  _
      Global.System.Runtime.CompilerServices.CompilerGeneratedAttribute(),  _
      Global.Microsoft.VisualBasic.HideModuleNameAttribute()>  _
@@ -58,6 +58,16 @@ Namespace My.Resources
             Set
                 resourceCulture = value
             End Set
+        End Property
+        
+        '''<summary>
+        '''  System.Drawing.Bitmap 형식의 지역화된 리소스를 찾습니다.
+        '''</summary>
+        Friend ReadOnly Property SCIcon() As System.Drawing.Bitmap
+            Get
+                Dim obj As Object = ResourceManager.GetObject("SCIcon", resourceCulture)
+                Return CType(obj,System.Drawing.Bitmap)
+            End Get
         End Property
         
         '''<summary>

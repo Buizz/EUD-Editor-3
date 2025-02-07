@@ -54,40 +54,6 @@ Partial Public Class BuildData
     End Sub
 
 
-    Private cookie As CookieContainer
-    Public Function httpRequest(filename As String, senddata As String) As String
-        Dim url As String = "https://scarchive.kr/eudeditor/" & filename & ".php"
-
-        Dim strResult As String = ""
-        Dim req As HttpWebRequest = WebRequest.Create(url)
-        req.Method = "POST"
-        req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8"
-        req.ContentLength = senddata.Length
-        req.KeepAlive = True
-        req.CookieContainer = cookie
-
-        Dim sw As StreamWriter = New StreamWriter(req.GetRequestStream())
-        sw.Write(senddata)
-        sw.Close()
-
-        Dim result As HttpWebResponse = req.GetResponse()
-
-        If result.StatusCode = HttpStatusCode.OK Then
-            Dim strReceiveStream As Stream = result.GetResponseStream()
-            Dim reqStreamReader As StreamReader = New StreamReader(strReceiveStream, Text.Encoding.UTF8)
-
-            strResult = reqStreamReader.ReadToEnd()
-
-            req.Abort()
-            strReceiveStream.Close()
-            reqStreamReader.Close()
-
-        Else
-            strResult = "ERROR"
-        End If
-
-        Return strResult
-    End Function
     Private Function ConnecterStart() As Boolean
 
         '$mapcode = $_POST['mapcode'];
@@ -104,11 +70,7 @@ Partial Public Class BuildData
         If (mapCode = "") Then
             Return False
         End If
-        Dim senddata As String = ""
-        senddata = "mapcode=" & WebUtility.UrlEncode(mapCode) & "&"
-        senddata = senddata & "subtitle=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SubTitle) & "&"
-        senddata = senddata & "bt=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.SCAEmail) & "&"
-        senddata = senddata & "pw=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.PassWord) & "&"
+
 
         Dim tagsdata As String = ""
         For i = 0 To pjData.TEData.SCArchive.CodeDatas.Count - 1
@@ -117,24 +79,17 @@ Partial Public Class BuildData
             End If
             tagsdata = tagsdata & pjData.TEData.SCArchive.CodeDatas(i).TagName
         Next
-        senddata = senddata & "vtaglist=" & WebUtility.UrlEncode(tagsdata) & "&"
 
-        If pjData.TEData.SCArchive.updateinfo And False Then
-            senddata = senddata & "mapname=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTitle) & "&"
-            senddata = senddata & "email=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MakerEmail) & "&"
-            senddata = senddata & "maplink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.DownLink) & "&"
-            senddata = senddata & "imglink=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ImageLink) & "&"
-            senddata = senddata & "mapinfor=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapDes) & "&"
-            senddata = senddata & "viewpublic=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.ViewPublic) & "&"
-            senddata = senddata & "maptag=" & WebUtility.UrlEncode(pjData.TEData.SCArchive.MapTags) & "&"
-            senddata = senddata & "isupdate=True"
-        Else
-            senddata = senddata & "isupdate=False"
-        End If
-        'MsgBox(senddata)
+        Dim datalist As New Dictionary(Of String, String) From {
+            {"mapcode", mapCode},
+            {"subtitle", pjData.TEData.SCArchive.SubTitle},
+            {"bt", pjData.TEData.SCArchive.SCAEmail},
+            {"pw", pjData.TEData.SCArchive.GetPassWord(pjData.TEData.SCArchive.SCAEmail)},
+            {"vtaglist", tagsdata},
+            {"isupdate", "False"}
+        }
 
-
-        Dim respon As String = httpRequest("registermap", senddata)
+        Dim respon As String = HttpTool.Request("registermap", datalist)
 
         Select Case respon
             Case "NOACCOUNT"
@@ -615,7 +570,7 @@ Partial Public Class BuildData
         Dim fs As New FileStream(EudPlibFilePath & "\scadatafile", FileMode.Create)
         Dim sw As New StreamWriter(fs)
 
-        Dim checkstring As String = httpRequest("encrypt256", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(Sb.ToString))
+        Dim checkstring As String = HttpTool.httpRequest("encrypt256", "key=" & WebUtility.UrlEncode(ConnectKey) & "&data=" & WebUtility.UrlEncode(Sb.ToString))
         sw.Write(checkstring)
 
 

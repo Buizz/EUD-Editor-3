@@ -12,7 +12,7 @@
     <sys:String x:Key="DataLoading">실행을 위해 데이터를 불러오는 중...</sys:String>
     <sys:String x:Key="RegistryConnect">확장자가 연결되어 있지 않습니다. 연결하시겠습니까?</sys:String>
 
-    <sys:String x:Key="SCASettingWindow">SCA 설정</sys:String>
+    <sys:String x:Key="SCASettingWindow">SCA 로그인</sys:String>
     
     <sys:String x:Key="Setting">설정</sys:String>
     <sys:String x:Key="SampleSelect">샘플 맵 선택</sys:String>
@@ -838,8 +838,11 @@
     <sys:String x:Key="PyScriptFile">eudplib파일</sys:String>
     <sys:String x:Key="FIleName">파일 이름</sys:String>
     <sys:String x:Key="CreateDate">생성 날짜</sys:String>
+    <sys:String x:Key="ConnectFile">연결된 파일</sys:String>
     <sys:String x:Key="LastDate">마지막으로 편집된 날짜</sys:String>
 
+    <sys:String x:Key="Warning">경고</sys:String>
+    <sys:String x:Key="ExternWarning">파일이 외부에서 수정되었습니다. &#10;외부에서 파일을 불러오겠습니까?</sys:String>
 
     <sys:String x:Key="SearchText">찾기</sys:String>
     <sys:String x:Key="TextEditor">텍스트 에디터</sys:String>
@@ -1067,9 +1070,18 @@
     <sys:String x:Key="FreePlayMode">자유 모드</sys:String>
 
 
-    <sys:String x:Key="SCAHomepage">SCArchive 관리</sys:String>
-    
-    <sys:String x:Key="SCALoginInfor">SCA 로그인 정보</sys:String>
+    <sys:String x:Key="SCAHomepage">SCArchive 맵 정보 페이지</sys:String>
+
+    <sys:String x:Key="SCALogin">로그인</sys:String>
+    <sys:String x:Key="SCALogout">로그아웃</sys:String>
+    <sys:String x:Key="SCASign">회원가입</sys:String>
+    <sys:String x:Key="SCALoginError">로그인 문제해결</sys:String>
+    <sys:String x:Key="Email">이메일</sys:String>
+    <sys:String x:Key="SCASaveLoginInfor">로그인 정보 기억</sys:String>
+
+    <sys:String x:Key="SCADoubleLoginAlert">지정된 SCA 계정과 다른 계정으로 로그인 하셨습니다. \n로그인 시 고유 식별 번호가 삭제됩니다. \n그래도 로그인 하시겠습니까?</sys:String>
+
+    <sys:String x:Key="SCALoginInfor">SCA 로그인</sys:String>
     <sys:String x:Key="MapSetting">맵 설정</sys:String>
     <sys:String x:Key="BattleTag">배틀코드</sys:String>
 

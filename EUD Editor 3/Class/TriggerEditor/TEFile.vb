@@ -306,8 +306,11 @@ Public Class TEFile
             Select Case _FileType
                 Case EFileType.Folder
                     returnText = "​" & Tool.GetText("Folder") & vbCrLf
-                Case EFileType.CUIEps, EFileType.GUIEps, EFileType.ClassicTrigger
+                Case EFileType.GUIEps, EFileType.ClassicTrigger
                     returnText = Tool.GetText("EpsScriptFile") & vbCrLf
+                Case EFileType.CUIEps
+                    returnText = Tool.GetText("EpsScriptFile") & vbCrLf
+                    returnText &= Tool.GetText("ConnectFile") & " : " & vbCrLf & Scripter.ConnectFile & vbCrLf
                 Case EFileType.GUIPy, EFileType.GUIEps
                     returnText = Tool.GetText("PyScriptFile") & vbCrLf
                 Case EFileType.Setting

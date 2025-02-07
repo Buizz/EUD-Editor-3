@@ -12,9 +12,42 @@
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
         WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Background="{DynamicResource MaterialDesignPaper}"
+        Foreground="{DynamicResource MaterialDesignBody}"
+        Closing="MetroWindow_Closing"
         Loaded="Window_Loaded"
-        Title="{StaticResource SCASettingWindow}" Height="450" MinHeight="450" Width="350" MinWidth="350" Topmost="True" WindowStartupLocation="CenterOwner">
-    <DockPanel>
+        Title="{StaticResource SCASettingWindow}" Height="450" MinHeight="450" Width="350" MinWidth="350" Topmost="True" WindowStartupLocation="CenterScreen">
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Image Width="200" Height="200" Source="/Resources/SCIcon.png"/>
 
-    </DockPanel>
+        <StackPanel x:Name="LoginPage" HorizontalAlignment="Center" VerticalAlignment="Center" Visibility="Collapsed">
+            <Border Margin="7" Width="250">
+                <StackPanel >
+
+                    <TextBox x:Name="EmailTextBox" materialDesign:HintAssist.Hint="{StaticResource Email}" PreviewKeyDown="TextBox_PreviewKeyDown"
+                  DockPanel.Dock="Right" TextWrapping="Wrap" Style="{StaticResource MaterialDesignFilledTextBox}" />
+                    <TextBlock x:Name="EmailErrorTextBox" Text="올바른 이메일 형태가 아닙니다." Foreground="#FFFF3939" Visibility="Collapsed"/>
+
+
+                    <PasswordBox x:Name="PasswordBox" materialDesign:HintAssist.Hint="{StaticResource PassWord}" PreviewKeyDown="TextBox_PreviewKeyDown"
+                      DockPanel.Dock="Right" Style="{StaticResource MaterialDesignFilledPasswordBox}"/>
+                    <TextBlock x:Name="PWErrorTextBox" Text="비밀번호는 공란일 수 없습니다.." Foreground="#FFFF3939" Visibility="Collapsed"/>
+                    <TextBlock x:Name="ErrorTextBox" Text="이메일과 비밀번호를 확인하세요." Foreground="#FFFF3939" Visibility="Collapsed"/>
+                </StackPanel>
+            </Border>
+
+            <Button x:Name="LoginBtn" Content="{StaticResource SCALogin}" Click="LoginBtn_Click"/>
+            <CheckBox x:Name="AutoLogin" Content="{StaticResource SCASaveLoginInfor}" IsChecked="True"/>
+            <Separator/>
+            <Button Content="{StaticResource SCASign}" Style="{StaticResource MaterialDesignOutlinedButton}" Padding="0" Height="25" Click="SignUp_Click"/>
+            <Button Content="{StaticResource SCALoginError}" Style="{StaticResource MaterialDesignOutlinedButton}" Padding="0" Height="25" Click="LoginProblem_Click"/>
+        </StackPanel>
+
+        <StackPanel x:Name="LoginAlert" Margin="7" Width="250" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <TextBlock x:Name="AlertText" Text="{StaticResource SCADoubleLoginAlert}" TextWrapping="Wrap" FontSize="16" Margin="0,0,0,26"/>
+
+            <Button Content="{StaticResource Okay}" Click="LoginApply_Click"/>
+            <Button Content="{StaticResource Cancel}" Click="LoginCancel_Click"/>
+        </StackPanel>
+        
+    </StackPanel>
 </controls:MetroWindow>

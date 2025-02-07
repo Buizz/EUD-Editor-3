@@ -124,7 +124,11 @@ Partial Public Class ProjectExplorer
                     Icon.Kind = PackIconKind.Folder
                 End If
             Case TEFile.EFileType.CUIPy, TEFile.EFileType.CUIEps
-                Icon.Kind = PackIconKind.FormatText
+                If File.Scripter.CheckConnect Then
+                    Icon.Kind = PackIconKind.PageNextOutline
+                Else
+                    Icon.Kind = PackIconKind.FormatText
+                End If
             Case TEFile.EFileType.GUIEps, TEFile.EFileType.GUIPy
                 Icon.Kind = PackIconKind.Application
             Case TEFile.EFileType.Setting
