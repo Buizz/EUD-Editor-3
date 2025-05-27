@@ -47,8 +47,11 @@ Public Class StarCraftArchive
                     success = False
                 Case "NOACCOUNT"
                     success = False
+                Case "ERROR"
+                    success = False
                 Case Else
                     success = True
+                    LoginHash = returnval
             End Select
 
 

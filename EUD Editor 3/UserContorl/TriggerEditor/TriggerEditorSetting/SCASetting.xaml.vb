@@ -131,6 +131,7 @@ Public Class SCASetting
                 MapInfor.IsEnabled = True
 
                 LoginEmail.Text = pjData.TEData.SCArchive.SCAEmail
+                pjData.TEData.SCArchive.IsLogin = True
 
 
 

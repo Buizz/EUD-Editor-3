@@ -29,37 +29,43 @@ Module HttpTool
 
 
     Public Function httpRequest(filename As String, senddata As String, Optional cookie As CookieContainer = Nothing) As String
-        Dim url As String = "https://scarchive.kr/eudeditor/" & filename & ".php"
+        Try
+            Dim url As String = "https://scarchive.kr/eudeditor/" & filename & ".php"
 
-        Dim strResult As String = ""
-        Dim req As HttpWebRequest = WebRequest.Create(url)
-        req.Method = "POST"
-        req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8"
-        req.ContentLength = senddata.Length
-        req.KeepAlive = True
-        req.CookieContainer = cookie
+            Dim strResult As String = ""
+            Dim req As HttpWebRequest = WebRequest.Create(url)
+            req.Method = "POST"
+            req.ContentType = "application/x-www-form-urlencoded; charset=UTF-8"
+            req.ContentLength = senddata.Length
+            req.KeepAlive = True
+            req.CookieContainer = cookie
 
-        Dim sw As StreamWriter = New StreamWriter(req.GetRequestStream())
-        sw.Write(senddata)
-        sw.Close()
+            Dim sw As StreamWriter = New StreamWriter(req.GetRequestStream())
+            sw.Write(senddata)
+            sw.Close()
 
-        Dim result As HttpWebResponse = req.GetResponse()
+            Dim result As HttpWebResponse = req.GetResponse()
 
-        If result.StatusCode = HttpStatusCode.OK Then
-            Dim strReceiveStream As Stream = result.GetResponseStream()
-            Dim reqStreamReader As StreamReader = New StreamReader(strReceiveStream, Text.Encoding.UTF8)
+            If result.StatusCode = HttpStatusCode.OK Then
+                Dim strReceiveStream As Stream = result.GetResponseStream()
+                Dim reqStreamReader As StreamReader = New StreamReader(strReceiveStream, Text.Encoding.UTF8)
 
-            strResult = reqStreamReader.ReadToEnd()
+                strResult = reqStreamReader.ReadToEnd()
 
-            req.Abort()
-            strReceiveStream.Close()
-            reqStreamReader.Close()
+                req.Abort()
+                strReceiveStream.Close()
+                reqStreamReader.Close()
 
-        Else
-            strResult = "ERROR"
-        End If
+            Else
+                strResult = "ERROR"
+            End If
+            Return strResult
+        Catch ex As Exception
 
-        Return strResult
+        End Try
+
+
+        Return "ERROR"
     End Function
 
 

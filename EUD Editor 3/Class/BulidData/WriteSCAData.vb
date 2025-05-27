@@ -1,5 +1,6 @@
 ﻿Imports System.IO
 Imports System.Net
+Imports System.Security.Cryptography
 Imports System.Text
 Imports EUD_Editor_3.IScript
 Imports Ionic.Zip
@@ -298,6 +299,9 @@ Partial Public Class BuildData
         sb.AppendLine("    const cp = getcurpl();")
 
 
+
+        sb.AppendLine("    const st = StringBuffer();")
+        'sb.AppendLine("    st.print('값 전달 받음      tagNum :  ',tagNum , ' Value : ' , Value , ' index : ' ,index);")
 
         sb.AppendLine("    switch (tagNum) {")
 

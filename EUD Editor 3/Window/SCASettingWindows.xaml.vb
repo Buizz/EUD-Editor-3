@@ -57,6 +57,10 @@ Public Class SCASettingWindows
                 ErrorTextBox.Text = "이메일과 비밀번호를 확인하세요."
                 ErrorTextBox.Visibility = Visibility.Visible
                 Return
+            Case "ERROR"
+                ErrorTextBox.Text = "로그인에 실패했습니다."
+                ErrorTextBox.Visibility = Visibility.Visible
+                Return
         End Select
         hash = returnval
 
