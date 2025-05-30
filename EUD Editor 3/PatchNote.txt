@@ -1,3 +1,6 @@
+# 0.19.6.0
+-SCA 계정정보 암호화 로직 수정
+
 # 0.19.5.0
 -https://github.com/Buizz/EUD-Editor-3/issues/143 외부파일 연결 설정 관련
 -https://github.com/Buizz/EUD-Editor-3/issues/142 외부파일 연결 설정 관련
