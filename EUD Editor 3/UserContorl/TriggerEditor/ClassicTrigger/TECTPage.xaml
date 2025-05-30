@@ -25,10 +25,10 @@
             </Style.Resources>
         </Style>
     </UserControl.Resources>
-    <Grid>
+    <Grid Margin="8,8,8,8">
         <DockPanel>
             <DockPanel DockPanel.Dock="Left" Width="100" Margin="5">
-                <TextBlock Text="{StaticResource CT_Player}" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                <TextBlock Text="{StaticResource CT_Player}" DockPanel.Dock="Top" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
                 <ListBox x:Name="PlayerList" ItemContainerStyle="{StaticResource myLBStyle}" SelectionChanged="PlayerList_SelectionChanged">
 
                 </ListBox>
@@ -42,7 +42,7 @@
 
                 <Grid Grid.Row="0">
                     <DockPanel >
-                        <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_GlobalVar}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                        <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_GlobalVar}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
                         <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
                             <Button x:Name="GlobalInsertBtn" Click="GlobalInsertBtn_Click" Content="{StaticResource CT_Add}" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
                             <Button x:Name="GlobalEditBtn" Click="GlobalEditBtn_Click" Content="{StaticResource CT_Edit}" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
@@ -53,7 +53,7 @@
                     </DockPanel>
 
                     <Border x:Name="GlobalPanel" Visibility="Visible" Background="#80000000" >
-                        <materialDesign:Card x:Name="VariableCard" Background="{DynamicResource MaterialDesignPaper}" Padding="5" Margin="4,30,4,6" VerticalAlignment="Top"  >
+                        <materialDesign:Card x:Name="VariableCard" Padding="5" Margin="4,30,4,6" VerticalAlignment="Top"  >
                             <DockPanel>
                                 <UniformGrid Rows="1" DockPanel.Dock="Bottom">
                                     <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Okay}" x:Name="GlobalOkayBtn" Click="GlobalOkayBtn_Click"/>
@@ -88,7 +88,7 @@
 
                 <Grid Grid.Row="2">
                     <DockPanel>
-                        <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_Import}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                        <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_Import}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}"/>
                         <UniformGrid Columns="3" Rows="1" DockPanel.Dock="Top">
                             <Button x:Name="ImportInsertBtn" Click="ImportInsertBtn_Click" Content="{StaticResource CT_Add}" Style="{StaticResource MaterialDesignFlatButton}" Padding="0,4"/>
                             <Button x:Name="ImportEditBtn" Click="ImportEditBtn_Click" Content="{StaticResource CT_Edit}" Style="{StaticResource MaterialDesignFlatButton}" IsEnabled="False" Padding="0,4"/>
@@ -98,7 +98,7 @@
                         </ListBox>
                     </DockPanel>
                     <Border x:Name="ImportPanel" Background="#80000000"  >
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Padding="5" Height="125" Margin="4,30,4,0" VerticalAlignment="Top">
+                        <materialDesign:Card Padding="5" Height="125" Margin="4,30,4,0" VerticalAlignment="Top">
                             <DockPanel>
                                 <UniformGrid Rows="1" DockPanel.Dock="Bottom">
                                     <Button Style="{StaticResource MaterialDesignFlatButton}" Content="{StaticResource Okay}" x:Name="ImportOkayBtn" Click="ImportOkayBtn_Click"/>
@@ -121,9 +121,9 @@
             </Grid>
 
             <DockPanel Margin="5">
-                <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_Trigger}" Style="{StaticResource MaterialDesignHeadline6TextBlock}"/>
+                <TextBlock DockPanel.Dock="Top" Text="{StaticResource CT_Trigger}" Style="{StaticResource MaterialDesignSubtitle1TextBlock}" Margin="0,0,0,6"/>
                 <DockPanel>
-                    <StackPanel DockPanel.Dock="Left">
+                    <StackPanel DockPanel.Dock="Left" >
                         <StackPanel Margin="0,0,0,21">
                             <Button Content="{StaticResource CT_New}" Click="NewTriggerBtn_Click" Margin="1" />
                             <Button x:Name="TriggerEditBtn" Content="{StaticResource CT_Edit}" Click="TriggerEditBtn_Click" Margin="1" IsEnabled="False"/>
@@ -146,7 +146,7 @@
 
 
                     <ListBox x:Name="TListBox" ItemContainerStyle="{StaticResource myLBStyle}" SelectionMode="Extended"  ScrollViewer.CanContentScroll="False"
-                             MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" Background="{DynamicResource MaterialDesignToolBarBackground}">
+                             MouseDoubleClick="TListBox_MouseDoubleClick" SelectionChanged="TListBox_SelectionChanged" >
 
                         <ListBox.ItemTemplate>
                             <DataTemplate>
@@ -177,7 +177,7 @@
         </DockPanel>
 
         <Border Grid.ColumnSpan="5" x:Name="EditWindow" Background="#7F000000" Visibility="Hidden" >
-            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" VerticalAlignment="Center" HorizontalAlignment="Center">
+            <materialDesign:Card x:Name="InputDialog" VerticalAlignment="Center" HorizontalAlignment="Center">
 
             </materialDesign:Card>
         </Border>

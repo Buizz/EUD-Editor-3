@@ -11,8 +11,6 @@
         xmlns:system="clr-namespace:System;assembly=mscorlib"
         xmlns:local="clr-namespace:EUD_Editor_3"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Background="{DynamicResource MaterialDesignPaper}"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
@@ -52,7 +50,7 @@
                     </ContextMenu>
                 </ListBox.ContextMenu>
             </ListBox>
-            <Border x:Name="DragImage"  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
+            <Border x:Name="DragImage"  BorderThickness="1" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
 
             </Border>
         </Grid>

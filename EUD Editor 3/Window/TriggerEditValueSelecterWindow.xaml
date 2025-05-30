@@ -10,16 +10,12 @@
         Closing="Window_Closing"
         ShowInTaskbar="False"
         AllowsTransparency="True"
+        Foreground="{DynamicResource MaterialDesignBody}"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        Foreground="{DynamicResource MaterialDesignBody}" 
-        
-        
-        
-        
         Title="TriggerEditValueSelecterWindow"  Topmost="True" ResizeMode="NoResize" WindowStyle="None" Background="Transparent">
 
     <Border x:Name="MainBorder" Padding="5">
-        <materialDesign:Card   Background="{DynamicResource MaterialDesignPaper}">
+        <materialDesign:Card   >
             <DockPanel Margin="2">
                 <ComboBox x:Name="TypeList" SelectionChanged="TypeList_SelectionChanged" DockPanel.Dock="Top">
                 </ComboBox>
@@ -43,7 +39,7 @@
                     <Grid x:Name="VariablePanel" Visibility="Collapsed">
                         <DockPanel>
                             <local:CodeEditor x:Name="VariableCodeEditor" TextChange="VariableCodeEditor_TextChange" DockPanel.Dock="Top" Height="24"/>
-                            <TreeView x:Name="VariableTreeview" SelectedItemChanged="VariableTreeview_SelectedItemChanged" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}"/>
+                            <TreeView x:Name="VariableTreeview" SelectedItemChanged="VariableTreeview_SelectedItemChanged" />
                         </DockPanel>
                     </Grid>
                     <Grid x:Name="FunctionPanel" Visibility="Collapsed">

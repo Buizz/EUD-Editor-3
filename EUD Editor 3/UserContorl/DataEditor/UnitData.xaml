@@ -10,8 +10,9 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
              d:DesignHeight="450" d:DesignWidth="760"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" >
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
+             >
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
 
@@ -24,30 +25,30 @@
 
 
             <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
-                     Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
+                     Padding="2" Margin="0" IsHeaderPanelVisible="False"
                      >
-                <TabItem x:Name="Defualt" Header="{StaticResource UnitDefault}" >
+                <TabItem x:Name="Defualt" Header="{StaticResource UnitDefault}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="Special" Header="{StaticResource UnitSpecial}">
+                <TabItem x:Name="Special" Header="{StaticResource UnitSpecial}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="Sound" Header="{StaticResource UnitSound}">
+                <TabItem x:Name="Sound" Header="{StaticResource UnitSound}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="Graphic" Header="{StaticResource UnitGraphic}">
+                <TabItem x:Name="Graphic" Header="{StaticResource UnitGraphic}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="MapEdit" Header="{StaticResource UnitMapEdit}">
+                <TabItem x:Name="MapEdit" Header="{StaticResource UnitMapEdit}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="AIOrder" Header="{StaticResource UnitAIOrder}">
+                <TabItem x:Name="AIOrder" Header="{StaticResource UnitAIOrder}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="SInforData" Header="{StaticResource UnitInfor}">
+                <TabItem x:Name="SInforData" Header="{StaticResource UnitInfor}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
-                <TabItem x:Name="Requir" Header="{StaticResource UnitRequir}">
+                <TabItem x:Name="Requir" Header="{StaticResource UnitRequir}" Foreground="{DynamicResource MaterialDesignBody}">
 
                 </TabItem>
             </dragablz:TabablzControl>

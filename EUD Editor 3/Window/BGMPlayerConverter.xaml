@@ -8,13 +8,12 @@
         xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:EUD_Editor_3"
-        Background="{DynamicResource MaterialDesignPaper}" 
-        Foreground="{DynamicResource MaterialDesignBody}"  
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         IsCloseButtonEnabled="False"
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         Title="BGMPlayerConverter" Height="100" Width="400" ResizeMode="NoResize">
     <DockPanel>
         <ProgressBar x:Name="probar" Value="0" Height="20" DockPanel.Dock="Bottom"/>

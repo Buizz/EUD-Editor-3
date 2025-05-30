@@ -8,8 +8,6 @@
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d" 
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}"  
              d:DesignHeight="450" d:DesignWidth="800">
     <DockPanel>
         <DockPanel DockPanel.Dock="Left" Width="150">

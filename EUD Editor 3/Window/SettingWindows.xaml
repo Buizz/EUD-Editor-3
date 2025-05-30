@@ -11,11 +11,12 @@
         mc:Ignorable="d"
         Loaded="Window_Loaded"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         Title="{StaticResource Setting}" Height="500" Width="650" MinHeight="500" MinWidth="650" WindowStartupLocation="CenterScreen" Topmost="True">
 
     <Grid>
-        <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="7" Background="{DynamicResource MaterialDesignPaper}" TabStripPlacement="Left" >
+        <TabControl x:Name="MainTab"  TabStripPlacement="Left" Foreground="{DynamicResource MaterialDesignBody}">
             <TabItem x:Name="TabItem_ProjectSetting" Header="{StaticResource Project Setting}" >
                 <StackPanel Margin="10">
                     <Label  Content="{StaticResource OpenMap}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
@@ -29,7 +30,7 @@
                         <Button Click="Button_Click" Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Left"  Margin="0,-4" >
                             <materialDesign:PackIcon Kind="FolderOpen" />
                         </Button>
-                        <TextBox x:Name="TBOpenMap"  Foreground="{DynamicResource MaterialDesignBody}"
+                        <TextBox x:Name="TBOpenMap"  
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True"  />
                      
                     </DockPanel>
@@ -46,7 +47,7 @@
                         <Button Click="Button_Click_1" Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Left" Margin="0,-4" >
                             <materialDesign:PackIcon Kind="FolderOpen"   />
                         </Button>
-                        <TextBox  x:Name="TBSaveMap"  Foreground="{DynamicResource MaterialDesignBody}" 
+                        <TextBox  x:Name="TBSaveMap"  
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     </DockPanel>
 
@@ -63,7 +64,7 @@
                             SelectionChanged="TempFileCombobox_SelectionChanged"
                             x:Name="TempFileCombobox"
                             MinWidth="80"
-                            VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}">
+                            VerticalAlignment="Center" >
                             <ComboBoxItem Content="{StaticResource TempFileLoc0}" />
                             <ComboBoxItem Content="{StaticResource TempFileLoc1}"/>
                             <ComboBoxItem Content="{StaticResource TempFileLoc2}"/>
@@ -72,7 +73,7 @@
                         <Button x:Name="TempFilebtn" DockPanel.Dock="Right" Height="26" Width="96" VerticalAlignment="Top" Click="TempFilebtn_Click">
                             <materialDesign:PackIcon Kind="FindInPage"/>
                         </Button>
-                        <TextBox x:Name="TempFiletextbox"  Margin="10,0" Foreground="{DynamicResource MaterialDesignBody}" 
+                        <TextBox x:Name="TempFiletextbox"  Margin="10,0" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     </DockPanel>
 
@@ -82,11 +83,11 @@
 
                     <Label Content="{StaticResource Setting}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox x:Name="UseCustomTbl" Checked="UseCustomTbl_Checked" Unchecked="UseCustomTbl_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="UseCustomTbl" Checked="UseCustomTbl_Checked" Unchecked="UseCustomTbl_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TBLChange}" Margin="0,0,20,0"/>
 
-                        <CheckBox x:Name="AutoBuild" Checked="AutoBuild_Checked" Unchecked="AutoBuild_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="AutoBuild" Checked="AutoBuild_Checked" Unchecked="AutoBuild_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource AutoCompile}" Margin="0,0,20,0"/>
 
-                        <CheckBox x:Name="LogView" Checked="LogView_Checked" Unchecked="LogView_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource BuildLog}"/>
+                        <CheckBox x:Name="LogView" Checked="LogView_Checked" Unchecked="LogView_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource BuildLog}"/>
                     </StackPanel>
                     
                     
@@ -98,7 +99,7 @@
                             SelectionChanged="EncodingCombobox_SelectionChanged"
                             x:Name="EncodingCombobox"
                             MinWidth="80"
-                            VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}">
+                            VerticalAlignment="Center" >
 
                         </ComboBox>
                     </DockPanel>
@@ -116,7 +117,7 @@
                         <Button DockPanel.Dock="Right" Grid.Row="2" Grid.Column="2" Height="26" VerticalAlignment="Top" Click="BtnStarCraftexe" >
                             <materialDesign:PackIcon Kind="FindInPage"/>
                         </Button>
-                        <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
+                        <TextBox x:Name="TBStarCraftexe" Grid.Row="2" Grid.Column="1" Margin="10,0" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                     </DockPanel>
                     
@@ -130,7 +131,7 @@
                             <Button DockPanel.Dock="Right" Grid.Row="5" Grid.Column="2" Height="26" VerticalAlignment="Top"  Click="Btneuddraftexe" >
                                 <materialDesign:PackIcon Kind="FindInPage"/>
                             </Button>
-                            <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0"  Foreground="{DynamicResource MaterialDesignBody}"
+                            <TextBox x:Name="TBeuddraftexe" Grid.Row="5" Grid.Column="1" Margin="10,0" 
   materialDesign:TransitionAssist.DisableTransitions="True" IsReadOnly="True" />
                         </DockPanel>
                         <DockPanel DockPanel.Dock="top" LastChildFill="False">
@@ -144,7 +145,7 @@
                     <Label Grid.Row="7" Grid.Column="1" Content="{StaticResource Language}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <ComboBox x:Name="CBLanguage" Grid.Row="8" Grid.Column="1" Margin="5" SelectionChanged="CBLanguage_SelectionChanged" 
                     MinWidth="72"
-                    VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
+                    VerticalAlignment="Bottom" >
                         <ComboBoxItem Content="한국어" Tag="ko-KR"/>
                         <ComboBoxItem Content="English" Tag="en-US"/>
                     </ComboBox>
@@ -153,7 +154,7 @@
                     <Label Grid.Row="7" Grid.Column="1" Content="{StaticResource Graphic}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                     <ComboBox x:Name="CBGraphic" Grid.Row="8" Grid.Column="1" Margin="5" SelectionChanged="CBGraphic_SelectionChanged" 
                     MinWidth="72"
-                    VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
+                    VerticalAlignment="Bottom" >
                         <ComboBoxItem Content="{StaticResource NoGraphic}"/>
                         <ComboBoxItem Content="{StaticResource SDGraphic}"/>
                         <ComboBoxItem Content="{StaticResource HDGraphic}"/>
@@ -166,15 +167,15 @@
                     <StackPanel Margin="5">
                         <DockPanel Width="220" HorizontalAlignment="Left" >
                             <Button DockPanel.Dock="Right" x:Name="exeConnectbtn" Content="{StaticResource RegSettingBtn}" Click="ExeConnectbtn_Click" Margin="30,1,1,1"  Height="26"/>
-                            <CheckBox x:Name="regCheck" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource RegSettingCheckbox}"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"/>
+                            <CheckBox x:Name="regCheck"  Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource RegSettingCheckbox}"  Unchecked="CheckBox_Unchecked" Checked="CheckBox_Checked"/>
                         </DockPanel>
                       
-                        <Border  HorizontalAlignment="Left" Width="220"  BorderThickness="1" BorderBrush="{DynamicResource MaterialDesignDivider}">
+                        <Border  HorizontalAlignment="Left" Width="220"  BorderThickness="1" >
                             <WrapPanel >
-                                <CheckBox x:Name="e3scb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                <CheckBox x:Name="e3scb" Width="100" 
                                       Style="{StaticResource MaterialDesignCheckBox}" Content="e3s"/>
 
-                                <CheckBox x:Name="e2scb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
+                                <CheckBox x:Name="e2scb" Width="100" 
                                       Style="{StaticResource MaterialDesignCheckBox}" Content="e2s"/>
 
                                 <!--<CheckBox x:Name="e2pcb" Width="100" TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
@@ -206,7 +207,7 @@
                         <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource Code Lan}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <ComboBox Name="CBCodeLan" Grid.Row="2" Grid.Column="1"   SelectionChanged="CBCodeLan_SelectionChanged"
                     MinWidth="72"
-                    VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
+                    VerticalAlignment="Bottom" >
                             <ComboBoxItem Content="{StaticResource Code CEng}"/>
                             <ComboBoxItem Content="{StaticResource Code CKor-Eng}"/>
                             <ComboBoxItem Content="{StaticResource Code CKor-Kor}"/>
@@ -214,26 +215,26 @@
 
                     </DockPanel>
                     <StackPanel Margin="5" Orientation="Horizontal">
-                        <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
-                        <CheckBox x:Name="TopMostforce" Checked="TopMostforce_Checked"  Unchecked="TopMostforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
-                        <CheckBox x:Name="Mute" Checked="Mute_Checked"  Unchecked="Mute_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource MuteSound}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="ChangeTblUse" Checked="ChangeTblUse_Checked" Unchecked="ChangeTblUse_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource Code CTbl}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="TopMostforce" Checked="TopMostforce_Checked"  Unchecked="TopMostforce_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+                        <CheckBox x:Name="Mute" Checked="Mute_Checked"  Unchecked="Mute_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource MuteSound}" Margin="0,0,20,0"/>
 
                     </StackPanel>
 
                     <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
                     <Label  Content="{StaticResource TE Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <CheckBox x:Name="TopMostTEforce" Checked="TopMostTEforce_Checked"  Unchecked="TopMostTEforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+                    <CheckBox x:Name="TopMostTEforce" Checked="TopMostTEforce_Checked"  Unchecked="TopMostTEforce_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
 
 
-                    <CheckBox x:Name="TECESmoothScroolUse" Checked="TECESmoothScroolUse_Checked"  Unchecked="TECESmoothScroolUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TECESmoothScroolUse}" Margin="0,0,20,0"/>
+                    <CheckBox x:Name="TECESmoothScroolUse" Checked="TECESmoothScroolUse_Checked"  Unchecked="TECESmoothScroolUse_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TECESmoothScroolUse}" Margin="0,0,20,0"/>
 
-                    <CheckBox x:Name="TETestCodeEditorUse" Checked="TETestCodeEditorUse_Checked"  Unchecked="TETestCodeEditorUse_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TETestCodeEditorUse}" Margin="0,0,20,0"/>
+                    <CheckBox x:Name="TETestCodeEditorUse" Checked="TETestCodeEditorUse_Checked"  Unchecked="TETestCodeEditorUse_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TETestCodeEditorUse}" Margin="0,0,20,0"/>
 
 
                     <DockPanel>
                         <Label Grid.Row="1" Grid.Column="1" Content="{StaticResource TEFontSize}" HorizontalAlignment="Left" VerticalAlignment="Top" />
                         <ComboBox Name="FontSizecb" Grid.Row="2" Grid.Column="1"   SelectionChanged="FontSize_SelectionChanged" MinWidth="72"
-                    VerticalAlignment="Bottom" Foreground="{DynamicResource MaterialDesignBody}">
+                    VerticalAlignment="Bottom" >
                     
                         </ComboBox>
                     </DockPanel>
@@ -241,7 +242,7 @@
 
                     <Separator Grid.Row="9" Grid.Column="1" Grid.ColumnSpan="2" Background="#4CA0A0A0"/>
                     <Label  Content="{StaticResource Plugin Setting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
-                    <CheckBox x:Name="TopMostPluginforce" Checked="TopMostPluginforce_Checked"  Unchecked="TopMostPluginforce_Checked" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
+                    <CheckBox x:Name="TopMostPluginforce" Checked="TopMostPluginforce_Checked"  Unchecked="TopMostPluginforce_Checked" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource TopMostOption}" Margin="0,0,20,0"/>
 
                 </StackPanel>
             </TabItem>
@@ -253,11 +254,11 @@
 
                     <DockPanel Margin="10,0,0,0">
                         <DockPanel Width="220" DockPanel.Dock="Top" HorizontalAlignment="Left" >
-                            <CheckBox DockPanel.Dock="Top" x:Name="upDataCheck" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource CheckUpdate}"  Unchecked="UpDataCheck_Unchecked" Checked="UpDataCheck_Checked" />
+                            <CheckBox DockPanel.Dock="Top" x:Name="upDataCheck" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource CheckUpdate}"  Unchecked="UpDataCheck_Unchecked" Checked="UpDataCheck_Checked" />
                 
                         </DockPanel>
 
-                        <RichTextBox x:Name="PatchNote" VerticalScrollBarVisibility="Auto" Foreground="{DynamicResource MaterialDesignBody}" VerticalContentAlignment="Stretch" IsReadOnly="True" Margin="0,10"  FontFamily="Malgun Gothic" Padding="14,1,1,1" BorderBrush="{x:Null}"/>
+                        <RichTextBox x:Name="PatchNote" VerticalScrollBarVisibility="Auto" VerticalContentAlignment="Stretch" IsReadOnly="True" Margin="0,10"  FontFamily="Malgun Gothic" Padding="14,1,1,1" BorderBrush="{x:Null}"/>
                     </DockPanel>
 
                 </DockPanel>
@@ -265,7 +266,7 @@
             <TabItem x:Name="Donate" Header="{StaticResource Donate}">
                 <local:DonateControl/>
             </TabItem>
-        </dragablz:TabablzControl>
+        </TabControl>
 
     </Grid>
 </controls:MetroWindow>

@@ -45,7 +45,7 @@
             VerticalAlignment="Stretch"
         />
         <Border Grid.ColumnSpan="5" x:Name="CreateEditWindow" Background="#3F000000" Visibility="Hidden" >
-            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" VerticalAlignment="Top" HorizontalAlignment="Left">
+            <materialDesign:Card x:Name="InputDialog" VerticalAlignment="Top" HorizontalAlignment="Left">
 
             </materialDesign:Card>
         </Border>

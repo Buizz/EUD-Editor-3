@@ -7,52 +7,6 @@ Public Class ProgramData
     Public ReadOnly Property RecommendeuddraftVersion As New System.Version(0, 10, 1, 6)
 
 
-
-    Public Sub SetTheme_Unused(IsLight As Boolean)
-        Dim palettes As New PaletteHelper
-
-
-        Dim Theme As ITheme = palettes.GetTheme()
-        Dim BaseTheme As IBaseTheme
-        If IsLight Then
-            BaseTheme = New MaterialDesignLightTheme()
-        Else
-            BaseTheme = New MaterialDesignDarkTheme()
-        End If
-
-        Theme.SetBaseTheme(BaseTheme)
-        palettes.SetTheme(Theme)
-
-
-        'palettes.SetLightDark(Not IsLight)
-        If IsLight Then
-            Setting(ProgramData.TSetting.Theme) = "Light"
-        Else
-            Setting(ProgramData.TSetting.Theme) = "Dark"
-        End If
-
-        'If IsLight Then
-
-        '    Dim dict As New ResourceDictionary()
-        '    dict.Source = New Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml", UriKind.Absolute)
-        '    Application.Current.Resources.MergedDictionaries.Add(dict)
-        '    Setting(ProgramData.TSetting.Theme) = "Light"
-
-
-        '    dict = New ResourceDictionary()
-        '    dict.Source = New Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml", UriKind.Absolute)
-        '    Application.Current.Resources.MergedDictionaries.Add(dict)
-        'Else
-        '    Dim dict As New ResourceDictionary()
-        '    dict.Source = New Uri("pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Dark.xaml", UriKind.Absolute)
-        '    Application.Current.Resources.MergedDictionaries.Add(dict)
-        '    Setting(ProgramData.TSetting.Theme) = "Dark"
-
-        '    dict = New ResourceDictionary()
-        '    dict.Source = New Uri("pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml", UriKind.Absolute)
-        '    Application.Current.Resources.MergedDictionaries.Add(dict)
-        'End If
-    End Sub
     Public Sub SetLanguage(LanName As String)
         Dim dict As New ResourceDictionary()
         'Load the Language file corresponding to the user's OS, default to en-US

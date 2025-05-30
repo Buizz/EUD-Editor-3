@@ -27,16 +27,16 @@
                         <materialDesign:Card Height="412" Width="215" Background="{DynamicResource MaterialDesignPaper}" Margin="10,10,10,10" >
                             <Grid>
                                 <Grid.RowDefinitions>
-                                    <RowDefinition Height="25" />
+                                    <RowDefinition Height="42" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
                                 <DockPanel>
-                                    <ToggleButton x:Name="toggleBtn" Margin="5" Style="{StaticResource MaterialDesignSwitchToggleButton}" Checked="ToggleBtn_Checked" Unchecked="ToggleBtn_Unchecked" IsChecked="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
+                                    <ToggleButton x:Name="toggleBtn" Margin="5"  Checked="ToggleBtn_Checked" Unchecked="ToggleBtn_Unchecked" IsChecked="{Binding Value, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}"/>
 
                                     <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
-                                  Text="{StaticResource BtnList}" Padding="6"/>
+                                  Text="{StaticResource BtnList}" Padding="6" VerticalAlignment="Center"/>
                                 </DockPanel>
 
                                 <Border Grid.Row="1" Margin="10,2">
@@ -153,7 +153,7 @@
                     </WrapPanel>
                 </ScrollViewer>
                 <Border x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden"  >
-                    <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" Width="500" Height="400" VerticalAlignment="Center" HorizontalAlignment="Center">
+                    <materialDesign:Card x:Name="InputDialog"  Width="500" Height="400" VerticalAlignment="Center" HorizontalAlignment="Center">
                         <Grid Background="{DynamicResource MaterialDesignPaper}" >
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="*"/>

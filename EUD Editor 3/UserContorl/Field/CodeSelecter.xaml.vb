@@ -333,8 +333,8 @@ Public Class CodeSelecter
 
         If isSelect Then
             'Treeview.SelectedItem = treeviewitem
-            treeviewitem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-            treeviewitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+            treeviewitem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
+            treeviewitem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
             'Treeview.ScrollIntoView(treeviewitem)
         Else
             If BindingManager.CheckUIAble(CurrentPage) And index >= 0 Then
@@ -382,8 +382,8 @@ Public Class CodeSelecter
 
                     If index = tStartIndex Then
                         Listbox.SelectedItem = Listboxitem
-                        Listboxitem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                        Listboxitem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                        Listboxitem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
+                        Listboxitem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
                         Listbox.ScrollIntoView(Listboxitem)
                     Else
                         If BindingManager.CheckUIAble(CurrentPage) And index >= 0 Then
@@ -850,8 +850,8 @@ Public Class CodeSelecter
                         If CodeIndexerList.Items.Count = tStartIndex Then
                             SelectItem = tListItem
                             If IsComboBox Then
-                                tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                                tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                                tListItem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
+                                tListItem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
                             End If
                         End If
 
@@ -911,8 +911,8 @@ Public Class CodeSelecter
                         If index = tStartIndex + 1 Then
                             SelectItem = tListItem
                             If IsComboBox Then
-                                tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                                tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                                tListItem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
+                                tListItem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
                             End If
                         End If
 
@@ -961,8 +961,8 @@ Public Class CodeSelecter
                     If CodeIndexerList.Items.Count = tStartIndex Then
                         SelectItem = tListItem
                         If IsComboBox Then
-                            tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                            tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                            tListItem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
+                            tListItem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
                         End If
                     End If
 
@@ -991,8 +991,8 @@ Public Class CodeSelecter
                             If CodeIndexerList.Items.Count = tStartIndex Then
                                 SelectItem = tListItem
                                 If IsComboBox Then
-                                    tListItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                                    tListItem.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                                    tListItem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
+                                    tListItem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
                                 End If
                             End If
 
@@ -1253,9 +1253,9 @@ Public Class CodeSelecter
             ItempColl.Add(CodeItem)
 
             If isSelect And IsComboBox Then
-                CodeItem.Background = Application.Current.Resources("PrimaryHueDarkBrush")
+                CodeItem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark")
                 'stackpanel.Background = Application.Current.Resources("PrimaryHueDarkBrush")
-                textblock.Foreground = Application.Current.Resources("PrimaryHueDarkForegroundBrush")
+                textblock.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Dark.Foreground")
 
                 Dim _ParentTreeview As Object = CodeItem.Parent
                 While _ParentTreeview.GetType = GetType(TreeViewItem)

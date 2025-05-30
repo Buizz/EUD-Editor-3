@@ -23,7 +23,7 @@
                 <local:CodeSelecter  x:Name="CodeList" ListSelect="CodeList_Select" MaxHeight="300"  />
             </Popup>
             <Button x:Name="OpenNew" DockPanel.Dock="Right"  Style="{StaticResource MaterialDesignRaisedButton}"  Content="{StaticResource Check}"  Padding="4,0" Margin="4,0" Height="28"/>
-            <Button x:Name="btn" Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignFlatButton}" Padding="3,0" Margin="0,5,0,4" Height="Auto">
+            <Button x:Name="btn" Style="{StaticResource MaterialDesignFlatButton}" Padding="3,0" Margin="0,5,0,4" Height="Auto" Foreground="{DynamicResource MaterialDesignBody}">
         
             </Button>
 

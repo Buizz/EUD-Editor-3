@@ -14,6 +14,7 @@ Imports NVorbis.Contracts
 Public Class StarCraftArchive
     Public Sub New()
         DataSpace = 300
+        MSQCSize = 8
 
         FuncSpace = 4000
         SCAScriptVarCount = 200
@@ -257,6 +258,18 @@ Public Class StarCraftArchive
         End Get
         Set(value As Integer)
             _DataSpace = value
+        End Set
+    End Property
+    Private _MSQCSize As Integer
+    Public Property MSQCSize As Integer
+        Get
+            If _MSQCSize < 3 Then
+                _MSQCSize = 3
+            End If
+            Return _MSQCSize
+        End Get
+        Set(value As Integer)
+            _MSQCSize = value
         End Set
     End Property
 

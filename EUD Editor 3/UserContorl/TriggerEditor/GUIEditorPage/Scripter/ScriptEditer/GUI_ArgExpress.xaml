@@ -30,8 +30,8 @@
 
         </ToolBar>
         <Grid x:Name="maingrid" PreviewMouseMove="maingrid_PreviewMouseMove" MouseLeave="maingrid_MouseLeave" MouseEnter="maingrid_MouseEnter" Background="{DynamicResource MaterialDesignPaper}">
-            <Border x:Name="Selecter" Visibility="Hidden" Width="6" Height="38" Background="{DynamicResource PrimaryHueMidBrush}" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False"/>
-            <Border x:Name="Pos" Visibility="Hidden" Width="6" Height="38" Background="{DynamicResource PrimaryHueMidBrush}" Opacity="0.5" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False"/>
+            <Border x:Name="Selecter" Visibility="Hidden" Width="6" Height="38" Background="{DynamicResource MaterialDesign.Brush.Primary}" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False"/>
+            <Border x:Name="Pos" Visibility="Hidden" Width="6" Height="38" Background="{DynamicResource MaterialDesign.Brush.Primary}" Opacity="0.5" HorizontalAlignment="Left" VerticalAlignment="Top" Focusable="False"/>
             <ScrollViewer x:Name="ScrollViewer" HorizontalScrollBarVisibility="Disabled" VerticalScrollBarVisibility="Auto">
                 <WrapPanel x:Name="ItemPanel">
                 </WrapPanel>

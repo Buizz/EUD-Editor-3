@@ -9,8 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" 
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="482"  d:DesignWidth="770">
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
@@ -22,13 +22,13 @@
             <local:NameBar x:Name="NameBar"/>
             <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <WrapPanel MaxWidth="720" MaxHeight="432" HorizontalAlignment="Left" VerticalAlignment="Top" >
-                    <materialDesign:Card Height="70" Width="698" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Height="70" Width="698" Margin="10" >
                         <Grid>
                             <Grid.RowDefinitions>
                                 <RowDefinition Height="25" />
                                 <RowDefinition Height="*" />
                             </Grid.RowDefinitions>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageInfor}" Padding="6"/>
@@ -38,13 +38,13 @@
                         </Grid>
                     </materialDesign:Card>
                     <StackPanel>
-                        <materialDesign:Card Height="97" Width="221" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Height="97" Width="221" Margin="10" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageDefault}" Padding="6"/>
@@ -56,13 +56,13 @@
                                 </WrapPanel>
                             </Grid>
                         </materialDesign:Card>
-                        <materialDesign:Card Height="97" Width="233" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Height="97" Width="233" Margin="10" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageScreen}" Padding="6"/>
@@ -76,13 +76,13 @@
 
                     <DockPanel>
                         <local:GRPImageBox x:Name="GRPPlayer" Width="256" Height="256"/>
-                        <materialDesign:Card Height="312" Width="188" Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Height="312" Width="188" Margin="10" >
                             <Grid>
                                 <Grid.RowDefinitions>
                                     <RowDefinition Height="25" />
                                     <RowDefinition Height="*" />
                                 </Grid.RowDefinitions>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Left" FontSize="14"
                                   Text="{StaticResource ImageScriptSelect}" Padding="6"/>

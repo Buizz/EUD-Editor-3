@@ -8,9 +8,9 @@
              xmlns:dockablz="clr-namespace:Dragablz.Dockablz;assembly=Dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" 
              mc:Ignorable="d"
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="482"  d:DesignWidth="610">
     <Grid>
         <Grid.RowDefinitions>
@@ -24,7 +24,7 @@
                 <TextBlock Text="{StaticResource FG_Size}" VerticalAlignment="Center" HorizontalAlignment="Center" Margin="5,0"/>
                 <ProgressBar x:Name="ReqCapacity" Value="{Binding ReqCapacity}" Width="70" Height="10" />
                 <TextBlock x:Name="ReqCapacityText" Text="{Binding ReqCapacityText}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
-                <TextBlock Text="{StaticResource FG_BatchSetting}" HorizontalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}" VerticalAlignment="Center" Padding="20,0,0,0" />
+                <TextBlock Text="{StaticResource FG_BatchSetting}" HorizontalAlignment="Center" VerticalAlignment="Center" Padding="20,0,0,0" />
 
                 <Button ToolTip="{StaticResource FG_DefaultUseToolTip}" Padding="16,4" Click="Button_Click" Content="{StaticResource FG_DefaultUse}"/>
                 <Button ToolTip="{StaticResource FG_DontUseToolTip}" Padding="16,4" Click="Button_Click_1" Content="{StaticResource FG_DontUse}"/>
@@ -34,13 +34,13 @@
         </ToolBarTray>
         <WrapPanel Grid.Row="2" MaxWidth="610" HorizontalAlignment="Left" VerticalAlignment="Top" >
 
-            <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" MinWidth="590" MinHeight="353" >
+            <materialDesign:Card Margin="10" MinWidth="590" MinHeight="353" >
                 <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="25" />
                         <RowDefinition Height="*" />
                     </Grid.RowDefinitions>
-                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                    <TextBlock 
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Left" FontSize="14"
                               Text="{StaticResource FG_Requirement}" Padding="6"/>

@@ -9,8 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" 
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="482"  d:DesignWidth="610">
     <Grid>
         <Grid.RowDefinitions>
@@ -21,9 +21,9 @@
         <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
             <StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Margin="10" >
                         <DockPanel>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                            <TextBlock
                               Style="{StaticResource MaterialDesignBody2TextBlock}"
                               DockPanel.Dock="Top" FontSize="14"
                               Text="{StaticResource UnitGraphicinfor}" Padding="6"/>
@@ -41,9 +41,9 @@
                     </materialDesign:Card>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal">
-                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Margin="10" >
                         <StackPanel>
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
                               FontSize="14" Text="{StaticResource UnitSize}" Padding="6,6,6,0"/>
                             <StackPanel Margin="10,0">
                                 <StackPanel Orientation="Horizontal">
@@ -58,14 +58,14 @@
             
 
 
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
                               FontSize="14" Text="{StaticResource UnitCreateSize}" Padding="6,6,6,0"/>
                             <StackPanel Orientation="Horizontal" Margin="10,0">
                                 <local:InputField x:Name="SPBW" Tag="StarEdit Placement Box Width" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
                                 <local:InputField x:Name="SPBH" Tag="StarEdit Placement Box Height" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange"/>
                             </StackPanel>
 
-                            <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                            <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
                               FontSize="14" Text="{StaticResource UnitAddonPos}" Padding="6,6,6,0"/>
                             <StackPanel Orientation="Horizontal" Margin="10,0">
                                 <local:InputField x:Name="AHXP" Tag="Addon Horizontal (X) Position" HorizontalAlignment="Left" VerticalAlignment="Top"  ValueChange="TValueChange" />
@@ -76,12 +76,12 @@
 
                         </StackPanel>
                     </materialDesign:Card>
-                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Margin="10" >
                         <Grid>
                             <local:GRPImageBox x:Name="GRPImages" Width="208" Height="208"/>
                         </Grid>
                     </materialDesign:Card>
-                    <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                    <materialDesign:Card Margin="10" >
                         <Grid>
                             <local:GRPImageBox x:Name="GRPImage2" Width="145" Height="145"/>
                         </Grid>

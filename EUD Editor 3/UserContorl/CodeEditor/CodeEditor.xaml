@@ -26,7 +26,7 @@
     <Grid>
         <DockPanel>
             <TextBox x:Name="Log" DockPanel.Dock="Top" Height="100" Visibility="Collapsed" />
-            <Border x:Name="TextSearchBox" Height="80" DockPanel.Dock="Bottom" Visibility="Visible" BorderBrush="{DynamicResource PrimaryHueMidBrush}" BorderThickness="1">
+            <Border x:Name="TextSearchBox" Height="80" DockPanel.Dock="Bottom" Visibility="Visible" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" BorderThickness="1">
                 <materialDesign:ColorZone x:Name="ColorZone">
                     <UniformGrid Rows="2" Background="{DynamicResource MaterialDesignToolBarBackground}" >
                         <DockPanel >

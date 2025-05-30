@@ -9,7 +9,9 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-              Background="{DynamicResource MaterialDesignPaper}" d:DesignWidth="353" d:DesignHeight="184">
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
+              d:DesignWidth="353" d:DesignHeight="184">
 
     <UserControl.Resources>
         <ContextMenu x:Key="OnlyOpenWindon" Opened="ContextMenu_Opened">
@@ -55,15 +57,15 @@
 
         </TreeView>
         <DockPanel Grid.Row="1">
-            <materialDesign:PackIcon Kind="Magnify" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{DynamicResource MaterialDesignBody}"/>
+            <materialDesign:PackIcon Kind="Magnify" DockPanel.Dock="Left" HorizontalAlignment="Center" VerticalAlignment="Center"/>
             <Button  DockPanel.Dock="Right"
                      Style="{StaticResource MaterialDesignFlatButton}"
                      HorizontalAlignment="Left" Width="20" Height="20" Click="Button_Click">
-                <materialDesign:PackIcon  DockPanel.Dock="Right" Kind="Close" VerticalAlignment="Stretch" Foreground="{DynamicResource MaterialDesignBody}" Margin="-14,0,0,0" />
+                <materialDesign:PackIcon  DockPanel.Dock="Right" Kind="Close" VerticalAlignment="Stretch" Margin="-14,0,0,0" />
             </Button>
             <TextBox x:Name="FliterText" Grid.Row="1" KeyDown="FliterKeyDown"
               materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
-              Foreground="{DynamicResource MaterialDesignBody}" />
+             />
         </DockPanel>
 
 

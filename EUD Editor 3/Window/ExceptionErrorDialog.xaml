@@ -9,9 +9,8 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         xmlns:local="clr-namespace:EUD_Editor_3"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Background="{DynamicResource MaterialDesignPaper}" 
-        Foreground="{DynamicResource MaterialDesignBody}"  
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         mc:Ignorable="d"
         Title="오류 보고"  WindowStyle="ToolWindow" WindowStartupLocation="CenterScreen" SizeToContent="WidthAndHeight" ResizeMode="NoResize" Topmost="True">
     <DockPanel>

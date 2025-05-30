@@ -13,11 +13,12 @@
         xmlns:avalonEdit="http://icsharpcode.net/sharpdevelop/avalonedit"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
         mc:Ignorable="d"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
         Topmost="True" 
         Title= "{Binding DataEditorName,UpdateSourceTrigger=PropertyChanged}"
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         Height="630" Width="780" WindowStartupLocation="Manual" MinWidth="678" >
 
     <Window.Resources>
@@ -47,7 +48,7 @@
     </controls:MetroWindow.LeftWindowCommands>
 
     <DockPanel>
-        <Expander Name="Console" DockPanel.Dock="Bottom" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" IsExpanded="True">
+        <Expander Name="Console" DockPanel.Dock="Bottom" IsExpanded="True">
             <Expander.Header>
                 <StackPanel Orientation="Horizontal">
                     <materialDesign:PackIcon Kind="Powershell" Margin="0,0,10,0"  />
@@ -61,7 +62,6 @@
         <Expander Name="CodeExpander"  ExpandDirection="Right"  DockPanel.Dock="Left" SizeChanged="CodeExpander_SizeChanged" VerticalContentAlignment="Stretch" Expanded="CodeExpander_Expanded" >
             <Expander.Header>
                 <TextBlock
-                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                     Text="{StaticResource CodeExpander}"
                     RenderTransformOrigin=".5,.5">
                     <TextBlock.LayoutTransform>
@@ -77,7 +77,7 @@
                 </Grid.ColumnDefinitions>
 
                 <local:CodeSelecter x:Name="CodeList" ListSelect="CodeList_Select" OpenTab="CodeList_OpenTab" OpenWindow="CodeList_OpenWindow" />
-                <ListBox  Grid.Column="1" Grid.RowSpan="3" Foreground="{DynamicResource MaterialDesignBody}" SelectionChanged="CodeIndexer_SelectionChanged">
+                <ListBox  Grid.Column="1" Grid.RowSpan="3" SelectionChanged="CodeIndexer_SelectionChanged">
                     <ListBoxItem Content="{StaticResource units}" Tag="0"/>
                     <ListBoxItem Content="{StaticResource weapons}" Tag="1"/>
                     <ListBoxItem Content="{StaticResource flingy}" Tag="2"/>
@@ -97,14 +97,17 @@
 
         </Expander>
 
-        <dockablz:Layout x:Name="MainTab"  Partition="{StaticResource Partition}"  Background="{DynamicResource MaterialDesignPaper}">
-            <dragablz:TabablzControl ShowDefaultCloseButton="True"><!--ShowDefaultAddButton="True"-->
+        <dockablz:Layout x:Name="MainTab"  Partition="{StaticResource Partition}"
+                         Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
+                         Background="{DynamicResource MaterialDesign.Brush.Primary}">
+            <dragablz:TabablzControl ShowDefaultCloseButton="True" ><!--ShowDefaultAddButton="True"-->
                 <dragablz:TabablzControl.InterTabController>
                     <dragablz:InterTabController Partition="{StaticResource Partition}" />
                 </dragablz:TabablzControl.InterTabController>
                 <dragablz:TabablzControl.HeaderPrefixContent>
                     <materialDesign:PackIcon Kind="Pin" Foreground="White" Height="40"  />
                 </dragablz:TabablzControl.HeaderPrefixContent>
+ 
             </dragablz:TabablzControl>
         </dockablz:Layout>
     </DockPanel>

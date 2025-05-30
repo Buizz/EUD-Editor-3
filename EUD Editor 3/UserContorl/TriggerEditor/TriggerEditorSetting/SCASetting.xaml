@@ -9,23 +9,21 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" 
              Loaded="UserControl_Loaded"
              d:DesignHeight="450" d:DesignWidth="600">
     <DockPanel x:Name="MainDockPanel">
         <StackPanel Margin="10" DockPanel.Dock="Top">
             <StackPanel Orientation="Horizontal">
-                <Label Content="{StaticResource Use}"/>
-                <CheckBox x:Name="UseSCA" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignSwitchToggleButton}" HorizontalAlignment="Left" Checked="UseSCA_Checked" Unchecked="UseSCA_Unchecked">
-                    <CheckBox.IsChecked>
+                <Label Content="{StaticResource Use}" VerticalAlignment="Center"/>
+                <ToggleButton x:Name="UseSCA" HorizontalAlignment="Left" Checked="UseSCA_Checked" Unchecked="UseSCA_Unchecked">
+                    <ToggleButton.IsChecked>
                         <Binding
                                 Path="SCAUse"
                                 ValidatesOnDataErrors="True"
                                 UpdateSourceTrigger="PropertyChanged">
                         </Binding>
-                    </CheckBox.IsChecked>
-                </CheckBox>
+                    </ToggleButton.IsChecked>
+                </ToggleButton>
                 <Label x:Name="Warring" Foreground="#DDFF2222">
                     
                 </Label>
@@ -250,6 +248,20 @@
                 <Label  Content="{StaticResource DataSetting}" HorizontalAlignment="Left" VerticalAlignment="Top"  />
                 <DockPanel>
                     <StackPanel Orientation="Horizontal">
+                        <TextBox DockPanel.Dock="Top" x:Name="MSQCUnitCount" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource MSQCSize}" ToolTip="{StaticResource MSQCSizeHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
+                            <TextBox.Text>
+                                <Binding
+                    Path="MSQCSize"
+                    ValidatesOnDataErrors="True"
+                    UpdateSourceTrigger="PropertyChanged">
+
+                                    <Binding.ValidationRules>
+                                        <local:NotTextValidationRule ValidatesOnTargetUpdated="True"/>
+                                    </Binding.ValidationRules>
+                                </Binding>
+                            </TextBox.Text>
+                        </TextBox>
+                        
                         <TextBox DockPanel.Dock="Top" x:Name="DataSpace" Width="80" Grid.Column="0" materialDesign:HintAssist.Hint="{StaticResource BufferSize}" ToolTip="{StaticResource BufferSizeHint}" Style="{StaticResource MaterialDesignFloatingHintTextBox}" Margin="0,0,5,0" HorizontalAlignment="Left" >
                             <TextBox.Text>
                                 <Binding

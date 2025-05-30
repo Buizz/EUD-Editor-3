@@ -9,8 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" 
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="482"  d:DesignWidth="610">
     <DockPanel>
         <Grid>
@@ -22,9 +22,9 @@
             <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card  Margin="10" >
                             <DockPanel>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
                                   Text="{StaticResource UpgradeScreen}" Padding="6"/>
@@ -36,9 +36,9 @@
                         </materialDesign:Card>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <DockPanel>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock 
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
                                   Text="{StaticResource UpgradeCost}" Padding="6"/>
@@ -49,9 +49,9 @@
                                 </StackPanel>
                             </DockPanel>
                         </materialDesign:Card>
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <DockPanel>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
                                   Text="{StaticResource UpgradeExtraCost}" Padding="6"/>
@@ -62,9 +62,9 @@
                                 </StackPanel>
                             </DockPanel>
                         </materialDesign:Card>
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <DockPanel>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
                                   Text="{StaticResource UpgradeInfor}" Padding="6"/>

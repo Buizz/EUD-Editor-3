@@ -9,9 +9,10 @@
             xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="450" d:DesignWidth="760"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" >
+             >
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
 
@@ -24,7 +25,7 @@
 
 
             <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="10" TabStripPlacement="Left" Grid.Column="1"
-                     Background="{DynamicResource MaterialDesignPaper}" BorderBrush="{DynamicResource MaterialDesignFlatButtonRipple}" Padding="2" Margin="0" IsHeaderPanelVisible="False"
+                     Padding="2" Margin="0" IsHeaderPanelVisible="False"
                      >
                 <TabItem x:Name="_Default" Header="{StaticResource DefaultInfor}" >
 

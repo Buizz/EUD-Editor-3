@@ -26,45 +26,45 @@
                             <ColumnDefinition Width="*"/>
                             <ColumnDefinition Width="*"/>
                         </Grid.ColumnDefinitions>
-                        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{DynamicResource PrimaryHueMidBrush}">
+                        <DockPanel Grid.Column="0" Grid.Row="0" Grid.ColumnSpan="3" Background="{DynamicResource MaterialDesign.Brush.Primary}">
                             <Popup x:Name="MainColorPickerPopup" StaysOpen="False">
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="MainColorPicker" ColorSelect="MainColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click" Content="{StaticResource Main Colour}" Style="{DynamicResource MaterialDesignFlatButton}"  Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" />
+                            <Button Click="Button_Click" Content="{StaticResource Main Colour}" Style="{DynamicResource MaterialDesignFlatButton}"  Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}" />
                         </DockPanel>
-                        <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource PrimaryHueLightBrush}">
+                        <DockPanel Grid.Column="0" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource MaterialDesign.Brush.Primary.Light}">
                             <Popup x:Name="LightColorPickerPopup" StaysOpen="False">
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="LightColorPicker" ColorSelect="LightColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_1" Content="{StaticResource Light}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueLightForegroundBrush}"/>
+                            <Button Click="Button_Click_1" Content="{StaticResource Light}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Light.Foreground}"/>
                         </DockPanel>
-                        <DockPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource PrimaryHueMidBrush}">
+                        <DockPanel Grid.Column="1" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource MaterialDesign.Brush.Primary}">
                             <Popup x:Name="DefaultColorPickerPopup" StaysOpen="False">
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="DefaultColorPicker" ColorSelect="DefaultColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_2" Content="{StaticResource Normal}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}"/>
+                            <Button Click="Button_Click_2" Content="{StaticResource Normal}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"/>
                         </DockPanel>
-                        <DockPanel Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource PrimaryHueDarkBrush}">
+                        <DockPanel Grid.Column="2" Grid.Row="1" Grid.ColumnSpan="1" Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}">
                             <Popup x:Name="DarkColorPickerPopup" StaysOpen="False">
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="DarkColorPicker" ColorSelect="DarkColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_3" Content="{StaticResource Dark}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource PrimaryHueDarkForegroundBrush}"/>
+                            <Button Click="Button_Click_3" Content="{StaticResource Dark}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"/>
                         </DockPanel>
-                        <DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Background="{DynamicResource SecondaryHueMidBrush}">
+                        <DockPanel Grid.Column="0" Grid.Row="3" Grid.ColumnSpan="3" Background="{DynamicResource MaterialDesign.Brush.Secondary}">
                             <Popup x:Name="AccentColorPickerPopup" StaysOpen="False">
                                 <materialDesign:Card >
                                     <local:ColorPicker x:Name="AccentColorPicker" ColorSelect="AccentColorPicker_ColorSelect" Foreground="{DynamicResource MaterialDesignBody}" Background="{DynamicResource MaterialDesignPaper}" Padding="4,4,4,4"/>
                                 </materialDesign:Card>
                             </Popup>
-                            <Button Click="Button_Click_4" Content="{StaticResource Okay}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource SecondaryAccentForegroundBrush}"/>
+                            <Button Click="Button_Click_4" Content="{StaticResource Okay}" Style="{DynamicResource MaterialDesignFlatButton}" Foreground="{DynamicResource MaterialDesign.Brush.Primary.Dark.Foreground}"/>
                         </DockPanel>
 
                     </Grid>
@@ -142,11 +142,9 @@
 
 
         <DockPanel LastChildFill="False" Grid.Row="11" Grid.Column="1" Margin="10">
-            <Label  Content="{StaticResource Light}" />
-            <ToggleButton x:Name="ToggleBtn" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked"
-  Style="{StaticResource MaterialDesignSwitchToggleButton}"
-  HorizontalAlignment="Left" />
-            <Label  Content="{StaticResource Dark}" />
+            <Label  Content="{StaticResource Light}" VerticalAlignment="Center"/>
+            <ToggleButton x:Name="ToggleBtn" Checked="ToggleButton_Checked" Unchecked="ToggleButton_Unchecked" HorizontalAlignment="Left" />
+            <Label  Content="{StaticResource Dark}" VerticalAlignment="Center"/>
             <Button DockPanel.Dock="Right" Content="{StaticResource Reset}" Click="Button_Click_5" Width="100" >
                 
             </Button>

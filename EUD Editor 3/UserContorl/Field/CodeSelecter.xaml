@@ -9,7 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d" 
-              Background="{DynamicResource MaterialDesignPaper}" d:DesignWidth="250" d:DesignHeight="350">
+             Background="{DynamicResource MaterialDesignPaper}"
+             d:DesignWidth="250" d:DesignHeight="350">
 
     <UserControl.Resources>
         <ContextMenu x:Key="OnlyOpenWindon" Opened="ContextMenu_Opened">
@@ -52,8 +53,7 @@
                    SelectedItemChanged="CodeIndexerTree_SelectedItemChanged"
                    ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   ContextMenu="{StaticResource ContextMenu}" 
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}" >
+            >
 
         </TreeView>
         <DockPanel Grid.Row="1">
@@ -65,7 +65,7 @@
             </Button>
             <TextBox x:Name="FliterText" Grid.Row="1" KeyDown="FliterKeyDown"
               materialDesign:HintAssist.Hint="{StaticResource FliterEnter}"
-              Foreground="{DynamicResource MaterialDesignBody}" TabIndex="1" />
+              TabIndex="1" />
         </DockPanel>
 
         <Grid Grid.Row="2">

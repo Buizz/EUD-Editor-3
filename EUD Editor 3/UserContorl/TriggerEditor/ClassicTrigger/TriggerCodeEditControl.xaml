@@ -6,7 +6,7 @@
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d"
              IsTabStop="True"
-             Background="{DynamicResource MaterialDesignPaper}" 
+             Background="{DynamicResource MaterialDesignPaper}"
              Foreground="{DynamicResource MaterialDesignBody}"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              d:DesignHeight="450" d:DesignWidth="800">
@@ -42,7 +42,7 @@
                     </StackPanel>
 
                 </DockPanel>
-                <DockPanel x:Name="FuncSelecter" Background="{DynamicResource MaterialDesignPaper}" Visibility="Visible" Margin="0" >
+                <DockPanel x:Name="FuncSelecter" Visibility="Visible" Margin="0" >
                     <Button x:Name="SelectBtn" Click="Button_Click_3" DockPanel.Dock="Bottom" Content="{StaticResource CT_Select}" IsEnabled="False"/>
 
                     <UniformGrid Rows="1">
@@ -56,7 +56,7 @@
                                 <ListBoxItem Content="{StaticResource CT_Extern}" Tag="E"/>
                             </ListBox>
                             <Grid>
-                                <DockPanel>
+                                <DockPanel >
                                     <DockPanel DockPanel.Dock="Top">
                                         <materialDesign:PackIcon Kind="Search" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" Margin="4,0" />
                                         <Button Style="{StaticResource MaterialDesignToolButton}" DockPanel.Dock="Right" Width="Auto" Height="Auto" Click="Button_Click_4">
@@ -65,7 +65,9 @@
                                         <TextBox x:Name="SearchTextBox" TextChanged="SearchTextBox_TextChanged" PreviewKeyUp="SearchTextBox_KeyDown"/>
 
                                     </DockPanel>
-                                    <TreeView x:Name="CodeList" KeyDown="CodeList_KeyDown" SelectedItemChanged="CodeList_SelectedItemChanged" MouseDoubleClick="CodeList_MouseDoubleClick" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                                    <TreeView x:Name="CodeList" KeyDown="CodeList_KeyDown" SelectedItemChanged="CodeList_SelectedItemChanged" MouseDoubleClick="CodeList_MouseDoubleClick" 
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}">
                                     </TreeView>
                                 </DockPanel>
                                 <Grid x:Name="LoadingGrid" Background="#66000000" Visibility="Collapsed">
@@ -85,7 +87,7 @@
            
                            
                         </DockPanel>
-                        <Grid Background="{DynamicResource MaterialDesignToolBarBackground}">
+                        <Grid>
                             <TextBlock TextWrapping="Wrap" Margin="4" x:Name="TriggerSummary" >
                             </TextBlock>
                         </Grid>

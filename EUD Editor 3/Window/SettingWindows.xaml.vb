@@ -5,7 +5,7 @@ Public Class SettingWindows
     Private DatLoad As Boolean = False
     Private Sub Window_Loaded(sender As Object, e As RoutedEventArgs)
         If Not Tool.IsProjectLoad Then
-            MainTab.RemoveFromSource(TabItem_ProjectSetting)
+            MainTab.Items.Remove(TabItem_ProjectSetting)
             'TabItem_ProjectSetting.Height = 0
         End If
 

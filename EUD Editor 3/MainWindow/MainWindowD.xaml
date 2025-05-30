@@ -15,13 +15,15 @@
         Loaded="Window_Loaded"
         Unloaded="MetroWindow_Unloaded"
         Closing="Window_Closing"
-        WindowTitleBrush="{DynamicResource PrimaryHueMidBrush}"
-        Background="{DynamicResource PrimaryHueMidForegroundBrush}"
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         Title="{Binding ProgramName, UpdateSourceTrigger=PropertyChanged}" Height="100" Width="850"  ResizeMode="CanMinimize">
     <Grid x:Name="MainGrid">
-        <DockPanel x:Name="LoadPanel" Background="{DynamicResource PrimaryHueMidBrush}">
+        <DockPanel x:Name="LoadPanel" Background="{DynamicResource MaterialDesign.Brush.Primary}">
             <ProgressBar DockPanel.Dock="Bottom" IsIndeterminate="True" />
-            <TextBlock Text="{DynamicResource DataLoading}" Foreground="{DynamicResource PrimaryHueMidForegroundBrush}" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="36"/>
+            <TextBlock Text="{DynamicResource DataLoading}" HorizontalAlignment="Center"
+                       Foreground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
+                       VerticalAlignment="Center" FontSize="36"/>
         </DockPanel>
         
     </Grid>

@@ -1098,7 +1098,7 @@ Namespace TabItemTool
             Dim TabContextMenu As New ContextMenu
             'TabText.Text = pjData.CodeLabel(CodePage, index)
 
-            TabText.SetResourceReference(TextBlock.ForegroundProperty, "PrimaryHueMidForegroundBrush")
+            TabText.SetResourceReference(TextBlock.ForegroundProperty, "MaterialDesignBody")
             TabText.HorizontalAlignment = HorizontalAlignment.Center
             TabText.VerticalAlignment = VerticalAlignment.Center
 

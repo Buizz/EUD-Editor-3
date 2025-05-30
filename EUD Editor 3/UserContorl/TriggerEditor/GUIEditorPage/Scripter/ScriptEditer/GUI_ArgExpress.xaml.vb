@@ -252,8 +252,8 @@ Public Class GUI_ArgExpress
         If isVal Then
             nchip.Margin = New Thickness(4)
             nchip.IsDeletable = True
-            nchip.Foreground = Application.Current.Resources("PrimaryHueMidForegroundBrush")
-            nchip.Background = Application.Current.Resources("PrimaryHueMidBrush")
+            nchip.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Foreground")
+            nchip.Background = Application.Current.Resources("MaterialDesign.Brush.Primary")
 
             nchip.Content = Content
 

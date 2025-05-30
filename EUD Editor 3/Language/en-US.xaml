@@ -1119,6 +1119,9 @@
     <sys:String x:Key="BufferSize">Buffer Size</sys:String>
     <sys:String x:Key="BufferSizeHint">This is the amount of space used by users to send and receive data If there is a lot of data being sent and received, an error will occur if the buffer is not large enough.</sys:String>
 
+    <sys:String x:Key="MSQCSize">MSQC Transfer Size</sys:String>
+    <sys:String x:Key="MSQCSizeHint">This is the number of MSQC variables to use for data transfer. If there are many, Unit is used a lot, but it speeds up.</sys:String>
+    
     <sys:String x:Key="SCAFunctionSize">Function Buffer Size</sys:String>
     <sys:String x:Key="SCAFunctionHint">Space when a function is called. The larger the data, the greater the number of data that can be sent at once.</sys:String>
 

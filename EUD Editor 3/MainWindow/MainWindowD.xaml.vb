@@ -83,12 +83,11 @@ Public Class MainWindowD
         If UpdataCheckb Then
             Me.Visibility = Visibility.Hidden
             SettiingForm = New SettingWindows
-            SettiingForm.MainTab.IsHeaderPanelVisible = "False"
             'SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.Donate)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.DefaultPage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.ThemePage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.EditorPage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.Donate)
             SettiingForm.ShowDialog()
             Me.Visibility = Visibility.Visible
         End If
@@ -110,13 +109,12 @@ Public Class MainWindowD
                 If dialogResult = MsgBoxResult.Yes Then
                     Me.Visibility = Visibility.Hidden
                     SettiingForm = New SettingWindows
-                    SettiingForm.MainTab.IsHeaderPanelVisible = "False"
-                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.TabItem_ProjectSetting)
-                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
+                    SettiingForm.MainTab.Items.Remove(SettiingForm.TabItem_ProjectSetting)
+                    SettiingForm.MainTab.Items.Remove(SettiingForm.UpdatePage)
                     'SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
-                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
-                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
-                    SettiingForm.MainTab.RemoveFromSource(SettiingForm.Donate)
+                    SettiingForm.MainTab.Items.Remove(SettiingForm.ThemePage)
+                    SettiingForm.MainTab.Items.Remove(SettiingForm.EditorPage)
+                    SettiingForm.MainTab.Items.Remove(SettiingForm.Donate)
                     SettiingForm.ShowDialog()
 
                     Me.Visibility = Visibility.Visible
@@ -131,13 +129,12 @@ Public Class MainWindowD
         If pgData.Setting(ProgramData.TSetting.DonateMsg) = False Then
             Me.Visibility = Visibility.Hidden
             SettiingForm = New SettingWindows
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.TabItem_ProjectSetting)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.UpdatePage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.DefaultPage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.ThemePage)
-            SettiingForm.MainTab.RemoveFromSource(SettiingForm.EditorPage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.TabItem_ProjectSetting)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.UpdatePage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.DefaultPage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.ThemePage)
+            SettiingForm.MainTab.Items.Remove(SettiingForm.EditorPage)
             SettiingForm.Title = Tool.GetText("Donate")
-            SettiingForm.MainTab.IsHeaderPanelVisible = "False"
             SettiingForm.MinWidth = 0
             SettiingForm.MinHeight = 0
             SettiingForm.Width = 300

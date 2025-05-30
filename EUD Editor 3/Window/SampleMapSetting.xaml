@@ -10,9 +10,9 @@
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         mc:Ignorable="d"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Background="{DynamicResource MaterialDesignPaper}"
         Loaded="Window_Loaded"
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         Title="{StaticResource SampleSelect}" Height="450" MinHeight="450" Width="350" MinWidth="350" Topmost="True" WindowStartupLocation="CenterOwner">
     <DockPanel>
         <UniformGrid  DockPanel.Dock="Bottom" Columns="2">

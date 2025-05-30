@@ -3,6 +3,7 @@
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:dragablz="clr-namespace:Dragablz;assembly=Dragablz"
     xmlns:local="clr-namespace:EUD_Editor_3"
+    xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
 
     DispatcherUnhandledException="Application_DispatcherUnhandledException"
     StartupUri="MainWindow\MainWindowD.xaml"
@@ -14,48 +15,30 @@ ShutdownMode="OnMainWindowClose">
                 <!-- MahApps -->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Controls.xaml" />
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Fonts.xaml" />
-                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
                 <ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Themes/Light.Blue.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MahApps.Metro;component/Styles/Colors.xaml" />-->
 
 
                 <!-- Material Design -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Defaults.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Accent/MaterialDesignColor.Lime.xaml" />
+                <!--<ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesignTheme.Light.xaml" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignColors;component/Themes/Recommended/Primary/MaterialDesignColor.BlueGrey.xaml" />-->
+                <materialDesign:MahAppsBundledTheme BaseTheme="Light" PrimaryColor="DeepPurple" SecondaryColor="Lime" />
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.Wpf;component/Themes/MaterialDesign3.Defaults.xaml" />
 
                 <!-- Material Design: MahApps Compatibility -->
-                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml "/>
+                <ResourceDictionary Source="pack://application:,,,/MaterialDesignThemes.MahApps;component/Themes/MaterialDesignTheme.MahApps.Defaults.xaml" />
 
                 <!-- Dragablz Material Design -->
-                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml"/>
+                <ResourceDictionary Source="pack://application:,,,/Dragablz;component/Themes/materialdesign.xaml" />
 
                 <!-- ListBoxReset -->
                 <ResourceDictionary Source="ResourceDictionary/MaterialListbox.xaml" />
-
                 <ResourceDictionary Source="ResourceDictionary/MaterialDesignThemes.Overrides.xaml" />
             </ResourceDictionary.MergedDictionaries>
 
-            <!-- MahApps Brushes -->
-            <SolidColorBrush x:Key="MahApps.Brushes.Highlight" Color="{DynamicResource Primary700}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.Accent" Color="{DynamicResource Primary500}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.Accent2" Color="{DynamicResource Primary400}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.Accent3" Color="{DynamicResource Primary300}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.Accent4" Color="{DynamicResource Primary200}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.WindowTitle" Color="{DynamicResource Primary700}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.Selected.Foreground" Color="{DynamicResource Primary500Foreground}"/>
 
 
 
-
-            <LinearGradientBrush x:Key="MahApps.Brushes.Progress" EndPoint="0.001,0.5" StartPoint="1.002,0.5">
-                <GradientStop Color="{DynamicResource Primary700}" Offset="0"/>
-                <GradientStop Color="{DynamicResource Primary300}" Offset="1"/>
-            </LinearGradientBrush>
-            <SolidColorBrush x:Key="MahApps.Brushes.CheckmarkFill" Color="{DynamicResource Primary500}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.RightArrowFill" Color="{DynamicResource Primary500}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.IdealForeground" Color="{DynamicResource Primary500Foreground}"/>
-            <SolidColorBrush x:Key="MahApps.Brushes.IdealForegroundDisabled" Color="{DynamicResource Primary500}" Opacity="0.4"/>
 
             <!-- Dragablz Material Design -->
             <Style TargetType="{x:Type dragablz:TabablzControl}" BasedOn="{StaticResource MaterialDesignTabablzControlStyle}" />

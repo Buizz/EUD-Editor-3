@@ -1123,6 +1123,9 @@
     <sys:String x:Key="BufferSize">버퍼 사이즈</sys:String>
     <sys:String x:Key="BufferSizeHint">유저가 데이터를 주고 받을 때 사용하는 공간의 크기입니다. 주고받는 데이터가 많을 경우 충분히 크게 하지 않으면 오류가 발생합니다.</sys:String>
 
+    <sys:String x:Key="MSQCSize">MSQC 전송크기</sys:String>
+    <sys:String x:Key="MSQCSizeHint">데이터 전송에 사용할 MSQC 변수의 수 입니다. 많으면 Unit을 많이 사용하지만, 속도가 빨라집니다.</sys:String>
+
     <sys:String x:Key="SCAFunctionSize">함수 사이즈</sys:String>
     <sys:String x:Key="SCAFunctionHint">함수를 주고 받는 공간입니다. 데이터가 클 수록 한번에 보낼 수 있는 갯수가 증가합니다.</sys:String>
 

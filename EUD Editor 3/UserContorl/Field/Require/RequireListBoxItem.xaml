@@ -30,20 +30,20 @@
 
         <Border x:Name="TopBorder" Grid.Row="0" Visibility="Hidden"  Height="11"  Margin="2,0" VerticalAlignment="Top">
             <DockPanel LastChildFill="False">
-                <Border DockPanel.Dock="Top" Visibility="Visible" Background="{DynamicResource PrimaryHueDarkBrush}" Height="3"/>
-                <Polygon Points="0,0 0,8, 8,0 0,0" DockPanel.Dock="Left" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                <Border DockPanel.Dock="Top" Visibility="Visible" Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Height="3"/>
+                <Polygon Points="0,0 0,8, 8,0 0,0" DockPanel.Dock="Left" Fill="{DynamicResource MaterialDesign.Brush.Primary.Dark}">
                 </Polygon>
-                <Polygon Points="8,0 8,8, 0,0 8,0" DockPanel.Dock="Right" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                <Polygon Points="8,0 8,8, 0,0 8,0" DockPanel.Dock="Right" Fill="{DynamicResource MaterialDesign.Brush.Primary.Dark}">
                 </Polygon>
             </DockPanel>
         </Border>
 
         <Border x:Name="DownBorder" Grid.Row="2" Visibility="Hidden" Height="11" Margin="2,0" VerticalAlignment="Bottom">
             <DockPanel  LastChildFill="False">
-                <Border DockPanel.Dock="Bottom" Visibility="Visible" Background="{DynamicResource PrimaryHueDarkBrush}" Height="3"/>
-                <Polygon Points="0,0 0,8, 8,8 0,0" DockPanel.Dock="Left" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                <Border DockPanel.Dock="Bottom" Visibility="Visible" Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Height="3"/>
+                <Polygon Points="0,0 0,8, 8,8 0,0" DockPanel.Dock="Left" Fill="{DynamicResource MaterialDesign.Brush.Primary.Dark}">
                 </Polygon>
-                <Polygon Points="8,0 8,8, 0,8 8,0" DockPanel.Dock="Right" Fill="{DynamicResource PrimaryHueDarkBrush}">
+                <Polygon Points="8,0 8,8, 0,8 8,0" DockPanel.Dock="Right" Fill="{DynamicResource MaterialDesign.Brush.Primary.Dark}">
                 </Polygon>
             </DockPanel>
         </Border>

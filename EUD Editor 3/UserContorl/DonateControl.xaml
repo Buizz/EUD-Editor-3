@@ -58,7 +58,7 @@
 
         <Separator Background="#4CA0A0A0"/>
 
-        <CheckBox x:Name="Checking" TextBlock.Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource ViewDonateWindow}"  Unchecked="Checking_Unchecked" Checked="Checking_Checked"/>
+        <CheckBox x:Name="Checking" Style="{StaticResource MaterialDesignCheckBox}" Content="{StaticResource ViewDonateWindow}"  Unchecked="Checking_Unchecked" Checked="Checking_Checked"/>
 
 
 

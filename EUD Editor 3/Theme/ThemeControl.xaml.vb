@@ -55,7 +55,7 @@ Public Class ThemeControl
 
         Dim helper As New PaletteHelper
 
-        Dim theme As ITheme = helper.GetTheme
+        Dim theme As Theme = helper.GetTheme
 
 
         theme.SetPrimaryColor(SwatchHelper.Lookup(DefaultPrimaryColor(index)))

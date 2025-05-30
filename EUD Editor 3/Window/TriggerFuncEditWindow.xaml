@@ -9,9 +9,6 @@
         Loaded="Window_Loaded"
         xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Background="{DynamicResource MaterialDesignPaper}" 
-        Foreground="{DynamicResource MaterialDesignBody}"
         Title="TriggerFuncEditWindow" Height="450" Width="800">
     <Grid>
         <local:TriggerCodeEditControl x:Name="MainCtrl"/>

@@ -12,15 +12,15 @@
         xmlns:local="clr-namespace:EUD_Editor_3"
         mc:Ignorable="d"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Background="{DynamicResource MaterialDesignPaper}"
         Loaded="Window_Loaded"
         Closed="MetroWindow_Closed"
         Closing="MetroWindow_Closing"
         x:Name="metroWindow"
         LostFocus="metroWindow_LostFocus"
         Deactivated="metroWindow_Deactivated"
-        Title="{Binding TriggerEditorName,UpdateSourceTrigger=PropertyChanged}" Height="620" Width="1200" WindowStartupLocation="Manual" Topmost="True" MinWidth="300" MinHeight="300">
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
+        Title="{Binding TriggerEditorName,UpdateSourceTrigger=PropertyChanged}" Height="660" Width="1200" WindowStartupLocation="Manual" Topmost="True" MinWidth="300" MinHeight="300">
 
     <controls:MetroWindow.RightWindowCommands>
         <controls:WindowCommands>
@@ -47,7 +47,7 @@
     </Window.Resources>
     <DockPanel>
         <DockPanel>
-            <Expander x:Name="ErrorListExpander" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Header="{StaticResource ErrorList}" Foreground="{DynamicResource MaterialDesignBody}">
+            <Expander x:Name="ErrorListExpander" HorizontalAlignment="Stretch" DockPanel.Dock="Bottom" Header="{StaticResource ErrorList}" >
                 <ListView x:Name="ErrorList" MaxHeight="250" MouseDoubleClick="ErrorList_MouseDoubleClick" ScrollViewer.VerticalScrollBarVisibility="Auto" ScrollViewer.HorizontalScrollBarVisibility="Disabled">
                     <ListView.View>
                         <GridView>
@@ -62,7 +62,6 @@
             <Expander Name="CodeExpander" ExpandDirection="Right"  DockPanel.Dock="Left" VerticalContentAlignment="Stretch">
                 <Expander.Header>
                     <TextBlock
-                    TextBlock.Foreground="{DynamicResource MaterialDesignBody}"
                     Text="{StaticResource Explorer}"
                     RenderTransformOrigin=".5,.5">
                         <TextBlock.LayoutTransform>

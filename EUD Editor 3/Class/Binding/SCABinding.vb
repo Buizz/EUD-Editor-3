@@ -97,6 +97,20 @@ Public Class SCABinding
             PropertyChangedPack()
         End Set
     End Property
+    Public Property MSQCSize() As String
+        Get
+            Return pjData.TEData.SCArchive.MSQCSize
+        End Get
+        Set(value As String)
+            pjData.SetDirty(True)
+            pjData.TEData.SCArchive.MSQCSize = value
+            PropertyChangedPack()
+        End Set
+    End Property
+
+
+
+
     Public Property FuncSize() As String
         Get
             Return pjData.TEData.SCArchive.FuncSpace

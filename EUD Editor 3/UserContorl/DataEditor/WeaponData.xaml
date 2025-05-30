@@ -9,8 +9,8 @@
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              xmlns:local="clr-namespace:EUD_Editor_3"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignPaper}" 
-             Foreground="{DynamicResource MaterialDesignBody}"  
+             Background="{DynamicResource MaterialDesignPaper}"
+             Foreground="{DynamicResource MaterialDesignBody}"
              d:DesignHeight="550" d:DesignWidth="770">
     <DockPanel>
         <local:UsedCodeList x:Name="UsedCodeList" DockPanel.Dock="Right" />
@@ -24,7 +24,7 @@
             <ScrollViewer  Grid.Row="1" VerticalScrollBarVisibility="Auto" HorizontalScrollBarVisibility="Auto">
                 <StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <DockPanel>
                                 <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
@@ -46,11 +46,11 @@
                                 </StackPanel>
                             </DockPanel>
                         </materialDesign:Card>
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <StackPanel Orientation="Horizontal">
                                 <StackPanel>
                                     <DockPanel>
-                                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                        <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
                                         DockPanel.Dock="Top" FontSize="14" Text="{StaticResource WeaponRange}" Padding="6,6,6,0"/>
                                         <StackPanel Margin="10,0">
                                             <local:InputField x:Name="MinR" Tag="Minimum Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -58,7 +58,7 @@
                                         </StackPanel>
                                     </DockPanel>
                                     <DockPanel>
-                                        <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                        <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
                                         DockPanel.Dock="Top" FontSize="14" Text="{StaticResource WeaponSplash}" Width="130" Padding="6,0"/>
                                         <StackPanel Margin="10,0" >
                                             <local:InputField x:Name="ISR" Tag="Inner Splash Range" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -68,7 +68,7 @@
                                     </DockPanel>
                                 </StackPanel>
                                 <DockPanel>
-                                    <TextBlock Foreground="{DynamicResource MaterialDesignBody}" Style="{StaticResource MaterialDesignBody2TextBlock}"
+                                    <TextBlock Style="{StaticResource MaterialDesignBody2TextBlock}"
                                     DockPanel.Dock="Top" FontSize="14" Text="{StaticResource WeaponBullet}" Width="195" Padding="6,6,6,0"/>
                                     <StackPanel Margin="10" >
                                         <local:InputField x:Name="DF" Width="168" Tag="Damage Factor" HorizontalAlignment="Left" VerticalAlignment="Top" />
@@ -96,9 +96,9 @@
                         </materialDesign:Card>
                     </StackPanel>
                     <StackPanel Orientation="Horizontal">
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <DockPanel>
-                                <TextBlock Foreground="{DynamicResource MaterialDesignBody}"
+                                <TextBlock
                                   Style="{StaticResource MaterialDesignBody2TextBlock}"
                                   DockPanel.Dock="Top" FontSize="14"
                                   Text="{StaticResource WeaponDisplay}" Padding="6"/>
@@ -110,7 +110,7 @@
                                 </StackPanel>
                             </DockPanel>
                         </materialDesign:Card>
-                        <materialDesign:Card Background="{DynamicResource MaterialDesignPaper}" Margin="10" >
+                        <materialDesign:Card Margin="10" >
                             <GroupBox Margin="2" Padding="1" Width="180" Height="180" materialDesign:ColorZoneAssist.Background="Transparent" materialDesign:ColorZoneAssist.Mode="Custom">
                                 <local:GRPImageBox x:Name="GRPImages" Width="180" Height="180"/>
                             </GroupBox>

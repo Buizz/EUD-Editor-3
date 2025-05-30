@@ -13,10 +13,9 @@
         Loaded="MetroWindow_Loaded"
         Unloaded="MetroWindow_Unloaded"
         materialDesign:ShadowAssist.CacheMode="{x:Null}"
-        WindowTitleBrush="{DynamicResource PrimaryHueDarkBrush}"
-        Background="{DynamicResource MaterialDesignPaper}" 
-        Foreground="{DynamicResource MaterialDesignBody}"  
         Topmost="True"
+        WindowTitleBrush="{DynamicResource MaterialDesign.Brush.Primary}"
+        TitleForeground="{DynamicResource MaterialDesign.Brush.Primary.Foreground}"
         Title="BuildLogWindow" Height="500" Width="600" WindowStartupLocation="CenterScreen">
     <Grid>
         <TextBox x:Name="LogTextBox"  VerticalContentAlignment="Top" AcceptsReturn="True" IsReadOnly="True" TextWrapping="Wrap">

@@ -17,7 +17,7 @@
                 <RadioButton Margin="4" IsChecked="{Binding IsAlwaysCurrentUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_AlwaysCurrentUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
                 <RadioButton Margin="4" IsChecked="{Binding IsCustomUse, Mode=TwoWay, UpdateSourceTrigger=PropertyChanged}" Content="{StaticResource FG_CustomUse}" Checked="RadioButton_Checked" Unchecked="RadioButton_Checked"/>
             </StackPanel>
-            <Border  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" ClipToBounds="True">
+            <Border  BorderThickness="1" BorderBrush="{DynamicResource MaterialDesign.Brush.Primary}" ClipToBounds="True">
                 <Grid>
                     <ListBox x:Name="MainListBox" SelectionChanged="MainListBox_SelectionChanged" MouseUp="MainListBox_MouseUp" PreviewMouseLeftButtonDown="MainListBox_PreviewMouseLeftButtonDown" PreviewMouseMove="MainListBox_PreviewMouseMove" PreviewMouseLeftButtonUp="MainListBox_PreviewMouseLeftButtonUp" MouseDoubleClick="MainListBox_MouseDoubleClick">
                         <ListBox.InputBindings>
@@ -49,7 +49,7 @@
                             </ContextMenu>
                         </ListBox.ContextMenu>
                     </ListBox>
-                    <Border x:Name="DragImage"  BorderThickness="1" BorderBrush="{DynamicResource PrimaryHueMidBrush}" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
+                    <Border x:Name="DragImage"  BorderThickness="1" Visibility="Collapsed" Width="50" Height="50" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="19,56,0,0" Background="#66939393" >
 
                     </Border>
                 </Grid>
@@ -57,8 +57,8 @@
             </Border>
         </DockPanel>
         <Border x:Name="CreateEditWindow" Background="#7F000000" Visibility="Hidden" >
-            <materialDesign:Card x:Name="InputDialog" materialDesign:ShadowAssist.ShadowDepth="Depth3" Width="400" Height="200" VerticalAlignment="Center" HorizontalAlignment="Center">
-                <Grid Background="{DynamicResource MaterialDesignPaper}" >
+            <materialDesign:Card x:Name="InputDialog" Width="400" Height="200" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Grid>
                     <Grid.RowDefinitions>
                         <RowDefinition Height="*"/>
                         <RowDefinition Height="60"/>

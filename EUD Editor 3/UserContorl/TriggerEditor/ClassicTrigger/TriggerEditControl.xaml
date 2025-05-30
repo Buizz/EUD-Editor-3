@@ -7,15 +7,14 @@
              xmlns:dragablz="http://dragablz.net/winfx/xaml/dragablz"
              xmlns:materialDesign="http://materialdesigninxaml.net/winfx/xaml/themes"
              mc:Ignorable="d"
-             Background="{DynamicResource MaterialDesignPaper}" 
+             Background="{DynamicResource MaterialDesignPaper}"
              Foreground="{DynamicResource MaterialDesignBody}"
-             Height="450" Width="700"
+             Height="500" Width="700"
              MouseEnter="UserControl_MouseEnter">
     <UserControl.Resources>
         <Style x:Key="myLBStyle" TargetType="{x:Type ListBoxItem}">
             <Style.Resources>
-                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}"
-                             Color="Transparent"/>
+                <SolidColorBrush x:Key="{x:Static SystemColors.HighlightBrushKey}" Color="Transparent"/>
             </Style.Resources>
         </Style>
     </UserControl.Resources>
@@ -37,8 +36,8 @@
                         <TextBox x:Name="CommentTB" materialDesign:HintAssist.Hint="{StaticResource CT_Comment}" MinWidth="200" Margin="10,5,0,5"/>
                     </DockPanel>
                 </materialDesign:ColorZone>
-                <dragablz:TabablzControl x:Name="MainTab"  FixedHeaderCount="3">
-                    <TabItem Header="{StaticResource CT_TriggerSetting}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                <TabControl x:Name="MainTab"  >
+                    <TabItem Header="{StaticResource CT_TriggerSetting}" >
                         <DockPanel>
                             <DockPanel DockPanel.Dock="Left" Margin="10">
                                 <StackPanel>
@@ -77,9 +76,9 @@
 
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="{StaticResource CT_Condition}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                    <TabItem Header="{StaticResource CT_Condition}" >
                         <DockPanel>
-                            <StackPanel DockPanel.Dock="Right">
+                            <StackPanel DockPanel.Dock="Right" Margin="10" Width="120">
                                 <Button x:Name="cNew" Click="New_Click" Content="{StaticResource CT_NewCond}" Margin="1"/>
                                 <Button x:Name="cEdit" Click="Edit_Click" Content="{StaticResource CT_Edit}" IsEnabled="False"  Margin="1,1,1,10"/>
                                 <Button x:Name="cCut" Click="Cut_Click" Content="{StaticResource CT_Cut}" IsEnabled="False" Margin="1"/>
@@ -89,15 +88,15 @@
                                 <Button x:Name="cUp" Click="Up_Click" Content="{StaticResource CT_Up}" IsEnabled="False" Margin="1"/>
                                 <Button x:Name="cDown" Click="Down_Click" Content="{StaticResource CT_Down}" IsEnabled="False" Margin="1"/>
                             </StackPanel>
-                            <ListBox ItemContainerStyle="{StaticResource myLBStyle}" x:Name="cList" SelectionChanged="List_SelectionChanged" MouseDoubleClick="ListDouble_Click" SelectionMode="Extended" Background="{DynamicResource MaterialDesignToolBarBackground}" Margin="0,4">
+                            <ListBox ItemContainerStyle="{StaticResource myLBStyle}" x:Name="cList" SelectionChanged="List_SelectionChanged" MouseDoubleClick="ListDouble_Click" SelectionMode="Extended" Margin="5,4,5,4">
 
                             </ListBox>
                         </DockPanel>
                     </TabItem>
-                    <TabItem Header="{StaticResource CT_Action}" Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}">
+                    <TabItem Header="{StaticResource CT_Action}" >
                         <DockPanel>
-                            <StackPanel DockPanel.Dock="Right">
-                                <Button x:Name="aNew" Click="New_Click" Content="{StaticResource CT_NewAct}"  Margin="1"/>
+                            <StackPanel DockPanel.Dock="Right" Margin="10" Width="120">
+                                <Button x:Name="aNew" Click="New_Click" Content="{StaticResource CT_NewAct}"  Margin="1" />
                                 <Button x:Name="aEdit" Click="Edit_Click" Content="{StaticResource CT_Edit}" IsEnabled="False"  Margin="1,1,1,10"/>
                                 <Button x:Name="aCut" Click="Cut_Click" Content="{StaticResource CT_Cut}" IsEnabled="False" Margin="1"/>
                                 <Button x:Name="aCopy" Click="Copy_Click" Content="{StaticResource CT_Copy}" IsEnabled="False" Margin="1"/>
@@ -106,12 +105,12 @@
                                 <Button x:Name="aUp" Click="Up_Click" Content="{StaticResource CT_Up}" IsEnabled="False" Margin="1"/>
                                 <Button x:Name="aDown" Click="Down_Click" Content="{StaticResource CT_Down}" IsEnabled="False" Margin="1"/>
                             </StackPanel>
-                            <ListBox ItemContainerStyle="{StaticResource myLBStyle}" x:Name="aList" SelectionChanged="List_SelectionChanged" MouseDoubleClick="ListDouble_Click" SelectionMode="Extended" Background="{DynamicResource MaterialDesignToolBarBackground}" Margin="0,4">
+                            <ListBox ItemContainerStyle="{StaticResource myLBStyle}" x:Name="aList" SelectionChanged="List_SelectionChanged" MouseDoubleClick="ListDouble_Click" SelectionMode="Extended" Margin="5,4,5,4">
 
                             </ListBox>
                         </DockPanel>
                     </TabItem>
-                </dragablz:TabablzControl>
+                </TabControl>
             </DockPanel>
         </DockPanel>
         <Border>

@@ -189,15 +189,15 @@ Public Class MainMenuBinding
             If Tool.IsProjectLoad Then
                 Try
                     If My.Computer.FileSystem.FileExists(pjData.OpenMapName) Then
-                        Return Application.Current.Resources("PrimaryHueMidBrush")
+                        Return Application.Current.Resources("MaterialDesign.Brush.Primary")
                     Else
-                        Return Application.Current.Resources("SecondaryHueMidBrush")
+                        Return Application.Current.Resources("MaterialDesign.Brush.Secondary")
                     End If
                 Catch ex As Exception
-                    Return Application.Current.Resources("PrimaryHueMidBrush")
+                    Return Application.Current.Resources("MaterialDesign.Brush.Primary")
                 End Try
             End If
-            Return Application.Current.Resources("PrimaryHueMidBrush")
+            Return Application.Current.Resources("MaterialDesign.Brush.Primary")
         End Get
     End Property
 
@@ -208,24 +208,24 @@ Public Class MainMenuBinding
                     If My.Computer.FileSystem.FileExists(pjData.OpenMapName) And
     My.Computer.FileSystem.DirectoryExists(pjData.SaveMapdirectory) And
     My.Computer.FileSystem.FileExists(pgData.Setting(ProgramData.TSetting.euddraft)) Then
-                        Return Application.Current.Resources("PrimaryHueMidBrush")
+                        Return Application.Current.Resources("MaterialDesign.Brush.Primary")
                     Else
-                        Return Application.Current.Resources("SecondaryHueMidBrush")
+                        Return Application.Current.Resources("MaterialDesign.Brush.Secondary")
                     End If
                 Catch ex As Exception
-                    Return Application.Current.Resources("PrimaryHueMidBrush")
+                    Return Application.Current.Resources("MaterialDesign.Brush.Primary")
                 End Try
             End If
-            Return Application.Current.Resources("PrimaryHueMidBrush")
+            Return Application.Current.Resources("MaterialDesign.Brush.Primary")
         End Get
     End Property
 
     Public ReadOnly Property BackgroundDatEdit As SolidColorBrush
         Get
             If scData.LoadStarCraftData Then
-                Return Application.Current.Resources("PrimaryHueMidBrush")
+                Return Application.Current.Resources("MaterialDesign.Brush.Primary")
             Else
-                Return Application.Current.Resources("SecondaryHueMidBrush")
+                Return Application.Current.Resources("MaterialDesign.Brush.Secondary")
             End If
         End Get
     End Property
@@ -233,9 +233,9 @@ Public Class MainMenuBinding
     Public ReadOnly Property BackgroundTriggerEdit As SolidColorBrush
         Get
             If scData.LoadStarCraftData Then
-                Return Application.Current.Resources("PrimaryHueMidBrush")
+                Return Application.Current.Resources("MaterialDesign.Brush.Primary")
             Else
-                Return Application.Current.Resources("SecondaryHueMidBrush")
+                Return Application.Current.Resources("MaterialDesign.Brush.Secondary")
             End If
         End Get
     End Property
@@ -243,9 +243,9 @@ Public Class MainMenuBinding
     Public ReadOnly Property BackgroundPlugin As SolidColorBrush
         Get
             If scData.LoadStarCraftData Then
-                Return Application.Current.Resources("PrimaryHueMidBrush")
+                Return Application.Current.Resources("MaterialDesign.Brush.Primary")
             Else
-                Return Application.Current.Resources("SecondaryHueMidBrush")
+                Return Application.Current.Resources("MaterialDesign.Brush.Secondary")
             End If
         End Get
     End Property

@@ -10,8 +10,8 @@
         <ListBox >
             <ListBoxItem Background="#FFD49B9B" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0" Height="88" Margin="0">
                 <DockPanel >
-                    <Border x:Name="TopBorder" DockPanel.Dock="Top" Visibility="Hidden" Background="{DynamicResource PrimaryHueDarkBrush}" Height="4"/>
-                    <Border x:Name="DownBorder" DockPanel.Dock="Bottom" Visibility="Visible" Background="{DynamicResource PrimaryHueDarkBrush}" Height="4"/>
+                    <Border x:Name="TopBorder" DockPanel.Dock="Top" Visibility="Hidden" Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Height="4"/>
+                    <Border x:Name="DownBorder" DockPanel.Dock="Bottom" Visibility="Visible" Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Height="4"/>
                     <DockPanel Margin="10">
                         <Border x:Name="IconB" Width="52" Height="52" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Black" >
                             <Image x:Name="Icon" />
@@ -29,7 +29,7 @@
             <ListBoxItem Background="#FFFD6262" HorizontalContentAlignment="Stretch" VerticalContentAlignment="Stretch" Padding="0,4,0,0" Margin="0,-4,0,0">
                 <DockPanel>
                     <Border DockPanel.Dock="Top" Visibility="Visible" Background="#FFFFB900" Height="4"/>
-                    <Border DockPanel.Dock="Bottom" Visibility="Hidden" Background="{DynamicResource PrimaryHueDarkBrush}" Height="4"/>
+                    <Border DockPanel.Dock="Bottom" Visibility="Hidden" Background="{DynamicResource MaterialDesign.Brush.Primary.Dark}" Height="4"/>
                     <DockPanel Margin="10">
                         <Border Width="52" Height="52" HorizontalAlignment="Left" VerticalAlignment="Top" Background="Black" >
                             <Image />

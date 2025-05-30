@@ -16,12 +16,13 @@ Public Class CustomTheme
 
     Public Sub ApplyTheme()
         Dim ph As New PaletteHelper
-        Dim ttheme As ITheme = ph.GetTheme
+        Dim ttheme As Theme = ph.GetTheme
+
 
         If IsLight Then
-            ttheme.SetBaseTheme(Theme.Light)
+            ThemeExtensions.SetLightTheme(ttheme)
         Else
-            ttheme.SetBaseTheme(Theme.Dark)
+            ThemeExtensions.SetDarkTheme(ttheme)
         End If
 
 
@@ -40,7 +41,7 @@ Public Class CustomTheme
     Public Sub InitColor()
         Dim ph As New PaletteHelper
 
-        Dim theme As ITheme = ph.GetTheme
+        Dim theme As Theme = ph.GetTheme
 
         'theme.SetBaseTheme(SwatchHelper.Lookup(MaterialDesignColor.Amber500))
         theme.SetPrimaryColor(SwatchHelper.Lookup(MaterialDesignColor.Blue))

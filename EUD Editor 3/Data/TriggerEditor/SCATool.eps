@@ -1,7 +1,7 @@
 import SCAFlexible as scf;
+import msqcloader_sca as ml;
 import TriggerEditor.SCArchive as sca;
 import TriggerEditor.SCAFastLoader as scfl;
-import TriggerEditor.msqcloader as ml;
 
 const CommandLength = 12;
 
@@ -346,7 +346,11 @@ function PlayerExec() {
                             if(ml.l_displayloaddatalen == 0){
                                 f_eprintln("\x07불러오기 : \x03SCArchive\x04의 \x1F응답\x04을 \x07기다리는 중...");
                             }else{
-                                f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", ml.lastrindex[CP], "/", ml.l_displayloaddatalen);
+                                if(ml.lastrindex[CP] > ml.l_displayloaddatalen){
+                                    f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", ml.l_displayloaddatalen, "/", ml.l_displayloaddatalen);
+                                }else{
+                                    f_eprintln("\x07불러오기 : \x03데이터 불러오는 중 ... \x1FPage : ", ml.lastrindex[CP], "/", ml.l_displayloaddatalen);
+                                }
                             }
                         }else{
                             f_eprintln("\x07불러오기 : \x03전달 오류를 판단하는 중 ... ");
