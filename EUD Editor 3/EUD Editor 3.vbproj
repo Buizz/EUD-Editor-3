@@ -330,6 +330,7 @@
     <Compile Include="Class\Binding\ValidationRule\EMailValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\HexValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotDoubleValidationRule.vb" />
+    <Compile Include="Class\Binding\ValidationRule\NotTextAndOver3ValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\NotTextValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\AlphaValidationRule.vb" />
     <Compile Include="Class\Binding\ValidationRule\TextValidationRule.vb" />

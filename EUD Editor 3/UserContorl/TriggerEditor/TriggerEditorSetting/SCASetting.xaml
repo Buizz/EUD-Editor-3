@@ -256,7 +256,7 @@
                     UpdateSourceTrigger="PropertyChanged">
 
                                     <Binding.ValidationRules>
-                                        <local:NotTextValidationRule ValidatesOnTargetUpdated="True"/>
+                                        <local:NotTextAndOver3ValidationRule ValidatesOnTargetUpdated="True"/>
                                     </Binding.ValidationRules>
                                 </Binding>
                             </TextBox.Text>
