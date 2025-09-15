@@ -120,6 +120,8 @@ Public Class TEFile
                     Return True
                 Case EFileType.ClassicTrigger
                     Return True
+                Case EFileType.SCAScript
+                    Return True
                 Case Else
                     Return False
             End Select

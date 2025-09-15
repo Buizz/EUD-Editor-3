@@ -67,7 +67,6 @@ Partial Public Class ProjectExplorer
                         If GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIEps Or
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.GUIPy Or
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.ClassicTrigger Or
-                                 GetFile(LastSelectItem).FileType = TEFile.EFileType.SCAScript Or
                                  GetFile(LastSelectItem).FileType = TEFile.EFileType.RawText Then
                             MenuConnect.Visibility = Visibility.Collapsed
                             MenuDisConnect.Visibility = Visibility.Collapsed
@@ -175,6 +174,11 @@ Partial Public Class ProjectExplorer
                 openFileDialog = New System.Windows.Forms.OpenFileDialog With {
                    .Filter = Tool.GetText("OpenPyFileFliter"),
                    .Title = Tool.GetText("OpenPyTitle")
+                }
+            ElseIf GetFile(LastSelectItem).FileType = TEFile.EFileType.SCAScript Then
+                openFileDialog = New System.Windows.Forms.OpenFileDialog With {
+                   .Filter = Tool.GetText("OpenLuaFileFliter"),
+                   .Title = Tool.GetText("OpenLuaTitle")
                 }
             End If
 

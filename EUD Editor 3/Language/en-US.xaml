@@ -879,9 +879,11 @@
 
     <sys:String x:Key="OpenEpsFileFliter">epScript File|*.eps</sys:String>
     <sys:String x:Key="OpenPyFileFliter">eudplib File|*.py</sys:String>
+    <sys:String x:Key="OpenLuaFileFliter">Lua File|*.lua</sys:String>
 
     <sys:String x:Key="OpenEpsTitle">Select epScript File</sys:String>
     <sys:String x:Key="OpenPyTitle">Select eudplib File</sys:String>
+    <sys:String x:Key="OpenLuaTitle">Select Lua File</sys:String>
 
 
     <sys:String x:Key="MenuCNewCT">ClassicTrigger</sys:String>
