@@ -1012,7 +1012,7 @@ Partial Public Class BuildData
         Dim tefiles As List(Of TEFile) = pjData.TEData.GetAllTEFile(TEFile.EFileType.SCAScript)
         For Each item In tefiles
             Dim scriptEditor As SCAScriptEditor = item.Scripter
-            Sb.Append(scriptEditor.GetFileText(""))
+            Sb.AppendLine(scriptEditor.GetFileText(""))
         Next
         Dim crc As CRC32 = New CRC32()
 
