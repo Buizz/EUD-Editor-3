@@ -131,8 +131,8 @@ Public Class TriggerCodeEditControl
 
         For Each titem As ListBoxItem In CodeTypeList.Items
             'Background="{DynamicResource MaterialDesignPaper}" Foreground="{DynamicResource MaterialDesignBody}"
-            titem.Background = Application.Current.Resources("PrimaryHueLightBrush")
-            titem.Foreground = Application.Current.Resources("PrimaryHueLightForegroundBrush")
+            titem.Background = Application.Current.Resources("MaterialDesign.Brush.Primary.Light")
+            titem.Foreground = Application.Current.Resources("MaterialDesign.Brush.Primary.Light.Foreground")
         Next
 
         If CodeTypeList.SelectedIndex = -1 Then

@@ -42,12 +42,12 @@
                     </StackPanel>
 
                 </DockPanel>
-                <DockPanel x:Name="FuncSelecter" Visibility="Visible" Margin="0" >
+                <DockPanel x:Name="FuncSelecter" Visibility="Visible" Margin="0" Background="{DynamicResource MaterialDesignPaper}">
                     <Button x:Name="SelectBtn" Click="Button_Click_3" DockPanel.Dock="Bottom" Content="{StaticResource CT_Select}" IsEnabled="False"/>
 
                     <UniformGrid Rows="1">
                         <DockPanel>
-                            <ListBox x:Name="CodeTypeList" SelectionChanged="CodeTypeList_SelectionChanged">
+                            <ListBox x:Name="CodeTypeList" SelectionChanged="CodeTypeList_SelectionChanged" >
                                 <ListBoxItem Content="{StaticResource CT_Condition}" x:Name="CListItem" Tag="C"/>
                                 <ListBoxItem Content="{StaticResource CT_Action}" x:Name="AListItem" Tag="A"/>
                                 <ListBoxItem Content="{StaticResource CT_Plib}" Tag="P"/>

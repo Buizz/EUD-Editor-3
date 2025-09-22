@@ -114,7 +114,7 @@
             </DockPanel>
         </DockPanel>
         <Border>
-            <local:TriggerCodeEditControl Visibility="Collapsed" x:Name="TriggerCodeEdit"/>
+            <local:TriggerCodeEditControl Visibility="Collapsed" x:Name="TriggerCodeEdit" />
         </Border>
     </Grid>
     
