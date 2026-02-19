@@ -459,7 +459,7 @@ Public Class MacroManager
 
                 Else
                     'onPluginStart가 없을 경우 맨 밑에 새로 추가.
-                    rstr = rstr & "function onPluginStart(){" & vbCrLf
+                    rstr = rstr & vbCrLf & "function onPluginStart(){" & vbCrLf
                     rstr = rstr & temp & vbCrLf
                     rstr = rstr & "}" & vbCrLf
                 End If
@@ -481,7 +481,7 @@ Public Class MacroManager
                     rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
                 Else
                     'onPluginStart가 없을 경우 맨 밑에 새로 추가.
-                    rstr = rstr & "function beforeTriggerExec(){" & vbCrLf
+                    rstr = rstr & vbCrLf & "function beforeTriggerExec(){" & vbCrLf
                     rstr = rstr & temp & vbCrLf
                     rstr = rstr & "}" & vbCrLf
                 End If
@@ -502,7 +502,7 @@ Public Class MacroManager
                     rstr = rstr.Insert(startindex + vallen, vbCrLf & temp)
                 Else
                     'onPluginStart가 없을 경우 맨 밑에 새로 추가.
-                    rstr = rstr & "function afterTriggerExec(){" & vbCrLf
+                    rstr = rstr & vbCrLf & "function afterTriggerExec(){" & vbCrLf
                     rstr = rstr & temp & vbCrLf
                     rstr = rstr & "}" & vbCrLf
                 End If

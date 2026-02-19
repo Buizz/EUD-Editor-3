@@ -1,10 +1,10 @@
 ﻿Imports System.IO
+Imports System.IO.Compression
 Imports System.Net
 Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Text
 Imports EUD_Editor_3.IScript
-Imports Ionic.Zip
 
 Partial Public Class BuildData
     Private ConnectKey As String
@@ -1029,11 +1029,20 @@ Partial Public Class BuildData
             item.SaveToFile(EudPlibFilePath & "\scascripttemp\")
         Next
 
-        Dim zip As New ZipFile(EudPlibFilePath & "\scascript")
+        Dim sourceDir As String = EudPlibFilePath & "\scascripttemp"
+        Dim zipPath As String = EudPlibFilePath & "\scascript.zip" ' 확장자 확인 필요
 
-        zip.Password = ConnectKey
-        zip.AddDirectory(EudPlibFilePath & "\scascripttemp")
-        zip.Save()
+        ' 기존 파일이 있으면 삭제 (ZipFile.CreateFromDirectory는 파일이 존재하면 오류 발생)
+        If File.Exists(zipPath) Then File.Delete(zipPath)
+
+        ' 압축 실행 (보안상 비밀번호는 아래 별도 설명 참고)
+        ZipFile.CreateFromDirectory(sourceDir, zipPath)
+
+        'Dim zip As New ZipFile(EudPlibFilePath & "\scascript")
+
+        'zip.Password = ConnectKey
+        'zip.AddDirectory(EudPlibFilePath & "\scascripttemp")
+        'zip.Save()
 
     End Sub
 
