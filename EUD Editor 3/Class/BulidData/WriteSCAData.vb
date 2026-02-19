@@ -5,6 +5,7 @@ Imports System.Reflection
 Imports System.Security.Cryptography
 Imports System.Text
 Imports EUD_Editor_3.IScript
+Imports ICSharpCode.SharpZipLib.Zip
 
 Partial Public Class BuildData
     Private ConnectKey As String
@@ -1029,14 +1030,26 @@ Partial Public Class BuildData
             item.SaveToFile(EudPlibFilePath & "\scascripttemp\")
         Next
 
-        Dim sourceDir As String = EudPlibFilePath & "\scascripttemp"
-        Dim zipPath As String = EudPlibFilePath & "\scascript.zip" ' 확장자 확인 필요
+        Dim zipPath As String = EudPlibFilePath & "\scascript" ' 생성될 압축파일 경로
+        Dim sourceDir As String = EudPlibFilePath & "\scascripttemp" ' 압축할 폴더 경로
 
-        ' 기존 파일이 있으면 삭제 (ZipFile.CreateFromDirectory는 파일이 존재하면 오류 발생)
-        If File.Exists(zipPath) Then File.Delete(zipPath)
+        Try
+            ' FastZip 인스턴스 생성
+            Dim fz As New FastZip()
 
-        ' 압축 실행 (보안상 비밀번호는 아래 별도 설명 참고)
-        ZipFile.CreateFromDirectory(sourceDir, zipPath)
+            ' 비밀번호 설정 (취약한 DotNetZip의 대안)
+            fz.Password = ConnectKey
+
+            ' 디렉토리 압축 실행
+            ' CreateEmptyDirectories를 True로 하면 빈 폴더도 포함됩니다.
+            ' 세 번째 인자는 파일 필터(정규식)입니다. 전체 압축은 Nothing 혹은 "" 사용
+            fz.CreateZip(zipPath, sourceDir, True, "")
+
+            ' 성공 시 기존 임시 폴더 삭제 등의 후속 작업 진행
+        Catch ex As Exception
+            ' 예외 처리
+            MessageBox.Show("압축 중 오류 발생: " & ex.Message)
+        End Try
 
         'Dim zip As New ZipFile(EudPlibFilePath & "\scascript")
 
