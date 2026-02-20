@@ -10,9 +10,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Number]번 선택유닛 오프셋을 반환합니다.
+Returns the offset of [Player]'s [Number]th selected unit.
 @Group
-일반
+General
 @param.Player.TrgPlayer
 @param.Number.Number
 ]================================]

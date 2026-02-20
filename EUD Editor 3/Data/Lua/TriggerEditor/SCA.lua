@@ -11,13 +11,13 @@ SCA
 
 @Language.en-US
 @Summary
-[ScriptName]을 실행하고 결과를 [ReturnIndex]에 반환합니다.
+Executes [ScriptName] and returns the result to [ReturnIndex].
 @Group
 SCA
 @param.ScriptName.SCAScript
-실행할 스크립트의 이름입니다.
+Name of the script to execute.
 @param.ReturnIndex.Number
-반환할 인덱스입니다.
+Index to return the result to.
 ]================================]
 function SCAScriptRunFunc(ScriptName, ReturnIndex, ...)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
@@ -51,15 +51,15 @@ SCA
 
 @Language.en-US
 @Summary
-Script 변수 [Variable]에 [Value]만큼 [Modifier]합니다.
+Modifies Script variable [Variable]: [Modifier] [Value].
 @Group
 SCA
 @param.Variable.TrgString
-변수 이름입니다.
+Variable name.
 @param.Value.Number
-넣을 값 입니다.
+Value to apply.
 @param.Modifier.TrgModifier
-연산 종류 입니다.
+Operation type.
 ]================================]
 function SCAScriptWriteVariable(Variable, Modifier, Value)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
@@ -83,11 +83,11 @@ SCA
 
 @Language.en-US
 @Summary
-Script 변수 [Variable]를 읽습니다.
+Reads Script variable [Variable].
 @Group
 SCA
 @param.Variable.TrgString
-변수 이름입니다.
+Variable name.
 ]================================]
 function SCAScriptReadVariable(Variable)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
@@ -107,11 +107,11 @@ SCA
 
 @Language.en-US
 @Summary
-Script 변수 [Variable]의 오프셋입니다.
+Returns the offset of Script variable [Variable].
 @Group
 SCA
 @param.Variable.TrgString
-변수 이름입니다.
+Variable name.
 ]================================]
 function SCAScriptVariableOffset(Variable)
 	preDefine("import TriggerEditor.SCALuaWrapper as scalua;")
@@ -131,7 +131,7 @@ SCA
 
 @Language.en-US
 @Summary
-[Slot] 슬롯의 데이터를 불러옵니다.
+Loads data from slot [Slot].
 @Group
 SCA
 @param.Slot.Number
@@ -158,7 +158,7 @@ SCA
 
 @Language.en-US
 @Summary
-[Slot] 슬롯의 데이터를 저장합니다.
+Saves data to slot [Slot].
 @Group
 SCA
 @param.Slot.Number
@@ -185,7 +185,7 @@ SCA
 
 @Language.en-US
 @Summary
-해당플레이어를 [BanType]으로 유즈맵에서 차단합니다.
+Bans the current player from the UMS map with [BanType].
 @Group
 SCA
 @param.BanType.SCABanType
@@ -214,7 +214,7 @@ SCA
 
 @Language.en-US
 @Summary
-시간 정보를 불러옵니다.
+Loads time information.
 @Group
 SCA
 ]================================]
@@ -239,7 +239,7 @@ SCA
 
 @Language.en-US
 @Summary
-글로벌 변수를 불러옵니다.
+Loads global variables.
 @Group
 SCA
 ]================================]
@@ -264,7 +264,7 @@ SCA
 
 @Language.en-US
 @Summary
-시간 정보를 불러옵니다.
+Loads time information once.
 @Group
 SCA
 ]================================]
@@ -289,7 +289,7 @@ SCA
 
 @Language.en-US
 @Summary
-글로벌 변수를 불러옵니다.
+Loads global variables once.
 @Group
 SCA
 ]================================]
@@ -314,7 +314,7 @@ SCA
 
 @Language.en-US
 @Summary
-불러오기 완료를 확인합니다.
+Checks if loading is complete.
 @Group
 SCA
 ]================================]
@@ -336,7 +336,7 @@ SCA
 
 @Language.en-US
 @Summary
-저장 완료를 확인합니다.
+Checks if saving is complete.
 @Group
 SCA
 ]================================]
@@ -358,7 +358,7 @@ SCA
 
 @Language.en-US
 @Summary
-글로벌 변수의 불러오기 완료를 확인합니다.
+Checks if global variable loading is complete.
 @Group
 SCA
 ]================================]
@@ -380,7 +380,7 @@ SCA
 
 @Language.en-US
 @Summary
-시간 정보의 불러오기 완료를 확인합니다.
+Checks if time information loading is complete.
 @Group
 SCA
 ]================================]
@@ -403,7 +403,7 @@ SCA
 
 @Language.en-US
 @Summary
-[Index]번 글로벌 데이터의 값을 반환합니다.
+Returns the value of global data at index [Index].
 @Group
 SCA
 @param.Index.Number
@@ -431,7 +431,7 @@ SCA
 
 @Language.en-US
 @Summary
-[Index]번 글로벌 데이터의 값이 [Comparison] [Value]인지 판단합니다.
+Checks if global data at [Index] is [Comparison] [Value].
 @Group
 SCA
 @param.Index.Number
@@ -477,7 +477,7 @@ SCA
 
 @Language.en-US
 @Summary
-[DateType]을 반환합니다.
+Returns [DateType].
 @Group
 SCA
 @param.DateType.DateType
@@ -521,7 +521,7 @@ SCA
 
 @Language.en-US
 @Summary
-[DateType]이 [Comparison] [Value]인지 판단합니다.
+Checks if [DateType] is [Comparison] [Value].
 @Group
 SCA
 @param.DateType.DateType
@@ -577,7 +577,7 @@ SCA
 
 @Language.en-US
 @Summary
-현재 요일이 [Weekend]인지 확인합니다.
+Checks if the current day is [Weekend].
 @Group
 SCA
 @param.Weekend.Weekend

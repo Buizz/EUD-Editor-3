@@ -11,9 +11,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Unit] 유닛 사용 가능 값을 [State]합니다.
+Sets [Player]'s availability state for [Unit] to [State].
 @Group
-플레이어
+Player
 @param.Player.TrgPlayer
 @param.Unit.TrgUnit
 @param.State.TrgSwitchState
@@ -62,9 +62,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit] 유닛 사용 가능 값을 읽어옵니다.
+Returns [Player]'s availability value for [Unit].
 @Group
-플레이어
+Player
 @param.Player.TrgPlayer
 @param.Unit.TrgUnit
 ]================================]
@@ -87,9 +87,9 @@ end
 
 @Language.en-US
 @Summary
-플레이어 유닛 사용 가능 오프셋을 가져옵니다.
+Returns the offset of player unit availability data.
 @Group
-플레이어
+Player
 ]================================]
 function PlayerUnitsAvailableOffset() --일반//플레이어 유닛 사용 가능 오프셋을 가져옵니다.
 	return "0x57F27C"

@@ -8,9 +8,9 @@
 
 @Language.en-US
 @Summary
-다음에 생성될 유닛의 주소를 반환합니다
+Returns the PTR of the next unit to be created.
 @Group
-구조오프셋
+CUnit Offset
 ]================================]
 function ReadNextUnitPtr()
     echo("cunitread_epd(EPD(0x628438))")
@@ -26,9 +26,9 @@ end
 
 @Language.en-US
 @Summary
-다음에 생성될 유닛의 EPD를 반환합니다
+Returns the EPD of the next unit to be created.
 @Group
-구조오프셋
+CUnit Offset
 ]================================]
 function ReadNextUnitEpd()
     echo("cunitepdread_epd(EPD(0x628438))[[1]]")
@@ -44,9 +44,9 @@ end
 
 @Language.en-US
 @Summary
-다음에 생성될 유닛을 ptr, epd로 반환합니다.
+Returns the PTR and EPD of the next unit to be created.
 @Group
-구조오프셋
+CUnit Offset
 ]================================]
 function ReadNextUnitPtrEpd()
     echo("cunitepdread_epd(EPD(0x628438))")
@@ -64,11 +64,11 @@ ptr이 저장될 변수입니다.
 
 @Language.en-US
 @Summary
-[ptr]에 다음에 생성될 유닛의 주소를 반환합니다
+Stores the PTR of the next unit to be created into [ptr].
 @Group
-구조오프셋
+CUnit Offset
 @param.ptr.Variable
-ptr이 저장될 변수입니다.
+Variable where the ptr will be stored.
 ]================================]
 function SetNextUnitPtr(ptr)
     echo(ptr .. " = cunitread_epd(EPD(0x628438))")
@@ -86,11 +86,11 @@ epd가 저장될 변수입니다.
 
 @Language.en-US
 @Summary
-[epd]에 다음에 생성될 유닛의 EPD를 반환합니다
+Stores the EPD of the next unit to be created into [epd].
 @Group
-구조오프셋
+CUnit Offset
 @param.epd.Variable
-epd가 저장될 변수입니다.
+Variable where the epd will be stored.
 ]================================]
 function SetNextUnitEpd(epd)
     echo(epd .. " = cunitepdread_epd(EPD(0x628438))[[1]]")
@@ -110,13 +110,13 @@ epd가 저장될 변수입니다.
 
 @Language.en-US
 @Summary
-[ptr]에 다음에 생성될 유닛의 PTR을, [epd]에 EPD를 반환합니다
+Stores the PTR of the next unit to be created into [ptr] and the EPD into [epd].
 @Group
-구조오프셋
+CUnit Offset
 @param.ptr.Variable
-ptr가 저장될 변수입니다.
+Variable where the ptr will be stored.
 @param.epd.Variable
-epd가 저장될 변수입니다.
+Variable where the epd will be stored.
 ]================================]
 function SetNextUnitPtrEpd(ptr, epd)
     echo(ptr .. ", " .. epd .. " = cunitepdread_epd(EPD(0x628438))")
@@ -135,11 +135,11 @@ CUint의 주소의 이름입니다.
 
 @Language.en-US
 @Summary
-Offset의 주소와 크기를 반환합니다.
+Returns address and size of the given Offset.
 @Group
-구조오프셋
+CUnit Offset
 @param.Offset.CUnitOffset
-CUint의 주소의 이름입니다.
+Name of the CUnit field.
 ]================================]
 function GetCUnitOffset(Offset)
 	t = {
@@ -371,13 +371,13 @@ end
 
 @Language.en-US
 @Summary
-[ptr]의 [Offset]을 읽어옵니다.
+Reads [Offset] of [ptr].
 @Group
-구조오프셋
+CUnit Offset
 @param.ptr.Variable
-대상 유닛입니다.
+Target unit.
 @param.Offset.CUnitOffset
-읽어올 항목입니다.
+Field to read.
 ]================================]
 function GetCUnitptr(ptr, Offset)
 	table = GetCUnitOffset(Offset)
@@ -411,13 +411,13 @@ end
 
 @Language.en-US
 @Summary
-[epd]의 [Offset]을 읽어옵니다.
+Reads [Offset] of [epd].
 @Group
-구조오프셋
+CUnit Offset
 @param.epd.Variable
-대상 유닛입니다.
+Target unit.
 @param.Offset.CUnitOffset
-읽어올 항목입니다.
+Field to read.
 ]================================]
 function GetCUnitepd(epd, Offset)
 	table = GetCUnitOffset(Offset)
@@ -456,17 +456,17 @@ end
 
 @Language.en-US
 @Summary
-[ptr]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+Modifies [Offset] of [ptr]: [Modifier] [Value].
 @Group
-구조오프셋
+CUnit Offset
 @param.ptr.Variable
-대상 유닛입니다.
+Target unit.
 @param.Offset.CUnitOffset
-변경할 항목입니다.
+Field to modify.
 @param.Value.Number
-값입니다.
+Value.
 @param.Modifier.TrgModifier
-연산할 방식입니다.
+Operation method.
 ]================================]
 function SetCUnitptr(ptr, Offset, Value, Modifier)
 	Modifier = ParseModifier(Modifier)
@@ -512,17 +512,17 @@ end
 
 @Language.en-US
 @Summary
-[epd]의 [Offset]을 [Value]만큼 [Modifier]합니다.
+Modifies [Offset] of [epd]: [Modifier] [Value].
 @Group
-구조오프셋
+CUnit Offset
 @param.epd.Variable
-대상 유닛입니다.
+Target unit.
 @param.Offset.CUnitOffset
-변경할 항목입니다.
+Field to modify.
 @param.Value.Number
-값입니다.
+Value.
 @param.Modifier.TrgModifier
-연산할 방식입니다.
+Operation method.
 ]================================]
 function SetCUnitepd(epd, Offset, Value, Modifier) --구조오프셋/Variable,CUnitOffset,Number,TrgModifier/[epd]의 [Offset]을 [Value]만큼 [Modifier]합니다.
 	Modifier = ParseModifier(Modifier)
@@ -568,17 +568,17 @@ end
 
 @Language.en-US
 @Summary
-[ptr]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
+Checks if [Offset] of [ptr] is [Comparison] [Value].
 @Group
-구조오프셋
+CUnit Offset
 @param.ptr.Variable
-대상 유닛입니다.
+Target unit.
 @param.Offset.CUnitOffset
-변경할 항목입니다.
+Field to check.
 @param.Value.Number
-값입니다.
+Value.
 @param.Comparison.TrgComparison
-비교 방식입니다.
+Operation method.
 ]================================]
 function CUnitptr(ptr, Offset, Value, Comparison)
 	Comparison = ParseComparison(Comparison)
@@ -624,17 +624,17 @@ end
 
 @Language.en-US
 @Summary
-[epd]의 [Offset]가 [Value] [Comparison]인지 확인합니다.
+Checks if [Offset] of [epd] is [Comparison] [Value].
 @Group
-구조오프셋
+CUnit Offset
 @param.epd.Variable
-대상 유닛입니다.
+Target unit.
 @param.Offset.CUnitOffset
-변경할 항목입니다.
+Field to check.
 @param.Value.Number
-값입니다.
+Value.
 @param.Comparison.TrgComparison
-비교 방식입니다.
+Operation method.
 ]================================]
 function CUnitepd(epd, Offset, Value, Comparison)
 	Comparison = ParseComparison(Comparison)

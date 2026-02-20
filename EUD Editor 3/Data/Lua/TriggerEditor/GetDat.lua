@@ -12,13 +12,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.UnitsDat
-파라미터입니다.
+Parameter.
 @param.Index.TrgUnit
-대상 유닛입니다.
+Target unit.
 ]================================]
 function GetUnitsDat(DatType, Index) --DatFile/UnitsDat,TrgUnit/[Index]의 [DatType] 값을 반환합니다.
 	Unit = ParseUnit(Index)
@@ -40,13 +40,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.WeaponsDat
-파라미터입니다.
+Parameter.
 @param.Index.Weapon
-대상 무기입니다.
+Target weapon.
 ]================================]
 function GetWeaponsDat(DatType, Index) --DatFile/WeaponsDat,Weapon/[Index]의 [DatType] 값을 반환합니다.
 	Weapon = ParseWeapon(Index)
@@ -68,13 +68,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.FlingyDat
-파라미터입니다.
+Parameter.
 @param.Index.Flingy
-대상 비행정보입니다.
+Target flingy.
 ]================================]
 function GetFlingyDat(DatType, Index) --DatFile/FlingyDat,Flingy/[Index]의 [DatType] 값을 반환합니다.
 	Flingy = ParseFlingy(Index)
@@ -96,13 +96,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.SpritesDat
-파라미터입니다.
+Parameter.
 @param.Index.Sprite
-대상 스프라이트입니다.
+Target sprite.
 ]================================]
 function GetSpritesDat(DatType, Index) --DatFile/SpritesDat,Sprite/[Index]의 [DatType] 값을 반환합니다.
 	Sprite = ParseSprites(Index)
@@ -125,13 +125,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.ImagesDat
-파라미터입니다.
+Parameter.
 @param.Index.Image
-대상 이미지입니다.
+Target image.
 ]================================]
 function GetImagesDat(DatType, Index) --DatFile/ImagesDat,Image/[Index]의 [DatType] 값을 반환합니다.
 	Image = ParseImages(Index)
@@ -153,13 +153,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.UpgradesDat
-파라미터입니다.
+Parameter.
 @param.Index.Upgrade
-대상 업그레이드입니다.
+Target upgrade.
 ]================================]
 function GetUpgradesDat(DatType, Index) --DatFile/UpgradesDat,Upgrade/[Index]의 [DatType] 값을 반환합니다.
 	Upgrade = ParseUpgrade(Index)
@@ -181,13 +181,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.TechdataDat
-파라미터입니다.
+Parameter.
 @param.Index.Tech
-대상 기술입니다.
+Target tech.
 ]================================]
 function GetTechdataDat(DatType, Index) --DatFile/TechdataDat,Tech/[Index]의 [DatType] 값을 반환합니다.
 	Tech = ParseTech(Index)
@@ -209,13 +209,13 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType] 값을 반환합니다.
+Returns the [DatType] value of [Index].
 @Group
 DatFile
 @param.DatType.OrdersDat
-파라미터입니다.
+Parameter.
 @param.Index.Order
-대상 명령입니다.
+Target order.
 ]================================]
 function GetOrdersDat(DatType, Index) --DatFile/OrdersDat,Order/[Index]의 [DatType] 값을 반환합니다.
 	Order = ParseOrder(Index)

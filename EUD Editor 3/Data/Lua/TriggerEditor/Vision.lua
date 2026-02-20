@@ -11,9 +11,9 @@
 
 @Language.en-US
 @Summary
-[Player]에게 [DestPlayer]의 시야를 [State]합니다.
+Sets [Player]'s vision of [DestPlayer] to [State].
 @Group
-시야
+Vision
 @param.Player.TrgPlayer
 @param.DestPlayer.TrgPlayer
 @param.State.TrgSwitchState
@@ -54,9 +54,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]가 [DestPlayer]를 볼 수 있는지 확인합니다.
+Returns whether [Player] has vision of [DestPlayer].
 @Group
-시야
+Vision
 @param.Player.TrgPlayer
 @param.DestPlayer.TrgPlayer
 ]================================]
@@ -88,9 +88,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 시야 오프셋을 반환합니다.
+Returns the EPD address of [Player]'s vision data.
 @Group
-시야
+Vision
 @param.Player.TrgPlayer
 ]================================]
 function VisionEPD(Player) --시야/TrgPlayer/[Player]의 시야 오프셋을 반환합니다.

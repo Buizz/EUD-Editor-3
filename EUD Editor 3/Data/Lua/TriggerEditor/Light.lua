@@ -10,9 +10,9 @@
 
 @Language.en-US
 @Summary
-화면 밝기를 [Amount]만큼 [Modifier]합니다.
+Modifies screen brightness: [Modifier] [Amount].
 @Group
-시스템
+System
 @param.Modifier.TrgModifier
 @param.Amount.Number
 ]================================]
@@ -32,9 +32,9 @@ end
 
 @Language.en-US
 @Summary
-화면 밝기의 값을 읽습니다.
+Returns the current screen brightness value.
 @Group
-시스템
+System
 ]================================]
 function GetLight() --일반//화면 밝기의 값을 읽습니다.
     Offset = LightOffset()
@@ -51,9 +51,9 @@ end
 
 @Language.en-US
 @Summary
-화면 밝기의 주소를 반환합니다.
+Returns the address of the screen brightness value.
 @Group
-시스템
+System
 ]================================]
 function LightOffset() --일반//화면 밝기의 주소를 반환합니다.
 	return "0x657A9C"

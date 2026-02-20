@@ -12,9 +12,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [SupplyType]를 [Amount]만큼 [Modifier]합니다.
+Modifies [Player]'s [SupplyType]: [Modifier] [Amount].
 @Group
-인구수
+Supply
 @param.SupplyType.SupplyType
 @param.Player.TrgPlayer
 @param.Modifier.TrgModifier
@@ -44,9 +44,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [SupplyType]가 [Comparison] [Amount]인지 확인합니다.
+Checks if [Player]'s [SupplyType] is [Comparison] [Amount].
 @Group
-인구수
+Supply
 @param.SupplyType.SupplyType
 @param.Player.TrgPlayer
 @param.Comparison.TrgComparison
@@ -74,9 +74,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [SupplyType] 값을 읽습니다.
+Returns [Player]'s [SupplyType] value.
 @Group
-인구수
+Supply
 @param.SupplyType.SupplyType
 @param.Player.TrgPlayer
 ]================================]
@@ -99,9 +99,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [SupplyType] 주소를 반환합니다.
+Returns the EPD address of [Player]'s [SupplyType].
 @Group
-인구수
+Supply
 @param.SupplyType.SupplyType
 @param.Player.TrgPlayer
 ]================================]

@@ -10,9 +10,9 @@
 
 @Language.en-US
 @Summary
-해당플레이어의 선택 유닛의 버튼셋 ID가 [Comparison] [Amount]인지 확인합니다.
+Checks if the buttonset ID of the locally selected unit is [Comparison] [Amount].
 @Group
-선택인식
+Selection Detection
 @param.Comparison.TrgComparison
 @param.Amount.Number
 
@@ -36,9 +36,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Score]가 [Comparison] [Amount]인지 확인합니다.
+Checks if the pointer of the locally selected unit is [Comparison] [Amount].
 @Group
-선택인식
+Selection Detection
 @param.Comparison.TrgComparison
 @param.Amount.Number
 ]================================]
@@ -61,9 +61,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]가 [ptr]을 선택했는지 확인합니다.
+Checks if [Player] has selected unit at pointer [ptr].
 @Group
-선택인식
+Selection Detection
 @param.Player.TrgPlayer
 @param.ptr.Number
 ]================================]

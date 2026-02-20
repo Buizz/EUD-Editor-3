@@ -12,9 +12,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 현재값을 [Amount]만큼 [Modifier]합니다.
+Modifies the current level of [Tech] for [Player]: [Modifier] [Amount].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 @param.Modifier.TrgModifier
@@ -65,9 +65,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 현재값이 [Comparison] [Amount]인지 확인합니다.
+Checks if the current level of [Tech] for [Player] is [Comparison] [Amount].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 @param.Comparison.TrgComparison
@@ -111,9 +111,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 현재값을 반환합니다.
+Returns the current level of [Tech] for [Player].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 ]================================]
@@ -145,9 +145,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 현재값 주소의 EPD를 반환합니다.
+Returns the EPD address of the current level of [Tech] for [Player].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 ]================================]
@@ -186,9 +186,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 현재값 주소를 반환합니다.
+Returns the address of the current level of [Tech] for [Player].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 ]================================]
@@ -230,9 +230,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 최대값을 [Amount]만큼 [Modifier]합니다.
+Modifies the maximum level of [Tech] for [Player]: [Modifier] [Amount].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 @param.Modifier.TrgModifier
@@ -282,9 +282,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 최대값이 [Comparison] [Amount]인지 확인합니다.
+Checks if the maximum level of [Tech] for [Player] is [Comparison] [Amount].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 @param.Comparison.TrgComparison
@@ -328,9 +328,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 최대값을 반환합니다.
+Returns the maximum level of [Tech] for [Player].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 ]================================]
@@ -363,9 +363,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 최대값 주소의 EPD를 반환합니다.
+Returns the EPD address of the maximum level of [Tech] for [Player].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 ]================================]
@@ -405,9 +405,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Tech]의 최ㅐ값 주소를 반환합니다.
+Returns the address of the maximum level of [Tech] for [Player].
 @Group
-테크
+Tech
 @param.Tech.Tech
 @param.Player.TrgPlayer
 ]================================]
