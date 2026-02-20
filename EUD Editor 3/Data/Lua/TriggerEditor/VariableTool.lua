@@ -11,9 +11,9 @@
 
 @Language.en-US
 @Summary
-[Variable]을 [Value]으로 [Modifier]합니다.
+Modifies [Variable]: [Modifier] [Value].
 @Group
-변수
+Variable
 @param.Variable.Variable
 @param.Modifier.TrgModifier
 @param.Value.Number
@@ -56,9 +56,9 @@ end
 
 @Language.en-US
 @Summary
-[Variable]이 [Comparison][Value]인지 판단합니다.
+Checks if [Variable] is [Comparison] [Value].
 @Group
-변수
+Variable
 @param.Variable.Variable
 @param.Comparison.TrgComparison
 @param.Value.Number

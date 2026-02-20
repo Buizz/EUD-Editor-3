@@ -16,17 +16,17 @@
 
 @Language.en-US
 @Summary
-[Player]가 [Unit]을 죽인 수를 [Amount]만큼 [Modifier]합니다.
+Modifies [Player]'s kill count of [Unit]: [Modifier] [Value].
 @Group
-일반
+General
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Modifier.TrgModifier
-조절할 방법입니다.
+Adjustment method.
 @param.Amount.Number
-설정할 값입니다.
+Value to apply.
 @param.Unit.TrgUnit
-설정할 유닛입니다.
+Unit to adjust.
 ]================================]
 function SetKills(Player, Modifier, Amount, Unit) --일반/TrgPlayer,TrgModifier,Number,TrgUnit/[Player]의 [Unit]이 죽은 수를 [Amount]만큼 [Modifier]합니다.
 	Player = ParsePlayer(Player)
@@ -52,13 +52,13 @@ end
 
 @Language.en-US
 @Summary
-[Player]가 [Unit]이 죽은 수를 읽습니다.
+Returns [Player]'s kill count of [Unit].
 @Group
-일반
+General
 @param.Unit.TrgUnit
-설정할 유닛입니다.
+Unit to read.
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 ]================================]
 function GetKills(Unit, Player) --일반/TrgUnit,TrgPlayer/[Player]의 [Unit]이 죽은 수를 읽습니다.
 	Player = ParsePlayer(Player)
@@ -82,13 +82,13 @@ end
 
 @Language.en-US
 @Summary
-[Player]가 [Unit]을 죽인 수의 주소를 반환합니다.
+Returns the EPD address of [Player]'s kill count for [Unit].
 @Group
-일반
+General
 @param.Unit.TrgUnit
-설정할 유닛입니다.
+Unit to read.
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 ]================================]
 function KillsEPD(Unit, Player) --일반/TrgUnit,TrgPlayer/[Player]의 [Unit]이 죽은 수의 주소를 반환합니다.
 	Player = ParsePlayer(Player)

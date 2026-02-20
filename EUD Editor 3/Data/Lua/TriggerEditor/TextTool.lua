@@ -11,9 +11,9 @@
 
 @Language.en-US
 @Summary
-[Text][Args]을 버퍼 [Buffer]를 사용해 출력합니다.
+Prints [Text][Args] using [Buffer].
 @Group
-텍스트출력
+Text Output
 @param.Buffer.TrgString
 @param.Text.FormatString
 @param.Args.Arguments
@@ -44,9 +44,9 @@ end
 
 @Language.en-US
 @Summary
-[Text][Args]을 버퍼 [Buffer]를 사용해 [Line] 라인에 출력합니다.
+Prints [Text][Args] to [Line] using [Buffer].
 @Group
-텍스트출력
+Text Output
 @param.Buffer.TrgString
 @param.Line.Number
 @param.Text.FormatString
@@ -78,9 +78,9 @@ end
 
 @Language.en-US
 @Summary
-[TblID]의 [Offset]위치에 [Text][Args]를 씁니다.
+Writes [Text][Args] at [Offset] position of [TblID].
 @Group
-텍스트출력
+Text Output
 @param.TblID.Tbl
 @param.Offset.Number
 @param.Text.FormatString
@@ -109,9 +109,9 @@ end
 
 @Language.en-US
 @Summary
-[TblID]의 [Offset]위치를 [Text][Args]로 교체합니다.
+Replaces [Offset] position of [TblID] with [Text][Args].
 @Group
-텍스트출력
+Text Output
 @param.TblID.Tbl
 @param.Offset.Number
 @param.Text.FormatString
@@ -138,9 +138,9 @@ end
 
 @Language.en-US
 @Summary
-[Text][Args]을 에러줄에 출력합니다.
+Prints [Text][Args] to the error line.
 @Group
-텍스트출력
+Text Output
 @param.Text.FormatString
 @param.Args.Arguments
 ]================================]

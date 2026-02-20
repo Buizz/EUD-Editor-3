@@ -8,9 +8,9 @@ EUDTurbo를 사용합니다.
 
 @Language.en-US
 @Summary
-EUDTurbo를 사용합니다.
+Enables EUDTurbo.
 @Group
-일반
+General
 ]================================]
 function EUDTurbo()
 	echo("dwwrite(0x6509A0, 0)")

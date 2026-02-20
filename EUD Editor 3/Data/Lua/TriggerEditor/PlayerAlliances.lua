@@ -11,9 +11,9 @@
 
 @Language.en-US
 @Summary
-[Player]이 보는 [DestPlayer]와의 동맹 관계를 [AllyStatus]로 설정합니다.
+Sets [Player]'s alliance status toward [DestPlayer] to [AllyStatus].
 @Group
-동맹
+Alliance
 @param.Player.TrgPlayer
 @param.DestPlayer.TrgPlayer
 @param.AllyStatus.TrgAllyStatus
@@ -58,9 +58,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]이 보는 [DestPlayer]와의 동맹 관계가 [AllyStatus]인지 확인합니다.
+Checks if [Player]'s alliance status toward [DestPlayer] is [AllyStatus].
 @Group
-동맹
+Alliance
 @param.Player.TrgPlayer
 @param.DestPlayer.TrgPlayer
 @param.AllyStatus.TrgAllyStatus
@@ -103,9 +103,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]이 보는 [DestPlayer]와의 동맹 관계를 반환합니다.
+Returns [Player]'s alliance status toward [DestPlayer].
 @Group
-동맹
+Alliance
 @param.Player.TrgPlayer
 @param.DestPlayer.TrgPlayer
 ]================================]
@@ -138,9 +138,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 동맹 오프셋을 반환합니다.
+Returns the EPD address of [Player]'s alliance data.
 @Group
-동맹
+Alliance
 @param.Player.TrgPlayer
 ]================================]
 function PlayerAlliancesEPD(Player) --동맹/TrgPlayer/[Player]의 동맹 오프셋을 반환합니다.
@@ -164,9 +164,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 동맹 오프셋을 반환합니다.
+Returns the address of [Player]'s alliance data.
 @Group
-동맹
+Alliance
 @param.Player.TrgPlayer
 ]================================]
 function PlayerAlliances(Player) --동맹/TrgPlayer/[Player]의 동맹 오프셋을 반환합니다.
