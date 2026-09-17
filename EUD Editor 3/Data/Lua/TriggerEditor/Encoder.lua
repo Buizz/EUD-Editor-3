@@ -545,7 +545,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeAllyStatus(s)
     return EncodeConst(AllyStatusDict, s)
@@ -561,7 +561,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeComparison(s)
     return EncodeConst(ComparisonDict, s)
@@ -577,7 +577,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeModifier(s)
     return EncodeConst(ModifierDict, s)
@@ -593,7 +593,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeOrder(s)
     return EncodeConst(OrderDict, s)
@@ -610,7 +610,7 @@ LuaPlayerVariable = "getcurpl()"
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodePlayer(s)
     if s == CurrentPlayer then
@@ -630,7 +630,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodePropState(s)
     return EncodeConst(PropStateDict, s)
@@ -646,7 +646,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeResource(s)
     return EncodeConst(ResourceDict, s)
@@ -662,7 +662,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeScore(s)
     return EncodeConst(ScoreDict, s)
@@ -678,7 +678,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeSwitchAction(s)
     return EncodeConst(SwitchActionDict, s)
@@ -694,7 +694,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeSwitchState(s)
     return EncodeConst(SwitchStateDict, s)
@@ -710,7 +710,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeAIScript(s)
     return EncodeConst(AIScriptDict, s)
@@ -726,7 +726,7 @@ end
 @Language.en-US
 @Summary
 @Group
-내부함수
+Internal Function
 ]================================]
 function EncodeCount(s)
     if s == All then

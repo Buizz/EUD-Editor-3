@@ -12,7 +12,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.UnitsDat
@@ -41,7 +41,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.WeaponsDat
@@ -70,7 +70,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.FlingyDat
@@ -99,7 +99,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.SpritesDat
@@ -128,7 +128,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.ImagesDat
@@ -157,7 +157,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.UpgradesDat
@@ -186,7 +186,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.TechdataDat
@@ -215,7 +215,7 @@ DatFile
 
 @Language.en-US
 @Summary
-[Index]의 [DatType]의 값을 [Value]로 [Modifier]합니다.
+Modifies the [DatType] value of [Index]: [Modifier] [Value].
 @Group
 DatFile
 @param.DatType.OrdersDat

@@ -9,9 +9,9 @@
 
 @Language.en-US
 @Summary
-[Key]를 안전한 문자로 변경합니다.
+Converts [Key] to a safe string.
 @Group
-키인식
+Key Detection
 @param.Key.Key
 ]================================]
 function KeyParse(Key)
@@ -46,11 +46,11 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 키 [Key]가 눌리는 순간을 감지합니다.
+Detects the moment [Player] presses [Key].
 @Group
-키인식
+Key Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Key.Key
 ]================================]
 function KeyDown(Player, Key)
@@ -76,11 +76,11 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 키 [Key]가 놓는 순간을 감지합니다.
+Detects the moment [Player] releases [Key].
 @Group
-키인식
+Key Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Key.Key
 ]================================]
 function KeyUp(Player, Key)
@@ -106,11 +106,11 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 키 [Key]를 누르고 있는지 감지합니다.
+Detects if [Player] is holding [Key].
 @Group
-키인식
+Key Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Key.Key
 ]================================]
 function KeyPress(Player, Key)
@@ -135,11 +135,11 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 마우스 [Button]가 눌리는 순간을 감지합니다.
+Detects the moment [Player] presses mouse [Button].
 @Group
-마우스
+Mouse Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Button.Button
 ]================================]
 function MouseDown(Player, Button)
@@ -165,11 +165,11 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 마우스 [Button]를 놓는 순간을 감지합니다.
+Detects the moment [Player] releases mouse [Button].
 @Group
-마우스
+Mouse Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Button.Button
 ]================================]
 function MouseUp(Player, Button)
@@ -195,11 +195,11 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 마우스 [Button]를 누르고 있는지 감지합니다.
+Detects if [Player] is holding mouse [Button].
 @Group
-마우스
+Mouse Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Button.Button
 ]================================]
 function MousePress(Player, Button)
@@ -222,9 +222,9 @@ end
 
 @Language.en-US
 @Summary
-마우스가 위치한 텍스트의 줄을 반환합니다.
+Returns the line number under the mouse cursor in text.
 @Group
-마우스
+Mouse Detection
 ]================================]
 function LocalMouseLine()
 	echo("((dwread_epd(EPD(0x6CDDC8)) - 94) / 16)")
@@ -248,17 +248,17 @@ X좌표 최대 범위입니다.
 
 @Language.en-US
 @Summary
-[Player]의 마우스가 [Line]번째 줄을 X좌표 [MinX] ~ [MaxX]에서 클릭했을 경우를 인식합니다.
+Detects when [Player] clicks [Line] within X range MinX to MaxX.
 @Group
-마우스
+Mouse Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Line.Number
-라인입니다. 1 ~ 11이 유효합니다.
+Line number. Valid range is 1 to 11.
 @param.MinX.Number
-X좌표 최소 범위입니다.
+Minimum X coordinate.
 @param.MaxX.Number
-X좌표 최대 범위입니다.
+Maximum X coordinate.
 ]================================]
 function MouseClickLine(Player, Line, MinX, MaxX)
 	Player = ParsePlayer(Player)

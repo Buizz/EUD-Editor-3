@@ -16,17 +16,17 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]의 완료된 유닛보유수를 [Amount]만큼 [Modifier]합니다.
+Modifies [Player]'s completed count of [Unit] by [Amount] using [Modifier].
 @Group
-유닛보유수
+Unit Count
 @param.Unit.TrgUnit
-대상 유닛입니다. 이 유닛이 필요한 테크가 해금됩니다.
+Target unit. Required tech for this unit will be unlocked.
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Modifier.TrgModifier
-수식입니다.
+Modifier operation.
 @param.Amount.Number
-대상 플레이어입니다.
+Amount to apply.
 ]================================]
 function SetCompletedUnitCount(Unit, Player, Modifier, Amount)
 	Player = ParsePlayer(Player)
@@ -52,13 +52,13 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]의 완료된 유닛보유수를 반환합니다.
+Returns [Player]'s completed count of [Unit].
 @Group
-유닛보유수
+Unit Count
 @param.Unit.TrgUnit
-대상 유닛입니다. 이 유닛이 필요한 테크가 해금됩니다.
+Target unit. Required tech for this unit will be unlocked.
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 ]================================]
 function GetCompletedUnitCount(Unit, Player)
 	Player = ParsePlayer(Player)
@@ -80,9 +80,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]의 완료된 유닛보유수의 주소를 반환합니다.
+Returns the EPD address of [Player]'s completed count for [Unit].
 @Group
-유닛보유수
+Unit Count
 @param.Unit.TrgUnit
 @param.Player.TrgPlayer
 ]================================]

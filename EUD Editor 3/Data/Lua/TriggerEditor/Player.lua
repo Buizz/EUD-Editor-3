@@ -11,9 +11,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 아이디를 [ID][Args]로 변경합니다.
+Changes [Player]'s name to [ID][Args].
 @Group
-플레이어
+Player
 @param.Player.TrgPlayer
 @param.ID.FormatString
 @param.Args.Arguments
@@ -41,9 +41,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 아이디가 [ID]인지 확인합니다.
+Checks if [Player]'s name is [ID].
 @Group
-플레이어
+Player
 @param.Player.TrgPlayer
 @param.ID.TrgString
 ]================================]

@@ -12,13 +12,13 @@
 
 @Language.en-US
 @Summary
-[Player]의 채팅[Chat]을 인식합니다.
+Detects [Player]'s chat message [Chat].
 @Group
-채팅인식
+Chat Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Chat.TrgString
-인식할 채팅입니다.
+Chat message to detect.
 ]================================]
 function ChatEvent(Player ,Chat)
 	Player = ParsePlayer(Player)
@@ -48,17 +48,17 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 채팅[Start],[Mid],[End]를 인식합니다.
+Detects [Player]'s chat matching [Start], [Mid], [End].
 @Group
-채팅인식
+Chat Detection
 @param.Player.TrgPlayer
-대상 플레이어입니다.
+Target player.
 @param.Start.TrgString
-시작 할 앞부분 입니다. 비어있으면 아무 내용이나 가능합니다.
+Starting text (empty matches any).
 @param.Mid.TrgString
-가운대에 포함될 내용입니다.
+Text to include in the middle.
 @param.End.TrgString
-끝 부분입니다. 비어있으면 아무 내용이나 가능합니다.
+Ending text (empty matches any).
 ]================================]
 function ChatEventPattern(Player ,Start ,Mid ,End)
 	Player = ParsePlayer(Player)

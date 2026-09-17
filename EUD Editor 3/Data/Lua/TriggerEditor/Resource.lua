@@ -12,9 +12,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [ResourceType]을 [Amount]만큼 [Modifier]합니다.
+Modifies [Player]'s [ResourceType]: [Modifier] [Amount].
 @Group
-자원
+Resource
 @param.Player.TrgPlayer
 @param.Modifier.TrgModifier
 @param.Amount.Number
@@ -40,9 +40,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [ResourceType]을 읽습니다.
+Returns [Player]'s [ResourceType] amount.
 @Group
-자원
+Resource
 @param.Player.TrgPlayer
 @param.ResourceType.TrgResource
 ]================================]
@@ -67,9 +67,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Resource]의 주소를 반환합니다.
+Returns the EPD address of [Player]'s [ResourceType].
 @Group
-자원
+Resource
 @param.Player.TrgPlayer
 @param.ResourceType.TrgResource
 ]================================]

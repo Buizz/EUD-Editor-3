@@ -10,11 +10,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.UnitsDat
-파라미터입니다.
+Parameter.
 ]================================]
 function UnitsDatOffset(DatType)
     str = DatOffset("units", DatType)
@@ -33,11 +33,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.WeaponsDat
-파라미터입니다.
+Parameter.
 ]================================]
 function WeaponsDatOffset(DatType)
     str = DatOffset("weapons", DatType)
@@ -56,11 +56,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.FlingyDat
-파라미터입니다.
+Parameter.
 ]================================]
 function FlingyDatOffset(DatType)
     str = DatOffset("flingy", DatType)
@@ -79,11 +79,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.SpritesDat
-파라미터입니다.
+Parameter.
 ]================================]
 function SpritesDatOffset(DatType)
     str = DatOffset("sprites", DatType)
@@ -102,11 +102,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.ImagesDat
-파라미터입니다.
+Parameter.
 ]================================]
 function ImagesDatOffset(DatType)
     str = DatOffset("images", DatType)
@@ -125,11 +125,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.UpgradesDat
-파라미터입니다.
+Parameter.
 ]================================]
 function UpgradesDatOffset(DatType)
     str = DatOffset("upgrades", DatType)
@@ -148,11 +148,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.TechdataDat
-파라미터입니다.
+Parameter.
 ]================================]
 function TechdataDatOffset(DatType)
     str = DatOffset("techdata", DatType)
@@ -171,11 +171,11 @@ DatFile
 
 @Language.en-US
 @Summary
-[DatType]의 주소를 반환합니다
+Returns the address of [DatType].
 @Group
 DatFile
 @param.DatType.OrdersDat
-파라미터입니다.
+Parameter.
 ]================================]
 function OrdersDatOffset(DatType)
     str = DatOffset("orders", DatType)

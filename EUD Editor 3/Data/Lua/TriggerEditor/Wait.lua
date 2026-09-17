@@ -10,9 +10,9 @@ waittime = 0
 
 @Language.en-US
 @Summary
-프레임 [Time]만큼 기다립니다.
+Waits for [Time] frames.
 @Group
-대기하기
+Wait
 @param.Time.Number
 ]================================]
 function Wait(Time) --대기하기/Number/프레임 [Time]만큼 기다립니다.
@@ -30,9 +30,9 @@ end
 
 @Language.en-US
 @Summary
-대기하기의 시작 부분입니다.
+Starts the wait section.
 @Group
-대기하기
+Wait
 ]================================]
 function WaitStart() --대기하기//대기하기의 시작 부분입니다.
 	waittime = 0
@@ -49,9 +49,9 @@ end
 
 @Language.en-US
 @Summary
-대기하기 조건 부의 시작 부분입니다.
+Starts the wait condition block.
 @Group
-대기하기
+Wait
 ]================================]
 function WaitConditionStart() --대기하기//대기하기 조건 부의 시작 부분입니다.
 	echo("if (WaitTimer == 0 &&")
@@ -67,9 +67,9 @@ end
 
 @Language.en-US
 @Summary
-대기하기 조건 부의 끝 부분입니다.
+Ends the wait condition block.
 @Group
-대기하기
+Wait
 ]================================]
 function WaitConditionEnd() --대기하기//대기하기 조건 부의 끝 부분입니다.
 	echo("){WaitTimer = 1;}")
@@ -85,9 +85,9 @@ end
 
 @Language.en-US
 @Summary
-대기하기 액션 부의 시작 부분입니다.
+Starts the wait action block.
 @Group
-대기하기
+Wait
 ]================================]
 function WaitActionStart() --대기하기//대기하기 액션 부의 시작 부분입니다.
 	echo("if(WaitTimer > 0){if (WaitTimer == 1){")
@@ -103,9 +103,9 @@ end
 
 @Language.en-US
 @Summary
-대기하기 액션 부의 끝 부분입니다.
+Ends the wait action block.
 @Group
-대기하기
+Wait
 ]================================]
 function WaitActionEnd() --대기하기//대기하기 액션 부의 끝 부분입니다.
 	echo("}WaitTimer += 1;")
@@ -121,9 +121,9 @@ end
 
 @Language.en-US
 @Summary
-대기하기의 끝 부분입니다.
+Ends the wait section.
 @Group
-대기하기
+Wait
 ]================================]
 function WaitEnd() --대기하기//대기하기의 끝 부분입니다.
 	echo("if (WaitTimer > " .. waittime .. "){WaitTimer = 0;}}}")

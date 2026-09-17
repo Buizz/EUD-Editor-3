@@ -9,7 +9,7 @@ BGM
 
 @Language.en-US
 @Summary
-해당플레이어의 BGM을 [BGMName]로 설정합니다.
+Sets the player's BGM to [BGMName].
 @Group
 BGM
 @param.BGMName.BGM
@@ -36,7 +36,7 @@ BGM
 
 @Language.en-US
 @Summary
-해당플레이어의 BGM을 재생합니다.
+Plays the player's BGM.
 @Group
 BGM
 ]================================]
@@ -56,7 +56,7 @@ BGM
 
 @Language.en-US
 @Summary
-해당플레이어의 BGM을 멈춥니다.
+Stops the player's BGM.
 @Group
 BGM
 ]================================]
@@ -76,7 +76,7 @@ BGM
 
 @Language.en-US
 @Summary
-해당플레이어의 BGM을 재개니다.
+Resumes the player's BGM.
 @Group
 BGM
 ]================================]
@@ -96,7 +96,7 @@ BGM
 
 @Language.en-US
 @Summary
-해당플레이어의 BGM을 일시정지입니다.
+Pauses the player's BGM.
 @Group
 BGM
 ]================================]

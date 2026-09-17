@@ -12,9 +12,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]의 유닛보유수를 [Amount]만큼 [Modifier]합니다.
+Modifies [Player]'s count of [Unit] by [Amount] using [Modifier].
 @Group
-유닛보유수
+Unit Count
 @param.Unit.TrgUnit
 @param.Player.TrgPlayer
 @param.Modifier.TrgModifier
@@ -42,9 +42,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]의 유닛보유수를 반환합니다.
+Returns [Player]'s count of [Unit].
 @Group
-유닛보유수
+Unit Count
 @param.Unit.TrgUnit
 @param.Player.TrgPlayer
 ]================================]
@@ -68,9 +68,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Unit]의 유닛보유수의 주소를 반환합니다.
+Returns the EPD address of [Player]'s count for [Unit].
 @Group
-유닛보유수
+Unit Count
 @param.Unit.TrgUnit
 @param.Player.TrgPlayer
 ]================================]

@@ -12,9 +12,9 @@
 
 @Language.en-US
 @Summary
-[Player]의 [Score]를 [Amount]만큼 [Modifier]합니다.
+Modifies [Player]'s [Score]: [Modifier] [Amount].
 @Group
-스코어
+Score
 @param.Score.EUDScore
 @param.Player.TrgPlayer
 @param.Modifier.TrgModifier
@@ -44,9 +44,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Score]가 [Comparison] [Amount]인지 확인합니다.
+Checks if [Player]'s [Score] is [Comparison] [Amount].
 @Group
-스코어
+Score
 @param.Score.EUDScore
 @param.Player.TrgPlayer
 @param.Comparison.TrgComparison
@@ -74,9 +74,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Score] 값을 읽습니다.
+Returns [Player]'s [Score] value.
 @Group
-스코어
+Score
 @param.Score.EUDScore
 @param.Player.TrgPlayer
 ]================================]
@@ -99,9 +99,9 @@ end
 
 @Language.en-US
 @Summary
-[Player]의 [Score] 주소를 반환합니다.
+Returns the EPD address of [Player]'s [Score].
 @Group
-스코어
+Score
 @param.Score.EUDScore
 @param.Player.TrgPlayer
 ]================================]
