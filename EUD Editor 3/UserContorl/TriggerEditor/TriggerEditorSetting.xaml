@@ -48,10 +48,10 @@
                 <local:BGMManager/>
             </TabItem>
 
-            <TabItem Header="{StaticResource TE_SCASetting}">
+            <TabItem Header="{StaticResource TE_SCASetting}" Visibility="Collapsed">
                 <local:SCASetting x:Name="SCASettingTab"/>
             </TabItem>
-            <TabItem Header="{StaticResource TE_SCAScriptSetting}">
+            <TabItem Header="{StaticResource TE_SCAScriptSetting}" Visibility="Collapsed">
                 <local:SCAScriptSetting x:Name="SCAScriptSettingTab"/>
             </TabItem> 
         </TabControl>

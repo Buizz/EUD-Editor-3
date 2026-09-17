@@ -1721,25 +1721,25 @@
     <None Include="Data\TriggerEditor\msqcloader.eps">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCAScriptReturn.eps">
+    <None Include="Data\TriggerEditor\SCAScriptReturn.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCAScript.eps">
+    <None Include="Data\TriggerEditor\SCAScript.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCAFastLoader.eps">
+    <None Include="Data\TriggerEditor\SCAFastLoader.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCArchive.eps">
+    <None Include="Data\TriggerEditor\SCArchive.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCALuaWrapper.eps">
+    <None Include="Data\TriggerEditor\SCALuaWrapper.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCAWrapper.eps">
+    <None Include="Data\TriggerEditor\SCAWrapper.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
-    <None Include="Data\TriggerEditor\SCATool.eps">
+    <None Include="Data\TriggerEditor\SCATool.eps.disabled">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
     </None>
     <None Include="Data\TriggerEditor\TETools.eps">
